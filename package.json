@@ -5,17 +5,26 @@
   "type": "module",
   "scripts": {
     "prepare": "husky install",
-    "dev": "vite",
+    "dev": "pnpm run storybook:dev",
     "build": "tsc && vite build",
     "lint": "eslint . --ext cjs,js,jsx,mjs,ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write \"**/**.{cjs,js,jsx,mjs,ts,tsx}\" --ignore-path .gitignore",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "storybook:dev": "storybook dev -p 6006",
+    "storybook:build": "storybook build"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "^7.4.1",
+    "@storybook/addon-interactions": "^7.4.1",
+    "@storybook/addon-links": "^7.4.1",
+    "@storybook/blocks": "^7.4.1",
+    "@storybook/react": "^7.4.1",
+    "@storybook/react-vite": "^7.4.1",
+    "@storybook/testing-library": "^0.2.1",
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
@@ -27,9 +36,11 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "eslint-plugin-storybook": "^0.6.13",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",
+    "storybook": "^7.4.1",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   }

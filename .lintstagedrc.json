@@ -1,5 +1,5 @@
 {
-  "*.{cjs,js,jsx,mjs,ts,tsx}": [
+  "src/**/*.{cjs,js,jsx,mjs,ts,tsx}": [
     "pnpm run lint",
     "pnpm run format"
   ]
