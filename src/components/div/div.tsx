@@ -1,9 +1,25 @@
-import { ComponentProps } from 'react';
+import { ComponentPropsWithRef } from 'react';
+import styled, { css } from 'styled-components';
 
-type DivProps = ComponentProps<'div'>;
+export type DivProps = ComponentPropsWithRef<'div'> & {
+  isMissing?: boolean;
+};
 
 export default function Div(props: DivProps) {
-  const { children, ...rest } = props;
+  const { children, isMissing, ...rest } = props;
 
-  return <div {...rest}>{children}</div>;
+  return (
+    <Container $isMissing={isMissing} {...rest}>
+      {children}
+    </Container>
+  );
 }
+
+const Container = styled.div<{ $isMissing?: boolean }>`
+  ${({ $isMissing = false }) =>
+    $isMissing &&
+    css`
+      color: transparent;
+      border: 2px dashed black;
+    `}
+`;

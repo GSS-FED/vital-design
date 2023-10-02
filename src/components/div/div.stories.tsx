@@ -37,3 +37,10 @@ export const DivWithCustomStyles: Story = {
     children: 'Div with background color',
   },
 };
+
+export const MissingDiv: Story = {
+  args: {
+    isMissing: true,
+    children: "You can't see me",
+  },
+};
