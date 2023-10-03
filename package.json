@@ -1,22 +1,26 @@
 {
-  "name": "vital-design",
-  "private": true,
+  "name": "@fed/vital-design",
+  "private": false,
   "version": "0.0.0",
+  "author": "Arthur Lu <arthur_lu@gss.com.tw>",
   "type": "module",
+  "main": "dist/vital-design.js",
+  "types": "dist/types.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "@fed:registry": "https://git.gss.com.tw/api/v4/projects/5615/packages/npm/"
+  },
   "scripts": {
     "prepare": "husky install",
     "dev": "pnpm run storybook:dev",
     "build": "tsc && vite build",
     "lint": "eslint . --ext cjs,js,jsx,mjs,ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write \"**/**.{cjs,js,jsx,mjs,ts,tsx}\" --ignore-path .gitignore",
-    "preview": "vite preview",
     "storybook:dev": "storybook dev -p 6006",
-    "storybook:build": "storybook build"
-  },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "styled-components": "^5.3.11"
+    "storybook:build": "storybook build",
+    "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.4.1",
@@ -27,6 +31,7 @@
     "@storybook/react-vite": "^7.4.1",
     "@storybook/testing-library": "^0.2.1",
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
+    "@types/node": "^20.8.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@types/styled-components": "^5.1.28",
@@ -43,8 +48,17 @@
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "storybook": "^7.4.1",
+    "styled-components": "^5.3.11",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-plugin-dts": "^3.6.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "styled-components": ">= 5"
   }
 }

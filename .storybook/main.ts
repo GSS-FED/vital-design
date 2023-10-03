@@ -1,4 +1,5 @@
 import { StorybookConfig } from '@storybook/react-vite';
+import { mergeConfig } from 'vite';
 
 const config: StorybookConfig = {
   stories: [
@@ -17,6 +18,19 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
     defaultName: 'Documentation',
+  },
+  async viteFinal(config) {
+    const { plugins, ...rest } = config;
+    const mergedConfig = mergeConfig(
+      { ...rest },
+      {
+        plugins: plugins?.filter((plugin) => {
+          const unwantedPluginNames = ['vite:dts'];
+          return !unwantedPluginNames.includes(plugin?.['name']);
+        }),
+      },
+    );
+    return mergedConfig;
   },
 };
 
