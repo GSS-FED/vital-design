@@ -22,6 +22,9 @@
     "storybook:build": "storybook build",
     "prepublishOnly": "pnpm run build"
   },
+  "dependencies": {
+    "polished": "^4.2.2"
+  },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.4.6",
     "@storybook/addon-interactions": "^7.4.6",
