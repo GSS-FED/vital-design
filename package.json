@@ -23,6 +23,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
+    "@radix-ui/react-switch": "^1.0.3",
     "polished": "^4.2.2"
   },
   "devDependencies": {
