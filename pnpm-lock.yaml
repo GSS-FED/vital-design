@@ -56,8 +56,8 @@ devDependencies:
     specifier: ^18.2.14
     version: 18.2.14
   '@types/styled-components':
-    specifier: ^5.1.28
-    version: 5.1.28
+    specifier: ^5.1.29
+    version: 5.1.29
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.7.4
     version: 6.7.4(@typescript-eslint/parser@6.7.4)(eslint@8.50.0)(typescript@5.2.2)
@@ -3806,8 +3806,8 @@ packages:
       '@types/node': 20.8.7
     dev: true
 
-  /@types/hoist-non-react-statics@3.3.2:
-    resolution: {integrity: sha512-YIQtIg4PKr7ZyqNPZObpxfHsHEmuB8dXCxd6qVcGuQVDK2bpsF7bYNnBJ4Nn7giuACZg+WewExgrtAJ3XnA4Xw==}
+  /@types/hoist-non-react-statics@3.3.4:
+    resolution: {integrity: sha512-ZchYkbieA+7tnxwX/SCBySx9WwvWR8TaP5tb2jRAzwvLb/rWchGw3v0w3pqUbUvj0GCwW2Xz/AVPSk6kUGctXQ==}
     dependencies:
       '@types/react': 18.2.30
       hoist-non-react-statics: 3.3.2
@@ -3931,10 +3931,10 @@ packages:
       '@types/node': 20.8.7
     dev: true
 
-  /@types/styled-components@5.1.28:
-    resolution: {integrity: sha512-nu0VKNybkjvUqJAXWtRqKd7j3iRUl8GbYSTvZNuIBJcw/HUp1Y4QUXNLlj7gcnRV/t784JnHAlvRnSnE3nPbJA==}
+  /@types/styled-components@5.1.29:
+    resolution: {integrity: sha512-5h/ah9PAblggQ6Laa4peplT4iY5ddA8qM1LMD4HzwToUWs3hftfy0fayeRgbtH1JZUdw5CCaowmz7Lnb8SjIxQ==}
     dependencies:
-      '@types/hoist-non-react-statics': 3.3.2
+      '@types/hoist-non-react-statics': 3.3.4
       '@types/react': 18.2.30
       csstype: 3.1.2
     dev: true
