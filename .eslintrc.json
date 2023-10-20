@@ -11,6 +11,8 @@
     "plugin:react-hooks/recommended",
     "plugin:react/jsx-runtime",
     "plugin:storybook/recommended",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended",
     "prettier"
   ],
   "ignorePatterns": [
@@ -28,7 +30,9 @@
     "tsconfigRootDir": "."
   },
   "plugins": [
-    "react-refresh"
+    "react-refresh",
+    "testing-library",
+    "jest-dom"
   ],
   "rules": {
     "react-refresh/only-export-components": [

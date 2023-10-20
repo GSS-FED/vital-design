@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
@@ -24,10 +25,16 @@ export default defineConfig({
       exclude: [
         'src/**/*.mdx',
         'src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+        'src/**/*.test.@(js|jsx|mjs|ts|tsx)',
       ],
       staticImport: true,
       rollupTypes: true,
       insertTypesEntry: true,
     }),
   ],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: 'src/vitest-setup.ts',
+  },
 });
