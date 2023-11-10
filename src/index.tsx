@@ -1,6 +1,7 @@
 import Checkbox, {
   CheckboxProps,
 } from './components/checkbox/checkbox';
+import Chip, { ChipProps } from './components/chip/chip';
 import RadioGroup, {
   RadioGroupProps,
   RadioOption,
@@ -8,10 +9,11 @@ import RadioGroup, {
 import Switch, { SwitchProps } from './components/switch/switch';
 import Tag, { TagProps } from './components/tag/tag';
 
-export { Checkbox, RadioGroup, Switch, Tag };
+export { Checkbox, Chip, RadioGroup, Switch, Tag };
 
 export type {
   CheckboxProps,
+  ChipProps,
   RadioGroupProps,
   RadioOption,
   SwitchProps,
