@@ -17,6 +17,7 @@
   ],
   "ignorePatterns": [
     "dist",
+    "coverage",
     "storybook-static"
   ],
   "parser": "@typescript-eslint/parser",
