@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import { colors, styles } from '../../constants';
 
 export type ChipProps = {
+  /**
+   * &nbsp;
+   */
   children: ReactNode;
   selected: boolean;
   onChange: (selected: boolean) => void;
