@@ -62,6 +62,7 @@ const colors = {
 
   white: '#FFFFFF' as const,
   border: '#DEDEE2' as const,
+  backgroundDark: '#63636F' as const,
 };
 
 export default colors;

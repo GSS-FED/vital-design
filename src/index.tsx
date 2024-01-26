@@ -8,8 +8,9 @@ import RadioGroup, {
 } from './components/radio-group/radio-group';
 import Switch, { SwitchProps } from './components/switch/switch';
 import Tag, { TagProps } from './components/tag/tag';
+import Tooltip, { TooltipProps } from './components/tooltip/tooltip';
 
-export { Checkbox, Chip, RadioGroup, Switch, Tag };
+export { Checkbox, Chip, RadioGroup, Switch, Tag, Tooltip };
 
 export type {
   CheckboxProps,
@@ -18,4 +19,5 @@ export type {
   RadioOption,
   SwitchProps,
   TagProps,
+  TooltipProps,
 };
