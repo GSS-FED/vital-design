@@ -48,6 +48,7 @@ const TextAreaInput = forwardRef(function TextAreaInput(
       $disabled={disabled}
       className={className}
       style={style}
+      data-testid="textarea-container"
     >
       <TextArea
         ref={ref}
