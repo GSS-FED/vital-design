@@ -18,6 +18,7 @@ const colors = {
   grayscale400: 'rgba(35, 35, 50, 0.25)' as const,
   grayscale300: 'rgba(35, 35, 50, 0.15)' as const,
   grayscale200: 'rgba(35, 35, 50, 0.08)' as const,
+  grayscale150: 'rgba(35, 35, 50, 0.05)' as const,
   grayscale100: 'rgba(35, 35, 50, 0.03)' as const,
 
   success900: '#082518' as const,
