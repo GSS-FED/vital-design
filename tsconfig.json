@@ -17,30 +17,8 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": true
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }],
-  "rules": {
-    "react-refresh/only-export-components": [
-      "warn",
-      { "allowConstantExport": true },
-    ],
-  },
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx"],
-      "rules": {
-        "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": [
-          "error",
-          {
-            "ignoreRestSiblings": true,
-            "varsIgnorePattern": "^_",
-            "argsIgnorePattern": "^_",
-          },
-        ],
-      },
-    },
-  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
