@@ -3,10 +3,10 @@ import {
   ChevronRightIcon,
   MagnifyingGlassIcon,
 } from '@radix-ui/react-icons';
-import { TextField } from '@radix-ui/themes';
 import { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { colors, shadows, styles } from '../../constants';
+import TextInput from '../input/textInput/textInput';
 
 interface TreeSelectDataChild {
   displayName: string;
@@ -41,16 +41,10 @@ export type TreeSelectProps = {
   data: TreeSelectRoot[];
   onChange: (value: unknown) => void;
   placeholder?: string;
-  searchRadius?: TextField.RootProps['radius'];
 };
 
 export default function TreeSelect(props: TreeSelectProps) {
-  const {
-    data,
-    onChange,
-    placeholder = '輸入關鍵字',
-    searchRadius: radius = 'full',
-  } = props;
+  const { data, onChange, placeholder = '輸入關鍵字' } = props;
 
   const [selectedMenu, setSelectedMenu] = useState<TreeSelectData>();
   const [searchText, setSearchText] = useState<SearchText>({
@@ -120,19 +114,15 @@ export default function TreeSelect(props: TreeSelectProps) {
             {selectedMenu.displayName}
           </PreviousButton>
           <Search
-            radius={radius}
+            prefix={<MagnifyingGlassIcon />}
             placeholder={placeholder}
-            onChange={(e) =>
+            onChange={(value) =>
               setSearchText((prev) => ({
                 ...prev,
-                subMenuSearchText: e.target.value,
+                subMenuSearchText: value,
               }))
             }
-          >
-            <SearchIcon>
-              <MagnifyingGlassIcon />
-            </SearchIcon>
-          </Search>
+          />
           {subMenu && (
             <SubMenu
               ref={scrollRef}
@@ -161,19 +151,15 @@ export default function TreeSelect(props: TreeSelectProps) {
       ) : (
         <Wrapper>
           <Search
-            radius={radius}
+            prefix={<MagnifyingGlassIcon />}
             placeholder={placeholder}
-            onChange={(e) =>
+            onChange={(value) =>
               setSearchText((prev) => ({
                 ...prev,
-                menuSearchText: e.target.value,
+                menuSearchText: value,
               }))
             }
-          >
-            <SearchIcon>
-              <MagnifyingGlassIcon />
-            </SearchIcon>
-          </Search>
+          />
           <Menu
             ref={scrollRef}
             onScroll={handleScroll}
@@ -253,12 +239,11 @@ const Wrapper = styled.div`
   height: var(--height);
 `;
 
-const Search = styled(TextField.Root)`
+const Search = styled(TextInput)`
   flex: 0 0 auto;
-  margin: 8px;
-`;
-const SearchIcon = styled(TextField.Slot)`
-  color: var(--search-icon-color);
+  width: 90%;
+  margin: 8px auto;
+  border-radius: 4rem;
 `;
 
 const Menu = styled.div<{
