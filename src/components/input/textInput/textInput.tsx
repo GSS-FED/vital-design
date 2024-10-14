@@ -5,7 +5,7 @@ import {
   forwardRef,
 } from 'react';
 import styled, { css } from 'styled-components';
-import { colors, styles } from '../../constants';
+import { colors, styles } from '../../../constants';
 
 /* ---------------------------------- Types --------------------------------- */
 export type TextInputProps = {

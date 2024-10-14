@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import styled from 'styled-components';
-import UserIcon from '../../icons/user-icon';
+import UserIcon from '../../../icons/user-icon';
 import TextInput from './textInput';
 
 const meta: Meta<typeof TextInput> = {

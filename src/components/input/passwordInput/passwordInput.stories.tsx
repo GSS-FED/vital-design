@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import UserIcon from '../../icons/user-icon';
+import UserIcon from '../../../icons/user-icon';
 import PasswordInput from './passwordInput';
 
 const meta: Meta<typeof PasswordInput> = {
