@@ -58,6 +58,7 @@ const TextInput = forwardRef(function TextInput(
       $disabled={disabled}
       className={className}
       style={style}
+      data-testid="textInput-container"
     >
       {hasPreifx && prefix}
       <Input
