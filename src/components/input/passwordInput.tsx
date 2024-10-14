@@ -46,6 +46,7 @@ export default function PasswordInput(props: PasswordInputProps) {
       {passwordVisible ? (
         <TextInput
           value={value}
+          data-state="visible"
           placeholder={placeholder}
           prefix={prefix}
           onChange={onChange}
@@ -53,6 +54,7 @@ export default function PasswordInput(props: PasswordInputProps) {
           disabled={disabled}
           suffix={
             <VisibilityToggle
+              data-testid="visibility-toggle"
               onClick={() => setPasswordVisible(false)}
             >
               <EyeIcon />
@@ -62,6 +64,7 @@ export default function PasswordInput(props: PasswordInputProps) {
       ) : (
         <TextInput
           value={value.replace(/./g, '＊')}
+          data-state="invisible"
           placeholder={placeholder}
           prefix={prefix}
           isError={isError}
@@ -77,6 +80,7 @@ export default function PasswordInput(props: PasswordInputProps) {
           }}
           suffix={
             <VisibilityToggle
+              data-testid="visibility-toggle"
               onClick={() => setPasswordVisible(true)}
             >
               <EyeSlashIcon />
