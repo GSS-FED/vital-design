@@ -53,3 +53,14 @@ export const Disabled: Story = {
     return <App />;
   },
 };
+
+export const Resizable: Story = {
+  render() {
+    function App() {
+      return (
+        <TextAreaInput placeholder="請輸入內容" resizable={true} />
+      );
+    }
+    return <App />;
+  },
+};
