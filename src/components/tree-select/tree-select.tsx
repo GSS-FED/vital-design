@@ -12,8 +12,8 @@ interface TreeSelectDataChild {
   displayName: string;
   subjectId: string;
   isAdmin?: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   parents?: [] | never[];
   children?: never[]; // NOTE: 此元件只會展開第二層，因此不允許有 children
 }
@@ -21,8 +21,8 @@ interface TreeSelectDataChild {
 interface TreeSelectData {
   displayName: string;
   subjectId: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   parents?: [] | never[];
   children: TreeSelectDataChild[];
 }
