@@ -100,6 +100,10 @@ export default function TreeSelect(props: TreeSelectProps) {
                 menuSearchText: '',
                 subMenuSearchText: '',
               }));
+              // HACK: 因觸發時為 `subMenu` 的 ref 不會為 `Menu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
+              setTimeout(() => {
+                handleScroll();
+              }, 0);
             }}
           >
             <PreviousIcon>
