@@ -11,20 +11,13 @@ import TextInput from '../input/textInput/textInput';
 interface TreeSelectDataChild {
   displayName: string;
   subjectId: string;
-  isAdmin?: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-  parents?: [] | never[];
-  children?: never[]; // NOTE: 此元件只會展開第二層，因此不允許有 children
+  isManager?: boolean;
 }
 
 interface TreeSelectData {
   displayName: string;
   subjectId: string;
-  createdAt?: string;
-  updatedAt?: string;
-  parents?: [] | never[];
-  children: TreeSelectDataChild[];
+  children?: TreeSelectDataChild[];
 }
 
 interface TreeSelectRoot {
@@ -39,7 +32,7 @@ interface SearchText {
 
 export type TreeSelectProps = {
   data: TreeSelectRoot[];
-  onChange: (value: unknown) => void;
+  onChange: (value: TreeSelectData | TreeSelectDataChild) => void;
   placeholder?: string;
 };
 
@@ -74,6 +67,7 @@ export default function TreeSelect(props: TreeSelectProps) {
 
   const subMenu =
     selectedMenu &&
+    selectedMenu.children &&
     searchFilter(selectedMenu.children, searchText.subMenuSearchText);
 
   const isScrollAtTop = refScrollInfo.scrollTop === 0;
@@ -138,7 +132,7 @@ export default function TreeSelect(props: TreeSelectProps) {
                   <MenuItemName title={item.displayName}>
                     {item.displayName}
                   </MenuItemName>
-                  {item.isAdmin && (
+                  {item.isManager && (
                     <SubMenuItemIcon>
                       <Crown />
                     </SubMenuItemIcon>
@@ -180,7 +174,10 @@ export default function TreeSelect(props: TreeSelectProps) {
                     <MenuItem
                       key={item.subjectId}
                       onClick={() => {
-                        if (item.children.length !== 0) {
+                        if (
+                          item.children &&
+                          item.children.length !== 0
+                        ) {
                           setSelectedMenu(item);
                           // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
                           setTimeout(() => {
@@ -194,11 +191,15 @@ export default function TreeSelect(props: TreeSelectProps) {
                       <MenuItemName title={item.displayName}>
                         {item.displayName}
                       </MenuItemName>
-                      {item.children.length !== 0 && (
-                        <MenuItemIcon>
-                          <ChevronRightIcon width={20} height={20} />
-                        </MenuItemIcon>
-                      )}
+                      {item.children !== undefined &&
+                        item.children.length >= 0 && (
+                          <MenuItemIcon>
+                            <ChevronRightIcon
+                              width={20}
+                              height={20}
+                            />
+                          </MenuItemIcon>
+                        )}
                     </MenuItem>
                   ))}
                 </MenuItems>

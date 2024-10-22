@@ -9,7 +9,7 @@ export const testData = [
         parents: [],
         createdAt: '1',
         updatedAt: '1',
-        children: [],
+        children: undefined,
       },
       {
         displayName: '本關簽核人主管',
@@ -18,7 +18,7 @@ export const testData = [
         parents: [],
         createdAt: '1',
         updatedAt: '1',
-        children: [],
+        children: undefined,
       },
       {
         displayName: '起單人的主管',
@@ -27,7 +27,7 @@ export const testData = [
         parents: [],
         createdAt: '1',
         updatedAt: '1',
-        children: [],
+        children: undefined,
       },
     ],
   },
@@ -233,11 +233,29 @@ export const testData = [
           },
         ],
       },
+      {
+        displayName: '組織3 (無成員)',
+        subjectId: 'og3',
+        subjectType: 1,
+        parents: [],
+        createdAt: '1',
+        updatedAt: '1',
+        children: [],
+      },
     ],
   },
   {
     label: '群組',
     data: [
+      {
+        displayName: '群組 (無成員)',
+        subjectId: 'group-no-user',
+        subjectType: 1,
+        parents: [],
+        createdAt: '1',
+        updatedAt: '1',
+        children: [],
+      },
       {
         displayName: '群組1',
         subjectId: '23',
