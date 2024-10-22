@@ -173,6 +173,10 @@ export default function TreeSelect(props: TreeSelectProps) {
                   {itemsData.map((item) => (
                     <MenuItem
                       key={item.subjectId}
+                      isEmpty={
+                        Array.isArray(item.children) &&
+                        item.children.length === 0
+                      }
                       onClick={() => {
                         if (
                           item.children &&
@@ -347,7 +351,7 @@ const MenuItemsLabel = styled.div`
   font-size: 12px;
   font-weight: 500;
 `;
-const MenuItem = styled.div`
+const MenuItem = styled.div<{ isEmpty?: boolean }>`
   ${styles.boxSizing}
   ${styles.typography}
 
@@ -360,6 +364,13 @@ const MenuItem = styled.div`
   &:hover {
     background: ${colors.grayscale150};
   }
+
+  ${({ isEmpty }) =>
+    isEmpty &&
+    css`
+      color: ${colors.grayscale500};
+      pointer-events: none;
+    `};
 `;
 const MenuItemName = styled.div`
   flex: 1 1 auto;
