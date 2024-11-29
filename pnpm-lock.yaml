@@ -39,6 +39,9 @@ importers:
       '@storybook/blocks':
         specifier: ^8.4.5
         version: 8.4.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(storybook@8.4.5(prettier@3.2.4))
+      '@storybook/preview-api':
+        specifier: ^8.4.5
+        version: 8.4.5(storybook@8.4.5(prettier@3.2.4))
       '@storybook/react':
         specifier: ^8.4.5
         version: 8.4.5(@storybook/test@8.4.5(storybook@8.4.5(prettier@3.2.4)))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(storybook@8.4.5(prettier@3.2.4))(typescript@5.3.3)
