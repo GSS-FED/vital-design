@@ -1,66 +1,24 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 import TextAreaInput from './textareaInput';
+
+type Story = StoryObj<typeof TextAreaInput>;
 
 const meta: Meta<typeof TextAreaInput> = {
   title: 'Components/Input/TextAreaInput',
   component: TextAreaInput,
-  tags: ['autodocs'],
-  argTypes: {
-    width: {
-      table: {
-        defaultValue: { summary: `100%` },
-      },
-    },
-    height: {
-      table: {
-        defaultValue: { summary: `auto` },
-      },
-    },
-    disabled: {
-      table: {
-        defaultValue: { summary: false },
-      },
-    },
+  args: {
+    width: '450px',
+    placeholder: '請輸入內容',
+    onChange: fn(),
   },
 };
-
 export default meta;
 
-type Story = StoryObj<typeof TextAreaInput>;
-
-export const Basic: Story = {
-  render() {
-    function App() {
-      return (
-        <TextAreaInput
-          placeholder="請輸入內容"
-          width="450px"
-          height="200px"
-        />
-      );
-    }
-    return <App />;
-  },
-};
-
-export const Disabled: Story = {
-  render() {
-    function App() {
-      return (
-        <TextAreaInput placeholder="請輸入內容" disabled={true} />
-      );
-    }
-    return <App />;
-  },
-};
+export const Default: Story = {};
 
 export const Resizable: Story = {
-  render() {
-    function App() {
-      return (
-        <TextAreaInput placeholder="請輸入內容" resizable={true} />
-      );
-    }
-    return <App />;
+  args: {
+    resizable: true,
   },
 };
