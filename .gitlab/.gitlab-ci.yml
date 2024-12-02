@@ -18,6 +18,8 @@ test-job:
   stage: test
   script:
     - npm run test
+  except:
+    - test/publish-CICD
 
 build-job:
   stage: build
@@ -27,7 +29,7 @@ build-job:
     paths:
       - dist/
   only:
-    - main
+    - test/publish-CICD
 
 publish-job:
   stage: publish
@@ -44,4 +46,4 @@ publish-job:
   script:
     - npm run release
   only:
-    - main
+    - test/publish-CICD
