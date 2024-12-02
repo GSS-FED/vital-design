@@ -38,12 +38,14 @@ publish-job:
   before_script:
     - |
       {
-        echo "@${CI_PROJECT_NAMESPACE}:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
+        echo "@fed:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
         echo "${CI_API_V4_URL#https?}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=\${CI_JOB_TOKEN}"
       } | tee -a .npmrc
   dependencies:
     - build-job
   script:
+    - npm i --prefer-offline
+    - npm i -g pnpm
     - npm run release
   only:
     - test/publish-CICD
