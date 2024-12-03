@@ -19,7 +19,7 @@ export type PasswordInputProps = {
 };
 
 /* ---------------------------------- Component --------------------------------- */
-export default function PasswordInput(props: PasswordInputProps) {
+function PasswordInput(props: PasswordInputProps) {
   const {
     className,
     width,
@@ -91,6 +91,10 @@ export default function PasswordInput(props: PasswordInputProps) {
     </Container>
   );
 }
+
+PasswordInput.displayName = 'PasswordInput';
+
+export default PasswordInput;
 
 /* --------------------------------- Style --------------------------------- */
 const Container = styled.div<{
