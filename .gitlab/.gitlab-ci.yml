@@ -1,0 +1,49 @@
+stages:
+  - test
+  - build
+  - publish
+
+default:
+  image: node:18.19.1
+  interruptible: true
+  artifacts:
+    expire_in: 1 week
+  tags:
+    - docker
+
+before_script:
+  - npm i --prefer-offline
+
+test-job:
+  stage: test
+  script:
+    - npm run test
+
+build-job:
+  stage: build
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+  only:
+    - main
+
+publish-job:
+  stage: publish
+  variables:
+    NPM_TOKEN: ${CI_JOB_TOKEN}
+  before_script:
+    - |
+      {
+        echo "@fed:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
+        echo "${CI_API_V4_URL#https?}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=\${CI_JOB_TOKEN}"
+      } | tee -a .npmrc
+  dependencies:
+    - build-job
+  script:
+    - npm i --prefer-offline
+    - npm i -g pnpm
+    - npm run release
+  only:
+    - main
