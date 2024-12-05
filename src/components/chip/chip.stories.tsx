@@ -13,7 +13,11 @@ const meta: Meta<typeof Chip> = {
   argTypes: {
     icon: {
       options: ['none', 'user', 'flag'],
-      mapping: { none: '', user: <UserIcon />, flag: <FlagIcon /> },
+      mapping: {
+        none: '',
+        user: <UserIcon />,
+        flag: <FlagIcon width={12} height={12} />,
+      },
       control: { type: 'select' },
     },
   },
@@ -34,4 +38,8 @@ export const Default: Story = {
 
     return <Chip {...args} onChange={onChange} selected={selected} />;
   },
+};
+
+export const Icon: Story = {
+  args: { icon: <FlagIcon width={12} height={12} /> },
 };
