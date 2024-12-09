@@ -9,151 +9,143 @@ type Story = StoryObj<typeof Tag>;
 const meta: Meta<typeof Tag> = {
   title: 'Components/Tag',
   component: Tag,
-  tags: ['autodocs'],
+  argTypes: {
+    icon: {
+      control: false,
+    },
+    children: {
+      control: false,
+    },
+  },
+  args: {
+    children: '標籤',
+  },
+  decorators: [
+    (Story) => (
+      <StyledContainer>
+        <Story />
+      </StyledContainer>
+    ),
+  ],
 };
 export default meta;
 
 export const Default: Story = {
-  render() {
-    function App() {
-      return (
-        <StyledContainer>
-          <Tag>標籤</Tag>
-          <Tag icon={<FlagIcon width={12} height={12} />}>標籤</Tag>
-        </StyledContainer>
-      );
-    }
-    return <App />;
+  render: function Render(args) {
+    return <Tag {...args} />;
   },
 };
 
 export const Clickable: Story = {
-  render() {
-    function App() {
-      return (
-        <StyledContainer>
-          <Tag onClick={() => {}}>標籤</Tag>
-          <Tag
-            icon={<FlagIcon width={12} height={12} />}
-            onClick={() => {}}
-          >
-            標籤
-          </Tag>
-        </StyledContainer>
-      );
-    }
-    return <App />;
+  render: function Render(args) {
+    return (
+      <>
+        <Tag {...args} onClick={() => {}} />
+        <Tag
+          {...args}
+          icon={<FlagIcon width={12} height={12} />}
+          onClick={() => {}}
+        />
+      </>
+    );
   },
 };
 
 export const Removable: Story = {
-  render() {
-    function App() {
-      const [isFirstTagShown, setIsFirstTagShown] = useState(true);
-      const [isSecondTagShown, setIsSecondTagShown] = useState(true);
-      return (
-        <StyledContainer>
-          {isFirstTagShown && (
-            <Tag
-              removable
-              onRemove={() => {
-                setIsFirstTagShown(false);
-              }}
-            >
-              標籤
-            </Tag>
-          )}
-          {isSecondTagShown && (
-            <Tag
-              icon={<FlagIcon width={12} height={12} />}
-              removable
-              onRemove={() => {
-                setIsSecondTagShown(false);
-              }}
-            >
-              標籤
-            </Tag>
-          )}
-        </StyledContainer>
-      );
-    }
-    return <App />;
+  render: function Render(args) {
+    const [isFirstTagShown, setIsFirstTagShown] = useState(true);
+    const [isSecondTagShown, setIsSecondTagShown] = useState(true);
+
+    return (
+      <>
+        {isFirstTagShown && (
+          <Tag
+            {...args}
+            removable
+            onRemove={() => {
+              setIsFirstTagShown(false);
+            }}
+          />
+        )}
+        {isSecondTagShown && (
+          <Tag
+            {...args}
+            removable
+            icon={<FlagIcon width={12} height={12} />}
+            onRemove={() => {
+              setIsSecondTagShown(false);
+            }}
+          />
+        )}
+      </>
+    );
   },
 };
 
 export const ClickableAndRemovable: Story = {
   name: 'Clickable & Removable',
-  render() {
-    function App() {
-      const [isFirstTagShown, setIsFirstTagShown] = useState(true);
-      const [isSecondTagShown, setIsSecondTagShown] = useState(true);
-      return (
-        <StyledContainer>
-          {isFirstTagShown && (
-            <Tag
-              removable
-              onRemove={() => {
-                setIsFirstTagShown(false);
-              }}
-              onClick={() => {}}
-            >
-              標籤
-            </Tag>
-          )}
-          {isSecondTagShown && (
-            <Tag
-              icon={<FlagIcon width={12} height={12} />}
-              removable
-              onRemove={() => {
-                setIsSecondTagShown(false);
-              }}
-              onClick={() => {}}
-            >
-              標籤
-            </Tag>
-          )}
-        </StyledContainer>
-      );
-    }
-    return <App />;
+
+  render: function Render(args) {
+    const [isFirstTagShown, setIsFirstTagShown] = useState(true);
+    const [isSecondTagShown, setIsSecondTagShown] = useState(true);
+
+    return (
+      <>
+        {isFirstTagShown && (
+          <Tag
+            {...args}
+            removable
+            onClick={() => {}}
+            onRemove={() => {
+              setIsFirstTagShown(false);
+            }}
+          />
+        )}
+        {isSecondTagShown && (
+          <Tag
+            {...args}
+            removable
+            icon={<FlagIcon width={12} height={12} />}
+            onClick={() => {}}
+            onRemove={() => {
+              setIsSecondTagShown(false);
+            }}
+          />
+        )}
+      </>
+    );
   },
 };
 
 export const Selected: Story = {
-  render() {
-    function App() {
-      const [selectedIndex, setSelectedIndex] = useState<
-        number | undefined
-      >(0);
-      const toggleByIndex = (index: number) => {
-        setSelectedIndex((prevSelectedIndex) => {
-          const isAlreadySelected = prevSelectedIndex === index;
-          return isAlreadySelected ? undefined : index;
-        });
-      };
-      return (
-        <StyledContainer>
-          <Tag
-            selected={selectedIndex === 0}
-            onClick={() => {
-              toggleByIndex(0);
-            }}
-          >
-            標籤
-          </Tag>
-          <Tag
-            icon={<FlagIcon width={12} height={12} />}
-            selected={selectedIndex === 1}
-            onClick={() => {
-              toggleByIndex(1);
-            }}
-          >
-            標籤
-          </Tag>
-        </StyledContainer>
-      );
-    }
-    return <App />;
+  render: function Render(args) {
+    const [selectedIndex, setSelectedIndex] = useState<
+      number | undefined
+    >(0);
+    const toggleByIndex = (index: number) => {
+      setSelectedIndex((prevSelectedIndex) => {
+        const isAlreadySelected = prevSelectedIndex === index;
+        return isAlreadySelected ? undefined : index;
+      });
+    };
+
+    return (
+      <>
+        <Tag
+          {...args}
+          selected={selectedIndex === 0}
+          onClick={() => toggleByIndex(0)}
+        />
+        <Tag
+          {...args}
+          selected={selectedIndex === 1}
+          onClick={() => {
+            toggleByIndex(1);
+          }}
+          icon={<FlagIcon width={12} height={12} />}
+        />
+      </>
+    );
   },
 };
 
