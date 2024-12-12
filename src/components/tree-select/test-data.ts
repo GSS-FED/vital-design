@@ -36,7 +36,7 @@ export const testData = [
     data: [
       {
         displayName: '所有人',
-        subjectId: '0',
+        subjectId: 'allMembers',
         subjectType: 1,
         parents: [],
         createdAt: '1',

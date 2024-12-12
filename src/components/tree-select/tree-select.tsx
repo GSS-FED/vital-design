@@ -3,7 +3,7 @@ import {
   ChevronRightIcon,
   MagnifyingGlassIcon,
 } from '@radix-ui/react-icons';
-import { useRef, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { colors, shadows, styles } from '../../constants';
 import TextInput from '../input/textInput/textInput';
@@ -52,7 +52,10 @@ export default function TreeSelect(props: TreeSelectProps) {
 
   const scrollRef = useRef(null);
 
-  const searchFilter = <T extends { displayName?: string }>(
+  const isRootMenuSearching = searchText.menuSearchText !== '';
+  const searchFilter = <
+    T extends { displayName?: string; subjectId?: string },
+  >(
     data: T[],
     searchText: string,
   ) => {
@@ -170,47 +173,74 @@ export default function TreeSelect(props: TreeSelectProps) {
                 items.data,
                 searchText.menuSearchText,
               );
-              if (itemsData.length === 0) return;
+              const allUser = items.data.filter((item) => {
+                return item.subjectId === 'allMembers';
+              })[0]?.children;
+              const searchedAllUser = searchFilter(
+                allUser ?? [],
+                searchText.menuSearchText,
+              );
+              if (
+                itemsData.length === 0 &&
+                searchedAllUser.length === 0
+              )
+                return;
               return (
-                <MenuItems key={index}>
-                  {label && <MenuItemsLabel>{label}</MenuItemsLabel>}
-                  {itemsData.map((item) => (
-                    <MenuItem
-                      key={item.subjectId}
-                      isEmpty={
-                        Array.isArray(item.children) &&
-                        item.children.length === 0
-                      }
-                      onClick={() => {
-                        if (
-                          item.children &&
-                          item.children.length !== 0
-                        ) {
-                          setSelectedMenu(item);
-                          // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
-                          setTimeout(() => {
-                            handleScroll();
-                          }, 0);
-                        } else {
-                          onChange(item);
-                        }
-                      }}
-                    >
-                      <MenuItemName title={item.displayName}>
-                        {item.displayName}
-                      </MenuItemName>
-                      {item.children !== undefined &&
-                        item.children.length >= 0 && (
-                          <MenuItemIcon>
-                            <ChevronRightIcon
-                              width={20}
-                              height={20}
-                            />
-                          </MenuItemIcon>
-                        )}
-                    </MenuItem>
-                  ))}
-                </MenuItems>
+                <Fragment key={`Fragement${index}`}>
+                  <MenuItems>
+                    {isRootMenuSearching &&
+                      searchedAllUser.length !== 0 && (
+                        <>
+                          {<MenuItemsLabel>成員</MenuItemsLabel>}
+                          {searchedAllUser.map((item, index) => (
+                            <MenuItem
+                              key={`allUser${index}`}
+                              onClick={() => onChange(item)}
+                            >
+                              <MenuItemName title={item.displayName}>
+                                {item.displayName}
+                              </MenuItemName>
+                            </MenuItem>
+                          ))}
+                        </>
+                      )}
+                    {label && (
+                      <MenuItemsLabel>{label}</MenuItemsLabel>
+                    )}
+                    {itemsData.map((item) => (
+                      <MenuItem
+                        key={item.subjectId}
+                        onClick={() => {
+                          if (
+                            item.children &&
+                            item.children.length !== 0
+                          ) {
+                            setSelectedMenu(item);
+                            // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
+                            setTimeout(() => {
+                              handleScroll();
+                            }, 0);
+                          } else {
+                            onChange(item);
+                          }
+                        }}
+                      >
+                        <MenuItemName title={item.displayName}>
+                          {item.displayName}
+                        </MenuItemName>
+                        {item.children !== undefined &&
+                          item.children.length >= 0 && (
+                            <MenuItemIcon>
+                              <ChevronRightIcon
+                                width={20}
+                                height={20}
+                              />
+                            </MenuItemIcon>
+                          )}
+                      </MenuItem>
+                    ))}
+                  </MenuItems>
+                </Fragment>
               );
             })}
           </Menu>
