@@ -43,6 +43,16 @@ pnpm add @fed/vital-design
 - Node.js 18
 - pnpm 8
 
+### pnpm 設置
+
+```sh
+# 啟用 corepack
+corepack enable
+
+# 檢查 pnpm 版本與 package.json 是否一致
+pnpm -v
+```
+
 ### 常用指令
 
 | 指令                        | 行為                                 |

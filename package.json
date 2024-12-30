@@ -1,6 +1,7 @@
 {
   "name": "@fed/vital-design",
   "private": false,
+  "packageManager": "pnpm@9.15.2",
   "version": "0.2.2",
   "author": "Arthur Lu <arthur_lu@gss.com.tw>",
   "type": "module",
