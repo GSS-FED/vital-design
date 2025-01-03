@@ -1,7 +1,13 @@
+import Calendar, {
+  CalendarProps,
+} from './components/calendar/calendar';
 import Checkbox, {
   CheckboxProps,
 } from './components/checkbox/checkbox';
 import Chip, { ChipProps } from './components/chip/chip';
+import DatePicker, {
+  DatePickerProps,
+} from './components/datePicker/datePicker';
 import RadioGroup, {
   RadioGroupProps,
   RadioOption,
@@ -23,6 +29,8 @@ export {
   Tag,
   TreeSelect,
   SearchBar,
+  Calendar,
+  DatePicker,
 };
 
 export type {
@@ -33,5 +41,7 @@ export type {
   SwitchProps,
   TagProps,
   TreeSelectProps,
+  CalendarProps,
+  DatePickerProps,
   SearchBarProps,
 };
