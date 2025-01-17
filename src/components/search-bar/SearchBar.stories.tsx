@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import SearchBar from './searchBar';
+import SearchBar from './SearchBar';
 
 type Story = StoryObj<typeof SearchBar>;
 
@@ -17,6 +17,7 @@ const meta: Meta<typeof SearchBar> = {
     },
   },
   args: {
+    width: '280px',
     placeholder: '請輸入關鍵字',
     onSearch: fn(),
   },

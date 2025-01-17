@@ -6,13 +6,20 @@ import SearchIcon from '../../icons/search-icon';
 
 export type SearchBarProps = {
   placeholder: string;
-  onSearch: (value: string) => void;
+  onSearch?: (value: string) => void;
   onChange?: (value: string) => void;
   isSearchIconClickable?: boolean;
   defaultValue?: string;
   disabled?: boolean;
+  width?: string;
   className?: string;
   style?: CSSProperties;
+};
+
+type SearchBarWrapperProps = {
+  $width?: string;
+  $disabled?: boolean;
+  $isSearchIconClickable?: boolean;
 };
 
 export default function SearchBar(props: SearchBarProps) {
@@ -25,6 +32,7 @@ export default function SearchBar(props: SearchBarProps) {
     defaultValue,
     className,
     style,
+    width,
   } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -38,16 +46,14 @@ export default function SearchBar(props: SearchBarProps) {
   const handleSearch = () => {
     if (!disabled && inputRef.current) {
       const value = inputRef.current.value;
-      onSearch(value);
+      onSearch?.(value);
     }
   };
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    if (onChange) {
-      onChange(event.target.value);
-    }
+    onChange?.(event.target.value);
   };
 
   const handleSearchIconClick = () => {
@@ -58,6 +64,7 @@ export default function SearchBar(props: SearchBarProps) {
 
   return (
     <SearchBarWrapper
+      $width={width}
       $disabled={disabled}
       $isSearchIconClickable={isSearchIconClickable}
       className={className}
@@ -106,13 +113,11 @@ const SearchInput = styled.input`
   }
 `;
 
-const SearchBarWrapper = styled.div<{
-  $disabled?: boolean;
-  $isSearchIconClickable?: boolean;
-}>`
+const SearchBarWrapper = styled.div<SearchBarWrapperProps>`
   ${styles.boxSizing}
   ${styles.typography}
-  max-width: 280px;
+  
+  width: ${({ $width }) => $width ?? '100%'};
   display: flex;
   align-items: center;
   padding: 6px 16px 6px 8px;
