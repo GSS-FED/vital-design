@@ -2,6 +2,9 @@ import Checkbox, {
   CheckboxProps,
 } from './components/checkbox/checkbox';
 import Chip, { ChipProps } from './components/chip/chip';
+import ActionInfiniteList, {
+  ActionInfiniteListProps,
+} from './components/list/action-infinite-list/ActionInfiniteList';
 import ActionList, {
   ActionListProps,
 } from './components/list/action-list/ActionList';
@@ -27,6 +30,7 @@ export {
   TreeSelect,
   SearchBar,
   ActionList,
+  ActionInfiniteList,
 };
 
 export type {
@@ -39,4 +43,5 @@ export type {
   TreeSelectProps,
   SearchBarProps,
   ActionListProps,
+  ActionInfiniteListProps,
 };
