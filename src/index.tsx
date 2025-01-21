@@ -2,13 +2,16 @@ import Checkbox, {
   CheckboxProps,
 } from './components/checkbox/checkbox';
 import Chip, { ChipProps } from './components/chip/chip';
+import ActionList, {
+  ActionListProps,
+} from './components/list/action-list/ActionList';
 import RadioGroup, {
   RadioGroupProps,
   RadioOption,
 } from './components/radio-group/radio-group';
 import SearchBar, {
   SearchBarProps,
-} from './components/searchBar/searchBar';
+} from './components/search-bar/SearchBar';
 import Switch, { SwitchProps } from './components/switch/switch';
 import Tag, { TagProps } from './components/tag/tag';
 import TreeSelect, {
@@ -23,6 +26,7 @@ export {
   Tag,
   TreeSelect,
   SearchBar,
+  ActionList,
 };
 
 export type {
@@ -34,4 +38,5 @@ export type {
   TagProps,
   TreeSelectProps,
   SearchBarProps,
+  ActionListProps,
 };
