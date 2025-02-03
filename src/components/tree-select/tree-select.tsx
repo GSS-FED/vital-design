@@ -18,6 +18,7 @@ interface TreeSelectData {
   displayName: string;
   subjectId: string;
   children?: TreeSelectDataChild[];
+  textColor?: string;
 }
 
 interface TreeSelectRoot {
@@ -74,8 +75,8 @@ export default function TreeSelect(props: TreeSelectProps) {
   const isScrollAtBottom =
     !isScrollAtTop &&
     Math.trunc(refScrollInfo.scrollHeight) -
-      Math.trunc(refScrollInfo.scrollTop) ===
-      Math.trunc(refScrollInfo.clientHeight);
+    Math.trunc(refScrollInfo.scrollTop) ===
+    Math.trunc(refScrollInfo.clientHeight);
 
   const handleScroll = () => {
     if (!scrollRef.current) return;
@@ -196,7 +197,10 @@ export default function TreeSelect(props: TreeSelectProps) {
                         }
                       }}
                     >
-                      <MenuItemName title={item.displayName}>
+                      <MenuItemName
+                        title={item.displayName}
+                        textColor={item.textColor}
+                      >
                         {item.displayName}
                       </MenuItemName>
                       {item.children !== undefined &&
@@ -205,6 +209,7 @@ export default function TreeSelect(props: TreeSelectProps) {
                             <ChevronRightIcon
                               width={20}
                               height={20}
+                              color={item.textColor ?? colors.grayscale800}
                             />
                           </MenuItemIcon>
                         )}
@@ -376,12 +381,13 @@ const MenuItem = styled.div<{ isEmpty?: boolean }>`
       pointer-events: none;
     `};
 `;
-const MenuItemName = styled.div`
+const MenuItemName = styled.div<{ textColor?: string }>`
   flex: 1 1 auto;
   line-height: 1.43;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  color: ${(props) => props.textColor ?? "inherit"};
 `;
 const MenuItemIcon = styled.div`
   display: flex;

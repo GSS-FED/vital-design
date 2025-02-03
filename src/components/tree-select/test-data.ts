@@ -3,6 +3,21 @@ export const testData = [
     label: '',
     data: [
       {
+        displayName: '略過此關卡',
+        subjectId: 'skip',
+        subjectType: 1,
+        parents: [],
+        createdAt: '1',
+        updatedAt: '1',
+        children: undefined,
+        textColor: '#FF0000',
+      },
+    ],
+  },
+  {
+    label: '',
+    data: [
+      {
         displayName: '上一關簽核主管',
         subjectId: '-3',
         subjectType: 1,
