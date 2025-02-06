@@ -19,7 +19,12 @@ export const Default: Story = {
     function App() {
       const [_value, setValue] = useState<unknown>();
       return (
-        <TreeSelect {...args} data={testData} onChange={setValue} />
+        <TreeSelect
+          {...args}
+          data={testData}
+          onChange={setValue}
+          globalSearchLabel="成員"
+        />
       );
     }
     return (
