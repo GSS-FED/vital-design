@@ -6,7 +6,7 @@ import {
 import { Fragment, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { colors, shadows, styles } from '../../constants';
-import TextInput from '../input/textInput/textInput';
+import TextInput from '../input/textInput/TextInput';
 
 interface TreeSelectDataChild {
   displayName: string;

@@ -1,7 +1,7 @@
 import { ReactNode, useState } from 'react';
 import styled, { CSSProperties } from 'styled-components';
 import { colors, styles } from '../../../constants';
-import TextInput from '../textInput/textInput';
+import TextInput from '../textInput/TextInput';
 
 /* ---------------------------------- Types --------------------------------- */
 export type PasswordInputProps = {

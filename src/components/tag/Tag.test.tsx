@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { expect, it, vi } from 'vitest';
 import { FlagIcon } from '../../icons';
-import Tag from './tag';
+import Tag from './Tag';
 
 it('renders a tag', () => {
   render(<Tag>Tag</Tag>);
