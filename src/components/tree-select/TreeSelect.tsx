@@ -3,7 +3,7 @@ import {
   ChevronRightIcon,
   MagnifyingGlassIcon,
 } from '@radix-ui/react-icons';
-import { useRef, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { colors, shadows, styles } from '../../constants';
 import TextInput from '../input/textInput/textInput';
@@ -35,10 +35,16 @@ export type TreeSelectProps = {
   data: TreeSelectRoot[];
   onChange: (value: TreeSelectData | TreeSelectDataChild) => void;
   placeholder?: string;
+  globalSearchLabel?: string;
 };
 
 export default function TreeSelect(props: TreeSelectProps) {
-  const { data, onChange, placeholder = '輸入關鍵字' } = props;
+  const {
+    data,
+    onChange,
+    placeholder = '輸入關鍵字',
+    globalSearchLabel,
+  } = props;
 
   const [selectedMenu, setSelectedMenu] = useState<TreeSelectData>();
   const [searchText, setSearchText] = useState<SearchText>({
@@ -52,9 +58,9 @@ export default function TreeSelect(props: TreeSelectProps) {
   });
 
   const scrollRef = useRef(null);
-
-  const searchFilter = <T extends { displayName?: string }>(
-    data: T[],
+  const isRootMenuSearching = searchText.menuSearchText !== '';
+  const searchFilter = (
+    data: TreeSelectData[] | TreeSelectDataChild[],
     searchText: string,
   ) => {
     if (!data) return [];
@@ -75,8 +81,8 @@ export default function TreeSelect(props: TreeSelectProps) {
   const isScrollAtBottom =
     !isScrollAtTop &&
     Math.trunc(refScrollInfo.scrollHeight) -
-    Math.trunc(refScrollInfo.scrollTop) ===
-    Math.trunc(refScrollInfo.clientHeight);
+      Math.trunc(refScrollInfo.scrollTop) ===
+      Math.trunc(refScrollInfo.clientHeight);
 
   const handleScroll = () => {
     if (!scrollRef.current) return;
@@ -129,7 +135,7 @@ export default function TreeSelect(props: TreeSelectProps) {
               isScrollAtTop={isScrollAtTop}
               isScrollAtBottom={isScrollAtBottom}
             >
-              {subMenu.map((item) => (
+              {subMenu.map((item: TreeSelectDataChild) => (
                 <MenuItem
                   key={item.subjectId}
                   onClick={() => onChange(item)}
@@ -171,51 +177,85 @@ export default function TreeSelect(props: TreeSelectProps) {
                 items.data,
                 searchText.menuSearchText,
               );
-              if (itemsData.length === 0) return;
+              const allUser = items.data.filter((item) => {
+                return item.subjectId === 'allMembers';
+              })[0]?.children;
+              const searchedAllUser = searchFilter(
+                allUser ?? [],
+                searchText.menuSearchText,
+              );
+              if (
+                itemsData.length === 0 &&
+                searchedAllUser.length === 0
+              )
+                return;
               return (
-                <MenuItems key={index}>
-                  {label && <MenuItemsLabel>{label}</MenuItemsLabel>}
-                  {itemsData.map((item) => (
-                    <MenuItem
-                      key={item.subjectId}
-                      isEmpty={
-                        Array.isArray(item.children) &&
-                        item.children.length === 0
-                      }
-                      onClick={() => {
-                        if (
-                          item.children &&
-                          item.children.length !== 0
-                        ) {
-                          setSelectedMenu(item);
-                          // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
-                          setTimeout(() => {
-                            handleScroll();
-                          }, 0);
-                        } else {
-                          onChange(item);
-                        }
-                      }}
-                    >
-                      <MenuItemName
-                        title={item.displayName}
-                        textColor={item.textColor}
+                <Fragment key={`Fragment_${index}`}>
+                  <MenuItems>
+                    {isRootMenuSearching &&
+                      searchedAllUser.length !== 0 && (
+                        <>
+                          {
+                            <MenuItemsLabel>
+                              {globalSearchLabel}
+                            </MenuItemsLabel>
+                          }
+                          {searchedAllUser.map((item, index) => (
+                            <MenuItem
+                              key={`allUser${index}`}
+                              onClick={() => onChange(item)}
+                            >
+                              <MenuItemName title={item.displayName}>
+                                {item.displayName}
+                              </MenuItemName>
+                            </MenuItem>
+                          ))}
+                        </>
+                      )}
+                    {label && (
+                      <MenuItemsLabel>{label}</MenuItemsLabel>
+                    )}
+                    {itemsData.map((item: TreeSelectData) => (
+                      <MenuItem
+                        key={item.subjectId}
+                        onClick={() => {
+                          if (
+                            item.children &&
+                            item.children.length !== 0
+                          ) {
+                            setSelectedMenu(item);
+                            // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
+                            setTimeout(() => {
+                              handleScroll();
+                            }, 0);
+                          } else {
+                            onChange(item);
+                          }
+                        }}
                       >
-                        {item.displayName}
-                      </MenuItemName>
-                      {item.children !== undefined &&
-                        item.children.length >= 0 && (
-                          <MenuItemIcon>
-                            <ChevronRightIcon
-                              width={20}
-                              height={20}
-                              color={item.textColor ?? colors.grayscale800}
-                            />
-                          </MenuItemIcon>
-                        )}
-                    </MenuItem>
-                  ))}
-                </MenuItems>
+                        <MenuItemName
+                          title={item.displayName}
+                          textColor={item.textColor}
+                        >
+                          {item.displayName}
+                        </MenuItemName>
+                        {item.children !== undefined &&
+                          item.children.length >= 0 && (
+                            <MenuItemIcon>
+                              <ChevronRightIcon
+                                width={20}
+                                height={20}
+                                color={
+                                  item.textColor ??
+                                  colors.grayscale800
+                                }
+                              />
+                            </MenuItemIcon>
+                          )}
+                      </MenuItem>
+                    ))}
+                  </MenuItems>
+                </Fragment>
               );
             })}
           </Menu>
@@ -387,7 +427,7 @@ const MenuItemName = styled.div<{ textColor?: string }>`
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  color: ${(props) => props.textColor ?? "inherit"};
+  color: ${(props) => props.textColor};
 `;
 const MenuItemIcon = styled.div`
   display: flex;
