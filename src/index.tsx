@@ -19,7 +19,7 @@ import Switch, { SwitchProps } from './components/switch/switch';
 import Tag, { TagProps } from './components/tag/tag';
 import TreeSelect, {
   TreeSelectProps,
-} from './components/tree-select/tree-select';
+} from './components/tree-select/TreeSelect';
 
 export {
   Checkbox,

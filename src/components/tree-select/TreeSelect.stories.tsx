@@ -2,8 +2,8 @@ import { Theme } from '@radix-ui/themes';
 import '@radix-ui/themes/styles.css';
 import { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { testData } from './test-data';
-import TreeSelect from './tree-select';
+import { testData } from './TestData';
+import TreeSelect from './TreeSelect';
 
 type Story = StoryObj<typeof TreeSelect>;
 
