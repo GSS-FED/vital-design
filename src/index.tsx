@@ -1,7 +1,7 @@
 import Checkbox, {
   CheckboxProps,
 } from './components/checkbox/checkbox';
-import Chip, { ChipProps } from './components/chip/chip';
+import Chip, { ChipProps } from './components/chip/Chip';
 import ActionInfiniteList, {
   ActionInfiniteListProps,
 } from './components/list/action-infinite-list/ActionInfiniteList';

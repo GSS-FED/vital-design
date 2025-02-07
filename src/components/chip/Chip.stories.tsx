@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import FlagIcon from '../../icons/flag-icon';
 import UserIcon from '../../icons/user-icon';
-import Chip, { ChipProps } from './chip';
+import Chip, { ChipProps } from './Chip';
 
 type Story = StoryObj<typeof Chip>;
 
