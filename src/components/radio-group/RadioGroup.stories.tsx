@@ -1,7 +1,7 @@
 import { useArgs } from '@storybook/preview-api';
 import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import RadioGroup, { RadioGroupProps } from './radio-group';
+import RadioGroup, { RadioGroupProps } from './RadioGroup';
 
 type Story = StoryObj<typeof RadioGroup>;
 

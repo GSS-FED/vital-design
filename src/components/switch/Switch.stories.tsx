@@ -1,7 +1,7 @@
 import { useArgs } from '@storybook/preview-api';
 import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import Switch, { SwitchProps } from './switch';
+import Switch, { SwitchProps } from './Switch';
 
 type Story = StoryObj<typeof Switch>;
 
