@@ -1,78 +1,37 @@
+import { useArgs } from '@storybook/preview-api';
 import { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
-import styled from 'styled-components';
-import { FlagIcon } from '../../icons';
-import Chip from './chip';
+import { fn } from '@storybook/test';
+import FlagIcon from '../../icons/flag-icon';
+import UserIcon from '../../icons/user-icon';
+import Chip, { ChipProps } from './chip';
 
 type Story = StoryObj<typeof Chip>;
 
 const meta: Meta<typeof Chip> = {
   title: 'Components/Chip',
   component: Chip,
-  tags: ['autodocs'],
-  excludeStories: ['FlagIcon'],
+  argTypes: {
+    icon: {
+      options: ['none', 'user', 'flag'],
+      mapping: { none: '', user: <UserIcon />, flag: <FlagIcon /> },
+      control: { type: 'select' },
+    },
+  },
+  args: {
+    selected: true,
+    onChange: fn(),
+    children: '急件',
+  },
 };
 export default meta;
 
-export const Unselected: Story = {
-  render() {
-    function App() {
-      const [isFirstChipSelected, setIsFirstChipSelected] =
-        useState(false);
-      const [isSecondChipSelected, setIsSecondChipSelected] =
-        useState(false);
-      return (
-        <StyledContainer>
-          <Chip
-            selected={isFirstChipSelected}
-            onChange={setIsFirstChipSelected}
-          >
-            急件
-          </Chip>
-          <Chip
-            icon={<FlagIcon width={14} height={14} />}
-            selected={isSecondChipSelected}
-            onChange={setIsSecondChipSelected}
-          >
-            特急件
-          </Chip>
-        </StyledContainer>
-      );
-    }
-    return <App />;
+export const Default: Story = {
+  render: function Render(args) {
+    const [{ selected }, updateArgs] = useArgs<ChipProps>();
+    const onChange = (isSelected: boolean) => {
+      updateArgs({ selected: isSelected });
+    };
+
+    return <Chip {...args} onChange={onChange} selected={selected} />;
   },
 };
-
-export const Selected: Story = {
-  render() {
-    function App() {
-      const [isFirstChipSelected, setIsFirstChipSelected] =
-        useState(true);
-      const [isSecondChipSelected, setIsSecondChipSelected] =
-        useState(true);
-      return (
-        <StyledContainer>
-          <Chip
-            selected={isFirstChipSelected}
-            onChange={setIsFirstChipSelected}
-          >
-            急件
-          </Chip>
-          <Chip
-            icon={<FlagIcon width={14} height={14} />}
-            selected={isSecondChipSelected}
-            onChange={setIsSecondChipSelected}
-          >
-            特急件
-          </Chip>
-        </StyledContainer>
-      );
-    }
-    return <App />;
-  },
-};
-
-const StyledContainer = styled.div`
-  display: flex;
-  gap: 8px;
-`;
