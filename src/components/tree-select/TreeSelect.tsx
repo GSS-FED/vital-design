@@ -218,6 +218,7 @@ export default function TreeSelect(props: TreeSelectProps) {
                     {itemsData.map((item: TreeSelectData) => (
                       <MenuItem
                         key={item.subjectId}
+                        textColor={item.textColor}
                         isEmpty={
                           Array.isArray(item.children) &&
                           item.children.length === 0
@@ -237,10 +238,7 @@ export default function TreeSelect(props: TreeSelectProps) {
                           }
                         }}
                       >
-                        <MenuItemName
-                          title={item.displayName}
-                          textColor={item.textColor}
-                        >
+                        <MenuItemName title={item.displayName}>
                           {item.displayName}
                         </MenuItemName>
                         {item.children !== undefined &&
@@ -249,10 +247,6 @@ export default function TreeSelect(props: TreeSelectProps) {
                               <ChevronRightIcon
                                 width={20}
                                 height={20}
-                                color={
-                                  item.textColor ??
-                                  colors.grayscale800
-                                }
                               />
                             </MenuItemIcon>
                           )}
@@ -411,7 +405,10 @@ const MenuItemsLabel = styled.div`
   font-size: 12px;
   font-weight: 500;
 `;
-const MenuItem = styled.div<{ isEmpty?: boolean }>`
+const MenuItem = styled.div<{
+  isEmpty?: boolean;
+  textColor?: string;
+}>`
   ${styles.boxSizing}
   ${styles.typography}
 
@@ -431,14 +428,19 @@ const MenuItem = styled.div<{ isEmpty?: boolean }>`
       color: ${colors.grayscale500};
       pointer-events: none;
     `};
+
+  ${({ textColor }) =>
+    textColor &&
+    css`
+      color: ${textColor};
+    `}
 `;
-const MenuItemName = styled.div<{ textColor?: string }>`
+const MenuItemName = styled.div`
   flex: 1 1 auto;
   line-height: 1.43;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  color: ${(props) => props.textColor};
 `;
 const MenuItemIcon = styled.div`
   display: flex;
