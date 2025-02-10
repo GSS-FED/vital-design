@@ -6,7 +6,7 @@ import {
 import { Fragment, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { colors, shadows, styles } from '../../constants';
-import TextInput from '../input/textInput/textInput';
+import TextInput from '../input/textInput/TextInput';
 
 interface TreeSelectDataChild {
   displayName: string;
@@ -218,6 +218,11 @@ export default function TreeSelect(props: TreeSelectProps) {
                     {itemsData.map((item: TreeSelectData) => (
                       <MenuItem
                         key={item.subjectId}
+                        textColor={item.textColor}
+                        isEmpty={
+                          Array.isArray(item.children) &&
+                          item.children.length === 0
+                        }
                         onClick={() => {
                           if (
                             item.children &&
@@ -233,10 +238,7 @@ export default function TreeSelect(props: TreeSelectProps) {
                           }
                         }}
                       >
-                        <MenuItemName
-                          title={item.displayName}
-                          textColor={item.textColor}
-                        >
+                        <MenuItemName title={item.displayName}>
                           {item.displayName}
                         </MenuItemName>
                         {item.children !== undefined &&
@@ -245,10 +247,6 @@ export default function TreeSelect(props: TreeSelectProps) {
                               <ChevronRightIcon
                                 width={20}
                                 height={20}
-                                color={
-                                  item.textColor ??
-                                  colors.grayscale800
-                                }
                               />
                             </MenuItemIcon>
                           )}
@@ -372,7 +370,7 @@ const Menu = styled.div<{
     `}
 `;
 
-const MenuItems = styled.div`
+const MenuItems = styled.div<{ isEmpty?: boolean }>`
   ${styles.boxSizing}
   ${styles.typography}
   position: relative;
@@ -392,6 +390,13 @@ const MenuItems = styled.div`
       content: none;
     }
   }
+
+  ${({ isEmpty }) =>
+    isEmpty &&
+    css`
+      color: ${colors.grayscale500};
+      pointer-events: none;
+    `}
 `;
 const MenuItemsLabel = styled.div`
   margin-bottom: px;
@@ -400,7 +405,10 @@ const MenuItemsLabel = styled.div`
   font-size: 12px;
   font-weight: 500;
 `;
-const MenuItem = styled.div<{ isEmpty?: boolean }>`
+const MenuItem = styled.div<{
+  isEmpty?: boolean;
+  textColor?: string;
+}>`
   ${styles.boxSizing}
   ${styles.typography}
 
@@ -420,14 +428,19 @@ const MenuItem = styled.div<{ isEmpty?: boolean }>`
       color: ${colors.grayscale500};
       pointer-events: none;
     `};
+
+  ${({ textColor }) =>
+    textColor &&
+    css`
+      color: ${textColor};
+    `}
 `;
-const MenuItemName = styled.div<{ textColor?: string }>`
+const MenuItemName = styled.div`
   flex: 1 1 auto;
   line-height: 1.43;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  color: ${(props) => props.textColor};
 `;
 const MenuItemIcon = styled.div`
   display: flex;

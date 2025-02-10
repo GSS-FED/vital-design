@@ -4,9 +4,6 @@ import styled from 'styled-components';
 import { colors, styles } from '../../constants';
 
 export type TagProps = {
-  /**
-   * &nbsp;
-   */
   children: ReactNode;
   icon?: ReactNode;
   removable?: boolean;

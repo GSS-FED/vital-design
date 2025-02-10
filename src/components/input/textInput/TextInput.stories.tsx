@@ -1,22 +1,18 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import UserIcon from '../../../icons/user-icon';
-import PasswordInput from './passwordInput';
+import TextInput from './TextInput';
 
-type Story = StoryObj<typeof PasswordInput>;
+type Story = StoryObj<typeof TextInput>;
 
-const meta: Meta<typeof PasswordInput> = {
-  title: 'Components/Input/PasswordInput',
-  component: PasswordInput,
-};
-export default meta;
-
-export const Default: Story = {
+const meta: Meta<typeof TextInput> = {
+  title: 'Components/Input/TextInput',
+  component: TextInput,
   argTypes: {
     prefix: {
-      options: ['User Icon'],
+      options: ['user'],
       mapping: {
-        Bold: <UserIcon />,
+        user: <UserIcon />,
       },
     },
   },
@@ -24,7 +20,10 @@ export const Default: Story = {
     width: '450px',
     prefix: <UserIcon />,
     placeholder: '請輸入使用者名稱',
-    value: '',
     onChange: fn(),
+    onEnter: fn(),
   },
 };
+export default meta;
+
+export const Default: Story = {};

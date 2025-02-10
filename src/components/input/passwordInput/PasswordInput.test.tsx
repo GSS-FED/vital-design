@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
-import PasswordInput from './passwordInput';
+import PasswordInput from './PasswordInput';
 
 it('renders correctly with default props', () => {
   const props = { value: '', onChange: vi.fn() };

@@ -1,7 +1,7 @@
 import Checkbox, {
   CheckboxProps,
-} from './components/checkbox/checkbox';
-import Chip, { ChipProps } from './components/chip/chip';
+} from './components/checkbox/Checkbox';
+import Chip, { ChipProps } from './components/chip/Chip';
 import ActionInfiniteList, {
   ActionInfiniteListProps,
 } from './components/list/action-infinite-list/ActionInfiniteList';
@@ -11,12 +11,12 @@ import ActionList, {
 import RadioGroup, {
   RadioGroupProps,
   RadioOption,
-} from './components/radio-group/radio-group';
+} from './components/radio-group/RadioGroup';
 import SearchBar, {
   SearchBarProps,
 } from './components/search-bar/SearchBar';
-import Switch, { SwitchProps } from './components/switch/switch';
-import Tag, { TagProps } from './components/tag/tag';
+import Switch, { SwitchProps } from './components/switch/Switch';
+import Tag, { TagProps } from './components/tag/Tag';
 import TreeSelect, {
   TreeSelectProps,
 } from './components/tree-select/TreeSelect';
