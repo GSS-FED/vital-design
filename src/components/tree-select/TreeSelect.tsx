@@ -36,6 +36,7 @@ export type TreeSelectProps = {
   onChange: (value: TreeSelectData | TreeSelectDataChild) => void;
   placeholder?: string;
   globalSearchLabel?: string;
+  style?: React.CSSProperties;
 };
 
 export default function TreeSelect(props: TreeSelectProps) {
@@ -44,6 +45,7 @@ export default function TreeSelect(props: TreeSelectProps) {
     onChange,
     placeholder = '輸入關鍵字',
     globalSearchLabel,
+    style,
   } = props;
 
   const [selectedMenu, setSelectedMenu] = useState<TreeSelectData>();
@@ -99,7 +101,7 @@ export default function TreeSelect(props: TreeSelectProps) {
   };
 
   return (
-    <Container>
+    <Container style={style}>
       {selectedMenu ? (
         <Wrapper>
           <PreviousButton
@@ -268,8 +270,6 @@ export default function TreeSelect(props: TreeSelectProps) {
 TreeSelect.displayName = 'TreeSelect';
 
 const Container = styled.div`
-  --width: 194px;
-  --height: 300px;
   --color: ${colors.grayscale800};
   --search-icon-color: ${colors.grayscale500};
   --font-size: 14px;
@@ -278,6 +278,8 @@ const Container = styled.div`
   ${styles.boxSizing}
   ${styles.typography}
 
+  width: 194px;
+  height: 300px;
   display: inline-block;
   position: relative;
   padding: 4px 4px 0;
@@ -290,14 +292,14 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: var(--width);
-  height: var(--height);
+  width: 100%;
+  height: 100%;
 `;
 
 const Search = styled(TextInput)`
   flex: 0 0 auto;
-  width: 90%;
-  margin: 8px auto;
+  width: auto;
+  margin: 8px;
   border-radius: 4rem;
 `;
 
