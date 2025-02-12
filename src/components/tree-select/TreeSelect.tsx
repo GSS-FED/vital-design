@@ -137,8 +137,8 @@ export default function TreeSelect(props: TreeSelectProps) {
             <SubMenu
               ref={scrollRef}
               onScroll={handleScroll}
-              isScrollAtTop={isScrollAtTop}
-              isScrollAtBottom={isScrollAtBottom}
+              $isScrollAtTop={isScrollAtTop}
+              $isScrollAtBottom={isScrollAtBottom}
             >
               {subMenu.map((item: TreeSelectDataChild) => (
                 <MenuItem
@@ -173,8 +173,8 @@ export default function TreeSelect(props: TreeSelectProps) {
           <Menu
             ref={scrollRef}
             onScroll={handleScroll}
-            isScrollAtTop={isScrollAtTop}
-            isScrollAtBottom={isScrollAtBottom}
+            $isScrollAtTop={isScrollAtTop}
+            $isScrollAtBottom={isScrollAtBottom}
           >
             {data.map((items, index) => {
               const label = items.label;
@@ -223,8 +223,8 @@ export default function TreeSelect(props: TreeSelectProps) {
                     {itemsData.map((item: TreeSelectData) => (
                       <MenuItem
                         key={item.subjectId}
-                        textColor={item.textColor}
-                        isEmpty={
+                        $textColor={item.textColor}
+                        $isEmpty={
                           Array.isArray(item.children) &&
                           item.children.length === 0
                         }
@@ -304,8 +304,8 @@ const Search = styled(TextInput)`
 `;
 
 const Menu = styled.div<{
-  isScrollAtTop?: boolean;
-  isScrollAtBottom?: boolean;
+  $isScrollAtTop?: boolean;
+  $isScrollAtBottom?: boolean;
 }>`
   flex: 1 1 auto;
   padding-bottom: 4px;
@@ -333,8 +333,8 @@ const Menu = styled.div<{
     background: transparent;
   }
 
-  ${({ isScrollAtTop }) =>
-    isScrollAtTop &&
+  ${({ $isScrollAtTop }) =>
+    $isScrollAtTop &&
     css`
       mask-image: linear-gradient(
           to top,
@@ -353,8 +353,8 @@ const Menu = styled.div<{
           transparent
         );
     `}
-  ${({ isScrollAtBottom }) =>
-    isScrollAtBottom &&
+  ${({ $isScrollAtBottom }) =>
+    $isScrollAtBottom &&
     css`
       mask-image: linear-gradient(
           to top,
@@ -375,7 +375,7 @@ const Menu = styled.div<{
     `}
 `;
 
-const MenuItems = styled.div<{ isEmpty?: boolean }>`
+const MenuItems = styled.div<{ $isEmpty?: boolean }>`
   ${styles.boxSizing}
   ${styles.typography}
   position: relative;
@@ -396,8 +396,8 @@ const MenuItems = styled.div<{ isEmpty?: boolean }>`
     }
   }
 
-  ${({ isEmpty }) =>
-    isEmpty &&
+  ${({ $isEmpty }) =>
+    $isEmpty &&
     css`
       color: ${colors.grayscale500};
       pointer-events: none;
@@ -412,8 +412,8 @@ const MenuItemsLabel = styled.div`
   line-height: 1.3;
 `;
 const MenuItem = styled.div<{
-  isEmpty?: boolean;
-  textColor?: string;
+  $isEmpty?: boolean;
+  $textColor?: string;
 }>`
   ${styles.boxSizing}
   ${styles.typography}
@@ -428,17 +428,17 @@ const MenuItem = styled.div<{
     background: ${colors.grayscale150};
   }
 
-  ${({ isEmpty }) =>
-    isEmpty &&
+  ${({ $isEmpty }) =>
+    $isEmpty &&
     css`
       color: ${colors.grayscale500};
       pointer-events: none;
     `};
 
-  ${({ textColor }) =>
-    textColor &&
+  ${({ $textColor }) =>
+    $textColor &&
     css`
-      color: ${textColor};
+      color: ${$textColor};
     `}
 `;
 const MenuItemName = styled.div`
