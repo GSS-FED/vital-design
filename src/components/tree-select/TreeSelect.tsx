@@ -78,11 +78,14 @@ export default function TreeSelect(props: TreeSelectProps) {
     searchFilter(selectedMenu.children, searchText.subMenuSearchText);
 
   const isScrollAtTop = refScrollInfo.scrollTop === 0;
+  // NOTE: scrollTop 是一個非四捨五入的數字，而 scrollHeight 和 clientHeight 是四捨五入的，因此確定滾動區域是否滾動到底部的唯一方法是查看滾動量是否足夠接近某個閾值(這裡設置 1)
   const isScrollAtBottom =
     !isScrollAtTop &&
-    Math.trunc(refScrollInfo.scrollHeight) -
-      Math.trunc(refScrollInfo.scrollTop) ===
-      Math.trunc(refScrollInfo.clientHeight);
+    Math.abs(
+      refScrollInfo.scrollHeight -
+        refScrollInfo.clientHeight -
+        refScrollInfo.scrollTop,
+    ) <= 1;
 
   const handleScroll = () => {
     if (!scrollRef.current) return;
@@ -399,11 +402,12 @@ const MenuItems = styled.div<{ isEmpty?: boolean }>`
     `}
 `;
 const MenuItemsLabel = styled.div`
-  margin-bottom: px;
+  margin-bottom: 6px;
   padding: 0 10px;
   color: ${colors.grayscale500};
   font-size: 12px;
   font-weight: 500;
+  line-height: 1.3;
 `;
 const MenuItem = styled.div<{
   isEmpty?: boolean;
