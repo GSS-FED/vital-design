@@ -402,11 +402,12 @@ const MenuItems = styled.div<{ isEmpty?: boolean }>`
     `}
 `;
 const MenuItemsLabel = styled.div`
-  margin-bottom: px;
+  margin-bottom: 6px;
   padding: 0 10px;
   color: ${colors.grayscale500};
   font-size: 12px;
   font-weight: 500;
+  line-height: 1.3;
 `;
 const MenuItem = styled.div<{
   isEmpty?: boolean;
