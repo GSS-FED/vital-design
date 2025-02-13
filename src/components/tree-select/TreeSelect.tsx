@@ -36,6 +36,7 @@ export type TreeSelectProps = {
   onChange: (value: TreeSelectData | TreeSelectDataChild) => void;
   placeholder?: string;
   globalSearchLabel?: string;
+  style?: React.CSSProperties;
 };
 
 export default function TreeSelect(props: TreeSelectProps) {
@@ -44,6 +45,7 @@ export default function TreeSelect(props: TreeSelectProps) {
     onChange,
     placeholder = '輸入關鍵字',
     globalSearchLabel,
+    style,
   } = props;
 
   const [selectedMenu, setSelectedMenu] = useState<TreeSelectData>();
@@ -78,11 +80,14 @@ export default function TreeSelect(props: TreeSelectProps) {
     searchFilter(selectedMenu.children, searchText.subMenuSearchText);
 
   const isScrollAtTop = refScrollInfo.scrollTop === 0;
+  // NOTE: scrollTop 是一個非四捨五入的數字，而 scrollHeight 和 clientHeight 是四捨五入的，因此確定滾動區域是否滾動到底部的唯一方法是查看滾動量是否足夠接近某個閾值(這裡設置 1)
   const isScrollAtBottom =
     !isScrollAtTop &&
-    Math.trunc(refScrollInfo.scrollHeight) -
-      Math.trunc(refScrollInfo.scrollTop) ===
-      Math.trunc(refScrollInfo.clientHeight);
+    Math.abs(
+      refScrollInfo.scrollHeight -
+        refScrollInfo.clientHeight -
+        refScrollInfo.scrollTop,
+    ) <= 1;
 
   const handleScroll = () => {
     if (!scrollRef.current) return;
@@ -96,7 +101,7 @@ export default function TreeSelect(props: TreeSelectProps) {
   };
 
   return (
-    <Container>
+    <Container style={style}>
       {selectedMenu ? (
         <Wrapper>
           <PreviousButton
@@ -132,8 +137,8 @@ export default function TreeSelect(props: TreeSelectProps) {
             <SubMenu
               ref={scrollRef}
               onScroll={handleScroll}
-              isScrollAtTop={isScrollAtTop}
-              isScrollAtBottom={isScrollAtBottom}
+              $isScrollAtTop={isScrollAtTop}
+              $isScrollAtBottom={isScrollAtBottom}
             >
               {subMenu.map((item: TreeSelectDataChild) => (
                 <MenuItem
@@ -168,8 +173,8 @@ export default function TreeSelect(props: TreeSelectProps) {
           <Menu
             ref={scrollRef}
             onScroll={handleScroll}
-            isScrollAtTop={isScrollAtTop}
-            isScrollAtBottom={isScrollAtBottom}
+            $isScrollAtTop={isScrollAtTop}
+            $isScrollAtBottom={isScrollAtBottom}
           >
             {data.map((items, index) => {
               const label = items.label;
@@ -218,8 +223,8 @@ export default function TreeSelect(props: TreeSelectProps) {
                     {itemsData.map((item: TreeSelectData) => (
                       <MenuItem
                         key={item.subjectId}
-                        textColor={item.textColor}
-                        isEmpty={
+                        $textColor={item.textColor}
+                        $isEmpty={
                           Array.isArray(item.children) &&
                           item.children.length === 0
                         }
@@ -265,8 +270,6 @@ export default function TreeSelect(props: TreeSelectProps) {
 TreeSelect.displayName = 'TreeSelect';
 
 const Container = styled.div`
-  --width: 194px;
-  --height: 300px;
   --color: ${colors.grayscale800};
   --search-icon-color: ${colors.grayscale500};
   --font-size: 14px;
@@ -275,6 +278,8 @@ const Container = styled.div`
   ${styles.boxSizing}
   ${styles.typography}
 
+  width: 194px;
+  height: 300px;
   display: inline-block;
   position: relative;
   padding: 4px 4px 0;
@@ -287,20 +292,20 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: var(--width);
-  height: var(--height);
+  width: 100%;
+  height: 100%;
 `;
 
 const Search = styled(TextInput)`
   flex: 0 0 auto;
-  width: 90%;
-  margin: 8px auto;
+  width: auto;
+  margin: 8px;
   border-radius: 4rem;
 `;
 
 const Menu = styled.div<{
-  isScrollAtTop?: boolean;
-  isScrollAtBottom?: boolean;
+  $isScrollAtTop?: boolean;
+  $isScrollAtBottom?: boolean;
 }>`
   flex: 1 1 auto;
   padding-bottom: 4px;
@@ -328,8 +333,8 @@ const Menu = styled.div<{
     background: transparent;
   }
 
-  ${({ isScrollAtTop }) =>
-    isScrollAtTop &&
+  ${({ $isScrollAtTop }) =>
+    $isScrollAtTop &&
     css`
       mask-image: linear-gradient(
           to top,
@@ -348,8 +353,8 @@ const Menu = styled.div<{
           transparent
         );
     `}
-  ${({ isScrollAtBottom }) =>
-    isScrollAtBottom &&
+  ${({ $isScrollAtBottom }) =>
+    $isScrollAtBottom &&
     css`
       mask-image: linear-gradient(
           to top,
@@ -370,7 +375,7 @@ const Menu = styled.div<{
     `}
 `;
 
-const MenuItems = styled.div<{ isEmpty?: boolean }>`
+const MenuItems = styled.div<{ $isEmpty?: boolean }>`
   ${styles.boxSizing}
   ${styles.typography}
   position: relative;
@@ -391,23 +396,24 @@ const MenuItems = styled.div<{ isEmpty?: boolean }>`
     }
   }
 
-  ${({ isEmpty }) =>
-    isEmpty &&
+  ${({ $isEmpty }) =>
+    $isEmpty &&
     css`
       color: ${colors.grayscale500};
       pointer-events: none;
     `}
 `;
 const MenuItemsLabel = styled.div`
-  margin-bottom: px;
+  margin-bottom: 6px;
   padding: 0 10px;
   color: ${colors.grayscale500};
   font-size: 12px;
   font-weight: 500;
+  line-height: 1.3;
 `;
 const MenuItem = styled.div<{
-  isEmpty?: boolean;
-  textColor?: string;
+  $isEmpty?: boolean;
+  $textColor?: string;
 }>`
   ${styles.boxSizing}
   ${styles.typography}
@@ -422,17 +428,17 @@ const MenuItem = styled.div<{
     background: ${colors.grayscale150};
   }
 
-  ${({ isEmpty }) =>
-    isEmpty &&
+  ${({ $isEmpty }) =>
+    $isEmpty &&
     css`
       color: ${colors.grayscale500};
       pointer-events: none;
     `};
 
-  ${({ textColor }) =>
-    textColor &&
+  ${({ $textColor }) =>
+    $textColor &&
     css`
-      color: ${textColor};
+      color: ${$textColor};
     `}
 `;
 const MenuItemName = styled.div`
