@@ -1,7 +1,7 @@
 {
   "name": "@fed/vital-design",
   "private": false,
-  "version": "0.4.2",
+  "version": "0.5.0",
   "author": "Arthur Lu <arthur_lu@gss.com.tw>",
   "type": "module",
   "main": "dist/vital-design.js",
