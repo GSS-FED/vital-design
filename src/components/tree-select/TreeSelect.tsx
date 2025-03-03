@@ -8,17 +8,12 @@ import styled, { css } from 'styled-components';
 import { colors, shadows, styles } from '../../constants';
 import TextInput from '../input/textInput/TextInput';
 
-interface TreeSelectDataChild {
-  displayName: string;
-  subjectId: string;
-  isManager?: boolean;
-}
-
 interface TreeSelectData {
   displayName: string;
   subjectId: string;
-  children?: TreeSelectDataChild[];
+  children?: TreeSelectData[];
   textColor?: string;
+  isManager?: boolean;
 }
 
 interface TreeSelectRoot {
@@ -33,10 +28,24 @@ interface SearchText {
 
 export type TreeSelectProps = {
   data: TreeSelectRoot[];
-  onChange: (value: TreeSelectData | TreeSelectDataChild) => void;
+  onChange: (value: TreeSelectData) => void;
   placeholder?: string;
   globalSearchLabel?: string;
   style?: React.CSSProperties;
+};
+
+const findItem = (
+  data: TreeSelectData,
+): [string, TreeSelectData][] => {
+  const { subjectId, children } = data;
+  const target: [string, TreeSelectData][] = [[subjectId, data]];
+  // 沒有 Children 代表是 Child
+  if (!children) return target;
+  // 有 Children 的則都是組織
+  if (children.length <= 0) return [];
+  return children.flatMap((item) => {
+    return findItem(item);
+  });
 };
 
 export default function TreeSelect(props: TreeSelectProps) {
@@ -62,7 +71,7 @@ export default function TreeSelect(props: TreeSelectProps) {
   const scrollRef = useRef(null);
   const isRootMenuSearching = searchText.menuSearchText !== '';
   const searchFilter = (
-    data: TreeSelectData[] | TreeSelectDataChild[],
+    data: TreeSelectData[],
     searchText: string,
   ) => {
     if (!data) return [];
@@ -99,6 +108,22 @@ export default function TreeSelect(props: TreeSelectProps) {
       clientHeight: clientHeight,
     });
   };
+
+  const allItemMap: Map<string, TreeSelectData> = (() => {
+    const allItemArray = data
+      .map((item) => item.data)
+      .flatMap((item) =>
+        item.flatMap((subItem) => findItem(subItem)),
+      );
+    return new Map(allItemArray);
+  })();
+  const filteredItem = [...allItemMap.entries()].filter((item) => {
+    const [_, child] = item;
+    if (searchText.menuSearchText === '') return true;
+    return child.displayName
+      .toLowerCase()
+      .includes(searchText.menuSearchText.toLowerCase());
+  });
 
   return (
     <Container style={style}>
@@ -140,7 +165,7 @@ export default function TreeSelect(props: TreeSelectProps) {
               $isScrollAtTop={isScrollAtTop}
               $isScrollAtBottom={isScrollAtBottom}
             >
-              {subMenu.map((item: TreeSelectDataChild) => (
+              {subMenu.map((item: TreeSelectData) => (
                 <MenuItem
                   key={item.subjectId}
                   onClick={() => onChange(item)}
@@ -176,91 +201,94 @@ export default function TreeSelect(props: TreeSelectProps) {
             $isScrollAtTop={isScrollAtTop}
             $isScrollAtBottom={isScrollAtBottom}
           >
-            {data.map((items, index) => {
-              const label = items.label;
-              const itemsData = searchFilter(
-                items.data,
-                searchText.menuSearchText,
-              );
-              const allUser = items.data.filter((item) => {
-                return item.subjectId === 'allMembers';
-              })[0]?.children;
-              const searchedAllUser = searchFilter(
-                allUser ?? [],
-                searchText.menuSearchText,
-              );
-              if (
-                itemsData.length === 0 &&
-                searchedAllUser.length === 0
-              )
-                return;
-              return (
-                <Fragment key={`Fragment_${index}`}>
+            {isRootMenuSearching && (
+              <Fragment>
+                {filteredItem.length <= 0 && (
+                  <MenuItemsLabel>{globalSearchLabel}</MenuItemsLabel>
+                )}
+                {filteredItem.length > 0 && (
                   <MenuItems>
-                    {isRootMenuSearching &&
-                      searchedAllUser.length !== 0 && (
-                        <>
-                          {
-                            <MenuItemsLabel>
-                              {globalSearchLabel}
-                            </MenuItemsLabel>
-                          }
-                          {searchedAllUser.map((item, index) => (
-                            <MenuItem
-                              key={`allUser${index}`}
-                              onClick={() => onChange(item)}
-                            >
-                              <MenuItemName title={item.displayName}>
-                                {item.displayName}
-                              </MenuItemName>
-                            </MenuItem>
-                          ))}
-                        </>
-                      )}
-                    {label && (
-                      <MenuItemsLabel>{label}</MenuItemsLabel>
-                    )}
-                    {itemsData.map((item: TreeSelectData) => (
-                      <MenuItem
-                        key={item.subjectId}
-                        $textColor={item.textColor}
-                        $isEmpty={
-                          Array.isArray(item.children) &&
-                          item.children.length === 0
-                        }
-                        onClick={() => {
-                          if (
-                            item.children &&
-                            item.children.length !== 0
-                          ) {
-                            setSelectedMenu(item);
-                            // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
-                            setTimeout(() => {
-                              handleScroll();
-                            }, 0);
-                          } else {
-                            onChange(item);
-                          }
-                        }}
-                      >
-                        <MenuItemName title={item.displayName}>
-                          {item.displayName}
-                        </MenuItemName>
-                        {item.children !== undefined &&
-                          item.children.length >= 0 && (
-                            <MenuItemIcon>
-                              <ChevronRightIcon
-                                width={20}
-                                height={20}
-                              />
-                            </MenuItemIcon>
-                          )}
-                      </MenuItem>
-                    ))}
+                    {filteredItem.map((item) => {
+                      const [_, child] = item;
+                      const { displayName } = child;
+                      return (
+                        <MenuItem
+                          key={`${child.subjectId}`}
+                          $textColor={child.textColor}
+                          onClick={() => onChange(child)}
+                        >
+                          <MenuItemName title={displayName}>
+                            {displayName}
+                          </MenuItemName>
+                        </MenuItem>
+                      );
+                    })}
                   </MenuItems>
-                </Fragment>
-              );
-            })}
+                )}
+              </Fragment>
+            )}
+            {!isRootMenuSearching &&
+              data.map((items, index) => {
+                const itemsData = searchFilter(
+                  items.data,
+                  searchText.menuSearchText,
+                );
+                const allUser = items.data.filter((item) => {
+                  return item.subjectId === 'allMembers';
+                })[0]?.children;
+                const searchedAllUser = searchFilter(
+                  allUser ?? [],
+                  searchText.menuSearchText,
+                );
+                if (
+                  itemsData.length === 0 &&
+                  searchedAllUser.length === 0
+                )
+                  return;
+                return (
+                  <Fragment key={`Fragment_${index}`}>
+                    <MenuItems>
+                      {itemsData.map((item: TreeSelectData) => (
+                        <MenuItem
+                          key={item.subjectId}
+                          $textColor={item.textColor}
+                          $isEmpty={
+                            Array.isArray(item.children) &&
+                            item.children.length === 0
+                          }
+                          onClick={() => {
+                            if (
+                              item.children &&
+                              item.children.length !== 0
+                            ) {
+                              setSelectedMenu(item);
+                              // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
+                              setTimeout(() => {
+                                handleScroll();
+                              }, 0);
+                            } else {
+                              onChange(item);
+                            }
+                          }}
+                        >
+                          <MenuItemName title={item.displayName}>
+                            {item.displayName}
+                          </MenuItemName>
+                          {item.children !== undefined &&
+                            item.children.length >= 0 && (
+                              <MenuItemIcon>
+                                <ChevronRightIcon
+                                  width={20}
+                                  height={20}
+                                />
+                              </MenuItemIcon>
+                            )}
+                        </MenuItem>
+                      ))}
+                    </MenuItems>
+                  </Fragment>
+                );
+              })}
           </Menu>
         </Wrapper>
       )}
