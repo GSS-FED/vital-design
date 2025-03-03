@@ -34,7 +34,8 @@ export type TreeSelectProps = {
   style?: React.CSSProperties;
 };
 
-const findItem = (
+// 找尋所有子項目
+const findChild = (
   data: TreeSelectData,
 ): [string, TreeSelectData][] => {
   const { subjectId, children } = data;
@@ -44,8 +45,23 @@ const findItem = (
   // 有 Children 的則都是組織
   if (children.length <= 0) return [];
   return children.flatMap((item) => {
-    return findItem(item);
+    return findChild(item);
   });
+};
+// 找尋所有父項目
+const findParent = (
+  data: TreeSelectData,
+): [string, TreeSelectData][] => {
+  const { subjectId, children } = data;
+  const target: [string, TreeSelectData][] = [[subjectId, data]];
+  // 沒有 Children 代表是 Child
+  if (!children) return [];
+  return [
+    ...target,
+    ...children.flatMap((item) => {
+      return findParent(item);
+    }),
+  ];
 };
 
 export default function TreeSelect(props: TreeSelectProps) {
@@ -116,21 +132,48 @@ export default function TreeSelect(props: TreeSelectProps) {
     });
   };
 
-  const allItemMap: Map<string, TreeSelectData> = (() => {
-    const allItemArray = data
+  const allChildMap: Map<string, TreeSelectData> = (() => {
+    const allChildArray = data
       .map((item) => item.data)
       .flatMap((item) =>
-        item.flatMap((subItem) => findItem(subItem)),
+        item.flatMap((subItem) => findChild(subItem)),
       );
-    return new Map(allItemArray);
+    return new Map(allChildArray);
   })();
-  const filteredItem = [...allItemMap.entries()].filter((item) => {
-    const [_, child] = item;
-    if (searchText.menuSearchText === '') return true;
-    return child.displayName
-      .toLowerCase()
-      .includes(searchText.menuSearchText.toLowerCase());
+  const filteredChildItem = [...allChildMap.entries()].filter(
+    (item) => {
+      const [_, child] = item;
+      if (searchText.menuSearchText === '') return true;
+      return child.displayName
+        .toLowerCase()
+        .includes(searchText.menuSearchText.toLowerCase());
+    },
+  );
+  const allParentMapByLabel = (() => {
+    return data.map((item) => {
+      const itemParent = item.data.flatMap((subItem) =>
+        findParent(subItem),
+      );
+      const itemMap = new Map(itemParent);
+      return { label: item.label ?? '', data: itemMap };
+    });
+  })();
+  const filteredParentItems = allParentMapByLabel.map((item) => {
+    const filteredData = [...item.data.entries()].filter((item) => {
+      const [_, child] = item;
+      if (searchText.menuSearchText === '') return true;
+      return child.displayName
+        .toLowerCase()
+        .includes(searchText.menuSearchText.toLowerCase());
+    });
+    return {
+      ...item,
+      data: filteredData,
+    };
   });
+  const isFilterEmpty =
+    filteredChildItem.length <= 0 &&
+    filteredParentItems.flatMap((item) => item.data).length <= 0;
 
   return (
     <Container style={style}>
@@ -228,12 +271,13 @@ export default function TreeSelect(props: TreeSelectProps) {
           >
             {isRootMenuSearching && (
               <Fragment>
-                {filteredItem.length <= 0 && (
+                {/* XXX: 原本應該是給全域搜尋當作分類的 Label 使用，待調整 */}
+                {isFilterEmpty && (
                   <MenuItemsLabel>{globalSearchLabel}</MenuItemsLabel>
                 )}
-                {filteredItem.length > 0 && (
+                {filteredChildItem.length > 0 && (
                   <MenuItems>
-                    {filteredItem.map((item) => {
+                    {filteredChildItem.map((item) => {
                       const [_, child] = item;
                       const { displayName } = child;
                       return (
@@ -250,6 +294,56 @@ export default function TreeSelect(props: TreeSelectProps) {
                     })}
                   </MenuItems>
                 )}
+                {filteredParentItems.map((parentItem, index) => {
+                  const { label, data } = parentItem;
+                  if (data.length <= 0) return null;
+                  return (
+                    <MenuItems key={index}>
+                      <MenuItemsLabel>{label}</MenuItemsLabel>
+                      {data.map((item) => {
+                        const [_, child] = item;
+                        const { displayName } = child;
+                        return (
+                          <MenuItem
+                            key={child.subjectId}
+                            $textColor={child.textColor}
+                            $isEmpty={
+                              Array.isArray(child.children) &&
+                              child.children.length === 0
+                            }
+                            onClick={() => {
+                              if (
+                                child.children &&
+                                child.children.length !== 0
+                              ) {
+                                setSelectedMenu((prev) => [
+                                  ...prev,
+                                  child,
+                                ]);
+                                // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
+                                setTimeout(() => {
+                                  handleScroll();
+                                }, 0);
+                              } else {
+                                onChange(child);
+                              }
+                            }}
+                          >
+                            <MenuItemName title={displayName}>
+                              {displayName}
+                            </MenuItemName>
+                            <MenuItemIcon>
+                              <ChevronRightIcon
+                                width={20}
+                                height={20}
+                              />
+                            </MenuItemIcon>
+                          </MenuItem>
+                        );
+                      })}
+                    </MenuItems>
+                  );
+                })}
               </Fragment>
             )}
             {!isRootMenuSearching &&
