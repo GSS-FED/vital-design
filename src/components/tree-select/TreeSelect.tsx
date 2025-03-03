@@ -57,7 +57,9 @@ export default function TreeSelect(props: TreeSelectProps) {
     style,
   } = props;
 
-  const [selectedMenu, setSelectedMenu] = useState<TreeSelectData>();
+  const [selectedMenu, setSelectedMenu] = useState<TreeSelectData[]>(
+    [],
+  );
   const [searchText, setSearchText] = useState<SearchText>({
     menuSearchText: '',
     subMenuSearchText: '',
@@ -83,10 +85,15 @@ export default function TreeSelect(props: TreeSelectProps) {
     });
   };
 
-  const subMenu =
-    selectedMenu &&
-    selectedMenu.children &&
-    searchFilter(selectedMenu.children, searchText.subMenuSearchText);
+  const selectedLastMenu = selectedMenu[selectedMenu.length - 1];
+  const subMenu = (() => {
+    if (selectedMenu.length <= 0) return;
+    if (!selectedLastMenu || !selectedLastMenu.children) return;
+    return searchFilter(
+      selectedLastMenu.children,
+      searchText.subMenuSearchText,
+    );
+  })();
 
   const isScrollAtTop = refScrollInfo.scrollTop === 0;
   // NOTE: scrollTop 是一個非四捨五入的數字，而 scrollHeight 和 clientHeight 是四捨五入的，因此確定滾動區域是否滾動到底部的唯一方法是查看滾動量是否足夠接近某個閾值(這裡設置 1)
@@ -127,11 +134,13 @@ export default function TreeSelect(props: TreeSelectProps) {
 
   return (
     <Container style={style}>
-      {selectedMenu ? (
+      {selectedLastMenu ? (
         <Wrapper>
           <PreviousButton
             onClick={() => {
-              setSelectedMenu(undefined);
+              setSelectedMenu((prev) => [
+                ...prev.slice(0, prev.length - 1),
+              ]);
               setSearchText((prev) => ({
                 ...prev,
                 menuSearchText: '',
@@ -146,7 +155,7 @@ export default function TreeSelect(props: TreeSelectProps) {
             <PreviousIcon>
               <ChevronLeftIcon />
             </PreviousIcon>
-            {selectedMenu.displayName}
+            {selectedLastMenu.displayName}
           </PreviousButton>
           <Search
             prefix={<MagnifyingGlassIcon />}
@@ -168,7 +177,17 @@ export default function TreeSelect(props: TreeSelectProps) {
               {subMenu.map((item: TreeSelectData) => (
                 <MenuItem
                   key={item.subjectId}
-                  onClick={() => onChange(item)}
+                  onClick={() => {
+                    if (item.children && item.children.length !== 0) {
+                      setSelectedMenu((prev) => [...prev, item]);
+                      // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
+                      setTimeout(() => {
+                        handleScroll();
+                      }, 0);
+                    } else {
+                      onChange(item);
+                    }
+                  }}
                 >
                   <MenuItemName title={item.displayName}>
                     {item.displayName}
@@ -178,6 +197,12 @@ export default function TreeSelect(props: TreeSelectProps) {
                       <Crown />
                     </SubMenuItemIcon>
                   )}
+                  {item.children !== undefined &&
+                    item.children.length >= 0 && (
+                      <MenuItemIcon>
+                        <ChevronRightIcon width={20} height={20} />
+                      </MenuItemIcon>
+                    )}
                 </MenuItem>
               ))}
             </SubMenu>
@@ -261,7 +286,10 @@ export default function TreeSelect(props: TreeSelectProps) {
                               item.children &&
                               item.children.length !== 0
                             ) {
-                              setSelectedMenu(item);
+                              setSelectedMenu((prev) => [
+                                ...prev,
+                                item,
+                              ]);
                               // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
                               setTimeout(() => {
                                 handleScroll();
