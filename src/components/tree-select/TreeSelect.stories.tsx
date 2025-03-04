@@ -23,7 +23,7 @@ export const Default: Story = {
           {...args}
           data={testData}
           onChange={setValue}
-          globalSearchLabel="成員"
+          globalSearchLabel=""
         />
       );
     }
