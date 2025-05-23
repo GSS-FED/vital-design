@@ -22,6 +22,8 @@ pnpm add react react-dom styled-components
 
 ### 安裝
 
+#### npm & pnpm
+
 ```sh
 # 在 .npmrc 新增內容，目的是讓 package manager 認得 `@fed`
 echo @fed:registry=https://git.gss.com.tw/api/v4/projects/5615/packages/npm/ >> .npmrc
@@ -29,11 +31,21 @@ echo @fed:registry=https://git.gss.com.tw/api/v4/projects/5615/packages/npm/ >> 
 # npm
 npm install @fed/vital-design
 
-# Yarn
-yarn add @fed/vital-design
-
 # pnpm
 pnpm add @fed/vital-design
+```
+
+#### yarn
+
+```yml
+# .yarnrc.yml
+npmScopes:
+  fed:
+    npmRegistryServer: "https://git.gss.com.tw/api/v4/projects/5615/packages/npm/"
+```
+
+```sh
+yarn add @fed/vital-design
 ```
 
 ## 開發說明
