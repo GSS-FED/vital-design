@@ -1,3 +1,6 @@
-import FlagIcon from './flag-icon';
+import { FlagIcon } from './FlagIcon';
+import { SearchIcon } from './SearchIcon';
+import { SpinnerIcon } from './SpinnerIcon';
+import { UserIcon } from './UserIcon';
 
-export { FlagIcon };
+export { FlagIcon, SpinnerIcon, SearchIcon, UserIcon };

@@ -1,6 +1,6 @@
 import { CSSProperties, ReactNode, useState } from 'react';
 import styled, { css } from 'styled-components';
-import masks from '../../../constants/mask';
+import masks from 'src/constants/mask';
 
 const ITEM_HEIGHT = 32;
 

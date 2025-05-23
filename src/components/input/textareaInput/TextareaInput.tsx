@@ -1,6 +1,6 @@
 import { ForwardedRef, forwardRef } from 'react';
 import styled, { css } from 'styled-components';
-import { colors, styles } from '../../../constants';
+import { colors, styles } from 'src/constants';
 
 /* ---------------------------------- Types --------------------------------- */
 export type TextAreaInputProps = {

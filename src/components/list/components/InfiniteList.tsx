@@ -2,8 +2,7 @@ import { useRef, useState } from 'react';
 import { ListOnScrollProps, VariableSizeList } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 import styled, { CSSProperties, css } from 'styled-components';
-import { colors } from '../../../constants';
-import masks from '../../../constants/mask';
+import { colors, masks } from 'src/constants';
 import { InfiniteListItem } from './InfiniteListItem';
 
 const DEFAULT_ITEM_HEIGHT = 32;
