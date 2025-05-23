@@ -2,7 +2,7 @@ import * as RadixCheckbox from '@radix-ui/react-checkbox';
 import { rgba } from 'polished';
 import { CSSProperties, ReactNode } from 'react';
 import styled from 'styled-components';
-import { colors, styles } from '../../constants';
+import { colors, styles } from 'src/constants';
 
 export type CheckboxProps = {
   checked: boolean | 'indeterminate';

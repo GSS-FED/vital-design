@@ -1,10 +1,10 @@
 import { CSSProperties, ReactNode } from 'react';
 import styled from 'styled-components';
-import { SearchBar } from '../../..';
-import { colors, shadows } from '../../../constants';
-import { SpinnerIcon } from '../../../icons/SpinnerIcon';
-import InfiniteList from '../components/InfiniteList';
-import { ListItem } from '../components/ListItem';
+import InfiniteList from 'src/components/list/components/InfiniteList';
+import { ListItem } from 'src/components/list/components/ListItem';
+import SearchBar from 'src/components/search-bar/SearchBar';
+import { colors, shadows } from 'src/constants';
+import { SpinnerIcon } from 'src/icons/SpinnerIcon';
 
 type BaseItem = {
   id: string | number;

@@ -2,7 +2,7 @@ import * as RadixRadioGroup from '@radix-ui/react-radio-group';
 import { rgba } from 'polished';
 import { CSSProperties } from 'react';
 import styled from 'styled-components';
-import { colors, styles } from '../../constants';
+import { colors, styles } from 'src/constants';
 
 export type RadioOption = {
   label: string;

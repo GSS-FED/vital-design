@@ -5,8 +5,8 @@ import {
 } from '@radix-ui/react-icons';
 import { Fragment, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { colors, shadows, styles } from '../../constants';
-import TextInput from '../input/textInput/TextInput';
+import TextInput from 'src/components/input/textInput/TextInput';
+import { colors, shadows, styles } from 'src/constants';
 
 interface TreeSelectData {
   displayName: string;

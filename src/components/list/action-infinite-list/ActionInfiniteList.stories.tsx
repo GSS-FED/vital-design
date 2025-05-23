@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import { useEffect, useState } from 'react';
-import { useDebounceValue } from '../../../hooks/useDebounceValue';
+import { useDebounceValue } from 'src/hooks/useDebounceValue';
 import ActionInfiniteList from './ActionInfiniteList';
 import { searchData } from './ActionInfiniteList.data';
 import { useFetchData } from './useFetchData';

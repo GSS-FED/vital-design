@@ -1,7 +1,7 @@
 import { rgba } from 'polished';
 import { CSSProperties, ReactNode } from 'react';
 import styled from 'styled-components';
-import { colors, styles } from '../../constants';
+import { colors, styles } from 'src/constants';
 
 export type ChipProps = {
   children: ReactNode;
