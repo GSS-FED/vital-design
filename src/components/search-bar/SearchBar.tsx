@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 import styled, { CSSProperties } from 'styled-components';
+import { SearchIcon } from 'src/icons';
 import { styles } from '../../constants';
 import colors from '../../constants/colors';
-import SearchIcon from '../../icons/search-icon';
 
 export type SearchBarProps = {
   placeholder: string;

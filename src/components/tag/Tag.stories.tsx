@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { FlagIcon } from '../../icons';
+import { FlagIcon } from 'src/icons';
 import Tag from './Tag';
 
 type Story = StoryObj<typeof Tag>;

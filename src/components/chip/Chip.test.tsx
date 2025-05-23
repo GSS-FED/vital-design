@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { expect, it, vi } from 'vitest';
-import { FlagIcon } from '../../icons';
+import { FlagIcon } from 'src/icons';
 import Chip from './Chip';
 
 it('renders an unselected chip', () => {
