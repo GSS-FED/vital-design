@@ -15,6 +15,7 @@ import {
   ReactNode,
   createContext,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -394,6 +395,20 @@ export interface SearchInputProps {
   onChange: (v: string) => void;
 }
 const SearchInput = ({ placeholder, onChange }: SearchInputProps) => {
+  const { open } = useSelectContext();
+  const prevOpen = useRef(open);
+
+  useEffect(() => {
+    // 選單從開啟變為關閉時，通知外部重置搜尋
+    if (prevOpen.current && !open) {
+      onChange('');
+    }
+    prevOpen.current = open;
+  }, [open, onChange]);
+
+  // 選單關閉時卸載元件，自動重置搜尋狀態
+  if (!open) return null;
+
   return (
     <StyledSearchBar>
       <SearchBar placeholder={placeholder} onChange={onChange} />
