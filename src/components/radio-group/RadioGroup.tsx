@@ -1,11 +1,11 @@
 import * as RadixRadioGroup from '@radix-ui/react-radio-group';
 import { rgba } from 'polished';
-import { CSSProperties } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 import styled from 'styled-components';
 import { colors, styles } from 'src/constants';
 
 export type RadioOption = {
-  label: string;
+  label: ReactNode;
   value: string;
   disabled?: boolean;
 };
@@ -43,7 +43,7 @@ export default function RadioGroup(props: RadioGroupProps) {
               <Indictor />
             </Button>
           </ButtonWrapper>
-          {!!option.label && <div>{option.label}</div>}
+          <div>{option.label}</div>
         </Label>
       ))}
     </Container>

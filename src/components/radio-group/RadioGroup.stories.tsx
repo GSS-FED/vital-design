@@ -62,3 +62,29 @@ export const LongTextOption: Story = {
     ],
   },
 };
+
+export const OptionWithCustomizedLabel: Story = {
+  name: 'Customizable Label',
+  args: {
+    direction: 'vertical',
+    options: [
+      {
+        label: (
+          <div>
+            我養了一隻{' '}
+            <select name="pets" id="pet-select">
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+              <option value="hamster">Hamster</option>
+              <option value="parrot">Parrot</option>
+              <option value="spider">Spider</option>
+              <option value="goldfish">Goldfish</option>
+            </select>
+          </div>
+        ),
+        value: 'unique-value-a',
+      },
+      { label: '我沒有養寵物', value: 'unique-value-b' },
+    ],
+  },
+};
