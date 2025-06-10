@@ -2,7 +2,7 @@ import * as RadixSwitch from '@radix-ui/react-switch';
 import { rgba } from 'polished';
 import { CSSProperties } from 'react';
 import styled from 'styled-components';
-import { colors, styles } from '../../constants';
+import { colors, styles } from 'src/constants';
 
 export type SwitchProps = {
   checked: boolean;

@@ -1,8 +1,8 @@
 import { useArgs } from '@storybook/preview-api';
 import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import FlagIcon from '../../icons/flag-icon';
-import UserIcon from '../../icons/user-icon';
+import { FlagIcon } from 'src/icons';
+import { UserIcon } from 'src/icons';
 import Chip, { ChipProps } from './Chip';
 
 type Story = StoryObj<typeof Chip>;

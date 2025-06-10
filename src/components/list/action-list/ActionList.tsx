@@ -1,10 +1,10 @@
 import { CSSProperties, useState } from 'react';
 import styled from 'styled-components';
-import { SearchBar } from '../../..';
-import { colors, shadows } from '../../../constants';
-import { Option } from '../components/ListContainer';
-import ListContainer from '../components/ListContainer';
-import { ListItem } from '../components/ListItem';
+import { Option } from 'src/components/list/components/ListContainer';
+import ListContainer from 'src/components/list/components/ListContainer';
+import { ListItem } from 'src/components/list/components/ListItem';
+import SearchBar from 'src/components/search-bar/SearchBar';
+import { colors, shadows } from 'src/constants';
 
 const ITEM_HEIGHT = 32;
 

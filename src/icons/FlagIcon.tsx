@@ -3,7 +3,7 @@ type FlagIconProps = {
   height?: number;
 };
 
-export default function FlagIcon(props: FlagIconProps) {
+export const FlagIcon = (props: FlagIconProps) => {
   const { width, height } = props;
 
   return (
@@ -20,4 +20,4 @@ export default function FlagIcon(props: FlagIconProps) {
       />
     </svg>
   );
-}
+};
