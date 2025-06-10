@@ -47,15 +47,17 @@ export default function ActionList(props: ActionListProps) {
     hasSearchBar = true,
   } = props;
 
-  const [currentState, setCurrentState] = useState(items);
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const filteredItems = items.filter((item) =>
+    item.displayName
+      .toLowerCase()
+      .includes(searchKeyword.toLowerCase()),
+  );
 
   const handleChange = (keyword: string) => {
-    const searchKeyword = keyword.toLocaleLowerCase();
-    const filterData = items.filter((item) =>
-      item.displayName.toLowerCase().includes(searchKeyword),
-    );
-    setCurrentState(filterData);
-    onSearchTermChange?.(keyword);
+    const trimmedKeyword = keyword.trim();
+    setSearchKeyword(trimmedKeyword);
+    onSearchTermChange?.(trimmedKeyword);
   };
 
   function handleSelect(value: string | number) {
@@ -77,13 +79,13 @@ export default function ActionList(props: ActionListProps) {
       )}
 
       <ListContainer
-        items={currentState}
+        items={filteredItems}
         height={listHeight}
         style={listContainerStyle}
         className={listContainerClassName}
       >
-        {currentState.length > 0 &&
-          currentState.map((item) => (
+        {filteredItems?.length > 0 &&
+          filteredItems.map((item) => (
             <LIstItemWrapper key={item.id}>
               <ListItem
                 $selected={selectedItem === item.id}
@@ -99,7 +101,7 @@ export default function ActionList(props: ActionListProps) {
               </ListItem>
             </LIstItemWrapper>
           ))}
-        {currentState?.length === 0 && (
+        {filteredItems?.length === 0 && (
           <NoMatchingResultsText>
             {noMatchingResultsText}
           </NoMatchingResultsText>
