@@ -70,7 +70,7 @@ const Container = styled(RadixRadioGroup.Root)<ContainerProps>`
 `;
 const Label = styled.label<{ $disabled?: boolean }>`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
   color: ${(props) => props.$disabled && colors.grayscale500};
   cursor: ${(props) => (props.$disabled ? 'not-allowed' : 'pointer')};
