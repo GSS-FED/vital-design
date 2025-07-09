@@ -15,6 +15,17 @@ import RadioGroup, {
 import SearchBar, {
   SearchBarProps,
 } from './components/search-bar/SearchBar';
+import Select, {
+  ContentProps as SelectContentProps,
+  EmptyTextProps as SelectEmptyTextProps,
+  ItemProps as SelectItemProps,
+  ItemType as SelectItemType,
+  MenuProps as SelectMenuProps,
+  SelectProps,
+  SearchInputProps as SelectSearchInputProps,
+  TitleProps as SelectTitleProps,
+  TriggerProps as SelectTriggerProps,
+} from './components/select/Select';
 import Switch, { SwitchProps } from './components/switch/Switch';
 import Tag, { TagProps } from './components/tag/Tag';
 import TreeSelect, {
@@ -31,6 +42,7 @@ export {
   SearchBar,
   ActionList,
   ActionInfiniteList,
+  Select,
 };
 
 export type {
@@ -44,4 +56,13 @@ export type {
   SearchBarProps,
   ActionListProps,
   ActionInfiniteListProps,
+  SelectProps,
+  SelectContentProps,
+  SelectItemProps,
+  SelectItemType,
+  SelectMenuProps,
+  SelectSearchInputProps,
+  SelectTitleProps,
+  SelectTriggerProps,
+  SelectEmptyTextProps,
 };
