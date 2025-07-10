@@ -161,12 +161,14 @@ export interface TriggerProps {
   placeholder?: string;
   maxDisplayCount?: 1 | 2 | 3 | 6;
   children?: ReactNode;
+  style?: CSSProperties;
 }
 const Trigger = ({
   onClear,
   clearable = false,
   maxDisplayCount = 2,
   placeholder = '',
+  style,
 }: TriggerProps) => {
   const {
     open,
@@ -199,6 +201,7 @@ const Trigger = ({
       $disabled={disabled}
       {...getReferenceProps()}
       data-testid={'select-trigger'}
+      style={style}
     >
       {hasValue ? (
         contentJSX
@@ -544,6 +547,7 @@ const StyledContent = styled.div<StyledContentProps>`
   border-radius: 4px;
   box-shadow: ${shadows.EMPHASIS};
   display: ${({ $open }) => ($open ? 'flex' : 'none')};
+  z-index: 9999;
 `;
 const StyledHeader = styled.div``;
 const StyledMenu = styled.div``;
