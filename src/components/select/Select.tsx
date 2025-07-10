@@ -544,6 +544,7 @@ const StyledContent = styled.div<StyledContentProps>`
   border-radius: 4px;
   box-shadow: ${shadows.EMPHASIS};
   display: ${({ $open }) => ($open ? 'flex' : 'none')};
+  z-index: 9999;
 `;
 const StyledHeader = styled.div``;
 const StyledMenu = styled.div``;
