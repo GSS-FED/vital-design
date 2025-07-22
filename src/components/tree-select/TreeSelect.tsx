@@ -33,6 +33,7 @@ export type TreeSelectProps<T> = {
   placeholder?: string;
   globalSearchLabel?: string;
   style?: React.CSSProperties;
+  isEnableSearch?: boolean;
 };
 
 // 找尋所有子項目
@@ -71,6 +72,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
     placeholder = '輸入關鍵字',
     globalSearchLabel,
     style,
+    isEnableSearch = true,
   } = props;
 
   const [selectedMenu, setSelectedMenu] = useState<
@@ -200,16 +202,18 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
             </PreviousIcon>
             {selectedLastMenu.displayName}
           </PreviousButton>
-          <Search
-            prefix={<MagnifyingGlassIcon />}
-            placeholder={placeholder}
-            onChange={(value) =>
-              setSearchText((prev) => ({
-                ...prev,
-                subMenuSearchText: value,
-              }))
-            }
-          />
+          {isEnableSearch && (
+            <Search
+              prefix={<MagnifyingGlassIcon />}
+              placeholder={placeholder}
+              onChange={(value) =>
+                setSearchText((prev) => ({
+                  ...prev,
+                  subMenuSearchText: value,
+                }))
+              }
+            />
+          )}
           {subMenu && (
             <SubMenu
               ref={scrollRef}
@@ -253,16 +257,18 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
         </Wrapper>
       ) : (
         <Wrapper>
-          <Search
-            prefix={<MagnifyingGlassIcon />}
-            placeholder={placeholder}
-            onChange={(value) =>
-              setSearchText((prev) => ({
-                ...prev,
-                menuSearchText: value,
-              }))
-            }
-          />
+          {isEnableSearch && (
+            <Search
+              prefix={<MagnifyingGlassIcon />}
+              placeholder={placeholder}
+              onChange={(value) =>
+                setSearchText((prev) => ({
+                  ...prev,
+                  menuSearchText: value,
+                }))
+              }
+            />
+          )}
           <Menu
             ref={scrollRef}
             onScroll={handleScroll}
