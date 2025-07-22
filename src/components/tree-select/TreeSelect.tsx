@@ -3,22 +3,23 @@ import {
   ChevronRightIcon,
   MagnifyingGlassIcon,
 } from '@radix-ui/react-icons';
-import { Fragment, useRef, useState } from 'react';
+import { Fragment, ReactNode, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import TextInput from 'src/components/input/textInput/TextInput';
 import { colors, shadows, styles } from 'src/constants';
 
-interface TreeSelectData {
+interface TreeSelectData<T> {
   displayName: string;
-  subjectId: string;
-  children?: TreeSelectData[];
+  data: T;
+  id: string;
+  children?: TreeSelectData<T>[];
   textColor?: string;
-  isManager?: boolean;
+  suffixIcon?: ReactNode;
 }
 
-interface TreeSelectRoot {
+interface TreeSelectRoot<T> {
   label?: string;
-  data: TreeSelectData[];
+  data: TreeSelectData<T>[];
 }
 
 interface SearchText {
@@ -26,34 +27,33 @@ interface SearchText {
   subMenuSearchText: string;
 }
 
-export type TreeSelectProps = {
-  data: TreeSelectRoot[];
-  onChange: (value: TreeSelectData) => void;
+export type TreeSelectProps<T> = {
+  data: TreeSelectRoot<T>[];
+  onChange: (value: { id: string; data: T }) => void;
   placeholder?: string;
   globalSearchLabel?: string;
   style?: React.CSSProperties;
 };
 
 // 找尋所有子項目
-const findChild = (
-  data: TreeSelectData,
-): [string, TreeSelectData][] => {
-  const { subjectId, children } = data;
-  const target: [string, TreeSelectData][] = [[subjectId, data]];
+function findChild<T>(
+  data: TreeSelectData<T>,
+): [string, TreeSelectData<T>][] {
+  const { id, children } = data;
+  const target: [string, TreeSelectData<T>][] = [[id, data]];
   // 沒有 Children 代表是 Child
   if (!children) return target;
-  // 有 Children 的則都是組織
   if (children.length <= 0) return [];
   return children.flatMap((item) => {
     return findChild(item);
   });
-};
+}
 // 找尋所有父項目
-const findParent = (
-  data: TreeSelectData,
-): [string, TreeSelectData][] => {
-  const { subjectId, children } = data;
-  const target: [string, TreeSelectData][] = [[subjectId, data]];
+function findParent<T>(
+  data: TreeSelectData<T>,
+): [string, TreeSelectData<T>][] {
+  const { id, children } = data;
+  const target: [string, TreeSelectData<T>][] = [[id, data]];
   // 沒有 Children 代表是 Child
   if (!children) return [];
   return [
@@ -62,9 +62,9 @@ const findParent = (
       return findParent(item);
     }),
   ];
-};
+}
 
-export default function TreeSelect(props: TreeSelectProps) {
+export default function TreeSelect<T>(props: TreeSelectProps<T>) {
   const {
     data,
     onChange,
@@ -73,9 +73,9 @@ export default function TreeSelect(props: TreeSelectProps) {
     style,
   } = props;
 
-  const [selectedMenu, setSelectedMenu] = useState<TreeSelectData[]>(
-    [],
-  );
+  const [selectedMenu, setSelectedMenu] = useState<
+    TreeSelectData<T>[]
+  >([]);
   const [searchText, setSearchText] = useState<SearchText>({
     menuSearchText: '',
     subMenuSearchText: '',
@@ -89,7 +89,7 @@ export default function TreeSelect(props: TreeSelectProps) {
   const scrollRef = useRef(null);
   const isRootMenuSearching = searchText.menuSearchText !== '';
   const searchFilter = (
-    data: TreeSelectData[],
+    data: TreeSelectData<T>[],
     searchText: string,
   ) => {
     if (!data) return [];
@@ -132,7 +132,7 @@ export default function TreeSelect(props: TreeSelectProps) {
     });
   };
 
-  const allChildMap: Map<string, TreeSelectData> = (() => {
+  const allChildMap: Map<string, TreeSelectData<T>> = (() => {
     const allChildArray = data
       .map((item) => item.data)
       .flatMap((item) =>
@@ -217,9 +217,9 @@ export default function TreeSelect(props: TreeSelectProps) {
               $isScrollAtTop={isScrollAtTop}
               $isScrollAtBottom={isScrollAtBottom}
             >
-              {subMenu.map((item: TreeSelectData) => (
+              {subMenu.map((item: TreeSelectData<T>) => (
                 <MenuItem
-                  key={item.subjectId}
+                  key={item.id}
                   onClick={() => {
                     if (item.children && item.children.length !== 0) {
                       setSelectedMenu((prev) => [...prev, item]);
@@ -228,18 +228,18 @@ export default function TreeSelect(props: TreeSelectProps) {
                         handleScroll();
                       }, 0);
                     } else {
-                      onChange(item);
+                      onChange({ id: item.id, data: item.data });
                     }
                   }}
                 >
                   <MenuItemName title={item.displayName}>
                     {item.displayName}
                   </MenuItemName>
-                  {item.isManager && (
+                  {item.suffixIcon ? (
                     <SubMenuItemIcon>
-                      <Crown />
+                      {item.suffixIcon}
                     </SubMenuItemIcon>
-                  )}
+                  ) : null}
                   {item.children !== undefined &&
                     item.children.length >= 0 && (
                       <MenuItemIcon>
@@ -282,9 +282,14 @@ export default function TreeSelect(props: TreeSelectProps) {
                       const { displayName } = child;
                       return (
                         <MenuItem
-                          key={`${child.subjectId}`}
+                          key={`${child.id}`}
                           $textColor={child.textColor}
-                          onClick={() => onChange(child)}
+                          onClick={() =>
+                            onChange({
+                              id: child.id,
+                              data: child.data,
+                            })
+                          }
                         >
                           <MenuItemName title={displayName}>
                             {displayName}
@@ -305,7 +310,7 @@ export default function TreeSelect(props: TreeSelectProps) {
                         const { displayName } = child;
                         return (
                           <MenuItem
-                            key={child.subjectId}
+                            key={child.id}
                             $textColor={child.textColor}
                             $isEmpty={
                               Array.isArray(child.children) &&
@@ -325,7 +330,10 @@ export default function TreeSelect(props: TreeSelectProps) {
                                   handleScroll();
                                 }, 0);
                               } else {
-                                onChange(child);
+                                onChange({
+                                  id: child.id,
+                                  data: child.data,
+                                });
                               }
                             }}
                           >
@@ -352,24 +360,13 @@ export default function TreeSelect(props: TreeSelectProps) {
                   items.data,
                   searchText.menuSearchText,
                 );
-                const allUser = items.data.filter((item) => {
-                  return item.subjectId === 'allMembers';
-                })[0]?.children;
-                const searchedAllUser = searchFilter(
-                  allUser ?? [],
-                  searchText.menuSearchText,
-                );
-                if (
-                  itemsData.length === 0 &&
-                  searchedAllUser.length === 0
-                )
-                  return;
+                if (itemsData.length === 0) return;
                 return (
                   <Fragment key={`Fragment_${index}`}>
                     <MenuItems>
-                      {itemsData.map((item: TreeSelectData) => (
+                      {itemsData.map((item: TreeSelectData<T>) => (
                         <MenuItem
-                          key={item.subjectId}
+                          key={item.id}
                           $textColor={item.textColor}
                           $isEmpty={
                             Array.isArray(item.children) &&
@@ -389,7 +386,10 @@ export default function TreeSelect(props: TreeSelectProps) {
                                 handleScroll();
                               }, 0);
                             } else {
-                              onChange(item);
+                              onChange({
+                                id: item.id,
+                                data: item.data,
+                              });
                             }
                           }}
                         >
@@ -628,11 +628,3 @@ const PreviousButton = styled.div`
 const PreviousIcon = styled.div`
   display: flex;
 `;
-
-function Crown() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-      <path d="M309 106c11.4-7 19-19.7 19-34c0-22.1-17.9-40-40-40s-40 17.9-40 40c0 14.4 7.6 27 19 34l-5.8 11.6L209.7 220.6c-9.1 18.2-32.7 23.4-48.6 10.7l-72-57.6L72 160c5-6.7 8-15 8-24c0-22.1-17.9-40-40-40S0 113.9 0 136s17.9 40 40 40c.2 0 .5 0 .7 0l4.4 23.9L86.4 427.4c5.5 30.4 32 52.6 63 52.6l277.2 0c30.9 0 57.4-22.1 63-52.6l41.4-227.5 4.4-23.9c.2 0 .5 0 .7 0c22.1 0 40-17.9 40-40s-17.9-40-40-40s-40 17.9-40 40c0 9 3 17.3 8 24l-17.1 13.7-72 57.6c-15.9 12.7-39.5 7.5-48.6-10.7L314.8 117.7 309 106zM133.7 418.9L102.2 245.6l28.9 23.1c39.8 31.8 98.8 18.9 121.5-26.7L288 171.3l35.4 70.7c22.8 45.6 81.8 58.5 121.5 26.7l28.9-23.1L442.3 418.9c-1.4 7.6-8 13.1-15.7 13.1l-277.2 0c-7.7 0-14.4-5.5-15.7-13.1z" />
-    </svg>
-  );
-}
