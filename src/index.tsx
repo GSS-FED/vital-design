@@ -29,7 +29,9 @@ import Select, {
 import Switch, { SwitchProps } from './components/switch/Switch';
 import Tag, { TagProps } from './components/tag/Tag';
 import TreeSelect, {
+  TreeSelectData,
   TreeSelectProps,
+  TreeSelectRoot,
 } from './components/tree-select/TreeSelect';
 
 export {
@@ -53,6 +55,8 @@ export type {
   SwitchProps,
   TagProps,
   TreeSelectProps,
+  TreeSelectRoot,
+  TreeSelectData,
   SearchBarProps,
   ActionListProps,
   ActionInfiniteListProps,
