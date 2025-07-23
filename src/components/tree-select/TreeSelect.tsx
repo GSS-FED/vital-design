@@ -29,7 +29,7 @@ interface SearchText {
 
 export type TreeSelectProps<T> = {
   data: TreeSelectRoot<T>[];
-  onChange: (value: { id: string; data: T | null }) => void;
+  onChange: (value: TreeSelectData<T>) => void;
   placeholder?: string;
   globalSearchLabel?: string;
   style?: React.CSSProperties;
@@ -232,10 +232,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                         handleScroll();
                       }, 0);
                     } else {
-                      onChange({
-                        id: item.id,
-                        data: item.data ?? null,
-                      });
+                      onChange(item);
                     }
                   }}
                 >
@@ -293,12 +290,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                         <MenuItem
                           key={`${child.id}`}
                           $textColor={child.textColor}
-                          onClick={() =>
-                            onChange({
-                              id: child.id,
-                              data: child.data ?? null,
-                            })
-                          }
+                          onClick={() => onChange(child)}
                         >
                           <MenuItemName title={displayName}>
                             {displayName}
@@ -339,10 +331,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                                   handleScroll();
                                 }, 0);
                               } else {
-                                onChange({
-                                  id: child.id,
-                                  data: child.data ?? null,
-                                });
+                                onChange(child);
                               }
                             }}
                           >
@@ -395,10 +384,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                                 handleScroll();
                               }, 0);
                             } else {
-                              onChange({
-                                id: item.id,
-                                data: item.data ?? null,
-                              });
+                              onChange(item);
                             }
                           }}
                         >
