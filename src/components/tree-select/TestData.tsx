@@ -4,8 +4,10 @@ export const testData = [
     data: [
       {
         displayName: '略過此關卡',
-        subjectId: 'skip',
-        subjectType: 1,
+        id: 'skip',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
@@ -19,8 +21,10 @@ export const testData = [
     data: [
       {
         displayName: '上一關簽核主管',
-        subjectId: '-3',
-        subjectType: 1,
+        id: '-3',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
@@ -28,8 +32,10 @@ export const testData = [
       },
       {
         displayName: '本關簽核人主管',
-        subjectId: '-2',
-        subjectType: 1,
+        id: '-2',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
@@ -37,8 +43,10 @@ export const testData = [
       },
       {
         displayName: '起單人的主管',
-        subjectId: '-1',
-        subjectType: 1,
+        id: '-1',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
@@ -51,97 +59,120 @@ export const testData = [
     data: [
       {
         displayName: '所有人',
-        subjectId: 'allMembers',
-        subjectType: 1,
+        id: 'allMembers',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
         children: [
           {
             displayName: '成員1',
-            subjectId: '1',
-            subjectType: 2,
+            id: '1',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
-            isAdmin: true,
           },
           {
             displayName: '成員2',
-            subjectId: '2',
-            subjectType: 2,
+            id: '2',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員3',
-            subjectId: '3',
-            subjectType: 2,
+            id: '3',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員4',
-            subjectId: '4',
-            subjectType: 2,
+            id: '4',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員5',
-            subjectId: '5',
-            subjectType: 2,
+            id: '5',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員6',
-            subjectId: '6',
-            subjectType: 2,
+            id: '6',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員7',
-            subjectId: '7',
-            subjectType: 2,
+            id: '7',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員8',
-            subjectId: '8',
-            subjectType: 2,
+            id: '8',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員9',
-            subjectId: '9',
-            subjectType: 2,
+            id: '9',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員10',
-            subjectId: '10',
-            subjectType: 2,
+            id: '10',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員11',
-            subjectId: '11',
-            subjectType: 2,
+            id: '11',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
@@ -150,25 +181,30 @@ export const testData = [
       },
       {
         displayName: '未分配成員',
-        subjectId: '12',
-        subjectType: 1,
+        id: '12',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
         children: [
           {
             displayName: '成員1',
-            subjectId: '13',
-            subjectType: 2,
+            id: '13',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
-            isAdmin: true,
           },
           {
             displayName: '成員2',
-            subjectId: '14',
-            subjectType: 2,
+            id: '14',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
@@ -182,32 +218,48 @@ export const testData = [
     data: [
       {
         displayName: '組織1',
-        subjectId: '15',
-        subjectType: 1,
+        id: '15',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
         children: [
           {
             displayName: '成員1',
-            subjectId: '16',
-            subjectType: 2,
+            id: '16',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
+            suffixIcon: (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 576 512"
+              >
+                <path d="M309 106c11.4-7 19-19.7 19-34c0-22.1-17.9-40-40-40s-40 17.9-40 40c0 14.4 7.6 27 19 34l-5.8 11.6L209.7 220.6c-9.1 18.2-32.7 23.4-48.6 10.7l-72-57.6L72 160c5-6.7 8-15 8-24c0-22.1-17.9-40-40-40S0 113.9 0 136s17.9 40 40 40c.2 0 .5 0 .7 0l4.4 23.9L86.4 427.4c5.5 30.4 32 52.6 63 52.6l277.2 0c30.9 0 57.4-22.1 63-52.6l41.4-227.5 4.4-23.9c.2 0 .5 0 .7 0c22.1 0 40-17.9 40-40s-17.9-40-40-40s-40 17.9-40 40c0 9 3 17.3 8 24l-17.1 13.7-72 57.6c-15.9 12.7-39.5 7.5-48.6-10.7L314.8 117.7 309 106zM133.7 418.9L102.2 245.6l28.9 23.1c39.8 31.8 98.8 18.9 121.5-26.7L288 171.3l35.4 70.7c22.8 45.6 81.8 58.5 121.5 26.7l28.9-23.1L442.3 418.9c-1.4 7.6-8 13.1-15.7 13.1l-277.2 0c-7.7 0-14.4-5.5-15.7-13.1z" />
+              </svg>
+            ),
           },
           {
             displayName: '成員2',
-            subjectId: '17',
-            subjectType: 2,
+            id: '17',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員3',
-            subjectId: '18',
-            subjectType: 2,
+            id: '18',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
@@ -216,32 +268,40 @@ export const testData = [
       },
       {
         displayName: '組織2',
-        subjectId: '19',
-        subjectType: 1,
+        id: '19',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
         children: [
           {
             displayName: '成員1',
-            subjectId: '20',
-            subjectType: 2,
+            id: '20',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員2',
-            subjectId: '21',
-            subjectType: 2,
+            id: '21',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員3',
-            subjectId: '22',
-            subjectType: 2,
+            id: '22',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
@@ -250,8 +310,10 @@ export const testData = [
       },
       {
         displayName: '組織3 (無成員)',
-        subjectId: 'og3',
-        subjectType: 1,
+        id: 'og3',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
@@ -264,8 +326,10 @@ export const testData = [
     data: [
       {
         displayName: '群組 (無成員)',
-        subjectId: 'group-no-user',
-        subjectType: 1,
+        id: 'group-no-user',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
@@ -273,32 +337,40 @@ export const testData = [
       },
       {
         displayName: '群組1',
-        subjectId: '23',
-        subjectType: 1,
+        id: '23',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
         children: [
           {
             displayName: '成員1',
-            subjectId: '24',
-            subjectType: 2,
+            id: '24',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員2',
-            subjectId: '25',
-            subjectType: 2,
+            id: '25',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員3',
-            subjectId: '26',
-            subjectType: 2,
+            id: '26',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
@@ -307,32 +379,40 @@ export const testData = [
       },
       {
         displayName: '群組2',
-        subjectId: '27',
-        subjectType: 1,
+        id: '27',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
         children: [
           {
             displayName: '成員1',
-            subjectId: '28',
-            subjectType: 2,
+            id: '28',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員2',
-            subjectId: '29',
-            subjectType: 2,
+            id: '29',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員3',
-            subjectId: '30',
-            subjectType: 2,
+            id: '30',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
@@ -341,32 +421,40 @@ export const testData = [
       },
       {
         displayName: '群組3',
-        subjectId: '31',
-        subjectType: 1,
+        id: '31',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
         children: [
           {
             displayName: '成員1',
-            subjectId: '32',
-            subjectType: 2,
+            id: '32',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員2',
-            subjectId: '33',
-            subjectType: 2,
+            id: '33',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員3',
-            subjectId: '34',
-            subjectType: 2,
+            id: '34',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
@@ -375,32 +463,40 @@ export const testData = [
       },
       {
         displayName: '群組4',
-        subjectId: '35',
-        subjectType: 1,
+        id: '35',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
         children: [
           {
             displayName: '成員1',
-            subjectId: '36',
-            subjectType: 2,
+            id: '36',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員2',
-            subjectId: '37',
-            subjectType: 2,
+            id: '37',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員3',
-            subjectId: '38',
-            subjectType: 2,
+            id: '38',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
@@ -409,32 +505,40 @@ export const testData = [
       },
       {
         displayName: '群組5',
-        subjectId: '39',
-        subjectType: 1,
+        id: '39',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
         children: [
           {
             displayName: '成員1',
-            subjectId: '40',
-            subjectType: 2,
+            id: '40',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員2',
-            subjectId: '41',
-            subjectType: 2,
+            id: '41',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員3',
-            subjectId: '42',
-            subjectType: 2,
+            id: '42',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
@@ -443,32 +547,40 @@ export const testData = [
       },
       {
         displayName: '群組6',
-        subjectId: '43',
-        subjectType: 1,
+        id: '43',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
         children: [
           {
             displayName: '成員1',
-            subjectId: '44',
-            subjectType: 2,
+            id: '44',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員2',
-            subjectId: '45',
-            subjectType: 2,
+            id: '45',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員3',
-            subjectId: '46',
-            subjectType: 2,
+            id: '46',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
@@ -477,32 +589,40 @@ export const testData = [
       },
       {
         displayName: '群組7',
-        subjectId: '47',
-        subjectType: 1,
+        id: '47',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
         children: [
           {
             displayName: '成員1',
-            subjectId: '48',
-            subjectType: 2,
+            id: '48',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員2',
-            subjectId: '49',
-            subjectType: 2,
+            id: '49',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員3',
-            subjectId: '50',
-            subjectType: 2,
+            id: '50',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
@@ -511,32 +631,40 @@ export const testData = [
       },
       {
         displayName: '群組8',
-        subjectId: '51',
-        subjectType: 1,
+        id: '51',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
         children: [
           {
             displayName: '成員1',
-            subjectId: '52',
-            subjectType: 2,
+            id: '52',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員2',
-            subjectId: '53',
-            subjectType: 2,
+            id: '53',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員3',
-            subjectId: '54',
-            subjectType: 2,
+            id: '54',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
@@ -545,32 +673,40 @@ export const testData = [
       },
       {
         displayName: '群組9',
-        subjectId: '55',
-        subjectType: 1,
+        id: '55',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
         children: [
           {
             displayName: '成員1',
-            subjectId: '56',
-            subjectType: 2,
+            id: '56',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員2',
-            subjectId: '57',
-            subjectType: 2,
+            id: '57',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員3',
-            subjectId: '58',
-            subjectType: 2,
+            id: '58',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
@@ -579,32 +715,40 @@ export const testData = [
       },
       {
         displayName: '群組10',
-        subjectId: '59',
-        subjectType: 1,
+        id: '59',
+        data: {
+          subjectType: 1,
+        },
         parents: [],
         createdAt: '1',
         updatedAt: '1',
         children: [
           {
             displayName: '成員1',
-            subjectId: '60',
-            subjectType: 2,
+            id: '60',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員2',
-            subjectId: '61',
-            subjectType: 2,
+            id: '61',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
           },
           {
             displayName: '成員3',
-            subjectId: '62',
-            subjectType: 2,
+            id: '62',
+            data: {
+              subjectType: 2,
+            },
             parents: [],
             createdAt: '1',
             updatedAt: '1',
