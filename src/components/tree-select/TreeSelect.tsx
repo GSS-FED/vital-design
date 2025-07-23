@@ -8,16 +8,16 @@ import styled, { css } from 'styled-components';
 import TextInput from 'src/components/input/textInput/TextInput';
 import { colors, shadows, styles } from 'src/constants';
 
-interface TreeSelectData<T> {
+export interface TreeSelectData<T> {
   displayName: string;
-  data: T;
+  data?: T;
   id: string;
   children?: TreeSelectData<T>[];
   textColor?: string;
   suffixIcon?: ReactNode;
 }
 
-interface TreeSelectRoot<T> {
+export interface TreeSelectRoot<T> {
   label?: string;
   data: TreeSelectData<T>[];
 }
@@ -29,7 +29,7 @@ interface SearchText {
 
 export type TreeSelectProps<T> = {
   data: TreeSelectRoot<T>[];
-  onChange: (value: { id: string; data: T }) => void;
+  onChange: (value: { id: string; data: T | null }) => void;
   placeholder?: string;
   globalSearchLabel?: string;
   style?: React.CSSProperties;
@@ -232,7 +232,10 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                         handleScroll();
                       }, 0);
                     } else {
-                      onChange({ id: item.id, data: item.data });
+                      onChange({
+                        id: item.id,
+                        data: item.data ?? null,
+                      });
                     }
                   }}
                 >
@@ -293,7 +296,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                           onClick={() =>
                             onChange({
                               id: child.id,
-                              data: child.data,
+                              data: child.data ?? null,
                             })
                           }
                         >
@@ -338,7 +341,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                               } else {
                                 onChange({
                                   id: child.id,
-                                  data: child.data,
+                                  data: child.data ?? null,
                                 });
                               }
                             }}
@@ -394,7 +397,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                             } else {
                               onChange({
                                 id: item.id,
-                                data: item.data,
+                                data: item.data ?? null,
                               });
                             }
                           }}
