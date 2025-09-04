@@ -76,8 +76,8 @@ export const testData = [
                 ],
               },
               {
-                displayName: '成員A',
-                id: 'AB',
+                displayName: '成員A2',
+                id: 'AB2',
                 data: {
                   subjectType: 2,
                 },
@@ -577,5 +577,174 @@ export const testData = [
         ],
       },
     ],
+  },
+];
+
+export const treeSelectValueData = [
+  {
+    displayName: '所有人',
+    id: 'allMembers',
+    data: {
+      subjectType: 1,
+    },
+    children: [
+      {
+        displayName: '組織1-1',
+        id: '1',
+        data: {
+          subjectType: 2,
+        },
+        children: [
+          {
+            displayName: '組織1-1-1',
+            id: 'A',
+            data: {
+              subjectType: 2,
+            },
+            children: [
+              {
+                displayName: '成員A',
+                id: 'AB',
+                data: {
+                  subjectType: 2,
+                },
+              },
+            ],
+          },
+          {
+            displayName: '成員A2',
+            id: 'AB2',
+            data: {
+              subjectType: 2,
+            },
+          },
+        ],
+      },
+      {
+        displayName: '成員2',
+        id: '2',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員3',
+        id: '3',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員4',
+        id: '4',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員5',
+        id: '5',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員6',
+        id: '6',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員7',
+        id: '7',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員8',
+        id: '8',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員9',
+        id: '9',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員10',
+        id: '10',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員11',
+        id: '11',
+        data: {
+          subjectType: 2,
+        },
+      },
+    ],
+  },
+  {
+    displayName: '組織1-1',
+    id: '1',
+    data: {
+      subjectType: 2,
+    },
+    children: [
+      {
+        displayName: '組織1-1-1',
+        id: 'A',
+        data: {
+          subjectType: 2,
+        },
+        children: [
+          {
+            displayName: '成員A',
+            id: 'AB',
+            data: {
+              subjectType: 2,
+            },
+          },
+        ],
+      },
+      {
+        displayName: '成員A2',
+        id: 'AB2',
+        data: {
+          subjectType: 2,
+        },
+      },
+    ],
+  },
+  {
+    displayName: '組織1-1-1',
+    id: 'A',
+    data: {
+      subjectType: 2,
+    },
+    children: [
+      {
+        displayName: '成員A',
+        id: 'AB',
+        data: {
+          subjectType: 2,
+        },
+      },
+    ],
+  },
+  {
+    displayName: '成員A',
+    id: 'AB',
+    data: {
+      subjectType: 2,
+    },
   },
 ];

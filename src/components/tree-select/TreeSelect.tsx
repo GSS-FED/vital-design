@@ -152,6 +152,17 @@ function addTreeSelectIds<T>(
     data: addIdsToData(root.data),
   };
 }
+function checkIsPartialNodePath<T>(
+  partialNodePath: TreeSelectData<T>[],
+  nodePath: TreeSelectData<T>[],
+) {
+  if (partialNodePath.length > nodePath.length) return false;
+  for (let i = 0; i < partialNodePath.length; i++) {
+    if (!partialNodePath[i] || !nodePath[i]) return false;
+    if (partialNodePath[i]?.id !== nodePath[i]?.id) return false;
+  }
+  return true;
+}
 
 export default function TreeSelect<T>(props: TreeSelectProps<T>) {
   const {
@@ -161,6 +172,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
     globalSearchLabel,
     style,
     isEnableSearch = true,
+    value = [],
   } = props;
 
   // 使用者傳入的 data id 如果重複可能會造成誤判，所以統一由元件產生 $id 建立 node
@@ -315,37 +327,44 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
               $isScrollAtTop={isScrollAtTop}
               $isScrollAtBottom={isScrollAtBottom}
             >
-              {subMenu.map((item: TreeSelectDataNode<T>) => (
-                <MenuItem
-                  key={item.id}
-                  onClick={() => {
-                    if (item.children && item.children.length !== 0) {
-                      setSelectedMenu((prev) => [...prev, item]);
-                      // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
-                      setTimeout(() => {
-                        handleScroll();
-                      }, 0);
-                    } else {
-                      onChange(getNodePath(dataNodeMap, item.$id));
-                    }
-                  }}
-                >
-                  <MenuItemName title={item.displayName}>
-                    {item.displayName}
-                  </MenuItemName>
-                  {item.suffixIcon ? (
-                    <SubMenuItemIcon>
-                      {item.suffixIcon}
-                    </SubMenuItemIcon>
-                  ) : null}
-                  {item.children !== undefined &&
-                    item.children.length >= 0 && (
-                      <MenuItemIcon>
-                        <ChevronRightIcon width={20} height={20} />
-                      </MenuItemIcon>
-                    )}
-                </MenuItem>
-              ))}
+              {subMenu.map((item: TreeSelectDataNode<T>) => {
+                const path = getNodePath(dataNodeMap, item.$id);
+                return (
+                  <MenuItem
+                    key={item.id}
+                    $isActive={checkIsPartialNodePath(path, value)}
+                    onClick={() => {
+                      if (
+                        item.children &&
+                        item.children.length !== 0
+                      ) {
+                        setSelectedMenu((prev) => [...prev, item]);
+                        // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
+                        setTimeout(() => {
+                          handleScroll();
+                        }, 0);
+                      } else {
+                        onChange(path);
+                      }
+                    }}
+                  >
+                    <MenuItemName title={item.displayName}>
+                      {item.displayName}
+                    </MenuItemName>
+                    {item.suffixIcon ? (
+                      <SubMenuItemIcon>
+                        {item.suffixIcon}
+                      </SubMenuItemIcon>
+                    ) : null}
+                    {item.children !== undefined &&
+                      item.children.length >= 0 && (
+                        <MenuItemIcon>
+                          <ChevronRightIcon width={20} height={20} />
+                        </MenuItemIcon>
+                      )}
+                  </MenuItem>
+                );
+              })}
             </SubMenu>
           )}
         </Wrapper>
@@ -410,6 +429,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                       {data.map((item) => {
                         const [_, child] = item;
                         const { displayName, $id } = child;
+                        const path = getNodePath(dataNodeMap, $id);
                         return (
                           <MenuItem
                             key={child.id}
@@ -418,6 +438,10 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                               Array.isArray(child.children) &&
                               child.children.length === 0
                             }
+                            $isActive={checkIsPartialNodePath(
+                              path,
+                              value,
+                            )}
                             onClick={() => {
                               if (
                                 child.children &&
@@ -432,9 +456,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                                   handleScroll();
                                 }, 0);
                               } else {
-                                onChange(
-                                  getNodePath(dataNodeMap, $id),
-                                );
+                                onChange(path);
                               }
                             }}
                           >
@@ -465,48 +487,56 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                 return (
                   <Fragment key={`Fragment_${index}`}>
                     <MenuItems>
-                      {itemData.map((item: TreeSelectDataNode<T>) => (
-                        <MenuItem
-                          key={item.id}
-                          $textColor={item.textColor}
-                          $isEmpty={
-                            Array.isArray(item.children) &&
-                            item.children.length === 0
-                          }
-                          onClick={() => {
-                            if (
-                              item.children &&
-                              item.children.length !== 0
-                            ) {
-                              setSelectedMenu((prev) => [
-                                ...prev,
-                                item,
-                              ]);
-                              // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
-                              setTimeout(() => {
-                                handleScroll();
-                              }, 0);
-                            } else {
-                              onChange(
-                                getNodePath(dataNodeMap, item.$id),
-                              );
+                      {itemData.map((item: TreeSelectDataNode<T>) => {
+                        const path = getNodePath(
+                          dataNodeMap,
+                          item.$id,
+                        );
+                        return (
+                          <MenuItem
+                            key={item.id}
+                            $textColor={item.textColor}
+                            $isEmpty={
+                              Array.isArray(item.children) &&
+                              item.children.length === 0
                             }
-                          }}
-                        >
-                          <MenuItemName title={item.displayName}>
-                            {item.displayName}
-                          </MenuItemName>
-                          {item.children !== undefined &&
-                            item.children.length >= 0 && (
-                              <MenuItemIcon>
-                                <ChevronRightIcon
-                                  width={20}
-                                  height={20}
-                                />
-                              </MenuItemIcon>
+                            $isActive={checkIsPartialNodePath(
+                              path,
+                              value,
                             )}
-                        </MenuItem>
-                      ))}
+                            onClick={() => {
+                              if (
+                                item.children &&
+                                item.children.length !== 0
+                              ) {
+                                setSelectedMenu((prev) => [
+                                  ...prev,
+                                  item,
+                                ]);
+                                // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
+                                setTimeout(() => {
+                                  handleScroll();
+                                }, 0);
+                              } else {
+                                onChange(path);
+                              }
+                            }}
+                          >
+                            <MenuItemName title={item.displayName}>
+                              {item.displayName}
+                            </MenuItemName>
+                            {item.children !== undefined &&
+                              item.children.length >= 0 && (
+                                <MenuItemIcon>
+                                  <ChevronRightIcon
+                                    width={20}
+                                    height={20}
+                                  />
+                                </MenuItemIcon>
+                              )}
+                          </MenuItem>
+                        );
+                      })}
                     </MenuItems>
                   </Fragment>
                 );
@@ -664,6 +694,7 @@ const MenuItemsLabel = styled.div`
 const MenuItem = styled.div<{
   $isEmpty?: boolean;
   $textColor?: string;
+  $isActive?: boolean;
 }>`
   ${styles.boxSizing}
   ${styles.typography}
@@ -675,7 +706,8 @@ const MenuItem = styled.div<{
   cursor: pointer;
   transition: 0.2s;
   &:hover {
-    background: ${colors.grayscale150};
+    background: ${({ $isActive }) =>
+      $isActive ? colors.grayscale300 : colors.grayscale150};
   }
 
   ${({ $isEmpty }) =>
@@ -689,6 +721,11 @@ const MenuItem = styled.div<{
     $textColor &&
     css`
       color: ${$textColor};
+    `}
+  ${({ $isActive }) =>
+    $isActive &&
+    css`
+      background: ${colors.grayscale300};
     `}
 `;
 const MenuItemName = styled.div`
