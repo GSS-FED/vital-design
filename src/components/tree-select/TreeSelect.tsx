@@ -132,6 +132,22 @@ function getNodePath<T>(
   // 遞迴獲取父節點路徑，然後加上當前節點
   return [...getNodePath(nodes, parentId), rest];
 }
+function getMenuById<T>(
+  nodes: NodeMap<T>,
+  nodeId: string,
+): TreeSelectDataNode<T>[] {
+  const current = nodes[nodeId];
+
+  if (!current) {
+    return [];
+  }
+  if (!current.parentId) {
+    return [current];
+  }
+
+  // 遞迴獲取父節點路徑，然後加上當前節點
+  return [...getMenuById(nodes, current.parentId), current];
+}
 function addTreeSelectIds<T>(
   root: TreeSelectRoot<T>,
 ): TreeSelectRootNode<T> {
@@ -282,27 +298,32 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
       clientHeight: clientHeight,
     });
   };
+  const handlePreviousClick = () => {
+    const previousMenu = selectedMenu.slice(
+      0,
+      selectedMenu.length - 1,
+    );
+    const previousMenuId = previousMenu[previousMenu.length - 1]?.$id;
+    const newMenu = previousMenuId
+      ? getMenuById(dataNodeMap, previousMenuId)
+      : [];
+    setSelectedMenu(newMenu);
+    setSearchText((prev) => ({
+      ...prev,
+      menuSearchText: '',
+      subMenuSearchText: '',
+    }));
+    // HACK: 因觸發時為 `subMenu` 的 ref 不會為 `Menu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
+    setTimeout(() => {
+      handleScroll();
+    }, 0);
+  };
 
   return (
     <Container style={style}>
       {selectedLastMenu ? (
         <Wrapper>
-          <PreviousButton
-            onClick={() => {
-              setSelectedMenu((prev) => [
-                ...prev.slice(0, prev.length - 1),
-              ]);
-              setSearchText((prev) => ({
-                ...prev,
-                menuSearchText: '',
-                subMenuSearchText: '',
-              }));
-              // HACK: 因觸發時為 `subMenu` 的 ref 不會為 `Menu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
-              setTimeout(() => {
-                handleScroll();
-              }, 0);
-            }}
-          >
+          <PreviousButton onClick={handlePreviousClick}>
             <PreviousIcon>
               <ChevronLeftIcon />
             </PreviousIcon>
@@ -328,17 +349,17 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
               $isScrollAtBottom={isScrollAtBottom}
             >
               {subMenu.map((item: TreeSelectDataNode<T>) => {
-                const path = getNodePath(dataNodeMap, item.$id);
+                const { $id, displayName, suffixIcon, children } =
+                  item;
+                const path = getNodePath(dataNodeMap, $id);
                 return (
                   <MenuItem
-                    key={item.id}
+                    key={$id}
                     $isActive={checkIsPartialNodePath(path, value)}
                     onClick={() => {
-                      if (
-                        item.children &&
-                        item.children.length !== 0
-                      ) {
-                        setSelectedMenu((prev) => [...prev, item]);
+                      if (children && children.length !== 0) {
+                        const newMenu = getMenuById(dataNodeMap, $id);
+                        setSelectedMenu(newMenu);
                         // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
                         setTimeout(() => {
                           handleScroll();
@@ -348,16 +369,14 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                       }
                     }}
                   >
-                    <MenuItemName title={item.displayName}>
-                      {item.displayName}
+                    <MenuItemName title={displayName}>
+                      {displayName}
                     </MenuItemName>
-                    {item.suffixIcon ? (
-                      <SubMenuItemIcon>
-                        {item.suffixIcon}
-                      </SubMenuItemIcon>
+                    {suffixIcon ? (
+                      <SubMenuItemIcon>{suffixIcon}</SubMenuItemIcon>
                     ) : null}
-                    {item.children !== undefined &&
-                      item.children.length >= 0 && (
+                    {children !== undefined &&
+                      children.length >= 0 && (
                         <MenuItemIcon>
                           <ChevronRightIcon width={20} height={20} />
                         </MenuItemIcon>
@@ -428,29 +447,32 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                       <MenuItemsLabel>{label}</MenuItemsLabel>
                       {data.map((item) => {
                         const [_, child] = item;
-                        const { displayName, $id } = child;
+                        const {
+                          displayName,
+                          $id,
+                          textColor,
+                          children,
+                        } = child;
                         const path = getNodePath(dataNodeMap, $id);
                         return (
                           <MenuItem
-                            key={child.id}
-                            $textColor={child.textColor}
+                            key={$id}
+                            $textColor={textColor}
                             $isEmpty={
-                              Array.isArray(child.children) &&
-                              child.children.length === 0
+                              Array.isArray(children) &&
+                              children.length === 0
                             }
                             $isActive={checkIsPartialNodePath(
                               path,
                               value,
                             )}
                             onClick={() => {
-                              if (
-                                child.children &&
-                                child.children.length !== 0
-                              ) {
-                                setSelectedMenu((prev) => [
-                                  ...prev,
-                                  child,
-                                ]);
+                              if (children && children.length !== 0) {
+                                const newMenu = getMenuById(
+                                  dataNodeMap,
+                                  $id,
+                                );
+                                setSelectedMenu(newMenu);
                                 // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
                                 setTimeout(() => {
                                   handleScroll();
@@ -488,31 +510,32 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                   <Fragment key={`Fragment_${index}`}>
                     <MenuItems>
                       {itemData.map((item: TreeSelectDataNode<T>) => {
-                        const path = getNodePath(
-                          dataNodeMap,
-                          item.$id,
-                        );
+                        const {
+                          $id,
+                          textColor,
+                          displayName,
+                          children,
+                        } = item;
+                        const path = getNodePath(dataNodeMap, $id);
                         return (
                           <MenuItem
-                            key={item.id}
-                            $textColor={item.textColor}
+                            key={$id}
+                            $textColor={textColor}
                             $isEmpty={
-                              Array.isArray(item.children) &&
-                              item.children.length === 0
+                              Array.isArray(children) &&
+                              children.length === 0
                             }
                             $isActive={checkIsPartialNodePath(
                               path,
                               value,
                             )}
                             onClick={() => {
-                              if (
-                                item.children &&
-                                item.children.length !== 0
-                              ) {
-                                setSelectedMenu((prev) => [
-                                  ...prev,
-                                  item,
-                                ]);
+                              if (children && children.length !== 0) {
+                                const newMenu = getMenuById(
+                                  dataNodeMap,
+                                  $id,
+                                );
+                                setSelectedMenu(newMenu);
                                 // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
                                 setTimeout(() => {
                                   handleScroll();
@@ -522,11 +545,11 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                               }
                             }}
                           >
-                            <MenuItemName title={item.displayName}>
-                              {item.displayName}
+                            <MenuItemName title={displayName}>
+                              {displayName}
                             </MenuItemName>
-                            {item.children !== undefined &&
-                              item.children.length >= 0 && (
+                            {children !== undefined &&
+                              children.length >= 0 && (
                                 <MenuItemIcon>
                                   <ChevronRightIcon
                                     width={20}
