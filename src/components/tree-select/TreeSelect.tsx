@@ -180,6 +180,43 @@ function checkIsPartialNodePath<T>(
   return true;
 }
 
+function checkIsExistNodePath<T>(
+  nodePath: TreeSelectData<T>[],
+  targetNodePath: TreeSelectData<T>[],
+) {
+  if (nodePath.length !== targetNodePath.length) return false;
+  for (let i = 0; i < nodePath.length; i++) {
+    if (!nodePath[i] || !targetNodePath[i]) return false;
+    if (nodePath[i]?.id !== targetNodePath[i]?.id) return false;
+  }
+  return true;
+}
+// 使用者沒辦法知道 $id ，這個 utils 透過 id 找到對應的 $id
+function getNodeId<T>(nodes: NodeMap<T>, id: string): string | null {
+  const entry = Object.entries(nodes).find(
+    ([_, node]) => node.id === id,
+  );
+  return entry?.[0] ?? null;
+}
+function initializeMenu<T>(
+  nodes: NodeMap<T>,
+  value: TreeSelectData<T>[],
+): TreeSelectDataNode<T>[] {
+  if (value.length <= 0) return [];
+  const lastNode = value[value.length - 1];
+  if (!lastNode) return [];
+  const nodeId = getNodeId(nodes, lastNode.id);
+  if (!nodeId) return [];
+  const menu = getMenuById(nodes, nodeId);
+  const isExistNodePath = checkIsExistNodePath(value, menu);
+  if (!isExistNodePath) return [];
+  const lastNodeInMenu = menu[menu.length - 1];
+  if (!lastNodeInMenu) return [];
+  const initialMenu = getMenuById(nodes, lastNodeInMenu.$id);
+  if (initialMenu.length <= 0) return [];
+  return initialMenu.slice(0, initialMenu.length - 1);
+}
+
 export default function TreeSelect<T>(props: TreeSelectProps<T>) {
   const {
     data,
@@ -201,7 +238,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
   }, [dataRootNode]);
   const [selectedMenu, setSelectedMenu] = useState<
     TreeSelectDataNode<T>[]
-  >([]);
+  >(() => initializeMenu(dataNodeMap, value));
   const [searchText, setSearchText] = useState<SearchText>({
     menuSearchText: '',
     subMenuSearchText: '',
