@@ -8,9 +8,6 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: undefined,
         textColor: '#FF0000',
       },
@@ -25,9 +22,6 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: undefined,
       },
       {
@@ -36,9 +30,6 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: undefined,
       },
       {
@@ -47,15 +38,12 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: undefined,
       },
     ],
   },
   {
-    label: '',
+    label: 'AA',
     data: [
       {
         displayName: '所有人',
@@ -63,19 +51,38 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: [
           {
-            displayName: '成員1',
+            displayName: '組織1-1',
             id: '1',
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
+            children: [
+              {
+                displayName: '組織1-1-1',
+                id: 'A',
+                data: {
+                  subjectType: 2,
+                },
+                children: [
+                  {
+                    displayName: '成員A',
+                    id: 'AB',
+                    data: {
+                      subjectType: 2,
+                    },
+                  },
+                ],
+              },
+              {
+                displayName: '成員A2',
+                id: 'AB2',
+                data: {
+                  subjectType: 2,
+                },
+              },
+            ],
           },
           {
             displayName: '成員2',
@@ -83,9 +90,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員3',
@@ -93,9 +97,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員4',
@@ -103,9 +104,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員5',
@@ -113,9 +111,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員6',
@@ -123,9 +118,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員7',
@@ -133,9 +125,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員8',
@@ -143,9 +132,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員9',
@@ -153,9 +139,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員10',
@@ -163,9 +146,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員11',
@@ -173,9 +153,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
         ],
       },
@@ -185,9 +162,6 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: [
           {
             displayName: '成員1',
@@ -195,9 +169,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員2',
@@ -205,9 +176,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
         ],
       },
@@ -222,9 +190,6 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: [
           {
             displayName: '成員1',
@@ -232,9 +197,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
             suffixIcon: (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -250,9 +212,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員3',
@@ -260,9 +219,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
         ],
       },
@@ -282,9 +238,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員2',
@@ -292,9 +245,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員3',
@@ -302,9 +252,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
         ],
       },
@@ -314,9 +261,6 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: [],
       },
     ],
@@ -330,9 +274,6 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: [],
       },
       {
@@ -341,9 +282,6 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: [
           {
             displayName: '成員1',
@@ -351,9 +289,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員2',
@@ -361,9 +296,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員3',
@@ -371,9 +303,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
         ],
       },
@@ -383,9 +312,6 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: [
           {
             displayName: '成員1',
@@ -393,9 +319,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員2',
@@ -403,9 +326,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員3',
@@ -413,9 +333,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
         ],
       },
@@ -425,9 +342,6 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: [
           {
             displayName: '成員1',
@@ -435,9 +349,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員2',
@@ -445,9 +356,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員3',
@@ -455,9 +363,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
         ],
       },
@@ -467,9 +372,6 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: [
           {
             displayName: '成員1',
@@ -477,9 +379,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員2',
@@ -487,9 +386,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員3',
@@ -497,9 +393,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
         ],
       },
@@ -509,9 +402,6 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: [
           {
             displayName: '成員1',
@@ -519,9 +409,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員2',
@@ -529,9 +416,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員3',
@@ -539,9 +423,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
         ],
       },
@@ -551,9 +432,6 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: [
           {
             displayName: '成員1',
@@ -561,9 +439,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員2',
@@ -571,9 +446,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員3',
@@ -581,9 +453,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
         ],
       },
@@ -593,9 +462,6 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: [
           {
             displayName: '成員1',
@@ -603,9 +469,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員2',
@@ -613,9 +476,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員3',
@@ -623,9 +483,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
         ],
       },
@@ -635,9 +492,6 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: [
           {
             displayName: '成員1',
@@ -645,9 +499,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員2',
@@ -655,9 +506,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員3',
@@ -665,9 +513,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
         ],
       },
@@ -677,9 +522,6 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: [
           {
             displayName: '成員1',
@@ -687,9 +529,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員2',
@@ -697,9 +536,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員3',
@@ -707,9 +543,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
         ],
       },
@@ -719,9 +552,6 @@ export const testData = [
         data: {
           subjectType: 1,
         },
-        parents: [],
-        createdAt: '1',
-        updatedAt: '1',
         children: [
           {
             displayName: '成員1',
@@ -729,9 +559,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員2',
@@ -739,9 +566,6 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
           {
             displayName: '成員3',
@@ -749,12 +573,178 @@ export const testData = [
             data: {
               subjectType: 2,
             },
-            parents: [],
-            createdAt: '1',
-            updatedAt: '1',
           },
         ],
       },
     ],
+  },
+];
+
+export const treeSelectValueData = [
+  {
+    displayName: '所有人',
+    id: 'allMembers',
+    data: {
+      subjectType: 1,
+    },
+    children: [
+      {
+        displayName: '組織1-1',
+        id: '1',
+        data: {
+          subjectType: 2,
+        },
+        children: [
+          {
+            displayName: '組織1-1-1',
+            id: 'A',
+            data: {
+              subjectType: 2,
+            },
+            children: [
+              {
+                displayName: '成員A',
+                id: 'AB',
+                data: {
+                  subjectType: 2,
+                },
+              },
+            ],
+          },
+          {
+            displayName: '成員A2',
+            id: 'AB2',
+            data: {
+              subjectType: 2,
+            },
+          },
+        ],
+      },
+      {
+        displayName: '成員2',
+        id: '2',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員3',
+        id: '3',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員4',
+        id: '4',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員5',
+        id: '5',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員6',
+        id: '6',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員7',
+        id: '7',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員8',
+        id: '8',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員9',
+        id: '9',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員10',
+        id: '10',
+        data: {
+          subjectType: 2,
+        },
+      },
+      {
+        displayName: '成員11',
+        id: '11',
+        data: {
+          subjectType: 2,
+        },
+      },
+    ],
+  },
+  {
+    displayName: '組織1-1',
+    id: '1',
+    data: {
+      subjectType: 2,
+    },
+    children: [
+      {
+        displayName: '組織1-1-1',
+        id: 'A',
+        data: {
+          subjectType: 2,
+        },
+        children: [
+          {
+            displayName: '成員A',
+            id: 'AB',
+            data: {
+              subjectType: 2,
+            },
+          },
+        ],
+      },
+      {
+        displayName: '成員A2',
+        id: 'AB2',
+        data: {
+          subjectType: 2,
+        },
+      },
+    ],
+  },
+  {
+    displayName: '組織1-1-1',
+    id: 'A',
+    data: {
+      subjectType: 2,
+    },
+    children: [
+      {
+        displayName: '成員A',
+        id: 'AB',
+        data: {
+          subjectType: 2,
+        },
+      },
+    ],
+  },
+  {
+    displayName: '成員A',
+    id: 'AB',
+    data: {
+      subjectType: 2,
+    },
   },
 ];

@@ -3,7 +3,13 @@ import {
   ChevronRightIcon,
   MagnifyingGlassIcon,
 } from '@radix-ui/react-icons';
-import { Fragment, ReactNode, useRef, useState } from 'react';
+import {
+  Fragment,
+  ReactNode,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import styled, { css } from 'styled-components';
 import TextInput from 'src/components/input/textInput/TextInput';
 import { colors, shadows, styles } from 'src/constants';
@@ -17,9 +23,20 @@ export interface TreeSelectData<T> {
   suffixIcon?: ReactNode;
 }
 
+interface TreeSelectDataNode<T> extends TreeSelectData<T> {
+  parentId?: string;
+  $id: string;
+  children?: TreeSelectDataNode<T>[];
+}
+
 export interface TreeSelectRoot<T> {
   label?: string;
   data: TreeSelectData<T>[];
+}
+
+interface TreeSelectRootNode<T> {
+  label?: string;
+  data: TreeSelectDataNode<T>[];
 }
 
 interface SearchText {
@@ -27,9 +44,15 @@ interface SearchText {
   subMenuSearchText: string;
 }
 
+type NodeMap<T> = Record<
+  TreeSelectDataNode<T>['id'],
+  TreeSelectDataNode<T>
+>;
+
 export type TreeSelectProps<T> = {
   data: TreeSelectRoot<T>[];
-  onChange: (value: TreeSelectData<T>) => void;
+  onChange: (value: TreeSelectData<T>[]) => void;
+  value?: TreeSelectData<T>[];
   placeholder?: string;
   globalSearchLabel?: string;
   style?: React.CSSProperties;
@@ -38,10 +61,10 @@ export type TreeSelectProps<T> = {
 
 // 找尋所有子項目
 function findChild<T>(
-  data: TreeSelectData<T>,
-): [string, TreeSelectData<T>][] {
+  data: TreeSelectDataNode<T>,
+): [string, TreeSelectDataNode<T>][] {
   const { id, children } = data;
-  const target: [string, TreeSelectData<T>][] = [[id, data]];
+  const target: [string, TreeSelectDataNode<T>][] = [[id, data]];
   // 沒有 Children 代表是 Child
   if (!children) return target;
   if (children.length <= 0) return [];
@@ -51,10 +74,10 @@ function findChild<T>(
 }
 // 找尋所有父項目
 function findParent<T>(
-  data: TreeSelectData<T>,
-): [string, TreeSelectData<T>][] {
+  data: TreeSelectDataNode<T>,
+): [string, TreeSelectDataNode<T>][] {
   const { id, children } = data;
-  const target: [string, TreeSelectData<T>][] = [[id, data]];
+  const target: [string, TreeSelectDataNode<T>][] = [[id, data]];
   // 沒有 Children 代表是 Child
   if (!children) return [];
   return [
@@ -63,6 +86,135 @@ function findParent<T>(
       return findParent(item);
     }),
   ];
+}
+function flattenTreeNode<T>(
+  roots: TreeSelectRootNode<T>[],
+  parentId?: string,
+): NodeMap<T> {
+  const allData = roots.flatMap((root) => root.data);
+  const flatArray = allData.flatMap((node) => {
+    const currentNode: TreeSelectDataNode<T> = {
+      ...node,
+      parentId,
+    };
+
+    // 如果有子節點，遞迴處理並合併結果
+    if (node.children && node.children.length > 0) {
+      // 將遞迴結果轉換為陣列再展開
+      const childrenArray = Object.values(
+        flattenTreeNode([{ data: node.children }], node.$id),
+      );
+      return [currentNode, ...childrenArray];
+    }
+
+    // 沒有子節點時只回傳當前節點
+    return [currentNode];
+  });
+
+  return Object.fromEntries(
+    flatArray.map((node) => [node.$id, node]),
+  );
+}
+function getNodePath<T>(
+  nodes: NodeMap<T>,
+  nodeId: string,
+): TreeSelectData<T>[] {
+  const current = nodes[nodeId];
+
+  if (!current) {
+    return [];
+  }
+  const { $id, parentId, ...rest } = current;
+  if (!parentId) {
+    return [rest];
+  }
+
+  // 遞迴獲取父節點路徑，然後加上當前節點
+  return [...getNodePath(nodes, parentId), rest];
+}
+function getMenuById<T>(
+  nodes: NodeMap<T>,
+  nodeId: string,
+): TreeSelectDataNode<T>[] {
+  const current = nodes[nodeId];
+
+  if (!current) {
+    return [];
+  }
+  if (!current.parentId) {
+    return [current];
+  }
+
+  // 遞迴獲取父節點路徑，然後加上當前節點
+  return [...getMenuById(nodes, current.parentId), current];
+}
+function addTreeSelectIds<T>(
+  root: TreeSelectRoot<T>,
+): TreeSelectRootNode<T> {
+  const addIdsToData = (
+    data: TreeSelectData<T>[],
+  ): TreeSelectDataNode<T>[] => {
+    return data.map((node) => ({
+      ...node,
+      $id: crypto.randomUUID(),
+      children: node.children
+        ? addIdsToData(node.children)
+        : undefined,
+    }));
+  };
+
+  return {
+    label: root.label,
+    data: addIdsToData(root.data),
+  };
+}
+function checkIsPartialNodePath<T>(
+  partialNodePath: TreeSelectData<T>[],
+  nodePath: TreeSelectData<T>[],
+) {
+  if (partialNodePath.length > nodePath.length) return false;
+  for (let i = 0; i < partialNodePath.length; i++) {
+    if (!partialNodePath[i] || !nodePath[i]) return false;
+    if (partialNodePath[i]?.id !== nodePath[i]?.id) return false;
+  }
+  return true;
+}
+
+function checkIsExistNodePath<T>(
+  nodePath: TreeSelectData<T>[],
+  targetNodePath: TreeSelectData<T>[],
+) {
+  if (nodePath.length !== targetNodePath.length) return false;
+  for (let i = 0; i < nodePath.length; i++) {
+    if (!nodePath[i] || !targetNodePath[i]) return false;
+    if (nodePath[i]?.id !== targetNodePath[i]?.id) return false;
+  }
+  return true;
+}
+// 使用者沒辦法知道 $id ，這個 utils 透過 id 找到對應的 $id
+function getNodeId<T>(nodes: NodeMap<T>, id: string): string | null {
+  const entry = Object.entries(nodes).find(
+    ([_, node]) => node.id === id,
+  );
+  return entry?.[0] ?? null;
+}
+function initializeMenu<T>(
+  nodes: NodeMap<T>,
+  value: TreeSelectData<T>[],
+): TreeSelectDataNode<T>[] {
+  if (value.length <= 0) return [];
+  const lastNode = value[value.length - 1];
+  if (!lastNode) return [];
+  const nodeId = getNodeId(nodes, lastNode.id);
+  if (!nodeId) return [];
+  const menu = getMenuById(nodes, nodeId);
+  const isExistNodePath = checkIsExistNodePath(value, menu);
+  if (!isExistNodePath) return [];
+  const lastNodeInMenu = menu[menu.length - 1];
+  if (!lastNodeInMenu) return [];
+  const initialMenu = getMenuById(nodes, lastNodeInMenu.$id);
+  if (initialMenu.length <= 0) return [];
+  return initialMenu.slice(0, initialMenu.length - 1);
 }
 
 export default function TreeSelect<T>(props: TreeSelectProps<T>) {
@@ -73,11 +225,20 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
     globalSearchLabel,
     style,
     isEnableSearch = true,
+    value = [],
   } = props;
 
+  // 使用者傳入的 data id 如果重複可能會造成誤判，所以統一由元件產生 $id 建立 node
+  const dataRootNode: TreeSelectRootNode<T>[] = useMemo(() => {
+    return data.map((root) => addTreeSelectIds(root));
+  }, [data]);
+  // 建立一個 map 方便查詢 node， 要注意這裡的 key 是 $id
+  const dataNodeMap: NodeMap<T> = useMemo(() => {
+    return flattenTreeNode(dataRootNode);
+  }, [dataRootNode]);
   const [selectedMenu, setSelectedMenu] = useState<
-    TreeSelectData<T>[]
-  >([]);
+    TreeSelectDataNode<T>[]
+  >(() => initializeMenu(dataNodeMap, value));
   const [searchText, setSearchText] = useState<SearchText>({
     menuSearchText: '',
     subMenuSearchText: '',
@@ -89,9 +250,10 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
   });
 
   const scrollRef = useRef(null);
+
   const isRootMenuSearching = searchText.menuSearchText !== '';
   const searchFilter = (
-    data: TreeSelectData<T>[],
+    data: TreeSelectDataNode<T>[],
     searchText: string,
   ) => {
     if (!data) return [];
@@ -102,7 +264,6 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
         .includes(searchText.toLowerCase());
     });
   };
-
   const selectedLastMenu = selectedMenu[selectedMenu.length - 1];
   const subMenu = (() => {
     if (selectedMenu.length <= 0) return;
@@ -112,30 +273,8 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
       searchText.subMenuSearchText,
     );
   })();
-
-  const isScrollAtTop = refScrollInfo.scrollTop === 0;
-  // NOTE: scrollTop 是一個非四捨五入的數字，而 scrollHeight 和 clientHeight 是四捨五入的，因此確定滾動區域是否滾動到底部的唯一方法是查看滾動量是否足夠接近某個閾值(這裡設置 1)
-  const isScrollAtBottom =
-    !isScrollAtTop &&
-    Math.abs(
-      refScrollInfo.scrollHeight -
-        refScrollInfo.clientHeight -
-        refScrollInfo.scrollTop,
-    ) <= 1;
-
-  const handleScroll = () => {
-    if (!scrollRef.current) return;
-    const { scrollTop, scrollHeight, clientHeight } =
-      scrollRef.current;
-    setRefScrollInfo({
-      scrollTop: scrollTop,
-      scrollHeight: scrollHeight,
-      clientHeight: clientHeight,
-    });
-  };
-
-  const allChildMap: Map<string, TreeSelectData<T>> = (() => {
-    const allChildArray = data
+  const allChildMap: Map<string, TreeSelectDataNode<T>> = (() => {
+    const allChildArray = dataRootNode
       .map((item) => item.data)
       .flatMap((item) =>
         item.flatMap((subItem) => findChild(subItem)),
@@ -152,7 +291,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
     },
   );
   const allParentMapByLabel = (() => {
-    return data.map((item) => {
+    return dataRootNode.map((item) => {
       const itemParent = item.data.flatMap((subItem) =>
         findParent(subItem),
       );
@@ -176,27 +315,52 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
   const isFilterEmpty =
     filteredChildItem.length <= 0 &&
     filteredParentItems.flatMap((item) => item.data).length <= 0;
+  const isScrollAtTop = refScrollInfo.scrollTop === 0;
+  // NOTE: scrollTop 是一個非四捨五入的數字，而 scrollHeight 和 clientHeight 是四捨五入的，因此確定滾動區域是否滾動到底部的唯一方法是查看滾動量是否足夠接近某個閾值(這裡設置 1)
+  const isScrollAtBottom =
+    !isScrollAtTop &&
+    Math.abs(
+      refScrollInfo.scrollHeight -
+        refScrollInfo.clientHeight -
+        refScrollInfo.scrollTop,
+    ) <= 1;
+
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    const { scrollTop, scrollHeight, clientHeight } =
+      scrollRef.current;
+    setRefScrollInfo({
+      scrollTop: scrollTop,
+      scrollHeight: scrollHeight,
+      clientHeight: clientHeight,
+    });
+  };
+  const handlePreviousClick = () => {
+    const previousMenu = selectedMenu.slice(
+      0,
+      selectedMenu.length - 1,
+    );
+    const previousMenuId = previousMenu[previousMenu.length - 1]?.$id;
+    const newMenu = previousMenuId
+      ? getMenuById(dataNodeMap, previousMenuId)
+      : [];
+    setSelectedMenu(newMenu);
+    setSearchText((prev) => ({
+      ...prev,
+      menuSearchText: '',
+      subMenuSearchText: '',
+    }));
+    // HACK: 因觸發時為 `subMenu` 的 ref 不會為 `Menu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
+    setTimeout(() => {
+      handleScroll();
+    }, 0);
+  };
 
   return (
     <Container style={style}>
       {selectedLastMenu ? (
         <Wrapper>
-          <PreviousButton
-            onClick={() => {
-              setSelectedMenu((prev) => [
-                ...prev.slice(0, prev.length - 1),
-              ]);
-              setSearchText((prev) => ({
-                ...prev,
-                menuSearchText: '',
-                subMenuSearchText: '',
-              }));
-              // HACK: 因觸發時為 `subMenu` 的 ref 不會為 `Menu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
-              setTimeout(() => {
-                handleScroll();
-              }, 0);
-            }}
-          >
+          <PreviousButton onClick={handlePreviousClick}>
             <PreviousIcon>
               <ChevronLeftIcon />
             </PreviousIcon>
@@ -221,37 +385,42 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
               $isScrollAtTop={isScrollAtTop}
               $isScrollAtBottom={isScrollAtBottom}
             >
-              {subMenu.map((item: TreeSelectData<T>) => (
-                <MenuItem
-                  key={item.id}
-                  onClick={() => {
-                    if (item.children && item.children.length !== 0) {
-                      setSelectedMenu((prev) => [...prev, item]);
-                      // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
-                      setTimeout(() => {
-                        handleScroll();
-                      }, 0);
-                    } else {
-                      onChange(item);
-                    }
-                  }}
-                >
-                  <MenuItemName title={item.displayName}>
-                    {item.displayName}
-                  </MenuItemName>
-                  {item.suffixIcon ? (
-                    <SubMenuItemIcon>
-                      {item.suffixIcon}
-                    </SubMenuItemIcon>
-                  ) : null}
-                  {item.children !== undefined &&
-                    item.children.length >= 0 && (
-                      <MenuItemIcon>
-                        <ChevronRightIcon width={20} height={20} />
-                      </MenuItemIcon>
-                    )}
-                </MenuItem>
-              ))}
+              {subMenu.map((item: TreeSelectDataNode<T>) => {
+                const { $id, displayName, suffixIcon, children } =
+                  item;
+                const path = getNodePath(dataNodeMap, $id);
+                return (
+                  <MenuItem
+                    key={$id}
+                    $isActive={checkIsPartialNodePath(path, value)}
+                    onClick={() => {
+                      if (children && children.length !== 0) {
+                        const newMenu = getMenuById(dataNodeMap, $id);
+                        setSelectedMenu(newMenu);
+                        // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
+                        setTimeout(() => {
+                          handleScroll();
+                        }, 0);
+                      } else {
+                        onChange(path);
+                      }
+                    }}
+                  >
+                    <MenuItemName title={displayName}>
+                      {displayName}
+                    </MenuItemName>
+                    {suffixIcon ? (
+                      <SubMenuItemIcon>{suffixIcon}</SubMenuItemIcon>
+                    ) : null}
+                    {children !== undefined &&
+                      children.length >= 0 && (
+                        <MenuItemIcon>
+                          <ChevronRightIcon width={20} height={20} />
+                        </MenuItemIcon>
+                      )}
+                  </MenuItem>
+                );
+              })}
             </SubMenu>
           )}
         </Wrapper>
@@ -285,12 +454,19 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                   <MenuItems>
                     {filteredChildItem.map((item) => {
                       const [_, child] = item;
-                      const { displayName } = child;
+                      const { displayName, $id, textColor } = child;
+                      const path = getNodePath(dataNodeMap, $id);
                       return (
                         <MenuItem
-                          key={`${child.id}`}
-                          $textColor={child.textColor}
-                          onClick={() => onChange(child)}
+                          key={`${$id}`}
+                          $textColor={textColor}
+                          $isActive={checkIsPartialNodePath(
+                            path,
+                            value,
+                          )}
+                          onClick={() => {
+                            onChange(path);
+                          }}
                         >
                           <MenuItemName title={displayName}>
                             {displayName}
@@ -308,30 +484,38 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                       <MenuItemsLabel>{label}</MenuItemsLabel>
                       {data.map((item) => {
                         const [_, child] = item;
-                        const { displayName } = child;
+                        const {
+                          displayName,
+                          $id,
+                          textColor,
+                          children,
+                        } = child;
+                        const path = getNodePath(dataNodeMap, $id);
                         return (
                           <MenuItem
-                            key={child.id}
-                            $textColor={child.textColor}
+                            key={$id}
+                            $textColor={textColor}
                             $isEmpty={
-                              Array.isArray(child.children) &&
-                              child.children.length === 0
+                              Array.isArray(children) &&
+                              children.length === 0
                             }
+                            $isActive={checkIsPartialNodePath(
+                              path,
+                              value,
+                            )}
                             onClick={() => {
-                              if (
-                                child.children &&
-                                child.children.length !== 0
-                              ) {
-                                setSelectedMenu((prev) => [
-                                  ...prev,
-                                  child,
-                                ]);
+                              if (children && children.length !== 0) {
+                                const newMenu = getMenuById(
+                                  dataNodeMap,
+                                  $id,
+                                );
+                                setSelectedMenu(newMenu);
                                 // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
                                 setTimeout(() => {
                                   handleScroll();
                                 }, 0);
                               } else {
-                                onChange(child);
+                                onChange(path);
                               }
                             }}
                           >
@@ -353,55 +537,66 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
               </Fragment>
             )}
             {!isRootMenuSearching &&
-              data.map((items, index) => {
-                const itemsData = searchFilter(
-                  items.data,
+              dataRootNode.map((item, index) => {
+                const itemData = searchFilter(
+                  item.data,
                   searchText.menuSearchText,
                 );
-                if (itemsData.length === 0) return;
+                if (itemData.length === 0) return;
                 return (
                   <Fragment key={`Fragment_${index}`}>
                     <MenuItems>
-                      {itemsData.map((item: TreeSelectData<T>) => (
-                        <MenuItem
-                          key={item.id}
-                          $textColor={item.textColor}
-                          $isEmpty={
-                            Array.isArray(item.children) &&
-                            item.children.length === 0
-                          }
-                          onClick={() => {
-                            if (
-                              item.children &&
-                              item.children.length !== 0
-                            ) {
-                              setSelectedMenu((prev) => [
-                                ...prev,
-                                item,
-                              ]);
-                              // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
-                              setTimeout(() => {
-                                handleScroll();
-                              }, 0);
-                            } else {
-                              onChange(item);
+                      {itemData.map((item: TreeSelectDataNode<T>) => {
+                        const {
+                          $id,
+                          textColor,
+                          displayName,
+                          children,
+                        } = item;
+                        const path = getNodePath(dataNodeMap, $id);
+                        return (
+                          <MenuItem
+                            key={$id}
+                            $textColor={textColor}
+                            $isEmpty={
+                              Array.isArray(children) &&
+                              children.length === 0
                             }
-                          }}
-                        >
-                          <MenuItemName title={item.displayName}>
-                            {item.displayName}
-                          </MenuItemName>
-                          {item.children !== undefined &&
-                            item.children.length >= 0 && (
-                              <MenuItemIcon>
-                                <ChevronRightIcon
-                                  width={20}
-                                  height={20}
-                                />
-                              </MenuItemIcon>
+                            $isActive={checkIsPartialNodePath(
+                              path,
+                              value,
                             )}
-                        </MenuItem>
-                      ))}
+                            onClick={() => {
+                              if (children && children.length !== 0) {
+                                const newMenu = getMenuById(
+                                  dataNodeMap,
+                                  $id,
+                                );
+                                setSelectedMenu(newMenu);
+                                // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
+                                setTimeout(() => {
+                                  handleScroll();
+                                }, 0);
+                              } else {
+                                onChange(path);
+                              }
+                            }}
+                          >
+                            <MenuItemName title={displayName}>
+                              {displayName}
+                            </MenuItemName>
+                            {children !== undefined &&
+                              children.length >= 0 && (
+                                <MenuItemIcon>
+                                  <ChevronRightIcon
+                                    width={20}
+                                    height={20}
+                                  />
+                                </MenuItemIcon>
+                              )}
+                          </MenuItem>
+                        );
+                      })}
                     </MenuItems>
                   </Fragment>
                 );
@@ -559,6 +754,7 @@ const MenuItemsLabel = styled.div`
 const MenuItem = styled.div<{
   $isEmpty?: boolean;
   $textColor?: string;
+  $isActive?: boolean;
 }>`
   ${styles.boxSizing}
   ${styles.typography}
@@ -570,7 +766,8 @@ const MenuItem = styled.div<{
   cursor: pointer;
   transition: 0.2s;
   &:hover {
-    background: ${colors.grayscale150};
+    background: ${({ $isActive }) =>
+      $isActive ? colors.grayscale300 : colors.grayscale150};
   }
 
   ${({ $isEmpty }) =>
@@ -584,6 +781,11 @@ const MenuItem = styled.div<{
     $textColor &&
     css`
       color: ${$textColor};
+    `}
+  ${({ $isActive }) =>
+    $isActive &&
+    css`
+      background: ${colors.grayscale300};
     `}
 `;
 const MenuItemName = styled.div`
