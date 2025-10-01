@@ -1,6 +1,7 @@
 import { useArgs } from '@storybook/preview-api';
 import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
+import { useState } from 'react';
 import RadioGroup, { RadioGroupProps } from './RadioGroup';
 
 type Story = StoryObj<typeof RadioGroup>;
@@ -86,5 +87,26 @@ export const OptionWithCustomizedLabel: Story = {
       },
       { label: '我沒有養寵物', value: 'unique-value-b' },
     ],
+  },
+};
+
+export const AllowCancel: Story = {
+  name: 'Cancellable Option',
+  args: {
+    allowCancel: true,
+  },
+  render: function Render(args) {
+    const [checkedValue, setCheckedValue] = useState('');
+    const onChange = (checkedValue: string) => {
+      console.log(checkedValue);
+      setCheckedValue(checkedValue);
+    };
+    return (
+      <RadioGroup
+        {...args}
+        onChange={onChange}
+        value={checkedValue}
+      />
+    );
   },
 };
