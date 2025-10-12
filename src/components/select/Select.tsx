@@ -219,14 +219,15 @@ const Trigger = ({
             onClear?.();
           }}
         >
-          <ClearIcon />
+          <ClearIcon width={20} />
         </ClearIconWrapper>
       ) : (
         <IconWrapper>
           {open ? (
-            <ChevronUpIcon color={colors.grayscale700} />
+            <ChevronUpIcon width={14} color={colors.grayscale700} />
           ) : (
             <ChevronDownIcon
+              width={14}
               color={
                 disabled ? colors.grayscale500 : colors.grayscale600
               }

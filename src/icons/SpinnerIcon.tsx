@@ -1,13 +1,13 @@
 type SpinnerIconProps = {
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   fill?: string;
   fillOpacity?: number;
   viewBox?: string;
 };
 
 export const SpinnerIcon = ({
-  width,
+  width = 50,
   height,
   fill = 'currentColor',
   viewBox = '0 0 50 50',
