@@ -236,20 +236,6 @@ const Trigger = ({
   );
 };
 
-const CustomizedTrigger = ({ children }: { children: ReactNode }) => {
-  const { open, setOpen, floatingRefs, getReferenceProps } =
-    useSelectContext();
-  return (
-    <div
-      onClick={() => setOpen(!open)}
-      ref={floatingRefs.setReference}
-      {...getReferenceProps()}
-    >
-      {children}
-    </div>
-  );
-};
-
 interface MultipleValueProps {
   value: ItemType[];
   handleRemove: (item: ItemType) => void;
@@ -431,7 +417,6 @@ const Separator = () => {
 };
 
 Select.Trigger = Trigger;
-Select.CustomizedTrigger = CustomizedTrigger;
 Select.Content = Content;
 Select.Header = Header;
 Select.Menu = Menu;

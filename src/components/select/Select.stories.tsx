@@ -263,33 +263,3 @@ export const Title: Story = {
     );
   },
 };
-
-export const CustomizedTrigger: Story = {
-  render: function Render(args) {
-    const [value, setValue] = useState<ItemType>();
-
-    const onChange = (item: ItemType) => {
-      setValue(item);
-    };
-
-    return (
-      <Select
-        {...args}
-        value={value}
-        onChange={onChange}
-        width="200px"
-      >
-        <Select.CustomizedTrigger>
-          <button>{value?.label ?? '請選擇'}</button>
-        </Select.CustomizedTrigger>
-        <Select.Content>
-          <Select.Menu>
-            {FRUIT_LIST.map((item) => (
-              <Select.Item key={item.id} item={item} />
-            ))}
-          </Select.Menu>
-        </Select.Content>
-      </Select>
-    );
-  },
-};
