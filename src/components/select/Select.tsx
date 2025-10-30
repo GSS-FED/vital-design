@@ -191,7 +191,7 @@ const Trigger = ({
       maxDisplayCount={maxDisplayCount}
     />
   ) : (
-    <span>{value?.label}</span>
+    <Text>{value?.label}</Text>
   );
 
   return (
@@ -498,6 +498,12 @@ const StyledTrigger = styled.div<StyledTriggerProps>`
       color: ${colors.grayscale500};
       pointer-events: none;
     `}
+`;
+const Text = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
 `;
 const Placeholder = styled.span`
   color: ${colors.grayscale400};
