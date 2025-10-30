@@ -1,9 +1,10 @@
 import {
   FloatingPortal,
+  Placement,
   UseFloatingReturn,
   UseInteractionsReturn,
-  autoPlacement,
   autoUpdate,
+  flip,
   offset,
   size,
   useDismiss,
@@ -70,6 +71,7 @@ export interface SelectProps {
   width?: string;
   className?: string;
   style?: CSSProperties;
+  placement?: Placement;
 }
 function Select({
   width,
@@ -81,6 +83,7 @@ function Select({
   isMultiple = false,
   disabled = false,
   isError = false,
+  placement = 'bottom-start',
 }: SelectProps) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -93,11 +96,10 @@ function Select({
     open,
     onOpenChange: setOpen,
     whileElementsMounted: autoUpdate,
+    placement: placement,
     middleware: [
       offset(4),
-      autoPlacement({
-        allowedPlacements: ['top-start', 'bottom-start'],
-      }),
+      flip(),
       size({
         apply({ rects, elements }) {
           Object.assign(elements.floating.style, {
