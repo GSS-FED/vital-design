@@ -16,6 +16,7 @@ export type RadioGroupProps = {
   direction?: 'horizontal' | 'vertical';
   className?: string;
   style?: CSSProperties;
+  allowCancel?: boolean;
 };
 
 export default function RadioGroup(props: RadioGroupProps) {
@@ -26,12 +27,20 @@ export default function RadioGroup(props: RadioGroupProps) {
     direction = 'horizontal',
     className,
     style,
+    allowCancel = false,
   } = props;
+
+  function handleValueChange(newValue: string) {
+    if (allowCancel && newValue === value) {
+      onChange('');
+    } else {
+      onChange(newValue);
+    }
+  }
 
   return (
     <Container
       value={value}
-      onValueChange={onChange}
       $direction={direction}
       className={className}
       style={style}
@@ -39,7 +48,11 @@ export default function RadioGroup(props: RadioGroupProps) {
       {options.map((option) => (
         <Label key={option.value} $disabled={option.disabled}>
           <ButtonWrapper>
-            <Button value={option.value} disabled={option.disabled}>
+            <Button
+              value={option.value}
+              disabled={option.disabled}
+              onClick={() => handleValueChange(option.value)}
+            >
               <Indictor />
             </Button>
           </ButtonWrapper>
