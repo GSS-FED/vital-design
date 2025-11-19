@@ -98,7 +98,6 @@ const Content = styled.div<ContentProps>`
   padding-right: ${(props) => props.$isRemovable && '4px'};
   border-radius: ${(props) =>
     props.$isRemovable ? '9999px 0 0 9999px' : '9999px'};
-  background-color: ${colors.grayscale700};
 
   &::before {
     content: '';
@@ -136,7 +135,6 @@ const CloseButton = styled(RawButton)`
   padding: 0 8px 0 4px;
   border-radius: 0 9999px 9999px 0;
   color: ${colors.white};
-  background-color: ${colors.grayscale700};
   transition: background-color 100ms;
 
   &::before {
