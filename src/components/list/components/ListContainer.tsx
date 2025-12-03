@@ -1,4 +1,11 @@
-import { CSSProperties, ReactNode, useState } from 'react';
+import {
+  CSSProperties,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import styled, { css } from 'styled-components';
 import masks from 'src/constants/mask';
 
@@ -20,9 +27,7 @@ export type Option = {
 };
 
 type MaskProps = {
-  $hasOverflow: boolean;
-  $isScrollAtTop?: boolean;
-  $isScrollAtBottom?: boolean;
+  $maskImage?: string;
   $height?: number;
 };
 
@@ -40,39 +45,62 @@ export default function ListContainer(props: ListContainerProps) {
     scrollHeight: 0,
     clientHeight: 0,
   });
+  const maskRef = useRef<HTMLDivElement | null>(null);
 
-  const hasOverflow = height
-    ? items.length * ITEM_HEIGHT > height
-    : false;
+  const hasOverflow = useMemo(
+    () => (height ? items.length * ITEM_HEIGHT > height : false),
+    [items.length, height],
+  );
 
-  const isScrollAtTop = scrollInfo.scrollTop === 0;
-  const isScrollAtBottom = (() => {
-    if (hasOverflow && !scrollInfo.scrollHeight) {
-      return false;
-    }
-    return (
-      scrollInfo.scrollHeight - scrollInfo.scrollTop ===
-      scrollInfo.clientHeight
-    );
-  })();
+  const maskImage = useMemo(() => {
+    if (!hasOverflow) return undefined;
 
-  const handleScroll = (event: React.UIEvent<HTMLElement>) => {
+    // 某些瀏覽器的 scroll 有緩衝
+    const isScrollAtTop = scrollInfo.scrollTop <= 0;
+    const isScrollAtBottom =
+      scrollInfo.scrollHeight > 0 &&
+      Math.abs(scrollInfo.scrollTop + scrollInfo.clientHeight) >=
+        scrollInfo.scrollHeight;
+
+    if (isScrollAtTop) return masks.HIDE_TOP_MASK;
+    if (isScrollAtBottom) return masks.HIDE_BOTTOM_MASK;
+    return masks.FULL_MASK;
+  }, [
+    hasOverflow,
+    scrollInfo.scrollTop,
+    scrollInfo.scrollHeight,
+    scrollInfo.clientHeight,
+  ]);
+
+  const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
     const { scrollTop, scrollHeight, clientHeight } =
       event.currentTarget;
-    setScrollInfo({
-      scrollTop,
-      scrollHeight,
-      clientHeight,
-    });
+
+    setScrollInfo({ scrollTop, scrollHeight, clientHeight });
   };
+
+  // 當 items 改變時（例如搜尋結果改變），重置滾動位置到頂部
+  useEffect(() => {
+    if (maskRef.current) {
+      // 重置滾動位置到頂部
+      maskRef.current.scrollTop = 0;
+
+      // 更新滾動資訊狀態
+      const { scrollHeight, clientHeight } = maskRef.current;
+      setScrollInfo({
+        scrollTop: 0,
+        scrollHeight,
+        clientHeight,
+      });
+    }
+  }, [items]);
 
   return (
     <ListWrapper style={style} className={className} $width={width}>
       <Mask
+        ref={maskRef}
         onScroll={handleScroll}
-        $hasOverflow={hasOverflow}
-        $isScrollAtTop={isScrollAtTop}
-        $isScrollAtBottom={isScrollAtBottom}
+        $maskImage={maskImage}
         $height={height}
       >
         <List>{children}</List>
@@ -104,23 +132,9 @@ export const Mask = styled.div<MaskProps>`
     background-color: transparent;
   }
 
-  ${({ $hasOverflow }) =>
-    $hasOverflow &&
+  ${({ $maskImage }) =>
+    $maskImage &&
     css`
-      mask-image: ${masks.FULL_MASK};
+      mask-image: ${$maskImage};
     `}
-
-  ${({ $isScrollAtTop, $hasOverflow }) =>
-    $isScrollAtTop &&
-    $hasOverflow &&
-    css`
-      mask-image: ${masks.HIDE_TOP_MASK};
-    `}
-
-  ${({ $isScrollAtBottom, $hasOverflow }) =>
-    $isScrollAtBottom &&
-    $hasOverflow &&
-    css`
-      mask-image: ${masks.HIDE_BOTTOM_MASK};
-    `};
 `;
