@@ -1,3 +1,4 @@
+import Avatar, { AvatarProps } from './components/avatar/Avatar';
 import Checkbox, {
   CheckboxProps,
 } from './components/checkbox/Checkbox';
@@ -35,6 +36,7 @@ import TreeSelect, {
 } from './components/tree-select/TreeSelect';
 
 export {
+  Avatar,
   Checkbox,
   Chip,
   RadioGroup,
@@ -48,6 +50,7 @@ export {
 };
 
 export type {
+  AvatarProps,
   CheckboxProps,
   ChipProps,
   RadioGroupProps,
