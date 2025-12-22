@@ -15,7 +15,7 @@ const meta: Meta<typeof Chip> = {
       options: ['none', 'user', 'flag'],
       mapping: {
         none: '',
-        user: <UserIcon />,
+        user: <UserIcon width={12} />,
         flag: <FlagIcon width={12} height={12} />,
       },
       control: { type: 'select' },

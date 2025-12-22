@@ -1,5 +1,3 @@
-import { colors } from '../constants';
-
 type IconProps = {
   width?: number;
   height?: number;
@@ -9,9 +7,9 @@ type IconProps = {
 export const ClearIcon = (props: IconProps) => {
   const {
     opacity,
-    width = 20,
-    height = 20,
-    color = colors.grayscale500,
+    width = 50,
+    height,
+    color = 'currentColor',
   } = props;
   return (
     <svg
