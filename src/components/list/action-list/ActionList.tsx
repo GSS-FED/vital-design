@@ -86,7 +86,7 @@ export default function ActionList(props: ActionListProps) {
       >
         {filteredItems?.length > 0 &&
           filteredItems.map((item) => (
-            <LIstItemWrapper key={item.id}>
+            <ListItemWrapper key={item.id}>
               <ListItem
                 $selected={selectedItem === item.id}
                 $disabled={item.disabled}
@@ -99,7 +99,7 @@ export default function ActionList(props: ActionListProps) {
               >
                 {item.displayName}
               </ListItem>
-            </LIstItemWrapper>
+            </ListItemWrapper>
           ))}
         {filteredItems?.length === 0 && (
           <NoMatchingResultsText>
@@ -119,7 +119,7 @@ const Container = styled.div<{ $width?: string }>`
   border-radius: 4px;
 `;
 
-const LIstItemWrapper = styled.div`
+const ListItemWrapper = styled.div`
   content-visibility: auto;
   contain-intrinsic-size: ${ITEM_HEIGHT};
 `;
