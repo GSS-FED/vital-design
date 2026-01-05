@@ -6,6 +6,8 @@ import {
 import {
   Fragment,
   ReactNode,
+  useCallback,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -13,6 +15,7 @@ import {
 import styled, { css } from 'styled-components';
 import TextInput from 'src/components/input/textInput/TextInput';
 import { colors, shadows, styles } from 'src/constants';
+import { SpinnerIcon } from 'src/icons/SpinnerIcon';
 
 export interface TreeSelectData<T> {
   displayName: string;
@@ -57,6 +60,11 @@ export type TreeSelectProps<T> = {
   globalSearchLabel?: string;
   style?: React.CSSProperties;
   isEnableSearch?: boolean;
+  onLoadMore?: (node?: TreeSelectData<T>) => void;
+  isLoadingMore?: boolean;
+  hasMore?: boolean | ((node?: TreeSelectData<T>) => boolean);
+  skeleton?: ReactNode;
+  onSearch?: (value: string, node?: TreeSelectData<T>) => void;
 };
 
 // 找尋所有子項目
@@ -226,6 +234,11 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
     style,
     isEnableSearch = true,
     value = [],
+    onLoadMore,
+    isLoadingMore,
+    hasMore = false,
+    skeleton = <DefaultSkeleton />,
+    onSearch,
   } = props;
 
   // 使用者傳入的 data id 如果重複可能會造成誤判，所以統一由元件產生 $id 建立 node
@@ -248,7 +261,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
     scrollHeight: 0,
     clientHeight: 0,
   });
-
+  const observerRef = useRef<IntersectionObserver | null>(null);
   const scrollRef = useRef(null);
 
   const isRootMenuSearching = searchText.menuSearchText !== '';
@@ -265,6 +278,34 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
     });
   };
   const selectedLastMenu = selectedMenu[selectedMenu.length - 1];
+
+  const shouldLoadMore = useMemo(() => {
+    if (typeof hasMore === 'function') {
+      return hasMore(selectedLastMenu);
+    }
+    return hasMore;
+  }, [hasMore, selectedLastMenu]);
+
+  const loadMoreRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+
+      if (node && onLoadMore && !isLoadingMore && shouldLoadMore) {
+        observerRef.current = new IntersectionObserver(
+          (entries) => {
+            if (entries[0]?.isIntersecting) {
+              onLoadMore(selectedLastMenu);
+            }
+          },
+          { threshold: 0.1 },
+        );
+        observerRef.current.observe(node);
+      }
+    },
+    [onLoadMore, selectedLastMenu, isLoadingMore, shouldLoadMore],
+  );
   const subMenu = (() => {
     if (selectedMenu.length <= 0) return;
     if (!selectedLastMenu || !selectedLastMenu.children) return;
@@ -356,6 +397,32 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
     }, 0);
   };
 
+  // 當 data 更新時，同步更新 selectedMenu 中的節點，以確保取得最新的 children
+  useEffect(() => {
+    setSelectedMenu((prev) => {
+      if (prev.length === 0) return prev;
+
+      const newMenu: TreeSelectDataNode<T>[] = [];
+      for (const node of prev) {
+        const nodeId = getNodeId(dataNodeMap, node.id);
+        if (nodeId && dataNodeMap[nodeId]) {
+          newMenu.push(dataNodeMap[nodeId]);
+        } else {
+          break;
+        }
+      }
+      return newMenu;
+    });
+  }, [dataNodeMap]);
+
+  useEffect(() => {
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+
   return (
     <Container style={style}>
       {selectedLastMenu ? (
@@ -370,12 +437,13 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
             <Search
               prefix={<MagnifyingGlassIcon />}
               placeholder={placeholder}
-              onChange={(value) =>
+              onChange={(value) => {
                 setSearchText((prev) => ({
                   ...prev,
                   subMenuSearchText: value,
-                }))
-              }
+                }));
+                onSearch?.(value, selectedLastMenu);
+              }}
             />
           )}
           {subMenu && (
@@ -421,6 +489,10 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                   </MenuItem>
                 );
               })}
+              {shouldLoadMore && (
+                <LoadMoreSentinel ref={loadMoreRef} />
+              )}
+              {isLoadingMore && skeleton}
             </SubMenu>
           )}
         </Wrapper>
@@ -430,12 +502,13 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
             <Search
               prefix={<MagnifyingGlassIcon />}
               placeholder={placeholder}
-              onChange={(value) =>
+              onChange={(value) => {
                 setSearchText((prev) => ({
                   ...prev,
                   menuSearchText: value,
-                }))
-              }
+                }));
+                onSearch?.(value);
+              }}
             />
           )}
           <Menu
@@ -601,12 +674,27 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                   </Fragment>
                 );
               })}
+            {shouldLoadMore && <LoadMoreSentinel ref={loadMoreRef} />}
+            {isLoadingMore && skeleton}
           </Menu>
         </Wrapper>
       )}
     </Container>
   );
 }
+
+const DefaultSkeleton = () => {
+  return (
+    <DefaultSkeletonContainer>
+      <SpinnerIcon
+        width={18}
+        height={18}
+        fill={colors.grayscale300}
+      />
+    </DefaultSkeletonContainer>
+  );
+};
+
 TreeSelect.displayName = 'TreeSelect';
 
 const Container = styled.div`
@@ -824,4 +912,15 @@ const PreviousButton = styled.div`
 `;
 const PreviousIcon = styled.div`
   display: flex;
+`;
+const LoadMoreSentinel = styled.div`
+  height: 1px;
+  width: 100%;
+  flex-shrink: 0;
+`;
+const DefaultSkeletonContainer = styled.div`
+  padding: 6px 20px;
+  margin: 6px;
+  display: flex;
+  justify-content: center;
 `;
