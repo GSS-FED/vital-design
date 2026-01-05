@@ -64,6 +64,7 @@ export type TreeSelectProps<T> = {
   isLoadingMore?: boolean;
   hasMore?: boolean | ((node?: TreeSelectData<T>) => boolean);
   skeleton?: ReactNode;
+  onSearch?: (value: string, node?: TreeSelectData<T>) => void;
 };
 
 // 找尋所有子項目
@@ -237,6 +238,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
     isLoadingMore,
     hasMore = false,
     skeleton = <DefaultSkeleton />,
+    onSearch,
   } = props;
 
   // 使用者傳入的 data id 如果重複可能會造成誤判，所以統一由元件產生 $id 建立 node
@@ -435,12 +437,13 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
             <Search
               prefix={<MagnifyingGlassIcon />}
               placeholder={placeholder}
-              onChange={(value) =>
+              onChange={(value) => {
                 setSearchText((prev) => ({
                   ...prev,
                   subMenuSearchText: value,
-                }))
-              }
+                }));
+                onSearch?.(value, selectedLastMenu);
+              }}
             />
           )}
           {subMenu && (
@@ -499,12 +502,13 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
             <Search
               prefix={<MagnifyingGlassIcon />}
               placeholder={placeholder}
-              onChange={(value) =>
+              onChange={(value) => {
                 setSearchText((prev) => ({
                   ...prev,
                   menuSearchText: value,
-                }))
-              }
+                }));
+                onSearch?.(value);
+              }}
             />
           )}
           <Menu
