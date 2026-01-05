@@ -134,3 +134,28 @@ it('applies custom class names and styles', () => {
   expect(radioGroup).toHaveClass(props.className);
   expect(radioGroup).toHaveStyle(props.style);
 });
+it('calls onChange with empty string when clicking selected radio button and allowCancel is true', async () => {
+  const onChange = vi.fn();
+  const props = {
+    options: [
+      { label: 'Option 1', value: 'option-1' },
+      { label: 'Option 2', value: 'option-2' },
+    ],
+    value: 'option-1',
+    onChange,
+    allowCancel: true,
+  };
+  render(<RadioGroup {...props} />);
+
+  const selectedRadioButton = screen.getByLabelText('Option 1');
+  expect(selectedRadioButton).toBeInTheDocument();
+  expect(selectedRadioButton).toHaveAttribute(
+    'data-state',
+    'checked',
+  );
+
+  await userEvent.click(selectedRadioButton);
+
+  expect(onChange).toHaveBeenCalledTimes(1);
+  expect(onChange).toHaveBeenCalledWith('');
+});

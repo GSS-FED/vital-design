@@ -1,3 +1,10 @@
+import {
+  ButtonProps,
+  SplitButtonProps,
+} from 'src/components/button/types';
+import Avatar, { AvatarProps } from './components/avatar/Avatar';
+import Button from './components/button/Button';
+import SplitButton from './components/button/split-button/SplitButton';
 import Checkbox, {
   CheckboxProps,
 } from './components/checkbox/Checkbox';
@@ -35,38 +42,44 @@ import TreeSelect, {
 } from './components/tree-select/TreeSelect';
 
 export {
+  Avatar,
+  ActionInfiniteList,
+  ActionList,
+  Button,
   Checkbox,
   Chip,
   RadioGroup,
+  SearchBar,
+  Select,
+  SplitButton,
   Switch,
   Tag,
   TreeSelect,
-  SearchBar,
-  ActionList,
-  ActionInfiniteList,
-  Select,
 };
 
 export type {
+  AvatarProps,
+  ActionInfiniteListProps,
+  ActionListProps,
+  ButtonProps,
   CheckboxProps,
   ChipProps,
   RadioGroupProps,
   RadioOption,
-  SwitchProps,
-  TagProps,
-  TreeSelectProps,
-  TreeSelectRoot,
-  TreeSelectData,
   SearchBarProps,
-  ActionListProps,
-  ActionInfiniteListProps,
-  SelectProps,
   SelectContentProps,
+  SelectEmptyTextProps,
   SelectItemProps,
   SelectItemType,
   SelectMenuProps,
+  SelectProps,
   SelectSearchInputProps,
   SelectTitleProps,
   SelectTriggerProps,
-  SelectEmptyTextProps,
+  SplitButtonProps,
+  SwitchProps,
+  TagProps,
+  TreeSelectData,
+  TreeSelectProps,
+  TreeSelectRoot,
 };

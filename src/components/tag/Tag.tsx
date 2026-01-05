@@ -1,9 +1,27 @@
 import { rgba } from 'polished';
 import { CSSProperties, ReactNode } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { colors, styles } from 'src/constants';
 
+type Color =
+  | 'default'
+  | 'teal'
+  | 'olive'
+  | 'brown'
+  | 'rose'
+  | 'indigo'
+  | 'blue'
+  | 'green'
+  | 'gold'
+  | 'red'
+  | 'purple'
+  | 'navy';
+
+type ColorVariant = 'solid' | 'tint';
+
 export type TagProps = {
+  color?: Color;
+  colorVariant?: ColorVariant;
   children: ReactNode;
   icon?: ReactNode;
   removable?: boolean;
@@ -14,6 +32,132 @@ export type TagProps = {
   style?: CSSProperties;
 };
 
+const COLOR_PALETTE: Record<
+  Color,
+  Record<ColorVariant, { color: string; backgroundColor: string }>
+> = {
+  default: {
+    solid: {
+      color: colors.white,
+      backgroundColor: colors.grayscale700,
+    },
+    tint: {
+      color: colors.grayscale700,
+      backgroundColor: colors.grayscale200,
+    },
+  },
+  teal: {
+    solid: {
+      color: colors.white,
+      backgroundColor: '#057C7F',
+    },
+    tint: {
+      color: '#057C7F',
+      backgroundColor: '#EBFAF9',
+    },
+  },
+  olive: {
+    solid: {
+      color: colors.white,
+      backgroundColor: '#597D10',
+    },
+    tint: {
+      color: '#597D10',
+      backgroundColor: '#F5FAEB',
+    },
+  },
+  brown: {
+    solid: {
+      color: colors.white,
+      backgroundColor: '#AD5E0B',
+    },
+    tint: {
+      color: '#AD5E0B',
+      backgroundColor: '#FEF7F0',
+    },
+  },
+  rose: {
+    solid: {
+      color: colors.white,
+      backgroundColor: '#901957',
+    },
+    tint: {
+      color: '#901957',
+      backgroundColor: '#FEF5F9',
+    },
+  },
+  indigo: {
+    solid: {
+      color: colors.white,
+      backgroundColor: '#5A51AE',
+    },
+    tint: {
+      color: '#5A51AE',
+      backgroundColor: '#EDF2FD',
+    },
+  },
+  blue: {
+    solid: {
+      color: colors.white,
+      backgroundColor: '#0576BD',
+    },
+    tint: {
+      color: '#0576BD',
+      backgroundColor: '#EBF9FF',
+    },
+  },
+  green: {
+    solid: {
+      color: colors.white,
+      backgroundColor: '#0A8518',
+    },
+    tint: {
+      color: '#0A8518',
+      backgroundColor: '#E7FFEA',
+    },
+  },
+  gold: {
+    solid: {
+      color: colors.white,
+      backgroundColor: '#7B7312',
+    },
+    tint: {
+      color: '#7B7312',
+      backgroundColor: '#F8F6EB',
+    },
+  },
+  red: {
+    solid: {
+      color: colors.white,
+      backgroundColor: '#B93025',
+    },
+    tint: {
+      color: '#B93025',
+      backgroundColor: '#FFF4F3',
+    },
+  },
+  purple: {
+    solid: {
+      color: colors.white,
+      backgroundColor: '#641559',
+    },
+    tint: {
+      color: '#641559',
+      backgroundColor: '#F9F3FB',
+    },
+  },
+  navy: {
+    solid: {
+      color: colors.white,
+      backgroundColor: '#185273',
+    },
+    tint: {
+      color: '#185273',
+      backgroundColor: '#F0F6FA',
+    },
+  },
+};
+
 export default function Tag(props: TagProps) {
   const {
     children,
@@ -22,6 +166,8 @@ export default function Tag(props: TagProps) {
     selected,
     onClick,
     onRemove,
+    color = 'default',
+    colorVariant = 'solid',
     className,
     style,
   } = props;
@@ -35,6 +181,8 @@ export default function Tag(props: TagProps) {
     <Container
       role="option"
       aria-selected={isSelected}
+      color={color}
+      colorVariant={colorVariant}
       className={className}
       style={style}
     >
@@ -71,23 +219,30 @@ type ContentProps = {
   $isRemovable?: boolean;
 };
 
-const Container = styled.div`
-  ${styles.boxSizing}
-  ${styles.typography}
+const Container = styled.div<{
+  color: Color;
+  colorVariant: ColorVariant;
+}>`
+  ${({ color, colorVariant }) => css`
+    ${styles.boxSizing};
+    ${styles.typography};
 
-  position: relative;
-  display: inline-flex;
-  font-size: 12px;
-  line-height: 20px;
-  border-radius: 9999px; // 確保任何大小都是圓角
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  color: ${colors.white};
-  transition: outline-color 100ms;
+    position: relative;
+    display: inline-flex;
+    font-size: 12px;
+    line-height: 20px;
+    border-radius: 9999px; // 確保任何大小都是圓角
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    color: ${COLOR_PALETTE[color][colorVariant].color};
+    background-color: ${COLOR_PALETTE[color][colorVariant]
+      .backgroundColor};
+    transition: outline-color 100ms;
 
-  &[aria-selected='true'] {
-    outline-color: ${colors.primary500};
-  }
+    &[aria-selected='true'] {
+      outline-color: ${colors.primary500};
+    }
+  `}
 `;
 const Content = styled.div<ContentProps>`
   position: relative;
@@ -98,7 +253,6 @@ const Content = styled.div<ContentProps>`
   padding-right: ${(props) => props.$isRemovable && '4px'};
   border-radius: ${(props) =>
     props.$isRemovable ? '9999px 0 0 9999px' : '9999px'};
-  background-color: ${colors.grayscale700};
 
   &::before {
     content: '';
@@ -135,8 +289,6 @@ const CloseButton = styled(RawButton)`
   align-items: center;
   padding: 0 8px 0 4px;
   border-radius: 0 9999px 9999px 0;
-  color: ${colors.white};
-  background-color: ${colors.grayscale700};
   transition: background-color 100ms;
 
   &::before {

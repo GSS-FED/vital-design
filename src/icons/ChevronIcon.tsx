@@ -1,5 +1,3 @@
-import { colors } from '../constants';
-
 type IconProps = {
   width?: number;
   height?: number;
@@ -8,18 +6,13 @@ type IconProps = {
 };
 
 export const ChevronDownIcon = (props: IconProps) => {
-  const {
-    opacity = 1,
-    width = 12,
-    height = 12,
-    color = colors.grayscale500,
-  } = props;
+  const { opacity = 1, width = 50, height, color } = props;
   return (
     <svg
       width={width}
       height={height}
       viewBox="0 0 12 7"
-      fill={color}
+      fill={color || 'currentColor'}
       fillOpacity={opacity}
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -29,18 +22,13 @@ export const ChevronDownIcon = (props: IconProps) => {
 };
 
 export const ChevronUpIcon = (props: IconProps) => {
-  const {
-    opacity,
-    width = 12,
-    height = 12,
-    color = colors.grayscale500,
-  } = props;
+  const { opacity, width = 50, height, color } = props;
   return (
     <svg
       width={width}
       height={height}
       viewBox="0 0 12 7"
-      fill={color}
+      fill={color || 'currentColor'}
       fillOpacity={opacity}
       xmlns="http://www.w3.org/2000/svg"
     >

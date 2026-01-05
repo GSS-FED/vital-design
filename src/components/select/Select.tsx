@@ -1,9 +1,10 @@
 import {
   FloatingPortal,
+  Placement,
   UseFloatingReturn,
   UseInteractionsReturn,
-  autoPlacement,
   autoUpdate,
+  flip,
   offset,
   size,
   useDismiss,
@@ -70,6 +71,7 @@ export interface SelectProps {
   width?: string;
   className?: string;
   style?: CSSProperties;
+  placement?: Placement;
 }
 function Select({
   width,
@@ -81,6 +83,7 @@ function Select({
   isMultiple = false,
   disabled = false,
   isError = false,
+  placement = 'bottom-start',
 }: SelectProps) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -93,11 +96,10 @@ function Select({
     open,
     onOpenChange: setOpen,
     whileElementsMounted: autoUpdate,
+    placement: placement,
     middleware: [
       offset(4),
-      autoPlacement({
-        allowedPlacements: ['top-start', 'bottom-start'],
-      }),
+      flip(),
       size({
         apply({ rects, elements }) {
           Object.assign(elements.floating.style, {
@@ -189,7 +191,7 @@ const Trigger = ({
       maxDisplayCount={maxDisplayCount}
     />
   ) : (
-    <span>{value?.label}</span>
+    <Text>{value?.label}</Text>
   );
 
   return (
@@ -217,14 +219,15 @@ const Trigger = ({
             onClear?.();
           }}
         >
-          <ClearIcon />
+          <ClearIcon width={20} />
         </ClearIconWrapper>
       ) : (
         <IconWrapper>
           {open ? (
-            <ChevronUpIcon color={colors.grayscale700} />
+            <ChevronUpIcon width={14} color={colors.grayscale700} />
           ) : (
             <ChevronDownIcon
+              width={14}
               color={
                 disabled ? colors.grayscale500 : colors.grayscale600
               }
@@ -233,20 +236,6 @@ const Trigger = ({
         </IconWrapper>
       )}
     </StyledTrigger>
-  );
-};
-
-const CustomizedTrigger = ({ children }: { children: ReactNode }) => {
-  const { open, setOpen, floatingRefs, getReferenceProps } =
-    useSelectContext();
-  return (
-    <div
-      onClick={() => setOpen(!open)}
-      ref={floatingRefs.setReference}
-      {...getReferenceProps()}
-    >
-      {children}
-    </div>
   );
 };
 
@@ -431,7 +420,6 @@ const Separator = () => {
 };
 
 Select.Trigger = Trigger;
-Select.CustomizedTrigger = CustomizedTrigger;
 Select.Content = Content;
 Select.Header = Header;
 Select.Menu = Menu;
@@ -511,6 +499,12 @@ const StyledTrigger = styled.div<StyledTriggerProps>`
       color: ${colors.grayscale500};
       pointer-events: none;
     `}
+`;
+const Text = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
 `;
 const Placeholder = styled.span`
   color: ${colors.grayscale400};

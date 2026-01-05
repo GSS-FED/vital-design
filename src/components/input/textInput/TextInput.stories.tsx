@@ -12,13 +12,13 @@ const meta: Meta<typeof TextInput> = {
     prefix: {
       options: ['user'],
       mapping: {
-        user: <UserIcon />,
+        user: <UserIcon width={14} />,
       },
     },
   },
   args: {
     width: '450px',
-    prefix: <UserIcon />,
+    prefix: <UserIcon width={14} />,
     placeholder: '請輸入使用者名稱',
     onChange: fn(),
     onEnter: fn(),

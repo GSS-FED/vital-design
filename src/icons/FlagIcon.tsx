@@ -4,7 +4,7 @@ type FlagIconProps = {
 };
 
 export const FlagIcon = (props: FlagIconProps) => {
-  const { width, height } = props;
+  const { width = 50, height } = props;
 
   return (
     <svg

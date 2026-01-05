@@ -1,17 +1,15 @@
-import { colors } from '../constants';
-
 type SearchIconProps = {
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   color?: string;
   opacity?: number;
 };
 
 export const SearchIcon = (props: SearchIconProps) => {
   const {
-    width,
+    width = 50,
     height,
-    color = colors.grayscale500,
+    color = 'currentColor',
     opacity,
   } = props;
   return (

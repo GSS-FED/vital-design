@@ -16,13 +16,13 @@ export const Default: Story = {
     prefix: {
       options: ['User Icon'],
       mapping: {
-        Bold: <UserIcon />,
+        Bold: <UserIcon width={14} />,
       },
     },
   },
   args: {
     width: '450px',
-    prefix: <UserIcon />,
+    prefix: <UserIcon width={14} />,
     placeholder: '請輸入使用者名稱',
     value: '',
     onChange: fn(),
