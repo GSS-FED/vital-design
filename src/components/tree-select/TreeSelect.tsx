@@ -308,9 +308,17 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
   );
   const subMenu = (() => {
     if (selectedMenu.length <= 0) return;
-    if (!selectedLastMenu || !selectedLastMenu.children) return;
+    if (!selectedLastMenu) return;
+
+    // 嘗試從最新的 dataNodeMap 中取得最新的 node，確保有更新 data 時能立即顯示
+    const nodeId = getNodeId(dataNodeMap, selectedLastMenu.id);
+    const latestNode = nodeId
+      ? dataNodeMap[nodeId]
+      : selectedLastMenu;
+
+    if (!latestNode || !latestNode.children) return;
     return searchFilter(
-      selectedLastMenu.children,
+      latestNode.children,
       searchText.subMenuSearchText,
     );
   })();
@@ -453,46 +461,56 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
               $isScrollAtTop={isScrollAtTop}
               $isScrollAtBottom={isScrollAtBottom}
             >
-              {subMenu.map((item: TreeSelectDataNode<T>) => {
-                const { $id, displayName, suffixIcon, children } =
-                  item;
-                const path = getNodePath(dataNodeMap, $id);
-                return (
-                  <MenuItem
-                    key={$id}
-                    $isActive={checkIsPartialNodePath(path, value)}
-                    onClick={() => {
-                      if (children && children.length !== 0) {
-                        const newMenu = getMenuById(dataNodeMap, $id);
-                        setSelectedMenu(newMenu);
-                        // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
-                        setTimeout(() => {
-                          handleScroll();
-                        }, 0);
-                      } else {
-                        onChange(path);
-                      }
-                    }}
-                  >
-                    <MenuItemName title={displayName}>
-                      {displayName}
-                    </MenuItemName>
-                    {suffixIcon ? (
-                      <SubMenuItemIcon>{suffixIcon}</SubMenuItemIcon>
-                    ) : null}
-                    {children !== undefined &&
-                      children.length >= 0 && (
-                        <MenuItemIcon>
-                          <ChevronRightIcon width={20} height={20} />
-                        </MenuItemIcon>
-                      )}
-                  </MenuItem>
-                );
-              })}
-              {shouldLoadMore && (
+              <div key={selectedLastMenu.id}>
+                {subMenu.map((item: TreeSelectDataNode<T>) => {
+                  const { $id, displayName, suffixIcon, children } =
+                    item;
+                  const path = getNodePath(dataNodeMap, $id);
+                  return (
+                    <MenuItem
+                      key={$id}
+                      $isActive={checkIsPartialNodePath(path, value)}
+                      onClick={() => {
+                        if (children && children.length !== 0) {
+                          const newMenu = getMenuById(
+                            dataNodeMap,
+                            $id,
+                          );
+                          setSelectedMenu(newMenu);
+                          // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
+                          setTimeout(() => {
+                            handleScroll();
+                          }, 0);
+                        } else {
+                          onChange(path);
+                        }
+                      }}
+                    >
+                      <MenuItemName title={displayName}>
+                        {displayName}
+                      </MenuItemName>
+                      {suffixIcon ? (
+                        <SubMenuItemIcon>
+                          {suffixIcon}
+                        </SubMenuItemIcon>
+                      ) : null}
+                      {children !== undefined &&
+                        children.length >= 0 && (
+                          <MenuItemIcon>
+                            <ChevronRightIcon
+                              width={20}
+                              height={20}
+                            />
+                          </MenuItemIcon>
+                        )}
+                    </MenuItem>
+                  );
+                })}
+              </div>
+              {isLoadingMore && skeleton}
+              {shouldLoadMore && !isLoadingMore && (
                 <LoadMoreSentinel ref={loadMoreRef} />
               )}
-              {isLoadingMore && skeleton}
             </SubMenu>
           )}
         </Wrapper>
@@ -674,8 +692,12 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                   </Fragment>
                 );
               })}
-            {shouldLoadMore && <LoadMoreSentinel ref={loadMoreRef} />}
-            {isLoadingMore && skeleton}
+            {isLoadingMore && (
+              <div style={{ overflowAnchor: 'none' }}>{skeleton}</div>
+            )}
+            {shouldLoadMore && !isLoadingMore && (
+              <LoadMoreSentinel ref={loadMoreRef} />
+            )}
           </Menu>
         </Wrapper>
       )}
@@ -917,6 +939,7 @@ const LoadMoreSentinel = styled.div`
   height: 1px;
   width: 100%;
   flex-shrink: 0;
+  overflow-anchor: none;
 `;
 const DefaultSkeletonContainer = styled.div`
   padding: 6px 20px;
