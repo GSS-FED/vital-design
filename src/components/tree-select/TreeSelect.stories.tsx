@@ -189,13 +189,13 @@ export const LoadMore: Story = {
                 return nodes.map((n) => {
                   if (n.id === node.id) {
                     const currentChildren = n.children || [];
-                    const newChildren = Array.from({ length: 5 }).map(
-                      (_, index) => ({
-                        displayName: `New Sub Item ${currentChildren.length + index}`,
-                        id: `new-sub-item-${n.id}-${currentChildren.length + index}`,
-                        data: { subjectType: 1 },
-                      }),
-                    );
+                    const newChildren = Array.from({
+                      length: 20,
+                    }).map((_, index) => ({
+                      displayName: `New Sub Item ${currentChildren.length + index}`,
+                      id: `new-sub-item-${n.id}-${currentChildren.length + index}`,
+                      data: { subjectType: 1 },
+                    }));
                     return {
                       ...n,
                       children: [...currentChildren, ...newChildren],
@@ -218,7 +218,7 @@ export const LoadMore: Story = {
             const newItems = [
               {
                 label: 'New Loaded Data',
-                data: Array.from({ length: 5 }).map((_, index) => ({
+                data: Array.from({ length: 20 }).map((_, index) => ({
                   displayName: `New Item ${items.length + index}`,
                   id: `new-item-${items.length + index}`,
                   data: { subjectType: 1 },
