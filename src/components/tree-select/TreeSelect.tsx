@@ -55,6 +55,7 @@ type NodeMap<T> = Record<
 export type TreeSelectProps<T> = {
   data: TreeSelectRoot<T>[];
   onChange: (value: TreeSelectData<T>[]) => void;
+  onPathChange?: (path: TreeSelectData<T>[]) => void;
   value?: TreeSelectData<T>[];
   placeholder?: string;
   globalSearchLabel?: string;
@@ -229,6 +230,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
   const {
     data,
     onChange,
+    onPathChange,
     placeholder = '輸入關鍵字',
     globalSearchLabel,
     style,
@@ -394,6 +396,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
       ? getMenuById(dataNodeMap, previousMenuId)
       : [];
     setSelectedMenu(newMenu);
+    onPathChange?.(newMenu);
     setSearchText((prev) => ({
       ...prev,
       menuSearchText: '',
@@ -477,6 +480,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                             $id,
                           );
                           setSelectedMenu(newMenu);
+                          onPathChange?.(newMenu);
                           // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
                           setTimeout(() => {
                             handleScroll();
@@ -601,6 +605,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                                   $id,
                                 );
                                 setSelectedMenu(newMenu);
+                                onPathChange?.(newMenu);
                                 // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
                                 setTimeout(() => {
                                   handleScroll();
@@ -664,6 +669,7 @@ export default function TreeSelect<T>(props: TreeSelectProps<T>) {
                                   $id,
                                 );
                                 setSelectedMenu(newMenu);
+                                onPathChange?.(newMenu);
                                 // HACK: 因觸發時為 `Menu` 的 ref 不會為 `subMenu`的 ref 而導致 scroll 資訊不正確，暫由 setTimeout 解決
                                 setTimeout(() => {
                                   handleScroll();
