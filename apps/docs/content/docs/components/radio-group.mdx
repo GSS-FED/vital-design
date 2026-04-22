@@ -1,0 +1,66 @@
+---
+title: RadioGroup
+description: A single-selection group of radio buttons. Supports horizontal and vertical layouts.
+---
+
+import { RadioGroupPreview, RadioGroupVerticalPreview } from '~/components/previews/RadioGroupPreview';
+
+## Preview
+
+<RadioGroupPreview />
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import RadioGroup from '@/components/ui/RadioGroup';
+
+const options = [
+  { label: 'Option A', value: 'a' },
+  { label: 'Option B', value: 'b' },
+  { label: 'Option C', value: 'c' },
+];
+
+function Form() {
+  const [value, setValue] = useState('a');
+
+  return (
+    <RadioGroup
+      options={options}
+      value={value}
+      onChange={setValue}
+      direction="horizontal"
+    />
+  );
+}
+```
+
+## Vertical Layout
+
+<RadioGroupVerticalPreview />
+
+```tsx
+<RadioGroup options={options} value={value} onChange={setValue} direction="vertical" />
+```
+
+## Props
+
+### RadioGroup
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `options` | `RadioOption[]` | — | **Required.** List of radio options |
+| `value` | `string` | — | **Required.** Currently selected value |
+| `onChange` | `(value: string) => void` | — | **Required.** Called when selection changes |
+| `direction` | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout direction |
+| `allowCancel` | `boolean` | `false` | Clicking selected option deselects it |
+| `className` | `string` | — | Additional CSS classes |
+| `style` | `CSSProperties` | — | Inline styles |
+
+### RadioOption
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `ReactNode` | — | **Required.** Option label |
+| `value` | `string` | — | **Required.** Option value |
+| `disabled` | `boolean` | `false` | Disables this specific option |

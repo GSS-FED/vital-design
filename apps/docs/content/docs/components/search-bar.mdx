@@ -1,0 +1,40 @@
+---
+title: SearchBar
+description: A search input with an icon. Supports instant onChange and explicit onSearch (Enter / icon click).
+---
+
+import { SearchBarPreview, SearchBarDisabledPreview } from '~/components/previews/SearchBarPreview';
+
+## Preview
+
+<SearchBarPreview />
+
+## Usage
+
+```tsx
+import SearchBar from '@/components/ui/SearchBar';
+
+<SearchBar
+  placeholder="Search users..."
+  onChange={(value) => setQuery(value)}
+  onSearch={(value) => fetchResults(value)}
+/>
+```
+
+## Disabled
+
+<SearchBarDisabledPreview />
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `placeholder` | `string` | — | **Required.** Placeholder text |
+| `onChange` | `(value: string) => void` | — | Called on every keystroke |
+| `onSearch` | `(value: string) => void` | — | Called when Enter is pressed or icon is clicked |
+| `isSearchIconClickable` | `boolean` | `false` | Makes the search icon trigger `onSearch` on click |
+| `defaultValue` | `string` | — | Uncontrolled initial value |
+| `disabled` | `boolean` | `false` | Disables the input |
+| `width` | `string` | — | Custom width (e.g., `'300px'`) |
+| `className` | `string` | — | Additional CSS classes |
+| `style` | `CSSProperties` | — | Inline styles |

@@ -1,0 +1,119 @@
+---
+title: Button
+description: Trigger actions with filled and text button variants, multiple themes, and icon support.
+---
+
+import { Button } from '~/components/vital-components';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+
+## Preview
+
+<ComponentPreview>
+  <Button theme="primary" size="large">Primary</Button>
+  <Button theme="default" size="large">Default</Button>
+  <Button theme="success" size="large">Success</Button>
+  <Button theme="alarm" size="large">Alarm</Button>
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import Button from '@/components/ui/Button';
+
+<Button theme="primary" size="large">Click me</Button>
+```
+
+## Variants
+
+### Filled (Default)
+
+The default `filled` variant renders a solid background button.
+
+<ComponentPreview>
+  <Button variant="filled" theme="primary">Primary</Button>
+  <Button variant="filled" theme="default">Default</Button>
+  <Button variant="filled" theme="success">Success</Button>
+  <Button variant="filled" theme="info">Info</Button>
+  <Button variant="filled" theme="warning">Warning</Button>
+  <Button variant="filled" theme="alarm">Alarm</Button>
+  <Button variant="filled" theme="dangerous">Dangerous</Button>
+</ComponentPreview>
+
+```tsx
+<Button variant="filled" theme="primary">Primary</Button>
+<Button variant="filled" theme="default">Default</Button>
+<Button variant="filled" theme="success">Success</Button>
+<Button variant="filled" theme="info">Info</Button>
+<Button variant="filled" theme="warning">Warning</Button>
+<Button variant="filled" theme="alarm">Alarm</Button>
+<Button variant="filled" theme="dangerous">Dangerous</Button>
+```
+
+### Text
+
+The `text` variant renders a transparent background button. Available for all themes except `dangerous`.
+
+<ComponentPreview>
+  <Button variant="text" theme="primary">Primary</Button>
+  <Button variant="text" theme="default">Default</Button>
+  <Button variant="text" theme="success">Success</Button>
+  <Button variant="text" theme="info">Info</Button>
+  <Button variant="text" theme="warning">Warning</Button>
+  <Button variant="text" theme="alarm">Alarm</Button>
+</ComponentPreview>
+
+```tsx
+<Button variant="text" theme="primary">Primary</Button>
+<Button variant="text" theme="default">Default</Button>
+```
+
+### Sizes
+
+<ComponentPreview>
+  <Button theme="primary" size="medium">Medium</Button>
+  <Button theme="primary" size="large">Large</Button>
+</ComponentPreview>
+
+```tsx
+<Button size="medium">Medium</Button>
+<Button size="large">Large</Button>
+```
+
+### Loading State
+
+<ComponentPreview>
+  <Button theme="primary" size="large" isLoading>Loading</Button>
+  <Button theme="default" size="large" isLoading>Loading</Button>
+</ComponentPreview>
+
+```tsx
+<Button theme="primary" isLoading>Loading</Button>
+```
+
+### Disabled
+
+<ComponentPreview>
+  <Button theme="primary" size="large" disabled>Disabled</Button>
+  <Button variant="text" theme="primary" size="large" disabled>Disabled</Button>
+</ComponentPreview>
+
+```tsx
+<Button theme="primary" disabled>Disabled</Button>
+```
+
+## Props
+
+### Button
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'filled' \| 'text'` | `'filled'` | Visual variant |
+| `theme` | `'primary' \| 'default' \| 'success' \| 'info' \| 'warning' \| 'alarm' \| 'dangerous'` | `'primary'` | Color theme (`'dangerous'` only available on `filled`) |
+| `size` | `'medium' \| 'large'` | `'medium'` | Button size |
+| `icon` | `ReactNode` | — | Icon element to display |
+| `iconPlacement` | `'left' \| 'right'` | `'left'` | Icon position relative to label |
+| `isLoading` | `boolean` | `false` | Shows spinner and disables interaction |
+| `focusableWhenDisabled` | `boolean` | `false` | Keeps the button focusable even when disabled styling is applied |
+| `disabled` | `boolean` | `false` | Native disabled attribute |
+| `className` | `string` | — | Additional CSS classes |
+| `style` | `CSSProperties` | — | Inline styles |

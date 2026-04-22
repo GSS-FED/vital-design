@@ -1,0 +1,59 @@
+---
+title: Checkbox
+description: A checkbox input supporting checked, unchecked, and indeterminate states. Built on Base UI for accessibility.
+---
+
+import { CheckboxPreview, CheckboxStatesPreview } from '~/components/previews/CheckboxPreview';
+
+## Preview
+
+<CheckboxPreview />
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import Checkbox from '@/components/ui/Checkbox';
+
+function Agreement() {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <Checkbox checked={checked} onChange={setChecked}>
+      I accept the terms and conditions
+    </Checkbox>
+  );
+}
+```
+
+## States
+
+<CheckboxStatesPreview />
+
+The `indeterminate` state is useful for "select all" patterns where only some items are selected.
+
+## Indeterminate Pattern
+
+```tsx
+const allChecked = items.every((i) => i.checked);
+const someChecked = items.some((i) => i.checked);
+
+<Checkbox
+  checked={allChecked ? true : someChecked ? 'indeterminate' : false}
+  onChange={(checked) => setAll(checked)}
+>
+  Select all
+</Checkbox>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `checked` | `boolean \| 'indeterminate'` | — | **Required.** Checkbox state |
+| `onChange` | `(checked: boolean) => void` | — | **Required.** Called on change (always passes `boolean`, never `'indeterminate'`) |
+| `children` | `ReactNode` | — | Label text |
+| `disabled` | `boolean` | `false` | Disables interaction |
+| `required` | `boolean` | `false` | Applies error border when unchecked |
+| `className` | `string` | — | Additional CSS classes |
+| `style` | `CSSProperties` | — | Inline styles |

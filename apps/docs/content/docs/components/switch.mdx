@@ -1,0 +1,41 @@
+---
+title: Switch
+description: A toggle control for boolean on/off settings.
+---
+
+import { SwitchPreview, SwitchDisabledPreview } from '~/components/previews/SwitchPreview';
+
+## Preview
+
+<SwitchPreview />
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import Switch from '@/components/ui/Switch';
+
+function NotificationSetting() {
+  const [enabled, setEnabled] = useState(false);
+
+  return (
+    <Switch checked={enabled} onChange={setEnabled} />
+  );
+}
+```
+
+## States
+
+<SwitchDisabledPreview />
+
+The disabled state accepts both `checked={false}` and `checked={true}`.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `checked` | `boolean` | — | **Required.** Controls the toggle state |
+| `onChange` | `(checked: boolean) => void` | — | **Required.** Called when toggled |
+| `disabled` | `boolean` | `false` | Disables interaction |
+| `className` | `string` | — | Additional CSS classes |
+| `style` | `CSSProperties` | — | Inline styles |
