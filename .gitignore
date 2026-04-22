@@ -12,6 +12,8 @@ coverage
 dist
 dist-ssr
 storybook-static
+storybook-static-visual
+public/r/
 *.local
 .npmrc
 
@@ -25,3 +27,9 @@ storybook-static
 *.njsproj
 *.sln
 *.sw?
+
+# TypeScript build cache
+*.tsbuildinfo
+
+# Style Dictionary generated output
+src-v2/styles/tokens/

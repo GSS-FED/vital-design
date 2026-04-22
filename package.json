@@ -9,6 +9,9 @@
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": "./dist/vital-design.js"
+  },
   "publishConfig": {
     "@fed:registry": "https://git.gss.com.tw/api/v4/projects/5615/packages/npm/"
   },
@@ -22,11 +25,21 @@
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
     "storybook:dev": "storybook dev -p 6006",
-    "storybook:build": "storybook build",
+    "tokens:build": "node --import tsx ./scripts/build-tokens.ts",
+    "tokens:build:css": "node --import tsx ./scripts/build-tokens.ts css",
+    "registry:generate": "tsx scripts/build-registry-json.ts",
+    "registry:build": "pnpm run tokens:build && tsx scripts/build-registry-json.ts && npx shadcn@latest build",
+    "registry:validate": "tsx scripts/validate-registry.ts",
+    "storybook:build": "pnpm run registry:build && storybook build",
     "prepublishOnly": "pnpm run build",
-    "release": "semantic-release"
+    "release": "semantic-release",
+    "docs:dev": "pnpm --filter @fed/vital-docs dev",
+    "docs:lint": "pnpm --filter @fed/vital-docs lint",
+    "docs:build": "pnpm --filter @fed/vital-docs build",
+    "docs:start": "pnpm --filter @fed/vital-docs start"
   },
   "dependencies": {
+    "@base-ui/react": "^1.4.0",
     "@floating-ui/react": "^0.27.8",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-checkbox": "^1.0.4",
@@ -34,9 +47,12 @@
     "@radix-ui/react-radio-group": "^1.1.3",
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/themes": "^3.1.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "polished": "^4.2.2",
     "react-window": "^1.8.11",
-    "react-window-infinite-loader": "^1.0.9"
+    "react-window-infinite-loader": "^1.0.9",
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.0",
@@ -52,6 +68,8 @@
     "@storybook/react": "^8.4.5",
     "@storybook/react-vite": "^8.4.5",
     "@storybook/test": "^8.4.5",
+    "@tailwindcss/postcss": "^4.1.18",
+    "@tailwindcss/vite": "^4.2.1",
     "@testing-library/jest-dom": "^6.3.0",
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.5.2",
@@ -66,6 +84,7 @@
     "@typescript-eslint/parser": "^6.19.1",
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-v8": "^1.4.0",
+    "autoprefixer": "^10.4.23",
     "babel-plugin-styled-components": "^2.1.4",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
@@ -78,12 +97,17 @@
     "husky": "^8.0.3",
     "jsdom": "^23.2.0",
     "lint-staged": "^15.2.0",
+    "postcss": "^8.5.6",
     "prettier": "^3.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "semantic-release": "^22.0.12",
+    "shadcn": "^4.1.0",
     "storybook": "^8.4.5",
+    "style-dictionary": "^5.4.0",
     "styled-components": "^5.3.11",
+    "tailwindcss": "^4.1.18",
+    "tsx": "^4.19.2",
     "typescript": "^5.3.3",
     "vite": "^5.0.0",
     "vite-plugin-dts": "^3.7.2",
@@ -93,5 +117,6 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "styled-components": ">= 5"
-  }
+  },
+  "packageManager": "pnpm@10.17.1+sha512.17c560fca4867ae9473a3899ad84a88334914f379be46d455cbf92e5cf4b39d34985d452d2583baf19967fa76cb5c17bc9e245529d0b98745721aa7200ecaf7a"
 }

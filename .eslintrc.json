@@ -18,7 +18,9 @@
   "ignorePatterns": [
     "dist",
     "coverage",
-    "storybook-static"
+    "storybook-static",
+    "storybook-static-visual",
+    "apps"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -46,6 +48,13 @@
         "ignoreRestSiblings": true,
         "varsIgnorePattern": "^_",
         "argsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports",
+        "fixStyle": "inline-type-imports"
       }
     ]
   },

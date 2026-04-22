@@ -1,5 +1,5 @@
-import { StorybookConfig } from '@storybook/react-vite';
-import { mergeConfig } from 'vite';
+import type { StorybookConfig } from '@storybook/react-vite';
+import { sharedConfig } from './shared';
 
 const config: StorybookConfig = {
   framework: {
@@ -10,37 +10,14 @@ const config: StorybookConfig = {
   stories: [
     '../src/**/*.mdx',
     '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '../src-v2/**/*.mdx',
+    {
+      directory: '../src-v2',
+      titlePrefix: 'V2',
+      files: '**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    },
   ],
-
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-  ],
-
-  docs: {
-    autodocs: 'tag',
-    defaultName: 'Documentation',
-  },
-
-  //Configures how Storybook handles TypeScript files
-  typescript: {
-    reactDocgen: 'react-docgen-typescript',
-  },
-
-  async viteFinal(config) {
-    const { plugins, ...rest } = config;
-    const mergedConfig = mergeConfig(
-      { ...rest },
-      {
-        plugins: plugins?.filter((plugin) => {
-          const unwantedPluginNames = ['vite:dts'];
-          return !unwantedPluginNames.includes(plugin?.['name']);
-        }),
-      },
-    );
-    return mergedConfig;
-  },
+  ...sharedConfig,
 };
 
 export default config;
