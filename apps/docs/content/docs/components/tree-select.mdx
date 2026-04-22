@@ -1,0 +1,91 @@
+---
+title: TreeSelect
+description: A hierarchical selection component. Users navigate through tree nodes (breadcrumb-style) to select items at any depth.
+---
+
+import { TreeSelectPreview } from '~/components/previews/TreeSelectPreview';
+
+## Preview
+
+<TreeSelectPreview />
+
+Click a node to navigate into it. Use the breadcrumb at the top to go back. Selected items appear as tags in the trigger.
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import TreeSelect from '@/components/ui/TreeSelect';
+import type { TreeSelectData, TreeSelectRoot } from '@/components/ui/TreeSelect';
+
+type LocationData = { code: string };
+
+const treeData: TreeSelectRoot<LocationData>[] = [
+  {
+    label: 'Asia',
+    data: [
+      {
+        id: 'tw',
+        displayName: 'Taiwan',
+        data: { code: 'TW' },
+        children: [
+          { id: 'tpe', displayName: 'Taipei', data: { code: 'TPE' } },
+        ],
+      },
+    ],
+  },
+];
+
+function LocationPicker() {
+  const [value, setValue] = useState<TreeSelectData<LocationData>[]>([]);
+
+  return (
+    <TreeSelect
+      data={treeData}
+      value={value}
+      onChange={setValue}
+      placeholder="Select location"
+      isEnableSearch
+      style={{ width: 240 }}
+    />
+  );
+}
+```
+
+## Props
+
+### TreeSelect
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `data` | `TreeSelectRoot<T>[]` | — | **Required.** Root-level tree structure |
+| `onChange` | `(value: TreeSelectData<T>[]) => void` | — | **Required.** Called when selection changes |
+| `value` | `TreeSelectData<T>[]` | — | Currently selected nodes |
+| `placeholder` | `string` | — | Trigger placeholder text |
+| `isEnableSearch` | `boolean` | `false` | Shows a search bar within the panel |
+| `globalSearchLabel` | `string` | — | Label for the global search option |
+| `onSearch` | `(value: string, node?) => void` | — | Custom search handler (for server-side search) |
+| `onLoadMore` | `(node?) => void` | — | Called when the user reaches the end of a list |
+| `hasMore` | `boolean \| ((node?) => boolean)` | — | Whether more items can be loaded |
+| `isLoadingMore` | `boolean` | `false` | Shows loading indicator |
+| `skeleton` | `ReactNode` | — | Custom skeleton while loading |
+| `onPathChange` | `(path: TreeSelectData<T>[]) => void` | — | Called when the breadcrumb path changes |
+| `style` | `CSSProperties` | — | Inline styles |
+
+### TreeSelectRoot\<T\>
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `label` | `string` | Optional group label |
+| `data` | `TreeSelectData<T>[]` | **Required.** Nodes in this group |
+
+### TreeSelectData\<T\>
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `id` | `string` | **Required.** Unique identifier |
+| `displayName` | `string` | **Required.** Display name |
+| `data` | `T` | Custom payload |
+| `children` | `TreeSelectData<T>[]` | Child nodes |
+| `textColor` | `string` | Custom text color |
+| `suffixIcon` | `ReactNode` | Icon after the label |

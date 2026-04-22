@@ -1,0 +1,138 @@
+---
+title: Select
+description: A dropdown component supporting single and multi-select with optional search and checkboxes.
+---
+
+import { SelectPreview, SelectMultiPreview } from '~/components/previews/SelectPreview';
+
+## Preview
+
+<SelectPreview />
+
+## Usage
+
+Select is a **compound component**. The root `<Select>` manages state; sub-components compose the UI.
+
+```tsx
+import Select, { type ItemType } from '@/components/ui/Select';
+
+const [value, setValue] = useState<ItemType | undefined>(undefined);
+
+<Select value={value} onChange={setValue} width="200px">
+  <Select.Trigger placeholder="Select an option" />
+  <Select.Content>
+    <Select.Menu>
+      <Select.Item item={{ id: 1, label: 'Option 1' }} />
+      <Select.Item item={{ id: 2, label: 'Option 2' }} />
+      <Select.Item item={{ id: 3, label: 'Option 3' }} />
+    </Select.Menu>
+  </Select.Content>
+</Select>
+```
+
+## Multi-Select
+
+Set `isMultiple` to allow selecting multiple items. Use `clearable` on the trigger to show a clear button.
+
+```tsx
+const [values, setValues] = useState<ItemType[]>([]);
+
+<Select value={values} onChange={(item) => toggleItem(item)} isMultiple width="240px">
+  <Select.Trigger placeholder="Select options" clearable onClear={() => setValues([])} />
+  <Select.Content>
+    <Select.Menu>
+      <Select.Item item={{ id: 1, label: 'React' }} hasCheckbox />
+      <Select.Item item={{ id: 2, label: 'Vue' }} hasCheckbox />
+      <Select.Item item={{ id: 3, label: 'Angular' }} hasCheckbox />
+    </Select.Menu>
+  </Select.Content>
+</Select>
+```
+
+## With Search
+
+Add a `<Select.SearchBar>` inside `<Select.Content>` (above the menu) for filterable options:
+
+```tsx
+const [search, setSearch] = useState('');
+const filtered = options.filter((o) => o.label.includes(search));
+
+<Select value={value} onChange={setValue} width="240px">
+  <Select.Trigger placeholder="Search and select" />
+  <Select.Content>
+    <Select.Header>
+      <Select.SearchBar placeholder="Search..." onChange={setSearch} />
+    </Select.Header>
+    <Select.Menu>
+      {filtered.length === 0
+        ? <Select.EmptyText text="No results found" />
+        : filtered.map((item) => (
+            <Select.Item key={item.id} item={item} />
+          ))
+      }
+    </Select.Menu>
+  </Select.Content>
+</Select>
+```
+
+## With Grouped Items
+
+Use `<Select.Title>` and `<Select.Separator>` to group items:
+
+```tsx
+<Select.Menu>
+  <Select.Title>Fruits</Select.Title>
+  <Select.Item item={{ id: 1, label: 'Apple' }} />
+  <Select.Item item={{ id: 2, label: 'Banana' }} />
+  <Select.Separator />
+  <Select.Title>Vegetables</Select.Title>
+  <Select.Item item={{ id: 3, label: 'Carrot' }} />
+</Select.Menu>
+```
+
+## ItemType
+
+```ts
+interface ItemType {
+  id: string | number;
+  label: string;
+}
+```
+
+## Props
+
+### Select (Root)
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `ItemType \| ItemType[] \| undefined` | — | **Required.** Selected item(s) |
+| `onChange` | `(item: ItemType) => void` | — | **Required.** Called with the clicked item |
+| `children` | `ReactNode` | — | **Required.** Compound sub-components |
+| `isMultiple` | `boolean` | `false` | Enables multi-select mode |
+| `disabled` | `boolean` | `false` | Disables the select |
+| `isError` | `boolean` | `false` | Applies error styling to the trigger |
+| `width` | `string` | — | Width of the trigger (e.g., `'240px'`) |
+| `className` | `string` | — | Additional CSS classes on the root wrapper |
+| `style` | `CSSProperties` | — | Inline styles on the root wrapper |
+| `placement` | `Placement` | `'bottom-start'` | Floating UI dropdown placement |
+
+### Select.Trigger
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `placeholder` | `string` | `''` | Placeholder text when nothing is selected |
+| `clearable` | `boolean` | `false` | Shows a clear button |
+| `onClear` | `() => void` | — | Called when the clear button is clicked |
+| `maxDisplayCount` | `1 \| 2 \| 3 \| 6` | `2` | Max number of selected tags to show in multi-select |
+| `style` | `CSSProperties` | — | Inline styles on the trigger element |
+
+### Select.Item
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `item` | `ItemType` | — | **Required.** The item data |
+| `hasCheckbox` | `boolean` | `false` | Shows a checkbox (recommended for multi-select) |
+| `prefixIcon` | `ReactNode` | — | Icon before the label |
+| `suffixIcon` | `ReactNode` | — | Icon after the label |
+| `disabled` | `boolean` | `false` | Disables this item |
+| `style` | `CSSProperties` | — | Inline styles on the item row |

@@ -1,0 +1,72 @@
+---
+title: ActionInfiniteList
+description: A virtualized, infinitely scrolling list with search. Designed for large datasets loaded page by page.
+---
+
+import { ActionInfiniteListPreview } from '~/components/previews/ActionInfiniteListPreview';
+
+## Preview
+
+<ActionInfiniteListPreview />
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import ActionInfiniteList from '@/components/ui/ActionInfiniteList';
+
+type User = { id: number; displayName: string };
+
+function UserPicker() {
+  const { items, isLoading, hasNextPage, fetchNextPage } = useInfiniteUsers();
+  const [search, setSearch] = useState('');
+
+  return (
+    <ActionInfiniteList
+      items={items}
+      onSelect={(user) => selectUser(user)}
+      onSearchTermChange={setSearch}
+      hasNextPage={hasNextPage}
+      loadNextPage={fetchNextPage}
+      isLoading={isLoading}
+      skeleton={<UserSkeleton />}
+      noMatchingResultsText="No users found"
+      placeholder="Search users..."
+      listHeight={300}
+      width="280px"
+    />
+  );
+}
+```
+
+## BaseItem Type
+
+All items must extend `BaseItem`:
+
+```ts
+type BaseItem = {
+  id: string | number;
+  displayName: string;
+};
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `items` | `T[] \| undefined` | — | **Required.** Current page of items |
+| `onSelect` | `(item: T) => void` | — | **Required.** Called when an item is clicked |
+| `onSearchTermChange` | `(value: string) => void` | — | **Required.** Called on each search keystroke |
+| `hasNextPage` | `boolean` | — | **Required.** Whether more items can be loaded |
+| `loadNextPage` | `() => void \| Promise<void>` | — | **Required.** Triggers loading the next page |
+| `isLoading` | `boolean` | — | **Required.** Shows skeleton when `true` |
+| `skeleton` | `ReactNode` | — | **Required.** Loading skeleton element |
+| `noMatchingResultsText` | `string` | — | **Required.** Empty state message |
+| `listHeight` | `number` | — | **Required.** Fixed height (px) for the scroll window |
+| `placeholder` | `string` | `''` | Search bar placeholder |
+| `hasSearchBar` | `boolean` | `true` | Show/hide the search bar |
+| `onSearch` | `(value: string) => void` | — | Called when search is submitted |
+| `width` | `string` | `'100%'` | Width of the component |
+| `listItemIcon` | `(item: T) => JSX.Element` | — | Custom icon renderer per item |
+| `className` | `string` | — | Additional CSS classes |
+| `style` | `CSSProperties` | — | Inline styles |
