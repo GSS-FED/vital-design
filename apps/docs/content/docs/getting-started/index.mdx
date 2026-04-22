@@ -1,0 +1,50 @@
+---
+title: Introduction
+description: Vital Design is a React 18 component library built with TypeScript and Tailwind CSS 4.
+---
+
+## Overview
+
+**Vital Design** (`@fed/vital-design`) is a production-ready React component library designed for enterprise applications. It provides a comprehensive set of accessible, customizable UI components, with the current registry-backed `src-v2/` layer serving as the primary source for new components.
+
+> **Distribution note:** New projects and newly added components should use the registry-backed `src-v2/` layer. The published `@fed/vital-design` npm package remains available for legacy compatibility with existing projects, but the package targets the older `src/` surface and does not expose registry-only `src-v2` assets.
+
+## Features
+
+- **React 18** — Built for modern React with hooks and concurrent features
+- **TypeScript** — Full type safety with exported type definitions
+- **Tailwind CSS 4** — Utility-first styling with a custom design token system
+- **Base UI** — Accessible, unstyled primitives for complex interactions in `src-v2/`
+- **shadcn Registry** — Primary installation path for new components via the shadcn CLI
+
+## Component Categories
+
+### Atomic Components
+
+Foundational UI building blocks used across the design system:
+
+| Component | Description |
+|-----------|-------------|
+| `Button` | Filled and text variants with multiple themes |
+| `Avatar` | Profile images with 12 color variants and fallback initials |
+| `Chip` | Toggle chip for filter and tag selection |
+| `TextInput` | Text field with prefix/suffix support |
+| `PasswordInput` | Text field with visibility toggle |
+| `TextareaInput` | Multi-line text field |
+| `Select` | Dropdown with single/multi-select and search |
+| `Switch` | Toggle switch for boolean settings |
+| `Tag` | Read-only label with color variants |
+| `Checkbox` | Checkbox with indeterminate state support |
+| `RadioGroup` | Radio button group |
+| `SearchBar` | Styled search input |
+
+### Composite Blocks
+
+Pre-composed patterns combining multiple atomic components for common UI scenarios.
+
+## Design Principles
+
+- **Predictable** — Consistent props API across all components
+- **Composable** — Components work well together and with custom code
+- **Accessible** — ARIA attributes and keyboard navigation via Base UI
+- **Themeable** — CSS custom properties for design token customization

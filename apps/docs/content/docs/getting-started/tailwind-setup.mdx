@@ -1,0 +1,75 @@
+---
+title: Tailwind CSS Setup
+description: Configure Tailwind CSS 4 to work with Vital Design components and design tokens.
+---
+
+## Overview
+
+This page applies to **registry-installed Vital Design components**. When you install `src-v2/` components through the shadcn-compatible registry, the CLI copies them into your app and injects the Vital Design theme tokens into the CSS file configured in `components.json`.
+
+If you are maintaining an existing project that still uses the published `@fed/vital-design` npm package, keep that legacy `src/` integration as-is. The npm package does **not** expose the registry-only `src-v2` stylesheet as a public import.
+
+## Registry-Installed Local Components
+
+In the global CSS file configured in your `components.json` (for example `app/globals.css` in Next.js), keep the Tailwind import:
+
+```css
+@import "tailwindcss";
+```
+
+When you install a Vital Design component from the registry, shadcn also installs the `@vital-design/vital-theme` dependency and writes the required CSS variables and Tailwind theme tokens into that CSS file for you.
+
+Because the copied component files live inside your app source tree, Tailwind CSS 4 will usually detect them automatically. In the common `app/` or `src/` setup, you do not need an extra `@source` line for registry-installed components.
+
+If your `components.json` points to a custom directory outside Tailwind's automatic source detection, add an `@source` rule that matches your local component path.
+
+## Design Tokens
+
+Registry installs expose the Vital Design design tokens as CSS custom properties and Tailwind utilities. The shadcn flow writes the required theme variables into your configured global CSS file for you.
+
+For example, the following tokens become available:
+
+```css
+/* Available after registry install */
+--primary-500: #0E86FE;
+--grayscale-900: #232332;
+--success-500: #2BCD86;
+```
+
+These are exposed as Tailwind color utilities via `@theme inline`:
+
+```html
+<!-- Use them in your markup -->
+<div class="text-primary-500 bg-primary-50">...</div>
+<p class="text-grayscale-900">...</p>
+```
+
+## PostCSS Configuration
+
+Tailwind CSS 4 requires `@tailwindcss/postcss`. Create or update `postcss.config.js` (or `postcss.config.cjs`, depending on your project) like this:
+
+```js
+export default {
+  plugins: {
+    '@tailwindcss/postcss': {},
+  },
+};
+```
+
+If your project already uses `autoprefixer`, you can keep it.
+
+## Fonts
+
+Vital Design uses the following font stack (defined in `--font-sans`):
+
+```
+'Roboto', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif
+```
+
+To load Roboto, add it to your HTML or import via a font provider. With Next.js:
+
+```tsx
+import { Roboto } from 'next/font/google';
+
+const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500', '700'] });
+```

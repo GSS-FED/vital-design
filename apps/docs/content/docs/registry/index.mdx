@@ -1,0 +1,92 @@
+---
+title: Registry
+description: Install Vital Design components individually using the shadcn CLI.
+---
+
+## Overview
+
+Vital Design publishes a **shadcn-compatible registry** that lets you install individual components directly into your project. Each component is copied into your codebase, giving you full ownership and the ability to customize freely.
+
+The registry is the canonical delivery channel for net-new `src-v2/` components. Existing projects can keep using the published `@fed/vital-design` npm package for compatibility, but newer components and theme assets are expected to come from the registry path.
+
+Registry URL: `https://bizform.vikosmos.com/vittal-design/r`
+
+## Installation
+
+### 1. Initialize `shadcn` if needed
+
+```bash
+npx shadcn@latest init
+```
+
+### 2. Add the Vital Design registry to `components.json`
+
+```json
+{
+  "registries": {
+    "@vital-design": "https://bizform.vikosmos.com/vittal-design/r/{name}.json"
+  }
+}
+```
+
+### 3. Install a registry item
+
+```bash
+npx shadcn@latest add @vital-design/button
+```
+
+### Examples
+
+```bash
+# Add the Button component
+npx shadcn@latest add @vital-design/button
+
+# Add the Select component
+npx shadcn@latest add @vital-design/select
+```
+
+> You can still install an item via its direct JSON URL, but the `@vital-design/<name>` alias is the recommended path because it also resolves `@vital-design/*` dependencies declared by registry items.
+
+## Available UI Components
+
+| Name | Registry Key | Description |
+|------|-------------|-------------|
+| Avatar | `avatar` | Profile image with color variants |
+| Button | `button` | Filled and text variants with themes |
+| SplitButton | `split-button` | Button with a primary action and a dropdown menu |
+| Checkbox | `checkbox` | Checkbox with indeterminate support |
+| Chip | `chip` | Toggle pill component |
+| RadioGroup | `radio-group` | Radio button group |
+| Switch | `switch` | Toggle switch |
+| Tag | `tag` | Read-only label with colors |
+| Mask | `mask` | Scroll container with gradient mask effect |
+| SearchBar | `search-bar` | Styled search input |
+| [TextInput](/docs/components/input#text-input) | `text-input` | Single-line text field |
+| [TextareaInput](/docs/components/input#textarea-input) | `textarea-input` | Multi-line text field |
+| [PasswordInput](/docs/components/input#password-input) | `password-input` | Text field with visibility toggle |
+| [List Components](/docs/components/list#list-components) | `list-components` | Reusable list building blocks for list-based components |
+| Select | `select` | Dropdown with multi-select and search |
+| ActionList | `action-list` | Scrollable selection list with search |
+| ActionInfiniteList | `action-infinite-list` | Virtualized infinite-scroll selection list |
+| TreeSelect | `tree-select` | Hierarchical selection dropdown |
+
+## Dependencies
+
+When you install a component, the CLI also installs any declared dependencies. Components that depend on other Vital Design components will pull them in automatically.
+
+Common shared dependencies:
+- `clsx` + `tailwind-merge` — class merging utilities (`cn()`)
+- Base UI primitives for migrated `src-v2/` components (e.g., `@base-ui/react` for Switch, Checkbox, Avatar, and Radio Group)
+
+> **Distribution note:** New components are published to the registry-first `src-v2/` layer. The legacy `src/` npm package remains available for compatibility, so do not assume every new component or theme asset is also available through `@fed/vital-design`.
+
+## After Installation
+
+1. Complete the [Tailwind Setup](/docs/getting-started/tailwind-setup) for registry-installed components. If you stay on the legacy npm package, keep its existing `src/` integration and install `styled-components` as needed.
+2. Import the generated component from the local path configured by your project's `components.json`
+
+> **SSL note:** The registry uses an internal certificate. If you see a TLS error (`unable to verify the first certificate`), prefix the command with `NODE_TLS_REJECT_UNAUTHORIZED=0`:
+>
+> ```bash
+> NODE_TLS_REJECT_UNAUTHORIZED=0 npx shadcn@latest add @vital-design/button
+> ```

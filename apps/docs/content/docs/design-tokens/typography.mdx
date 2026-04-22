@@ -1,0 +1,66 @@
+---
+title: Typography
+description: Font family, size scale, and text style conventions used in Vital Design.
+---
+
+## Font Family
+
+The font stack is defined via the `--font-sans` CSS variable:
+
+```css
+--font-sans: 'Roboto', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+```
+
+This is registered as a Tailwind token via `@theme inline`, so it's available as:
+
+```html
+<p class="font-sans">...</p>
+```
+
+The stack prioritises:
+1. **Roboto** — Latin characters and UI text
+2. **Noto Sans TC** / **PingFang TC** / **Microsoft JhengHei** — Traditional Chinese fallbacks
+
+## Border Radius
+
+Custom radius tokens are defined for component shapes:
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--radius-none` | `0px` | Square corners |
+| `--radius-sm` | `4px` | Small inputs and compact corners |
+| `--radius-md` | `8px` | Standard form controls and containers |
+| `--radius-lg` | `15px` | Rounded elements (e.g., medium buttons) |
+| `--radius-xl` | `16px` | Card corners, dialogs, large buttons |
+| `--radius-full` | `9999px` | Pill shape (chips, tags, avatars) |
+
+```html
+<div class="rounded-lg">...</div>
+```
+
+## Font Size
+
+Vital Design components rely on Tailwind's default type scale. No custom font sizes are defined. Refer to the [Tailwind CSS Typography documentation](https://tailwindcss.com/docs/font-size) for available sizes (`text-xs` through `text-9xl`).
+
+## Text Colors
+
+Use the grayscale tokens for body text:
+
+```html
+<!-- Primary text -->
+<p class="text-grayscale-900">Main content</p>
+
+<!-- Secondary / muted text -->
+<p class="text-grayscale-600">Supporting text</p>
+
+<!-- Placeholder / disabled text -->
+<p class="text-grayscale-400">Placeholder</p>
+```
+
+## Gradient
+
+A gradient token is provided for primary button backgrounds:
+
+```css
+--gradient-primary-button: linear-gradient(45deg, #33CFFF 0%, #0E86FE 100%);
+```
