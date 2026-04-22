@@ -1,0 +1,737 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "$registry": "https://bizform.vikosmos.com/vittal-design/r",
+  "name": "vital-design",
+  "homepage": "https://github.com/gss-fed/vital-design",
+  "items": [
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "Utils",
+      "description": "Utility functions including cn() for class merging",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "src-v2/utils/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "vital-theme",
+      "type": "registry:theme",
+      "title": "Vital Design Theme",
+      "description": "CSS variables and Tailwind v4 theme tokens for vital-design components",
+      "cssVars": {
+        "theme": {
+          "radius-none": "0px",
+          "radius-sm": "4px",
+          "radius-md": "8px",
+          "radius-lg": "15px",
+          "radius-xl": "16px",
+          "radius-full": "9999px",
+          "font-sans": "Roboto, 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif",
+          "gradient-primary-button": "linear-gradient(45deg, #33CFFF 0%, #0E86FE 100%)",
+          "shadow-accent": "0 2px 8px 0 rgba(35, 35, 50, 0.15)",
+          "shadow-base": "0 6px 10px 0 rgba(35, 35, 50, 0.08)",
+          "shadow-emphasis": "0 6px 20px -2px rgba(35, 35, 50, 0.25)",
+          "shadow-top-level": "0 6px 32px -4px rgba(35, 35, 50, 0.25)",
+          "shadow-focus-primary": "0 0 0 2px #A6D2FF",
+          "shadow-focus-success": "0 0 0 2px #A5ECCD",
+          "shadow-focus-info": "0 0 0 2px #99E7FF",
+          "shadow-focus-warning": "0 0 0 2px #FFDC99",
+          "shadow-focus-alarm": "0 0 0 2px #FFAE85",
+          "shadow-focus-ring-primary": "0 0 0 2px rgba(14, 134, 254, 0.2)",
+          "shadow-focus-ring-alarm": "0 0 0 2px rgba(235, 80, 0, 0.2)",
+          "shadow-button-primary": "0 6px 10px rgba(14, 134, 254, 0.3)",
+          "shadow-button-primary-active": "0 2px 4px rgba(14, 134, 254, 0.4)",
+          "shadow-button-success": "0 6px 10px rgba(43, 205, 134, 0.3)",
+          "shadow-button-success-active": "0 2px 4px rgba(43, 205, 134, 0.4)",
+          "shadow-button-info": "0 6px 10px rgba(0, 195, 255, 0.3)",
+          "shadow-button-info-active": "0 2px 4px rgba(0, 195, 255, 0.4)",
+          "shadow-button-warning": "0 6px 10px rgba(255, 167, 0, 0.3)",
+          "shadow-button-warning-active": "0 2px 4px rgba(255, 167, 0, 0.4)",
+          "shadow-button-alarm": "0 6px 10px rgba(235, 80, 0, 0.3)",
+          "shadow-button-alarm-active": "0 2px 4px rgba(235, 80, 0, 0.4)"
+        },
+        "light": {
+          "avatar-tiffany-color": "#00B9AF",
+          "avatar-tiffany-border": "#8DE0DB",
+          "avatar-tiffany-bg": "#EBFAF9",
+          "avatar-green-color": "#7DB700",
+          "avatar-green-border": "#C5DF8D",
+          "avatar-green-bg": "#F5FAEB",
+          "avatar-orange-color": "#F39B3F",
+          "avatar-orange-border": "#FAD2A9",
+          "avatar-orange-bg": "#FEF7F0",
+          "avatar-pink-color": "#EC7BB0",
+          "avatar-pink-border": "#F7C4DC",
+          "avatar-pink-bg": "#FEF5F9",
+          "avatar-blue-color": "#1B56E0",
+          "avatar-blue-border": "#99B4F1",
+          "avatar-blue-bg": "#EDF2FD",
+          "avatar-sky-color": "#00B4FF",
+          "avatar-sky-border": "#8DDDFF",
+          "avatar-sky-bg": "#EBF9FF",
+          "avatar-purple-color": "#9A83FF",
+          "avatar-purple-border": "#D2C7FF",
+          "avatar-purple-bg": "#F7F5FF",
+          "avatar-light-gold-color": "#A48F01",
+          "avatar-light-gold-border": "#D6CD8D",
+          "avatar-light-gold-bg": "#F8F6EB",
+          "avatar-salmon-color": "#F56C61",
+          "avatar-salmon-border": "#FBBEB9",
+          "avatar-salmon-bg": "#FFF4F3",
+          "avatar-ice-color": "#3F8BB6",
+          "avatar-ice-border": "#A9CBDF",
+          "avatar-ice-bg": "#F0F6FA",
+          "avatar-lavender-color": "#AA65C8",
+          "avatar-lavender-border": "#D9BAE7",
+          "avatar-lavender-bg": "#F9F3FB",
+          "tag-teal-solid": "#057C7F",
+          "tag-teal-tint": "#EBFAF9",
+          "tag-olive-solid": "#597D10",
+          "tag-olive-tint": "#F5FAEB",
+          "tag-brown-solid": "#AD5E0B",
+          "tag-brown-tint": "#FEF7F0",
+          "tag-rose-solid": "#901957",
+          "tag-rose-tint": "#FEF5F9",
+          "tag-indigo-solid": "#5A51AE",
+          "tag-indigo-tint": "#EDF2FD",
+          "tag-blue-solid": "#0576BD",
+          "tag-blue-tint": "#EBF9FF",
+          "tag-green-solid": "#0A8518",
+          "tag-green-tint": "#E7FFEA",
+          "tag-gold-solid": "#7B7312",
+          "tag-gold-tint": "#F8F6EB",
+          "tag-red-solid": "#B93025",
+          "tag-red-tint": "#FFF4F3",
+          "tag-purple-solid": "#641559",
+          "tag-purple-tint": "#F9F3FB",
+          "tag-navy-solid": "#185273",
+          "tag-navy-tint": "#F0F6FA",
+          "primary-50": "#EBF5FF",
+          "primary-100": "#D9ECFF",
+          "primary-200": "#A6D2FF",
+          "primary-300": "#73B9FE",
+          "primary-400": "#419FFE",
+          "primary-500": "#0E86FE",
+          "primary-600": "#016DD8",
+          "primary-700": "#0153A5",
+          "primary-800": "#003A73",
+          "primary-900": "#002040",
+          "grayscale-100": "rgba(35, 35, 50, 0.03)",
+          "grayscale-150": "rgba(35, 35, 50, 0.05)",
+          "grayscale-200": "rgba(35, 35, 50, 0.08)",
+          "grayscale-300": "rgba(35, 35, 50, 0.15)",
+          "grayscale-400": "rgba(35, 35, 50, 0.25)",
+          "grayscale-500": "rgba(35, 35, 50, 0.40)",
+          "grayscale-600": "rgba(35, 35, 50, 0.55)",
+          "grayscale-700": "rgba(35, 35, 50, 0.70)",
+          "grayscale-800": "rgba(35, 35, 50, 0.85)",
+          "grayscale-900": "#232332",
+          "success-100": "#CFF5E4",
+          "success-200": "#A5ECCD",
+          "success-300": "#7BE3B5",
+          "success-400": "#51DA9E",
+          "success-500": "#2BCD86",
+          "success-600": "#22A36A",
+          "success-700": "#19794F",
+          "success-800": "#104F33",
+          "success-900": "#082518",
+          "info-100": "#CCF3FF",
+          "info-200": "#99E7FF",
+          "info-300": "#66DBFF",
+          "info-400": "#33CFFF",
+          "info-500": "#00C3FF",
+          "info-600": "#009CCC",
+          "info-700": "#007599",
+          "info-800": "#004E66",
+          "info-900": "#002733",
+          "warning-100": "#FFEDCC",
+          "warning-200": "#FFDC99",
+          "warning-300": "#FFCA66",
+          "warning-400": "#FFB933",
+          "warning-500": "#FFA700",
+          "warning-600": "#CC8600",
+          "warning-700": "#996400",
+          "warning-800": "#664300",
+          "warning-900": "#332200",
+          "alarm-100": "#FFD0B8",
+          "alarm-200": "#FFAE85",
+          "alarm-300": "#FF8D52",
+          "alarm-400": "#FF6B1F",
+          "alarm-500": "#EB5000",
+          "alarm-600": "#B83F00",
+          "alarm-700": "#852D00",
+          "alarm-800": "#521C00",
+          "alarm-900": "#1F0B00",
+          "border": "#DEDEE2",
+          "text-primary": "#232332",
+          "text-secondary": "rgba(35, 35, 50, 0.70)",
+          "text-tertiary": "rgba(35, 35, 50, 0.55)",
+          "text-disabled": "rgba(35, 35, 50, 0.25)",
+          "text-on-accent": "#FFFFFF",
+          "interactive-default": "#0E86FE",
+          "interactive-hover": "#016DD8",
+          "interactive-pressed": "#0153A5",
+          "interactive-subtle": "#EBF5FF",
+          "feedback-success": "#2BCD86",
+          "feedback-info": "#00C3FF",
+          "feedback-warning": "#FFA700",
+          "feedback-error": "#EB5000",
+          "surface-default": "#FFFFFF",
+          "surface-subtle": "rgba(35, 35, 50, 0.03)",
+          "surface-muted": "rgba(35, 35, 50, 0.08)"
+        }
+      }
+    },
+    {
+      "name": "vital-constants",
+      "type": "registry:lib",
+      "title": "Vital Constants",
+      "description": "Mask constants for scroll containers",
+      "files": [
+        {
+          "path": "src-v2/constants/mask.ts",
+          "type": "registry:lib",
+          "target": "src/lib/constants/mask.ts"
+        },
+        {
+          "path": "src-v2/constants/index.ts",
+          "type": "registry:lib",
+          "target": "src/lib/constants/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "vital-design-base",
+      "type": "registry:base",
+      "title": "Vital Design Base",
+      "description": "One-command setup for Vital Design: installs theme, utils, and icons",
+      "registryDependencies": [
+        "@vital-design/vital-theme",
+        "@vital-design/utils",
+        "@vital-design/vital-icons",
+        "@vital-design/vital-constants"
+      ]
+    },
+    {
+      "name": "vital-icons",
+      "type": "registry:lib",
+      "title": "Vital Icons",
+      "description": "Custom SVG icon components",
+      "files": [
+        {
+          "path": "src-v2/icons/CheckIcon.tsx",
+          "type": "registry:lib",
+          "target": "src/lib/icons/CheckIcon.tsx"
+        },
+        {
+          "path": "src-v2/icons/ChevronIcon.tsx",
+          "type": "registry:lib",
+          "target": "src/lib/icons/ChevronIcon.tsx"
+        },
+        {
+          "path": "src-v2/icons/ClearIcon.tsx",
+          "type": "registry:lib",
+          "target": "src/lib/icons/ClearIcon.tsx"
+        },
+        {
+          "path": "src-v2/icons/CloseIcon.tsx",
+          "type": "registry:lib",
+          "target": "src/lib/icons/CloseIcon.tsx"
+        },
+        {
+          "path": "src-v2/icons/DisabledIcon.tsx",
+          "type": "registry:lib",
+          "target": "src/lib/icons/DisabledIcon.tsx"
+        },
+        {
+          "path": "src-v2/icons/EyeIcon.tsx",
+          "type": "registry:lib",
+          "target": "src/lib/icons/EyeIcon.tsx"
+        },
+        {
+          "path": "src-v2/icons/EyeSlashIcon.tsx",
+          "type": "registry:lib",
+          "target": "src/lib/icons/EyeSlashIcon.tsx"
+        },
+        {
+          "path": "src-v2/icons/FlagIcon.tsx",
+          "type": "registry:lib",
+          "target": "src/lib/icons/FlagIcon.tsx"
+        },
+        {
+          "path": "src-v2/icons/MinusIcon.tsx",
+          "type": "registry:lib",
+          "target": "src/lib/icons/MinusIcon.tsx"
+        },
+        {
+          "path": "src-v2/icons/SearchIcon.tsx",
+          "type": "registry:lib",
+          "target": "src/lib/icons/SearchIcon.tsx"
+        },
+        {
+          "path": "src-v2/icons/SpinnerIcon.tsx",
+          "type": "registry:lib",
+          "target": "src/lib/icons/SpinnerIcon.tsx"
+        },
+        {
+          "path": "src-v2/icons/UserIcon.tsx",
+          "type": "registry:lib",
+          "target": "src/lib/icons/UserIcon.tsx"
+        },
+        {
+          "path": "src-v2/icons/index.tsx",
+          "type": "registry:lib",
+          "target": "src/lib/icons/index.tsx"
+        }
+      ]
+    },
+    {
+      "name": "use-debounce-value",
+      "type": "registry:hook",
+      "title": "useDebounceValue",
+      "description": "Hook for debouncing values with customizable delay",
+      "files": [
+        {
+          "path": "src-v2/hooks/useDebounceValue.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Avatar component with image, fallback, and multiple color variants",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-constants",
+        "@vital-design/vital-icons",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/avatar/Avatar.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/components/avatar/AvatarConstants.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Button component with filled and text variants, multiple themes and sizes",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-icons",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/button/Button.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/components/button/types.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "split-button",
+      "type": "registry:ui",
+      "title": "Split Button",
+      "description": "Split button component with main action and dropdown trigger",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-icons",
+        "@vital-design/button",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/button/split-button/SplitButton.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Checkbox component with indeterminate state support",
+      "dependencies": [
+        "@base-ui/react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/checkbox/Checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "chip",
+      "type": "registry:ui",
+      "title": "Chip",
+      "description": "Chip component for selection and filtering",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/chip/Chip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "Radio group component with horizontal and vertical layouts",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/radio-group/RadioGroup.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "Toggle switch component with on/off labels",
+      "dependencies": [
+        "@base-ui/react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/switch/Switch.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tag",
+      "type": "registry:ui",
+      "title": "Tag",
+      "description": "Tag component with multiple colors, variants, and removable option",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/tag/Tag.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "mask",
+      "type": "registry:ui",
+      "title": "Mask",
+      "description": "Scrollable container with gradient mask effect",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-constants",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/mask/Mask.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "search-bar",
+      "type": "registry:ui",
+      "title": "Search Bar",
+      "description": "Search input with icon and enter key support",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-icons",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/search-bar/SearchBar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "text-input",
+      "type": "registry:ui",
+      "title": "Text Input",
+      "description": "Text input component with prefix/suffix slots and error state",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/input/textInput/TextInput.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "textarea-input",
+      "type": "registry:ui",
+      "title": "Textarea Input",
+      "description": "Multiline text input component",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/input/textareaInput/TextareaInput.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "password-input",
+      "type": "registry:ui",
+      "title": "Password Input",
+      "description": "Password input with visibility toggle",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/text-input",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/input/passwordInput/PasswordInput.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "list-components",
+      "type": "registry:ui",
+      "title": "List Components",
+      "description": "Reusable list container and item components with mask effect",
+      "dependencies": [
+        "styled-components",
+        "react-window@^1.8.10",
+        "@types/react-window",
+        "react-window-infinite-loader@^1.0.9",
+        "@types/react-window-infinite-loader",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-constants",
+        "@vital-design/vital-icons",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/list/components/ListContainer.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/components/list/components/ListItem.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/components/list/components/InfiniteList.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/components/list/components/InfiniteListItem.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Compound select component with single/multiple selection support",
+      "dependencies": [
+        "@floating-ui/react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-icons",
+        "@vital-design/checkbox",
+        "@vital-design/search-bar",
+        "@vital-design/tag",
+        "@vital-design/mask",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/select/Select.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "action-list",
+      "type": "registry:ui",
+      "title": "Action List",
+      "description": "Searchable action list with selection support",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/search-bar",
+        "@vital-design/list-components",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/list/action-list/ActionList.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "action-infinite-list",
+      "type": "registry:ui",
+      "title": "Action Infinite List",
+      "description": "Infinite scrolling action list with search support",
+      "dependencies": [
+        "styled-components",
+        "react-window@^1.8.10",
+        "@types/react-window",
+        "react-window-infinite-loader@^1.0.9",
+        "@types/react-window-infinite-loader",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-constants",
+        "@vital-design/vital-icons",
+        "@vital-design/search-bar",
+        "@vital-design/list-components",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/list/action-infinite-list/ActionInfiniteList.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tree-select",
+      "type": "registry:ui",
+      "title": "Tree Select",
+      "description": "Hierarchical tree selection component with search and infinite loading",
+      "dependencies": [
+        "@radix-ui/react-icons",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-constants",
+        "@vital-design/vital-icons",
+        "@vital-design/text-input",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/tree-select/TreeSelect.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    }
+  ]
+}
