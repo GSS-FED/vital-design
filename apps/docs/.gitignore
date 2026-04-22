@@ -1,0 +1,18 @@
+# Next.js
+.next/
+out/
+
+# Fumadocs generated
+.source/
+
+# Dependencies
+node_modules/
+
+# Build
+.next/
+dist/
+
+# Env
+.env
+.env.local
+.env.*.local
