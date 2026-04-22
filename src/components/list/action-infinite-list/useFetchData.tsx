@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Results, getData } from './ActionInfiniteList.data';
+import { type Results, getData } from './ActionInfiniteList.data';
 
 export const useFetchData = (pageSize: number) => {
   const [isLoading, setIsLoading] = useState(true);

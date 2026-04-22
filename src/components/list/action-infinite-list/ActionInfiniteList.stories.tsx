@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import { useEffect, useState } from 'react';
 import { useDebounceValue } from 'src/hooks/useDebounceValue';

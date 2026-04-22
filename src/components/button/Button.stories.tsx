@@ -1,10 +1,10 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'src/components/button/Button';
 import {
-  FilledButtonProps,
-  TextButtonProps,
+  type FilledButtonProps,
+  type TextButtonProps,
 } from 'src/components/button/types';
 import { colors } from 'src/constants';
 import {

@@ -1,6 +1,6 @@
-import { CSSProperties, useState } from 'react';
+import { type CSSProperties, useState } from 'react';
 import styled from 'styled-components';
-import { Option } from 'src/components/list/components/ListContainer';
+import { type Option } from 'src/components/list/components/ListContainer';
 import ListContainer from 'src/components/list/components/ListContainer';
 import { ListItem } from 'src/components/list/components/ListItem';
 import SearchBar from 'src/components/search-bar/SearchBar';

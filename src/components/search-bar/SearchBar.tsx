@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import styled, { CSSProperties } from 'styled-components';
+import styled, { type CSSProperties } from 'styled-components';
 import { styles } from 'src/constants';
 import colors from 'src/constants/colors';
 import { SearchIcon } from 'src/icons';

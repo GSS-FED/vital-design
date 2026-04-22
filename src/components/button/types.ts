@@ -1,9 +1,9 @@
 import {
-  CSSProperties,
-  ComponentPropsWithoutRef,
-  ReactNode,
+  type CSSProperties,
+  type ComponentPropsWithoutRef,
+  type ReactNode,
 } from 'react';
-import { SIZE_STYLE } from 'src/components/button/styles';
+import { type SIZE_STYLE } from 'src/components/button/styles';
 
 export type ButtonSize = keyof typeof SIZE_STYLE;
 

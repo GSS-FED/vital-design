@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import {
-  ButtonSize,
-  IconPlacement,
+  type ButtonSize,
+  type IconPlacement,
 } from 'src/components/button/types';
 import { styles } from 'src/constants';
 import { colors } from 'src/constants';

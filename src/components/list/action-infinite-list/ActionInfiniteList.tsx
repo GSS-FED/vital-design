@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode } from 'react';
+import { type CSSProperties, type ReactNode } from 'react';
 import styled from 'styled-components';
 import InfiniteList from 'src/components/list/components/InfiniteList';
 import { ListItem } from 'src/components/list/components/ListItem';

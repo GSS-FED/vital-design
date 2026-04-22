@@ -1,7 +1,10 @@
 import { useRef, useState } from 'react';
-import { ListOnScrollProps, VariableSizeList } from 'react-window';
+import {
+  type ListOnScrollProps,
+  VariableSizeList,
+} from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
-import styled, { CSSProperties, css } from 'styled-components';
+import styled, { type CSSProperties, css } from 'styled-components';
 import { colors, masks } from 'src/constants';
 import { InfiniteListItem } from './InfiniteListItem';
 

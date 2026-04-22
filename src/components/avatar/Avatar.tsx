@@ -1,5 +1,5 @@
 import * as RadixAvatar from '@radix-ui/react-avatar';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import { colors } from 'src/constants';
 import { styles } from 'src/constants';

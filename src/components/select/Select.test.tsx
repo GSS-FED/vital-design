@@ -6,7 +6,7 @@ import {
 } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { colors } from 'src/constants';
-import Select, { ItemType } from './Select';
+import Select, { type ItemType } from './Select';
 
 const ResizeObserverMock = vi.fn(() => ({
   observe: vi.fn(),
