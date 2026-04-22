@@ -1,0 +1,14 @@
+@import 'tailwindcss';
+@import './tokens/generated.css';
+
+/* ===== Custom Variant ===== */
+@custom-variant not-disabled (&:not(:disabled));
+
+/* ===== Base Layer ===== */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}

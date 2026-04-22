@@ -1,0 +1,26 @@
+{
+  "text": {
+    "primary":   { "$value": "{grayscale.900}", "$type": "color" },
+    "secondary": { "$value": "{grayscale.700}", "$type": "color" },
+    "tertiary":  { "$value": "{grayscale.600}", "$type": "color" },
+    "disabled":  { "$value": "{grayscale.400}", "$type": "color" },
+    "on-accent": { "$value": "#FFFFFF",         "$type": "color" }
+  },
+  "interactive": {
+    "default": { "$value": "{primary.500}", "$type": "color" },
+    "hover":   { "$value": "{primary.600}", "$type": "color" },
+    "pressed": { "$value": "{primary.700}", "$type": "color" },
+    "subtle":  { "$value": "{primary.50}",  "$type": "color" }
+  },
+  "feedback": {
+    "success": { "$value": "{success.500}", "$type": "color" },
+    "info":    { "$value": "{info.500}",    "$type": "color" },
+    "warning": { "$value": "{warning.500}", "$type": "color" },
+    "error":   { "$value": "{alarm.500}",   "$type": "color" }
+  },
+  "surface": {
+    "default": { "$value": "#FFFFFF",         "$type": "color" },
+    "subtle":  { "$value": "{grayscale.100}", "$type": "color" },
+    "muted":   { "$value": "{grayscale.200}", "$type": "color" }
+  }
+}

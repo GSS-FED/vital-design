@@ -1,0 +1,59 @@
+{
+  "avatar": {
+    "tiffany": {
+      "color":  { "$value": "#00B9AF", "$type": "color" },
+      "border": { "$value": "#8DE0DB", "$type": "color" },
+      "bg":     { "$value": "#EBFAF9", "$type": "color" }
+    },
+    "green": {
+      "color":  { "$value": "#7DB700", "$type": "color" },
+      "border": { "$value": "#C5DF8D", "$type": "color" },
+      "bg":     { "$value": "#F5FAEB", "$type": "color" }
+    },
+    "orange": {
+      "color":  { "$value": "#F39B3F", "$type": "color" },
+      "border": { "$value": "#FAD2A9", "$type": "color" },
+      "bg":     { "$value": "#FEF7F0", "$type": "color" }
+    },
+    "pink": {
+      "color":  { "$value": "#EC7BB0", "$type": "color" },
+      "border": { "$value": "#F7C4DC", "$type": "color" },
+      "bg":     { "$value": "#FEF5F9", "$type": "color" }
+    },
+    "blue": {
+      "color":  { "$value": "#1B56E0", "$type": "color" },
+      "border": { "$value": "#99B4F1", "$type": "color" },
+      "bg":     { "$value": "#EDF2FD", "$type": "color" }
+    },
+    "sky": {
+      "color":  { "$value": "#00B4FF", "$type": "color" },
+      "border": { "$value": "#8DDDFF", "$type": "color" },
+      "bg":     { "$value": "#EBF9FF", "$type": "color" }
+    },
+    "purple": {
+      "color":  { "$value": "#9A83FF", "$type": "color" },
+      "border": { "$value": "#D2C7FF", "$type": "color" },
+      "bg":     { "$value": "#F7F5FF", "$type": "color" }
+    },
+    "light-gold": {
+      "color":  { "$value": "#A48F01", "$type": "color" },
+      "border": { "$value": "#D6CD8D", "$type": "color" },
+      "bg":     { "$value": "#F8F6EB", "$type": "color" }
+    },
+    "salmon": {
+      "color":  { "$value": "#F56C61", "$type": "color" },
+      "border": { "$value": "#FBBEB9", "$type": "color" },
+      "bg":     { "$value": "#FFF4F3", "$type": "color" }
+    },
+    "ice": {
+      "color":  { "$value": "#3F8BB6", "$type": "color" },
+      "border": { "$value": "#A9CBDF", "$type": "color" },
+      "bg":     { "$value": "#F0F6FA", "$type": "color" }
+    },
+    "lavender": {
+      "color":  { "$value": "#AA65C8", "$type": "color" },
+      "border": { "$value": "#D9BAE7", "$type": "color" },
+      "bg":     { "$value": "#F9F3FB", "$type": "color" }
+    }
+  }
+}
