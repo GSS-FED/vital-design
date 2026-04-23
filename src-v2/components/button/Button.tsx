@@ -1,15 +1,55 @@
-import type {
-  ButtonProps,
-  ButtonSize,
-  FilledButtonProps,
-  IconPlacement,
-} from '@/components/button/types';
 import { SpinnerIcon } from '@/icons/SpinnerIcon';
 import { cn } from '@/utils/cn';
 import { Button as BaseButton } from '@base-ui/react/button';
 import { type VariantProps, cva } from 'class-variance-authority';
-import { type ReactNode } from 'react';
 import { Children } from 'react';
+import type {
+  CSSProperties,
+  ComponentPropsWithoutRef,
+  ReactNode,
+} from 'react';
+
+export type ButtonSize = 'medium' | 'large';
+
+export type IconPlacement = 'left' | 'right';
+
+export type CommonButton = {
+  size?: ButtonSize;
+} & ComponentPropsWithoutRef<'button'>;
+
+export type FilledButtonProps = {
+  variant?: 'filled';
+  theme?:
+    | 'primary'
+    | 'default'
+    | 'success'
+    | 'info'
+    | 'warning'
+    | 'alarm'
+    | 'dangerous';
+};
+
+export type TextButtonProps = {
+  variant?: 'text';
+  theme?:
+    | 'primary'
+    | 'default'
+    | 'success'
+    | 'info'
+    | 'warning'
+    | 'alarm';
+};
+
+export type ButtonProps = {
+  size?: ButtonSize;
+  className?: string;
+  style?: CSSProperties;
+  icon?: ReactNode;
+  iconPlacement?: IconPlacement;
+  isLoading?: boolean;
+  focusableWhenDisabled?: boolean;
+} & (FilledButtonProps | TextButtonProps) &
+  ComponentPropsWithoutRef<'button'>;
 
 const SIZE_CONFIG = {
   medium: { iconSize: 12 },

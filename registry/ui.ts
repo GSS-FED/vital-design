@@ -15,8 +15,8 @@ export const ui = [
     ],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/vital-constants',
-      '@vital-design/vital-icons',
+      '@vital-design/icon-disabled',
+      '@vital-design/icon-user',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -37,23 +37,20 @@ export const ui = [
     description:
       'Button component with filled and text variants, multiple themes and sizes',
     dependencies: [
+      '@base-ui/react',
       'class-variance-authority',
       'clsx',
       'tailwind-merge',
     ],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/vital-icons',
+      '@vital-design/icon-spinner',
       '@vital-design/vital-theme',
     ],
     files: [
       {
         path: 'src-v2/components/button/Button.tsx',
         type: 'registry:ui',
-      },
-      {
-        path: 'src-v2/components/button/types.ts',
-        type: 'registry:lib',
       },
     ],
   },
@@ -70,8 +67,7 @@ export const ui = [
     ],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/vital-icons',
-      '@vital-design/button',
+      '@vital-design/icon-chevron',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -90,6 +86,8 @@ export const ui = [
     dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
+      '@vital-design/icon-check',
+      '@vital-design/icon-minus',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -111,6 +109,7 @@ export const ui = [
     ],
     registryDependencies: [
       '@vital-design/utils',
+      '@vital-design/icon-close',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -212,7 +211,7 @@ export const ui = [
     ],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/vital-icons',
+      '@vital-design/icon-search',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -274,6 +273,8 @@ export const ui = [
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/text-input',
+      '@vital-design/icon-eye',
+      '@vital-design/icon-eye-slash',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -301,7 +302,7 @@ export const ui = [
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-constants',
-      '@vital-design/vital-icons',
+      '@vital-design/icon-spinner',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -332,7 +333,8 @@ export const ui = [
     dependencies: ['@floating-ui/react', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/vital-icons',
+      '@vital-design/icon-chevron',
+      '@vital-design/icon-clear',
       '@vital-design/checkbox',
       '@vital-design/search-bar',
       '@vital-design/tag',
@@ -382,7 +384,7 @@ export const ui = [
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-constants',
-      '@vital-design/vital-icons',
+      '@vital-design/icon-spinner',
       '@vital-design/search-bar',
       '@vital-design/list-components',
       '@vital-design/vital-theme',
@@ -404,7 +406,7 @@ export const ui = [
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-constants',
-      '@vital-design/vital-icons',
+      '@vital-design/icon-spinner',
       '@vital-design/text-input',
       '@vital-design/vital-theme',
     ],

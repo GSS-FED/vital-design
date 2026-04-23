@@ -11,30 +11,36 @@
 ## 執行步驟
 
 1. **讀取目標元件資訊**
+
    - UI 元件：`src-v2/components/<component-name>/<ComponentName>.tsx`
    - Block：`src-v2/blocks/<block-name>/<BlockName>.tsx`
-   - 若有獨立 `types.ts`，也一併讀取
+   - Props 類型通常由元件 `.tsx` 檔 export
 
 2. **讀取現有 docs 結構**
+
    - `apps/docs/app/docs/[[...slug]]/page.tsx`
    - `apps/docs/components/preview/ComponentPreview.tsx`
    - 參考一個相似 preview，例如 `apps/docs/components/previews/ChipPreview.tsx`
 
 3. **選擇 preview 方式**
+
    - 有互動 state：建立 `apps/docs/components/previews/<ComponentName>Preview.tsx`
    - 純靜態展示：直接從 `~/components/vital-components` 匯入元件，不另建 preview
 
 4. **若建立 preview 元件**
+
    - 加上 `'use client'`
    - 在 `page.tsx` 同步新增 import 與 `components` 物件註冊
    - 若有多種主要狀態，可提供多個 named export preview
 
 5. **建立或更新 MDX 文件**
+
    - 元件頁：`apps/docs/content/docs/components/<component-name>.mdx`
    - Block 頁：`apps/docs/content/docs/blocks/<block-name>.mdx`
    - 參考 `apps/docs/content/docs/components/chip.mdx` 或同類型頁面
 
 6. **更新排序與導覽**
+
    - `apps/docs/content/docs/components/meta.json`
    - `apps/docs/content/docs/blocks/meta.json`
 

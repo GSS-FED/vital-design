@@ -33,23 +33,23 @@ pnpm docs:start            # 啟動生產環境文件站
 
 ## AI Commands
 
-| Command | 對應 Skill | 說明 |
-| ------- | ---------- | ---- |
-| `/new-component` | `new-component` | 建立新原子 UI 元件 |
-| `/add-registry` | `add-registry` | 將元件或 block 加入 registry |
-| `/add-docs` | `add-docs` | 為元件或 block 建立文件頁面 |
-| `/create-block` | `create-block` | 建立複合 UI 區塊 |
-| `/check-quality` | `check-quality` | 執行程式碼與文件一致性檢查 |
+| Command          | 對應 Skill      | 說明                         |
+| ---------------- | --------------- | ---------------------------- |
+| `/new-component` | `new-component` | 建立新原子 UI 元件           |
+| `/add-registry`  | `add-registry`  | 將元件或 block 加入 registry |
+| `/add-docs`      | `add-docs`      | 為元件或 block 建立文件頁面  |
+| `/create-block`  | `create-block`  | 建立複合 UI 區塊             |
+| `/check-quality` | `check-quality` | 執行程式碼與文件一致性檢查   |
 
 ## AI Skills
 
-| Skill | 說明 |
-| ----- | ---- |
-| `new-component` | 建立新的原子 UI 元件 |
-| `add-registry` | 維護 `registry/*.ts` 並產生 shadcn registry 項目 |
-| `add-docs` | 補齊 Fumadocs 頁面、preview 與導覽 |
-| `create-block` | 使用既有 VD 元件組合出 block |
-| `check-quality` | 檢查型別、lint、測試、registry 與文件同步狀態 |
+| Skill           | 說明                                             |
+| --------------- | ------------------------------------------------ |
+| `new-component` | 建立新的原子 UI 元件                             |
+| `add-registry`  | 維護 `registry/*.ts` 並產生 shadcn registry 項目 |
+| `add-docs`      | 補齊 Fumadocs 頁面、preview 與導覽               |
+| `create-block`  | 使用既有 VD 元件組合出 block                     |
+| `check-quality` | 檢查型別、lint、測試、registry 與文件同步狀態    |
 
 ## Tech Stack
 
@@ -141,12 +141,13 @@ pnpm docs:start            # 啟動生產環境文件站
 - 不要修改 Prettier/ESLint 設定
 - 新元件必須遵循現有結構模式
 - 任何結構性變動後（新增/刪除元件、修改 registry 結構、調整路徑或命名規範）須同步檢查並更新 `AGENTS.md`、`.agents/RULES.md`、`.agents/commands/`、`.agents/skills/` 中的相關說明
+- `.agents/` 是 AI workflow 文件唯一來源；`.claude` 是指向 `.agents` 的 symlink，不要分開維護兩份
 
 詳細開發規範見 `.agents/RULES.md`
 
 ## Known Gotchas
 
-- **Icon 導入**：元件源碼禁止 barrel import，需指定完整路徑（例：`@/icons/SearchIcon`）；原因是 shadcn CLI 只複製 `files` 明確列出的檔案，完整路徑才能精確追蹤圖示依賴；stories/test 不走 registry 分發，不受此限
+- **Icon 導入**：元件源碼禁止 barrel import，需指定完整路徑（例：`@/icons/SearchIcon`）；registry 安裝時 icons 會落在 `src/components/icons/*`，元件 registryDependencies 應列精確的 `@vital-design/icon-*`，不要用整包 `@vital-design/vital-icons`；stories/test 不走 registry 分發，不受此限
 - **Colors**：元件一律使用 CSS variables（`var(--primary-500)`）或 Tailwind utility class
 - **Shadows**：同上，使用 `var(--shadow-emphasis)` 等 CSS variables
 - **Registry 依賴**：`registryDependencies` 必須加 `@vital-design/` 前綴

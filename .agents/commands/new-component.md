@@ -11,24 +11,28 @@
 ## 執行步驟
 
 1. **建立元件目錄**
+
    ```
    src-v2/components/<component-name>/
    ```
 
 2. **建立 ComponentName.tsx**
+
    - Props 類型直接 inline 定義（`export type ComponentNameProps = {...}`）
    - 使用 `forwardRef` 包裝（如適用）
    - 使用 `cn()` 合併類名
    - 遵循 import 順序規範
    - Icon 使用完整路徑（例：`@/icons/SearchIcon`），禁止 barrel import
-   - 僅在類型需跨多個檔案共用時，才另建 `types.ts`
+   - 不新增 component-level `types.ts`；跨檔案共用型別時從元件 `.tsx` import type
 
 3. **建立 ComponentName.test.tsx**
+
    - 基本渲染測試
    - Props 測試
    - 事件處理測試
 
 4. **建立 ComponentName.stories.tsx**
+
    - Default story
    - 各 variant stories
 
@@ -47,6 +51,7 @@
 ```
 
 將建立：
+
 - `src-v2/components/badge/Badge.tsx`（Props 類型 inline 定義於此）
 - `src-v2/components/badge/Badge.test.tsx`
 - `src-v2/components/badge/Badge.stories.tsx`

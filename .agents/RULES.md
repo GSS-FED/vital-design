@@ -8,12 +8,12 @@
 
 ```
 src-v2/components/component-name/
-├── ComponentName.tsx         # 主要元件實作（Props 類型通常 inline 定義於此）
+├── ComponentName.tsx         # 主要元件實作（Props 類型 inline export 於此）
 ├── ComponentName.test.tsx    # Vitest 測試
 └── ComponentName.stories.tsx # Storybook stories
 ```
 
-> `types.ts` 為可選：僅在 Props 類型需跨檔案共用時才抽出（例：`button/types.ts`）。多數元件直接在 `.tsx` 檔頂部以 `export type ComponentNameProps = {...}` 定義類型。
+> 元件 Props 類型一律放在主要 `.tsx` 檔頂部並 export。避免新增 component-level `types.ts`，因為 registry 安裝時會變成 shared lib 檔案；跨檔案需要共用型別時，從元件檔本身 import type。
 
 ## 程式碼風格
 
@@ -41,11 +41,10 @@ className="bg-blue-500 text-white"
 
 ```typescript
 // 實際排序範例（Prettier 自動產生）
-import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { cn } from '@/utils/cn';
+import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
 import type { CSSProperties, ReactNode } from 'react';
-import type { ButtonProps } from './types';
 ```
 
 > 不要手動調整 import 順序，執行 `pnpm run format` 讓 Prettier 自動排序。
@@ -56,12 +55,11 @@ import type { ButtonProps } from './types';
 
 ```typescript
 import type { ComponentProps } from 'react';
-import type { ButtonProps } from './types';
 ```
 
 ### Icon 導入
 
-元件源碼禁止 barrel import，必須指定完整路徑。原因：shadcn CLI 分發元件時只複製 `files` 陣列明確列出的檔案，無法解析 barrel（`index.tsx`）背後實際 re-export 了哪些圖示，完整路徑讓 CLI 能精確追蹤依賴。stories / test 檔案不走 registry 分發，不受此限。
+元件源碼禁止 barrel import，必須指定完整路徑。原因：shadcn CLI 分發元件時只複製 `files` 陣列明確列出的檔案，無法解析 barrel（`index.tsx`）背後實際 re-export 了哪些圖示，完整路徑讓 CLI 能精確追蹤依賴。registry 安裝時 icons 會落在 `src/components/icons/*`；元件 registryDependencies 應列精確的 `@vital-design/icon-*`，不要用整包 `@vital-design/vital-icons`。stories / test 檔案不走 registry 分發，不受此限。
 
 ```typescript
 // 正確（元件源碼）
@@ -94,15 +92,15 @@ import { CheckIcon, CloseIcon } from '@/icons';
 
 ### 元件類型
 
-| 類型                 | 用途                                        | 檔案位置                                              |
-| -------------------- | ------------------------------------------- | ----------------------------------------------------- |
-| `registry:ui`        | UI 元件                                     | `src-v2/components/`                                  |
-| `registry:lib`       | 工具庫                                      | `src-v2/utils/`、`src-v2/icons/`、`src-v2/constants/` |
-| `registry:hook`      | React Hooks                                 | `src-v2/hooks/`                                       |
-| `registry:theme`     | CSS variables 主題（`vital-theme`）         | `registry/base.ts`                                    |
-| `registry:block`     | 複合區塊                                    | `src-v2/blocks/`                                      |
-| `registry:component` | block 組成檔案（block 的 files 陣列使用）   | —                                                     |
-| `registry:base`      | 一鍵安裝的 meta 套件（`vital-design-base`） | `registry/base.ts`（唯一，勿新增）                    |
+| 類型                 | 用途                                        | 檔案位置                              |
+| -------------------- | ------------------------------------------- | ------------------------------------- |
+| `registry:ui`        | UI 元件與 icon 元件                         | `src-v2/components/`、`src-v2/icons/` |
+| `registry:lib`       | 工具庫與常數                                | `src-v2/utils/`、`src-v2/constants/`  |
+| `registry:hook`      | React Hooks                                 | `src-v2/hooks/`                       |
+| `registry:theme`     | CSS variables 主題（`vital-theme`）         | `registry/base.ts`                    |
+| `registry:block`     | 複合區塊                                    | `src-v2/blocks/`                      |
+| `registry:component` | block 組成檔案（block 的 files 陣列使用）   | —                                     |
+| `registry:base`      | 一鍵安裝的 meta 套件（`vital-design-base`） | `registry/base.ts`（唯一，勿新增）    |
 
 ## 測試規範
 

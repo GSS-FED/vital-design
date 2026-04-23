@@ -45,6 +45,58 @@ describe('Registry Validation', () => {
     });
   });
 
+  describe('Registry File Placement', () => {
+    it('component types should not be installed as shared lib files', () => {
+      const misplacedTypeFiles: string[] = [];
+
+      for (const item of registry.items) {
+        if (!item.files) continue;
+
+        for (const file of item.files) {
+          const isComponentTypesFile =
+            file.path.includes('/components/') &&
+            file.path.endsWith('/types.ts');
+
+          if (
+            isComponentTypesFile ||
+            file.target === 'src/lib/types.ts'
+          ) {
+            misplacedTypeFiles.push(`${item.name}: ${file.path}`);
+          }
+        }
+      }
+
+      expect(
+        misplacedTypeFiles,
+        `Component types should live in their component files:\n${misplacedTypeFiles.join('\n')}`,
+      ).toHaveLength(0);
+    });
+
+    it('icons should install under components/icons', () => {
+      const misplacedIcons: string[] = [];
+
+      for (const item of registry.items) {
+        if (!item.files) continue;
+
+        for (const file of item.files) {
+          if (!file.path.startsWith('src-v2/icons/')) continue;
+
+          const expectedTarget = `src/components/icons/${path.basename(file.path)}`;
+          if (file.target !== expectedTarget) {
+            misplacedIcons.push(
+              `${item.name}: ${file.path} -> ${file.target ?? 'default target'}`,
+            );
+          }
+        }
+      }
+
+      expect(
+        misplacedIcons,
+        `Icons should target components/icons:\n${misplacedIcons.join('\n')}`,
+      ).toHaveLength(0);
+    });
+  });
+
   describe('Registry Dependencies Validation', () => {
     it('registryDependencies should reference existing registry items', () => {
       const itemNames = new Set(
@@ -177,6 +229,41 @@ describe('Registry Validation', () => {
   });
 
   describe('NPM Dependencies Completeness', () => {
+    it('components using Base UI should declare @base-ui/react', () => {
+      const missingDeps: string[] = [];
+
+      for (const item of registry.items) {
+        if (!item.files) continue;
+
+        const usesBaseUi = item.files.some((file) => {
+          if (
+            !file.path.endsWith('.ts') &&
+            !file.path.endsWith('.tsx')
+          ) {
+            return false;
+          }
+
+          const filePath = path.join(ROOT_DIR, file.path);
+          if (!fs.existsSync(filePath)) return false;
+
+          const content = fs.readFileSync(filePath, 'utf-8');
+          return content.includes("from '@base-ui/react/");
+        });
+
+        if (
+          usesBaseUi &&
+          !item.dependencies?.includes('@base-ui/react')
+        ) {
+          missingDeps.push(item.name);
+        }
+      }
+
+      expect(
+        missingDeps,
+        `Components using Base UI missing @base-ui/react:\n${missingDeps.join('\n')}`,
+      ).toHaveLength(0);
+    });
+
     it('components using cn() should have clsx and tailwind-merge', () => {
       const missingDeps: string[] = [];
 

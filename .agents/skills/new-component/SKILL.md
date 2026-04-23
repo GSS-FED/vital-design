@@ -16,19 +16,22 @@ allowed-tools: Read, Write, Edit, Bash
 ## 執行步驟
 
 1. **確認元件名稱與功能**
+
    - 元件名稱：PascalCase（例：`Badge`）
    - 目錄名稱：kebab-case（例：`badge`）
 
 2. **閱讀相似元件** 理解現有結構模式
+
    - 簡單元件：`Read src-v2/components/chip/Chip.tsx`
    - 有 CVA variants：`Read src-v2/components/tag/Tag.tsx`
-   - 有 types.ts：`Read src-v2/components/button/types.ts`
+   - 有 exported prop types：`Read src-v2/components/button/Button.tsx`
 
 3. **建立元件目錄** `src-v2/components/<component-name>/`
 
 4. **建立 ComponentName.tsx** — 元件實作
+
    - Props 類型直接 inline 定義（`export type ComponentNameProps = {...}`）
-   - 僅在類型需跨多個檔案共用時，才另建 `types.ts`
+   - 不新增 component-level `types.ts`；跨檔案共用型別時從元件 `.tsx` import type
 
 5. **建立 ComponentName.test.tsx** — 測試
 

@@ -11,17 +11,20 @@
 ## 執行步驟
 
 1. **確認元件存在**
+
    - 檢查 `src-v2/components/<component-name>/` 目錄
    - 確認主要元件檔案存在
    - 新元件一律以 `src-v2/` 為來源，不從 legacy `src/` 建立 registry 條目
 
 2. **分析依賴**
+
    - 檢查元件使用的外部套件（dependencies）
    - 檢查元件使用的內部元件（registryDependencies）
    - 確認是否使用 `cn()` 函數
 
 3. **在 `registry/types.ts` 新增名稱**
    在 `RegistryItemName` union type 加入新的 component name（缺少此步 TypeScript 會報錯）：
+
    ```ts
    export type RegistryItemName =
      | 'existing-item'
@@ -30,6 +33,7 @@
    ```
 
 4. **在對應的 registry 檔案中新增條目**（勿直接編輯 `registry.json`）
+
    - UI 元件 → `registry/ui.ts`
    - Block → `registry/blocks.ts`
    - Hook → `registry/hooks.ts`
@@ -55,12 +59,15 @@
    ```
 
 5. **執行驗證**
+
    ```bash
    pnpm run test
    ```
+
    確保 registry 驗證測試通過
 
 6. **構建 Registry**
+
    ```bash
    pnpm run registry:build
    ```
@@ -76,33 +83,34 @@
 
 ```ts
 // 正確
-registryDependencies: ['@vital-design/button']
+registryDependencies: ['@vital-design/button'];
 
 // 錯誤
-registryDependencies: ['button']
+registryDependencies: ['button'];
 ```
 
 ### 常見依賴
 
-| 功能 | dependencies | registryDependencies |
-|------|--------------|---------------------|
-| 使用 cn() | clsx, tailwind-merge | @vital-design/utils |
-| 使用主題 | - | @vital-design/vital-theme |
-| 使用 Icon | - | @vital-design/vital-icons |
+| 功能      | dependencies         | registryDependencies           |
+| --------- | -------------------- | ------------------------------ |
+| 使用 cn() | clsx, tailwind-merge | @vital-design/utils            |
+| 使用主題  | -                    | @vital-design/vital-theme      |
+| 使用 Icon | -                    | 精確列出 @vital-design/icon-\* |
 
 ### 類型分類
 
-| item type | 用途 |
-|-----------|------|
-| `registry:ui` | UI 元件（item 本身 + files 陣列） |
-| `registry:block` | 複合 block（item 本身） |
-| `registry:component` | block 的組成檔案（block files 陣列中使用） |
-| `registry:lib` | 工具函數 / icon / 常數 |
-| `registry:hook` | React Hook |
+| item type            | 用途                                          |
+| -------------------- | --------------------------------------------- |
+| `registry:ui`        | UI 元件與 icon 元件（item 本身 + files 陣列） |
+| `registry:block`     | 複合 block（item 本身）                       |
+| `registry:component` | block 的組成檔案（block files 陣列中使用）    |
+| `registry:lib`       | 工具函數 / 常數                               |
+| `registry:hook`      | React Hook                                    |
 
 ## 注意事項
 
 - 新元件預設透過 registry 分發；不要假設會同步進入 legacy npm package（`src/`）
 - 確保元件使用 `import type` 語法
 - 避免 barrel import（特別是 icons，需指定完整路徑如 `@/icons/SearchIcon`）
+- 元件自己的 Props 型別放在元件 `.tsx` 檔，不要額外分發 `types.ts`
 - 列出所有必要的依賴

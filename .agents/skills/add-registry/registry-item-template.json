@@ -12,7 +12,7 @@
     ],
     "files": [
       {
-        "path": "src/components/<component-name>/<ComponentName>.tsx",
+        "path": "src-v2/components/<component-name>/<ComponentName>.tsx",
         "type": "registry:ui"
       }
     ]
@@ -32,7 +32,7 @@
     ],
     "files": [
       {
-        "path": "src/blocks/<block-name>/<BlockName>.tsx",
+        "path": "src-v2/blocks/<block-name>/<BlockName>.tsx",
         "type": "registry:component"
       }
     ]
@@ -51,6 +51,8 @@
     "PasswordInput": "@vital-design/password-input",
     "Checkbox": "@vital-design/checkbox",
     "cn()": "@vital-design/utils",
-    "Theme CSS vars": "@vital-design/vital-theme"
+    "Theme CSS vars": "@vital-design/vital-theme",
+    "Specific icon": "@vital-design/icon-<icon-name>",
+    "All icons bundle": "@vital-design/vital-icons"
   }
 }

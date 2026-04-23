@@ -1,7 +1,25 @@
-import type { SplitButtonProps } from '@/components/button/types';
 import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
 import { cn } from '@/utils/cn';
 import { type VariantProps, cva } from 'class-variance-authority';
+import type {
+  ComponentPropsWithoutRef,
+  MouseEvent,
+  ReactNode,
+} from 'react';
+
+export type SplitButtonSize = 'medium' | 'large';
+export type SplitButtonTheme = 'primary' | 'default';
+
+export type SplitButtonProps = {
+  disabled?: boolean;
+  focusableWhenDisabled?: boolean;
+  icon?: ReactNode;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  open: boolean;
+  size?: SplitButtonSize;
+  splitOnClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  theme?: SplitButtonTheme;
+} & ComponentPropsWithoutRef<'div'>;
 
 const SIZE_CONFIG = {
   medium: { iconSize: 12 },

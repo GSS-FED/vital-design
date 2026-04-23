@@ -1,8 +1,7 @@
-import Button from '@/components/button/Button';
-import {
+import Button, {
   type FilledButtonProps,
   type TextButtonProps,
-} from '@/components/button/types';
+} from '@/components/button/Button';
 import {
   ChevronDownIcon,
   ChevronUpIcon,

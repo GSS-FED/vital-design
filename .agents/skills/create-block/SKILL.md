@@ -18,19 +18,23 @@ allowed-tools: Read, Write, Edit, Bash
 ## 執行步驟
 
 1. **讀取 composition-guide.md** 確認該 UI 意圖對應哪些元件
+
    ```
    Read .agents/skills/create-block/composition-guide.md
    ```
 
 2. **讀取相關元件的原始碼** 理解 props 型別
-   - 例：`Read src-v2/components/button/types.ts`
+
+   - 例：`Read src-v2/components/button/Button.tsx`
    - 例：`Read src-v2/components/avatar/Avatar.tsx`
 
 3. **檢查 blocks 目錄現況**
+
    - 先查看 `src-v2/blocks/` 是否已有正式 block 可作為風格參考
    - 若目前沒有既有 block，直接依 `block-template.tsx` 與 `composition-guide.md` 建立新 block
 
 4. **依 block-template.tsx 結構** 寫入新的 block 檔案
+
    - 位置：`src-v2/blocks/<block-name>/<BlockName>.tsx`
    - Named export + Props type
    - 接受 `className?: string` 並透過 `cn()` 套用
@@ -52,8 +56,8 @@ allowed-tools: Read, Write, Edit, Bash
 
 ```typescript
 // 完整路徑，禁止 barrel import
-import Button from '@/components/button/Button';
 import Avatar from '@/components/avatar/Avatar';
+import Button from '@/components/button/Button';
 import { cn } from '@/utils/cn';
 ```
 

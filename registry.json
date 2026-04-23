@@ -187,6 +187,14 @@
           "surface-subtle": "rgba(35, 35, 50, 0.03)",
           "surface-muted": "rgba(35, 35, 50, 0.08)"
         }
+      },
+      "css": {
+        "@custom-variant not-disabled (&:not(:disabled))": {},
+        "@layer base": {
+          "*, *::before, *::after": {
+            "box-sizing": "border-box"
+          }
+        }
       }
     },
     {
@@ -220,75 +228,226 @@
       ]
     },
     {
+      "name": "icon-check",
+      "type": "registry:ui",
+      "title": "Check Icon",
+      "description": "Check Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CheckIcon.tsx",
+          "type": "registry:ui",
+          "target": "src/components/icons/CheckIcon.tsx"
+        }
+      ]
+    },
+    {
+      "name": "icon-chevron",
+      "type": "registry:ui",
+      "title": "Chevron Icons",
+      "description": "Chevron Icons component",
+      "files": [
+        {
+          "path": "src-v2/icons/ChevronIcon.tsx",
+          "type": "registry:ui",
+          "target": "src/components/icons/ChevronIcon.tsx"
+        }
+      ]
+    },
+    {
+      "name": "icon-clear",
+      "type": "registry:ui",
+      "title": "Clear Icon",
+      "description": "Clear Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ClearIcon.tsx",
+          "type": "registry:ui",
+          "target": "src/components/icons/ClearIcon.tsx"
+        }
+      ]
+    },
+    {
+      "name": "icon-close",
+      "type": "registry:ui",
+      "title": "Close Icon",
+      "description": "Close Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CloseIcon.tsx",
+          "type": "registry:ui",
+          "target": "src/components/icons/CloseIcon.tsx"
+        }
+      ]
+    },
+    {
+      "name": "icon-disabled",
+      "type": "registry:ui",
+      "title": "Disabled Icon",
+      "description": "Disabled Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/DisabledIcon.tsx",
+          "type": "registry:ui",
+          "target": "src/components/icons/DisabledIcon.tsx"
+        }
+      ]
+    },
+    {
+      "name": "icon-eye",
+      "type": "registry:ui",
+      "title": "Eye Icon",
+      "description": "Eye Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/EyeIcon.tsx",
+          "type": "registry:ui",
+          "target": "src/components/icons/EyeIcon.tsx"
+        }
+      ]
+    },
+    {
+      "name": "icon-eye-slash",
+      "type": "registry:ui",
+      "title": "Eye Slash Icon",
+      "description": "Eye Slash Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/EyeSlashIcon.tsx",
+          "type": "registry:ui",
+          "target": "src/components/icons/EyeSlashIcon.tsx"
+        }
+      ]
+    },
+    {
+      "name": "icon-flag",
+      "type": "registry:ui",
+      "title": "Flag Icon",
+      "description": "Flag Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/FlagIcon.tsx",
+          "type": "registry:ui",
+          "target": "src/components/icons/FlagIcon.tsx"
+        }
+      ]
+    },
+    {
+      "name": "icon-minus",
+      "type": "registry:ui",
+      "title": "Minus Icon",
+      "description": "Minus Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/MinusIcon.tsx",
+          "type": "registry:ui",
+          "target": "src/components/icons/MinusIcon.tsx"
+        }
+      ]
+    },
+    {
+      "name": "icon-search",
+      "type": "registry:ui",
+      "title": "Search Icon",
+      "description": "Search Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/SearchIcon.tsx",
+          "type": "registry:ui",
+          "target": "src/components/icons/SearchIcon.tsx"
+        }
+      ]
+    },
+    {
+      "name": "icon-spinner",
+      "type": "registry:ui",
+      "title": "Spinner Icon",
+      "description": "Spinner Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/SpinnerIcon.tsx",
+          "type": "registry:ui",
+          "target": "src/components/icons/SpinnerIcon.tsx"
+        }
+      ]
+    },
+    {
+      "name": "icon-user",
+      "type": "registry:ui",
+      "title": "User Icon",
+      "description": "User Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/UserIcon.tsx",
+          "type": "registry:ui",
+          "target": "src/components/icons/UserIcon.tsx"
+        }
+      ]
+    },
+    {
       "name": "vital-icons",
-      "type": "registry:lib",
+      "type": "registry:ui",
       "title": "Vital Icons",
       "description": "Custom SVG icon components",
       "files": [
         {
           "path": "src-v2/icons/CheckIcon.tsx",
-          "type": "registry:lib",
-          "target": "src/lib/icons/CheckIcon.tsx"
+          "type": "registry:ui",
+          "target": "src/components/icons/CheckIcon.tsx"
         },
         {
           "path": "src-v2/icons/ChevronIcon.tsx",
-          "type": "registry:lib",
-          "target": "src/lib/icons/ChevronIcon.tsx"
+          "type": "registry:ui",
+          "target": "src/components/icons/ChevronIcon.tsx"
         },
         {
           "path": "src-v2/icons/ClearIcon.tsx",
-          "type": "registry:lib",
-          "target": "src/lib/icons/ClearIcon.tsx"
+          "type": "registry:ui",
+          "target": "src/components/icons/ClearIcon.tsx"
         },
         {
           "path": "src-v2/icons/CloseIcon.tsx",
-          "type": "registry:lib",
-          "target": "src/lib/icons/CloseIcon.tsx"
+          "type": "registry:ui",
+          "target": "src/components/icons/CloseIcon.tsx"
         },
         {
           "path": "src-v2/icons/DisabledIcon.tsx",
-          "type": "registry:lib",
-          "target": "src/lib/icons/DisabledIcon.tsx"
+          "type": "registry:ui",
+          "target": "src/components/icons/DisabledIcon.tsx"
         },
         {
           "path": "src-v2/icons/EyeIcon.tsx",
-          "type": "registry:lib",
-          "target": "src/lib/icons/EyeIcon.tsx"
+          "type": "registry:ui",
+          "target": "src/components/icons/EyeIcon.tsx"
         },
         {
           "path": "src-v2/icons/EyeSlashIcon.tsx",
-          "type": "registry:lib",
-          "target": "src/lib/icons/EyeSlashIcon.tsx"
+          "type": "registry:ui",
+          "target": "src/components/icons/EyeSlashIcon.tsx"
         },
         {
           "path": "src-v2/icons/FlagIcon.tsx",
-          "type": "registry:lib",
-          "target": "src/lib/icons/FlagIcon.tsx"
+          "type": "registry:ui",
+          "target": "src/components/icons/FlagIcon.tsx"
         },
         {
           "path": "src-v2/icons/MinusIcon.tsx",
-          "type": "registry:lib",
-          "target": "src/lib/icons/MinusIcon.tsx"
+          "type": "registry:ui",
+          "target": "src/components/icons/MinusIcon.tsx"
         },
         {
           "path": "src-v2/icons/SearchIcon.tsx",
-          "type": "registry:lib",
-          "target": "src/lib/icons/SearchIcon.tsx"
+          "type": "registry:ui",
+          "target": "src/components/icons/SearchIcon.tsx"
         },
         {
           "path": "src-v2/icons/SpinnerIcon.tsx",
-          "type": "registry:lib",
-          "target": "src/lib/icons/SpinnerIcon.tsx"
+          "type": "registry:ui",
+          "target": "src/components/icons/SpinnerIcon.tsx"
         },
         {
           "path": "src-v2/icons/UserIcon.tsx",
-          "type": "registry:lib",
-          "target": "src/lib/icons/UserIcon.tsx"
-        },
-        {
-          "path": "src-v2/icons/index.tsx",
-          "type": "registry:lib",
-          "target": "src/lib/icons/index.tsx"
+          "type": "registry:ui",
+          "target": "src/components/icons/UserIcon.tsx"
         }
       ]
     },
@@ -317,8 +476,8 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/vital-constants",
-        "@vital-design/vital-icons",
+        "@vital-design/icon-disabled",
+        "@vital-design/icon-user",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -338,23 +497,20 @@
       "title": "Button",
       "description": "Button component with filled and text variants, multiple themes and sizes",
       "dependencies": [
+        "@base-ui/react",
         "class-variance-authority",
         "clsx",
         "tailwind-merge"
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/vital-icons",
+        "@vital-design/icon-spinner",
         "@vital-design/vital-theme"
       ],
       "files": [
         {
           "path": "src-v2/components/button/Button.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src-v2/components/button/types.ts",
-          "type": "registry:lib"
         }
       ]
     },
@@ -370,8 +526,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/vital-icons",
-        "@vital-design/button",
+        "@vital-design/icon-chevron",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -393,6 +548,8 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
+        "@vital-design/icon-check",
+        "@vital-design/icon-minus",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -414,6 +571,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
+        "@vital-design/icon-close",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -520,7 +678,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/vital-icons",
+        "@vital-design/icon-search",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -584,6 +742,8 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/text-input",
+        "@vital-design/icon-eye",
+        "@vital-design/icon-eye-slash",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -610,7 +770,7 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-constants",
-        "@vital-design/vital-icons",
+        "@vital-design/icon-spinner",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -644,7 +804,8 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/vital-icons",
+        "@vital-design/icon-chevron",
+        "@vital-design/icon-clear",
         "@vital-design/checkbox",
         "@vital-design/search-bar",
         "@vital-design/tag",
@@ -697,7 +858,7 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-constants",
-        "@vital-design/vital-icons",
+        "@vital-design/icon-spinner",
         "@vital-design/search-bar",
         "@vital-design/list-components",
         "@vital-design/vital-theme"
@@ -722,7 +883,7 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-constants",
-        "@vital-design/vital-icons",
+        "@vital-design/icon-spinner",
         "@vital-design/text-input",
         "@vital-design/vital-theme"
       ],

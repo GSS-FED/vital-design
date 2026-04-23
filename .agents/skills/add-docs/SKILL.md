@@ -15,18 +15,22 @@ allowed-tools: Read, Write, Edit, Bash
 ## 執行步驟
 
 1. **讀取目標元件資訊**
+
    ```
    Read src-v2/components/<component-name>/<ComponentName>.tsx
    ```
-   Props 類型通常 inline 定義於 `.tsx` 檔頂部。若有獨立的 `types.ts`（如 button），也一併讀取。
+
+   Props 類型通常 inline 定義於 `.tsx` 檔頂部，並從該元件檔 export。
    （若為 block：`src-v2/blocks/<block-name>/<BlockName>.tsx`）
 
 2. **讀取現有 page.tsx** — 確認 import 格式與 components 物件結構
+
    ```
    Read apps/docs/app/docs/[[...slug]]/page.tsx
    ```
 
 3. **讀取相似的現有 preview** — 作為範本參考
+
    ```
    Read apps/docs/components/previews/ChipPreview.tsx       # 有多 export 的範例
    Read apps/docs/components/previews/SearchBarPreview.tsx  # 有搜尋/輸入互動的範例
@@ -35,17 +39,20 @@ allowed-tools: Read, Write, Edit, Bash
 4. **選擇 Preview 方式**（二選一）
 
    **方式 A — Preview 元件**（有互動 state 時使用）
+
    - 建立 `apps/docs/components/previews/<ComponentName>Preview.tsx`（參考 `preview-template.tsx`）
    - 在 `page.tsx` 新增 import + components 物件（兩處都要改，缺一不可）
    - 若元件有多個明顯狀態，建立多個 named export
 
    **方式 B — 直接 import**（純靜態展示，無需 state 時使用）
+
    - 從 `~/components/vital-components` 直接 import 元件（已有 `'use client'`）
    - 在 MDX 中包進 `<ComponentPreview>` wrapper 即可
    - 不需建立新 Preview 元件，也不需修改 `page.tsx`
    - 範例：`apps/docs/content/docs/components/input.mdx`
 
 5. **建立 MDX 文件頁面**
+
    - 路徑：`apps/docs/content/docs/components/<component-name>.mdx`（blocks 用 `blocks/`）
    - 參考：`mdx-template.mdx`（本目錄）與 `apps/docs/content/docs/components/chip.mdx`
 
@@ -64,6 +71,7 @@ allowed-tools: Read, Write, Edit, Bash
 ## 結構範例
 
 ### page.tsx import 區
+
 ```tsx
 import {
   ComponentNamePreview,
@@ -72,6 +80,7 @@ import {
 ```
 
 ### page.tsx components 物件
+
 ```tsx
 ComponentNamePreview,
 ComponentNameVariantPreview,

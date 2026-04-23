@@ -1,6 +1,95 @@
 import type { VitalRegistryItem } from './types';
 import { vitalThemeCssVars } from './vital-theme-vars';
 
+const iconFiles = [
+  {
+    name: 'icon-check',
+    title: 'Check Icon',
+    path: 'src-v2/icons/CheckIcon.tsx',
+    target: 'src/components/icons/CheckIcon.tsx',
+  },
+  {
+    name: 'icon-chevron',
+    title: 'Chevron Icons',
+    path: 'src-v2/icons/ChevronIcon.tsx',
+    target: 'src/components/icons/ChevronIcon.tsx',
+  },
+  {
+    name: 'icon-clear',
+    title: 'Clear Icon',
+    path: 'src-v2/icons/ClearIcon.tsx',
+    target: 'src/components/icons/ClearIcon.tsx',
+  },
+  {
+    name: 'icon-close',
+    title: 'Close Icon',
+    path: 'src-v2/icons/CloseIcon.tsx',
+    target: 'src/components/icons/CloseIcon.tsx',
+  },
+  {
+    name: 'icon-disabled',
+    title: 'Disabled Icon',
+    path: 'src-v2/icons/DisabledIcon.tsx',
+    target: 'src/components/icons/DisabledIcon.tsx',
+  },
+  {
+    name: 'icon-eye',
+    title: 'Eye Icon',
+    path: 'src-v2/icons/EyeIcon.tsx',
+    target: 'src/components/icons/EyeIcon.tsx',
+  },
+  {
+    name: 'icon-eye-slash',
+    title: 'Eye Slash Icon',
+    path: 'src-v2/icons/EyeSlashIcon.tsx',
+    target: 'src/components/icons/EyeSlashIcon.tsx',
+  },
+  {
+    name: 'icon-flag',
+    title: 'Flag Icon',
+    path: 'src-v2/icons/FlagIcon.tsx',
+    target: 'src/components/icons/FlagIcon.tsx',
+  },
+  {
+    name: 'icon-minus',
+    title: 'Minus Icon',
+    path: 'src-v2/icons/MinusIcon.tsx',
+    target: 'src/components/icons/MinusIcon.tsx',
+  },
+  {
+    name: 'icon-search',
+    title: 'Search Icon',
+    path: 'src-v2/icons/SearchIcon.tsx',
+    target: 'src/components/icons/SearchIcon.tsx',
+  },
+  {
+    name: 'icon-spinner',
+    title: 'Spinner Icon',
+    path: 'src-v2/icons/SpinnerIcon.tsx',
+    target: 'src/components/icons/SpinnerIcon.tsx',
+  },
+  {
+    name: 'icon-user',
+    title: 'User Icon',
+    path: 'src-v2/icons/UserIcon.tsx',
+    target: 'src/components/icons/UserIcon.tsx',
+  },
+] as const;
+
+const iconItems = iconFiles.map((icon) => ({
+  name: icon.name,
+  type: 'registry:ui',
+  title: icon.title,
+  description: `${icon.title} component`,
+  files: [
+    {
+      path: icon.path,
+      type: 'registry:ui',
+      target: icon.target,
+    },
+  ],
+})) satisfies VitalRegistryItem[];
+
 export const base = [
   {
     name: 'utils',
@@ -17,6 +106,14 @@ export const base = [
     description:
       'CSS variables and Tailwind v4 theme tokens for vital-design components',
     cssVars: vitalThemeCssVars,
+    css: {
+      '@custom-variant not-disabled (&:not(:disabled))': {},
+      '@layer base': {
+        '*, *::before, *::after': {
+          'box-sizing': 'border-box',
+        },
+      },
+    },
   },
   {
     name: 'vital-constants',
@@ -49,77 +146,16 @@ export const base = [
       '@vital-design/vital-constants',
     ],
   },
+  ...iconItems,
   {
     name: 'vital-icons',
-    type: 'registry:lib',
+    type: 'registry:ui',
     title: 'Vital Icons',
     description: 'Custom SVG icon components',
-    files: [
-      {
-        path: 'src-v2/icons/CheckIcon.tsx',
-        type: 'registry:lib',
-        target: 'src/lib/icons/CheckIcon.tsx',
-      },
-      {
-        path: 'src-v2/icons/ChevronIcon.tsx',
-        type: 'registry:lib',
-        target: 'src/lib/icons/ChevronIcon.tsx',
-      },
-      {
-        path: 'src-v2/icons/ClearIcon.tsx',
-        type: 'registry:lib',
-        target: 'src/lib/icons/ClearIcon.tsx',
-      },
-      {
-        path: 'src-v2/icons/CloseIcon.tsx',
-        type: 'registry:lib',
-        target: 'src/lib/icons/CloseIcon.tsx',
-      },
-      {
-        path: 'src-v2/icons/DisabledIcon.tsx',
-        type: 'registry:lib',
-        target: 'src/lib/icons/DisabledIcon.tsx',
-      },
-      {
-        path: 'src-v2/icons/EyeIcon.tsx',
-        type: 'registry:lib',
-        target: 'src/lib/icons/EyeIcon.tsx',
-      },
-      {
-        path: 'src-v2/icons/EyeSlashIcon.tsx',
-        type: 'registry:lib',
-        target: 'src/lib/icons/EyeSlashIcon.tsx',
-      },
-      {
-        path: 'src-v2/icons/FlagIcon.tsx',
-        type: 'registry:lib',
-        target: 'src/lib/icons/FlagIcon.tsx',
-      },
-      {
-        path: 'src-v2/icons/MinusIcon.tsx',
-        type: 'registry:lib',
-        target: 'src/lib/icons/MinusIcon.tsx',
-      },
-      {
-        path: 'src-v2/icons/SearchIcon.tsx',
-        type: 'registry:lib',
-        target: 'src/lib/icons/SearchIcon.tsx',
-      },
-      {
-        path: 'src-v2/icons/SpinnerIcon.tsx',
-        type: 'registry:lib',
-        target: 'src/lib/icons/SpinnerIcon.tsx',
-      },
-      {
-        path: 'src-v2/icons/UserIcon.tsx',
-        type: 'registry:lib',
-        target: 'src/lib/icons/UserIcon.tsx',
-      },
-      {
-        path: 'src-v2/icons/index.tsx',
-        type: 'registry:lib',
-        target: 'src/lib/icons/index.tsx',
-      },
-    ],
+    files: iconFiles.map((icon) => ({
+      path: icon.path,
+      type: 'registry:ui',
+      target: icon.target,
+    })),
   },
 ] satisfies VitalRegistryItem[];
