@@ -1,3 +1,7 @@
+import {
+  ButtonGroup,
+  ButtonGroupSeparator,
+} from '@/components/button/button-group/ButtonGroup';
 import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
 import { cn } from '@/utils/cn';
 import { type VariantProps, cva } from 'class-variance-authority';
@@ -19,18 +23,17 @@ export type SplitButtonProps = {
   size?: SplitButtonSize;
   splitOnClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   theme?: SplitButtonTheme;
-} & ComponentPropsWithoutRef<'div'>;
+} & Omit<ComponentPropsWithoutRef<'div'>, 'onClick'>;
 
 const SIZE_CONFIG = {
   medium: { iconSize: 12 },
   large: { iconSize: 14 },
 } as const;
 
-const splitButtonVariants = cva(
+const splitButtonGroupVariants = cva(
   [
-    'inline-flex justify-center items-stretch overflow-hidden',
-    'font-sans box-border',
-    'focus-visible:shadow-focus-primary',
+    'inline-flex justify-center items-stretch',
+    'overflow-hidden font-sans box-border',
   ],
   {
     variants: {
@@ -63,7 +66,7 @@ const splitButtonVariants = cva(
         theme: 'default',
         disabled: false,
         class:
-          'shadow-base hover:-translate-y-px active:translate-y-0 active:shadow-button-primary-active',
+          'shadow-base hover:-translate-y-px active:translate-y-0 active:shadow-[0_2px_4px_rgba(35,35,50,0.08)]',
       },
     ],
     defaultVariants: {
@@ -74,13 +77,46 @@ const splitButtonVariants = cva(
   },
 );
 
-export type SplitButtonVariants = VariantProps<
-  typeof splitButtonVariants
+const splitButtonSegmentVariants = cva(
+  [
+    'relative inline-flex items-center justify-center overflow-hidden rounded-[inherit]',
+    'font-sans box-border transition-all duration-150 ease-in-out',
+    'border-0 bg-transparent text-inherit',
+    'before:pointer-events-none before:absolute before:inset-0 before:content-[""]',
+    'before:rounded-[inherit] before:opacity-0 before:transition-all before:duration-150 before:z-[1]',
+    'hover:not-disabled:not-data-[disabled]:before:bg-grayscale-100 hover:not-disabled:not-data-[disabled]:before:opacity-100',
+    'active:not-disabled:not-data-[disabled]:before:bg-grayscale-200 active:not-disabled:not-data-[disabled]:before:opacity-100',
+  ],
+  {
+    variants: {
+      size: {
+        medium: 'h-[30px] text-sm',
+        large: 'h-8 text-base',
+      },
+      disabled: {
+        true: 'cursor-not-allowed',
+        false: 'cursor-pointer',
+      },
+    },
+    defaultVariants: {
+      size: 'medium',
+      disabled: false,
+    },
+  },
+);
+
+export type SplitButtonGroupVariants = VariantProps<
+  typeof splitButtonGroupVariants
+>;
+
+export type SplitButtonSegmentVariants = VariantProps<
+  typeof splitButtonSegmentVariants
 >;
 
 export default function SplitButton(props: SplitButtonProps) {
   const {
     children,
+    className,
     disabled = false,
     focusableWhenDisabled = false,
     icon,
@@ -88,7 +124,9 @@ export default function SplitButton(props: SplitButtonProps) {
     open,
     size = 'medium',
     splitOnClick,
+    style,
     theme = 'default',
+    ...groupProps
   } = props;
 
   const handleClick = disabled ? undefined : onClick;
@@ -100,35 +138,24 @@ export default function SplitButton(props: SplitButtonProps) {
       : ({ disabled } as const);
 
   const hasIcon = Boolean(icon);
-
   return (
-    <div
+    <ButtonGroup
       data-size={size}
-      className={splitButtonVariants({ size, theme, disabled })}
+      data-theme={theme}
+      className={cn(
+        splitButtonGroupVariants({ size, theme, disabled }),
+        className,
+      )}
+      style={style}
+      {...groupProps}
     >
-      {/* Main Button */}
       <button
         type="button"
         {...buttonDisabledProps}
         onClick={handleClick}
         className={cn(
-          'relative w-fit font-sans box-border overflow-hidden',
-          'transition-all duration-150 ease-in-out',
-          size === 'medium' ? 'text-sm' : 'text-base',
-          disabled ? 'cursor-not-allowed' : 'cursor-pointer',
-          hasIcon ? 'py-[5px] pr-2 pl-3' : 'py-[5px] pr-2 pl-4',
-          // Overlay effect
-          'before:content-[""] before:absolute before:inset-0',
-          'before:pointer-events-none before:opacity-0',
-          'before:transition-all before:duration-150 before:z-[1]',
-          'hover:not-disabled:not-data-[disabled]:before:bg-grayscale-100 hover:not-disabled:not-data-[disabled]:before:opacity-100',
-          'active:not-disabled:not-data-[disabled]:before:bg-grayscale-200 active:not-disabled:not-data-[disabled]:before:opacity-100',
-          // Divider line
-          'after:content-[""] after:absolute after:top-0 after:right-0',
-          'after:w-px after:h-full',
-          theme === 'primary'
-            ? 'after:bg-white/30'
-            : 'after:bg-grayscale-200',
+          splitButtonSegmentVariants({ size, disabled }),
+          hasIcon ? 'pl-3 pr-2' : 'pl-4 pr-2',
         )}
       >
         <div className="relative inline-flex justify-center items-center whitespace-nowrap gap-1 leading-5 z-[2]">
@@ -146,22 +173,20 @@ export default function SplitButton(props: SplitButtonProps) {
         </div>
       </button>
 
-      {/* Split Button (chevron) */}
+      <ButtonGroupSeparator
+        className={cn(
+          theme === 'primary' ? 'bg-white/30' : 'bg-grayscale-300',
+        )}
+      />
+
       <button
         type="button"
         {...buttonDisabledProps}
         onClick={handleSplitClick}
+        aria-label={open ? 'Collapse options' : 'Expand options'}
         className={cn(
-          'relative w-fit font-sans box-border overflow-hidden',
-          'transition-all duration-150 ease-in-out',
-          'py-1.5 pr-2 pl-1',
-          disabled ? 'cursor-not-allowed' : 'cursor-pointer',
-          // Overlay effect
-          'before:content-[""] before:absolute before:inset-0',
-          'before:pointer-events-none before:opacity-0',
-          'before:transition-all before:duration-150 before:z-[1]',
-          'hover:not-disabled:not-data-[disabled]:before:bg-grayscale-100 hover:not-disabled:not-data-[disabled]:before:opacity-100',
-          'active:not-disabled:not-data-[disabled]:before:bg-grayscale-200 active:not-disabled:not-data-[disabled]:before:opacity-100',
+          splitButtonSegmentVariants({ size, disabled }),
+          'pl-1 pr-2',
         )}
       >
         <div
@@ -177,6 +202,6 @@ export default function SplitButton(props: SplitButtonProps) {
           )}
         </div>
       </button>
-    </div>
+    </ButtonGroup>
   );
 }

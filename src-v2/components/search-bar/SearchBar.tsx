@@ -1,27 +1,14 @@
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@/components/input/input-group/InputGroup';
+import type { InputGroupVariants } from '@/components/input/input-group/InputGroup';
 import { SearchIcon } from '@/icons/SearchIcon';
 import { cn } from '@/utils/cn';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { useRef } from 'react';
 import type { CSSProperties } from 'react';
-
-const searchBarVariants = cva(
-  [
-    'group flex items-center py-1.5 pl-2 pr-4',
-    'border border-grayscale-300 rounded-[20px]',
-    'transition-all duration-200',
-    'font-sans box-border',
-    'focus-within:border-primary-500',
-  ],
-  {
-    variants: {
-      disabled: {
-        true: 'bg-grayscale-200',
-        false: 'bg-white hover:border-grayscale-500',
-      },
-    },
-    defaultVariants: { disabled: false },
-  },
-);
 
 const searchIconVariants = cva(
   [
@@ -44,9 +31,7 @@ const searchIconVariants = cva(
   },
 );
 
-export type SearchBarVariants = VariantProps<
-  typeof searchBarVariants
->;
+export type SearchBarVariants = InputGroupVariants;
 export type SearchIconVariants = VariantProps<
   typeof searchIconVariants
 >;
@@ -104,11 +89,13 @@ export default function SearchBar(props: SearchBarProps) {
   };
 
   return (
-    <div
-      className={cn(searchBarVariants({ disabled }), className)}
+    <InputGroup
+      className={cn('rounded-[20px] pl-2 pr-4', className)}
+      disabled={disabled}
       style={{ width: width ?? '100%', ...style }}
     >
-      <div
+      <InputGroupAddon
+        data-testid="search-icon"
         onClick={handleSearchIconClick}
         className={searchIconVariants({
           disabled,
@@ -116,9 +103,9 @@ export default function SearchBar(props: SearchBarProps) {
         })}
       >
         <SearchIcon width={18} height={18} />
-      </div>
+      </InputGroupAddon>
 
-      <input
+      <InputGroupInput
         type="text"
         defaultValue={defaultValue}
         placeholder={placeholder}
@@ -127,15 +114,11 @@ export default function SearchBar(props: SearchBarProps) {
         disabled={disabled}
         ref={inputRef}
         className={cn(
-          'flex-1 max-w-[calc(100%-18px)] ml-2 mr-4',
-          'font-normal text-sm font-sans',
+          'ml-0 mr-4 max-w-[calc(100%-18px)]',
           'whitespace-nowrap text-ellipsis overflow-hidden',
-          'outline-none border-none bg-transparent',
-          'placeholder:text-grayscale-400',
-          disabled && 'text-grayscale-500',
         )}
       />
-    </div>
+    </InputGroup>
   );
 }
 

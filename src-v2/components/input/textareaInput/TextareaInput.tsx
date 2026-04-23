@@ -1,48 +1,16 @@
-import { cn } from '@/utils/cn';
-import { type VariantProps, cva } from 'class-variance-authority';
+import {
+  InputGroup,
+  InputGroupTextarea,
+} from '@/components/input/input-group/InputGroup';
+import type { InputGroupVariants } from '@/components/input/input-group/InputGroup';
 import { forwardRef } from 'react';
-import type { ForwardedRef } from 'react';
+import type {
+  CSSProperties,
+  ForwardedRef,
+  TextareaHTMLAttributes,
+} from 'react';
 
-const textareaVariants = cva(
-  [
-    'text-sm font-normal leading-5 text-grayscale-800',
-    'px-2 py-1.5 border rounded',
-    'transition-all duration-200',
-    'font-sans box-border outline-none',
-    'placeholder:text-grayscale-400',
-  ],
-  {
-    variants: {
-      disabled: {
-        true: 'border-grayscale-300 bg-grayscale-200 hover:border-grayscale-300',
-        false:
-          'bg-white border-grayscale-300 hover:border-grayscale-500 focus-within:border-primary-500',
-      },
-      isError: {
-        true: 'border-alarm-500 hover:border-alarm-500 focus-within:border-alarm-500',
-        false: '',
-      },
-      resizable: {
-        true: 'resize',
-        false: 'resize-none',
-      },
-    },
-    compoundVariants: [
-      {
-        disabled: true,
-        isError: true,
-        class: 'border-grayscale-300 hover:border-grayscale-300',
-      },
-    ],
-    defaultVariants: {
-      disabled: false,
-      isError: false,
-      resizable: false,
-    },
-  },
-);
-
-export type TextareaVariants = VariantProps<typeof textareaVariants>;
+export type TextareaVariants = InputGroupVariants;
 
 /* ---------------------------------- Types --------------------------------- */
 export type TextAreaInputProps = {
@@ -55,6 +23,7 @@ export type TextAreaInputProps = {
   disabled?: boolean;
   isError?: boolean;
   resizable?: boolean;
+  style?: CSSProperties;
   onChange?: (value: string) => void;
   onEnter?: (value: string) => void;
 };
@@ -63,7 +32,7 @@ export type TextAreaInputProps = {
 const TextAreaInput = forwardRef(function TextAreaInput(
   props: TextAreaInputProps &
     Omit<
-      React.HTMLAttributes<HTMLTextAreaElement>,
+      TextareaHTMLAttributes<HTMLTextAreaElement>,
       'onChange' | 'value' | 'defaultValue'
     >,
   ref: ForwardedRef<HTMLTextAreaElement>,
@@ -85,30 +54,35 @@ const TextAreaInput = forwardRef(function TextAreaInput(
   } = props;
 
   return (
-    <textarea
-      ref={ref}
-      placeholder={placeholder}
-      defaultValue={defaultValue}
-      value={value}
+    <InputGroup
+      className={className}
       disabled={disabled}
-      onInput={(e) => onChange?.(e.currentTarget.value)}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter') {
-          onEnter?.(e.currentTarget.value);
-        }
-      }}
-      className={cn(
-        textareaVariants({ disabled, isError, resizable }),
-        className,
-      )}
+      isError={isError}
       style={{
         width: width ?? '100%',
-        height: height ?? 'auto',
-        ...style,
       }}
       data-testid="textarea-container"
-      {...textAreaProps}
-    />
+    >
+      <InputGroupTextarea
+        ref={ref}
+        placeholder={placeholder}
+        defaultValue={defaultValue}
+        value={value}
+        disabled={disabled}
+        resizable={resizable}
+        style={{
+          height: height ?? 'auto',
+          ...style,
+        }}
+        onInput={(e) => onChange?.(e.currentTarget.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            onEnter?.(e.currentTarget.value);
+          }
+        }}
+        {...textAreaProps}
+      />
+    </InputGroup>
   );
 });
 

@@ -1,9 +1,12 @@
 ---
 title: SplitButton
-description: A compound button with a primary action and a separate dropdown trigger arrow.
+description: A split action built from ButtonGroup with a primary action and a separate toggle trigger.
 ---
 
-import { SplitButtonPreview, SplitButtonDefaultPreview } from '~/components/previews/SplitButtonPreview';
+import {
+  SplitButtonDefaultPreview,
+  SplitButtonPreview,
+} from '~/components/previews/SplitButtonPreview';
 
 ## Preview
 
@@ -12,8 +15,8 @@ import { SplitButtonPreview, SplitButtonDefaultPreview } from '~/components/prev
 ## Usage
 
 ```tsx
-import { useState } from 'react';
 import SplitButton from '@/components/ui/SplitButton';
+import { useState } from 'react';
 
 function SaveButton() {
   const [open, setOpen] = useState(false);
@@ -36,20 +39,25 @@ function SaveButton() {
 <SplitButtonDefaultPreview />
 
 ```tsx
-<SplitButton theme="default" open={open} onClick={handleAction} splitOnClick={toggleOpen}>
+<SplitButton
+  theme="default"
+  open={open}
+  onClick={handleAction}
+  splitOnClick={toggleOpen}
+>
   Action
 </SplitButton>
 ```
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `open` | `boolean` | — | **Required.** Controls whether the split arrow appears in open state |
-| `theme` | `'primary' \| 'default'` | `'primary'` | Color theme |
-| `size` | `'medium' \| 'large'` | `'medium'` | Button size |
-| `onClick` | `(e: MouseEvent) => void` | — | Handler for the main button area |
-| `splitOnClick` | `(e: MouseEvent) => void` | — | Handler for the arrow trigger |
-| `icon` | `ReactNode` | — | Icon rendered in the main button area |
-| `focusableWhenDisabled` | `boolean` | `false` | Keeps keyboard focus on the button when disabled styling is applied |
-| `disabled` | `boolean` | `false` | Disables the entire button |
+| Prop                    | Type                      | Default     | Description                                                          |
+| ----------------------- | ------------------------- | ----------- | -------------------------------------------------------------------- |
+| `open`                  | `boolean`                 | —           | **Required.** Controls whether the split arrow appears in open state |
+| `theme`                 | `'primary' \| 'default'`  | `'default'` | Color theme                                                          |
+| `size`                  | `'medium' \| 'large'`     | `'medium'`  | Button size                                                          |
+| `onClick`               | `(e: MouseEvent) => void` | —           | Handler for the main button area                                     |
+| `splitOnClick`          | `(e: MouseEvent) => void` | —           | Handler for the arrow trigger                                        |
+| `icon`                  | `ReactNode`               | —           | Icon rendered in the main button area                                |
+| `focusableWhenDisabled` | `boolean`                 | `false`     | Keeps keyboard focus on the button when disabled styling is applied  |
+| `disabled`              | `boolean`                 | `false`     | Disables the entire button                                           |

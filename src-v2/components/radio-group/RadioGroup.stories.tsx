@@ -2,7 +2,10 @@ import { useArgs } from '@storybook/preview-api';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import { useState } from 'react';
-import RadioGroup, { type RadioGroupProps } from './RadioGroup';
+import RadioGroup, {
+  RadioGroupItem,
+  type RadioGroupProps,
+} from './RadioGroup';
 
 type Story = StoryObj<typeof RadioGroup>;
 
@@ -107,6 +110,35 @@ export const AllowCancel: Story = {
         onChange={onChange}
         value={checkedValue}
       />
+    );
+  },
+};
+
+export const CompoundItems: Story = {
+  name: 'Compound Items',
+  parameters: { controls: { disable: true } },
+  render: function Render() {
+    const [checkedValue, setCheckedValue] = useState('basic');
+
+    return (
+      <RadioGroup value={checkedValue} onChange={setCheckedValue}>
+        <RadioGroupItem value="basic">
+          <div>
+            <div>Basic</div>
+            <div className="text-grayscale-500 text-xs">
+              Good for individual use
+            </div>
+          </div>
+        </RadioGroupItem>
+        <RadioGroupItem value="pro">
+          <div>
+            <div>Pro</div>
+            <div className="text-grayscale-500 text-xs">
+              Recommended for teams
+            </div>
+          </div>
+        </RadioGroupItem>
+      </RadioGroup>
     );
   },
 };

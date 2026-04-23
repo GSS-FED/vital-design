@@ -151,6 +151,7 @@ pnpm docs:start            # 啟動生產環境文件站
 - **Colors**：元件一律使用 CSS variables（`var(--primary-500)`）或 Tailwind utility class
 - **Shadows**：同上，使用 `var(--shadow-emphasis)` 等 CSS variables
 - **Registry 依賴**：`registryDependencies` 必須加 `@vital-design/` 前綴
+- **Compound 基礎元件**：自訂輸入組合優先使用 `InputGroup` parts；按鈕群組優先使用 `ButtonGroup`。`TextInput`、`PasswordInput`、`SearchBar`、`SplitButton` 保持 preset/compat wrapper。
 - **cn() 依賴**：registry 需列出 clsx + tailwind-merge
 - **文件站 Preview 元件**：`apps/docs/components/previews/` 的元件必須有 `'use client'`，因為 MDX 頁面是 RSC，不能直接傳 inline function prop（如 `onChange={() => {}}`）
 - **文件站 .next 快取**：修改 `apps/docs/source.config.ts` 後，須執行 `rm -rf apps/docs/.next` 再重建，否則 source config hash 不符導致新頁面 404

@@ -1,7 +1,6 @@
 import TextInput from '@/components/input/textInput/TextInput';
 import { EyeIcon } from '@/icons/EyeIcon';
 import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
-import { cn } from '@/utils/cn';
 import { useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 
@@ -40,60 +39,29 @@ function PasswordInput(props: PasswordInputProps) {
     useState(initiallyVisible);
 
   return (
-    <div
-      className={cn(
-        'box-border',
-        disabled && 'pointer-events-none',
-        className,
-      )}
-      style={{ width: width ?? '100%', ...style }}
-    >
-      {passwordVisible ? (
-        <TextInput
-          value={value}
-          data-state="visible"
-          placeholder={placeholder}
-          prefix={prefix}
-          onChange={onChange}
-          onEnter={onEnter}
-          isError={isError}
+    <TextInput
+      className={className}
+      data-state={passwordVisible ? 'visible' : 'invisible'}
+      data-testid="password-input"
+      disabled={disabled}
+      isError={isError}
+      onChange={onChange}
+      onEnter={onEnter}
+      placeholder={placeholder}
+      prefix={prefix}
+      style={style}
+      suffix={
+        <VisibilityToggle
           disabled={disabled}
-          suffix={
-            <VisibilityToggle
-              onClick={() => setPasswordVisible(false)}
-            >
-              <EyeIcon />
-            </VisibilityToggle>
-          }
-        />
-      ) : (
-        <TextInput
-          value={value.replace(/./g, '＊')}
-          data-state="invisible"
-          placeholder={placeholder}
-          prefix={prefix}
-          isError={isError}
-          disabled={disabled}
-          onEnter={() => onEnter?.(value)}
-          onChange={(val) => {
-            if (value.length > val.length) {
-              //Deletion
-              onChange(value.substring(0, val.length));
-            } else {
-              //Addition
-              onChange(value + val.replace(/＊/g, ''));
-            }
-          }}
-          suffix={
-            <VisibilityToggle
-              onClick={() => setPasswordVisible(true)}
-            >
-              <EyeSlashIcon />
-            </VisibilityToggle>
-          }
-        />
-      )}
-    </div>
+          onClick={() => setPasswordVisible((visible) => !visible)}
+        >
+          {passwordVisible ? <EyeIcon /> : <EyeSlashIcon />}
+        </VisibilityToggle>
+      }
+      type={passwordVisible ? 'text' : 'password'}
+      value={value}
+      width={width}
+    />
   );
 }
 
@@ -103,23 +71,23 @@ export default PasswordInput;
 
 /* --------------------------------- Components --------------------------------- */
 function VisibilityToggle({
+  disabled,
   onClick,
   children,
 }: {
+  disabled?: boolean;
   onClick: () => void;
   children: ReactNode;
 }) {
   return (
-    <div
+    <button
+      type="button"
       data-testid="visibility-toggle"
+      disabled={disabled}
       onClick={onClick}
-      className={cn(
-        'w-5 h-5 flex justify-center items-center',
-        'cursor-pointer transition-all duration-200',
-        'hover:text-grayscale-700',
-      )}
+      className="flex h-5 w-5 items-center justify-center transition-colors duration-200 hover:text-grayscale-700 disabled:cursor-not-allowed disabled:text-grayscale-300"
     >
       {children}
-    </div>
+    </button>
   );
 }

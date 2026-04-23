@@ -55,6 +55,27 @@ export const ui = [
     ],
   },
   {
+    name: 'button-group',
+    type: 'registry:ui',
+    title: 'Button Group',
+    description: 'Composable button group layout primitive',
+    dependencies: [
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/button/button-group/ButtonGroup.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
     name: 'split-button',
     type: 'registry:ui',
     title: 'Split Button',
@@ -67,6 +88,7 @@ export const ui = [
     ],
     registryDependencies: [
       '@vital-design/utils',
+      '@vital-design/button-group',
       '@vital-design/icon-chevron',
       '@vital-design/vital-theme',
     ],
@@ -211,12 +233,34 @@ export const ui = [
     ],
     registryDependencies: [
       '@vital-design/utils',
+      '@vital-design/input-group',
       '@vital-design/icon-search',
       '@vital-design/vital-theme',
     ],
     files: [
       {
         path: 'src-v2/components/search-bar/SearchBar.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'input-group',
+    type: 'registry:ui',
+    title: 'Input Group',
+    description: 'Composable input group with addons and actions',
+    dependencies: [
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/input/input-group/InputGroup.tsx',
         type: 'registry:ui',
       },
     ],
@@ -234,6 +278,7 @@ export const ui = [
     ],
     registryDependencies: [
       '@vital-design/utils',
+      '@vital-design/input-group',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -255,6 +300,7 @@ export const ui = [
     ],
     registryDependencies: [
       '@vital-design/utils',
+      '@vital-design/input-group',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -273,6 +319,7 @@ export const ui = [
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/text-input',
+      '@vital-design/input-group',
       '@vital-design/icon-eye',
       '@vital-design/icon-eye-slash',
       '@vital-design/vital-theme',

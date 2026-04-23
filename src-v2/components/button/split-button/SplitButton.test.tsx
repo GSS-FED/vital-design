@@ -3,21 +3,11 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import SplitButton from './SplitButton';
 
-// Tailwind class patterns for theme verification
-const SPLIT_THEME_CLASSES = {
-  primary: [
-    'text-white',
-    'bg-gradient-to-tr',
-    'from-info-400',
-    'to-primary-500',
-  ],
-  default: ['text-grayscale-800', 'bg-white', 'border-grayscale-300'],
-} as const;
-
 describe('Basic Functionality', () => {
   it('renders children correctly', () => {
     render(<SplitButton open={false}>Click me</SplitButton>);
     expect(screen.getByText('Click me')).toBeInTheDocument();
+    expect(screen.getByRole('group')).toBeInTheDocument();
   });
 
   it('calls onClick when main button is clicked', async () => {
@@ -152,47 +142,47 @@ describe('focusableWhenDisabled', () => {
 });
 
 describe('Theme', () => {
-  it('renders with primary theme', () => {
-    const theme = 'primary';
+  it('renders a separator for the primary theme', () => {
     render(
-      <SplitButton open={false} theme={theme}>
+      <SplitButton open={false} theme="primary">
         Button
       </SplitButton>,
     );
-    const buttons = screen.getAllByRole('button');
-    // eslint-disable-next-line testing-library/no-node-access
-    const container = buttons[0]!.parentElement;
-    expect(container).toBeInTheDocument();
-    SPLIT_THEME_CLASSES[theme].forEach((cls) => {
-      expect(container?.className).toContain(cls);
-    });
+    expect(screen.getByRole('separator')).toBeInTheDocument();
+    expect(screen.getByRole('group')).toHaveClass(
+      'bg-gradient-to-tr',
+      'from-info-400',
+      'to-primary-500',
+    );
+    expect(screen.getByRole('separator')).toHaveClass('bg-white/30');
   });
 
-  it('renders with default theme', () => {
-    const theme = 'default';
+  it('renders a separator for the default theme', () => {
     render(
-      <SplitButton open={false} theme={theme}>
+      <SplitButton open={false} theme="default">
         Button
       </SplitButton>,
     );
-    const buttons = screen.getAllByRole('button');
-    // eslint-disable-next-line testing-library/no-node-access
-    const container = buttons[0]!.parentElement;
-    expect(container).toBeInTheDocument();
-    SPLIT_THEME_CLASSES[theme].forEach((cls) => {
-      expect(container?.className).toContain(cls);
-    });
+    expect(screen.getByRole('separator')).toBeInTheDocument();
+    expect(screen.getByRole('group')).toHaveClass(
+      'bg-white',
+      'border-grayscale-300',
+    );
   });
 
-  it('defaults to default theme', () => {
-    const theme = 'default';
+  it('adds the right group styling for large primary buttons', () => {
+    render(
+      <SplitButton open={false} size="large" theme="primary">
+        Button
+      </SplitButton>,
+    );
+    expect(screen.getByRole('group')).toHaveClass(
+      'shadow-button-primary',
+    );
+  });
+
+  it('defaults to the default theme with a separator', () => {
     render(<SplitButton open={false}>Button</SplitButton>);
-    const buttons = screen.getAllByRole('button');
-    // eslint-disable-next-line testing-library/no-node-access
-    const container = buttons[0]!.parentElement;
-    expect(container).toBeInTheDocument();
-    SPLIT_THEME_CLASSES[theme].forEach((cls) => {
-      expect(container?.className).toContain(cls);
-    });
+    expect(screen.getByRole('separator')).toBeInTheDocument();
   });
 });

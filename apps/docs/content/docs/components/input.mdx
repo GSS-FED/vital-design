@@ -3,8 +3,66 @@ title: Input
 description: Text input components including TextInput, PasswordInput, and TextareaInput.
 ---
 
-import { TextInput } from '~/components/vital-components';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+  TextInput,
+} from '~/components/vital-components';
+
+## InputGroup
+
+A composable input shell for custom prefix, suffix, text, and action layouts.
+
+### Preview
+
+<ComponentPreview centered={false}>
+  <InputGroup>
+    <InputGroupAddon>
+      <InputGroupText>https://</InputGroupText>
+    </InputGroupAddon>
+    <InputGroupInput placeholder="example.com" />
+    <InputGroupAddon align="inline-end">
+      <InputGroupButton aria-label="Clear">×</InputGroupButton>
+    </InputGroupAddon>
+  </InputGroup>
+</ComponentPreview>
+
+### Usage
+
+```tsx
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+} from '@/components/ui/InputGroup';
+
+<InputGroup>
+  <InputGroupAddon>
+    <InputGroupText>https://</InputGroupText>
+  </InputGroupAddon>
+  <InputGroupInput placeholder="example.com" />
+  <InputGroupAddon align="inline-end">
+    <InputGroupButton aria-label="Clear">×</InputGroupButton>
+  </InputGroupAddon>
+</InputGroup>;
+```
+
+### InputGroup Parts
+
+| Part                 | Description                                         |
+| -------------------- | --------------------------------------------------- |
+| `InputGroup`         | Visual shell with focus, disabled, and error states |
+| `InputGroupInput`    | Single-line input control                           |
+| `InputGroupTextarea` | Multiline textarea control                          |
+| `InputGroupAddon`    | Prefix or suffix slot                               |
+| `InputGroupButton`   | Small action button inside an addon                 |
+| `InputGroupText`     | Static text inside an addon                         |
 
 ## TextInput
 
@@ -27,7 +85,7 @@ import TextInput from '@/components/ui/TextInput';
   placeholder="Enter your name"
   value={value}
   onChange={(val) => setValue(val)}
-/>
+/>;
 ```
 
 ### States
@@ -47,8 +105,14 @@ import TextInput from '@/components/ui/TextInput';
 ### With Prefix / Suffix
 
 <ComponentPreview centered={false}>
-  <TextInput placeholder="Search..." prefix={<span className="text-grayscale-500">🔍</span>} />
-  <TextInput placeholder="Amount" suffix={<span className="text-grayscale-500">TWD</span>} />
+  <TextInput
+    placeholder="Search..."
+    prefix={<span className="text-grayscale-500">🔍</span>}
+  />
+  <TextInput
+    placeholder="Amount"
+    suffix={<span className="text-grayscale-500">TWD</span>}
+  />
 </ComponentPreview>
 
 ```tsx
@@ -64,20 +128,20 @@ import TextInput from '@/components/ui/TextInput';
 
 ### TextInput Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `string` | — | Controlled value |
-| `defaultValue` | `string` | — | Uncontrolled initial value |
-| `placeholder` | `string` | — | Placeholder text |
-| `prefix` | `ReactNode` | — | Element rendered inside the left side |
-| `suffix` | `ReactNode` | — | Element rendered inside the right side |
-| `disabled` | `boolean` | `false` | Disables the input |
-| `isError` | `boolean` | `false` | Applies error border styling |
-| `onChange` | `(value: string) => void` | — | Value change callback |
-| `onEnter` | `(value: string) => void` | — | Called when Enter key is pressed |
-| `width` | `string` | — | Custom width (e.g., `'300px'`) |
-| `className` | `string` | — | Additional CSS classes |
-| `style` | `CSSProperties` | — | Inline styles |
+| Prop           | Type                      | Default | Description                            |
+| -------------- | ------------------------- | ------- | -------------------------------------- |
+| `value`        | `string`                  | —       | Controlled value                       |
+| `defaultValue` | `string`                  | —       | Uncontrolled initial value             |
+| `placeholder`  | `string`                  | —       | Placeholder text                       |
+| `prefix`       | `ReactNode`               | —       | Element rendered inside the left side  |
+| `suffix`       | `ReactNode`               | —       | Element rendered inside the right side |
+| `disabled`     | `boolean`                 | `false` | Disables the input                     |
+| `isError`      | `boolean`                 | `false` | Applies error border styling           |
+| `onChange`     | `(value: string) => void` | —       | Value change callback                  |
+| `onEnter`      | `(value: string) => void` | —       | Called when Enter key is pressed       |
+| `width`        | `string`                  | —       | Custom width (e.g., `'300px'`)         |
+| `className`    | `string`                  | —       | Additional CSS classes                 |
+| `style`        | `CSSProperties`           | —       | Inline styles                          |
 
 ---
 
@@ -96,24 +160,24 @@ import PasswordInput from '@/components/ui/PasswordInput';
   placeholder="Enter password"
   value={password}
   onChange={setPassword}
-/>
+/>;
 ```
 
 ### PasswordInput Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `string` | — | **Required.** Controlled value |
-| `onChange` | `(value: string) => void` | — | **Required.** Value change callback |
-| `placeholder` | `string` | — | Placeholder text |
-| `initiallyVisible` | `boolean` | `false` | Show password text initially |
-| `disabled` | `boolean` | `false` | Disables the input |
-| `isError` | `boolean` | `false` | Applies error border styling |
-| `prefix` | `ReactNode` | — | Element rendered inside the left side |
-| `onEnter` | `(value: string) => void` | — | Called when Enter key is pressed |
-| `width` | `string` | — | Custom width (e.g., `'300px'`) |
-| `className` | `string` | — | Additional CSS classes |
-| `style` | `CSSProperties` | — | Inline styles |
+| Prop               | Type                      | Default | Description                           |
+| ------------------ | ------------------------- | ------- | ------------------------------------- |
+| `value`            | `string`                  | —       | **Required.** Controlled value        |
+| `onChange`         | `(value: string) => void` | —       | **Required.** Value change callback   |
+| `placeholder`      | `string`                  | —       | Placeholder text                      |
+| `initiallyVisible` | `boolean`                 | `false` | Show password text initially          |
+| `disabled`         | `boolean`                 | `false` | Disables the input                    |
+| `isError`          | `boolean`                 | `false` | Applies error border styling          |
+| `prefix`           | `ReactNode`               | —       | Element rendered inside the left side |
+| `onEnter`          | `(value: string) => void` | —       | Called when Enter key is pressed      |
+| `width`            | `string`                  | —       | Custom width (e.g., `'300px'`)        |
+| `className`        | `string`                  | —       | Additional CSS classes                |
+| `style`            | `CSSProperties`           | —       | Inline styles                         |
 
 ---
 
@@ -133,21 +197,21 @@ import TextareaInput from '@/components/ui/TextareaInput';
   value={text}
   onChange={setText}
   height="120px"
-/>
+/>;
 ```
 
 ### TextareaInput Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `string` | — | Controlled value |
-| `defaultValue` | `string` | — | Uncontrolled initial value |
-| `placeholder` | `string` | — | Placeholder text |
-| `disabled` | `boolean` | `false` | Disables the textarea |
-| `isError` | `boolean` | `false` | Applies error border styling |
-| `resizable` | `boolean` | `false` | Allows user to resize the textarea |
-| `onChange` | `(value: string) => void` | — | Value change callback |
-| `onEnter` | `(value: string) => void` | — | Called when Enter key is pressed |
-| `width` | `string` | — | Custom width |
-| `height` | `string` | — | Custom height |
-| `className` | `string` | — | Additional CSS classes |
+| Prop           | Type                      | Default | Description                        |
+| -------------- | ------------------------- | ------- | ---------------------------------- |
+| `value`        | `string`                  | —       | Controlled value                   |
+| `defaultValue` | `string`                  | —       | Uncontrolled initial value         |
+| `placeholder`  | `string`                  | —       | Placeholder text                   |
+| `disabled`     | `boolean`                 | `false` | Disables the textarea              |
+| `isError`      | `boolean`                 | `false` | Applies error border styling       |
+| `resizable`    | `boolean`                 | `false` | Allows user to resize the textarea |
+| `onChange`     | `(value: string) => void` | —       | Value change callback              |
+| `onEnter`      | `(value: string) => void` | —       | Called when Enter key is pressed   |
+| `width`        | `string`                  | —       | Custom width                       |
+| `height`       | `string`                  | —       | Custom height                      |
+| `className`    | `string`                  | —       | Additional CSS classes             |

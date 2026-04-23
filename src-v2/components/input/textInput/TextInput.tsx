@@ -1,45 +1,18 @@
-import { cn } from '@/utils/cn';
-import { type VariantProps, cva } from 'class-variance-authority';
 import {
-  type CSSProperties,
-  type ForwardedRef,
-  type ReactNode,
-  forwardRef,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@/components/input/input-group/InputGroup';
+import type { InputGroupVariants } from '@/components/input/input-group/InputGroup';
+import { forwardRef } from 'react';
+import type {
+  CSSProperties,
+  ForwardedRef,
+  InputHTMLAttributes,
+  ReactNode,
 } from 'react';
 
-const textInputVariants = cva(
-  [
-    'flex items-center gap-2 px-2 py-1.5',
-    'border rounded',
-    'transition-all duration-200',
-    'text-grayscale-500 box-border',
-  ],
-  {
-    variants: {
-      disabled: {
-        true: 'border-grayscale-300 bg-grayscale-200 hover:border-grayscale-300',
-        false:
-          'bg-white border-grayscale-300 hover:border-grayscale-500 focus-within:border-primary-500',
-      },
-      isError: {
-        true: 'border-alarm-500 hover:border-alarm-500 focus-within:border-alarm-500',
-        false: '',
-      },
-    },
-    compoundVariants: [
-      {
-        disabled: true,
-        isError: true,
-        class: 'border-grayscale-300 hover:border-grayscale-300',
-      },
-    ],
-    defaultVariants: { disabled: false, isError: false },
-  },
-);
-
-export type TextInputVariants = VariantProps<
-  typeof textInputVariants
->;
+export type TextInputVariants = InputGroupVariants;
 
 /* ---------------------------------- Types --------------------------------- */
 export type TextInputProps = {
@@ -61,7 +34,7 @@ export type TextInputProps = {
 const TextInput = forwardRef(function TextInput(
   props: TextInputProps &
     Omit<
-      React.InputHTMLAttributes<HTMLInputElement>,
+      InputHTMLAttributes<HTMLInputElement>,
       'prefix' | 'onChange' | 'value' | 'defaultValue'
     >,
   ref: ForwardedRef<HTMLInputElement>,
@@ -82,20 +55,16 @@ const TextInput = forwardRef(function TextInput(
     ...inputProps
   } = props;
 
-  const hasPrefix = !!prefix;
-  const hasSuffix = !!suffix;
-
   return (
-    <div
-      className={cn(
-        textInputVariants({ disabled, isError }),
-        className,
-      )}
+    <InputGroup
+      className={className}
+      disabled={disabled}
+      isError={isError}
       style={{ width: width ?? '100%', ...style }}
       data-testid="textInput-container"
     >
-      {hasPrefix && prefix}
-      <input
+      {!!prefix && <InputGroupAddon>{prefix}</InputGroupAddon>}
+      <InputGroupInput
         ref={ref}
         placeholder={placeholder}
         defaultValue={defaultValue}
@@ -107,16 +76,12 @@ const TextInput = forwardRef(function TextInput(
             onEnter?.(e.currentTarget.value);
           }
         }}
-        className={cn(
-          'appearance-none outline-none w-full text-sm font-normal leading-5',
-          'text-grayscale-800 bg-transparent',
-          'placeholder:text-grayscale-400',
-          'disabled:text-grayscale-500',
-        )}
         {...inputProps}
       />
-      {hasSuffix && suffix}
-    </div>
+      {!!suffix && (
+        <InputGroupAddon align="inline-end">{suffix}</InputGroupAddon>
+      )}
+    </InputGroup>
   );
 });
 

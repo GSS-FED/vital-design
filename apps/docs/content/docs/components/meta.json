@@ -1,8 +1,22 @@
 {
   "title": "Components",
   "pages": [
-    "button", "avatar", "chip", "input", "select",
-    "switch", "tag", "checkbox", "radio-group", "search-bar",
-    "split-button", "tree-select", "mask", "list", "action-list", "action-infinite-list"
+    "button",
+    "button-group",
+    "avatar",
+    "chip",
+    "input",
+    "select",
+    "switch",
+    "tag",
+    "checkbox",
+    "radio-group",
+    "search-bar",
+    "split-button",
+    "tree-select",
+    "mask",
+    "list",
+    "action-list",
+    "action-infinite-list"
   ]
 }

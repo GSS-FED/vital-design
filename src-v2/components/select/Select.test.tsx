@@ -5,7 +5,14 @@ import {
   within,
 } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import Select, { type ItemType } from './Select';
+import Select, {
+  type ItemType,
+  SelectContent,
+  SelectItem,
+  SelectMenu,
+  Select as SelectRoot,
+  SelectTrigger,
+} from './Select';
 
 const ResizeObserverMock = vi.fn(() => ({
   observe: vi.fn(),
@@ -136,5 +143,25 @@ describe('Select', () => {
     const clearButton = screen.getByTestId('clear-button');
     fireEvent.click(clearButton);
     expect(onClear).toHaveBeenCalled();
+  });
+
+  it('supports the named export surface', () => {
+    const onChange = vi.fn();
+
+    render(
+      <SelectRoot value={undefined} onChange={onChange}>
+        <SelectTrigger placeholder="Pick one" />
+        <SelectContent>
+          <SelectMenu>
+            <SelectItem item={items[0]!} />
+          </SelectMenu>
+        </SelectContent>
+      </SelectRoot>,
+    );
+
+    fireEvent.click(screen.getByTestId('select-trigger'));
+    fireEvent.click(screen.getByText('Apple'));
+
+    expect(onChange).toHaveBeenCalledWith(items[0]);
   });
 });

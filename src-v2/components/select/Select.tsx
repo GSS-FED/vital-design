@@ -479,4 +479,16 @@ Select.EmptyText = EmptyText;
 
 Select.displayName = 'Select';
 
+export {
+  Select,
+  Content as SelectContent,
+  EmptyText as SelectEmptyText,
+  Header as SelectHeader,
+  Item as SelectItem,
+  Menu as SelectMenu,
+  SearchInput as SelectSearchBar,
+  Separator as SelectSeparator,
+  Title as SelectTitle,
+  Trigger as SelectTrigger,
+};
 export default Select;

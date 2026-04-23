@@ -40,3 +40,9 @@ it('cannot focus when disabled', () => {
   fireEvent.focus(textarea);
   expect(textarea).not.toHaveFocus();
 });
+
+it('applies custom height to the textarea control', () => {
+  render(<TextAreaInput height="40px" />);
+  const textarea = screen.getByRole('textbox');
+  expect(textarea).toHaveStyle({ height: '40px' });
+});
