@@ -6,15 +6,17 @@ import Tag from './Tag';
 
 it('renders a tag', () => {
   render(<Tag>Tag</Tag>);
-  const tagContent = screen.getByRole('button', { name: 'Tag' });
-  expect(tagContent).toBeInTheDocument();
+  expect(screen.getByRole('option')).toBeInTheDocument();
+  expect(screen.getByText('Tag')).toBeInTheDocument();
+  expect(
+    screen.queryByRole('button', { name: 'Tag' }),
+  ).not.toBeInTheDocument();
 });
 
 it('renders a tag with an icon', () => {
   render(<Tag icon={<FlagIcon />}>Tag</Tag>);
-  const tagContent = screen.getByRole('button', { name: 'Tag' });
   const icon = screen.getByTestId('flag-icon');
-  expect(tagContent).toBeInTheDocument();
+  expect(screen.getByText('Tag')).toBeInTheDocument();
   expect(icon).toBeInTheDocument();
 });
 
@@ -23,9 +25,8 @@ it('renders a removable tag', () => {
     removable: true,
   };
   render(<Tag {...props}>Tag</Tag>);
-  const tagContent = screen.getByRole('button', { name: 'Tag' });
   const removeButton = screen.getByLabelText('Remove');
-  expect(tagContent).toBeInTheDocument();
+  expect(screen.getByText('Tag')).toBeInTheDocument();
   expect(removeButton).toBeInTheDocument();
 });
 
@@ -56,9 +57,8 @@ it('calls the onRemove callback when remove button clicked', async () => {
     onRemove: vi.fn(),
   };
   render(<Tag {...props}>Tag</Tag>);
-  const tagContent = screen.getByRole('button', { name: 'Tag' });
   const removeButton = screen.getByLabelText('Remove');
-  expect(tagContent).toBeInTheDocument();
+  expect(screen.getByText('Tag')).toBeInTheDocument();
   expect(removeButton).toBeInTheDocument();
   await userEvent.click(removeButton);
   expect(props.onRemove).toBeCalled();
@@ -71,9 +71,10 @@ it('does not call the onClick callback when remove button clicked', async () => 
     onClick: vi.fn(),
   };
   render(<Tag {...props}>Tag</Tag>);
-  const tagContent = screen.getByRole('button', { name: 'Tag' });
   const removeButton = screen.getByLabelText('Remove');
-  expect(tagContent).toBeInTheDocument();
+  expect(
+    screen.getByRole('button', { name: 'Tag' }),
+  ).toBeInTheDocument();
   expect(removeButton).toBeInTheDocument();
   await userEvent.click(removeButton);
   expect(props.onRemove).toBeCalled();

@@ -238,23 +238,40 @@ export default function Tag(props: TagProps) {
       )}
       style={style}
     >
-      <div
-        role="button"
-        tabIndex={isClickable ? 0 : undefined}
-        aria-disabled={!isClickable}
-        onClick={onClick}
-        className={cn(
-          'relative flex gap-1 px-2.5',
-          hasIcon && 'pl-2',
-          isRemovable ? 'pr-1 rounded-l-full' : 'rounded-full',
-          'before:content-[""] before:absolute before:inset-0',
-          'before:pointer-events-none before:transition-colors before:duration-100',
-          isClickable && 'cursor-pointer hover:before:bg-white/20',
-        )}
-      >
-        {hasIcon && <div className="flex items-center">{icon}</div>}
-        <div className="ml-auto">{children}</div>
-      </div>
+      {isClickable ? (
+        <button
+          type="button"
+          onClick={onClick}
+          data-slot="tag-action"
+          className={cn(
+            'relative flex gap-1 px-2.5',
+            hasIcon && 'pl-2',
+            isRemovable ? 'pr-1 rounded-l-full' : 'rounded-full',
+            'before:content-[""] before:absolute before:inset-0',
+            'before:pointer-events-none before:transition-colors before:duration-100',
+            'cursor-pointer hover:before:bg-white/20',
+          )}
+        >
+          {hasIcon && <div className="flex items-center">{icon}</div>}
+          <div data-slot="tag-label" className="ml-auto">
+            {children}
+          </div>
+        </button>
+      ) : (
+        <div
+          data-slot="tag-action"
+          className={cn(
+            'relative flex gap-1 px-2.5',
+            hasIcon && 'pl-2',
+            isRemovable ? 'pr-1 rounded-l-full' : 'rounded-full',
+          )}
+        >
+          {hasIcon && <div className="flex items-center">{icon}</div>}
+          <div data-slot="tag-label" className="ml-auto">
+            {children}
+          </div>
+        </div>
+      )}
       {isRemovable && (
         <button
           type="button"

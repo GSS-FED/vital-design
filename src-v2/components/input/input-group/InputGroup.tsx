@@ -1,11 +1,9 @@
 import { cn } from '@/utils/cn';
+import { mergeProps } from '@base-ui/react/merge-props';
+import { useRender } from '@base-ui/react/use-render';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { createContext, forwardRef, useContext } from 'react';
-import type {
-  ComponentPropsWithoutRef,
-  ElementRef,
-  ReactNode,
-} from 'react';
+import type { ComponentPropsWithoutRef, ElementRef } from 'react';
 
 const inputGroupVariants = cva(
   [
@@ -152,7 +150,7 @@ const InputGroupTextarea = forwardRef<
 
 export type InputGroupAddonAlign = 'inline-start' | 'inline-end';
 
-export type InputGroupAddonProps = ComponentPropsWithoutRef<'div'> & {
+export type InputGroupAddonProps = useRender.ComponentProps<'div'> & {
   align?: InputGroupAddonAlign;
 };
 
@@ -165,21 +163,32 @@ const InputGroupAddon = forwardRef<
   ElementRef<'div'>,
   InputGroupAddonProps
 >(function InputGroupAddon(props, ref) {
-  const { align = 'inline-start', className, ...addonProps } = props;
+  const {
+    align = 'inline-start',
+    className,
+    render,
+    ...addonProps
+  } = props;
 
-  return (
-    <div
-      ref={ref}
-      data-align={align}
-      data-slot="input-group-addon"
-      className={cn(
-        'flex shrink-0 items-center text-grayscale-500',
-        addonAlignClasses[align],
-        className,
-      )}
-      {...addonProps}
-    />
-  );
+  return useRender({
+    ref,
+    render,
+    defaultTagName: 'div',
+    state: {
+      align,
+      slot: 'input-group-addon',
+    },
+    props: mergeProps<'div'>(
+      {
+        className: cn(
+          'flex shrink-0 items-center text-grayscale-500',
+          addonAlignClasses[align],
+          className,
+        ),
+      },
+      addonProps,
+    ),
+  });
 });
 
 export type InputGroupButtonProps =
@@ -215,27 +224,31 @@ const InputGroupButton = forwardRef<
   );
 });
 
-export type InputGroupTextProps = ComponentPropsWithoutRef<'span'> & {
-  children: ReactNode;
-};
+export type InputGroupTextProps = useRender.ComponentProps<'span'>;
 
 const InputGroupText = forwardRef<
   ElementRef<'span'>,
   InputGroupTextProps
 >(function InputGroupText(props, ref) {
-  const { className, ...textProps } = props;
+  const { className, render, ...textProps } = props;
 
-  return (
-    <span
-      ref={ref}
-      data-slot="input-group-text"
-      className={cn(
-        'text-sm leading-5 text-grayscale-500',
-        className,
-      )}
-      {...textProps}
-    />
-  );
+  return useRender({
+    ref,
+    render,
+    defaultTagName: 'span',
+    state: {
+      slot: 'input-group-text',
+    },
+    props: mergeProps<'span'>(
+      {
+        className: cn(
+          'text-sm leading-5 text-grayscale-500',
+          className,
+        ),
+      },
+      textProps,
+    ),
+  });
 });
 
 InputGroup.displayName = 'InputGroup';

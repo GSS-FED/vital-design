@@ -76,3 +76,35 @@ it('disables action buttons when the group is disabled', () => {
   fireEvent.click(button);
   expect(onClick).not.toHaveBeenCalled();
 });
+
+it('lets addon and text render with different tags', () => {
+  render(
+    <InputGroup>
+      <InputGroupAddon
+        render={
+          <label
+            data-testid="input-group-addon-render"
+            htmlFor="amount"
+          />
+        }
+      >
+        <InputGroupText
+          render={<strong data-testid="input-group-text-render" />}
+        >
+          $
+        </InputGroupText>
+      </InputGroupAddon>
+      <InputGroupInput id="amount" placeholder="Amount" />
+    </InputGroup>,
+  );
+
+  const addon = screen.getByTestId('input-group-addon-render');
+  const text = screen.getByTestId('input-group-text-render');
+
+  expect(addon.tagName).toBe('LABEL');
+  expect(addon).toHaveAttribute('for', 'amount');
+  expect(addon).toHaveAttribute('data-slot', 'input-group-addon');
+  expect(text.tagName).toBe('STRONG');
+  expect(text).toHaveAttribute('data-slot', 'input-group-text');
+  expect(text).toHaveTextContent('$');
+});

@@ -5,6 +5,8 @@ import Tag from '@/components/tag/Tag';
 import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
 import { cn } from '@/utils/cn';
+import { mergeProps } from '@base-ui/react/merge-props';
+import { useRender } from '@base-ui/react/use-render';
 import {
   FloatingPortal,
   autoUpdate,
@@ -22,13 +24,14 @@ import type {
 } from '@floating-ui/react';
 import {
   createContext,
+  forwardRef,
   useContext,
   useEffect,
   useMemo,
   useRef,
   useState,
 } from 'react';
-import type { CSSProperties, ReactNode } from 'react';
+import type { CSSProperties, ElementRef, ReactNode } from 'react';
 
 /* -------------------- Context for the Select component -------------------- */
 export interface ItemType {
@@ -157,107 +160,132 @@ function Select({
 }
 
 /* ----------------------------- Sub-components ----------------------------- */
-export interface TriggerProps {
+export type TriggerProps = useRender.ComponentProps<'div'> & {
   onClear?: () => void;
   clearable?: boolean;
   placeholder?: string;
   maxDisplayCount?: 1 | 2 | 3 | 6;
-  children?: ReactNode;
-  style?: CSSProperties;
-}
-const Trigger = ({
-  onClear,
-  clearable = false,
-  maxDisplayCount = 2,
-  placeholder = '',
-  style,
-}: TriggerProps) => {
-  const {
-    open,
-    setOpen,
-    value,
-    disabled,
-    isError,
-    onChange,
-    floatingRefs,
-    getReferenceProps,
-  } = useSelectContext();
-
-  const hasValue = Array.isArray(value) ? value.length > 0 : !!value;
-  const contentJSX = Array.isArray(value) ? (
-    <MultipleValue
-      value={value}
-      handleRemove={(item) => onChange(item)}
-      maxDisplayCount={maxDisplayCount}
-    />
-  ) : (
-    <div className="overflow-hidden text-ellipsis whitespace-nowrap max-w-full">
-      {value?.label}
-    </div>
-  );
-
-  return (
-    <div
-      tabIndex={0}
-      onClick={() => setOpen(!open)}
-      ref={floatingRefs.setReference}
-      {...getReferenceProps()}
-      data-testid={'select-trigger'}
-      style={style}
-      className={cn(
-        'box-border font-sans',
-        'w-full h-8 py-2 pl-3 pr-1.5',
-        'bg-white border border-grayscale-300 rounded',
-        'text-grayscale-800 font-normal text-sm leading-5',
-        'flex items-center justify-between gap-2',
-        'cursor-pointer transition-colors duration-200',
-        'hover:border-grayscale-500',
-        'focus:border-primary-500',
-        isError && 'border-alarm-500 hover:border-alarm-500',
-        disabled &&
-          'bg-grayscale-200 text-grayscale-500 pointer-events-none',
-      )}
-    >
-      {hasValue ? (
-        contentJSX
-      ) : (
-        <span className="text-grayscale-400 align-baseline">
-          {placeholder}
-        </span>
-      )}
-
-      {clearable ? (
-        <div
-          data-testid="clear-button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onClear?.();
-          }}
-          className={cn(
-            'w-5 h-5 grid place-content-center',
-            'hover:[&_svg>path]:transition-colors hover:[&_svg>path]:duration-200',
-            'hover:[&_svg>path]:fill-grayscale-700',
-          )}
-        >
-          <ClearIcon width={20} />
-        </div>
-      ) : (
-        <div
-          className={cn(
-            'w-5 h-5 flex justify-center items-center',
-            disabled ? 'text-grayscale-500' : 'text-grayscale-700',
-          )}
-        >
-          {open ? (
-            <ChevronUpIcon width={14} />
-          ) : (
-            <ChevronDownIcon width={14} />
-          )}
-        </div>
-      )}
-    </div>
-  );
 };
+const Trigger = forwardRef<ElementRef<'div'>, TriggerProps>(
+  function Trigger(props, ref) {
+    const {
+      onClear,
+      clearable = false,
+      maxDisplayCount = 2,
+      placeholder = '',
+      style,
+      className,
+      render,
+      ...triggerProps
+    } = props;
+    const {
+      open,
+      setOpen,
+      value,
+      disabled,
+      isError,
+      onChange,
+      floatingRefs,
+      getReferenceProps,
+    } = useSelectContext();
+
+    const hasValue = Array.isArray(value)
+      ? value.length > 0
+      : !!value;
+    const contentJSX = Array.isArray(value) ? (
+      <MultipleValue
+        value={value}
+        handleRemove={(item) => onChange(item)}
+        maxDisplayCount={maxDisplayCount}
+      />
+    ) : (
+      <div className="overflow-hidden text-ellipsis whitespace-nowrap max-w-full">
+        {value?.label}
+      </div>
+    );
+
+    return useRender({
+      ref: [ref, floatingRefs.setReference],
+      render,
+      defaultTagName: 'div',
+      state: {
+        disabled,
+        invalid: isError,
+        open,
+        slot: 'select-trigger',
+      },
+      props: mergeProps<'div'>(
+        getReferenceProps(),
+        {
+          'aria-expanded': open,
+          'aria-haspopup': 'listbox',
+          'aria-disabled': disabled,
+          onClick: () => setOpen(!open),
+          role: 'button',
+          style,
+          tabIndex: 0,
+          className: cn(
+            'box-border font-sans',
+            'w-full h-8 py-2 pl-3 pr-1.5',
+            'bg-white border border-grayscale-300 rounded',
+            'text-grayscale-800 font-normal text-sm leading-5',
+            'flex items-center justify-between gap-2',
+            'cursor-pointer transition-colors duration-200',
+            'hover:border-grayscale-500',
+            'focus:border-primary-500',
+            isError && 'border-alarm-500 hover:border-alarm-500',
+            disabled &&
+              'bg-grayscale-200 text-grayscale-500 pointer-events-none',
+            className,
+          ),
+          children: (
+            <>
+              {hasValue ? (
+                contentJSX
+              ) : (
+                <span className="text-grayscale-400 align-baseline">
+                  {placeholder}
+                </span>
+              )}
+              {clearable ? (
+                <div
+                  data-testid="clear-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onClear?.();
+                  }}
+                  className={cn(
+                    'w-5 h-5 grid place-content-center',
+                    'hover:[&_svg>path]:transition-colors hover:[&_svg>path]:duration-200',
+                    'hover:[&_svg>path]:fill-grayscale-700',
+                  )}
+                >
+                  <ClearIcon width={20} />
+                </div>
+              ) : (
+                <div
+                  className={cn(
+                    'w-5 h-5 flex justify-center items-center',
+                    disabled
+                      ? 'text-grayscale-500'
+                      : 'text-grayscale-700',
+                  )}
+                >
+                  {open ? (
+                    <ChevronUpIcon width={14} />
+                  ) : (
+                    <ChevronDownIcon width={14} />
+                  )}
+                </div>
+              )}
+            </>
+          ),
+        },
+        triggerProps,
+      ),
+    });
+  },
+);
 
 interface MultipleValueProps {
   value: ItemType[];
@@ -271,7 +299,7 @@ const MultipleValue = ({
 }: MultipleValueProps) => {
   const isExceeded = value.length > maxDisplayCount;
   return (
-    <div className="flex gap-1 overflow-hidden items-center flex-nowrap [&_.tag]:min-w-0 [&_.tag>[role='button']]:min-w-0 [&_.tag>[role='button']>div]:whitespace-nowrap [&_.tag>[role='button']>div]:overflow-hidden [&_.tag>[role='button']>div]:text-ellipsis">
+    <div className="flex gap-1 overflow-hidden items-center flex-nowrap [&_.tag]:min-w-0 [&_.tag_[data-slot=tag-action]]:min-w-0 [&_.tag_[data-slot=tag-label]]:min-w-0 [&_.tag_[data-slot=tag-label]]:overflow-hidden [&_.tag_[data-slot=tag-label]]:whitespace-nowrap [&_.tag_[data-slot=tag-label]]:text-ellipsis">
       {value.slice(0, maxDisplayCount).map((v) => {
         return (
           <Tag
@@ -336,76 +364,96 @@ const Menu = ({ children, style }: MenuProps) => {
   );
 };
 
-export interface ItemProps {
+export type ItemProps = useRender.ComponentProps<'div'> & {
   item: ItemType;
   children?: ReactNode;
   prefixIcon?: ReactNode;
   suffixIcon?: ReactNode;
   hasCheckbox?: boolean;
   disabled?: boolean;
-  style?: CSSProperties;
-}
-
-const Item = ({
-  item,
-  children,
-  prefixIcon,
-  suffixIcon,
-  style,
-  hasCheckbox = false,
-  disabled = false,
-}: ItemProps) => {
-  const {
-    value: selectedValue,
-    onChange,
-    setOpen,
-    isMultiple,
-  } = useSelectContext();
-
-  const isSelected = Array.isArray(selectedValue)
-    ? selectedValue.some((v) => v.id === item.id)
-    : item.id === selectedValue?.id;
-
-  const handleSelect = () => {
-    onChange(item);
-    setOpen(false);
-  };
-  const handleSelectMultiple = () => {
-    onChange(item);
-  };
-
-  return (
-    <div
-      onClick={isMultiple ? handleSelectMultiple : handleSelect}
-      style={style}
-      className={cn(
-        'font-normal text-sm leading-5',
-        'py-1.5 px-5 flex gap-2 items-center',
-        'cursor-pointer select-none transition-colors duration-200',
-        'break-anywhere',
-        'hover:bg-grayscale-100',
-        'active:bg-grayscale-200',
-        isSelected && !hasCheckbox && 'text-primary-500',
-        !isSelected && 'text-grayscale-800',
-        hasCheckbox && 'text-grayscale-800',
-        disabled && 'text-grayscale-500 pointer-events-none',
-      )}
-    >
-      {prefixIcon && (
-        <div className="grid place-content-center">{prefixIcon}</div>
-      )}
-      {hasCheckbox && <Checkbox checked={isSelected} />}
-
-      {children ? children : item.label}
-
-      {suffixIcon && (
-        <div className="ms-auto grid place-content-center">
-          {suffixIcon}
-        </div>
-      )}
-    </div>
-  );
 };
+
+const Item = forwardRef<ElementRef<'div'>, ItemProps>(
+  function Item(props, ref) {
+    const {
+      item,
+      children,
+      prefixIcon,
+      suffixIcon,
+      style,
+      className,
+      render,
+      hasCheckbox = false,
+      disabled = false,
+      ...itemProps
+    } = props;
+    const {
+      value: selectedValue,
+      onChange,
+      setOpen,
+      isMultiple,
+    } = useSelectContext();
+
+    const isSelected = Array.isArray(selectedValue)
+      ? selectedValue.some((v) => v.id === item.id)
+      : item.id === selectedValue?.id;
+
+    const handleSelect = () => {
+      onChange(item);
+      setOpen(false);
+    };
+    const handleSelectMultiple = () => {
+      onChange(item);
+    };
+
+    return useRender({
+      ref,
+      render,
+      defaultTagName: 'div',
+      state: {
+        disabled,
+        selected: isSelected,
+        slot: 'select-item',
+      },
+      props: mergeProps<'div'>(
+        {
+          onClick: isMultiple ? handleSelectMultiple : handleSelect,
+          style,
+          className: cn(
+            'font-normal text-sm leading-5',
+            'py-1.5 px-5 flex gap-2 items-center',
+            'cursor-pointer select-none transition-colors duration-200',
+            'break-anywhere',
+            'hover:bg-grayscale-100',
+            'active:bg-grayscale-200',
+            isSelected && !hasCheckbox && 'text-primary-500',
+            !isSelected && 'text-grayscale-800',
+            hasCheckbox && 'text-grayscale-800',
+            disabled && 'text-grayscale-500 pointer-events-none',
+            className,
+          ),
+          children: (
+            <>
+              {prefixIcon && (
+                <div className="grid place-content-center">
+                  {prefixIcon}
+                </div>
+              )}
+              {hasCheckbox && <Checkbox checked={isSelected} />}
+              {children ? children : item.label}
+              {suffixIcon && (
+                <div className="ms-auto grid place-content-center">
+                  {suffixIcon}
+                </div>
+              )}
+            </>
+          ),
+        },
+        itemProps,
+      ),
+    });
+  },
+);
 
 export interface TitleProps {
   children: ReactNode;

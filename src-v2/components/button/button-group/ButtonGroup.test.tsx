@@ -45,3 +45,21 @@ it('renders vertical orientation and flips separator direction', () => {
   );
   expect(screen.getByRole('separator')).toHaveClass('h-px');
 });
+
+it('lets button group text render with a different tag', () => {
+  render(
+    <ButtonGroup>
+      <ButtonGroupText
+        render={<div data-testid="button-group-text-render" />}
+      >
+        Status
+      </ButtonGroupText>
+    </ButtonGroup>,
+  );
+
+  const text = screen.getByTestId('button-group-text-render');
+
+  expect(text.tagName).toBe('DIV');
+  expect(text).toHaveAttribute('data-slot', 'button-group-text');
+  expect(text).toHaveTextContent('Status');
+});

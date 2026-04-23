@@ -1,11 +1,9 @@
 import { cn } from '@/utils/cn';
+import { mergeProps } from '@base-ui/react/merge-props';
+import { useRender } from '@base-ui/react/use-render';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { createContext, forwardRef, useContext } from 'react';
-import type {
-  ComponentPropsWithoutRef,
-  ElementRef,
-  ReactNode,
-} from 'react';
+import type { ComponentPropsWithoutRef, ElementRef } from 'react';
 
 const buttonGroupVariants = cva(
   [
@@ -107,28 +105,31 @@ const ButtonGroupSeparator = forwardRef<
   );
 });
 
-export type ButtonGroupTextProps =
-  ComponentPropsWithoutRef<'span'> & {
-    children: ReactNode;
-  };
+export type ButtonGroupTextProps = useRender.ComponentProps<'span'>;
 
 const ButtonGroupText = forwardRef<
   ElementRef<'span'>,
   ButtonGroupTextProps
 >(function ButtonGroupText(props, ref) {
-  const { className, ...textProps } = props;
+  const { className, render, ...textProps } = props;
 
-  return (
-    <span
-      ref={ref}
-      data-slot="button-group-text"
-      className={cn(
-        'flex items-center gap-2 border border-grayscale-300 bg-grayscale-100 px-4 text-sm font-medium leading-5 text-grayscale-700',
-        className,
-      )}
-      {...textProps}
-    />
-  );
+  return useRender({
+    ref,
+    render,
+    defaultTagName: 'span',
+    state: {
+      slot: 'button-group-text',
+    },
+    props: mergeProps<'span'>(
+      {
+        className: cn(
+          'flex items-center gap-2 border border-grayscale-300 bg-grayscale-100 px-4 text-sm font-medium leading-5 text-grayscale-700',
+          className,
+        ),
+      },
+      textProps,
+    ),
+  });
 });
 
 ButtonGroup.displayName = 'ButtonGroup';
