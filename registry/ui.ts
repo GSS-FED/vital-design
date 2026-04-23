@@ -372,6 +372,32 @@ export const ui = [
     ],
   },
   {
+    name: 'command',
+    type: 'registry:ui',
+    title: 'Command',
+    description:
+      'Composable command menu primitive with inline search, groups, and loading states',
+    dependencies: [
+      '@radix-ui/react-icons',
+      'cmdk',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-constants',
+      '@vital-design/icon-search',
+      '@vital-design/icon-spinner',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/command/Command.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
     name: 'select',
     type: 'registry:ui',
     title: 'Select',

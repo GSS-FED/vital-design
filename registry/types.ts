@@ -35,6 +35,7 @@ export type RegistryItemName =
   | 'textarea-input'
   | 'password-input'
   | 'list-components'
+  | 'command'
   | 'select'
   | 'action-list'
   | 'action-infinite-list'
