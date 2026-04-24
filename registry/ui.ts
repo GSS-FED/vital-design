@@ -337,19 +337,10 @@ export const ui = [
     title: 'List Components',
     description:
       'Reusable list container and item components with mask effect',
-    dependencies: [
-      'styled-components',
-      'react-window@^1.8.10',
-      '@types/react-window',
-      'react-window-infinite-loader@^1.0.9',
-      '@types/react-window-infinite-loader',
-      'clsx',
-      'tailwind-merge',
-    ],
+    dependencies: ['clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-constants',
-      '@vital-design/icon-spinner',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -359,14 +350,6 @@ export const ui = [
       },
       {
         path: 'src-v2/components/list/components/ListItem.tsx',
-        type: 'registry:ui',
-      },
-      {
-        path: 'src-v2/components/list/components/InfiniteList.tsx',
-        type: 'registry:ui',
-      },
-      {
-        path: 'src-v2/components/list/components/InfiniteListItem.tsx',
         type: 'registry:ui',
       },
     ],
@@ -417,54 +400,6 @@ export const ui = [
     files: [
       {
         path: 'src-v2/components/select/Select.tsx',
-        type: 'registry:ui',
-      },
-    ],
-  },
-  {
-    name: 'action-list',
-    type: 'registry:ui',
-    title: 'Action List',
-    description: 'Searchable action list with selection support',
-    dependencies: ['clsx', 'tailwind-merge'],
-    registryDependencies: [
-      '@vital-design/utils',
-      '@vital-design/search-bar',
-      '@vital-design/list-components',
-      '@vital-design/vital-theme',
-    ],
-    files: [
-      {
-        path: 'src-v2/components/list/action-list/ActionList.tsx',
-        type: 'registry:ui',
-      },
-    ],
-  },
-  {
-    name: 'action-infinite-list',
-    type: 'registry:ui',
-    title: 'Action Infinite List',
-    description: 'Infinite scrolling action list with search support',
-    dependencies: [
-      'styled-components',
-      'react-window@^1.8.10',
-      '@types/react-window',
-      'react-window-infinite-loader@^1.0.9',
-      '@types/react-window-infinite-loader',
-      'clsx',
-      'tailwind-merge',
-    ],
-    registryDependencies: [
-      '@vital-design/utils',
-      '@vital-design/vital-constants',
-      '@vital-design/icon-spinner',
-      '@vital-design/search-bar',
-      '@vital-design/list-components',
-      '@vital-design/vital-theme',
-    ],
-    files: [
-      {
-        path: 'src-v2/components/list/action-infinite-list/ActionInfiniteList.tsx',
         type: 'registry:ui',
       },
     ],

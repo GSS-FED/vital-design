@@ -12,11 +12,10 @@
     "checkbox",
     "radio-group",
     "search-bar",
+    "command",
     "split-button",
     "tree-select",
     "mask",
-    "list",
-    "action-list",
-    "action-infinite-list"
+    "list"
   ]
 }

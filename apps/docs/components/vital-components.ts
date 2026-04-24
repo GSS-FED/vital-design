@@ -30,7 +30,6 @@ export { default as Checkbox } from '../../../src-v2/components/checkbox/Checkbo
 export { default as RadioGroup } from '../../../src-v2/components/radio-group/RadioGroup';
 export { RadioGroupItem } from '../../../src-v2/components/radio-group/RadioGroup';
 export { default as SearchBar } from '../../../src-v2/components/search-bar/SearchBar';
+export { default as Command } from '../../../src-v2/components/command/Command';
 export { default as SplitButton } from '../../../src-v2/components/button/split-button/SplitButton';
 export { default as TreeSelect } from '../../../src-v2/components/tree-select/TreeSelect';
-export { default as ActionList } from '../../../src-v2/components/list/action-list/ActionList';
-export { default as ActionInfiniteList } from '../../../src-v2/components/list/action-infinite-list/ActionInfiniteList';

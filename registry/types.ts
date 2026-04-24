@@ -37,8 +37,6 @@ export type RegistryItemName =
   | 'list-components'
   | 'command'
   | 'select'
-  | 'action-list'
-  | 'action-infinite-list'
   | 'tree-select';
 
 /**

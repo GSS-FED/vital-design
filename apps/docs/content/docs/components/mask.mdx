@@ -3,7 +3,10 @@ title: Mask
 description: A scrollable container that automatically applies fade masks at the top and bottom edges when content overflows.
 ---
 
-import { MaskNoOverflowPreview, MaskPreview } from '~/components/previews/MaskPreview';
+import {
+  MaskNoOverflowPreview,
+  MaskPreview,
+} from '~/components/previews/MaskPreview';
 
 ## Preview
 
@@ -28,7 +31,7 @@ import Mask from '@/components/ui/Mask';
       <li key={item.id}>{item.displayName}</li>
     ))}
   </ul>
-</Mask>
+</Mask>;
 ```
 
 ## How It Works
@@ -46,15 +49,17 @@ import Mask from '@/components/ui/Mask';
 The scrollbar is hidden across all browsers while remaining functional.
 
 <Callout type="info">
-  `ListContainer` (used by `ActionList`) includes equivalent mask logic built in. Use `Mask` directly when you need the fade-scroll behaviour on arbitrary content.
+  `ListContainer` and `Command.List` include equivalent mask logic
+  built in. Use `Mask` directly when you need the fade-scroll
+  behaviour on arbitrary content.
 </Callout>
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `ReactNode` | — | **Required.** Scrollable content |
-| `height` | `string` | `'100%'` | Height of the visible viewport (any CSS value) |
-| `width` | `string` | `'100%'` | Width of the container |
-| `className` | `string` | — | Additional CSS classes on the scroll container |
-| `style` | `CSSProperties` | — | Inline styles (applied after mask styles) |
+| Prop        | Type            | Default  | Description                                    |
+| ----------- | --------------- | -------- | ---------------------------------------------- |
+| `children`  | `ReactNode`     | —        | **Required.** Scrollable content               |
+| `height`    | `string`        | `'100%'` | Height of the visible viewport (any CSS value) |
+| `width`     | `string`        | `'100%'` | Width of the container                         |
+| `className` | `string`        | —        | Additional CSS classes on the scroll container |
+| `style`     | `CSSProperties` | —        | Inline styles (applied after mask styles)      |

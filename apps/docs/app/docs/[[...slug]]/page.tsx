@@ -14,8 +14,6 @@ import {
 import { notFound } from 'next/navigation';
 import type { FC } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import { ActionInfiniteListPreview } from '~/components/previews/ActionInfiniteListPreview';
-import { ActionListPreview } from '~/components/previews/ActionListPreview';
 import {
   CheckboxPreview,
   CheckboxStatesPreview,
@@ -24,6 +22,11 @@ import {
   ChipPreview,
   ChipStatesPreview,
 } from '~/components/previews/ChipPreview';
+import {
+  CommandActionListPreview,
+  CommandInfinitePreview,
+  CommandPreview,
+} from '~/components/previews/CommandPreview';
 import {
   ListOverflowPreview,
   ListPreview,
@@ -103,6 +106,9 @@ export default async function Page({
             Tabs,
             TypeTable,
             ComponentPreview,
+            CommandPreview,
+            CommandActionListPreview,
+            CommandInfinitePreview,
             ChipPreview,
             ChipStatesPreview,
             SelectPreview,
@@ -122,8 +128,6 @@ export default async function Page({
             SplitButtonPreview,
             SplitButtonDefaultPreview,
             TreeSelectPreview,
-            ActionListPreview,
-            ActionInfiniteListPreview,
             ListPreview,
             ListOverflowPreview,
             MaskPreview,

@@ -1,9 +1,12 @@
 ---
 title: List
-description: Primitive building blocks for scrollable, selectable lists. Use ListContainer and ListItem to compose custom list UIs.
+description: Primitive building blocks for masked, scrollable lists. Use ListContainer and ListItem to compose custom list UIs.
 ---
 
-import { ListOverflowPreview, ListPreview } from '~/components/previews/ListPreview';
+import {
+  ListOverflowPreview,
+  ListPreview,
+} from '~/components/previews/ListPreview';
 
 ## Preview
 
@@ -21,14 +24,16 @@ When a `height` is set on `ListContainer`, items that overflow are scrollable. A
 
 <a id="list-components"></a>
 
-`list-components` is the registry key for the reusable primitives documented on this page: `ListContainer`, `ListItem`, and `InfiniteList`.
+`list-components` is the registry key for the reusable primitives documented on this page: `ListContainer` and `ListItem`.
 
 ## Usage
 
 ```tsx
-import { useState } from 'react';
-import ListContainer, { type Option } from '@/components/ui/ListContainer';
+import ListContainer, {
+  type Option,
+} from '@/components/ui/ListContainer';
 import { ListItem } from '@/components/ui/ListItem';
+import { useState } from 'react';
 
 const items: Option[] = [
   { id: 1, displayName: 'Apple' },
@@ -37,7 +42,9 @@ const items: Option[] = [
 ];
 
 function MyList() {
-  const [selected, setSelected] = useState<string | number | undefined>(undefined);
+  const [selected, setSelected] = useState<
+    string | number | undefined
+  >(undefined);
 
   return (
     <ListContainer items={items} height={120}>
@@ -55,64 +62,32 @@ function MyList() {
 }
 ```
 
-## Infinite Scroll
-
-For very large or server-paginated lists, use `InfiniteList`. It virtualises rows with `react-window` and loads pages on demand via `react-window-infinite-loader`.
-
-```tsx
-import InfiniteList from '@/components/ui/InfiniteList';
-
-<InfiniteList
-  items={items}
-  hasNextPage={hasNextPage}
-  loadNextPage={fetchNextPage}
-  listHeight={240}
-  listItem={(item) => (
-    <ListItem onClick={() => setSelected(item.id)}>
-      {item.displayName}
-    </ListItem>
-  )}
-/>
-```
-
 <Callout type="info">
-  For a ready-made searchable list panel, see [ActionList](/docs/components/action-list). For a searchable infinite-scroll panel, see [ActionInfiniteList](/docs/components/action-infinite-list).
+  For searchable list panels, nested pages, or infinite data, use
+  [Command](/docs/components/command) as the shell and bring your own
+  loading or virtualization logic.
 </Callout>
 
 ## ListContainer Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `items` | `Option[]` | — | **Required.** Used to determine whether overflow masking is needed |
-| `height` | `number` | — | Fixed height (px) for the scrollable area; enables overflow masking |
-| `width` | `string` | `'100%'` | Width of the container |
-| `children` | `ReactNode` | — | `ListItem` elements to render |
-| `className` | `string` | — | Additional CSS classes |
-| `style` | `CSSProperties` | — | Inline styles |
+| Prop        | Type            | Default  | Description                                                         |
+| ----------- | --------------- | -------- | ------------------------------------------------------------------- |
+| `items`     | `Option[]`      | —        | **Required.** Used to determine whether overflow masking is needed  |
+| `height`    | `number`        | —        | Fixed height (px) for the scrollable area; enables overflow masking |
+| `width`     | `string`        | `'100%'` | Width of the container                                              |
+| `children`  | `ReactNode`     | —        | `ListItem` elements to render                                       |
+| `className` | `string`        | —        | Additional CSS classes                                              |
+| `style`     | `CSSProperties` | —        | Inline styles                                                       |
 
 ## ListItem Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `ReactNode` | — | Item label content |
-| `$selected` | `boolean` | — | Applies the selected (primary) colour |
-| `$disabled` | `boolean` | — | Mutes colour and disables hover/active states |
-| `onClick` | `() => void` | — | Called when the item is clicked |
-| `className` | `string` | — | Additional CSS classes |
-
-## InfiniteList Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `items` | `T[]` | — | **Required.** Array of loaded items |
-| `hasNextPage` | `boolean` | — | **Required.** Whether more pages exist |
-| `loadNextPage` | `() => void \| Promise<void>` | — | **Required.** Callback to fetch the next page |
-| `listHeight` | `number` | — | **Required.** Pixel height of the virtualised list viewport |
-| `listItem` | `(item: T) => JSX.Element` | — | **Required.** Render function for each item row |
-| `isNextPageLoading` | `boolean` | — | Shows a spinner row while loading |
-| `width` | `string` | — | Width passed to the outer wrapper |
-| `className` | `string` | — | Additional CSS classes |
-| `style` | `CSSProperties` | — | Inline styles |
+| Prop        | Type         | Default | Description                                   |
+| ----------- | ------------ | ------- | --------------------------------------------- |
+| `children`  | `ReactNode`  | —       | Item label content                            |
+| `$selected` | `boolean`    | —       | Applies the selected (primary) colour         |
+| `$disabled` | `boolean`    | —       | Mutes colour and disables hover/active states |
+| `onClick`   | `() => void` | —       | Called when the item is clicked               |
+| `className` | `string`     | —       | Additional CSS classes                        |
 
 ## Option Type
 
