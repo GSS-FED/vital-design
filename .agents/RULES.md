@@ -81,6 +81,7 @@ import { CheckIcon, CloseIcon } from '@/icons';
 - `src-v2/` 新增或重構元件若需要 headless primitive，預設使用 `@base-ui/react`
 - `src/` 是 legacy npm 分發面，僅供既有專案相容維護；新元件不得新增到 `src/`
 - 目前 package build 入口仍是 `src/index.tsx`，docs 與 registry 的新增元件說明以 `src-v2/` 為準
+- `@base-ui/react` 僅供 `src-v2/`、docs、registry 開發流程使用，根目錄 `package.json` 應維持在 `devDependencies`，避免 legacy npm package 對外帶出額外 runtime dependency
 - `src-v2/styles/` 是 registry / docs 內部使用的 theme 資產，不是 npm package 公開 API；不要在 `package.json` exports 中暴露它
 - 自訂輸入組合優先使用 `InputGroup` parts；按鈕群組優先使用 `ButtonGroup`。preset wrapper（如 `TextInput`、`PasswordInput`、`SearchBar`、`SplitButton`）需維持既有 props。
 

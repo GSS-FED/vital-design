@@ -39,7 +39,6 @@
     "docs:start": "pnpm --filter @fed/vital-docs start"
   },
   "dependencies": {
-    "@base-ui/react": "^1.4.0",
     "@floating-ui/react": "^0.27.8",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-checkbox": "^1.0.4",
@@ -56,6 +55,7 @@
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
+    "@base-ui/react": "^1.4.0",
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^19.6.0",
     "@semantic-release/changelog": "^6.0.3",

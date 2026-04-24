@@ -60,6 +60,7 @@ export const ui = [
     title: 'Button Group',
     description: 'Composable button group layout primitive',
     dependencies: [
+      '@base-ui/react',
       'class-variance-authority',
       'clsx',
       'tailwind-merge',
@@ -250,6 +251,7 @@ export const ui = [
     title: 'Input Group',
     description: 'Composable input group with addons and actions',
     dependencies: [
+      '@base-ui/react',
       'class-variance-authority',
       'clsx',
       'tailwind-merge',
@@ -386,7 +388,12 @@ export const ui = [
     title: 'Select',
     description:
       'Compound select component with single/multiple selection support',
-    dependencies: ['@floating-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: [
+      '@base-ui/react',
+      '@floating-ui/react',
+      'clsx',
+      'tailwind-merge',
+    ],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-chevron',
