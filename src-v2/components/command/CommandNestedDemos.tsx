@@ -2,7 +2,7 @@ import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
 import { cn } from '@/utils/cn';
 import { ChevronRightIcon } from '@radix-ui/react-icons';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import type { Ref } from 'react';
+import type { KeyboardEvent, Ref } from 'react';
 import Command from './Command';
 
 type CommandNode = {
@@ -193,7 +193,7 @@ export function ApproverCommandDemo({
       id="approver-command-demo"
       label="Approver command"
       className={cn('w-[194px]', className)}
-      onKeyDown={(event) => {
+      onKeyDown={(event: KeyboardEvent<HTMLDivElement>) => {
         if (
           event.key === 'Escape' ||
           (event.key === 'Backspace' && search.length === 0)

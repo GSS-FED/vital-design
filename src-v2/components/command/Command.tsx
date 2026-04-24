@@ -170,7 +170,9 @@ const CommandList = forwardRef<
 
   return (
     <CommandPrimitive.List
-      ref={(node) => {
+      ref={(
+        node: ElementRef<typeof CommandPrimitive.List> | null,
+      ) => {
         localRef.current = node;
         assignRef(ref, node);
       }}
