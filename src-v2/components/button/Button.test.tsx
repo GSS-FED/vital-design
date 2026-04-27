@@ -2,6 +2,7 @@ import { Spinner } from '@/components/spinner/Spinner';
 import { FlagIcon } from '@/icons/FlagIcon';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { createRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { Button } from './Button';
 
@@ -35,6 +36,14 @@ describe('Button', () => {
     expect(button).toHaveClass(
       'bg-[image:var(--gradient-primary-button)]',
     );
+  });
+
+  it('forwards ref to the underlying button element', () => {
+    const ref = createRef<HTMLButtonElement>();
+
+    render(<Button ref={ref}>Button</Button>);
+
+    expect(ref.current).toBe(screen.getByRole('button'));
   });
 
   it('calls onClick when clicked', async () => {

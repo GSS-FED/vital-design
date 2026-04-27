@@ -1,6 +1,7 @@
 import { cn } from '@/utils/cn';
 import { Button as BaseButton } from '@base-ui/react/button';
 import { cva } from 'class-variance-authority';
+import { forwardRef } from 'react';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 export type ButtonSize =
@@ -291,53 +292,59 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
   },
 });
 
-function Button(props: ButtonProps) {
-  const {
-    children,
-    className,
-    disabled = false,
-    focusableWhenDisabled,
-    onClick,
-    size = 'medium',
-    theme: themeProp,
-    type = 'button',
-    variant: variantProp,
-    ...buttonProps
-  } = props;
-  const variant = variantProp ?? 'filled';
-  const theme =
-    themeProp ?? (variant === 'text' ? 'default' : 'primary');
-  const isDisabled = Boolean(disabled);
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  function Button(props, ref) {
+    const {
+      children,
+      className,
+      disabled = false,
+      focusableWhenDisabled,
+      onClick,
+      size = 'medium',
+      theme: themeProp,
+      type = 'button',
+      variant: variantProp,
+      ...buttonProps
+    } = props;
+    const variant = variantProp ?? 'filled';
+    const theme =
+      themeProp ?? (variant === 'text' ? 'default' : 'primary');
+    const isDisabled = Boolean(disabled);
 
-  return (
-    <BaseButton
-      type={type}
-      data-slot="button"
-      data-variant={variant}
-      data-size={size}
-      disabled={disabled}
-      focusableWhenDisabled={focusableWhenDisabled}
-      onClick={isDisabled ? undefined : onClick}
-      className={cn(
-        buttonVariants({
-          variant,
-          size,
-          theme,
-          disabled: isDisabled,
-        }),
-        variant === 'filled' && !isDisabled && OVERLAY_CLASSES,
-        className,
-      )}
-      {...buttonProps}
-    >
-      <span
-        data-slot="button-content"
-        className="relative z-[2] inline-flex items-center justify-center gap-1 whitespace-nowrap leading-5"
+    return (
+      <BaseButton
+        ref={ref}
+        type={type}
+        data-slot="button"
+        data-variant={variant}
+        data-size={size}
+        disabled={disabled}
+        focusableWhenDisabled={focusableWhenDisabled}
+        onClick={isDisabled ? undefined : onClick}
+        className={cn(
+          buttonVariants({
+            variant,
+            size,
+            theme,
+            disabled: isDisabled,
+          }),
+          variant === 'filled' && !isDisabled && OVERLAY_CLASSES,
+          className,
+        )}
+        {...buttonProps}
       >
-        {children}
-      </span>
-    </BaseButton>
-  );
-}
+        <span
+          data-slot="button-content"
+          className="relative z-[2] inline-flex items-center justify-center gap-1 whitespace-nowrap leading-5"
+        >
+          {children}
+        </span>
+      </BaseButton>
+    );
+  },
+);
+
+Button.displayName = 'Button';
 
 export { Button };
+export default Button;
