@@ -1,7 +1,11 @@
 {
   "gradient": {
-    "primary-button": {
+    "primary": {
       "$value": "linear-gradient(45deg, {info.400} 0%, {primary.500} 100%)",
+      "$type": "string"
+    },
+    "primary-button": {
+      "$value": "{gradient.primary}",
       "$type": "string"
     }
   }

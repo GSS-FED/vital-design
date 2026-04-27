@@ -9,8 +9,12 @@ export const vitalThemeCssVars = {
     'radius-lg': '15px',
     'radius-xl': '16px',
     'radius-full': '9999px',
-    'font-sans': "Roboto, 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif",
-    'gradient-primary-button': 'linear-gradient(45deg, #33CFFF 0%, #0E86FE 100%)',
+    'font-sans':
+      "Roboto, 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif",
+    'gradient-primary':
+      'linear-gradient(45deg, #33CFFF 0%, #0E86FE 100%)',
+    'gradient-primary-button':
+      'linear-gradient(45deg, #33CFFF 0%, #0E86FE 100%)',
     'shadow-accent': '0 2px 8px 0 rgba(35, 35, 50, 0.15)',
     'shadow-base': '0 6px 10px 0 rgba(35, 35, 50, 0.08)',
     'shadow-emphasis': '0 6px 20px -2px rgba(35, 35, 50, 0.25)',
@@ -23,13 +27,16 @@ export const vitalThemeCssVars = {
     'shadow-focus-ring-primary': '0 0 0 2px rgba(14, 134, 254, 0.2)',
     'shadow-focus-ring-alarm': '0 0 0 2px rgba(235, 80, 0, 0.2)',
     'shadow-button-primary': '0 6px 10px rgba(14, 134, 254, 0.3)',
-    'shadow-button-primary-active': '0 2px 4px rgba(14, 134, 254, 0.4)',
+    'shadow-button-primary-active':
+      '0 2px 4px rgba(14, 134, 254, 0.4)',
     'shadow-button-success': '0 6px 10px rgba(43, 205, 134, 0.3)',
-    'shadow-button-success-active': '0 2px 4px rgba(43, 205, 134, 0.4)',
+    'shadow-button-success-active':
+      '0 2px 4px rgba(43, 205, 134, 0.4)',
     'shadow-button-info': '0 6px 10px rgba(0, 195, 255, 0.3)',
     'shadow-button-info-active': '0 2px 4px rgba(0, 195, 255, 0.4)',
     'shadow-button-warning': '0 6px 10px rgba(255, 167, 0, 0.3)',
-    'shadow-button-warning-active': '0 2px 4px rgba(255, 167, 0, 0.4)',
+    'shadow-button-warning-active':
+      '0 2px 4px rgba(255, 167, 0, 0.4)',
     'shadow-button-alarm': '0 6px 10px rgba(235, 80, 0, 0.3)',
     'shadow-button-alarm-active': '0 2px 4px rgba(235, 80, 0, 0.4)',
   },
@@ -145,7 +152,7 @@ export const vitalThemeCssVars = {
     'alarm-700': '#852D00',
     'alarm-800': '#521C00',
     'alarm-900': '#1F0B00',
-    'border': '#DEDEE2',
+    border: '#DEDEE2',
     'text-primary': '#232332',
     'text-secondary': 'rgba(35, 35, 50, 0.70)',
     'text-tertiary': 'rgba(35, 35, 50, 0.55)',
