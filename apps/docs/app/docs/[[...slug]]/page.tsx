@@ -28,6 +28,10 @@ import {
   ComboboxPreview,
 } from '~/components/previews/ComboboxPreview';
 import {
+  DialogPreview,
+  DialogSizesPreview,
+} from '~/components/previews/DialogPreview';
+import {
   ListOverflowPreview,
   ListPreview,
 } from '~/components/previews/ListPreview';
@@ -109,6 +113,8 @@ export default async function Page({
             ChipStatesPreview,
             ComboboxPreview,
             ComboboxMultiplePreview,
+            DialogPreview,
+            DialogSizesPreview,
             SelectPreview,
             SelectMultiplePreview,
             SwitchPreview,

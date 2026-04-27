@@ -1,10 +1,25 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { beforeAll, describe, expect, it } from 'vitest';
-import type { RegistryItem } from '../../registry/types';
 
 const ROOT_DIR = path.resolve(__dirname, '../..');
 const REGISTRY_PATH = path.join(ROOT_DIR, 'registry.json');
+
+interface RegistryFile {
+  path: string;
+  target?: string;
+}
+
+interface RegistryItem {
+  name: string;
+  type: string;
+  title?: string;
+  description?: string;
+  dependencies?: string[];
+  registryDependencies?: string[];
+  files?: RegistryFile[];
+  cssVars?: unknown;
+}
 
 interface Registry {
   $schema: string;

@@ -9,6 +9,7 @@
     "select",
     "combobox",
     "cascader",
+    "dialog",
     "switch",
     "tag",
     "checkbox",

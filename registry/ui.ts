@@ -427,4 +427,28 @@ export const ui = [
       },
     ],
   },
+  {
+    name: 'dialog',
+    type: 'registry:ui',
+    title: 'Dialog',
+    description:
+      'Accessible modal dialog with composed trigger, overlay, popup, header, body, and footer parts',
+    dependencies: [
+      '@base-ui/react',
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-close',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/dialog/Dialog.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
 ] satisfies VitalRegistryItem[];

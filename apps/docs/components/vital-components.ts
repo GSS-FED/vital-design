@@ -31,6 +31,20 @@ export { TextAreaInput as TextareaInput } from '../../../src-v2/components/input
 export { Select } from '../../../src-v2/components/select/Select';
 export { Combobox } from '../../../src-v2/components/combobox/Combobox';
 export { Cascader } from '../../../src-v2/components/cascader/Cascader';
+export {
+  Dialog,
+  DialogBackdrop,
+  DialogBody,
+  DialogClose,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogPopup,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+  DialogViewport,
+} from '../../../src-v2/components/dialog/Dialog';
 export { Switch } from '../../../src-v2/components/switch/Switch';
 export { Tag } from '../../../src-v2/components/tag/Tag';
 export { Checkbox } from '../../../src-v2/components/checkbox/Checkbox';

@@ -37,7 +37,8 @@ export type RegistryItemName =
   | 'list-components'
   | 'select'
   | 'combobox'
-  | 'cascader';
+  | 'cascader'
+  | 'dialog';
 
 /**
  * Extends the official shadcn RegistryItem with:
