@@ -1,6 +1,7 @@
 'use client';
 
-import SplitButton from '@/components/button/split-button/SplitButton';
+import { SplitButton } from '@/components/button/split-button/SplitButton';
+import { SearchIcon } from '@/icons/SearchIcon';
 import { useState } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
@@ -14,6 +15,7 @@ export function SplitButtonPreview() {
         onClick={() => {}}
         splitOnClick={() => setOpen((v) => !v)}
       >
+        <SearchIcon data-icon="inline-start" />
         Submit
       </SplitButton>
     </ComponentPreview>

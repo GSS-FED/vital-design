@@ -20,7 +20,7 @@ export type Option = {
   disabled?: boolean;
 };
 
-export default function ListContainer(props: ListContainerProps) {
+export function ListContainer(props: ListContainerProps) {
   const {
     items = [],
     style,

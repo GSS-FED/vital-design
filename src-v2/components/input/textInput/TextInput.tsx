@@ -85,4 +85,4 @@ const TextInput = forwardRef(function TextInput(
   );
 });
 
-export default TextInput;
+export { TextInput };

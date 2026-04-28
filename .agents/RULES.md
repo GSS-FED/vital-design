@@ -84,6 +84,9 @@ import { CheckIcon, CloseIcon } from '@/icons';
 - 僅供 `src-v2/`、docs、registry 或 stories 使用的套件，根目錄 `package.json` 應維持在 `devDependencies`，避免 legacy npm package 對外帶出額外 runtime dependency；registry 安裝所需套件則由 `registry/*.ts` 的 `dependencies` 個別宣告
 - `src-v2/styles/` 是 registry / docs 內部使用的 theme 資產，不是 npm package 公開 API；不要在 `package.json` exports 中暴露它
 - 自訂輸入組合優先使用 `InputGroup` parts；按鈕群組優先使用 `ButtonGroup`。preset wrapper（如 `TextInput`、`PasswordInput`、`SearchBar`、`SplitButton`）需維持既有 props。
+- `src-v2` component 只使用 named exports；不要新增 component default export。
+- `Button` / `SplitButton` icon 使用 shadcn child-icon 形式：把 icon 或 spinner 放在 children，並在 icon 上加 `data-icon="inline-start"` 或 `data-icon="inline-end"`；不要新增 `icon` / `iconPlacement` props。Button label size 使用 `medium` / `large`；icon-only Button 使用 `icon-medium` / `icon-large`。
+- `src-v2` 元件可以內部使用 `cva()`，但不要 export 原始 variants helper（例如 `buttonVariants`）。元件 default 應只由 component API 控制，避免 helper default 和 component default 漂移。
 - v2 選擇類元件依互動方式拆分：`Select` 平面單選或多選下拉、`Combobox` 可搜尋輸入選擇、`Cascader` 階層路徑選擇。`Command` 可作內部互動實作參考，但不是公開設計系統元件。
 
 ## Registry 規範

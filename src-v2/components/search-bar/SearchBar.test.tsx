@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
-import SearchBar from './SearchBar';
+import { SearchBar } from './SearchBar';
 
 it('calls onChange when the input changes', () => {
   const onChange = vi.fn();

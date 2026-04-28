@@ -1,6 +1,6 @@
 'use client';
 
-import Switch from '@/components/switch/Switch';
+import { Switch } from '@/components/switch/Switch';
 import { useState } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 

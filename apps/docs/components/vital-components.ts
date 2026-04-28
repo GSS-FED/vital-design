@@ -4,15 +4,15 @@
 // Used in MDX docs pages for live previews
 
 // Atomic components
-export { default as Button } from '../../../src-v2/components/button/Button';
+export { Button } from '../../../src-v2/components/button/Button';
 export {
   ButtonGroup,
   ButtonGroupSeparator,
   ButtonGroupText,
 } from '../../../src-v2/components/button/button-group/ButtonGroup';
-export { default as Avatar } from '../../../src-v2/components/avatar/Avatar';
-export { default as Chip } from '../../../src-v2/components/chip/Chip';
-export { default as TextInput } from '../../../src-v2/components/input/textInput/TextInput';
+export { Avatar } from '../../../src-v2/components/avatar/Avatar';
+export { Chip } from '../../../src-v2/components/chip/Chip';
+export { TextInput } from '../../../src-v2/components/input/textInput/TextInput';
 export {
   InputGroup,
   InputGroupAddon,
@@ -21,17 +21,17 @@ export {
   InputGroupText,
   InputGroupTextarea,
 } from '../../../src-v2/components/input/input-group/InputGroup';
-export { default as PasswordInput } from '../../../src-v2/components/input/passwordInput/PasswordInput';
-export { default as TextareaInput } from '../../../src-v2/components/input/textareaInput/TextareaInput';
+export { PasswordInput } from '../../../src-v2/components/input/passwordInput/PasswordInput';
+export { TextAreaInput as TextareaInput } from '../../../src-v2/components/input/textareaInput/TextareaInput';
 export { Select } from '../../../src-v2/components/select/Select';
 export { Combobox } from '../../../src-v2/components/combobox/Combobox';
 export { Cascader } from '../../../src-v2/components/cascader/Cascader';
-export { default as Switch } from '../../../src-v2/components/switch/Switch';
-export { default as Tag } from '../../../src-v2/components/tag/Tag';
-export { default as Checkbox } from '../../../src-v2/components/checkbox/Checkbox';
-export { default as RadioGroup } from '../../../src-v2/components/radio-group/RadioGroup';
+export { Switch } from '../../../src-v2/components/switch/Switch';
+export { Tag } from '../../../src-v2/components/tag/Tag';
+export { Checkbox } from '../../../src-v2/components/checkbox/Checkbox';
+export { RadioGroup } from '../../../src-v2/components/radio-group/RadioGroup';
 export { RadioGroupItem } from '../../../src-v2/components/radio-group/RadioGroup';
-export { default as SearchBar } from '../../../src-v2/components/search-bar/SearchBar';
+export { SearchBar } from '../../../src-v2/components/search-bar/SearchBar';
 export { Skeleton } from '../../../src-v2/components/skeleton/Skeleton';
 export { Spinner } from '../../../src-v2/components/spinner/Spinner';
-export { default as SplitButton } from '../../../src-v2/components/button/split-button/SplitButton';
+export { SplitButton } from '../../../src-v2/components/button/split-button/SplitButton';

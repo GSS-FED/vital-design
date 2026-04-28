@@ -1,7 +1,8 @@
+import { FlagIcon } from '@/icons/FlagIcon';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
-import SplitButton from './SplitButton';
+import { SplitButton } from './SplitButton';
 
 describe('Basic Functionality', () => {
   it('renders children correctly', () => {
@@ -40,6 +41,34 @@ describe('Basic Functionality', () => {
 
     await user.click(splitButton);
     expect(mockSplitOnClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('renders child icons with data-icon placement', () => {
+    render(
+      <SplitButton open={false}>
+        <FlagIcon data-icon="inline-start" data-testid="start-icon" />
+        Publish
+      </SplitButton>,
+    );
+    const mainButton = screen.getAllByRole('button')[0]!;
+
+    expect(screen.getByTestId('start-icon')).toBeInTheDocument();
+    expect(mainButton).toHaveClass(
+      'has-[_[data-icon=inline-start]]:pl-3',
+    );
+  });
+
+  it('sets data-size on segment buttons for icon sizing', () => {
+    render(
+      <SplitButton open={false} size="large">
+        <FlagIcon data-icon="inline-start" />
+        Publish
+      </SplitButton>,
+    );
+    const buttons = screen.getAllByRole('button');
+
+    expect(buttons[0]).toHaveAttribute('data-size', 'large');
+    expect(buttons[1]).toHaveAttribute('data-size', 'large');
   });
 
   it('is disabled when disabled prop is true', () => {

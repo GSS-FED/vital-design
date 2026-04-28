@@ -1,6 +1,6 @@
 'use client';
 
-import Chip from '@/components/chip/Chip';
+import { Chip } from '@/components/chip/Chip';
 import { useState } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 

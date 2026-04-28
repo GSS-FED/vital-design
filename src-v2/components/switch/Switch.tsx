@@ -10,7 +10,7 @@ export type SwitchProps = {
   style?: CSSProperties;
 };
 
-export default function Switch(props: SwitchProps) {
+export function Switch(props: SwitchProps) {
   const { checked, onChange, disabled, className, style } = props;
 
   return (

@@ -3,6 +3,7 @@ title: SplitButton
 description: A split action built from ButtonGroup with a primary action and a separate toggle trigger.
 ---
 
+import { SearchIcon } from '@/icons/SearchIcon';
 import {
   SplitButtonDefaultPreview,
   SplitButtonPreview,
@@ -14,8 +15,10 @@ import {
 
 ## Usage
 
+Install or import the icon separately from SplitButton.
+
 ```tsx
-import SplitButton from '@/components/ui/SplitButton';
+import { SplitButton } from '@/components/ui/SplitButton';
 import { useState } from 'react';
 
 function SaveButton() {
@@ -28,6 +31,7 @@ function SaveButton() {
       onClick={() => handleSave()}
       splitOnClick={() => setOpen((v) => !v)}
     >
+      <SearchIcon data-icon="inline-start" />
       Save
     </SplitButton>
   );
@@ -58,6 +62,5 @@ function SaveButton() {
 | `size`                  | `'medium' \| 'large'`     | `'medium'`  | Button size                                                          |
 | `onClick`               | `(e: MouseEvent) => void` | —           | Handler for the main button area                                     |
 | `splitOnClick`          | `(e: MouseEvent) => void` | —           | Handler for the arrow trigger                                        |
-| `icon`                  | `ReactNode`               | —           | Icon rendered in the main button area                                |
 | `focusableWhenDisabled` | `boolean`                 | `false`     | Keeps keyboard focus on the button when disabled styling is applied  |
 | `disabled`              | `boolean`                 | `false`     | Disables the entire button                                           |

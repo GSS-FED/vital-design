@@ -1,6 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { type ReactNode } from 'react';
-import Avatar from './Avatar';
+import { Avatar } from './Avatar';
 
 function Container({ children }: { children: ReactNode }) {
   return <div className="flex flex-wrap gap-5">{children}</div>;

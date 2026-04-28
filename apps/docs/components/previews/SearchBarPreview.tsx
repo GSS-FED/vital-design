@@ -1,6 +1,6 @@
 'use client';
 
-import SearchBar from '@/components/search-bar/SearchBar';
+import { SearchBar } from '@/components/search-bar/SearchBar';
 import { useState } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 

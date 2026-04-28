@@ -1,398 +1,343 @@
-import { SpinnerIcon } from '@/icons/SpinnerIcon';
 import { cn } from '@/utils/cn';
 import { Button as BaseButton } from '@base-ui/react/button';
-import { type VariantProps, cva } from 'class-variance-authority';
-import { Children } from 'react';
-import type {
-  CSSProperties,
-  ComponentPropsWithoutRef,
-  ReactNode,
-} from 'react';
+import { cva } from 'class-variance-authority';
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
-export type ButtonSize = 'medium' | 'large';
+export type ButtonSize =
+  | 'medium'
+  | 'large'
+  | 'icon-medium'
+  | 'icon-large';
 
-export type IconPlacement = 'left' | 'right';
-
-export type CommonButton = {
-  size?: ButtonSize;
-} & ComponentPropsWithoutRef<'button'>;
+export type ButtonTheme =
+  | 'primary'
+  | 'default'
+  | 'success'
+  | 'info'
+  | 'warning'
+  | 'alarm'
+  | 'dangerous';
 
 export type FilledButtonProps = {
   variant?: 'filled';
-  theme?:
-    | 'primary'
-    | 'default'
-    | 'success'
-    | 'info'
-    | 'warning'
-    | 'alarm'
-    | 'dangerous';
+  theme?: ButtonTheme;
 };
 
 export type TextButtonProps = {
-  variant?: 'text';
-  theme?:
-    | 'primary'
-    | 'default'
-    | 'success'
-    | 'info'
-    | 'warning'
-    | 'alarm';
+  variant: 'text';
+  theme?: Exclude<ButtonTheme, 'dangerous'>;
 };
 
-export type ButtonProps = {
-  size?: ButtonSize;
-  className?: string;
-  style?: CSSProperties;
-  icon?: ReactNode;
-  iconPlacement?: IconPlacement;
-  isLoading?: boolean;
-  focusableWhenDisabled?: boolean;
-} & (FilledButtonProps | TextButtonProps) &
-  ComponentPropsWithoutRef<'button'>;
+type BaseButtonProps = Omit<
+  ComponentPropsWithoutRef<typeof BaseButton>,
+  'className' | 'children'
+>;
 
-const SIZE_CONFIG = {
-  medium: { iconSize: 12 },
-  large: { iconSize: 14 },
-} as const;
+export type ButtonProps = {
+  children?: ReactNode;
+  className?: string;
+  size?: ButtonSize;
+} & (FilledButtonProps | TextButtonProps) &
+  BaseButtonProps;
 
 const BUTTON_BASE_CLASSES = [
-  'relative inline-flex items-center justify-center w-fit font-sans box-border overflow-hidden',
+  'relative inline-flex w-fit items-center justify-center overflow-hidden font-sans box-border select-none',
   'transition-all duration-150 ease-in-out',
+  'disabled:pointer-events-none',
+  '[&_[data-icon]]:relative [&_[data-icon]]:z-[2] [&_[data-icon]]:m-0.75 [&_[data-icon]]:pointer-events-none [&_[data-icon]]:shrink-0',
+  '[&_[data-icon]]:size-3 data-[size=large]:[&_[data-icon]]:size-3.5 data-[size=icon-large]:[&_[data-icon]]:size-3.5',
 ] as const;
 
-// CVA for text button spinner
-const textSpinnerVariants = cva(
-  'relative flex items-center justify-center m-[3px] z-[2] text-grayscale-300',
-  {
-    variants: {
-      size: {
-        medium: 'w-3 h-3',
-        large: 'w-3.5 h-3.5',
-      },
-    },
-    defaultVariants: { size: 'medium' },
-  },
-);
-
-// CVA for filled button variant
-const filledButtonVariants = cva(BUTTON_BASE_CLASSES, {
-  variants: {
-    size: {
-      medium: 'h-[30px] text-sm rounded-[var(--radius-lg)]',
-      large: 'h-8 text-base rounded-[var(--radius-xl)]',
-    },
-    theme: {
-      primary:
-        'text-white bg-[image:var(--gradient-primary-button)] focus-visible:shadow-focus-primary',
-      default:
-        'text-grayscale-800 bg-white focus-visible:shadow-focus-primary disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 data-[loading=true]:text-grayscale-300',
-      success:
-        'text-white bg-success-500 focus-visible:shadow-focus-success',
-      info: 'text-white bg-info-500 focus-visible:shadow-focus-info',
-      warning:
-        'text-white bg-warning-500 focus-visible:shadow-focus-warning',
-      alarm:
-        'text-white bg-alarm-500 focus-visible:shadow-focus-alarm',
-      dangerous:
-        'text-alarm-500 bg-white focus-visible:shadow-focus-alarm disabled:text-alarm-100 data-[disabled]:text-alarm-100 data-[loading=true]:text-alarm-100',
-    },
-    isLoading: {
-      true: '',
-      false: '',
-    },
-  },
-  compoundVariants: [
-    // Medium size border for default/dangerous
-    {
-      size: 'medium',
-      theme: ['default', 'dangerous'],
-      class: 'border border-grayscale-300',
-    },
-    // Large size shadow (applies regardless of loading state)
-    {
-      size: 'large',
-      theme: 'primary',
-      class: 'shadow-button-primary',
-    },
-    {
-      size: 'large',
-      theme: 'success',
-      class: 'shadow-button-success',
-    },
-    { size: 'large', theme: 'info', class: 'shadow-button-info' },
-    {
-      size: 'large',
-      theme: 'warning',
-      class: 'shadow-button-warning',
-    },
-    { size: 'large', theme: 'alarm', class: 'shadow-button-alarm' },
-    {
-      size: 'large',
-      theme: ['default', 'dangerous'],
-      class: 'shadow-base',
-    },
-    // Large size lift effect (only when not loading)
-    {
-      size: 'large',
-      theme: 'primary',
-      isLoading: false,
-      class:
-        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-primary-active',
-    },
-    {
-      size: 'large',
-      theme: 'success',
-      isLoading: false,
-      class:
-        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-success-active',
-    },
-    {
-      size: 'large',
-      theme: 'info',
-      isLoading: false,
-      class:
-        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-info-active',
-    },
-    {
-      size: 'large',
-      theme: 'warning',
-      isLoading: false,
-      class:
-        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-warning-active',
-    },
-    {
-      size: 'large',
-      theme: 'alarm',
-      isLoading: false,
-      class:
-        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-alarm-active',
-    },
-    {
-      size: 'large',
-      theme: ['default', 'dangerous'],
-      isLoading: false,
-      class:
-        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-[0_2px_4px_rgba(35,35,50,0.08)]',
-    },
-  ],
-  defaultVariants: {
-    size: 'medium',
-    theme: 'primary',
-    isLoading: false,
-  },
-});
-
-// CVA for text button variant
-const textButtonVariants = cva(BUTTON_BASE_CLASSES, {
-  variants: {
-    size: {
-      medium: 'h-7 text-sm rounded-[var(--radius-lg)]',
-      large: 'h-8 text-base rounded-[var(--radius-xl)]',
-    },
-    theme: {
-      primary:
-        'text-primary-500 hover:not-disabled:not-data-[disabled]:text-primary-400 active:not-disabled:not-data-[disabled]:text-primary-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-primary',
-      default:
-        'text-grayscale-800 hover:not-disabled:not-data-[disabled]:text-grayscale-700 active:not-disabled:not-data-[disabled]:text-grayscale-800 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-primary',
-      success:
-        'text-success-500 hover:not-disabled:not-data-[disabled]:text-success-400 active:not-disabled:not-data-[disabled]:text-success-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-success',
-      info: 'text-info-500 hover:not-disabled:not-data-[disabled]:text-info-400 active:not-disabled:not-data-[disabled]:text-info-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-info',
-      warning:
-        'text-warning-500 hover:not-disabled:not-data-[disabled]:text-warning-400 active:not-disabled:not-data-[disabled]:text-warning-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-warning',
-      alarm:
-        'text-alarm-500 hover:not-disabled:not-data-[disabled]:text-alarm-400 active:not-disabled:not-data-[disabled]:text-alarm-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-alarm',
-    },
-  },
-  defaultVariants: {
-    size: 'medium',
-    theme: 'default',
-  },
-});
-
-// Overlay classes for hover/active effects on filled buttons
 const OVERLAY_CLASSES = [
   'before:content-[""] before:absolute before:inset-0',
   'before:rounded-[inherit] before:pointer-events-none before:opacity-0',
   'before:transition-all before:duration-150 before:z-[1]',
   'hover:not-disabled:not-data-[disabled]:before:bg-grayscale-100 hover:not-disabled:not-data-[disabled]:before:opacity-100',
   'active:not-disabled:not-data-[disabled]:before:bg-grayscale-200 active:not-disabled:not-data-[disabled]:before:opacity-100',
-];
+] as const;
 
-export type FilledButtonVariants = VariantProps<
-  typeof filledButtonVariants
->;
-export type TextButtonVariants = VariantProps<
-  typeof textButtonVariants
->;
-export type TextSpinnerVariants = VariantProps<
-  typeof textSpinnerVariants
->;
+const buttonVariants = cva(BUTTON_BASE_CLASSES, {
+  variants: {
+    variant: {
+      filled: '',
+      text: '',
+    },
+    size: {
+      medium: 'text-sm rounded-[var(--radius-lg)]',
+      large: 'h-8 text-base rounded-[var(--radius-xl)]',
+      'icon-medium': 'h-[30px] text-sm rounded-[var(--radius-lg)]',
+      'icon-large': 'h-8 text-base rounded-[var(--radius-xl)]',
+    },
+    theme: {
+      primary: '',
+      default: '',
+      success: '',
+      info: '',
+      warning: '',
+      alarm: '',
+      dangerous: '',
+    },
+    disabled: {
+      true: 'cursor-not-allowed',
+      false: 'cursor-pointer',
+    },
+  },
+  compoundVariants: [
+    {
+      variant: 'filled',
+      size: 'medium',
+      class: 'h-[30px]',
+    },
+    {
+      variant: 'text',
+      size: 'medium',
+      class: 'h-7',
+    },
+    {
+      variant: 'filled',
+      size: ['medium', 'large'],
+      class:
+        'px-4 has-[_[data-icon=inline-start]]:pl-3 has-[_[data-icon=inline-end]]:pr-3',
+    },
+    {
+      variant: 'filled',
+      size: ['icon-medium', 'icon-large'],
+      class: 'px-3',
+    },
+    {
+      variant: 'text',
+      size: ['medium', 'large', 'icon-medium', 'icon-large'],
+      class: 'px-0',
+    },
+    {
+      variant: 'filled',
+      theme: 'primary',
+      class:
+        'text-white bg-[image:var(--gradient-primary-button)] focus-visible:shadow-focus-primary',
+    },
+    {
+      variant: 'filled',
+      theme: 'default',
+      class:
+        'text-grayscale-800 bg-white focus-visible:shadow-focus-primary disabled:text-grayscale-300 data-[disabled]:text-grayscale-300',
+    },
+    {
+      variant: 'filled',
+      theme: 'success',
+      class:
+        'text-white bg-success-500 focus-visible:shadow-focus-success',
+    },
+    {
+      variant: 'filled',
+      theme: 'info',
+      class: 'text-white bg-info-500 focus-visible:shadow-focus-info',
+    },
+    {
+      variant: 'filled',
+      theme: 'warning',
+      class:
+        'text-white bg-warning-500 focus-visible:shadow-focus-warning',
+    },
+    {
+      variant: 'filled',
+      theme: 'alarm',
+      class:
+        'text-white bg-alarm-500 focus-visible:shadow-focus-alarm',
+    },
+    {
+      variant: 'filled',
+      theme: 'dangerous',
+      class:
+        'text-alarm-500 bg-white focus-visible:shadow-focus-alarm disabled:text-alarm-100 data-[disabled]:text-alarm-100',
+    },
+    {
+      variant: 'filled',
+      size: ['medium', 'icon-medium'],
+      theme: ['default', 'dangerous'],
+      class: 'border border-grayscale-300',
+    },
+    {
+      variant: 'filled',
+      theme: ['primary', 'success', 'info', 'warning', 'alarm'],
+      disabled: true,
+      class: 'opacity-60',
+    },
+    {
+      variant: 'text',
+      theme: 'primary',
+      class:
+        'text-primary-500 hover:not-disabled:not-data-[disabled]:text-primary-400 active:not-disabled:not-data-[disabled]:text-primary-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-primary',
+    },
+    {
+      variant: 'text',
+      theme: 'default',
+      class:
+        'text-grayscale-800 hover:not-disabled:not-data-[disabled]:text-grayscale-700 active:not-disabled:not-data-[disabled]:text-grayscale-800 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-primary',
+    },
+    {
+      variant: 'text',
+      theme: 'success',
+      class:
+        'text-success-500 hover:not-disabled:not-data-[disabled]:text-success-400 active:not-disabled:not-data-[disabled]:text-success-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-success',
+    },
+    {
+      variant: 'text',
+      theme: 'info',
+      class:
+        'text-info-500 hover:not-disabled:not-data-[disabled]:text-info-400 active:not-disabled:not-data-[disabled]:text-info-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-info',
+    },
+    {
+      variant: 'text',
+      theme: 'warning',
+      class:
+        'text-warning-500 hover:not-disabled:not-data-[disabled]:text-warning-400 active:not-disabled:not-data-[disabled]:text-warning-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-warning',
+    },
+    {
+      variant: 'text',
+      theme: 'alarm',
+      class:
+        'text-alarm-500 hover:not-disabled:not-data-[disabled]:text-alarm-400 active:not-disabled:not-data-[disabled]:text-alarm-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-alarm',
+    },
+    {
+      variant: 'filled',
+      size: ['large', 'icon-large'],
+      theme: 'primary',
+      class: 'shadow-button-primary',
+    },
+    {
+      variant: 'filled',
+      size: ['large', 'icon-large'],
+      theme: 'success',
+      class: 'shadow-button-success',
+    },
+    {
+      variant: 'filled',
+      size: ['large', 'icon-large'],
+      theme: 'info',
+      class: 'shadow-button-info',
+    },
+    {
+      variant: 'filled',
+      size: ['large', 'icon-large'],
+      theme: 'warning',
+      class: 'shadow-button-warning',
+    },
+    {
+      variant: 'filled',
+      size: ['large', 'icon-large'],
+      theme: 'alarm',
+      class: 'shadow-button-alarm',
+    },
+    {
+      variant: 'filled',
+      size: ['large', 'icon-large'],
+      theme: ['default', 'dangerous'],
+      class: 'shadow-base',
+    },
+    {
+      variant: 'filled',
+      size: ['large', 'icon-large'],
+      theme: 'primary',
+      disabled: false,
+      class:
+        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-primary-active',
+    },
+    {
+      variant: 'filled',
+      size: ['large', 'icon-large'],
+      theme: 'success',
+      disabled: false,
+      class:
+        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-success-active',
+    },
+    {
+      variant: 'filled',
+      size: ['large', 'icon-large'],
+      theme: 'info',
+      disabled: false,
+      class:
+        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-info-active',
+    },
+    {
+      variant: 'filled',
+      size: ['large', 'icon-large'],
+      theme: 'warning',
+      disabled: false,
+      class:
+        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-warning-active',
+    },
+    {
+      variant: 'filled',
+      size: ['large', 'icon-large'],
+      theme: 'alarm',
+      disabled: false,
+      class:
+        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-alarm-active',
+    },
+    {
+      variant: 'filled',
+      size: ['large', 'icon-large'],
+      theme: ['default', 'dangerous'],
+      disabled: false,
+      class:
+        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-[0_2px_4px_rgba(35,35,50,0.08)]',
+    },
+  ],
+  defaultVariants: {
+    variant: 'filled',
+    size: 'medium',
+    theme: 'primary',
+    disabled: false,
+  },
+});
 
-export default function Button(props: ButtonProps) {
+function Button(props: ButtonProps) {
   const {
     children,
-    size = 'medium',
-    disabled = false,
-    onClick,
     className,
-    style,
-    icon,
-    iconPlacement,
-    isLoading,
+    disabled = false,
     focusableWhenDisabled,
-    ...rest
+    onClick,
+    size = 'medium',
+    theme: themeProp,
+    type = 'button',
+    variant: variantProp,
+    ...buttonProps
   } = props;
-
-  const hasChildren = Children.count(children) > 0;
-  const hasIcon = Boolean(icon);
-  const handleClick = disabled || isLoading ? undefined : onClick;
-
-  // Text variant
-  if (props.variant === 'text') {
-    const { theme = 'default' } = props;
-
-    return (
-      <BaseButton
-        type="button"
-        data-variant="text"
-        data-size={size}
-        data-loading={isLoading}
-        disabled={disabled}
-        focusableWhenDisabled={focusableWhenDisabled}
-        onClick={handleClick}
-        className={cn(
-          textButtonVariants({ size, theme }),
-          (isLoading || disabled) && 'cursor-not-allowed',
-          !isLoading && !disabled && 'cursor-pointer',
-          className,
-        )}
-        style={style}
-        {...rest}
-      >
-        {isLoading ? (
-          <div className={textSpinnerVariants({ size })}>
-            <SpinnerIcon width={SIZE_CONFIG[size].iconSize} />
-          </div>
-        ) : (
-          <Content
-            hasIcon={hasIcon}
-            icon={icon}
-            iconPlacement={iconPlacement}
-            size={size}
-          >
-            {children}
-          </Content>
-        )}
-      </BaseButton>
-    );
-  }
-
-  // Filled variant
-  const { theme = 'primary' } = props as FilledButtonProps &
-    typeof props;
-
-  const isBordered = theme === 'default' || theme === 'dangerous';
-
-  // Calculate padding based on state (vertical centering handled by inline-flex items-center)
-  const getPaddingClass = () => {
-    if (isLoading || !hasChildren) {
-      return 'px-3';
-    }
-    if (!hasIcon) {
-      return 'px-4';
-    }
-    if (iconPlacement === 'left') {
-      return 'pr-4 pl-3';
-    }
-    return 'pl-4 pr-3';
-  };
+  const variant = variantProp ?? 'filled';
+  const theme =
+    themeProp ?? (variant === 'text' ? 'default' : 'primary');
+  const isDisabled = Boolean(disabled);
 
   return (
     <BaseButton
-      type="button"
-      data-variant="filled"
+      type={type}
+      data-slot="button"
+      data-variant={variant}
       data-size={size}
-      data-loading={isLoading}
       disabled={disabled}
       focusableWhenDisabled={focusableWhenDisabled}
-      onClick={handleClick}
+      onClick={isDisabled ? undefined : onClick}
       className={cn(
-        filledButtonVariants({ size, theme, isLoading: !!isLoading }),
-        getPaddingClass(),
-        // Overlay effect for hover/active
-        !isLoading && OVERLAY_CLASSES,
-        // Disabled/loading opacity for non-bordered themes
-        !isBordered && (disabled || isLoading) && 'opacity-60',
-        // Cursor
-        (isLoading || disabled) && 'cursor-not-allowed',
-        !isLoading && !disabled && 'cursor-pointer',
+        buttonVariants({
+          variant,
+          size,
+          theme,
+          disabled: isDisabled,
+        }),
+        variant === 'filled' && !isDisabled && OVERLAY_CLASSES,
         className,
       )}
-      style={style}
-      {...rest}
+      {...buttonProps}
     >
-      {isLoading ? (
-        <IconWrapper size={size}>
-          <SpinnerIcon width={SIZE_CONFIG[size].iconSize} />
-        </IconWrapper>
-      ) : (
-        <Content
-          hasIcon={hasIcon}
-          icon={icon}
-          iconPlacement={iconPlacement}
-          size={size}
-        >
-          {children}
-        </Content>
-      )}
+      <span
+        data-slot="button-content"
+        className="relative z-[2] inline-flex items-center justify-center gap-1 whitespace-nowrap leading-5"
+      >
+        {children}
+      </span>
     </BaseButton>
   );
 }
 
-type ContentProps = {
-  children: ReactNode;
-  hasIcon: boolean;
-  icon?: ReactNode;
-  iconPlacement?: IconPlacement;
-  size: ButtonSize;
-};
-
-function Content(props: ContentProps) {
-  const { size, icon, children, iconPlacement, hasIcon } = props;
-
-  return (
-    <div className="relative inline-flex justify-center items-center whitespace-nowrap gap-1 leading-5 z-2">
-      {hasIcon && iconPlacement === 'left' && (
-        <IconWrapper size={size}>{icon}</IconWrapper>
-      )}
-      {children}
-      {hasIcon && iconPlacement === 'right' && (
-        <IconWrapper size={size}>{icon}</IconWrapper>
-      )}
-    </div>
-  );
-}
-
-function IconWrapper({
-  size,
-  children,
-  className,
-}: {
-  size: ButtonSize;
-  children: ReactNode;
-  className?: string;
-}) {
-  const sizeClass = size === 'large' ? 'w-3.5 h-3.5' : 'w-3 h-3';
-  return (
-    <div
-      className={cn(
-        'relative flex items-center justify-center m-0.75 z-2',
-        sizeClass,
-        className,
-      )}
-    >
-      {children}
-    </div>
-  );
-}
+export { Button };

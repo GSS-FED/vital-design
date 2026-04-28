@@ -2,7 +2,8 @@ import { useArgs } from '@storybook/preview-api';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import { useState } from 'react';
-import RadioGroup, {
+import {
+  RadioGroup,
   RadioGroupItem,
   type RadioGroupProps,
 } from './RadioGroup';

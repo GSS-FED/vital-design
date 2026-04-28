@@ -1,4 +1,10 @@
 {
   "title": "Getting Started",
-  "pages": ["index", "installation", "tailwind-setup", "first-component"]
+  "pages": [
+    "index",
+    "installation",
+    "migration-guide",
+    "tailwind-setup",
+    "first-component"
+  ]
 }

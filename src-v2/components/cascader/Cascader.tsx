@@ -676,4 +676,3 @@ export {
   CascaderTrigger,
   CascaderValueText as CascaderValue,
 };
-export default CascaderRoot;

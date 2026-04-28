@@ -1,6 +1,6 @@
 'use client';
 
-import ListContainer from '@/components/list/components/ListContainer';
+import { ListContainer } from '@/components/list/components/ListContainer';
 import { ListItem } from '@/components/list/components/ListItem';
 import { useState } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';

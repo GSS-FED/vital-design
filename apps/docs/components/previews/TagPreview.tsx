@@ -1,6 +1,6 @@
 'use client';
 
-import Tag from '@/components/tag/Tag';
+import { Tag } from '@/components/tag/Tag';
 import { useState } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 

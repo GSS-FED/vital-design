@@ -1,461 +1,266 @@
+import { Spinner } from '@/components/spinner/Spinner';
+import { FlagIcon } from '@/icons/FlagIcon';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
-import Button from './Button';
+import { Button } from './Button';
 
-// Tailwind class patterns for theme verification
-const FILLED_THEME_CLASSES = {
-  primary: [
-    'text-white',
-    'bg-[image:var(--gradient-primary-button)]',
-  ],
-  default: ['text-grayscale-800', 'bg-white', 'border-grayscale-300'],
-  success: ['text-white', 'bg-success-500'],
-  info: ['text-white', 'bg-info-500'],
-  warning: ['text-white', 'bg-warning-500'],
-  alarm: ['text-white', 'bg-alarm-500'],
-  dangerous: ['text-alarm-500', 'bg-white', 'border-grayscale-300'],
-} as const;
+const filledThemeCases = [
+  ['primary', 'bg-[image:var(--gradient-primary-button)]'],
+  ['default', 'bg-white'],
+  ['success', 'bg-success-500'],
+  ['info', 'bg-info-500'],
+  ['warning', 'bg-warning-500'],
+  ['alarm', 'bg-alarm-500'],
+  ['dangerous', 'text-alarm-500'],
+] as const;
 
-const TEXT_THEME_CLASSES = {
-  primary: ['text-primary-500'],
-  default: ['text-grayscale-800'],
-  success: ['text-success-500'],
-  info: ['text-info-500'],
-  warning: ['text-warning-500'],
-  alarm: ['text-alarm-500'],
-} as const;
+const textThemeCases = [
+  ['primary', 'text-primary-500'],
+  ['default', 'text-grayscale-800'],
+  ['success', 'text-success-500'],
+  ['info', 'text-info-500'],
+  ['warning', 'text-warning-500'],
+  ['alarm', 'text-alarm-500'],
+] as const;
 
-describe('Filled Button', () => {
-  describe('Basic Functionality', () => {
-    it('defaults to filled variant', () => {
-      render(<Button>Button</Button>);
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-variant', 'filled');
-    });
+describe('Button', () => {
+  it('renders the default filled button', () => {
+    render(<Button>Button</Button>);
+    const button = screen.getByRole('button', { name: 'Button' });
 
-    it('calls onClick when clicked', async () => {
-      const user = userEvent.setup();
-      const mockOnClick = vi.fn();
-
-      render(<Button onClick={mockOnClick}>Click me</Button>);
-      const button = screen.getByRole('button', { name: 'Click me' });
-
-      await user.click(button);
-      expect(mockOnClick).toHaveBeenCalledTimes(1);
-    });
-
-    it('is disabled when disabled prop is true', () => {
-      render(<Button disabled>Button</Button>);
-      const button = screen.getByRole('button');
-      expect(button).toBeDisabled();
-    });
-
-    it('does not call onClick when disabled', async () => {
-      const user = userEvent.setup();
-      const mockOnClick = vi.fn();
-
-      render(
-        <Button disabled onClick={mockOnClick}>
-          Button
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-
-      await user.click(button);
-      expect(mockOnClick).not.toHaveBeenCalled();
-    });
-
-    it('does not show data-loading when disabled but not loading', () => {
-      render(<Button disabled>Button</Button>);
-      const button = screen.getByRole('button');
-      expect(button).toBeDisabled();
-      expect(button).not.toHaveAttribute('data-loading', 'true');
-    });
-
-    it('renders with custom className', () => {
-      render(<Button className="custom-class">Button</Button>);
-      const button = screen.getByRole('button');
-      expect(button).toHaveClass('custom-class');
-    });
-
-    it('applies custom styles', () => {
-      const customStyle = { backgroundColor: 'red' };
-      render(<Button style={customStyle}>Button</Button>);
-      const button = screen.getByRole('button');
-      expect(button).toHaveStyle('background-color: rgb(255, 0, 0)');
-    });
+    expect(button).toHaveAttribute('data-slot', 'button');
+    expect(button).toHaveAttribute('data-variant', 'filled');
+    expect(button).toHaveAttribute('data-size', 'medium');
+    expect(button).toHaveClass(
+      'bg-[image:var(--gradient-primary-button)]',
+    );
   });
 
-  describe('Theme', () => {
-    it('renders with primary theme and correct colors', () => {
-      const theme = 'primary';
-      render(<Button theme={theme}>Primary Button</Button>);
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-variant', 'filled');
-      FILLED_THEME_CLASSES[theme].forEach((cls) => {
-        expect(button.className).toContain(cls);
-      });
-    });
+  it('calls onClick when clicked', async () => {
+    const user = userEvent.setup();
+    const mockOnClick = vi.fn();
 
-    it('renders with default theme and correct colors', () => {
-      const theme = 'default';
-      render(<Button theme={theme}>Default Button</Button>);
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-variant', 'filled');
-      FILLED_THEME_CLASSES[theme].forEach((cls) => {
-        expect(button.className).toContain(cls);
-      });
-    });
+    render(<Button onClick={mockOnClick}>Click me</Button>);
 
-    it('renders with success theme and correct colors', () => {
-      const theme = 'success';
-      render(<Button theme={theme}>Success Button</Button>);
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-variant', 'filled');
-      FILLED_THEME_CLASSES[theme].forEach((cls) => {
-        expect(button.className).toContain(cls);
-      });
-    });
-
-    it('renders with info theme and correct colors', () => {
-      const theme = 'info';
-      render(<Button theme={theme}>Info Button</Button>);
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-variant', 'filled');
-      FILLED_THEME_CLASSES[theme].forEach((cls) => {
-        expect(button.className).toContain(cls);
-      });
-    });
-
-    it('renders with warning theme and correct colors', () => {
-      const theme = 'warning';
-      render(<Button theme={theme}>Warning Button</Button>);
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-variant', 'filled');
-      FILLED_THEME_CLASSES[theme].forEach((cls) => {
-        expect(button.className).toContain(cls);
-      });
-    });
-
-    it('renders with alarm theme and correct colors', () => {
-      const theme = 'alarm';
-      render(<Button theme={theme}>Alarm Button</Button>);
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-variant', 'filled');
-      FILLED_THEME_CLASSES[theme].forEach((cls) => {
-        expect(button.className).toContain(cls);
-      });
-    });
-
-    it('renders with dangerous theme and correct colors', () => {
-      const theme = 'dangerous';
-      render(<Button theme={theme}>Dangerous Button</Button>);
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-variant', 'filled');
-      FILLED_THEME_CLASSES[theme].forEach((cls) => {
-        expect(button.className).toContain(cls);
-      });
-    });
+    await user.click(
+      screen.getByRole('button', { name: 'Click me' }),
+    );
+    expect(mockOnClick).toHaveBeenCalledTimes(1);
   });
 
-  describe('focusableWhenDisabled', () => {
-    it('is not HTML-disabled when focusableWhenDisabled is true', () => {
-      render(
-        <Button disabled focusableWhenDisabled>
-          Button
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-      expect(button).toBeEnabled();
-      expect(button).toHaveAttribute('aria-disabled', 'true');
-    });
+  it('does not call onClick when disabled', async () => {
+    const user = userEvent.setup();
+    const mockOnClick = vi.fn();
 
-    it('does not call onClick when disabled and focusableWhenDisabled', async () => {
-      const user = userEvent.setup();
-      const mockOnClick = vi.fn();
+    render(
+      <Button disabled onClick={mockOnClick}>
+        Button
+      </Button>,
+    );
+    const button = screen.getByRole('button');
 
-      render(
-        <Button disabled focusableWhenDisabled onClick={mockOnClick}>
-          Button
-        </Button>,
-      );
-      await user.click(screen.getByRole('button'));
-      expect(mockOnClick).not.toHaveBeenCalled();
-    });
+    expect(button).toBeDisabled();
+    await user.click(button);
+    expect(mockOnClick).not.toHaveBeenCalled();
   });
 
-  describe('Loading State', () => {
-    it('does not call onClick when loading', async () => {
-      const user = userEvent.setup();
-      const mockOnClick = vi.fn();
+  it('is not HTML-disabled when focusableWhenDisabled is true', () => {
+    render(
+      <Button disabled focusableWhenDisabled>
+        Button
+      </Button>,
+    );
+    const button = screen.getByRole('button');
 
-      render(
-        <Button isLoading onClick={mockOnClick}>
-          Button
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-loading', 'true');
-
-      await user.click(button);
-      expect(mockOnClick).not.toHaveBeenCalled();
-    });
-
-    it('does not call onClick when loading and disabled', async () => {
-      const user = userEvent.setup();
-      const mockOnClick = vi.fn();
-
-      render(
-        <Button isLoading disabled onClick={mockOnClick}>
-          Button
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-loading', 'true');
-      expect(button).toBeDisabled();
-
-      await user.click(button);
-      expect(mockOnClick).not.toHaveBeenCalled();
-    });
-
-    it('hides children when loading', () => {
-      render(<Button isLoading>Button Text</Button>);
-      const button = screen.getByRole('button');
-      expect(button).not.toHaveTextContent('Button Text');
-    });
-
-    it('shows SpinnerIcon when loading', () => {
-      render(<Button isLoading>Button</Button>);
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-loading', 'true');
-      // eslint-disable-next-line testing-library/no-node-access
-      const svg = button.querySelector('svg');
-      expect(svg).toBeInTheDocument();
-    });
-  });
-});
-
-describe('Text Button', () => {
-  describe('Basic Functionality', () => {
-    it('calls onClick when clicked', async () => {
-      const user = userEvent.setup();
-      const mockOnClick = vi.fn();
-
-      render(
-        <Button variant="text" onClick={mockOnClick}>
-          Text Button
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-
-      await user.click(button);
-      expect(mockOnClick).toHaveBeenCalledTimes(1);
-    });
-
-    it('is disabled when disabled prop is true', () => {
-      render(
-        <Button variant="text" disabled>
-          Text Button
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-      expect(button).toBeDisabled();
-      expect(button).toHaveAttribute('data-variant', 'text');
-    });
-
-    it('does not call onClick when disabled', async () => {
-      const user = userEvent.setup();
-      const mockOnClick = vi.fn();
-
-      render(
-        <Button variant="text" disabled onClick={mockOnClick}>
-          Text Button
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-
-      await user.click(button);
-      expect(mockOnClick).not.toHaveBeenCalled();
-    });
-
-    it('renders with custom className', () => {
-      render(
-        <Button variant="text" className="custom-class">
-          Button
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-      expect(button).toHaveClass('custom-class');
-    });
-
-    it('applies custom styles', () => {
-      const customStyle = { backgroundColor: 'red' };
-      render(
-        <Button variant="text" style={customStyle}>
-          Button
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-      expect(button).toHaveStyle('background-color: rgb(255, 0, 0)');
-    });
+    expect(button).toBeEnabled();
+    expect(button).toHaveAttribute('aria-disabled', 'true');
   });
 
-  describe('Theme', () => {
-    it('renders with primary theme and correct colors', () => {
-      const theme = 'primary';
+  it('does not call onClick when focusableWhenDisabled is disabled', async () => {
+    const user = userEvent.setup();
+    const mockOnClick = vi.fn();
+
+    render(
+      <Button disabled focusableWhenDisabled onClick={mockOnClick}>
+        Button
+      </Button>,
+    );
+
+    await user.click(screen.getByRole('button'));
+    expect(mockOnClick).not.toHaveBeenCalled();
+  });
+
+  it('renders the text variant with the default text theme', () => {
+    render(<Button variant="text">Text Button</Button>);
+    const button = screen.getByRole('button', {
+      name: 'Text Button',
+    });
+
+    expect(button).toHaveAttribute('data-variant', 'text');
+    expect(button).toHaveClass('text-grayscale-800');
+  });
+
+  it.each(filledThemeCases)(
+    'renders the filled %s theme',
+    (theme, expectedClass) => {
+      render(<Button theme={theme}>Button</Button>);
+
+      expect(screen.getByRole('button')).toHaveClass(expectedClass);
+    },
+  );
+
+  it.each(textThemeCases)(
+    'renders the text %s theme',
+    (theme, expectedClass) => {
       render(
         <Button variant="text" theme={theme}>
-          Primary Text
+          Button
         </Button>,
       );
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-variant', 'text');
-      TEXT_THEME_CLASSES[theme].forEach((cls) => {
-        expect(button.className).toContain(cls);
-      });
-    });
 
-    it('renders with default theme and correct colors', () => {
-      const theme = 'default';
-      render(
-        <Button variant="text" theme={theme}>
-          Default Text
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-variant', 'text');
-      TEXT_THEME_CLASSES[theme].forEach((cls) => {
-        expect(button.className).toContain(cls);
-      });
-    });
+      expect(screen.getByRole('button')).toHaveClass(expectedClass);
+    },
+  );
 
-    it('renders with success theme and correct colors', () => {
-      const theme = 'success';
-      render(
-        <Button variant="text" theme={theme}>
-          Success Text
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-variant', 'text');
-      TEXT_THEME_CLASSES[theme].forEach((cls) => {
-        expect(button.className).toContain(cls);
-      });
-    });
+  it('uses v0 side padding for a start icon', () => {
+    render(
+      <Button>
+        <FlagIcon data-icon="inline-start" data-testid="start-icon" />
+        New Branch
+      </Button>,
+    );
+    const button = screen.getByRole('button', { name: 'New Branch' });
+    const icon = screen.getByTestId('start-icon');
 
-    it('renders with info theme and correct colors', () => {
-      const theme = 'info';
-      render(
-        <Button variant="text" theme={theme}>
-          Info Text
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-variant', 'text');
-      TEXT_THEME_CLASSES[theme].forEach((cls) => {
-        expect(button.className).toContain(cls);
-      });
-    });
-
-    it('renders with warning theme and correct colors', () => {
-      const theme = 'warning';
-      render(
-        <Button variant="text" theme={theme}>
-          Warning Text
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-variant', 'text');
-      TEXT_THEME_CLASSES[theme].forEach((cls) => {
-        expect(button.className).toContain(cls);
-      });
-    });
-
-    it('renders with alarm theme and correct colors', () => {
-      const theme = 'alarm';
-      render(
-        <Button variant="text" theme={theme}>
-          Alarm Text
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-variant', 'text');
-      TEXT_THEME_CLASSES[theme].forEach((cls) => {
-        expect(button.className).toContain(cls);
-      });
-    });
+    expect(icon).toBeInTheDocument();
+    expect(button).toHaveClass(
+      'px-4',
+      'has-[_[data-icon=inline-start]]:pl-3',
+    );
+    expect(button).toHaveClass('has-[_[data-icon=inline-end]]:pr-3');
   });
 
-  describe('focusableWhenDisabled', () => {
-    it('is not HTML-disabled when focusableWhenDisabled is true', () => {
-      render(
-        <Button variant="text" disabled focusableWhenDisabled>
-          Button
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-      expect(button).toBeEnabled();
-      expect(button).toHaveAttribute('aria-disabled', 'true');
-    });
+  it('uses v0 side padding for an end icon', () => {
+    render(
+      <Button>
+        Download
+        <FlagIcon data-icon="inline-end" data-testid="end-icon" />
+      </Button>,
+    );
+    const button = screen.getByRole('button', { name: 'Download' });
+    const icon = screen.getByTestId('end-icon');
 
-    it('does not call onClick when disabled and focusableWhenDisabled', async () => {
-      const user = userEvent.setup();
-      const mockOnClick = vi.fn();
-
-      render(
-        <Button
-          variant="text"
-          disabled
-          focusableWhenDisabled
-          onClick={mockOnClick}
-        >
-          Button
-        </Button>,
-      );
-      await user.click(screen.getByRole('button'));
-      expect(mockOnClick).not.toHaveBeenCalled();
-    });
+    expect(icon).toBeInTheDocument();
+    expect(button).toHaveClass(
+      'px-4',
+      'has-[_[data-icon=inline-end]]:pr-3',
+    );
+    expect(button).toHaveClass(
+      'has-[_[data-icon=inline-start]]:pl-3',
+    );
   });
 
-  describe('Loading State', () => {
-    it('does not call onClick when loading', async () => {
-      const user = userEvent.setup();
-      const mockOnClick = vi.fn();
+  it('supports icon-only buttons with icon size variants', () => {
+    render(
+      <Button aria-label="Next" size="icon-medium">
+        <FlagIcon data-icon="inline-end" data-testid="end-icon" />
+      </Button>,
+    );
+    const button = screen.getByRole('button', { name: 'Next' });
 
-      render(
-        <Button variant="text" isLoading onClick={mockOnClick}>
-          Text Button
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-loading', 'true');
+    expect(button).toHaveAttribute('data-size', 'icon-medium');
+    expect(button).toHaveClass('h-[30px]', 'px-3');
+    expect(screen.getByTestId('end-icon')).toBeInTheDocument();
+  });
 
-      await user.click(button);
-      expect(mockOnClick).not.toHaveBeenCalled();
-    });
+  it('uses medium bordered theme styles for icon-medium buttons', () => {
+    render(
+      <Button aria-label="Clear" size="icon-medium" theme="default">
+        <FlagIcon data-icon="inline-end" />
+      </Button>,
+    );
 
-    it('hides children when loading', () => {
-      render(
-        <Button variant="text" isLoading>
-          Button Text
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-      expect(button).not.toHaveTextContent('Button Text');
-    });
+    expect(screen.getByRole('button', { name: 'Clear' })).toHaveClass(
+      'border',
+      'border-grayscale-300',
+    );
+  });
 
-    it('shows SpinnerIcon when loading', () => {
-      render(
-        <Button variant="text" isLoading>
-          Button
-        </Button>,
-      );
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('data-loading', 'true');
-      // eslint-disable-next-line testing-library/no-node-access
-      const svg = button.querySelector('svg');
-      expect(svg).toBeInTheDocument();
-    });
+  it('scales icon-only button icons with large icon size', () => {
+    render(
+      <Button aria-label="Next" size="icon-large">
+        <FlagIcon data-icon="inline-end" data-testid="end-icon" />
+      </Button>,
+    );
+    const button = screen.getByRole('button', { name: 'Next' });
+
+    expect(button).toHaveAttribute('data-size', 'icon-large');
+    expect(button).toHaveClass(
+      'h-8',
+      'px-3',
+      'data-[size=icon-large]:[&_[data-icon]]:size-3.5',
+    );
+  });
+
+  it('uses large shadow styles for icon-large buttons', () => {
+    render(
+      <>
+        <Button aria-label="Search" size="icon-large" theme="primary">
+          <FlagIcon data-icon="inline-end" />
+        </Button>
+        <Button aria-label="Clear" size="icon-large" theme="default">
+          <FlagIcon data-icon="inline-end" />
+        </Button>
+      </>,
+    );
+
+    expect(
+      screen.getByRole('button', { name: 'Search' }),
+    ).toHaveClass(
+      'shadow-button-primary',
+      'active:not-disabled:not-data-[disabled]:shadow-button-primary-active',
+    );
+    expect(screen.getByRole('button', { name: 'Clear' })).toHaveClass(
+      'shadow-base',
+      'active:not-disabled:not-data-[disabled]:shadow-[0_2px_4px_rgba(35,35,50,0.08)]',
+    );
+  });
+
+  it('uses spinner children for loading state', () => {
+    render(
+      <Button disabled>
+        <Spinner data-icon="inline-start" />
+        Saving
+      </Button>,
+    );
+    const button = screen.getByRole('button', { name: /saving/i });
+
+    expect(button).toBeDisabled();
+    expect(
+      screen.getByRole('status', { name: 'Loading' }),
+    ).toHaveAttribute('data-icon', 'inline-start');
+    expect(button).toHaveClass('[&_[data-icon]]:size-3');
+  });
+
+  it('applies custom className and styles', () => {
+    render(
+      <Button
+        className="custom-class"
+        style={{ backgroundColor: 'red' }}
+      >
+        Button
+      </Button>,
+    );
+    const button = screen.getByRole('button');
+
+    expect(button).toHaveClass('custom-class');
+    expect(button).toHaveStyle('background-color: rgb(255, 0, 0)');
+  });
+
+  it('does not expose raw CVA helpers through the component API', async () => {
+    const buttonModule = await import('./Button');
+
+    expect(buttonModule).not.toHaveProperty('buttonVariants');
   });
 });

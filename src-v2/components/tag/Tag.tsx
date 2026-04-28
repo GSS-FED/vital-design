@@ -209,7 +209,7 @@ const tagVariants = cva(
 
 export type TagVariants = VariantProps<typeof tagVariants>;
 
-export default function Tag(props: TagProps) {
+export function Tag(props: TagProps) {
   const {
     children,
     icon,

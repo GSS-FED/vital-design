@@ -2,7 +2,7 @@ import { FlagIcon } from '@/icons';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import Tag from './Tag';
+import { Tag } from './Tag';
 
 type Story = StoryObj<typeof Tag>;
 

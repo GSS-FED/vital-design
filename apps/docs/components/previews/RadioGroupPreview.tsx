@@ -1,6 +1,6 @@
 'use client';
 
-import RadioGroup from '@/components/radio-group/RadioGroup';
+import { RadioGroup } from '@/components/radio-group/RadioGroup';
 import { useState } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 

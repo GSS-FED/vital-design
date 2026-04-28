@@ -181,4 +181,3 @@ function RadioGroupItem(props: RadioGroupItemProps) {
 }
 
 export { RadioGroup, RadioGroupItem };
-export default RadioGroup;

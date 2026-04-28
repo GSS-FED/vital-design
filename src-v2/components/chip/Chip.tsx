@@ -42,7 +42,7 @@ const chipVariants = cva(
 
 export type ChipVariants = VariantProps<typeof chipVariants>;
 
-export default function Chip(props: ChipProps) {
+export function Chip(props: ChipProps) {
   const { children, selected, onChange, icon, className, style } =
     props;
 

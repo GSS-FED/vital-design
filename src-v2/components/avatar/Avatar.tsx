@@ -179,7 +179,7 @@ const fallbackVariants = cva(
 export type AvatarVariants = VariantProps<typeof avatarVariants>;
 export type FallbackVariants = VariantProps<typeof fallbackVariants>;
 
-export default function Avatar(props: AvatarProps) {
+export function Avatar(props: AvatarProps) {
   const {
     name,
     alt = 'Avatar',

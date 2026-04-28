@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
-import TextAreaInput from './TextareaInput';
+import { TextAreaInput } from './TextareaInput';
 
 it('renders a textarea with placeholder', () => {
   const placeholderText = 'Enter text here';

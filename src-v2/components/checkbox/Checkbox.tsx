@@ -14,7 +14,7 @@ export type CheckboxProps = {
   style?: CSSProperties;
 };
 
-export default function Checkbox(props: CheckboxProps) {
+export function Checkbox(props: CheckboxProps) {
   const {
     checked,
     onChange,

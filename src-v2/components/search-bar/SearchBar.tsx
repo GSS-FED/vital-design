@@ -48,7 +48,7 @@ export type SearchBarProps = {
   style?: CSSProperties;
 };
 
-export default function SearchBar(props: SearchBarProps) {
+export function SearchBar(props: SearchBarProps) {
   const {
     placeholder,
     onSearch,

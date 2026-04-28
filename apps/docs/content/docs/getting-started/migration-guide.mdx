@@ -1,0 +1,228 @@
+---
+title: Migration Guide v0 to v1
+description: Move from the legacy npm package surface to the registry-backed src-v2 components.
+---
+
+## What Changes
+
+v0 means the published `@fed/vital-design` package built from `src/`.
+v1 means registry-installed components built from `src-v2/`.
+
+The main change is ownership:
+
+- v0: import components from `@fed/vital-design`
+- v1: install components with the Vital Design registry, then import the copied files from your app
+
+```tsx
+// v0
+import { Button, Select } from '@fed/vital-design';
+
+// v1
+import { Button } from '@/components/ui/Button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectTrigger,
+} from '@/components/ui/Select';
+```
+
+Use v1 for new work. Keep v0 only while migrating existing screens.
+
+## Before You Start
+
+1. Add the registry config from [Installation](/docs/getting-started/installation).
+2. Complete [Tailwind CSS Setup](/docs/getting-started/tailwind-setup).
+3. Migrate one screen at a time.
+4. Remove `@fed/vital-design` and `styled-components` only after no v0 imports remain.
+
+## Install Pattern
+
+Install the component you need:
+
+```bash
+npx shadcn@latest add @vital-design/button
+```
+
+If the internal certificate blocks the install:
+
+```bash
+NODE_TLS_REJECT_UNAUTHORIZED=0 npx shadcn@latest add @vital-design/button
+```
+
+After install, import from the local path created by your `components.json`.
+Examples in these docs use `@/components/ui/*`.
+
+## Component Mapping
+
+The v0 package barrel exports `Avatar`, `ActionList`,
+`ActionInfiniteList`, `Button`, `Checkbox`, `Chip`, `RadioGroup`,
+`SearchBar`, `Select`, `SplitButton`, `Switch`, `Tag`, and
+`TreeSelect`. Other rows cover legacy source files with v1 registry
+equivalents.
+
+| v0 component or source | v0 source file                                                    | v1 registry item                | v1 source file                                                           | Notes                                 |
+| ---------------------- | ----------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------ | ------------------------------------- |
+| `Avatar`               | `src/components/avatar/Avatar.tsx`                                | `@vital-design/avatar`          | `src-v2/components/avatar/Avatar.tsx`                                    | Same role                             |
+| `Button`               | `src/components/button/Button.tsx`                                | `@vital-design/button`          | `src-v2/components/button/Button.tsx`                                    | Icon and loading API changed          |
+| `SplitButton`          | `src/components/button/split-button/SplitButton.tsx`              | `@vital-design/split-button`    | `src-v2/components/button/split-button/SplitButton.tsx`                  | Uses `ButtonGroup` internally         |
+| `Checkbox`             | `src/components/checkbox/Checkbox.tsx`                            | `@vital-design/checkbox`        | `src-v2/components/checkbox/Checkbox.tsx`                                | Same role                             |
+| `Chip`                 | `src/components/chip/Chip.tsx`                                    | `@vital-design/chip`            | `src-v2/components/chip/Chip.tsx`                                        | Same role                             |
+| `RadioGroup`           | `src/components/radio-group/RadioGroup.tsx`                       | `@vital-design/radio-group`     | `src-v2/components/radio-group/RadioGroup.tsx`                           | Same role                             |
+| `SearchBar`            | `src/components/search-bar/SearchBar.tsx`                         | `@vital-design/search-bar`      | `src-v2/components/search-bar/SearchBar.tsx`                             | Built on `InputGroup`                 |
+| `Select`               | `src/components/select/Select.tsx`                                | `@vital-design/select`          | `src-v2/components/select/Select.tsx`                                    | Flat single or multiple dropdown      |
+| `Switch`               | `src/components/switch/Switch.tsx`                                | `@vital-design/switch`          | `src-v2/components/switch/Switch.tsx`                                    | Same role                             |
+| `Tag`                  | `src/components/tag/Tag.tsx`                                      | `@vital-design/tag`             | `src-v2/components/tag/Tag.tsx`                                          | Same role                             |
+| `TextInput`            | `src/components/input/textInput/TextInput.tsx`                    | `@vital-design/text-input`      | `src-v2/components/input/textInput/TextInput.tsx`                        | Built on `InputGroup`                 |
+| `TextareaInput`        | `src/components/input/textareaInput/TextareaInput.tsx`            | `@vital-design/textarea-input`  | `src-v2/components/input/textareaInput/TextareaInput.tsx`                | Built on `InputGroup`                 |
+| `PasswordInput`        | `src/components/input/passwordInput/PasswordInput.tsx`            | `@vital-design/password-input`  | `src-v2/components/input/passwordInput/PasswordInput.tsx`                | Built on `TextInput`                  |
+| `Mask`                 | `src/components/mask/Mask.tsx`                                    | `@vital-design/mask`            | `src-v2/components/mask/Mask.tsx`                                        | Same role                             |
+| `ActionList`           | `src/components/list/action-list/ActionList.tsx`                  | `@vital-design/list-components` | `src-v2/components/list/components/ListContainer.tsx` and `ListItem.tsx` | Compose search and empty state in app |
+| `ActionInfiniteList`   | `src/components/list/action-infinite-list/ActionInfiniteList.tsx` | `@vital-design/list-components` | `src-v2/components/list/components/ListContainer.tsx` and `ListItem.tsx` | Own loading and paging in app         |
+| `TreeSelect`           | `src/components/tree-select/TreeSelect.tsx`                       | `@vital-design/cascader`        | `src-v2/components/cascader/Cascader.tsx`                                | Use for hierarchical path picking     |
+
+## New v1-Only Components
+
+These components do not exist in the v0 npm package:
+
+| Component     | Registry item                | Use when                            |
+| ------------- | ---------------------------- | ----------------------------------- |
+| `ButtonGroup` | `@vital-design/button-group` | Group buttons or split button parts |
+| `InputGroup`  | `@vital-design/input-group`  | Build custom input shells           |
+| `Combobox`    | `@vital-design/combobox`     | Searchable picker or tag picker     |
+| `Cascader`    | `@vital-design/cascader`     | Hierarchical picker                 |
+| `Skeleton`    | `@vital-design/skeleton`     | Loading placeholder                 |
+| `Spinner`     | `@vital-design/spinner`      | Loading indicator                   |
+
+## Picker Choice
+
+Use the new picker split:
+
+| Need                     | v1 component                 |
+| ------------------------ | ---------------------------- |
+| Flat dropdown            | `Select`                     |
+| Search input picker      | `Combobox`                   |
+| Hierarchical path picker | `Cascader`                   |
+| Custom list panel        | `ListContainer` + `ListItem` |
+
+`Command` is internal interaction code for `Cascader`. Do not use it as a public design-system component.
+
+## Code Changes
+
+### Imports
+
+Replace package imports with local imports:
+
+```tsx
+// v0
+import { SearchBar } from '@fed/vital-design';
+
+// v1
+import { SearchBar } from '@/components/ui/SearchBar';
+```
+
+Compound components use named exports:
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectTrigger,
+} from '@/components/ui/Select';
+```
+
+### Button
+
+Button no longer owns icons or loading state. Move icons and spinners into `children`, and mark them with `data-icon="inline-start"` or `data-icon="inline-end"`.
+
+```tsx
+// v0
+import { Button } from '@fed/vital-design';
+import { SearchIcon } from './icons/SearchIcon';
+
+<Button icon={<SearchIcon />} iconPlacement="left">
+  Search
+</Button>;
+
+// v1
+import { Button } from '@/components/ui/Button';
+import { SearchIcon } from '@/components/icons/SearchIcon';
+
+<Button>
+  <SearchIcon data-icon="inline-start" />
+  Search
+</Button>;
+```
+
+Replace `isLoading` with an explicit disabled button plus `Spinner`.
+Install `@vital-design/spinner` if your app needs the shared spinner.
+
+```tsx
+// v0
+import { Button } from '@fed/vital-design';
+
+<Button isLoading>Saving</Button>
+
+// v1
+import { Button } from '@/components/ui/Button';
+import { Spinner } from '@/components/ui/Spinner';
+
+<Button disabled>
+  <Spinner data-icon="inline-start" />
+  Saving
+</Button>
+```
+
+Icon-only buttons now use size variants instead of empty children or icon props:
+
+```tsx
+<Button size="icon-medium" aria-label="Search">
+  <SearchIcon data-icon="inline-start" />
+</Button>
+
+<Button size="icon-large" aria-label="Search">
+  <SearchIcon data-icon="inline-start" />
+</Button>
+```
+
+Keep `size="medium"` or `size="large"` for buttons with labels. For filled label buttons, v1 keeps the v0 spacing contract: the icon side is 12px, and the non-icon side is 16px.
+
+### Styling
+
+v0 components depend on `styled-components`.
+v1 components use Tailwind CSS 4 utilities and Vital Design CSS variables.
+
+Do not import `src-v2/styles/*` from the npm package. Use the registry install so the theme is written to your app CSS.
+
+### Lists
+
+`ActionList` and `ActionInfiniteList` are not copied as v1 presets.
+Use `ListContainer`, `ListItem`, and app-owned state for search, loading, paging, and empty text.
+
+```tsx
+import {
+  ListContainer,
+  type Option,
+} from '@/components/ui/ListContainer';
+import { ListItem } from '@/components/ui/ListItem';
+import { SearchBar } from '@/components/ui/SearchBar';
+```
+
+### TreeSelect
+
+Move `TreeSelect` screens to `Cascader`.
+The old component owned more data behavior. In v1, the screen owns the path, search value, loading state, and child loading.
+
+Use `Combobox` instead if the old screen only needed searchable flat options.
+
+## Migration Checklist
+
+- Install the v1 registry item.
+- Replace `@fed/vital-design` imports on the screen.
+- Update props to the v1 component API.
+- Add the Tailwind and theme setup once per app.
+- Test keyboard behavior for pickers, popups, and list rows.
+- Remove v0 dependencies after the last v0 import is gone.

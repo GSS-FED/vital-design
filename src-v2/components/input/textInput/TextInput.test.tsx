@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
-import TextInput from './TextInput';
+import { TextInput } from './TextInput';
 
 it('renders a textInput with placeholder', () => {
   const placeholderText = 'Enter text here';

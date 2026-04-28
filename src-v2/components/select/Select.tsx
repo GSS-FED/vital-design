@@ -361,5 +361,3 @@ export {
   SelectTrigger,
   SelectValueText as SelectValue,
 };
-
-export default Select;

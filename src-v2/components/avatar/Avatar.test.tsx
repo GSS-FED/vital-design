@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import Avatar from './Avatar';
+import { Avatar } from './Avatar';
 
 // Mock Base UI Avatar components (Root/Image/Fallback)
 vi.mock('@base-ui/react/avatar', () => ({

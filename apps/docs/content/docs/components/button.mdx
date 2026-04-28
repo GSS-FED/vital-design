@@ -3,24 +3,35 @@ title: Button
 description: Trigger actions with filled and text button variants, multiple themes, and icon support.
 ---
 
-import { Button } from '~/components/vital-components';
+import { SearchIcon } from '@/icons/SearchIcon';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { Button, Spinner } from '~/components/vital-components';
 
 ## Preview
 
 <ComponentPreview>
-  <Button theme="primary" size="large">Primary</Button>
-  <Button theme="default" size="large">Default</Button>
-  <Button theme="success" size="large">Success</Button>
-  <Button theme="alarm" size="large">Alarm</Button>
+  <Button theme="primary" size="large">
+    Primary
+  </Button>
+  <Button theme="default" size="large">
+    Default
+  </Button>
+  <Button theme="success" size="large">
+    Success
+  </Button>
+  <Button theme="alarm" size="large">
+    Alarm
+  </Button>
 </ComponentPreview>
 
 ## Usage
 
 ```tsx
-import Button from '@/components/ui/Button';
+import { Button } from '@/components/ui/Button';
 
-<Button theme="primary" size="large">Click me</Button>
+<Button theme="primary" size="large">
+  Click me
+</Button>;
 ```
 
 ## Variants
@@ -30,13 +41,27 @@ import Button from '@/components/ui/Button';
 The default `filled` variant renders a solid background button.
 
 <ComponentPreview>
-  <Button variant="filled" theme="primary">Primary</Button>
-  <Button variant="filled" theme="default">Default</Button>
-  <Button variant="filled" theme="success">Success</Button>
-  <Button variant="filled" theme="info">Info</Button>
-  <Button variant="filled" theme="warning">Warning</Button>
-  <Button variant="filled" theme="alarm">Alarm</Button>
-  <Button variant="filled" theme="dangerous">Dangerous</Button>
+  <Button variant="filled" theme="primary">
+    Primary
+  </Button>
+  <Button variant="filled" theme="default">
+    Default
+  </Button>
+  <Button variant="filled" theme="success">
+    Success
+  </Button>
+  <Button variant="filled" theme="info">
+    Info
+  </Button>
+  <Button variant="filled" theme="warning">
+    Warning
+  </Button>
+  <Button variant="filled" theme="alarm">
+    Alarm
+  </Button>
+  <Button variant="filled" theme="dangerous">
+    Dangerous
+  </Button>
 </ComponentPreview>
 
 ```tsx
@@ -54,12 +79,24 @@ The default `filled` variant renders a solid background button.
 The `text` variant renders a transparent background button. Available for all themes except `dangerous`.
 
 <ComponentPreview>
-  <Button variant="text" theme="primary">Primary</Button>
-  <Button variant="text" theme="default">Default</Button>
-  <Button variant="text" theme="success">Success</Button>
-  <Button variant="text" theme="info">Info</Button>
-  <Button variant="text" theme="warning">Warning</Button>
-  <Button variant="text" theme="alarm">Alarm</Button>
+  <Button variant="text" theme="primary">
+    Primary
+  </Button>
+  <Button variant="text" theme="default">
+    Default
+  </Button>
+  <Button variant="text" theme="success">
+    Success
+  </Button>
+  <Button variant="text" theme="info">
+    Info
+  </Button>
+  <Button variant="text" theme="warning">
+    Warning
+  </Button>
+  <Button variant="text" theme="alarm">
+    Alarm
+  </Button>
 </ComponentPreview>
 
 ```tsx
@@ -70,50 +107,101 @@ The `text` variant renders a transparent background button. Available for all th
 ### Sizes
 
 <ComponentPreview>
-  <Button theme="primary" size="medium">Medium</Button>
-  <Button theme="primary" size="large">Large</Button>
+  <Button theme="primary" size="medium">
+    Medium
+  </Button>
+  <Button theme="primary" size="large">
+    Large
+  </Button>
+  <Button theme="primary" size="icon-medium" aria-label="Search">
+    <SearchIcon data-icon="inline-start" />
+  </Button>
 </ComponentPreview>
 
 ```tsx
 <Button size="medium">Medium</Button>
 <Button size="large">Large</Button>
+<Button size="icon-medium" aria-label="Search">
+  <SearchIcon data-icon="inline-start" />
+</Button>
+```
+
+### Icons
+
+Use `data-icon="inline-start"` or `data-icon="inline-end"` on child icons. For icon-only buttons, use `size="icon-medium"` or `size="icon-large"`.
+Install or import the icon or spinner separately from the button.
+
+<ComponentPreview>
+  <Button theme="primary" size="large">
+    <SearchIcon data-icon="inline-start" />
+    Search
+  </Button>
+  <Button theme="default" size="large">
+    Search
+    <SearchIcon data-icon="inline-end" />
+  </Button>
+</ComponentPreview>
+
+```tsx
+<Button theme="primary">
+  <SearchIcon data-icon="inline-start" />
+  Search
+</Button>
+<Button theme="default">
+  Search
+  <SearchIcon data-icon="inline-end" />
+</Button>
 ```
 
 ### Loading State
 
+Render a spinner as a child icon and disable the button while work is in flight.
+
 <ComponentPreview>
-  <Button theme="primary" size="large" isLoading>Loading</Button>
-  <Button theme="default" size="large" isLoading>Loading</Button>
+  <Button theme="primary" size="large" disabled>
+    <Spinner data-icon="inline-start" />
+    Saving
+  </Button>
+  <Button theme="default" size="large" disabled>
+    Loading
+    <Spinner data-icon="inline-end" />
+  </Button>
 </ComponentPreview>
 
 ```tsx
-<Button theme="primary" isLoading>Loading</Button>
+<Button theme="primary" disabled>
+  <Spinner data-icon="inline-start" />
+  Saving
+</Button>
 ```
 
 ### Disabled
 
 <ComponentPreview>
-  <Button theme="primary" size="large" disabled>Disabled</Button>
-  <Button variant="text" theme="primary" size="large" disabled>Disabled</Button>
+  <Button theme="primary" size="large" disabled>
+    Disabled
+  </Button>
+  <Button variant="text" theme="primary" size="large" disabled>
+    Disabled
+  </Button>
 </ComponentPreview>
 
 ```tsx
-<Button theme="primary" disabled>Disabled</Button>
+<Button theme="primary" disabled>
+  Disabled
+</Button>
 ```
 
 ## Props
 
 ### Button
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'filled' \| 'text'` | `'filled'` | Visual variant |
-| `theme` | `'primary' \| 'default' \| 'success' \| 'info' \| 'warning' \| 'alarm' \| 'dangerous'` | `'primary'` | Color theme (`'dangerous'` only available on `filled`) |
-| `size` | `'medium' \| 'large'` | `'medium'` | Button size |
-| `icon` | `ReactNode` | — | Icon element to display |
-| `iconPlacement` | `'left' \| 'right'` | `'left'` | Icon position relative to label |
-| `isLoading` | `boolean` | `false` | Shows spinner and disables interaction |
-| `focusableWhenDisabled` | `boolean` | `false` | Keeps the button focusable even when disabled styling is applied |
-| `disabled` | `boolean` | `false` | Native disabled attribute |
-| `className` | `string` | — | Additional CSS classes |
-| `style` | `CSSProperties` | — | Inline styles |
+| Prop                    | Type                                                                                   | Default                                      | Description                                                      |
+| ----------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------- | ---------------------------------------------------------------- |
+| `variant`               | `'filled' \| 'text'`                                                                   | `'filled'`                                   | Visual variant                                                   |
+| `theme`                 | `'primary' \| 'default' \| 'success' \| 'info' \| 'warning' \| 'alarm' \| 'dangerous'` | `'primary'` for filled, `'default'` for text | Color theme (`'dangerous'` only available on `filled`)           |
+| `size`                  | `'medium' \| 'large' \| 'icon-medium' \| 'icon-large'`                                 | `'medium'`                                   | Button size                                                      |
+| `focusableWhenDisabled` | `boolean`                                                                              | `false`                                      | Keeps the button focusable even when disabled styling is applied |
+| `disabled`              | `boolean`                                                                              | `false`                                      | Native disabled attribute                                        |
+| `className`             | `string`                                                                               | —                                            | Additional CSS classes                                           |
+| `style`                 | `CSSProperties`                                                                        | —                                            | Inline styles                                                    |

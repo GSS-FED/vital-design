@@ -3,7 +3,10 @@ title: Checkbox
 description: A checkbox input supporting checked, unchecked, and indeterminate states. Built on Base UI for accessibility.
 ---
 
-import { CheckboxPreview, CheckboxStatesPreview } from '~/components/previews/CheckboxPreview';
+import {
+  CheckboxPreview,
+  CheckboxStatesPreview,
+} from '~/components/previews/CheckboxPreview';
 
 ## Preview
 
@@ -12,8 +15,8 @@ import { CheckboxPreview, CheckboxStatesPreview } from '~/components/previews/Ch
 ## Usage
 
 ```tsx
+import { Checkbox } from '@/components/ui/Checkbox';
 import { useState } from 'react';
-import Checkbox from '@/components/ui/Checkbox';
 
 function Agreement() {
   const [checked, setChecked] = useState(false);
@@ -43,17 +46,17 @@ const someChecked = items.some((i) => i.checked);
   onChange={(checked) => setAll(checked)}
 >
   Select all
-</Checkbox>
+</Checkbox>;
 ```
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `checked` | `boolean \| 'indeterminate'` | — | **Required.** Checkbox state |
-| `onChange` | `(checked: boolean) => void` | — | **Required.** Called on change (always passes `boolean`, never `'indeterminate'`) |
-| `children` | `ReactNode` | — | Label text |
-| `disabled` | `boolean` | `false` | Disables interaction |
-| `required` | `boolean` | `false` | Applies error border when unchecked |
-| `className` | `string` | — | Additional CSS classes |
-| `style` | `CSSProperties` | — | Inline styles |
+| Prop        | Type                         | Default | Description                                                                       |
+| ----------- | ---------------------------- | ------- | --------------------------------------------------------------------------------- |
+| `checked`   | `boolean \| 'indeterminate'` | —       | **Required.** Checkbox state                                                      |
+| `onChange`  | `(checked: boolean) => void` | —       | **Required.** Called on change (always passes `boolean`, never `'indeterminate'`) |
+| `children`  | `ReactNode`                  | —       | Label text                                                                        |
+| `disabled`  | `boolean`                    | `false` | Disables interaction                                                              |
+| `required`  | `boolean`                    | `false` | Applies error border when unchecked                                               |
+| `className` | `string`                     | —       | Additional CSS classes                                                            |
+| `style`     | `CSSProperties`              | —       | Inline styles                                                                     |

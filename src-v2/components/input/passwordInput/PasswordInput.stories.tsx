@@ -1,7 +1,7 @@
 import { UserIcon } from '@/icons';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import PasswordInput from './PasswordInput';
+import { PasswordInput } from './PasswordInput';
 
 type Story = StoryObj<typeof PasswordInput>;
 

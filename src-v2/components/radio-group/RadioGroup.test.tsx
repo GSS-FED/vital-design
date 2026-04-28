@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { expect, it, vi } from 'vitest';
-import RadioGroup, { RadioGroupItem } from './RadioGroup';
+import { RadioGroup, RadioGroupItem } from './RadioGroup';
 
 it('renders a radio button', () => {
   const props = {

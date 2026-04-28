@@ -3,8 +3,8 @@ title: Avatar
 description: Display a user's profile picture with fallback to initials or a default icon, available in 12 color variants.
 ---
 
-import { Avatar } from '~/components/vital-components';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { Avatar } from '~/components/vital-components';
 
 ## Preview
 
@@ -18,9 +18,9 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 ## Usage
 
 ```tsx
-import Avatar from '@/components/ui/Avatar';
+import { Avatar } from '@/components/ui/Avatar';
 
-<Avatar name="Arthur Lu" color="blue" size="md" />
+<Avatar name="Arthur Lu" color="blue" size="md" />;
 ```
 
 ## Sizes
@@ -33,13 +33,13 @@ import Avatar from '@/components/ui/Avatar';
   <Avatar name="A" size="xl" color="blue" />
 </ComponentPreview>
 
-| Size | Dimensions |
-|------|-----------|
-| `xs` | 24 × 24 px |
-| `sm` | 32 × 32 px |
+| Size | Dimensions           |
+| ---- | -------------------- |
+| `xs` | 24 × 24 px           |
+| `sm` | 32 × 32 px           |
 | `md` | 40 × 40 px (default) |
-| `lg` | 48 × 48 px |
-| `xl` | 60 × 60 px |
+| `lg` | 48 × 48 px           |
+| `xl` | 60 × 60 px           |
 
 ## Color Variants
 
@@ -62,12 +62,20 @@ import Avatar from '@/components/ui/Avatar';
 When `src` is provided, the image is displayed. Falls back to initials from `name` if the image fails to load.
 
 <ComponentPreview>
-  <Avatar src="https://i.pravatar.cc/150?img=1" name="Arthur Lu" size="lg" />
+  <Avatar
+    src="https://i.pravatar.cc/150?img=1"
+    name="Arthur Lu"
+    size="lg"
+  />
   <Avatar src="broken-url" name="Fallback" color="blue" size="lg" />
 </ComponentPreview>
 
 ```tsx
-<Avatar src="https://example.com/photo.jpg" name="Arthur Lu" size="lg" />
+<Avatar
+  src="https://example.com/photo.jpg"
+  name="Arthur Lu"
+  size="lg"
+/>
 ```
 
 ## Bordered
@@ -94,16 +102,16 @@ When `src` is provided, the image is displayed. Falls back to initials from `nam
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `name` | `string` | — | Used to generate initials fallback |
-| `src` | `string` | — | Image URL; falls back to initials if load fails |
-| `alt` | `string` | — | Alt text for the image |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Avatar dimensions |
-| `color` | `'default' \| 'tiffany' \| 'green' \| 'orange' \| 'pink' \| 'blue' \| 'sky' \| 'purple' \| 'light-gold' \| 'salmon' \| 'ice' \| 'lavender'` | `'default'` | Background and text color variant |
-| `bordered` | `boolean` | `true` | Adds a colored border ring |
-| `disabled` | `boolean` | `false` | Applies disabled overlay |
-| `fallback` | `ReactNode` | — | Custom fallback element |
-| `onClick` | `(event: MouseEvent) => void` | — | Click handler |
-| `onLoadingStatusChange` | `(status: 'idle' \| 'loading' \| 'loaded' \| 'error') => void` | — | Image load status callback |
-| `style` | `CSSProperties` | — | Inline styles |
+| Prop                    | Type                                                                                                                                        | Default     | Description                                     |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ----------------------------------------------- |
+| `name`                  | `string`                                                                                                                                    | —           | Used to generate initials fallback              |
+| `src`                   | `string`                                                                                                                                    | —           | Image URL; falls back to initials if load fails |
+| `alt`                   | `string`                                                                                                                                    | —           | Alt text for the image                          |
+| `size`                  | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                                                                                                      | `'md'`      | Avatar dimensions                               |
+| `color`                 | `'default' \| 'tiffany' \| 'green' \| 'orange' \| 'pink' \| 'blue' \| 'sky' \| 'purple' \| 'light-gold' \| 'salmon' \| 'ice' \| 'lavender'` | `'default'` | Background and text color variant               |
+| `bordered`              | `boolean`                                                                                                                                   | `true`      | Adds a colored border ring                      |
+| `disabled`              | `boolean`                                                                                                                                   | `false`     | Applies disabled overlay                        |
+| `fallback`              | `ReactNode`                                                                                                                                 | —           | Custom fallback element                         |
+| `onClick`               | `(event: MouseEvent) => void`                                                                                                               | —           | Click handler                                   |
+| `onLoadingStatusChange` | `(status: 'idle' \| 'loading' \| 'loaded' \| 'error') => void`                                                                              | —           | Image load status callback                      |
+| `style`                 | `CSSProperties`                                                                                                                             | —           | Inline styles                                   |

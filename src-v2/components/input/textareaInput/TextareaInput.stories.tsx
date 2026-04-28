@@ -1,6 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import TextAreaInput from './TextareaInput';
+import { TextAreaInput } from './TextareaInput';
 
 type Story = StoryObj<typeof TextAreaInput>;
 

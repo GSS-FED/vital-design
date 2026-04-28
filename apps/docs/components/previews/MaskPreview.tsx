@@ -1,6 +1,6 @@
 'use client';
 
-import Mask from '@/components/mask/Mask';
+import { Mask } from '@/components/mask/Mask';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 const ITEMS = Array.from({ length: 12 }, (_, i) => `Item ${i + 1}`);

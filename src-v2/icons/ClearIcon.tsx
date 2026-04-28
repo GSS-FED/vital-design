@@ -1,24 +1,25 @@
-type IconProps = {
-  width?: number;
-  height?: number;
-  color?: string;
-  opacity?: number;
-};
+import type { ComponentPropsWithoutRef } from 'react';
+
+type IconProps = ComponentPropsWithoutRef<'svg'>;
 export const ClearIcon = (props: IconProps) => {
   const {
     opacity,
     width = 50,
     height,
     color = 'currentColor',
+    fill,
+    fillOpacity,
+    ...svgProps
   } = props;
   return (
     <svg
       width={width}
       height={height}
       viewBox="0 0 20 20"
-      fill={color}
-      fillOpacity={opacity}
+      fill={fill ?? color}
+      fillOpacity={fillOpacity ?? opacity}
       xmlns="http://www.w3.org/2000/svg"
+      {...svgProps}
     >
       <path
         d="M9.97266 8.84766L11.2852 7.53516C11.5312 7.28906 11.9414 7.28906 12.1875 7.53516C12.4609 7.80859 12.4609 8.21875 12.1875 8.46484L10.9023 9.75L12.1875 11.0352C12.4609 11.3086 12.4609 11.7188 12.1875 11.9648C11.9414 12.2383 11.5312 12.2383 11.2852 11.9648L9.97266 10.6797L8.6875 11.9648C8.44141 12.2383 8.03125 12.2383 7.78516 11.9648C7.51172 11.7188 7.51172 11.3086 7.78516 11.0352L9.07031 9.75L7.78516 8.46484C7.51172 8.21875 7.51172 7.80859 7.78516 7.53516C8.03125 7.28906 8.44141 7.28906 8.6875 7.53516L9.97266 8.84766Z"

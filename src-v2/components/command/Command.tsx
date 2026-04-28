@@ -390,5 +390,3 @@ export {
   CommandSeparator,
   CommandShortcut,
 };
-
-export default CommandRoot;

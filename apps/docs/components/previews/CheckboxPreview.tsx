@@ -1,6 +1,6 @@
 'use client';
 
-import Checkbox from '@/components/checkbox/Checkbox';
+import { Checkbox } from '@/components/checkbox/Checkbox';
 import { useState } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 

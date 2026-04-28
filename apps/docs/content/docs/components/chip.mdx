@@ -3,7 +3,10 @@ title: Chip
 description: A toggleable pill component for filters, tags, and multi-select options.
 ---
 
-import { ChipPreview, ChipStatesPreview } from '~/components/previews/ChipPreview';
+import {
+  ChipPreview,
+  ChipStatesPreview,
+} from '~/components/previews/ChipPreview';
 
 ## Preview
 
@@ -12,8 +15,8 @@ import { ChipPreview, ChipStatesPreview } from '~/components/previews/ChipPrevie
 ## Usage
 
 ```tsx
+import { Chip } from '@/components/ui/Chip';
 import { useState } from 'react';
-import Chip from '@/components/ui/Chip';
 
 function FilterChips() {
   const [active, setActive] = useState(false);
@@ -40,24 +43,26 @@ A common pattern is a group of chips acting as mutually exclusive filters:
 const filters = ['All', 'Active', 'Inactive', 'Pending'];
 const [selected, setSelected] = useState('All');
 
-{filters.map((filter) => (
-  <Chip
-    key={filter}
-    selected={selected === filter}
-    onChange={() => setSelected(filter)}
-  >
-    {filter}
-  </Chip>
-))}
+{
+  filters.map((filter) => (
+    <Chip
+      key={filter}
+      selected={selected === filter}
+      onChange={() => setSelected(filter)}
+    >
+      {filter}
+    </Chip>
+  ));
+}
 ```
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `ReactNode` | — | Chip label content |
-| `selected` | `boolean` | — | **Required.** Controls the selected state |
-| `onChange` | `(selected: boolean) => void` | — | **Required.** Called when the chip is clicked |
-| `icon` | `ReactNode` | — | Optional icon rendered to the left of the label |
-| `className` | `string` | — | Additional CSS classes |
-| `style` | `CSSProperties` | — | Inline styles |
+| Prop        | Type                          | Default | Description                                     |
+| ----------- | ----------------------------- | ------- | ----------------------------------------------- |
+| `children`  | `ReactNode`                   | —       | Chip label content                              |
+| `selected`  | `boolean`                     | —       | **Required.** Controls the selected state       |
+| `onChange`  | `(selected: boolean) => void` | —       | **Required.** Called when the chip is clicked   |
+| `icon`      | `ReactNode`                   | —       | Optional icon rendered to the left of the label |
+| `className` | `string`                      | —       | Additional CSS classes                          |
+| `style`     | `CSSProperties`               | —       | Inline styles                                   |

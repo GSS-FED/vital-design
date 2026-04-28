@@ -5,11 +5,7 @@ import {
 import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
 import { cn } from '@/utils/cn';
 import { type VariantProps, cva } from 'class-variance-authority';
-import type {
-  ComponentPropsWithoutRef,
-  MouseEvent,
-  ReactNode,
-} from 'react';
+import type { ComponentPropsWithoutRef, MouseEvent } from 'react';
 
 export type SplitButtonSize = 'medium' | 'large';
 export type SplitButtonTheme = 'primary' | 'default';
@@ -17,7 +13,6 @@ export type SplitButtonTheme = 'primary' | 'default';
 export type SplitButtonProps = {
   disabled?: boolean;
   focusableWhenDisabled?: boolean;
-  icon?: ReactNode;
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   open: boolean;
   size?: SplitButtonSize;
@@ -82,6 +77,8 @@ const splitButtonSegmentVariants = cva(
     'relative inline-flex items-center justify-center overflow-hidden rounded-[inherit]',
     'font-sans box-border transition-all duration-150 ease-in-out',
     'border-0 bg-transparent text-inherit',
+    '[&_[data-icon]]:pointer-events-none [&_[data-icon]]:shrink-0',
+    '[&_[data-icon]]:size-3 data-[size=large]:[&_[data-icon]]:size-3.5',
     'before:pointer-events-none before:absolute before:inset-0 before:content-[""]',
     'before:rounded-[inherit] before:opacity-0 before:transition-all before:duration-150 before:z-[1]',
     'hover:not-disabled:not-data-[disabled]:before:bg-grayscale-100 hover:not-disabled:not-data-[disabled]:before:opacity-100',
@@ -113,13 +110,12 @@ export type SplitButtonSegmentVariants = VariantProps<
   typeof splitButtonSegmentVariants
 >;
 
-export default function SplitButton(props: SplitButtonProps) {
+export function SplitButton(props: SplitButtonProps) {
   const {
     children,
     className,
     disabled = false,
     focusableWhenDisabled = false,
-    icon,
     onClick,
     open,
     size = 'medium',
@@ -137,7 +133,6 @@ export default function SplitButton(props: SplitButtonProps) {
       ? ({ 'aria-disabled': true, 'data-disabled': '' } as const)
       : ({ disabled } as const);
 
-  const hasIcon = Boolean(icon);
   return (
     <ButtonGroup
       data-size={size}
@@ -151,26 +146,17 @@ export default function SplitButton(props: SplitButtonProps) {
     >
       <button
         type="button"
+        data-size={size}
         {...buttonDisabledProps}
         onClick={handleClick}
         className={cn(
           splitButtonSegmentVariants({ size, disabled }),
-          hasIcon ? 'pl-3 pr-2' : 'pl-4 pr-2',
+          'pl-4 pr-2 has-[_[data-icon=inline-start]]:pl-3 [&_[data-icon]]:m-0.75',
         )}
       >
-        <div className="relative inline-flex justify-center items-center whitespace-nowrap gap-1 leading-5 z-[2]">
-          {hasIcon && (
-            <div
-              className={cn(
-                'relative flex items-center justify-center m-[3px] z-[2]',
-                size === 'large' ? 'w-3.5 h-3.5' : 'w-3 h-3',
-              )}
-            >
-              {icon}
-            </div>
-          )}
+        <span className="relative z-[2] inline-flex items-center justify-center gap-1 whitespace-nowrap leading-5">
           {children}
-        </div>
+        </span>
       </button>
 
       <ButtonGroupSeparator
@@ -181,6 +167,7 @@ export default function SplitButton(props: SplitButtonProps) {
 
       <button
         type="button"
+        data-size={size}
         {...buttonDisabledProps}
         onClick={handleSplitClick}
         aria-label={open ? 'Collapse options' : 'Expand options'}
@@ -196,9 +183,17 @@ export default function SplitButton(props: SplitButtonProps) {
           )}
         >
           {open ? (
-            <ChevronUpIcon width={SIZE_CONFIG[size].iconSize} />
+            <ChevronUpIcon
+              aria-hidden="true"
+              data-icon="inline-end"
+              width={SIZE_CONFIG[size].iconSize}
+            />
           ) : (
-            <ChevronDownIcon width={SIZE_CONFIG[size].iconSize} />
+            <ChevronDownIcon
+              aria-hidden="true"
+              data-icon="inline-end"
+              width={SIZE_CONFIG[size].iconSize}
+            />
           )}
         </div>
       </button>

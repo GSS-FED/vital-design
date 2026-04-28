@@ -498,5 +498,3 @@ export {
   Trigger as ComboboxTrigger,
   Value as ComboboxValue,
 };
-
-export default Combobox;

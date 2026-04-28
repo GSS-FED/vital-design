@@ -44,7 +44,6 @@ export const ui = [
     ],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/icon-spinner',
       '@vital-design/vital-theme',
     ],
     files: [

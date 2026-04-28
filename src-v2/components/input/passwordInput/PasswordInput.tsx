@@ -1,4 +1,4 @@
-import TextInput from '@/components/input/textInput/TextInput';
+import { TextInput } from '@/components/input/textInput/TextInput';
 import { EyeIcon } from '@/icons/EyeIcon';
 import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
 import { useState } from 'react';
@@ -20,7 +20,7 @@ export type PasswordInputProps = {
 };
 
 /* ---------------------------------- Component --------------------------------- */
-function PasswordInput(props: PasswordInputProps) {
+export function PasswordInput(props: PasswordInputProps) {
   const {
     className,
     width,
@@ -64,8 +64,6 @@ function PasswordInput(props: PasswordInputProps) {
     />
   );
 }
-
-export default PasswordInput;
 
 /* --------------------------------- Components --------------------------------- */
 function VisibilityToggle({

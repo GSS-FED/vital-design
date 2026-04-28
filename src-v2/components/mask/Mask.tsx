@@ -16,7 +16,7 @@ export type MaskProps = {
   style?: CSSProperties;
 };
 
-export default function Mask({
+export function Mask({
   children,
   height,
   width,

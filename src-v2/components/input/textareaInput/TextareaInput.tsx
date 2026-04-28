@@ -86,4 +86,4 @@ const TextAreaInput = forwardRef(function TextAreaInput(
   );
 });
 
-export default TextAreaInput;
+export { TextAreaInput };
