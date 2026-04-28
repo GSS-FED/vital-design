@@ -1,0 +1,115 @@
+---
+title: Alert
+description: A composable message surface for confirmations, warnings, and contextual notices.
+---
+
+import {
+  AlertCustomContentPreview,
+  AlertPreview,
+  AlertWithIconPreview,
+} from '~/components/previews/AlertPreview';
+
+## Preview
+
+<AlertPreview />
+
+## Usage
+
+```tsx
+import {
+  Alert,
+  AlertAction,
+  AlertDescription,
+  AlertTitle,
+} from '@/components/ui/Alert';
+import { Button } from '@/components/ui/Button';
+
+function SubmitAlert() {
+  return (
+    <Alert>
+      <AlertTitle>Request submitted</AlertTitle>
+      <AlertDescription>
+        The approval flow has started. You can keep editing the draft
+        until the reviewer opens it.
+      </AlertDescription>
+      <AlertAction>
+        <Button size="medium" variant="text" theme="primary">
+          View request
+        </Button>
+      </AlertAction>
+    </Alert>
+  );
+}
+```
+
+## With Icon
+
+Use an icon as the first child when the message needs stronger visual context.
+
+<AlertWithIconPreview />
+
+```tsx
+import { ClearIcon } from '@/components/icons/ClearIcon';
+
+<Alert role="status">
+  <ClearIcon className="text-alarm-500" />
+  <AlertTitle>Payment method expired</AlertTitle>
+  <AlertDescription>
+    Update the billing card before the next renewal date.
+  </AlertDescription>
+</Alert>;
+```
+
+## Custom Content
+
+`AlertDescription` can contain additional controls when the notice needs a small follow-up decision.
+
+<AlertCustomContentPreview />
+
+## Anatomy
+
+```tsx
+<Alert>
+  <AlertTitle />
+  <AlertDescription />
+  <AlertAction />
+</Alert>
+```
+
+## Props
+
+### Alert
+
+`Alert` accepts native `div` props and renders `role="alert"` by default.
+
+| Prop        | Type            | Default   | Description                                |
+| ----------- | --------------- | --------- | ------------------------------------------ |
+| `role`      | `string`        | `'alert'` | ARIA live-region role for the message      |
+| `children`  | `ReactNode`     | -         | Alert content and composed sub-parts       |
+| `className` | `string`        | -         | Additional CSS classes on the root element |
+| `style`     | `CSSProperties` | -         | Inline styles on the root element          |
+
+### AlertTitle
+
+| Prop        | Type        | Default | Description            |
+| ----------- | ----------- | ------- | ---------------------- |
+| `children`  | `ReactNode` | -       | Title content          |
+| `className` | `string`    | -       | Additional CSS classes |
+
+### AlertDescription
+
+| Prop        | Type        | Default | Description                     |
+| ----------- | ----------- | ------- | ------------------------------- |
+| `children`  | `ReactNode` | -       | Body copy or supporting content |
+| `className` | `string`    | -       | Additional CSS classes          |
+
+### AlertAction
+
+| Prop        | Type        | Default | Description                        |
+| ----------- | ----------- | ------- | ---------------------------------- |
+| `children`  | `ReactNode` | -       | Action buttons, links, or controls |
+| `className` | `string`    | -       | Additional CSS classes             |
+
+## Accessibility
+
+Keep the default `role="alert"` for urgent messages that should be announced immediately. Use `role="status"` for lower-priority confirmations that should not interrupt the current task.

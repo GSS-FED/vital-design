@@ -19,6 +19,7 @@ export type RegistryItemName =
   | 'icon-spinner'
   | 'icon-user'
   | 'use-debounce-value'
+  | 'alert'
   | 'avatar'
   | 'button'
   | 'button-group'

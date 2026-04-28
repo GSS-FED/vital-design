@@ -3,6 +3,7 @@
   "pages": [
     "button",
     "button-group",
+    "alert",
     "avatar",
     "chip",
     "input",

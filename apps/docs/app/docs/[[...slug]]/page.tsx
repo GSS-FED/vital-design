@@ -14,6 +14,11 @@ import {
 import { notFound } from 'next/navigation';
 import type { FC } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import {
+  AlertCustomContentPreview,
+  AlertPreview,
+  AlertWithIconPreview,
+} from '~/components/previews/AlertPreview';
 import { CascaderPreview } from '~/components/previews/CascaderPreview';
 import {
   CheckboxPreview,
@@ -109,6 +114,9 @@ export default async function Page({
             Tabs,
             TypeTable,
             ComponentPreview,
+            AlertPreview,
+            AlertWithIconPreview,
+            AlertCustomContentPreview,
             ChipPreview,
             ChipStatesPreview,
             ComboboxPreview,
