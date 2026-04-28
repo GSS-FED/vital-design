@@ -23,13 +23,15 @@ export {
 } from '../../../src-v2/components/input/input-group/InputGroup';
 export { default as PasswordInput } from '../../../src-v2/components/input/passwordInput/PasswordInput';
 export { default as TextareaInput } from '../../../src-v2/components/input/textareaInput/TextareaInput';
-export { default as Select } from '../../../src-v2/components/select/Select';
+export { Select } from '../../../src-v2/components/select/Select';
+export { Combobox } from '../../../src-v2/components/combobox/Combobox';
+export { Cascader } from '../../../src-v2/components/cascader/Cascader';
 export { default as Switch } from '../../../src-v2/components/switch/Switch';
 export { default as Tag } from '../../../src-v2/components/tag/Tag';
 export { default as Checkbox } from '../../../src-v2/components/checkbox/Checkbox';
 export { default as RadioGroup } from '../../../src-v2/components/radio-group/RadioGroup';
 export { RadioGroupItem } from '../../../src-v2/components/radio-group/RadioGroup';
 export { default as SearchBar } from '../../../src-v2/components/search-bar/SearchBar';
-export { default as Command } from '../../../src-v2/components/command/Command';
+export { Skeleton } from '../../../src-v2/components/skeleton/Skeleton';
+export { Spinner } from '../../../src-v2/components/spinner/Spinner';
 export { default as SplitButton } from '../../../src-v2/components/button/split-button/SplitButton';
-export { default as TreeSelect } from '../../../src-v2/components/tree-select/TreeSelect';

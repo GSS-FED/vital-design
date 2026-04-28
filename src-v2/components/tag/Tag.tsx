@@ -296,4 +296,3 @@ export default function Tag(props: TagProps) {
     </div>
   );
 }
-Tag.displayName = 'Tag';

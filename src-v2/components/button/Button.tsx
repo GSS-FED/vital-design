@@ -350,8 +350,6 @@ export default function Button(props: ButtonProps) {
   );
 }
 
-Button.displayName = 'Button';
-
 type ContentProps = {
   children: ReactNode;
   hasIcon: boolean;

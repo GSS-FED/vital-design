@@ -7,15 +7,17 @@
     "chip",
     "input",
     "select",
+    "combobox",
+    "cascader",
     "switch",
     "tag",
     "checkbox",
     "radio-group",
     "search-bar",
-    "command",
     "split-button",
-    "tree-select",
     "mask",
-    "list"
+    "list",
+    "skeleton",
+    "spinner"
   ]
 }

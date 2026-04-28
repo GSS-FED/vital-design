@@ -85,6 +85,4 @@ const TextInput = forwardRef(function TextInput(
   );
 });
 
-TextInput.displayName = 'TextInput';
-
 export default TextInput;

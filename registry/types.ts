@@ -35,9 +35,9 @@ export type RegistryItemName =
   | 'textarea-input'
   | 'password-input'
   | 'list-components'
-  | 'command'
   | 'select'
-  | 'tree-select';
+  | 'combobox'
+  | 'cascader';
 
 /**
  * Extends the official shadcn RegistryItem with:

@@ -59,4 +59,3 @@ export default function Switch(props: SwitchProps) {
     </BaseSwitch.Root>
   );
 }
-Switch.displayName = 'Switch';

@@ -1,0 +1,76 @@
+---
+title: Spinner
+description: Loading indicator for pending actions and async content.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { Spinner } from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview>
+  <Spinner />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Spinner } from '@/components/ui/Spinner';
+
+<Spinner />;
+```
+
+## Sizes
+
+<ComponentPreview>
+  <Spinner className="size-3" />
+  <Spinner className="size-4" />
+  <Spinner className="size-6" />
+</ComponentPreview>
+
+```tsx
+<Spinner className="size-3" />
+<Spinner className="size-4" />
+<Spinner className="size-6" />
+```
+
+## Colors
+
+<ComponentPreview>
+  <Spinner className="text-primary-500" />
+  <Spinner className="text-success-500" />
+  <Spinner className="text-alarm-500" />
+  <Spinner className="text-grayscale-500" />
+</ComponentPreview>
+
+```tsx
+<Spinner className="text-primary-500" />
+<Spinner className="text-success-500" />
+<Spinner className="text-alarm-500" />
+<Spinner className="text-grayscale-500" />
+```
+
+## With Label
+
+<ComponentPreview>
+  <div className="inline-flex items-center gap-2 text-sm text-grayscale-700">
+    <Spinner className="size-4" />
+    Loading
+  </div>
+</ComponentPreview>
+
+```tsx
+<div className="inline-flex items-center gap-2">
+  <Spinner className="size-4" />
+  Loading
+</div>
+```
+
+## Props
+
+| Prop         | Type                    | Default     | Description                   |
+| ------------ | ----------------------- | ----------- | ----------------------------- |
+| `className`  | `string`                | —           | Additional CSS classes        |
+| `aria-label` | `string`                | `'Loading'` | Accessible label              |
+| `role`       | `string`                | `'status'`  | Accessible status role        |
+| `...props`   | `ComponentProps<'svg'>` | —           | Native `svg` props and events |

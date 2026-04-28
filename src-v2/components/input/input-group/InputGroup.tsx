@@ -251,13 +251,6 @@ const InputGroupText = forwardRef<
   });
 });
 
-InputGroup.displayName = 'InputGroup';
-InputGroupInput.displayName = 'InputGroupInput';
-InputGroupTextarea.displayName = 'InputGroupTextarea';
-InputGroupAddon.displayName = 'InputGroupAddon';
-InputGroupButton.displayName = 'InputGroupButton';
-InputGroupText.displayName = 'InputGroupText';
-
 export {
   InputGroup,
   InputGroupAddon,

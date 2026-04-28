@@ -89,4 +89,3 @@ export default function Checkbox(props: CheckboxProps) {
     </label>
   );
 }
-Checkbox.displayName = 'Checkbox';

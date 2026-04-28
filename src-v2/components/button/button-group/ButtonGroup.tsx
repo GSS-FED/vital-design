@@ -132,8 +132,4 @@ const ButtonGroupText = forwardRef<
   });
 });
 
-ButtonGroup.displayName = 'ButtonGroup';
-ButtonGroupSeparator.displayName = 'ButtonGroupSeparator';
-ButtonGroupText.displayName = 'ButtonGroupText';
-
 export { ButtonGroup, ButtonGroupSeparator, ButtonGroupText };

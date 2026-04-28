@@ -5,13 +5,15 @@ import {
   within,
 } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import Select, {
-  type ItemType,
+import {
+  Select,
   SelectContent,
   SelectItem,
-  SelectMenu,
-  Select as SelectRoot,
+  SelectItemCheck,
+  SelectItemCheckbox,
+  SelectItemText,
   SelectTrigger,
+  SelectValue,
 } from './Select';
 
 const ResizeObserverMock = vi.fn(() => ({
@@ -20,68 +22,94 @@ const ResizeObserverMock = vi.fn(() => ({
   disconnect: vi.fn(),
 }));
 
-// Stub the global ResizeObserver
 vi.stubGlobal('ResizeObserver', ResizeObserverMock);
 
-const items: ItemType[] = [
-  { id: '1', label: 'Apple' },
-  { id: '2', label: 'Banana' },
-  { id: '3', label: 'Cherry' },
+const fruitItems = [
+  { label: 'Apple', value: 'apple' },
+  { label: 'Banana', value: 'banana' },
+  { label: 'Cherry', value: 'cherry' },
 ];
 
 function getSelectTrigger() {
-  return screen.getByRole('button', { expanded: false });
+  return screen.getByRole('combobox', { expanded: false });
+}
+
+function createValueChangeMock() {
+  return vi.fn<[unknown], void>();
 }
 
 function renderSelect(
   props: {
-    clearable?: boolean;
     disabled?: boolean;
-    isError?: boolean;
-    value?: ItemType;
-    onClear?: () => void;
+    invalid?: boolean;
+    value?: string;
   } = {},
 ) {
-  const onChange = vi.fn();
+  const onValueChange = createValueChangeMock();
+
   render(
     <Select
+      items={fruitItems}
       value={props.value}
-      onChange={onChange}
-      isError={props.isError}
+      onValueChange={onValueChange}
       disabled={props.disabled}
     >
-      <Select.Trigger
+      <SelectTrigger
         placeholder="Select a fruit"
-        clearable={props.clearable}
-        onClear={props.onClear}
+        aria-invalid={props.invalid || undefined}
       />
-      <Select.Content>
-        <Select.Menu>
-          {items.map((item) => (
-            <Select.Item key={item.id} item={item} />
-          ))}
-        </Select.Menu>
-      </Select.Content>
+      <SelectContent>
+        {fruitItems.map((item) => (
+          <SelectItem key={item.value} value={item.value}>
+            <SelectItemText>{item.label}</SelectItemText>
+            <SelectItemCheck />
+          </SelectItem>
+        ))}
+      </SelectContent>
     </Select>,
   );
-  return { onChange };
+
+  return { onValueChange };
 }
 
-function renderMultiSelect(props = {}) {
-  const onChange = vi.fn();
+function renderMultipleSelect(value: string[] = []) {
+  const onValueChange = createValueChangeMock();
+
   render(
-    <Select value={[]} onChange={onChange} isMultiple {...props}>
-      <Select.Trigger placeholder="Select fruits" />
-      <Select.Content>
-        <Select.Menu>
-          {items.map((item) => (
-            <Select.Item key={item.id} item={item} hasCheckbox />
-          ))}
-        </Select.Menu>
-      </Select.Content>
+    <Select
+      multiple
+      items={fruitItems.slice(0, 2)}
+      value={value}
+      onValueChange={onValueChange}
+    >
+      <SelectTrigger placeholder="Select fruits" />
+      <SelectContent>
+        <SelectItem value="apple">
+          <SelectItemCheckbox />
+          <SelectItemText>Apple</SelectItemText>
+        </SelectItem>
+        <SelectItem value="banana">
+          <SelectItemCheckbox />
+          <SelectItemText>Banana</SelectItemText>
+        </SelectItem>
+      </SelectContent>
     </Select>,
   );
-  return { onChange };
+
+  return { onValueChange };
+}
+
+function openSelect() {
+  fireEvent.click(screen.getByRole('combobox', { expanded: false }));
+  return screen.getByRole('listbox');
+}
+
+function expectFirstValueChange(
+  onValueChange: ReturnType<typeof createValueChangeMock>,
+  expected: unknown,
+) {
+  expect(onValueChange).toHaveBeenCalled();
+  expect(onValueChange.mock.calls[0]?.[0]).toEqual(expected);
 }
 
 describe('Select', () => {
@@ -96,157 +124,130 @@ describe('Select', () => {
     expect(screen.getByText('Apple')).toBeInTheDocument();
   });
 
-  it('calls onChange when item is selected', () => {
-    const { onChange } = renderSelect();
+  it('calls onValueChange when item is selected', () => {
+    const { onValueChange } = renderSelect();
     fireEvent.click(getSelectTrigger());
-    fireEvent.click(screen.getByText('Banana'));
-    expect(onChange).toHaveBeenCalledWith(items[1]);
+    const item = screen.getByRole('option', { name: 'Banana' });
+    fireEvent.mouseMove(item);
+    fireEvent.click(item);
+    expectFirstValueChange(onValueChange, 'banana');
   });
 
-  it('shows selected value in Trigger', () => {
-    renderSelect({ value: items[2] });
+  it('shows selected label when items are provided', () => {
+    renderSelect({ value: 'cherry' });
     expect(
       within(getSelectTrigger()).getByText('Cherry'),
     ).toBeInTheDocument();
   });
 
-  it('renders multiple selected values as tags', () => {
-    renderMultiSelect({ value: [items[0], items[1]] });
-    expect(
-      within(getSelectTrigger()).getByText('Apple'),
-    ).toBeInTheDocument();
-    expect(
-      within(getSelectTrigger()).getByText('Banana'),
-    ).toBeInTheDocument();
-  });
-
-  it('renders long selected values inside the trigger', () => {
-    const longItems: ItemType[] = [
-      {
-        id: 'long-1',
-        label:
-          'A very long selected fruit label that should stay clipped',
-      },
-      {
-        id: 'long-2',
-        label:
-          'Another very long selected fruit label for the trigger',
-      },
-    ];
-    const onChange = vi.fn();
-
-    render(
-      <SelectRoot value={longItems} onChange={onChange} isMultiple>
-        <SelectTrigger placeholder="Pick fruits" />
-        <SelectContent>
-          <SelectMenu>
-            {longItems.map((item) => (
-              <SelectItem key={item.id} item={item} hasCheckbox />
-            ))}
-          </SelectMenu>
-        </SelectContent>
-      </SelectRoot>,
-    );
-
-    const trigger = getSelectTrigger();
-
-    expect(
-      within(trigger).getByText(longItems[0]!.label),
-    ).toBeInTheDocument();
-    expect(
-      within(trigger).getByText(longItems[1]!.label),
-    ).toBeInTheDocument();
-    expect(within(trigger).getAllByLabelText('Remove')).toHaveLength(
-      2,
-    );
-  });
-
-  it('calls onChange when item is selected (multiple)', () => {
-    const { onChange } = renderMultiSelect();
-    fireEvent.click(getSelectTrigger());
-    fireEvent.click(screen.getByText('Apple'));
-    expect(onChange).toHaveBeenCalledWith(items[0]);
-  });
-
   it('disables Trigger when disabled', () => {
     renderSelect({ disabled: true });
-    expect(getSelectTrigger()).toHaveClass('pointer-events-none');
+    expect(getSelectTrigger()).toBeDisabled();
   });
 
-  it('shows error style when isError is true', () => {
-    renderSelect({ isError: true });
-    expect(getSelectTrigger()).toHaveClass('border-alarm-500');
-  });
-
-  it('renders clear icon and calls onClear', () => {
-    const onClear = vi.fn();
-    renderSelect({ value: items[0], clearable: true, onClear });
-    const clearButton = screen.getByTestId('clear-button');
-    fireEvent.click(clearButton);
-    expect(onClear).toHaveBeenCalled();
+  it('supports aria-invalid styling', () => {
+    renderSelect({ invalid: true });
+    expect(getSelectTrigger()).toHaveAttribute(
+      'aria-invalid',
+      'true',
+    );
   });
 
   it('supports the named export surface', () => {
-    const onChange = vi.fn();
+    const onValueChange = createValueChangeMock();
 
     render(
-      <SelectRoot value={undefined} onChange={onChange}>
-        <SelectTrigger placeholder="Pick one" />
+      <Select
+        items={fruitItems.slice(0, 1)}
+        value={undefined}
+        onValueChange={onValueChange}
+      >
+        <SelectTrigger>
+          <SelectValue placeholder="Pick one" />
+        </SelectTrigger>
         <SelectContent>
-          <SelectMenu>
-            <SelectItem item={items[0]!} />
-          </SelectMenu>
+          <SelectItem value="apple">
+            <SelectItemText>Apple</SelectItemText>
+            <SelectItemCheck />
+          </SelectItem>
         </SelectContent>
-      </SelectRoot>,
+      </Select>,
     );
 
     fireEvent.click(getSelectTrigger());
-    fireEvent.click(screen.getByText('Apple'));
+    const item = screen.getByRole('option', { name: 'Apple' });
+    fireEvent.mouseMove(item);
+    fireEvent.click(item);
 
-    expect(onChange).toHaveBeenCalledWith(items[0]);
+    expectFirstValueChange(onValueChange, 'apple');
   });
 
-  it('lets trigger and item render with different tags', () => {
-    const onChange = vi.fn();
+  it('adds an item to a multiple value array', () => {
+    const { onValueChange } = renderMultipleSelect();
 
-    render(
-      <SelectRoot value={undefined} onChange={onChange}>
-        <SelectTrigger
-          placeholder="Pick one"
-          render={
-            <button
-              type="button"
-              data-testid="select-trigger-render"
-            />
-          }
-        />
-        <SelectContent>
-          <SelectMenu>
-            <SelectItem
-              item={items[0]!}
-              render={
-                <button
-                  type="button"
-                  data-testid="select-item-render"
-                />
-              }
-            />
-          </SelectMenu>
-        </SelectContent>
-      </SelectRoot>,
+    const listbox = openSelect();
+    fireEvent.click(
+      within(listbox).getByRole('option', { name: 'Apple' }),
     );
 
-    const trigger = screen.getByTestId('select-trigger-render');
-    expect(trigger.tagName).toBe('BUTTON');
-    expect(trigger).toHaveAttribute('data-slot', 'select-trigger');
+    expectFirstValueChange(onValueChange, ['apple']);
+  });
 
+  it('removes an existing item from a multiple value array', () => {
+    const { onValueChange } = renderMultipleSelect(['apple']);
+
+    const listbox = openSelect();
+    fireEvent.click(
+      within(listbox).getByRole('option', { name: 'Apple' }),
+    );
+
+    expectFirstValueChange(onValueChange, []);
+  });
+
+  it('renders multiple item checkbox affordances', () => {
+    renderMultipleSelect();
+
+    const listbox = openSelect();
+
+    expect(screen.getByText('Apple')).toBeInTheDocument();
+    expect(screen.getByText('Banana')).toBeInTheDocument();
+    expect(
+      within(listbox).getAllByTestId('select-checkbox'),
+    ).toHaveLength(2);
+  });
+
+  it('selects the item when clicking the multiple checkbox affordance', () => {
+    const { onValueChange } = renderMultipleSelect();
+
+    const listbox = openSelect();
+    const checkbox =
+      within(listbox).getAllByTestId('select-checkbox')[0];
+    expect(checkbox).toBeInTheDocument();
+    fireEvent.click(checkbox!);
+
+    expectFirstValueChange(onValueChange, ['apple']);
+  });
+
+  it('moves the active multiple option with arrow keys before any item is selected', () => {
+    renderMultipleSelect();
+
+    const trigger = screen.getByRole('combobox', { expanded: false });
     fireEvent.click(trigger);
 
-    const item = screen.getByTestId('select-item-render');
-    expect(item.tagName).toBe('BUTTON');
-    expect(item).toHaveAttribute('data-slot', 'select-item');
+    const listbox = screen.getByRole('listbox');
+    const apple = within(listbox).getByRole('option', {
+      name: 'Apple',
+    });
+    const banana = within(listbox).getByRole('option', {
+      name: 'Banana',
+    });
 
-    fireEvent.click(item);
-    expect(onChange).toHaveBeenCalledWith(items[0]);
+    fireEvent.keyDown(apple, { key: 'ArrowDown' });
+
+    expect(banana).toHaveAttribute('data-highlighted');
+
+    fireEvent.keyDown(banana, { key: 'ArrowUp' });
+
+    expect(apple).toHaveAttribute('data-highlighted');
   });
 });

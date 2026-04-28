@@ -65,8 +65,6 @@ function PasswordInput(props: PasswordInputProps) {
   );
 }
 
-PasswordInput.displayName = 'PasswordInput';
-
 export default PasswordInput;
 
 /* --------------------------------- Components --------------------------------- */

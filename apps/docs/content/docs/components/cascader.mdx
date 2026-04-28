@@ -1,0 +1,124 @@
+---
+title: Cascader
+description: A nested path picker for selecting a leaf option from grouped levels.
+---
+
+import { CascaderPreview } from '~/components/previews/CascaderPreview';
+
+## Preview
+
+<CascaderPreview />
+
+## Usage
+
+Use `Cascader` when options are hierarchical and the selected value is a path. Consumers own the current page, path stack, selected value shape, filtering, and loading state; Cascader provides the popup, search row, back row, item styling, and keyboard behavior.
+
+```tsx
+import {
+  Cascader,
+  CascaderBackItem,
+  CascaderContent,
+  CascaderGroup,
+  CascaderItem,
+  CascaderItemIndicator,
+  CascaderItemText,
+  CascaderList,
+  CascaderSearch,
+  CascaderTrigger,
+  CascaderValue,
+} from '@/components/ui/Cascader';
+
+const [value, setValue] = useState<SelectedLocation | null>(null);
+const [pages, setPages] = useState<LocationItem[]>([]);
+const [searchValue, setSearchValue] = useState('');
+const currentPage = pages[pages.length - 1] ?? null;
+const visibleItems = getItems(
+  currentPage?.value ?? null,
+  searchValue,
+);
+
+<Cascader
+  pageKey={currentPage?.value}
+  searchValue={searchValue}
+  canGoBack={pages.length > 0}
+  width="240px"
+  onBack={() => setPages((prev) => prev.slice(0, -1))}
+  onSearchValueChange={setSearchValue}
+>
+  <CascaderTrigger>
+    <CascaderValue placeholder="Select location">
+      {value?.label}
+    </CascaderValue>
+  </CascaderTrigger>
+  <CascaderContent>
+    <CascaderBackItem>{currentPage?.label}</CascaderBackItem>
+    <CascaderSearch placeholder="Search locations" />
+    <CascaderList>
+      <CascaderGroup>
+        {visibleItems.map((item) => (
+          <CascaderItem
+            key={item.value}
+            value={item.value}
+            closeOnSelect={!item.hasChildren}
+            onSelect={() => {
+              if (item.hasChildren) {
+                setPages((prev) => [...prev, item]);
+                return;
+              }
+
+              setValue({
+                label: item.label,
+                path: [...pages, item],
+                value: item.value,
+              });
+              setPages([]);
+            }}
+          >
+            <CascaderItemText>{item.label}</CascaderItemText>
+            {item.hasChildren ? <CascaderItemIndicator /> : null}
+          </CascaderItem>
+        ))}
+      </CascaderGroup>
+    </CascaderList>
+  </CascaderContent>
+</Cascader>;
+```
+
+## Props
+
+### Cascader
+
+| Prop                  | Type                      | Default | Description                              |
+| --------------------- | ------------------------- | ------- | ---------------------------------------- |
+| `canGoBack`           | `boolean`                 | `false` | Enables the back row and back keys       |
+| `pageKey`             | `React.Key`               | —       | Stable key for the current page          |
+| `searchValue`         | `string`                  | —       | Controlled search value                  |
+| `onSearchValueChange` | `(value: string) => void` | —       | Called when search changes               |
+| `onBack`              | `() => void`              | —       | Called by back row and Backspace/Escape  |
+| `open`                | `boolean`                 | —       | Controlled open state                    |
+| `onOpenChange`        | `(open: boolean) => void` | —       | Called when popup open state changes     |
+| `children`            | `ReactNode`               | —       | Compound sub-components                  |
+| `width`               | `string`                  | —       | Width of the trigger and popup container |
+
+### CascaderTrigger
+
+| Prop          | Type         | Default | Description                          |
+| ------------- | ------------ | ------- | ------------------------------------ |
+| `disabled`    | `boolean`    | `false` | Disables the trigger                 |
+| `isError`     | `boolean`    | `false` | Applies error styling to the trigger |
+| `clearable`   | `boolean`    | `false` | Shows the clear affordance           |
+| `onClear`     | `() => void` | —       | Called by click or Backspace/Delete  |
+| `placeholder` | `ReactNode`  | `''`    | Fallback text for `CascaderValue`    |
+
+### CascaderItem
+
+| Prop            | Type                      | Default | Description                          |
+| --------------- | ------------------------- | ------- | ------------------------------------ |
+| `value`         | `string`                  | —       | Command item value                   |
+| `onSelect`      | `(value: string) => void` | —       | Called when the row is selected      |
+| `closeOnSelect` | `boolean`                 | `true`  | Keep open for branch rows when false |
+| `children`      | `ReactNode`               | —       | Usually `CascaderItemText` and icon  |
+
+### Load More
+
+`CascaderList` accepts normal scroll props, so consumers can implement paging or infinite scroll without giving Cascader a data model. The Storybook `LoadMore` story shows both scroll-to-bottom loading and a keyboard-reachable `Load more` row.

@@ -121,5 +121,3 @@ export default function SearchBar(props: SearchBarProps) {
     </InputGroup>
   );
 }
-
-SearchBar.displayName = 'SearchBar';

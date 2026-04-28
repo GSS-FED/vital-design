@@ -14,6 +14,7 @@ import {
 import { notFound } from 'next/navigation';
 import type { FC } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { CascaderPreview } from '~/components/previews/CascaderPreview';
 import {
   CheckboxPreview,
   CheckboxStatesPreview,
@@ -23,10 +24,9 @@ import {
   ChipStatesPreview,
 } from '~/components/previews/ChipPreview';
 import {
-  CommandActionListPreview,
-  CommandInfinitePreview,
-  CommandPreview,
-} from '~/components/previews/CommandPreview';
+  ComboboxMultiplePreview,
+  ComboboxPreview,
+} from '~/components/previews/ComboboxPreview';
 import {
   ListOverflowPreview,
   ListPreview,
@@ -44,7 +44,7 @@ import {
   SearchBarPreview,
 } from '~/components/previews/SearchBarPreview';
 import {
-  SelectMultiPreview,
+  SelectMultiplePreview,
   SelectPreview,
 } from '~/components/previews/SelectPreview';
 import {
@@ -61,7 +61,6 @@ import {
   TagRemovablePreview,
   TagSolidPreview,
 } from '~/components/previews/TagPreview';
-import { TreeSelectPreview } from '~/components/previews/TreeSelectPreview';
 import { source } from '~/lib/source';
 
 // fumadocs-mdx generates body, toc, etc. from CompiledMDXProperties, but
@@ -106,13 +105,12 @@ export default async function Page({
             Tabs,
             TypeTable,
             ComponentPreview,
-            CommandPreview,
-            CommandActionListPreview,
-            CommandInfinitePreview,
             ChipPreview,
             ChipStatesPreview,
+            ComboboxPreview,
+            ComboboxMultiplePreview,
             SelectPreview,
-            SelectMultiPreview,
+            SelectMultiplePreview,
             SwitchPreview,
             SwitchDisabledPreview,
             CheckboxPreview,
@@ -127,7 +125,7 @@ export default async function Page({
             SearchBarDisabledPreview,
             SplitButtonPreview,
             SplitButtonDefaultPreview,
-            TreeSelectPreview,
+            CascaderPreview,
             ListPreview,
             ListOverflowPreview,
             MaskPreview,

@@ -7,7 +7,8 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
-import Command, {
+import {
+  Command,
   CommandBackButton,
   CommandEmpty,
   CommandGroup,

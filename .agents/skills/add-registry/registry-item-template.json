@@ -45,6 +45,8 @@
     "Avatar": "@vital-design/avatar",
     "SearchBar": "@vital-design/search-bar",
     "Select": "@vital-design/select",
+    "Combobox": "@vital-design/combobox",
+    "Cascader": "@vital-design/cascader",
     "Chip": "@vital-design/chip",
     "Tag": "@vital-design/tag",
     "Switch": "@vital-design/switch",

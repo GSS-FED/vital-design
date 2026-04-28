@@ -1,9 +1,18 @@
 import { BellIcon, ExternalLinkIcon } from '@radix-ui/react-icons';
 import { type Meta, type StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import Select, { type ItemType } from './Select';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectItemCheck,
+  SelectItemCheckbox,
+  SelectItemText,
+  SelectLabel,
+  SelectTrigger,
+} from './Select';
 
 const Container = styled.div`
   display: flex;
@@ -13,222 +22,187 @@ const Container = styled.div`
 
 type Story = StoryObj<typeof Select>;
 
+function isSingleValue(value: unknown): value is string | null {
+  return value === null || typeof value === 'string';
+}
+
+function isMultipleValue(value: unknown): value is string[] {
+  return (
+    Array.isArray(value) &&
+    value.every((item) => typeof item === 'string')
+  );
+}
+
 const ITEM_LIST = [
-  { label: '選項 1', id: '1' },
-  { label: '選項 2', id: '2' },
-  { label: '選項 3', id: '3' },
-  { label: '選項 4', id: '4' },
-  { label: '選項 5', id: '5' },
-  { label: '選項 6', id: '6' },
-  { label: '選項 7', id: '7' },
-  { label: '選項 8', id: '8' },
-  { label: '選項 9', id: '9' },
-  { label: '選項 10', id: '10' },
-  { label: '選項 11', id: '11' },
-  { label: '選項 12', id: '12' },
-  { label: '選項 13', id: '13' },
-  { label: '選項 14', id: '14' },
-  { label: '選項 15', id: '15' },
+  { label: '選項 1', value: '1' },
+  { label: '選項 2', value: '2' },
+  { label: '選項 3', value: '3' },
+  { label: '選項 4', value: '4' },
+  { label: '選項 5', value: '5' },
+  { label: '選項 6', value: '6' },
+  { label: '選項 7', value: '7' },
+  { label: '選項 8', value: '8' },
+  { label: '選項 9', value: '9' },
+  { label: '選項 10', value: '10' },
+  { label: '選項 11', value: '11' },
+  { label: '選項 12', value: '12' },
+  { label: '選項 13', value: '13' },
+  { label: '選項 14', value: '14' },
+  { label: '選項 15', value: '15' },
 ];
+
 const FRUIT_LIST = [
-  { label: 'apple', id: 'apple' },
-  { label: 'banana', id: 'banana' },
-  { label: 'cherry', id: 'cherry' },
-  { label: 'blueberry', id: 'blueberry' },
-  { label: 'guava', id: 'guava' },
+  { label: 'React', value: 'react' },
+  { label: 'Vue', value: 'vue' },
+  { label: 'Angular', value: 'angular' },
+  { label: 'Svelte', value: 'svelte' },
 ];
+
+const CATEGORY_FRUIT_LIST = [
+  { label: 'apple', value: 'apple' },
+  { label: 'banana', value: 'banana' },
+  { label: 'cherry', value: 'cherry' },
+  { label: 'blueberry', value: 'blueberry' },
+  { label: 'guava', value: 'guava' },
+];
+
 const COLOR_LIST = [
-  { label: 'pink', id: 'pink' },
-  { label: 'red', id: 'red' },
-  { label: 'orange', id: 'orange' },
-  { label: 'yellow', id: 'yellow' },
-  { label: 'green', id: 'green' },
-  { label: 'blue', id: 'blue' },
+  { label: 'pink', value: 'pink' },
+  { label: 'red', value: 'red' },
+  { label: 'orange', value: 'orange' },
+  { label: 'yellow', value: 'yellow' },
+  { label: 'green', value: 'green' },
+  { label: 'blue', value: 'blue' },
 ];
 
 const meta: Meta<typeof Select> = {
   title: 'Components/Select',
   component: Select,
   args: {
-    width: '320px',
     disabled: false,
-    isError: false,
-    onChange: fn(),
   },
 };
 export default meta;
 
 export const Default: Story = {
   render: function Render(args) {
-    const [value, setValue] = useState<ItemType>();
-
-    const onChange = (item: ItemType) => {
-      setValue(item);
-    };
-    const onClear = () => {
-      setValue(undefined);
-    };
+    const [value, setValue] = useState<string | null>(null);
 
     return (
-      <Select {...args} value={value} onChange={onChange}>
-        <Select.Trigger
-          placeholder="請選擇"
-          clearable={!!value}
-          onClear={onClear}
-        />
-        <Select.Content>
-          <Select.Menu>
+      <div className="w-80">
+        <Select
+          disabled={args.disabled}
+          items={ITEM_LIST}
+          value={value}
+          onValueChange={(nextValue) => {
+            if (isSingleValue(nextValue)) {
+              setValue(nextValue);
+            }
+          }}
+        >
+          <SelectTrigger placeholder="請選擇" />
+          <SelectContent>
             {ITEM_LIST.map((item) => (
-              <Select.Item key={item.id} item={item} />
+              <SelectItem key={item.value} value={item.value}>
+                <SelectItemText>{item.label}</SelectItemText>
+                <SelectItemCheck />
+              </SelectItem>
             ))}
-          </Select.Menu>
-        </Select.Content>
-      </Select>
+          </SelectContent>
+        </Select>
+      </div>
     );
   },
 };
 
-export const MultiSelect: Story = {
+export const Multiple: Story = {
   render: function Render(args) {
-    const [value, setValue] = useState<ItemType[]>([]);
-
-    const onChange = (item: ItemType) => {
-      setValue((prevSelectedItems) => {
-        const isItemAlreadySelected = prevSelectedItems.some(
-          (selectedItem) => selectedItem.id === item.id,
-        );
-
-        if (isItemAlreadySelected) {
-          return prevSelectedItems.filter(
-            (selectedItem) => selectedItem.id !== item.id,
-          );
-        }
-        return [...prevSelectedItems, item];
-      });
-    };
+    const [value, setValue] = useState<string[]>([]);
 
     return (
-      <Select
-        {...args}
-        value={value}
-        onChange={onChange}
-        isMultiple={true}
-      >
-        <Select.Trigger placeholder="請選擇" maxDisplayCount={3} />
-        <Select.Content>
-          <Select.Menu>
-            {ITEM_LIST.map((item) => (
-              <Select.Item
-                key={item.id}
-                item={item}
-                hasCheckbox={true}
-              />
+      <div className="w-60">
+        <Select
+          disabled={args.disabled}
+          multiple
+          items={FRUIT_LIST}
+          value={value}
+          onValueChange={(nextValue) => {
+            if (isMultipleValue(nextValue)) {
+              setValue(nextValue);
+            }
+          }}
+        >
+          <SelectTrigger placeholder="Select options" />
+          <SelectContent>
+            {FRUIT_LIST.map((item) => (
+              <SelectItem key={item.value} value={item.value}>
+                <SelectItemCheckbox />
+                <SelectItemText>{item.label}</SelectItemText>
+              </SelectItem>
             ))}
-          </Select.Menu>
-        </Select.Content>
-      </Select>
-    );
-  },
-};
-
-export const Search: Story = {
-  render: function Render(args) {
-    const [value, setValue] = useState<ItemType[]>([]);
-    const [keyword, setKeyword] = useState('');
-    const filteredItemList = useMemo(
-      () =>
-        ITEM_LIST.filter((item) =>
-          item.label.toLowerCase().includes(keyword.toLowerCase()),
-        ),
-      [keyword],
-    );
-
-    const onChange = (item: ItemType) => {
-      setValue((prevSelectedItems) => {
-        const isItemAlreadySelected = prevSelectedItems.some(
-          (selectedItem) => selectedItem.id === item.id,
-        );
-
-        if (isItemAlreadySelected) {
-          return prevSelectedItems.filter(
-            (selectedItem) => selectedItem.id !== item.id,
-          );
-        }
-        return [...prevSelectedItems, item];
-      });
-    };
-
-    return (
-      <Select
-        {...args}
-        value={value}
-        onChange={onChange}
-        isMultiple={true}
-      >
-        <Select.Trigger placeholder="請選擇" maxDisplayCount={3} />
-        <Select.Content>
-          <Select.Header>
-            <Select.SearchBar
-              placeholder="請輸入關鍵字"
-              onChange={(value) => setKeyword(value)}
-            />
-          </Select.Header>
-          <Select.Menu>
-            {filteredItemList.length === 0 && (
-              <Select.EmptyText text="無結果" />
-            )}
-            {filteredItemList.map((item) => (
-              <Select.Item key={item.id} item={item} />
-            ))}
-          </Select.Menu>
-        </Select.Content>
-      </Select>
+          </SelectContent>
+        </Select>
+      </div>
     );
   },
 };
 
 export const Icon: Story = {
   render: function Render(args) {
-    const [value, setValue] = useState<ItemType>();
-
-    const onChange = (item: ItemType) => {
-      setValue(item);
-    };
+    const [value, setValue] = useState<string | null>(null);
 
     return (
       <Container>
-        <div>
-          <p>Prefix Icon </p>
-          <Select {...args} value={value} onChange={onChange}>
-            <Select.Trigger placeholder="請選擇" />
-            <Select.Content>
-              <Select.Menu>
-                {ITEM_LIST.map((item) => (
-                  <Select.Item
-                    key={item.id}
-                    item={item}
-                    prefixIcon={<BellIcon />}
-                  />
-                ))}
-              </Select.Menu>
-            </Select.Content>
+        <div className="w-80">
+          <p>Prefix Icon</p>
+          <Select
+            disabled={args.disabled}
+            items={ITEM_LIST}
+            value={value}
+            onValueChange={(nextValue) => {
+              if (isSingleValue(nextValue)) {
+                setValue(nextValue);
+              }
+            }}
+          >
+            <SelectTrigger placeholder="請選擇" />
+            <SelectContent>
+              {ITEM_LIST.map((item) => (
+                <SelectItem key={item.value} value={item.value}>
+                  <span className="grid shrink-0 place-content-center">
+                    <BellIcon />
+                  </span>
+                  <SelectItemText>{item.label}</SelectItemText>
+                  <SelectItemCheck />
+                </SelectItem>
+              ))}
+            </SelectContent>
           </Select>
         </div>
-        <div>
-          <p>Suffix Icon </p>
-          <Select {...args} value={value} onChange={onChange}>
-            <Select.Trigger placeholder="請選擇" />
-            <Select.Content>
-              <Select.Menu>
-                {ITEM_LIST.map((item) => (
-                  <Select.Item
-                    key={item.id}
-                    item={item}
-                    suffixIcon={<ExternalLinkIcon />}
-                  />
-                ))}
-              </Select.Menu>
-            </Select.Content>
+        <div className="w-80">
+          <p>Suffix Icon</p>
+          <Select
+            disabled={args.disabled}
+            items={ITEM_LIST}
+            value={value}
+            onValueChange={(nextValue) => {
+              if (isSingleValue(nextValue)) {
+                setValue(nextValue);
+              }
+            }}
+          >
+            <SelectTrigger placeholder="請選擇" />
+            <SelectContent>
+              {ITEM_LIST.map((item) => (
+                <SelectItem key={item.value} value={item.value}>
+                  <SelectItemText>{item.label}</SelectItemText>
+                  <span className="ms-auto grid shrink-0 place-content-center">
+                    <ExternalLinkIcon />
+                  </span>
+                  <SelectItemCheck />
+                </SelectItem>
+              ))}
+            </SelectContent>
           </Select>
         </div>
       </Container>
@@ -236,30 +210,46 @@ export const Icon: Story = {
   },
 };
 
-export const Title: Story = {
+export const Grouped: Story = {
   render: function Render(args) {
-    const [value, setValue] = useState<ItemType>();
-
-    const onChange = (item: ItemType) => {
-      setValue(item);
-    };
+    const [value, setValue] = useState<string | null>(null);
+    const items = [...CATEGORY_FRUIT_LIST, ...COLOR_LIST];
 
     return (
-      <Select {...args} value={value} onChange={onChange}>
-        <Select.Trigger placeholder="請選擇" />
-        <Select.Content>
-          <Select.Menu>
-            <Select.Title>水果</Select.Title>
-            {FRUIT_LIST.map((item) => (
-              <Select.Item key={item.id} item={item} />
-            ))}
-            <Select.Title>顏色</Select.Title>
-            {COLOR_LIST.map((item) => (
-              <Select.Item key={item.id} item={item} />
-            ))}
-          </Select.Menu>
-        </Select.Content>
-      </Select>
+      <div className="w-80">
+        <Select
+          disabled={args.disabled}
+          items={items}
+          value={value}
+          onValueChange={(nextValue) => {
+            if (isSingleValue(nextValue)) {
+              setValue(nextValue);
+            }
+          }}
+        >
+          <SelectTrigger placeholder="請選擇" />
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>水果</SelectLabel>
+              {CATEGORY_FRUIT_LIST.map((item) => (
+                <SelectItem key={item.value} value={item.value}>
+                  <SelectItemText>{item.label}</SelectItemText>
+                  <SelectItemCheck />
+                </SelectItem>
+              ))}
+            </SelectGroup>
+            <SelectGroup>
+              <SelectLabel>顏色</SelectLabel>
+              {COLOR_LIST.map((item) => (
+                <SelectItem key={item.value} value={item.value}>
+                  <SelectItemText>{item.label}</SelectItemText>
+                  <SelectItemCheck />
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
     );
   },
 };

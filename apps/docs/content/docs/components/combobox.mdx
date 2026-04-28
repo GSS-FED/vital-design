@@ -1,0 +1,179 @@
+---
+title: Combobox
+description: An input picker for searching and selecting one or many options.
+---
+
+import {
+  ComboboxMultiplePreview,
+  ComboboxPreview,
+} from '~/components/previews/ComboboxPreview';
+
+## Preview
+
+<ComboboxPreview />
+
+## Usage
+
+Use `Combobox` when the picker renders an input: search, autocomplete, or removable chips.
+
+```tsx
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxHeader,
+  ComboboxItem,
+  ComboboxItemCheck,
+  ComboboxItemCheckbox,
+  ComboboxItemText,
+  ComboboxList,
+  ComboboxSearchBar,
+  ComboboxTagsValue,
+  ComboboxTrigger,
+  ComboboxValue,
+} from '@/components/ui/Combobox';
+
+const options = [
+  { label: 'Taiwan', value: 'tw' },
+  { label: 'Japan', value: 'jp' },
+];
+
+function itemToStringLabel(item: (typeof options)[number] | null) {
+  return item?.label ?? '';
+}
+
+function itemToStringValue(item: (typeof options)[number] | null) {
+  return item?.value ?? '';
+}
+
+const [value, setValue] = useState<(typeof options)[number] | null>(
+  null,
+);
+
+<Combobox
+  items={options}
+  itemToStringLabel={itemToStringLabel}
+  itemToStringValue={itemToStringValue}
+  value={value}
+  onValueChange={setValue}
+>
+  <ComboboxTrigger className="w-60" aria-label="Open countries">
+    <ComboboxValue placeholder="Search countries" />
+  </ComboboxTrigger>
+  <ComboboxContent emptyText="No results">
+    <ComboboxHeader>
+      <ComboboxSearchBar placeholder="Search countries" />
+    </ComboboxHeader>
+    <ComboboxList>
+      {(item) => (
+        <ComboboxItem key={item.value} value={item}>
+          <ComboboxItemText>{item.label}</ComboboxItemText>
+          <ComboboxItemCheck />
+        </ComboboxItem>
+      )}
+    </ComboboxList>
+  </ComboboxContent>
+</Combobox>;
+```
+
+## Multiple
+
+<ComboboxMultiplePreview />
+
+```tsx
+const frameworks = [
+  { label: 'React', value: 'react' },
+  { label: 'Vue', value: 'vue' },
+  { label: 'Angular', value: 'angular' },
+  { label: 'Svelte', value: 'svelte' },
+];
+
+const [value, setValue] = useState<typeof frameworks>([]);
+
+<Combobox
+  multiple
+  items={frameworks}
+  itemToStringLabel={itemToStringLabel}
+  itemToStringValue={itemToStringValue}
+  value={value}
+  onValueChange={setValue}
+>
+  <ComboboxTrigger
+    nativeButton={false}
+    render={<div />}
+    className="w-72"
+    aria-label="Open frameworks"
+  >
+    <ComboboxTagsValue
+      maxDisplayCount={2}
+      placeholder="Search frameworks"
+    />
+  </ComboboxTrigger>
+  <ComboboxContent emptyText="No results">
+    <ComboboxHeader>
+      <ComboboxSearchBar placeholder="Search frameworks" />
+    </ComboboxHeader>
+    <ComboboxList>
+      {(item) => (
+        <ComboboxItem key={item.value} value={item}>
+          <ComboboxItemCheckbox />
+          <ComboboxItemText>{item.label}</ComboboxItemText>
+        </ComboboxItem>
+      )}
+    </ComboboxList>
+  </ComboboxContent>
+</Combobox>;
+```
+
+Use named exports for shadcn-style imports:
+
+```tsx
+import {
+  Combobox,
+  ComboboxChip,
+  ComboboxChipRemove,
+  ComboboxChips,
+  ComboboxClear,
+  ComboboxContent,
+  ComboboxHeader,
+  ComboboxInput,
+  ComboboxInputGroup,
+  ComboboxItem,
+  ComboboxItemCheck,
+  ComboboxItemCheckbox,
+  ComboboxItemText,
+  ComboboxOverflowChip,
+  ComboboxSearchBar,
+  ComboboxTagsValue,
+  ComboboxTrigger,
+  ComboboxValue,
+} from '@/components/ui/Combobox';
+```
+
+## Props
+
+### Combobox
+
+`Combobox` is `BaseCombobox.Root`. Use the Base UI root props such as `items`, `value`, `onValueChange`, `multiple`, `disabled`, `itemToStringLabel`, and `itemToStringValue`.
+
+### ComboboxTrigger
+
+Styled shell for the selected value. Use `nativeButton={false}` with `render={<div />}` when rendering removable tags inside it.
+
+### ComboboxSearchBar
+
+Popup search input for the combobox list. It renders `BaseCombobox.Input`, so filtering remains owned by Base UI.
+
+### ComboboxTagsValue
+
+Preset value renderer for multiple comboboxes. It renders selected values as removable chips, supports `maxDisplayCount`, and shows the hidden count as `+N`.
+
+### ComboboxContent
+
+| Prop            | Type        | Default | Description                  |
+| --------------- | ----------- | ------- | ---------------------------- |
+| `emptyText`     | `ReactNode` | —       | Empty state content          |
+| `listClassName` | `string`    | —       | Classes for the list element |
+
+### ComboboxItem
+
+`ComboboxItem` is `BaseComboboxItem` with Vital Design row styling. Compose it with `ComboboxItemText`, `ComboboxItemCheck`, or `ComboboxItemCheckbox`.

@@ -1,542 +1,365 @@
-import Checkbox from '@/components/checkbox/Checkbox';
-import Mask from '@/components/mask/Mask';
-import SearchBar from '@/components/search-bar/SearchBar';
-import Tag from '@/components/tag/Tag';
+import { CheckIcon } from '@/icons/CheckIcon';
 import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
-import { ClearIcon } from '@/icons/ClearIcon';
 import { cn } from '@/utils/cn';
-import { mergeProps } from '@base-ui/react/merge-props';
-import { useRender } from '@base-ui/react/use-render';
-import {
-  FloatingPortal,
-  autoUpdate,
-  flip,
-  offset,
-  size,
-  useDismiss,
-  useFloating,
-  useInteractions,
-} from '@floating-ui/react';
+import { Select as BaseSelect } from '@base-ui/react/select';
+import { forwardRef } from 'react';
 import type {
-  Placement,
-  UseFloatingReturn,
-  UseInteractionsReturn,
-} from '@floating-ui/react';
-import {
-  createContext,
-  forwardRef,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
+  ComponentPropsWithoutRef,
+  ElementRef,
+  ReactNode,
 } from 'react';
-import type { CSSProperties, ElementRef, ReactNode } from 'react';
 
-/* -------------------- Context for the Select component -------------------- */
-export interface ItemType {
-  id: string | number;
-  label: string;
-}
-interface SelectContextType {
-  value: undefined | ItemType | ItemType[];
-  onChange: (item: ItemType) => void;
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  isMultiple: boolean;
-  disabled: boolean;
-  floatingRefs: UseFloatingReturn['refs'];
-  floatingStyles: CSSProperties;
-  getReferenceProps: UseInteractionsReturn['getReferenceProps'];
-  getFloatingProps: UseInteractionsReturn['getFloatingProps'];
-  isError: boolean;
-}
+export type SelectProps = ComponentPropsWithoutRef<
+  typeof BaseSelect.Root
+>;
 
-const SelectContext = createContext<SelectContextType | null>(null);
+const Select = BaseSelect.Root;
 
-const useSelectContext = () => {
-  const context = useContext(SelectContext);
-  if (!context) {
-    throw new Error(
-      'Select compound components must be used within a Select component',
-    );
-  }
-  return context;
-};
+export type SelectGroupProps = ComponentPropsWithoutRef<
+  typeof BaseSelect.Group
+>;
 
-/* ----------------------------- Main Component ----------------------------- */
-export interface SelectProps {
-  value: undefined | ItemType | ItemType[];
-  onChange: (item: ItemType) => void;
-  children: ReactNode;
-  isMultiple?: boolean;
-  disabled?: boolean;
-  isError?: boolean;
-  width?: string;
-  className?: string;
-  style?: CSSProperties;
-  placement?: Placement;
-}
-function Select({
-  width,
-  value,
-  children,
-  style,
-  className,
-  onChange,
-  isMultiple = false,
-  disabled = false,
-  isError = false,
-  placement = 'bottom-start',
-}: SelectProps) {
-  const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const {
-    refs,
-    floatingStyles,
-    context: floatingContext,
-  } = useFloating({
-    open,
-    onOpenChange: setOpen,
-    whileElementsMounted: autoUpdate,
-    placement: placement,
-    middleware: [
-      offset(4),
-      flip(),
-      size({
-        apply({ rects, elements }) {
-          Object.assign(elements.floating.style, {
-            width: `${rects.reference.width}px`,
-          });
-        },
-      }),
-    ],
-  });
-  const dismiss = useDismiss(floatingContext);
-  const { getReferenceProps, getFloatingProps } = useInteractions([
-    dismiss,
-  ]);
-
-  const context = useMemo(
-    () => ({
-      value,
-      onChange,
-      open,
-      setOpen,
-      isMultiple,
-      disabled,
-      isError,
-      floatingRefs: refs,
-      floatingStyles,
-      getReferenceProps,
-      getFloatingProps,
-    }),
-    [
-      onChange,
-      open,
-      value,
-      isMultiple,
-      isError,
-      refs,
-      floatingStyles,
-      disabled,
-      getReferenceProps,
-      getFloatingProps,
-    ],
-  );
-
+const SelectGroup = forwardRef<
+  ElementRef<typeof BaseSelect.Group>,
+  SelectGroupProps
+>(function SelectGroup({ className, ...props }, ref) {
   return (
-    <SelectContext.Provider value={context}>
-      <div
-        ref={containerRef}
-        style={{ width: width ?? '100%', ...style }}
-        className={cn('relative', className)}
-      >
-        {children}
-      </div>
-    </SelectContext.Provider>
+    <BaseSelect.Group
+      ref={ref}
+      data-slot="select-group"
+      className={className}
+      {...props}
+    />
   );
-}
+});
 
-/* ----------------------------- Sub-components ----------------------------- */
-export type TriggerProps = useRender.ComponentProps<'div'> & {
-  onClear?: () => void;
-  clearable?: boolean;
-  placeholder?: string;
-  maxDisplayCount?: 1 | 2 | 3 | 6;
-};
-const Trigger = forwardRef<ElementRef<'div'>, TriggerProps>(
-  function Trigger(props, ref) {
-    const {
-      onClear,
-      clearable = false,
-      maxDisplayCount = 2,
-      placeholder = '',
-      style,
-      className,
-      render,
-      ...triggerProps
-    } = props;
-    const {
-      open,
-      setOpen,
-      value,
-      disabled,
-      isError,
-      onChange,
-      floatingRefs,
-      getReferenceProps,
-    } = useSelectContext();
+export type SelectValueProps = ComponentPropsWithoutRef<
+  typeof BaseSelect.Value
+>;
 
-    const hasValue = Array.isArray(value)
-      ? value.length > 0
-      : !!value;
-    const contentJSX = Array.isArray(value) ? (
-      <MultipleValue
-        value={value}
-        handleRemove={(item) => onChange(item)}
-        maxDisplayCount={maxDisplayCount}
-      />
-    ) : (
-      <div className="overflow-hidden text-ellipsis whitespace-nowrap max-w-full">
-        {value?.label}
-      </div>
-    );
-
-    return useRender({
-      ref: [ref, floatingRefs.setReference],
-      render,
-      defaultTagName: 'div',
-      state: {
-        disabled,
-        invalid: isError,
-        open,
-        slot: 'select-trigger',
-      },
-      props: mergeProps<'div'>(
-        getReferenceProps(),
-        {
-          'aria-expanded': open,
-          'aria-haspopup': 'listbox',
-          'aria-disabled': disabled,
-          onClick: () => setOpen(!open),
-          role: 'button',
-          style,
-          tabIndex: 0,
-          className: cn(
-            'box-border font-sans',
-            'w-full h-8 py-2 pl-3 pr-1.5',
-            'bg-white border border-grayscale-300 rounded',
-            'text-grayscale-800 font-normal text-sm leading-5',
-            'flex items-center justify-between gap-2',
-            'cursor-pointer transition-colors duration-200',
-            'hover:border-grayscale-500',
-            'focus:border-primary-500',
-            isError && 'border-alarm-500 hover:border-alarm-500',
-            disabled &&
-              'bg-grayscale-200 text-grayscale-500 pointer-events-none',
-            className,
-          ),
-          children: (
-            <>
-              {hasValue ? (
-                contentJSX
-              ) : (
-                <span className="text-grayscale-400 align-baseline">
-                  {placeholder}
-                </span>
-              )}
-              {clearable ? (
-                <div
-                  data-testid="clear-button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onClear?.();
-                  }}
-                  className={cn(
-                    'w-5 h-5 grid place-content-center',
-                    'hover:[&_svg>path]:transition-colors hover:[&_svg>path]:duration-200',
-                    'hover:[&_svg>path]:fill-grayscale-700',
-                  )}
-                >
-                  <ClearIcon width={20} />
-                </div>
-              ) : (
-                <div
-                  className={cn(
-                    'w-5 h-5 flex justify-center items-center',
-                    disabled
-                      ? 'text-grayscale-500'
-                      : 'text-grayscale-700',
-                  )}
-                >
-                  {open ? (
-                    <ChevronUpIcon width={14} />
-                  ) : (
-                    <ChevronDownIcon width={14} />
-                  )}
-                </div>
-              )}
-            </>
-          ),
-        },
-        triggerProps,
-      ),
-    });
-  },
-);
-
-interface MultipleValueProps {
-  value: ItemType[];
-  handleRemove: (item: ItemType) => void;
-  maxDisplayCount: 1 | 2 | 3 | 6;
-}
-const MultipleValue = ({
-  value,
-  handleRemove,
-  maxDisplayCount,
-}: MultipleValueProps) => {
-  const isExceeded = value.length > maxDisplayCount;
+const SelectValueText = forwardRef<
+  ElementRef<typeof BaseSelect.Value>,
+  SelectValueProps
+>(function SelectValue({ className, ...props }, ref) {
   return (
-    <div className="flex gap-1 overflow-hidden items-center flex-nowrap [&_.tag]:min-w-0 [&_.tag_[data-slot=tag-action]]:min-w-0 [&_.tag_[data-slot=tag-label]]:min-w-0 [&_.tag_[data-slot=tag-label]]:overflow-hidden [&_.tag_[data-slot=tag-label]]:whitespace-nowrap [&_.tag_[data-slot=tag-label]]:text-ellipsis">
-      {value.slice(0, maxDisplayCount).map((v) => {
-        return (
-          <Tag
-            key={v.id}
-            removable
-            onRemove={() => handleRemove(v)}
-            className="tag"
-          >
-            {v.label}
-          </Tag>
-        );
-      })}
-      {isExceeded && <Tag>+{value.length - maxDisplayCount}</Tag>}
-    </div>
-  );
-};
-
-export interface ContentProps {
-  children: ReactNode;
-  height?: string;
-}
-const Content = ({ children, height }: ContentProps) => {
-  const { open, floatingRefs, floatingStyles, getFloatingProps } =
-    useSelectContext();
-
-  return (
-    <FloatingPortal>
-      <div
-        style={{
-          ...floatingStyles,
-          height: height ?? 'auto',
-          display: open ? 'flex' : 'none',
-        }}
-        ref={floatingRefs.setFloating}
-        {...getFloatingProps()}
-        className={cn(
-          'w-full max-h-75 py-2 flex-col',
-          'bg-white rounded shadow-emphasis z-9999',
-        )}
-      >
-        {children}
-      </div>
-    </FloatingPortal>
-  );
-};
-export interface HeaderProps {
-  children: ReactNode;
-}
-const Header = ({ children }: HeaderProps) => {
-  return <div>{children}</div>;
-};
-
-export interface MenuProps {
-  children: ReactNode;
-  style?: CSSProperties;
-}
-const Menu = ({ children, style }: MenuProps) => {
-  return (
-    <Mask>
-      <div style={style}>{children}</div>
-    </Mask>
-  );
-};
-
-export type ItemProps = useRender.ComponentProps<'div'> & {
-  item: ItemType;
-  children?: ReactNode;
-  prefixIcon?: ReactNode;
-  suffixIcon?: ReactNode;
-  hasCheckbox?: boolean;
-  disabled?: boolean;
-};
-
-const Item = forwardRef<ElementRef<'div'>, ItemProps>(
-  function Item(props, ref) {
-    const {
-      item,
-      children,
-      prefixIcon,
-      suffixIcon,
-      style,
-      className,
-      render,
-      hasCheckbox = false,
-      disabled = false,
-      ...itemProps
-    } = props;
-    const {
-      value: selectedValue,
-      onChange,
-      setOpen,
-      isMultiple,
-    } = useSelectContext();
-
-    const isSelected = Array.isArray(selectedValue)
-      ? selectedValue.some((v) => v.id === item.id)
-      : item.id === selectedValue?.id;
-
-    const handleSelect = () => {
-      onChange(item);
-      setOpen(false);
-    };
-    const handleSelectMultiple = () => {
-      onChange(item);
-    };
-
-    return useRender({
-      ref,
-      render,
-      defaultTagName: 'div',
-      state: {
-        disabled,
-        selected: isSelected,
-        slot: 'select-item',
-      },
-      props: mergeProps<'div'>(
-        {
-          onClick: isMultiple ? handleSelectMultiple : handleSelect,
-          style,
-          className: cn(
-            'font-normal text-sm leading-5',
-            'py-1.5 px-5 flex gap-2 items-center',
-            'cursor-pointer select-none transition-colors duration-200',
-            'break-anywhere',
-            'hover:bg-grayscale-100',
-            'active:bg-grayscale-200',
-            isSelected && !hasCheckbox && 'text-primary-500',
-            !isSelected && 'text-grayscale-800',
-            hasCheckbox && 'text-grayscale-800',
-            disabled && 'text-grayscale-500 pointer-events-none',
-            className,
-          ),
-          children: (
-            <>
-              {prefixIcon && (
-                <div className="grid place-content-center">
-                  {prefixIcon}
-                </div>
-              )}
-              {hasCheckbox && <Checkbox checked={isSelected} />}
-              {children ? children : item.label}
-              {suffixIcon && (
-                <div className="ms-auto grid place-content-center">
-                  {suffixIcon}
-                </div>
-              )}
-            </>
-          ),
-        },
-        itemProps,
-      ),
-    });
-  },
-);
-
-export interface TitleProps {
-  children: ReactNode;
-  style?: CSSProperties;
-}
-const Title = ({ children, style }: TitleProps) => {
-  return (
-    <div
-      style={style}
+    <BaseSelect.Value
+      ref={ref}
+      data-slot="select-value"
       className={cn(
-        'font-medium text-xs leading-4',
-        'text-grayscale-500 py-1.5 px-5',
-        'not-first-of-type:pt-4',
+        'min-w-0 flex-1 truncate text-left',
+        'data-[placeholder]:text-grayscale-400',
+        className,
       )}
+      {...props}
+    />
+  );
+});
+
+export type SelectTriggerProps = ComponentPropsWithoutRef<
+  typeof BaseSelect.Trigger
+> & {
+  placeholder?: ReactNode;
+};
+
+const SelectTrigger = forwardRef<
+  ElementRef<typeof BaseSelect.Trigger>,
+  SelectTriggerProps
+>(function SelectTrigger(
+  { children, className, placeholder = '', ...props },
+  ref,
+) {
+  return (
+    <BaseSelect.Trigger
+      ref={ref}
+      data-slot="select-trigger"
+      className={cn(
+        'group box-border flex h-8 w-full cursor-pointer items-center justify-between gap-2 rounded border border-grayscale-300 bg-white py-2 pr-1.5 pl-3 font-sans text-sm leading-5 font-normal text-grayscale-800 transition-colors duration-200',
+        'hover:border-grayscale-500 focus:border-primary-500 focus:outline-none',
+        'disabled:pointer-events-none disabled:bg-grayscale-200 disabled:text-grayscale-500',
+        'data-[popup-open]:border-primary-500',
+        'aria-invalid:border-alarm-500 aria-invalid:hover:border-alarm-500',
+        className,
+      )}
+      {...props}
     >
-      {children}
-    </div>
+      {children ?? <SelectValueText placeholder={placeholder} />}
+      <BaseSelect.Icon
+        render={
+          <span className="flex h-5 w-5 shrink-0 items-center justify-center text-grayscale-700">
+            <span className="block group-data-[popup-open]:hidden">
+              <ChevronDownIcon width={14} />
+            </span>
+            <span className="hidden group-data-[popup-open]:block">
+              <ChevronUpIcon width={14} />
+            </span>
+          </span>
+        }
+      />
+    </BaseSelect.Trigger>
   );
-};
+});
 
-export interface SearchInputProps {
-  placeholder: string;
-  onChange: (v: string) => void;
-}
-const SearchInput = ({ placeholder, onChange }: SearchInputProps) => {
-  const { open } = useSelectContext();
-  const prevOpen = useRef(open);
+export type SelectContentProps = ComponentPropsWithoutRef<
+  typeof BaseSelect.Popup
+> &
+  Pick<
+    ComponentPropsWithoutRef<typeof BaseSelect.Positioner>,
+    | 'align'
+    | 'alignOffset'
+    | 'side'
+    | 'sideOffset'
+    | 'alignItemWithTrigger'
+  >;
 
-  useEffect(() => {
-    // 選單從開啟變為關閉時，通知外部重置搜尋
-    if (prevOpen.current && !open) {
-      onChange('');
-    }
-    prevOpen.current = open;
-  }, [open, onChange]);
-
-  // 選單關閉時卸載元件，自動重置搜尋狀態
-  if (!open) return null;
-
+const SelectContent = forwardRef<
+  ElementRef<typeof BaseSelect.Popup>,
+  SelectContentProps
+>(function SelectContent(
+  {
+    align = 'start',
+    alignItemWithTrigger = false,
+    alignOffset,
+    children,
+    className,
+    side,
+    sideOffset = 4,
+    ...props
+  },
+  ref,
+) {
   return (
-    <div className="py-2 px-4">
-      <SearchBar placeholder={placeholder} onChange={onChange} />
-    </div>
+    <BaseSelect.Portal>
+      <BaseSelect.Positioner
+        align={align}
+        alignItemWithTrigger={alignItemWithTrigger}
+        alignOffset={alignOffset}
+        side={side}
+        sideOffset={sideOffset}
+        className="z-9999"
+      >
+        <BaseSelect.Popup
+          ref={ref}
+          data-slot="select-content"
+          data-align-trigger={alignItemWithTrigger}
+          className={cn(
+            'box-border max-h-75 w-[var(--anchor-width)] overflow-hidden rounded bg-white py-2 font-sans shadow-emphasis',
+            className,
+          )}
+          {...props}
+        >
+          <SelectScrollUpButton />
+          <BaseSelect.List
+            data-slot="select-list"
+            className="min-h-0 overflow-auto [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:bg-transparent"
+          >
+            {children}
+          </BaseSelect.List>
+          <SelectScrollDownButton />
+        </BaseSelect.Popup>
+      </BaseSelect.Positioner>
+    </BaseSelect.Portal>
   );
-};
+});
 
-export interface EmptyTextProps {
-  text: string;
-}
-const EmptyText = ({ text }: EmptyTextProps) => {
+export type SelectLabelProps = ComponentPropsWithoutRef<
+  typeof BaseSelect.GroupLabel
+>;
+
+const SelectLabel = forwardRef<
+  ElementRef<typeof BaseSelect.GroupLabel>,
+  SelectLabelProps
+>(function SelectLabel({ className, ...props }, ref) {
   return (
-    <div className="flex justify-center items-center py-6 text-[13px] text-grayscale-600">
-      {text}
-    </div>
+    <BaseSelect.GroupLabel
+      ref={ref}
+      data-slot="select-label"
+      className={cn(
+        'px-5 py-1.5 text-xs leading-4 font-medium text-grayscale-500 not-first-of-type:pt-4',
+        className,
+      )}
+      {...props}
+    />
   );
-};
+});
 
-const Separator = () => {
-  return <div className="bg-grayscale-300 h-px mx-4 my-2" />;
-};
+export type SelectItemProps = ComponentPropsWithoutRef<
+  typeof BaseSelect.Item
+>;
 
-Select.Trigger = Trigger;
-Select.Content = Content;
-Select.Header = Header;
-Select.Menu = Menu;
-Select.Item = Item;
-Select.Title = Title;
-Select.Separator = Separator;
-Select.SearchBar = SearchInput;
-Select.EmptyText = EmptyText;
+const SelectItem = forwardRef<
+  ElementRef<typeof BaseSelect.Item>,
+  SelectItemProps
+>(function SelectItem({ className, ...props }, ref) {
+  return (
+    <BaseSelect.Item
+      ref={ref}
+      data-slot="select-item"
+      className={cn(
+        'relative flex cursor-pointer items-center gap-2 px-5 py-1.5 pr-8 text-sm leading-5 font-normal text-grayscale-800 outline-none select-none',
+        'break-anywhere transition-colors duration-200',
+        'data-[highlighted]:bg-grayscale-100 data-[active]:bg-grayscale-200',
+        'data-[disabled]:pointer-events-none data-[disabled]:text-grayscale-500',
+        'data-[selected]:[&_[data-slot=select-item-check]]:text-primary-500',
+        '[&[data-selected]_[data-slot=select-item-checkbox]]:border-primary-500 [&[data-selected]_[data-slot=select-item-checkbox]]:bg-primary-500',
+        className,
+      )}
+      {...props}
+    />
+  );
+});
 
-Select.displayName = 'Select';
+export type SelectItemTextProps = ComponentPropsWithoutRef<
+  typeof BaseSelect.ItemText
+>;
+
+const SelectItemText = forwardRef<
+  ElementRef<typeof BaseSelect.ItemText>,
+  SelectItemTextProps
+>(function SelectItemText({ className, ...props }, ref) {
+  return (
+    <BaseSelect.ItemText
+      ref={ref}
+      data-slot="select-item-text"
+      className={cn('min-w-0 flex-1', className)}
+      {...props}
+    />
+  );
+});
+
+export type SelectItemCheckProps = ComponentPropsWithoutRef<
+  typeof BaseSelect.ItemIndicator
+>;
+
+const SelectItemCheck = forwardRef<
+  ElementRef<typeof BaseSelect.ItemIndicator>,
+  SelectItemCheckProps
+>(function SelectItemCheck({ children, className, ...props }, ref) {
+  return (
+    <BaseSelect.ItemIndicator
+      ref={ref}
+      data-slot="select-item-check"
+      className={cn(
+        'absolute right-5 grid h-4 w-4 place-content-center text-primary-500',
+        className,
+      )}
+      {...props}
+    >
+      {children ?? <CheckIcon width={12} height={9} />}
+    </BaseSelect.ItemIndicator>
+  );
+});
+
+export type SelectItemCheckboxProps =
+  ComponentPropsWithoutRef<'span'>;
+
+const SelectItemCheckbox = forwardRef<
+  HTMLSpanElement,
+  SelectItemCheckboxProps
+>(function SelectItemCheckbox(
+  { children, className, ...props },
+  ref,
+) {
+  return (
+    <span
+      ref={ref}
+      aria-hidden="true"
+      data-slot="select-item-checkbox"
+      data-testid="select-checkbox"
+      className={cn(
+        'grid h-4 w-4 shrink-0 place-content-center rounded-xs border border-grayscale-300 bg-white text-white',
+        'transition-colors duration-200',
+        className,
+      )}
+      {...props}
+    >
+      <BaseSelect.ItemIndicator data-slot="select-item-indicator">
+        {children ?? <CheckIcon width={10} height={8} />}
+      </BaseSelect.ItemIndicator>
+    </span>
+  );
+});
+
+export type SelectSeparatorProps = ComponentPropsWithoutRef<
+  typeof BaseSelect.Separator
+>;
+
+const SelectSeparator = forwardRef<
+  ElementRef<typeof BaseSelect.Separator>,
+  SelectSeparatorProps
+>(function SelectSeparator({ className, ...props }, ref) {
+  return (
+    <BaseSelect.Separator
+      ref={ref}
+      data-slot="select-separator"
+      className={cn(
+        'pointer-events-none mx-4 my-2 h-px bg-grayscale-300',
+        className,
+      )}
+      {...props}
+    />
+  );
+});
+
+export type SelectScrollUpButtonProps = ComponentPropsWithoutRef<
+  typeof BaseSelect.ScrollUpArrow
+>;
+
+const SelectScrollUpButton = forwardRef<
+  ElementRef<typeof BaseSelect.ScrollUpArrow>,
+  SelectScrollUpButtonProps
+>(function SelectScrollUpButton({ className, ...props }, ref) {
+  return (
+    <BaseSelect.ScrollUpArrow
+      ref={ref}
+      data-slot="select-scroll-up-button"
+      className={cn(
+        'top-0 flex w-full cursor-default items-center justify-center bg-white py-1 text-grayscale-700',
+        className,
+      )}
+      {...props}
+    >
+      <ChevronUpIcon width={14} />
+    </BaseSelect.ScrollUpArrow>
+  );
+});
+
+export type SelectScrollDownButtonProps = ComponentPropsWithoutRef<
+  typeof BaseSelect.ScrollDownArrow
+>;
+
+const SelectScrollDownButton = forwardRef<
+  ElementRef<typeof BaseSelect.ScrollDownArrow>,
+  SelectScrollDownButtonProps
+>(function SelectScrollDownButton({ className, ...props }, ref) {
+  return (
+    <BaseSelect.ScrollDownArrow
+      ref={ref}
+      data-slot="select-scroll-down-button"
+      className={cn(
+        'bottom-0 flex w-full cursor-default items-center justify-center bg-white py-1 text-grayscale-700',
+        className,
+      )}
+      {...props}
+    >
+      <ChevronDownIcon width={14} />
+    </BaseSelect.ScrollDownArrow>
+  );
+});
 
 export {
   Select,
-  Content as SelectContent,
-  EmptyText as SelectEmptyText,
-  Header as SelectHeader,
-  Item as SelectItem,
-  Menu as SelectMenu,
-  SearchInput as SelectSearchBar,
-  Separator as SelectSeparator,
-  Title as SelectTitle,
-  Trigger as SelectTrigger,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectItemCheck,
+  SelectItemCheckbox,
+  SelectItemText,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValueText as SelectValue,
 };
+
 export default Select;

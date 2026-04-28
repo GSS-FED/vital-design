@@ -357,51 +357,15 @@ export const ui = [
     ],
   },
   {
-    name: 'command',
-    type: 'registry:ui',
-    title: 'Command',
-    description:
-      'Composable command menu primitive with inline search, groups, and loading states',
-    dependencies: [
-      '@radix-ui/react-icons',
-      'cmdk',
-      'clsx',
-      'tailwind-merge',
-    ],
-    registryDependencies: [
-      '@vital-design/utils',
-      '@vital-design/vital-constants',
-      '@vital-design/icon-search',
-      '@vital-design/icon-spinner',
-      '@vital-design/vital-theme',
-    ],
-    files: [
-      {
-        path: 'src-v2/components/command/Command.tsx',
-        type: 'registry:ui',
-      },
-    ],
-  },
-  {
     name: 'select',
     type: 'registry:ui',
     title: 'Select',
-    description:
-      'Compound select component with single/multiple selection support',
-    dependencies: [
-      '@base-ui/react',
-      '@floating-ui/react',
-      'clsx',
-      'tailwind-merge',
-    ],
+    description: 'Single and multiple dropdown for flat option lists',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
+      '@vital-design/icon-check',
       '@vital-design/icon-chevron',
-      '@vital-design/icon-clear',
-      '@vital-design/checkbox',
-      '@vital-design/search-bar',
-      '@vital-design/tag',
-      '@vital-design/mask',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -412,22 +376,58 @@ export const ui = [
     ],
   },
   {
-    name: 'tree-select',
+    name: 'combobox',
     type: 'registry:ui',
-    title: 'Tree Select',
-    description:
-      'Hierarchical tree selection component with search and infinite loading',
-    dependencies: ['@radix-ui/react-icons', 'clsx', 'tailwind-merge'],
+    title: 'Combobox',
+    description: 'Searchable input picker with chip selection',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/vital-constants',
-      '@vital-design/icon-spinner',
-      '@vital-design/text-input',
+      '@vital-design/icon-check',
+      '@vital-design/icon-chevron',
+      '@vital-design/icon-clear',
+      '@vital-design/icon-close',
       '@vital-design/vital-theme',
     ],
     files: [
       {
-        path: 'src-v2/components/tree-select/TreeSelect.tsx',
+        path: 'src-v2/components/combobox/Combobox.tsx',
+        type: 'registry:ui',
+      },
+      {
+        path: 'src-v2/components/combobox/ComboboxTagsValue.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'cascader',
+    type: 'registry:ui',
+    title: 'Cascader',
+    description: 'Nested path picker for hierarchical option lists',
+    dependencies: [
+      '@base-ui/react',
+      '@radix-ui/react-icons',
+      'cmdk',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-constants',
+      '@vital-design/icon-chevron',
+      '@vital-design/icon-clear',
+      '@vital-design/icon-search',
+      '@vital-design/icon-spinner',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/cascader/Cascader.tsx',
+        type: 'registry:ui',
+      },
+      {
+        path: 'src-v2/components/command/Command.tsx',
         type: 'registry:ui',
       },
     ],

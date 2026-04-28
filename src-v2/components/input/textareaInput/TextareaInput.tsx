@@ -86,6 +86,4 @@ const TextAreaInput = forwardRef(function TextAreaInput(
   );
 });
 
-TextAreaInput.displayName = 'TextAreaInput';
-
 export default TextAreaInput;

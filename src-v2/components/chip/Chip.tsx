@@ -33,14 +33,9 @@ const chipVariants = cva(
           'hover:before:bg-grayscale-800/20',
         ],
       },
-      hasIcon: {
-        true: 'pl-3.5',
-        false: '',
-      },
     },
     defaultVariants: {
       selected: false,
-      hasIcon: false,
     },
   },
 );
@@ -51,8 +46,6 @@ export default function Chip(props: ChipProps) {
   const { children, selected, onChange, icon, className, style } =
     props;
 
-  const hasIcon = !!icon;
-
   return (
     <button
       type="button"
@@ -60,12 +53,19 @@ export default function Chip(props: ChipProps) {
         onChange?.(!selected);
       }}
       data-state={selected ? 'selected' : 'unselected'}
-      className={cn(chipVariants({ selected, hasIcon }), className)}
+      className={cn(
+        chipVariants({ selected }),
+        '[&:has(>[data-slot=chip-icon])]:pl-3.5',
+        className,
+      )}
       style={style}
     >
-      {hasIcon && <span className="flex items-center">{icon}</span>}
+      {icon && (
+        <span data-slot="chip-icon" className="flex items-center">
+          {icon}
+        </span>
+      )}
       <span className="flex items-center">{children}</span>
     </button>
   );
 }
-Chip.displayName = 'Chip';

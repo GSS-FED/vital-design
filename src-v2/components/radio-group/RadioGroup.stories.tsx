@@ -115,7 +115,6 @@ export const AllowCancel: Story = {
 };
 
 export const CompoundItems: Story = {
-  name: 'Compound Items',
   parameters: { controls: { disable: true } },
   render: function Render() {
     const [checkedValue, setCheckedValue] = useState('basic');

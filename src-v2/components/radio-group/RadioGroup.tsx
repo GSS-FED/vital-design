@@ -180,8 +180,5 @@ function RadioGroupItem(props: RadioGroupItemProps) {
   );
 }
 
-RadioGroup.displayName = 'RadioGroup';
-RadioGroupItem.displayName = 'RadioGroupItem';
-
 export { RadioGroup, RadioGroupItem };
 export default RadioGroup;

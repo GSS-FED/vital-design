@@ -11,8 +11,9 @@
 | SplitButton        | `@/components/button/split-button/SplitButton`              | 主操作 + 下拉選單   | 頁面標題、工具列          |
 | Avatar             | `@/components/avatar/Avatar`                                | 用戶身份展示        | 導覽列、資料卡            |
 | SearchBar          | `@/components/search-bar/SearchBar`                         | 文字搜尋輸入        | 導覽列、篩選區、工具列    |
-| Select             | `@/components/select/Select`                                | 下拉選項選擇        | 篩選區、表單              |
-| TreeSelect         | `@/components/tree-select/TreeSelect`                       | 樹狀下拉選擇        | 分類篩選、組織架構選擇    |
+| Select             | `@/components/select/Select`                                | 單選 / 多選下拉     | 篩選區、表單              |
+| Combobox           | `@/components/combobox/Combobox`                            | 可搜尋輸入選擇      | 大量選項搜尋              |
+| Cascader           | `@/components/cascader/Cascader`                            | 階層路徑選擇        | 分類篩選、組織架構選擇    |
 | Chip               | `@/components/chip/Chip`                                    | 篩選標籤、切換選項  | 已選篩選條件展示          |
 | Tag                | `@/components/tag/Tag`                                      | 狀態標籤、角色標籤  | 資料卡、清單項目          |
 | Switch             | `@/components/switch/Switch`                                | 布林設定切換        | 設定面板                  |
@@ -38,7 +39,7 @@
 ### 篩選區 / FilterBar / 搜尋篩選 / filter
 
 - **Layout**: `flex flex-wrap gap-2 items-center`
-- 必要: SearchBar + Select（一個或多個篩選維度）
+- 必要: SearchBar + Select / Combobox（一個或多個篩選維度）
 - 可選: Chip（已選條件展示）
 
 ### 頁面標題區 / PageHeader / 頁面頭部 / page header
@@ -50,7 +51,7 @@
 ### 表格工具列 / DataTableToolbar / 列表操作區 / table toolbar
 
 - **Layout**: `flex flex-wrap items-center justify-between gap-2 mb-4`
-- 左側: SearchBar + Select（篩選器）
+- 左側: SearchBar + Select / Combobox（篩選器）
 - 右側: Button（操作按鈕）
 
 ### 設定卡片 / SettingsCard / 設定列 / settings
@@ -86,7 +87,8 @@
 | Avatar             | `@vital-design/avatar`               |
 | SearchBar          | `@vital-design/search-bar`           |
 | Select             | `@vital-design/select`               |
-| TreeSelect         | `@vital-design/tree-select`          |
+| Combobox           | `@vital-design/combobox`             |
+| Cascader           | `@vital-design/cascader`             |
 | Chip               | `@vital-design/chip`                 |
 | Tag                | `@vital-design/tag`                  |
 | Switch             | `@vital-design/switch`               |

@@ -118,7 +118,10 @@ export type CommandListProps = ComponentPropsWithoutRef<
 const CommandList = forwardRef<
   ElementRef<typeof CommandPrimitive.List>,
   CommandListProps
->(function CommandList({ className, height, style, ...props }, ref) {
+>(function CommandList(
+  { className, height, onScroll, style, ...props },
+  ref,
+) {
   const localRef = useRef<ElementRef<
     typeof CommandPrimitive.List
   > | null>(null);
@@ -176,7 +179,10 @@ const CommandList = forwardRef<
         localRef.current = node;
         assignRef(ref, node);
       }}
-      onScroll={syncScrollInfo}
+      onScroll={(event) => {
+        syncScrollInfo();
+        onScroll?.(event);
+      }}
       className={cn(
         'min-h-0 overflow-auto pb-1',
         '[&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:bg-transparent',
@@ -370,33 +376,7 @@ const CommandBackButton = forwardRef<
   );
 });
 
-CommandRoot.displayName = 'Command';
-CommandInput.displayName = 'CommandInput';
-CommandList.displayName = 'CommandList';
-CommandEmpty.displayName = 'CommandEmpty';
-CommandGroup.displayName = 'CommandGroup';
-CommandSeparator.displayName = 'CommandSeparator';
-CommandItem.displayName = 'CommandItem';
-CommandShortcut.displayName = 'CommandShortcut';
-CommandLoading.displayName = 'CommandLoading';
-CommandHeader.displayName = 'CommandHeader';
-CommandBackButton.displayName = 'CommandBackButton';
-
-const Command = Object.assign(CommandRoot, {
-  Input: CommandInput,
-  List: CommandList,
-  Empty: CommandEmpty,
-  Group: CommandGroup,
-  Separator: CommandSeparator,
-  Item: CommandItem,
-  Shortcut: CommandShortcut,
-  Loading: CommandLoading,
-  Header: CommandHeader,
-  BackButton: CommandBackButton,
-});
-
 export {
-  Command,
   CommandBackButton,
   CommandEmpty,
   CommandGroup,
@@ -405,8 +385,10 @@ export {
   CommandItem,
   CommandList,
   CommandLoading,
+  CommandRoot,
+  CommandRoot as Command,
   CommandSeparator,
   CommandShortcut,
 };
 
-export default Command;
+export default CommandRoot;
