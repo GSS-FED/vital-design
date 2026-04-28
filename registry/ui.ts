@@ -24,10 +24,6 @@ export const ui = [
         path: 'src-v2/components/avatar/Avatar.tsx',
         type: 'registry:ui',
       },
-      {
-        path: 'src-v2/components/avatar/AvatarConstants.ts',
-        type: 'registry:lib',
-      },
     ],
   },
   {

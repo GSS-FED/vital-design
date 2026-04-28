@@ -4,7 +4,12 @@ description: Display a user's profile picture with fallback to initials or a def
 ---
 
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import { Avatar } from '~/components/vital-components';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  AvatarRoot,
+} from '~/components/vital-components';
 
 ## Preview
 
@@ -44,18 +49,41 @@ import { Avatar } from '@/components/ui/Avatar';
 ## Color Variants
 
 <ComponentPreview>
-  <Avatar name="TI" color="tiffany" size="md" />
-  <Avatar name="GR" color="green" size="md" />
-  <Avatar name="OR" color="orange" size="md" />
-  <Avatar name="PK" color="pink" size="md" />
-  <Avatar name="BL" color="blue" size="md" />
-  <Avatar name="SK" color="sky" size="md" />
-  <Avatar name="PU" color="purple" size="md" />
-  <Avatar name="LG" color="light-gold" size="md" />
-  <Avatar name="SA" color="salmon" size="md" />
-  <Avatar name="IC" color="ice" size="md" />
-  <Avatar name="LV" color="lavender" size="md" />
+  <Avatar fallback="TI" color="tiffany" size="md" />
+  <Avatar fallback="GR" color="green" size="md" />
+  <Avatar fallback="OR" color="orange" size="md" />
+  <Avatar fallback="PK" color="pink" size="md" />
+  <Avatar fallback="BL" color="blue" size="md" />
+  <Avatar fallback="SK" color="sky" size="md" />
+  <Avatar fallback="PU" color="purple" size="md" />
+  <Avatar fallback="LG" color="light-gold" size="md" />
+  <Avatar fallback="SA" color="salmon" size="md" />
+  <Avatar fallback="IC" color="ice" size="md" />
+  <Avatar fallback="LV" color="lavender" size="md" />
 </ComponentPreview>
+
+## Compound Parts
+
+<ComponentPreview>
+  <AvatarRoot color="blue" size="lg">
+    <AvatarImage
+      src="https://i.pravatar.cc/150?img=1"
+      alt="Arthur Lu"
+    />
+    <AvatarFallback color="blue">AL</AvatarFallback>
+  </AvatarRoot>
+  <AvatarRoot color="tiffany" size="lg">
+    <AvatarImage src="broken-url" alt="Sean Chen" />
+    <AvatarFallback color="tiffany">SC</AvatarFallback>
+  </AvatarRoot>
+</ComponentPreview>
+
+```tsx
+<AvatarRoot color="blue" size="lg">
+  <AvatarImage src="https://example.com/photo.jpg" alt="Arthur Lu" />
+  <AvatarFallback color="blue">AL</AvatarFallback>
+</AvatarRoot>
+```
 
 ## With Image
 
@@ -115,3 +143,4 @@ When `src` is provided, the image is displayed. Falls back to initials from `nam
 | `onClick`               | `(event: MouseEvent) => void`                                                                                                               | —           | Click handler                                   |
 | `onLoadingStatusChange` | `(status: 'idle' \| 'loading' \| 'loaded' \| 'error') => void`                                                                              | —           | Image load status callback                      |
 | `style`                 | `CSSProperties`                                                                                                                             | —           | Inline styles                                   |
+| `className`             | `string`                                                                                                                                    | —           | Root element class name                         |

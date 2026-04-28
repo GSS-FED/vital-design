@@ -1,6 +1,11 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { type ReactNode } from 'react';
-import { Avatar } from './Avatar';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  AvatarRoot,
+} from './Avatar';
 
 function Container({ children }: { children: ReactNode }) {
   return <div className="flex flex-wrap gap-5">{children}</div>;
@@ -49,7 +54,21 @@ const meta: Meta<typeof Avatar> = {
       control: { type: 'text' },
     },
     color: {
-      control: { type: 'color' },
+      options: [
+        'default',
+        'tiffany',
+        'green',
+        'orange',
+        'pink',
+        'blue',
+        'sky',
+        'purple',
+        'light-gold',
+        'salmon',
+        'ice',
+        'lavender',
+      ],
+      control: { type: 'select' },
     },
     bordered: {
       control: { type: 'boolean' },
@@ -141,6 +160,24 @@ export const Fallback: Story = {
       },
     },
   },
+};
+
+export const Compound: Story = {
+  render: () => (
+    <Col>
+      <AvatarRoot color="blue" size="lg">
+        <AvatarImage
+          src="https://i.pravatar.cc/150?img=1"
+          alt="Arthur Lu"
+        />
+        <AvatarFallback color="blue">AL</AvatarFallback>
+      </AvatarRoot>
+      <AvatarRoot color="tiffany" size="lg">
+        <AvatarImage src="broken-url" alt="Sean Chen" />
+        <AvatarFallback color="tiffany">SC</AvatarFallback>
+      </AvatarRoot>
+    </Col>
+  ),
 };
 
 export const OnLoadingStatusChange: Story = {

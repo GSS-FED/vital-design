@@ -3,64 +3,31 @@ import { UserIcon } from '@/icons/UserIcon';
 import { cn } from '@/utils/cn';
 import { Avatar as BaseAvatar } from '@base-ui/react/avatar';
 import { type VariantProps, cva } from 'class-variance-authority';
-import { type ReactNode } from 'react';
-import type React from 'react';
+import { forwardRef } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ComponentRef,
+  ReactNode,
+} from 'react';
 
-type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-export type Color =
-  | 'default'
-  | 'tiffany'
-  | 'green'
-  | 'orange'
-  | 'pink'
-  | 'blue'
-  | 'sky'
-  | 'purple'
-  | 'light-gold'
-  | 'salmon'
-  | 'ice'
-  | 'lavender';
-
-export type AvatarProps = {
-  name?: string;
-  alt?: string;
-  color?: Color;
-  bordered?: boolean;
-  disabled?: boolean;
-  size?: AvatarSize;
-  src?: string;
-  style?: React.CSSProperties;
-  fallback?: ReactNode;
-  onClick?: (event: React.MouseEvent) => void;
-  onLoadingStatusChange?: (
-    status: 'idle' | 'loading' | 'loaded' | 'error',
-  ) => void;
-};
-
-const SIZE = {
-  xs: 24,
-  sm: 32,
-  md: 40,
-  lg: 48,
-  xl: 60,
-};
+export type AvatarSize = AvatarVariants['size'];
+export type Color = AvatarVariants['color'];
 
 const avatarVariants = cva(
-  // Base classes
   [
-    'inline-flex justify-center items-center relative',
+    'relative inline-flex items-center justify-center',
     'aspect-square rounded-full overflow-hidden',
-    'font-sans box-border',
+    'font-sans box-border p-0 align-middle',
     '[&_img]:w-full [&_img]:h-full [&_img]:object-cover',
   ],
   {
     variants: {
       size: {
-        xs: 'w-6 text-xs',
-        sm: 'w-8 text-base',
-        md: 'w-10 text-xl',
-        lg: 'w-12 text-2xl',
-        xl: 'w-[60px] text-[32px]',
+        xs: 'w-6 text-xs [&_[data-slot=avatar-placeholder-icon]]:size-2.5',
+        sm: 'w-8 text-base [&_[data-slot=avatar-placeholder-icon]]:size-3',
+        md: 'w-10 text-xl [&_[data-slot=avatar-placeholder-icon]]:size-4',
+        lg: 'w-12 text-2xl [&_[data-slot=avatar-placeholder-icon]]:size-4.5',
+        xl: 'w-[60px] text-[32px] [&_[data-slot=avatar-placeholder-icon]]:size-6',
       },
       color: {
         default: 'bg-grayscale-100',
@@ -80,9 +47,16 @@ const avatarVariants = cva(
         true: 'border',
         false: 'border border-transparent',
       },
+      disabled: {
+        true: 'cursor-not-allowed',
+        false: '',
+      },
+      clickable: {
+        true: 'cursor-pointer focus-visible:outline-none focus-visible:shadow-focus-primary',
+        false: '',
+      },
     },
     compoundVariants: [
-      // Border colors when bordered
       {
         color: 'default',
         bordered: true,
@@ -148,13 +122,14 @@ const avatarVariants = cva(
       size: 'md',
       color: 'default',
       bordered: true,
+      disabled: false,
+      clickable: false,
     },
   },
 );
 
-// CVA for fallback text colors
 const fallbackVariants = cva(
-  'inline-flex justify-center items-center',
+  'inline-flex items-center justify-center',
   {
     variants: {
       color: {
@@ -179,71 +154,176 @@ const fallbackVariants = cva(
 export type AvatarVariants = VariantProps<typeof avatarVariants>;
 export type FallbackVariants = VariantProps<typeof fallbackVariants>;
 
-export function Avatar(props: AvatarProps) {
+type BaseAvatarRootProps = Omit<
+  ComponentPropsWithoutRef<typeof BaseAvatar.Root>,
+  'children' | 'className' | 'color'
+>;
+
+export type AvatarRootProps = BaseAvatarRootProps & {
+  children?: ReactNode;
+  className?: string;
+  color?: Color;
+  bordered?: boolean;
+  disabled?: boolean;
+  size?: AvatarSize;
+};
+
+export type AvatarImageProps = Omit<
+  ComponentPropsWithoutRef<typeof BaseAvatar.Image>,
+  'className'
+> & {
+  className?: string;
+};
+
+export type AvatarFallbackProps = Omit<
+  ComponentPropsWithoutRef<typeof BaseAvatar.Fallback>,
+  'className' | 'color'
+> & {
+  className?: string;
+  color?: Color;
+};
+
+export type AvatarProps = Omit<AvatarRootProps, 'children'> & {
+  name?: string;
+  alt?: string;
+  src?: string;
+  fallback?: ReactNode;
+  onLoadingStatusChange?: AvatarImageProps['onLoadingStatusChange'];
+};
+
+const AvatarRoot = forwardRef<
+  ComponentRef<typeof BaseAvatar.Root>,
+  AvatarRootProps
+>(function AvatarRoot(props, ref) {
   const {
-    name,
-    alt = 'Avatar',
+    children,
+    className,
     color = 'default',
     bordered = true,
     disabled = false,
     size = 'md',
-    src,
-    style,
-    fallback,
     onClick,
-    onLoadingStatusChange,
+    render,
+    ...rootProps
   } = props;
-
-  const fallbackNameFormater = (name: AvatarProps['name']) => {
-    const splitName = name
-      ?.split(' ')
-      .map((value) => value.toUpperCase());
-    const sliceName = splitName?.slice(0, 2);
-    const formedName = sliceName?.reduce(
-      (acc, current) => acc + current[0],
-      '',
-    );
-    return formedName;
-  };
-
-  const iconSize =
-    Math.round(SIZE[size] * 0.4) - (Math.round(SIZE[size] * 0.4) % 2);
+  const isClickable = Boolean(onClick) && !disabled;
 
   return (
     <BaseAvatar.Root
-      style={style}
-      onClick={(event) => onClick?.(event)}
-      className={cn(avatarVariants({ size, color, bordered }))}
+      {...rootProps}
+      ref={ref}
+      data-slot="avatar"
+      data-size={size}
+      data-disabled={disabled ? '' : undefined}
+      aria-disabled={disabled || undefined}
+      onClick={disabled ? undefined : onClick}
+      render={
+        render ?? (isClickable ? <button type="button" /> : undefined)
+      }
+      className={cn(
+        avatarVariants({
+          size,
+          color,
+          bordered,
+          disabled,
+          clickable: isClickable,
+        }),
+        className,
+      )}
     >
-      <BaseAvatar.Image
+      {children}
+    </BaseAvatar.Root>
+  );
+});
+
+const AvatarImage = forwardRef<
+  ComponentRef<typeof BaseAvatar.Image>,
+  AvatarImageProps
+>(function AvatarImage(props, ref) {
+  const { className, ...imageProps } = props;
+
+  return (
+    <BaseAvatar.Image
+      {...imageProps}
+      ref={ref}
+      data-slot="avatar-image"
+      className={cn('h-full w-full object-cover', className)}
+    />
+  );
+});
+
+const AvatarFallback = forwardRef<
+  ComponentRef<typeof BaseAvatar.Fallback>,
+  AvatarFallbackProps
+>(function AvatarFallback(props, ref) {
+  const { className, color = 'default', ...fallbackProps } = props;
+
+  return (
+    <BaseAvatar.Fallback
+      {...fallbackProps}
+      ref={ref}
+      data-slot="avatar-fallback"
+      className={cn(fallbackVariants({ color }), className)}
+    />
+  );
+});
+
+function getInitials(name: string | undefined) {
+  return name
+    ?.trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => word.charAt(0).toUpperCase())
+    .join('');
+}
+
+function Avatar(props: AvatarProps) {
+  const {
+    name,
+    alt = 'Avatar',
+    color = 'default',
+    disabled = false,
+    size = 'md',
+    src,
+    fallback,
+    onLoadingStatusChange,
+    ...rootProps
+  } = props;
+  const initials = getInitials(name);
+
+  return (
+    <AvatarRoot
+      {...rootProps}
+      color={color}
+      disabled={disabled}
+      size={size}
+    >
+      <AvatarImage
         src={src}
         alt={alt}
         onLoadingStatusChange={onLoadingStatusChange}
-        className="w-full h-full object-cover"
       />
-      <BaseAvatar.Fallback
-        delay={300}
-        className={fallbackVariants({ color })}
-      >
-        {fallback ? (
-          fallback
-        ) : name ? (
-          fallbackNameFormater(name)
-        ) : (
-          <UserIcon width={iconSize} />
+      <AvatarFallback color={color} delay={300}>
+        {fallback ?? initials ?? (
+          <UserIcon data-slot="avatar-placeholder-icon" />
         )}
-      </BaseAvatar.Fallback>
+      </AvatarFallback>
       {disabled && (
-        <div
+        <span
+          data-slot="avatar-disabled-overlay"
+          aria-hidden="true"
           className={cn(
-            'inline-flex justify-center items-center absolute inset-0 text-white',
-            'before:content-[""] before:absolute before:inset-0 before:bg-grayscale-500',
+            'pointer-events-none absolute inset-0 inline-flex items-center justify-center text-white',
+            'before:absolute before:inset-0 before:bg-grayscale-500 before:content-[""]',
             '[&_svg]:absolute [&_svg]:inset-1/2 [&_svg]:w-3/4 [&_svg]:-translate-x-1/2 [&_svg]:-translate-y-1/2',
           )}
         >
           <DisabledIcon />
-        </div>
+        </span>
       )}
-    </BaseAvatar.Root>
+    </AvatarRoot>
   );
 }
+
+export { Avatar, AvatarFallback, AvatarImage, AvatarRoot };

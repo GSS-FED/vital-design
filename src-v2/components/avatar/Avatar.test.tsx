@@ -1,57 +1,69 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
-import { Avatar } from './Avatar';
 
-// Mock Base UI Avatar components (Root/Image/Fallback)
+/* eslint-disable react/prop-types */
+import { fireEvent, render, screen } from '@testing-library/react';
+import * as React from 'react';
+import { describe, expect, it, vi } from 'vitest';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  AvatarRoot,
+} from './Avatar';
+
+type LoadingStatus = 'idle' | 'loading' | 'loaded' | 'error';
+
 vi.mock('@base-ui/react/avatar', () => ({
   Avatar: {
     Root: ({
       children,
+      render: renderProp,
       ...props
-    }: React.HTMLAttributes<HTMLDivElement> & {
+    }: React.HTMLAttributes<HTMLElement> & {
       children?: React.ReactNode;
-    }) => <div {...props}>{children}</div>,
+      render?: React.ReactElement;
+    }) => {
+      if (React.isValidElement(renderProp)) {
+        return React.cloneElement(renderProp, props, children);
+      }
+
+      return <span {...props}>{children}</span>;
+    },
     Image: ({
       src,
       alt,
       onLoadingStatusChange,
       ...props
     }: React.ImgHTMLAttributes<HTMLImageElement> & {
-      onLoadingStatusChange?: (
-        status: 'idle' | 'loading' | 'loaded' | 'error',
-      ) => void;
+      onLoadingStatusChange?: (status: LoadingStatus) => void;
     }) => {
       onLoadingStatusChange?.('loaded');
       return <img src={src} alt={alt} {...props} />;
     },
     Fallback: ({
       children,
-    }: {
+      ...props
+    }: React.HTMLAttributes<HTMLSpanElement> & {
       children?: React.ReactNode;
       delay?: number;
-    }) => <div>{children}</div>,
+    }) => <span {...props}>{children}</span>,
   },
 }));
 
 describe('Avatar', () => {
-  it('should render default Avatar', () => {
+  it('renders the unified Avatar with default image alt text', () => {
     render(<Avatar />);
-    const avatarImage = screen.getByRole('img', { name: 'Avatar' });
-    expect(avatarImage).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('img', { name: 'Avatar' }),
+    ).toBeInTheDocument();
   });
 
-  it('should use custom alt text', () => {
-    render(<Avatar alt="自定義頭像" />);
-    const avatarImage = screen.getByRole('img', {
-      name: '自定義頭像',
-    });
-    expect(avatarImage).toBeInTheDocument();
-  });
-
-  it('should use custom image source', () => {
+  it('uses custom alt text and image source', () => {
     const customSrc = 'https://example.com/custom-avatar.jpg';
+
     render(<Avatar src={customSrc} alt="自定義頭像" />);
+
     const avatarImage = screen.getByRole('img', {
       name: '自定義頭像',
     });
@@ -59,134 +71,139 @@ describe('Avatar', () => {
     expect(avatarImage).toHaveAttribute('src', customSrc);
   });
 
-  it('should apply custom styles', () => {
-    const customStyle = { border: '2px solid red' };
-    render(<Avatar style={customStyle} />);
-    const avatarImage = screen.getByRole('img', { name: 'Avatar' });
-    expect(avatarImage).toBeInTheDocument();
+  it('passes className, style, and data attributes to the root', () => {
+    render(
+      <Avatar
+        data-testid="avatar"
+        className="custom-avatar"
+        style={{ border: '2px solid red' }}
+      />,
+    );
+
+    const root = screen.getByTestId('avatar');
+    expect(root).toHaveAttribute('data-slot', 'avatar');
+    expect(root).toHaveClass('custom-avatar');
+    expect(root).toHaveStyle({ border: '2px solid red' });
   });
 
-  it('should call onClick when avatar is clicked', () => {
+  it('renders a button root and calls onClick when clickable', () => {
     const handleClick = vi.fn();
-    render(<Avatar onClick={handleClick} />);
-    const avatarImage = screen.getByRole('img', { name: 'Avatar' });
-    fireEvent.click(avatarImage);
+
+    render(<Avatar data-testid="avatar" onClick={handleClick} />);
+
+    const root = screen.getByTestId('avatar');
+    expect(root.tagName).toBe('BUTTON');
+
+    fireEvent.click(root);
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
-  describe('Disabled state', () => {
-    it('should display disabled icon when disabled', () => {
-      const { container } = render(<Avatar disabled />);
-      // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-      const disabledSvg = container.querySelector(
-        'svg[viewBox="0 0 42 42"]',
-      );
-      expect(disabledSvg).toBeInTheDocument();
-    });
+  it('suppresses onClick when disabled', () => {
+    const handleClick = vi.fn();
 
-    it('should not display disabled icon when not disabled', () => {
-      const { container } = render(<Avatar disabled={false} />);
-      // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-      const disabledSvg = container.querySelector(
-        'svg[viewBox="0 0 42 42"]',
-      );
-      expect(disabledSvg).not.toBeInTheDocument();
-    });
+    render(
+      <Avatar data-testid="avatar" disabled onClick={handleClick} />,
+    );
+
+    const root = screen.getByTestId('avatar');
+    fireEvent.click(root);
+
+    expect(handleClick).not.toHaveBeenCalled();
+    expect(root).toHaveAttribute('aria-disabled', 'true');
   });
 
-  describe('Fallback rendering', () => {
-    it('should render custom fallback node when provided', () => {
-      render(
-        <Avatar
-          fallback={<span data-testid="custom-fallback">FB</span>}
-        />,
-      );
-      const fb = screen.getByTestId('custom-fallback');
-      expect(fb).toBeInTheDocument();
-    });
+  it('renders the disabled overlay when disabled', () => {
+    const { container } = render(<Avatar disabled />);
 
-    it('should render name as fallback when provided and no custom fallback', () => {
-      render(<Avatar name="A B" alt="頭像" />);
-      expect(screen.getByText('AB')).toBeInTheDocument();
-    });
-
-    it('should render first letter when name is single word', () => {
-      render(<Avatar name="John" alt="頭像" />);
-      expect(screen.getByText('J')).toBeInTheDocument();
-    });
-
-    it('should format name correctly for multiple words', () => {
-      render(<Avatar name="John Doe" alt="頭像" />);
-      expect(screen.getByText('JD')).toBeInTheDocument();
-    });
-
-    it('should format name correctly for three or more words', () => {
-      render(<Avatar name="John Doe Smith" alt="頭像" />);
-      expect(screen.getByText('JD')).toBeInTheDocument();
-    });
-
-    it('should render UserIcon when no name or custom fallback', () => {
-      const { container } = render(<Avatar alt="avatar" />);
+    expect(
       // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-      const userIcon = container.querySelector(
-        'svg[viewBox="0 0 448 512"]',
-      );
-      expect(userIcon).toBeInTheDocument();
-    });
+      container.querySelector(
+        '[data-slot="avatar-disabled-overlay"]',
+      ),
+    ).toBeInTheDocument();
   });
 
-  describe('Loading status callback', () => {
-    it('should call onLoadingStatusChange when image status changes', () => {
-      const handleStatus = vi.fn();
-      render(<Avatar onLoadingStatusChange={handleStatus} />);
-      expect(handleStatus).toHaveBeenCalledWith('loaded');
-    });
+  it('does not render the disabled overlay when enabled', () => {
+    const { container } = render(<Avatar disabled={false} />);
+
+    expect(
+      // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+      container.querySelector(
+        '[data-slot="avatar-disabled-overlay"]',
+      ),
+    ).not.toBeInTheDocument();
   });
 
-  describe('Combination tests', () => {
-    it('should support custom image and disabled state together', () => {
-      const customSrc = 'https://example.com/custom-avatar.jpg';
-      const { container } = render(
-        <Avatar
-          src={customSrc}
-          alt="自定義頭像"
-          disabled
-          size="lg"
-        />,
-      );
+  it('renders custom fallback node when provided', () => {
+    render(
+      <Avatar
+        fallback={<span data-testid="custom-fallback">FB</span>}
+      />,
+    );
 
-      // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-      const disabledSvg = container.querySelector(
-        'svg[viewBox="0 0 42 42"]',
-      );
-      expect(disabledSvg).toBeInTheDocument();
-
-      const avatarImage = screen.getByRole('img', {
-        name: '自定義頭像',
-      });
-      expect(avatarImage).toBeInTheDocument();
-      expect(avatarImage).toHaveAttribute('src', customSrc);
-    });
+    expect(screen.getByTestId('custom-fallback')).toBeInTheDocument();
   });
 
-  describe('Accessibility', () => {
-    it('should render Avatar component', () => {
-      render(<Avatar alt="使用者頭像" />);
-      const avatarImage = screen.getByRole('img', {
-        name: '使用者頭像',
-      });
-      expect(avatarImage).toBeInTheDocument();
-    });
+  it('renders initials from the first two name words', () => {
+    render(<Avatar name="John Doe Smith" alt="頭像" />);
 
-    it('should render disabled icon when disabled', () => {
-      const { container } = render(
-        <Avatar disabled alt="已禁用的頭像" />,
-      );
-      // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-      const disabledSvg = container.querySelector(
-        'svg[viewBox="0 0 42 42"]',
-      );
-      expect(disabledSvg).toBeInTheDocument();
-    });
+    expect(screen.getByText('JD')).toBeInTheDocument();
+  });
+
+  it('trims extra spaces when building initials', () => {
+    render(<Avatar name="  John   Doe  " alt="頭像" />);
+
+    expect(screen.getByText('JD')).toBeInTheDocument();
+  });
+
+  it('renders one initial for a single word name', () => {
+    render(<Avatar name="John" alt="頭像" />);
+
+    expect(screen.getByText('J')).toBeInTheDocument();
+  });
+
+  it('renders UserIcon when no name or custom fallback is provided', () => {
+    render(<Avatar alt="avatar" />);
+
+    expect(screen.getByTestId('flag-icon')).toHaveAttribute(
+      'data-slot',
+      'avatar-placeholder-icon',
+    );
+  });
+
+  it('calls onLoadingStatusChange when image status changes', () => {
+    const handleStatus = vi.fn();
+
+    render(<Avatar onLoadingStatusChange={handleStatus} />);
+
+    expect(handleStatus).toHaveBeenCalledWith('loaded');
+  });
+
+  it('exports AvatarRoot, AvatarImage, and AvatarFallback as parts', () => {
+    render(
+      <AvatarRoot data-testid="avatar-root" color="blue" size="lg">
+        <AvatarImage
+          src="https://example.com/a.jpg"
+          alt="Arthur Lu"
+        />
+        <AvatarFallback color="blue">AL</AvatarFallback>
+      </AvatarRoot>,
+    );
+
+    expect(screen.getByTestId('avatar-root')).toHaveAttribute(
+      'data-slot',
+      'avatar',
+    );
+    expect(screen.getByTestId('avatar-root')).toHaveAttribute(
+      'data-size',
+      'lg',
+    );
+    expect(
+      screen.getByRole('img', { name: 'Arthur Lu' }),
+    ).toHaveAttribute('data-slot', 'avatar-image');
+    expect(screen.getByText('AL')).toHaveAttribute(
+      'data-slot',
+      'avatar-fallback',
+    );
   });
 });

@@ -10,7 +10,12 @@ export {
   ButtonGroupSeparator,
   ButtonGroupText,
 } from '../../../src-v2/components/button/button-group/ButtonGroup';
-export { Avatar } from '../../../src-v2/components/avatar/Avatar';
+export {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  AvatarRoot,
+} from '../../../src-v2/components/avatar/Avatar';
 export { Chip } from '../../../src-v2/components/chip/Chip';
 export { TextInput } from '../../../src-v2/components/input/textInput/TextInput';
 export {
