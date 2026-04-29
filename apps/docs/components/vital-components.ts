@@ -61,6 +61,22 @@ export {
   PopoverTrigger,
 } from '../../../src-v2/components/popover/Popover';
 export {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from '../../../src-v2/components/dropdown-menu/DropdownMenu';
+export {
   Dialog,
   DialogBackdrop,
   DialogBody,

@@ -515,6 +515,30 @@ export const ui = [
     ],
   },
   {
+    name: 'dropdown-menu',
+    type: 'registry:ui',
+    title: 'Dropdown Menu',
+    description:
+      'Action menu with checkbox items, radio items, and submenus',
+    dependencies: [
+      '@base-ui/react',
+      '@radix-ui/react-icons',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-check',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/dropdown-menu/DropdownMenu.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
     name: 'dialog',
     type: 'registry:ui',
     title: 'Dialog',
