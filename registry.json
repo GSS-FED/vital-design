@@ -987,6 +987,27 @@
       ]
     },
     {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "Floating panel anchored to a trigger; for tooltips with rich content, profile cards, and contextual overlays",
+      "dependencies": [
+        "@base-ui/react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/popover/Popover.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "dialog",
       "type": "registry:ui",
       "title": "Dialog",

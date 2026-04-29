@@ -51,6 +51,16 @@ export {
   CommandShortcut,
 } from '../../../src-v2/components/command/Command';
 export {
+  Popover,
+  PopoverArrow,
+  PopoverClose,
+  PopoverContent,
+  PopoverDescription,
+  PopoverPortal,
+  PopoverTitle,
+  PopoverTrigger,
+} from '../../../src-v2/components/popover/Popover';
+export {
   Dialog,
   DialogBackdrop,
   DialogBody,
