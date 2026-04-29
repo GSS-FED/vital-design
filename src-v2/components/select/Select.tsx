@@ -37,7 +37,7 @@ export type SelectValueProps = ComponentPropsWithoutRef<
   typeof BaseSelect.Value
 >;
 
-const SelectValueText = forwardRef<
+const SelectValue = forwardRef<
   ElementRef<typeof BaseSelect.Value>,
   SelectValueProps
 >(function SelectValue({ className, ...props }, ref) {
@@ -82,7 +82,7 @@ const SelectTrigger = forwardRef<
       )}
       {...props}
     >
-      {children ?? <SelectValueText placeholder={placeholder} />}
+      {children ?? <SelectValue placeholder={placeholder} />}
       <BaseSelect.Icon
         render={
           <span className="flex h-5 w-5 shrink-0 items-center justify-center text-grayscale-700">
@@ -359,5 +359,5 @@ export {
   SelectScrollUpButton,
   SelectSeparator,
   SelectTrigger,
-  SelectValueText as SelectValue,
+  SelectValue,
 };

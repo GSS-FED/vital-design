@@ -12,6 +12,24 @@ const meta: Meta<typeof SplitButton> = {
     theme: 'primary',
     children: 'Button',
   },
+  argTypes: {
+    theme: {
+      control: 'select',
+      options: [
+        'primary',
+        'default',
+        'success',
+        'info',
+        'warning',
+        'alarm',
+        'dangerous',
+      ],
+    },
+    size: {
+      control: 'inline-radio',
+      options: ['medium', 'large'],
+    },
+  },
 };
 
 export default meta;
@@ -39,5 +57,34 @@ export const FocusableWhenDisabled: Story = {
     >
       Tab to me
     </SplitButton>
+  ),
+};
+
+export const Themes: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div className="flex flex-wrap items-center gap-3">
+      <SplitButton open={false} theme="primary">
+        Primary
+      </SplitButton>
+      <SplitButton open={false} theme="default">
+        Default
+      </SplitButton>
+      <SplitButton open={false} theme="success">
+        Success
+      </SplitButton>
+      <SplitButton open={false} theme="info">
+        Info
+      </SplitButton>
+      <SplitButton open={false} theme="warning">
+        Warning
+      </SplitButton>
+      <SplitButton open={false} theme="alarm">
+        Alarm
+      </SplitButton>
+      <SplitButton open={false} theme="dangerous">
+        Dangerous
+      </SplitButton>
+    </div>
   ),
 };

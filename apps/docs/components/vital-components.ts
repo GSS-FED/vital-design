@@ -23,7 +23,7 @@ export {
   AvatarRoot,
 } from '../../../src-v2/components/avatar/Avatar';
 export { Chip } from '../../../src-v2/components/chip/Chip';
-export { TextInput } from '../../../src-v2/components/input/textInput/TextInput';
+export { TextInput } from '../../../src-v2/components/input/text-input/TextInput';
 export {
   InputGroup,
   InputGroupAddon,
@@ -32,11 +32,24 @@ export {
   InputGroupText,
   InputGroupTextarea,
 } from '../../../src-v2/components/input/input-group/InputGroup';
-export { PasswordInput } from '../../../src-v2/components/input/passwordInput/PasswordInput';
-export { TextAreaInput as TextareaInput } from '../../../src-v2/components/input/textareaInput/TextareaInput';
+export { PasswordInput } from '../../../src-v2/components/input/password-input/PasswordInput';
+export { TextareaInput } from '../../../src-v2/components/input/textarea-input/TextareaInput';
 export { Select } from '../../../src-v2/components/select/Select';
 export { Combobox } from '../../../src-v2/components/combobox/Combobox';
 export { Cascader } from '../../../src-v2/components/cascader/Cascader';
+export {
+  Command,
+  CommandBackButton,
+  CommandEmpty,
+  CommandGroup,
+  CommandHeader,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandLoading,
+  CommandSeparator,
+  CommandShortcut,
+} from '../../../src-v2/components/command/Command';
 export {
   Dialog,
   DialogBackdrop,

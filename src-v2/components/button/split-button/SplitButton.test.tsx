@@ -68,7 +68,7 @@ describe('Basic Functionality', () => {
     const buttons = screen.getAllByRole('button');
 
     expect(buttons[0]).toHaveAttribute('data-size', 'large');
-    expect(buttons[1]).toHaveAttribute('data-size', 'large');
+    expect(buttons[1]).toHaveAttribute('data-size', 'icon-large');
   });
 
   it('is disabled when disabled prop is true', () => {
@@ -171,35 +171,56 @@ describe('focusableWhenDisabled', () => {
 });
 
 describe('Theme', () => {
-  it('renders a separator for the primary theme', () => {
+  it('paints the primary gradient on the wrapper with a light separator', () => {
     render(
       <SplitButton open={false} theme="primary">
         Button
       </SplitButton>,
     );
-    expect(screen.getByRole('separator')).toBeInTheDocument();
-    expect(screen.getByRole('group')).toHaveClass(
-      'bg-gradient-to-tr',
-      'from-info-400',
-      'to-primary-500',
+    const group = screen.getByRole('group');
+    expect(group).toHaveClass(
+      'bg-[image:var(--gradient-primary-button)]',
     );
+    const buttons = screen.getAllByRole('button');
+    expect(buttons[0]).toHaveClass('text-white');
+    expect(buttons[1]).toHaveClass('text-white');
     expect(screen.getByRole('separator')).toHaveClass('bg-white/30');
   });
 
-  it('renders a separator for the default theme', () => {
+  it('paints a white surface and grayscale border for the default theme', () => {
     render(
       <SplitButton open={false} theme="default">
         Button
       </SplitButton>,
     );
-    expect(screen.getByRole('separator')).toBeInTheDocument();
-    expect(screen.getByRole('group')).toHaveClass(
+    const group = screen.getByRole('group');
+    expect(group).toHaveClass(
       'bg-white',
+      'border',
       'border-grayscale-300',
+    );
+    const buttons = screen.getAllByRole('button');
+    expect(buttons[0]).toHaveClass('text-grayscale-800');
+    expect(screen.getByRole('separator')).toHaveClass(
+      'bg-grayscale-300',
     );
   });
 
-  it('adds the right group styling for large primary buttons', () => {
+  it('keeps the grayscale border for large default buttons', () => {
+    render(
+      <SplitButton open={false} size="large" theme="default">
+        Button
+      </SplitButton>,
+    );
+    expect(screen.getByRole('group')).toHaveClass(
+      'bg-white',
+      'border',
+      'border-grayscale-300',
+      'shadow-base',
+    );
+  });
+
+  it('puts the large primary shadow on the wrapper and resets child button surfaces', () => {
     render(
       <SplitButton open={false} size="large" theme="primary">
         Button
@@ -207,11 +228,59 @@ describe('Theme', () => {
     );
     expect(screen.getByRole('group')).toHaveClass(
       'shadow-button-primary',
+      '[&>[data-slot=button]]:shadow-none!',
+      '[&>[data-slot=button]:active]:shadow-none!',
     );
+  });
+
+  it('dims the wrapper when disabled', () => {
+    render(
+      <SplitButton open={false} disabled>
+        Button
+      </SplitButton>,
+    );
+    expect(screen.getByRole('group')).toHaveClass('opacity-60');
   });
 
   it('defaults to the default theme with a separator', () => {
     render(<SplitButton open={false}>Button</SplitButton>);
     expect(screen.getByRole('separator')).toBeInTheDocument();
+    expect(screen.getByRole('group')).toHaveClass('bg-white');
   });
+
+  it('paints a white surface for the dangerous theme', () => {
+    render(
+      <SplitButton open={false} theme="dangerous">
+        Delete
+      </SplitButton>,
+    );
+    expect(screen.getByRole('group')).toHaveClass(
+      'bg-white',
+      'border',
+      'border-grayscale-300',
+    );
+    const buttons = screen.getAllByRole('button');
+    expect(buttons[0]).toHaveClass('text-alarm-500');
+    expect(buttons[1]).toHaveClass('text-alarm-500');
+  });
+
+  it.each(['success', 'info', 'warning', 'alarm'] as const)(
+    'paints the %s solid surface with a light separator',
+    (theme) => {
+      render(
+        <SplitButton open={false} theme={theme}>
+          Button
+        </SplitButton>,
+      );
+      expect(screen.getByRole('group')).toHaveClass(
+        `bg-${theme}-500`,
+      );
+      const buttons = screen.getAllByRole('button');
+      expect(buttons[0]).toHaveClass('text-white');
+      expect(buttons[1]).toHaveClass('text-white');
+      expect(screen.getByRole('separator')).toHaveClass(
+        'bg-white/30',
+      );
+    },
+  );
 });

@@ -11,7 +11,7 @@ import type {
 } from 'react';
 
 export type AvatarSize = AvatarVariants['size'];
-export type Color = AvatarVariants['color'];
+export type AvatarColor = AvatarVariants['color'];
 
 const avatarVariants = cva(
   [
@@ -162,7 +162,7 @@ type BaseAvatarRootProps = Omit<
 export type AvatarRootProps = BaseAvatarRootProps & {
   children?: ReactNode;
   className?: string;
-  color?: Color;
+  color?: AvatarColor;
   bordered?: boolean;
   disabled?: boolean;
   size?: AvatarSize;
@@ -180,7 +180,7 @@ export type AvatarFallbackProps = Omit<
   'className' | 'color'
 > & {
   className?: string;
-  color?: Color;
+  color?: AvatarColor;
 };
 
 export type AvatarProps = Omit<AvatarRootProps, 'children'> & {

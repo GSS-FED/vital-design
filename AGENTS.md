@@ -155,7 +155,7 @@ pnpm docs:start            # 啟動生產環境文件站
 - **src-v2 exports**：`src-v2` components use named exports only; do not add component default exports.
 - **Button icons**：`Button` / `SplitButton` 不使用 `icon` / `iconPlacement` props；icon 或 spinner 作為 children 傳入，並在 icon 上標 `data-icon="inline-start"` 或 `data-icon="inline-end"`。Button label size 使用 `medium` / `large`；icon-only Button 使用 `icon-medium` / `icon-large`。
 - **CVA helpers**：`src-v2` components may use `cva()` internally, but must not export raw variant helpers such as `buttonVariants`; component defaults live on the component API.
-- **Select family**：v2 public selection components are split by interaction: `Select` = flat dropdown for single or multiple values, `Combobox` = searchable input picker, `Cascader` = hierarchical path picker. `Command` is internal interaction code, not a public design-system component.
+- **Select family**：v2 public selection components are split by interaction: `Select` = flat dropdown for single or multiple values, `Combobox` = searchable input picker, `Cascader` = hierarchical path picker, `DropdownMenu` = action menu (no value binding). `Command` is also public — a primitive for command palettes and custom searchable popups, used internally by `Cascader`.
 - **cn() 依賴**：registry 需列出 clsx + tailwind-merge
 - **文件站 Preview 元件**：`apps/docs/components/previews/` 的元件必須有 `'use client'`，因為 MDX 頁面是 RSC，不能直接傳 inline function prop（如 `onChange={() => {}}`）
 - **文件站 .next 快取**：修改 `apps/docs/source.config.ts` 後，須執行 `rm -rf apps/docs/.next` 再重建，否則 source config hash 不符導致新頁面 404

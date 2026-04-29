@@ -95,13 +95,10 @@ export const ui = [
     title: 'Split Button',
     description:
       'Split button component with main action and dropdown trigger',
-    dependencies: [
-      'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
-    ],
+    dependencies: ['clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
+      '@vital-design/button',
       '@vital-design/button-group',
       '@vital-design/icon-chevron',
       '@vital-design/vital-theme',
@@ -333,7 +330,7 @@ export const ui = [
     ],
     files: [
       {
-        path: 'src-v2/components/input/textInput/TextInput.tsx',
+        path: 'src-v2/components/input/text-input/TextInput.tsx',
         type: 'registry:ui',
       },
     ],
@@ -355,7 +352,7 @@ export const ui = [
     ],
     files: [
       {
-        path: 'src-v2/components/input/textareaInput/TextareaInput.tsx',
+        path: 'src-v2/components/input/textarea-input/TextareaInput.tsx',
         type: 'registry:ui',
       },
     ],
@@ -376,7 +373,7 @@ export const ui = [
     ],
     files: [
       {
-        path: 'src-v2/components/input/passwordInput/PasswordInput.tsx',
+        path: 'src-v2/components/input/password-input/PasswordInput.tsx',
         type: 'registry:ui',
       },
     ],
@@ -449,12 +446,12 @@ export const ui = [
     ],
   },
   {
-    name: 'cascader',
+    name: 'command',
     type: 'registry:ui',
-    title: 'Cascader',
-    description: 'Nested path picker for hierarchical option lists',
+    title: 'Command',
+    description:
+      'Composable command palette primitive with input, list, and items',
     dependencies: [
-      '@base-ui/react',
       '@radix-ui/react-icons',
       'cmdk',
       'clsx',
@@ -463,19 +460,38 @@ export const ui = [
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-constants',
-      '@vital-design/icon-chevron',
-      '@vital-design/icon-clear',
       '@vital-design/icon-search',
       '@vital-design/icon-spinner',
       '@vital-design/vital-theme',
     ],
     files: [
       {
-        path: 'src-v2/components/cascader/Cascader.tsx',
+        path: 'src-v2/components/command/Command.tsx',
         type: 'registry:ui',
       },
+    ],
+  },
+  {
+    name: 'cascader',
+    type: 'registry:ui',
+    title: 'Cascader',
+    description: 'Nested path picker for hierarchical option lists',
+    dependencies: [
+      '@base-ui/react',
+      '@radix-ui/react-icons',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/command',
+      '@vital-design/utils',
+      '@vital-design/icon-chevron',
+      '@vital-design/icon-clear',
+      '@vital-design/vital-theme',
+    ],
+    files: [
       {
-        path: 'src-v2/components/command/Command.tsx',
+        path: 'src-v2/components/cascader/Cascader.tsx',
         type: 'registry:ui',
       },
     ],

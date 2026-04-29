@@ -10,6 +10,7 @@
     "select",
     "combobox",
     "cascader",
+    "command",
     "dialog",
     "slider",
     "switch",

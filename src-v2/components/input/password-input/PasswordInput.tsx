@@ -1,4 +1,4 @@
-import { TextInput } from '@/components/input/textInput/TextInput';
+import { TextInput } from '@/components/input/text-input/TextInput';
 import { EyeIcon } from '@/icons/EyeIcon';
 import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
 import { useState } from 'react';

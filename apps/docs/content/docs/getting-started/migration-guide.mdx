@@ -56,11 +56,11 @@ Examples in these docs use `@/components/ui/*`.
 
 ## Component Mapping
 
-The v0 package barrel exports `Avatar`, `ActionList`,
-`ActionInfiniteList`, `Button`, `Checkbox`, `Chip`, `RadioGroup`,
-`SearchBar`, `Select`, `SplitButton`, `Switch`, `Tag`, and
-`TreeSelect`. Other rows cover legacy source files with v1 registry
-equivalents.
+The v0 package barrel exports `Avatar`, `Button`, `Checkbox`, `Chip`,
+`RadioGroup`, `SearchBar`, `Select`, `SplitButton`, `Switch`, `Tag`,
+and `TreeSelect`. `ActionList` and `ActionInfiniteList` are no longer
+exposed from v0 — see the rows below for the v1 replacements. Other
+rows cover legacy source files with v1 registry equivalents.
 
 | v0 component or source | v0 source file                                                    | v1 registry item                | v1 source file                                                           | Notes                                 |
 | ---------------------- | ----------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------ | ------------------------------------- |
@@ -74,12 +74,12 @@ equivalents.
 | `Select`               | `src/components/select/Select.tsx`                                | `@vital-design/select`          | `src-v2/components/select/Select.tsx`                                    | Flat single or multiple dropdown      |
 | `Switch`               | `src/components/switch/Switch.tsx`                                | `@vital-design/switch`          | `src-v2/components/switch/Switch.tsx`                                    | Same role                             |
 | `Tag`                  | `src/components/tag/Tag.tsx`                                      | `@vital-design/tag`             | `src-v2/components/tag/Tag.tsx`                                          | Same role                             |
-| `TextInput`            | `src/components/input/textInput/TextInput.tsx`                    | `@vital-design/text-input`      | `src-v2/components/input/textInput/TextInput.tsx`                        | Built on `InputGroup`                 |
-| `TextareaInput`        | `src/components/input/textareaInput/TextareaInput.tsx`            | `@vital-design/textarea-input`  | `src-v2/components/input/textareaInput/TextareaInput.tsx`                | Built on `InputGroup`                 |
-| `PasswordInput`        | `src/components/input/passwordInput/PasswordInput.tsx`            | `@vital-design/password-input`  | `src-v2/components/input/passwordInput/PasswordInput.tsx`                | Built on `TextInput`                  |
+| `TextInput`            | `src/components/input/textInput/TextInput.tsx`                    | `@vital-design/text-input`      | `src-v2/components/input/text-input/TextInput.tsx`                       | Built on `InputGroup`                 |
+| `TextareaInput`        | `src/components/input/textareaInput/TextareaInput.tsx`            | `@vital-design/textarea-input`  | `src-v2/components/input/textarea-input/TextareaInput.tsx`               | Built on `InputGroup`                 |
+| `PasswordInput`        | `src/components/input/passwordInput/PasswordInput.tsx`            | `@vital-design/password-input`  | `src-v2/components/input/password-input/PasswordInput.tsx`               | Built on `TextInput`                  |
 | `Mask`                 | `src/components/mask/Mask.tsx`                                    | `@vital-design/mask`            | `src-v2/components/mask/Mask.tsx`                                        | Same role                             |
-| `ActionList`           | `src/components/list/action-list/ActionList.tsx`                  | `@vital-design/list-components` | `src-v2/components/list/components/ListContainer.tsx` and `ListItem.tsx` | Compose search and empty state in app |
-| `ActionInfiniteList`   | `src/components/list/action-infinite-list/ActionInfiniteList.tsx` | `@vital-design/list-components` | `src-v2/components/list/components/ListContainer.tsx` and `ListItem.tsx` | Own loading and paging in app         |
+| `ActionList`           | (removed)                                                         | Pick by intent — see notes      | —                                                                        | Action menu → `@vital-design/dropdown-menu`; value picker → `@vital-design/combobox` or `@vital-design/cascader`; custom panel → `@vital-design/list-components` |
+| `ActionInfiniteList`   | (removed)                                                         | Pick by intent — see notes      | —                                                                        | Same as `ActionList`; own loading and paging in app                                                                                                             |
 | `TreeSelect`           | `src/components/tree-select/TreeSelect.tsx`                       | `@vital-design/cascader`        | `src-v2/components/cascader/Cascader.tsx`                                | Use for hierarchical path picking     |
 
 ## New v1-Only Components
@@ -104,9 +104,10 @@ Use the new picker split:
 | Flat dropdown            | `Select`                     |
 | Search input picker      | `Combobox`                   |
 | Hierarchical path picker | `Cascader`                   |
+| Action menu              | `DropdownMenu`               |
 | Custom list panel        | `ListContainer` + `ListItem` |
 
-`Command` is internal interaction code for `Cascader`. Do not use it as a public design-system component.
+`Command` is shipped as a public primitive (`@vital-design/command`) for command palettes and custom searchable popups; `Cascader` consumes it internally.
 
 ## Code Changes
 
@@ -199,8 +200,11 @@ Do not import `src-v2/styles/*` from the npm package. Use the registry install s
 
 ### Lists
 
-`ActionList` and `ActionInfiniteList` are not copied as v1 presets.
-Use `ListContainer`, `ListItem`, and app-owned state for search, loading, paging, and empty text.
+`ActionList` and `ActionInfiniteList` are removed in v1. Pick the v1 replacement by intent:
+
+- **Action menu** (each item fires a callback, no value binding) → `DropdownMenu`.
+- **Searchable value picker** → `Combobox`. Hierarchical → `Cascader`.
+- **Custom list panel** (you own search, loading, paging, empty text) → `ListContainer` + `ListItem`.
 
 ```tsx
 import {

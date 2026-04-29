@@ -284,7 +284,7 @@ const CascaderTrigger = forwardRef<
         className,
       )}
     >
-      {children ?? <CascaderValueText placeholder={placeholder} />}
+      {children ?? <CascaderValue placeholder={placeholder} />}
       {canClear ? (
         <span
           aria-hidden="true"
@@ -321,34 +321,33 @@ export type CascaderValueProps = HTMLAttributes<HTMLSpanElement> & {
   placeholder?: ReactNode;
 };
 
-const CascaderValueText = forwardRef<
-  HTMLSpanElement,
-  CascaderValueProps
->(function CascaderValue(
-  { children, className, placeholder = '', ...props },
-  ref,
-) {
-  const hasValue =
-    children !== undefined &&
-    children !== null &&
-    children !== '' &&
-    (!Array.isArray(children) || children.length > 0);
+const CascaderValue = forwardRef<HTMLSpanElement, CascaderValueProps>(
+  function CascaderValue(
+    { children, className, placeholder = '', ...props },
+    ref,
+  ) {
+    const hasValue =
+      children !== undefined &&
+      children !== null &&
+      children !== '' &&
+      (!Array.isArray(children) || children.length > 0);
 
-  return (
-    <span
-      ref={ref}
-      data-slot="cascader-value"
-      className={cn(
-        'min-w-0 flex-1 truncate text-left',
-        !hasValue && 'text-grayscale-400',
-        className,
-      )}
-      {...props}
-    >
-      {hasValue ? children : placeholder}
-    </span>
-  );
-});
+    return (
+      <span
+        ref={ref}
+        data-slot="cascader-value"
+        className={cn(
+          'min-w-0 flex-1 truncate text-left',
+          !hasValue && 'text-grayscale-400',
+          className,
+        )}
+        {...props}
+      >
+        {hasValue ? children : placeholder}
+      </span>
+    );
+  },
+);
 
 export type CascaderContentProps = Omit<
   ComponentPropsWithoutRef<typeof CommandRoot>,
@@ -674,5 +673,5 @@ export {
   CascaderSearch,
   CascaderSeparator,
   CascaderTrigger,
-  CascaderValueText as CascaderValue,
+  CascaderValue,
 };

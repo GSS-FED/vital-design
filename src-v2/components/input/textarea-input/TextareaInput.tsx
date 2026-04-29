@@ -10,10 +10,10 @@ import type {
   TextareaHTMLAttributes,
 } from 'react';
 
-export type TextareaVariants = InputGroupVariants;
+export type TextareaInputVariants = InputGroupVariants;
 
 /* ---------------------------------- Types --------------------------------- */
-export type TextAreaInputProps = {
+export type TextareaInputProps = {
   className?: string;
   width?: string;
   height?: string;
@@ -29,8 +29,8 @@ export type TextAreaInputProps = {
 };
 
 /* ---------------------------------- Component --------------------------------- */
-const TextAreaInput = forwardRef(function TextAreaInput(
-  props: TextAreaInputProps &
+const TextareaInput = forwardRef(function TextareaInput(
+  props: TextareaInputProps &
     Omit<
       TextareaHTMLAttributes<HTMLTextAreaElement>,
       'onChange' | 'value' | 'defaultValue'
@@ -50,7 +50,7 @@ const TextAreaInput = forwardRef(function TextAreaInput(
     disabled = false,
     onChange,
     onEnter,
-    ...textAreaProps
+    ...textareaProps
   } = props;
 
   return (
@@ -80,10 +80,10 @@ const TextAreaInput = forwardRef(function TextAreaInput(
             onEnter?.(e.currentTarget.value);
           }
         }}
-        {...textAreaProps}
+        {...textareaProps}
       />
     </InputGroup>
   );
 });
 
-export { TextAreaInput };
+export { TextareaInput };

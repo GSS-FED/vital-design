@@ -1,14 +1,16 @@
+import { Button } from '@/components/button/Button';
+import type { ButtonTheme } from '@/components/button/Button';
 import {
   ButtonGroup,
   ButtonGroupSeparator,
 } from '@/components/button/button-group/ButtonGroup';
 import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
 import { cn } from '@/utils/cn';
-import { type VariantProps, cva } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 import type { ComponentPropsWithoutRef, MouseEvent } from 'react';
 
 export type SplitButtonSize = 'medium' | 'large';
-export type SplitButtonTheme = 'primary' | 'default';
+export type SplitButtonTheme = ButtonTheme;
 
 export type SplitButtonProps = {
   disabled?: boolean;
@@ -20,15 +22,21 @@ export type SplitButtonProps = {
   theme?: SplitButtonTheme;
 } & Omit<ComponentPropsWithoutRef<'div'>, 'onClick'>;
 
-const SIZE_CONFIG = {
-  medium: { iconSize: 12 },
-  large: { iconSize: 14 },
-} as const;
+const SPLIT_BUTTON_SEGMENT_CLASSES = [
+  '[&>[data-slot=button]]:bg-transparent!',
+  '[&>[data-slot=button]]:bg-none!',
+  '[&>[data-slot=button]]:border-0!',
+  '[&>[data-slot=button]]:shadow-none!',
+  '[&>[data-slot=button]]:opacity-100!',
+  '[&>[data-slot=button]:hover]:translate-y-0!',
+  '[&>[data-slot=button]:active]:translate-y-0!',
+  '[&>[data-slot=button]:active]:shadow-none!',
+] as const;
 
 const splitButtonGroupVariants = cva(
   [
-    'inline-flex justify-center items-stretch',
-    'overflow-hidden font-sans box-border',
+    'inline-flex items-stretch overflow-hidden font-sans box-border',
+    ...SPLIT_BUTTON_SEGMENT_CLASSES,
   ],
   {
     variants: {
@@ -38,10 +46,13 @@ const splitButtonGroupVariants = cva(
           'rounded-[var(--radius-xl)] transition-all duration-150',
       },
       theme: {
-        primary:
-          'text-white bg-gradient-to-tr from-info-400 to-primary-500',
-        default:
-          'text-grayscale-800 bg-white border border-grayscale-300',
+        primary: 'bg-[image:var(--gradient-primary-button)]',
+        success: 'bg-success-500',
+        info: 'bg-info-500',
+        warning: 'bg-warning-500',
+        alarm: 'bg-alarm-500',
+        default: 'bg-white',
+        dangerous: 'bg-white',
       },
       disabled: {
         true: 'opacity-60',
@@ -50,18 +61,75 @@ const splitButtonGroupVariants = cva(
     },
     compoundVariants: [
       {
-        size: 'large',
-        theme: 'primary',
-        disabled: false,
-        class:
-          'shadow-button-primary hover:-translate-y-px active:translate-y-0 active:shadow-button-primary-active',
+        theme: ['default', 'dangerous'],
+        class: 'border border-grayscale-300',
       },
       {
         size: 'large',
-        theme: 'default',
+        theme: 'primary',
+        class: 'shadow-button-primary',
+      },
+      {
+        size: 'large',
+        theme: 'success',
+        class: 'shadow-button-success',
+      },
+      { size: 'large', theme: 'info', class: 'shadow-button-info' },
+      {
+        size: 'large',
+        theme: 'warning',
+        class: 'shadow-button-warning',
+      },
+      {
+        size: 'large',
+        theme: 'alarm',
+        class: 'shadow-button-alarm',
+      },
+      {
+        size: 'large',
+        theme: ['default', 'dangerous'],
+        class: 'shadow-base',
+      },
+      {
+        size: 'large',
         disabled: false,
-        class:
-          'shadow-base hover:-translate-y-px active:translate-y-0 active:shadow-[0_2px_4px_rgba(35,35,50,0.08)]',
+        class: 'hover:-translate-y-px active:translate-y-0',
+      },
+      {
+        size: 'large',
+        theme: 'primary',
+        disabled: false,
+        class: 'active:shadow-button-primary-active',
+      },
+      {
+        size: 'large',
+        theme: 'success',
+        disabled: false,
+        class: 'active:shadow-button-success-active',
+      },
+      {
+        size: 'large',
+        theme: 'info',
+        disabled: false,
+        class: 'active:shadow-button-info-active',
+      },
+      {
+        size: 'large',
+        theme: 'warning',
+        disabled: false,
+        class: 'active:shadow-button-warning-active',
+      },
+      {
+        size: 'large',
+        theme: 'alarm',
+        disabled: false,
+        class: 'active:shadow-button-alarm-active',
+      },
+      {
+        size: 'large',
+        theme: ['default', 'dangerous'],
+        disabled: false,
+        class: 'active:shadow-[0_2px_4px_rgba(35,35,50,0.08)]',
       },
     ],
     defaultVariants: {
@@ -72,43 +140,13 @@ const splitButtonGroupVariants = cva(
   },
 );
 
-const splitButtonSegmentVariants = cva(
-  [
-    'relative inline-flex items-center justify-center overflow-hidden rounded-[inherit]',
-    'font-sans box-border transition-all duration-150 ease-in-out',
-    'border-0 bg-transparent text-inherit',
-    '[&_[data-icon]]:pointer-events-none [&_[data-icon]]:shrink-0',
-    '[&_[data-icon]]:size-3 data-[size=large]:[&_[data-icon]]:size-3.5',
-    'before:pointer-events-none before:absolute before:inset-0 before:content-[""]',
-    'before:rounded-[inherit] before:opacity-0 before:transition-all before:duration-150 before:z-[1]',
-    'hover:not-disabled:not-data-[disabled]:before:bg-grayscale-100 hover:not-disabled:not-data-[disabled]:before:opacity-100',
-    'active:not-disabled:not-data-[disabled]:before:bg-grayscale-200 active:not-disabled:not-data-[disabled]:before:opacity-100',
-  ],
-  {
-    variants: {
-      size: {
-        medium: 'h-[30px] text-sm',
-        large: 'h-8 text-base',
-      },
-      disabled: {
-        true: 'cursor-not-allowed',
-        false: 'cursor-pointer',
-      },
-    },
-    defaultVariants: {
-      size: 'medium',
-      disabled: false,
-    },
-  },
-);
-
-export type SplitButtonGroupVariants = VariantProps<
-  typeof splitButtonGroupVariants
->;
-
-export type SplitButtonSegmentVariants = VariantProps<
-  typeof splitButtonSegmentVariants
->;
+const LIGHT_SEPARATOR_THEMES = new Set<SplitButtonTheme>([
+  'primary',
+  'success',
+  'info',
+  'warning',
+  'alarm',
+]);
 
 export function SplitButton(props: SplitButtonProps) {
   const {
@@ -125,13 +163,8 @@ export function SplitButton(props: SplitButtonProps) {
     ...groupProps
   } = props;
 
-  const handleClick = disabled ? undefined : onClick;
-  const handleSplitClick = disabled ? undefined : splitOnClick;
-
-  const buttonDisabledProps =
-    focusableWhenDisabled && disabled
-      ? ({ 'aria-disabled': true, 'data-disabled': '' } as const)
-      : ({ disabled } as const);
+  const ChevronIcon = open ? ChevronUpIcon : ChevronDownIcon;
+  const splitSize = size === 'large' ? 'icon-large' : 'icon-medium';
 
   return (
     <ButtonGroup
@@ -144,59 +177,36 @@ export function SplitButton(props: SplitButtonProps) {
       style={style}
       {...groupProps}
     >
-      <button
-        type="button"
-        data-size={size}
-        {...buttonDisabledProps}
-        onClick={handleClick}
-        className={cn(
-          splitButtonSegmentVariants({ size, disabled }),
-          'pl-4 pr-2 has-[_[data-icon=inline-start]]:pl-3 [&_[data-icon]]:m-0.75',
-        )}
+      <Button
+        variant="filled"
+        theme={theme}
+        size={size}
+        disabled={disabled}
+        focusableWhenDisabled={focusableWhenDisabled}
+        onClick={onClick}
+        className="pr-2 has-[_[data-icon=inline-start]]:pl-3"
       >
-        <span className="relative z-[2] inline-flex items-center justify-center gap-1 whitespace-nowrap leading-5">
-          {children}
-        </span>
-      </button>
-
+        {children}
+      </Button>
       <ButtonGroupSeparator
         className={cn(
-          theme === 'primary' ? 'bg-white/30' : 'bg-grayscale-300',
+          LIGHT_SEPARATOR_THEMES.has(theme)
+            ? 'bg-white/30'
+            : 'bg-grayscale-300',
         )}
       />
-
-      <button
-        type="button"
-        data-size={size}
-        {...buttonDisabledProps}
-        onClick={handleSplitClick}
+      <Button
+        variant="filled"
+        theme={theme}
+        size={splitSize}
+        disabled={disabled}
+        focusableWhenDisabled={focusableWhenDisabled}
+        onClick={splitOnClick}
         aria-label={open ? 'Collapse options' : 'Expand options'}
-        className={cn(
-          splitButtonSegmentVariants({ size, disabled }),
-          'pl-1 pr-2',
-        )}
+        className="pl-1 pr-2"
       >
-        <div
-          className={cn(
-            'relative flex items-center justify-center m-[3px] z-[2]',
-            size === 'large' ? 'w-3.5 h-3.5' : 'w-3 h-3',
-          )}
-        >
-          {open ? (
-            <ChevronUpIcon
-              aria-hidden="true"
-              data-icon="inline-end"
-              width={SIZE_CONFIG[size].iconSize}
-            />
-          ) : (
-            <ChevronDownIcon
-              aria-hidden="true"
-              data-icon="inline-end"
-              width={SIZE_CONFIG[size].iconSize}
-            />
-          )}
-        </div>
-      </button>
+        <ChevronIcon aria-hidden="true" data-icon="inline-end" />
+      </Button>
     </ButtonGroup>
   );
 }
