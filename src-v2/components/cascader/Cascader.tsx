@@ -10,11 +10,14 @@ import {
   CommandRoot,
   CommandSeparator,
 } from '@/components/command/Command';
-import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  ChevronUpIcon,
+} from '@/icons/ChevronIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
 import { cn } from '@/utils/cn';
 import { Popover as BasePopover } from '@base-ui/react/popover';
-import { ChevronRightIcon } from '@radix-ui/react-icons';
 import {
   createContext,
   forwardRef,

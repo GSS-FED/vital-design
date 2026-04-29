@@ -199,24 +199,6 @@
       }
     },
     {
-      "name": "vital-constants",
-      "type": "registry:lib",
-      "title": "Vital Constants",
-      "description": "Mask constants for scroll containers",
-      "files": [
-        {
-          "path": "src-v2/constants/mask.ts",
-          "type": "registry:lib",
-          "target": "src/lib/constants/mask.ts"
-        },
-        {
-          "path": "src-v2/constants/index.ts",
-          "type": "registry:lib",
-          "target": "src/lib/constants/index.ts"
-        }
-      ]
-    },
-    {
       "name": "vital-design-base",
       "type": "registry:base",
       "title": "Vital Design Base",
@@ -224,8 +206,7 @@
       "registryDependencies": [
         "@vital-design/vital-theme",
         "@vital-design/utils",
-        "@vital-design/vital-icons",
-        "@vital-design/vital-constants"
+        "@vital-design/vital-icons"
       ]
     },
     {
@@ -465,6 +446,18 @@
       ]
     },
     {
+      "name": "use-scroll-mask",
+      "type": "registry:hook",
+      "title": "useScrollMask",
+      "description": "Hook for applying edge fades to scrollable viewports",
+      "files": [
+        {
+          "path": "src-v2/hooks/useScrollMask.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
       "name": "alert",
       "type": "registry:ui",
       "title": "Alert",
@@ -543,6 +536,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
+        "@vital-design/separator",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -624,10 +618,9 @@
       "name": "radio-group",
       "type": "registry:ui",
       "title": "Radio Group",
-      "description": "Radio group component with horizontal and vertical layouts",
+      "description": "Composable radio group component",
       "dependencies": [
         "@base-ui/react",
-        "class-variance-authority",
         "clsx",
         "tailwind-merge"
       ],
@@ -638,6 +631,26 @@
       "files": [
         {
           "path": "src-v2/components/radio-group/RadioGroup.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "Accessible label associated with form controls",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/label/Label.tsx",
           "type": "registry:ui"
         }
       ]
@@ -680,27 +693,6 @@
       "files": [
         {
           "path": "src-v2/components/tag/Tag.tsx",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "mask",
-      "type": "registry:ui",
-      "title": "Mask",
-      "description": "Scrollable container with gradient mask effect",
-      "dependencies": [
-        "clsx",
-        "tailwind-merge"
-      ],
-      "registryDependencies": [
-        "@vital-design/utils",
-        "@vital-design/vital-constants",
-        "@vital-design/vital-theme"
-      ],
-      "files": [
-        {
-          "path": "src-v2/components/mask/Mask.tsx",
           "type": "registry:ui"
         }
       ]
@@ -792,45 +784,41 @@
       ]
     },
     {
-      "name": "text-input",
+      "name": "input",
       "type": "registry:ui",
-      "title": "Text Input",
-      "description": "Text input component with prefix/suffix slots and error state",
+      "title": "Input",
+      "description": "Single-line input primitive",
       "dependencies": [
-        "class-variance-authority",
         "clsx",
         "tailwind-merge"
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/input-group",
         "@vital-design/vital-theme"
       ],
       "files": [
         {
-          "path": "src-v2/components/input/text-input/TextInput.tsx",
+          "path": "src-v2/components/input/input/Input.tsx",
           "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "textarea-input",
+      "name": "textarea",
       "type": "registry:ui",
-      "title": "Textarea Input",
+      "title": "Textarea",
       "description": "Multiline text input component",
       "dependencies": [
-        "class-variance-authority",
         "clsx",
         "tailwind-merge"
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/input-group",
         "@vital-design/vital-theme"
       ],
       "files": [
         {
-          "path": "src-v2/components/input/textarea-input/TextareaInput.tsx",
+          "path": "src-v2/components/textarea/Textarea.tsx",
           "type": "registry:ui"
         }
       ]
@@ -846,7 +834,6 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/text-input",
         "@vital-design/input-group",
         "@vital-design/icon-eye",
         "@vital-design/icon-eye-slash",
@@ -860,26 +847,45 @@
       ]
     },
     {
-      "name": "list-components",
+      "name": "item",
       "type": "registry:ui",
-      "title": "List Components",
-      "description": "Reusable list container and item components with mask effect",
+      "title": "Item",
+      "description": "Content row with media, title, description, and actions",
       "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
         "clsx",
         "tailwind-merge"
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/vital-constants",
+        "@vital-design/separator",
         "@vital-design/vital-theme"
       ],
       "files": [
         {
-          "path": "src-v2/components/list/components/ListContainer.tsx",
+          "path": "src-v2/components/item/Item.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "Horizontal or vertical divider",
+      "dependencies": [
+        "@base-ui/react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
         {
-          "path": "src-v2/components/list/components/ListItem.tsx",
+          "path": "src-v2/components/separator/Separator.tsx",
           "type": "registry:ui"
         }
       ]
@@ -896,6 +902,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
+        "@vital-design/use-scroll-mask",
         "@vital-design/icon-check",
         "@vital-design/icon-chevron",
         "@vital-design/vital-theme"
@@ -919,6 +926,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
+        "@vital-design/use-scroll-mask",
         "@vital-design/icon-check",
         "@vital-design/icon-chevron",
         "@vital-design/icon-clear",
@@ -942,14 +950,14 @@
       "title": "Command",
       "description": "Composable command palette primitive with input, list, and items",
       "dependencies": [
-        "@radix-ui/react-icons",
         "cmdk",
         "clsx",
         "tailwind-merge"
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/vital-constants",
+        "@vital-design/use-scroll-mask",
+        "@vital-design/icon-chevron",
         "@vital-design/icon-search",
         "@vital-design/icon-spinner",
         "@vital-design/vital-theme"
@@ -968,7 +976,6 @@
       "description": "Nested path picker for hierarchical option lists",
       "dependencies": [
         "@base-ui/react",
-        "@radix-ui/react-icons",
         "clsx",
         "tailwind-merge"
       ],
@@ -1014,13 +1021,13 @@
       "description": "Action menu with checkbox items, radio items, and submenus",
       "dependencies": [
         "@base-ui/react",
-        "@radix-ui/react-icons",
         "clsx",
         "tailwind-merge"
       ],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-check",
+        "@vital-design/icon-chevron",
         "@vital-design/vital-theme"
       ],
       "files": [

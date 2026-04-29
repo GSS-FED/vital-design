@@ -1,8 +1,9 @@
+import { useScrollMask } from '@/hooks/useScrollMask';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
 import { cn } from '@/utils/cn';
 import { Select as BaseSelect } from '@base-ui/react/select';
-import { forwardRef } from 'react';
+import { forwardRef, useRef } from 'react';
 import type {
   ComponentPropsWithoutRef,
   ElementRef,
@@ -127,6 +128,11 @@ const SelectContent = forwardRef<
   },
   ref,
 ) {
+  const listRef = useRef<ElementRef<typeof BaseSelect.List> | null>(
+    null,
+  );
+  const { maskStyle, onScroll } = useScrollMask(listRef);
+
   return (
     <BaseSelect.Portal>
       <BaseSelect.Positioner
@@ -149,8 +155,11 @@ const SelectContent = forwardRef<
         >
           <SelectScrollUpButton />
           <BaseSelect.List
+            ref={listRef}
             data-slot="select-list"
+            onScroll={onScroll}
             className="min-h-0 overflow-auto [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:bg-transparent"
+            style={maskStyle}
           >
             {children}
           </BaseSelect.List>

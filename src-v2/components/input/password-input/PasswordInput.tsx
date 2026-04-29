@@ -1,4 +1,8 @@
-import { TextInput } from '@/components/input/text-input/TextInput';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@/components/input/input-group/InputGroup';
 import { EyeIcon } from '@/icons/EyeIcon';
 import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
 import { useState } from 'react';
@@ -37,31 +41,42 @@ export function PasswordInput(props: PasswordInputProps) {
 
   const [passwordVisible, setPasswordVisible] =
     useState(initiallyVisible);
+  const type = passwordVisible ? 'text' : 'password';
 
   return (
-    <TextInput
+    <InputGroup
       className={className}
-      data-state={passwordVisible ? 'visible' : 'invisible'}
-      data-testid="password-input"
       disabled={disabled}
       isError={isError}
-      onChange={onChange}
-      onEnter={onEnter}
-      placeholder={placeholder}
-      prefix={prefix}
-      style={style}
-      suffix={
+      style={{ width: width ?? '100%', ...style }}
+    >
+      {prefix !== null && prefix !== undefined && (
+        <InputGroupAddon>{prefix}</InputGroupAddon>
+      )}
+      <InputGroupInput
+        data-state={passwordVisible ? 'visible' : 'invisible'}
+        data-testid="password-input"
+        aria-invalid={isError ? true : undefined}
+        disabled={disabled}
+        onInput={(event) => onChange(event.currentTarget.value)}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') {
+            onEnter?.(event.currentTarget.value);
+          }
+        }}
+        placeholder={placeholder}
+        type={type}
+        value={value}
+      />
+      <InputGroupAddon align="inline-end">
         <VisibilityToggle
           disabled={disabled}
           onClick={() => setPasswordVisible((visible) => !visible)}
         >
           {passwordVisible ? <EyeIcon /> : <EyeSlashIcon />}
         </VisibilityToggle>
-      }
-      type={passwordVisible ? 'text' : 'password'}
-      value={value}
-      width={width}
-    />
+      </InputGroupAddon>
+    </InputGroup>
   );
 }
 

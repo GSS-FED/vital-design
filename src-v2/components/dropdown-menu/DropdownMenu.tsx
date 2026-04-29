@@ -1,7 +1,7 @@
 import { CheckIcon } from '@/icons/CheckIcon';
+import { ChevronRightIcon } from '@/icons/ChevronIcon';
 import { cn } from '@/utils/cn';
 import { Menu as BaseMenu } from '@base-ui/react/menu';
-import { ChevronRightIcon } from '@radix-ui/react-icons';
 import { forwardRef } from 'react';
 import type { ComponentPropsWithoutRef, ElementRef } from 'react';
 
@@ -220,10 +220,7 @@ const DropdownMenuCheckboxItem = forwardRef<
         aria-hidden="true"
         className="absolute left-3 grid h-4 w-4 place-content-center text-primary-500"
       >
-        <BaseMenu.CheckboxItemIndicator
-          data-slot="dropdown-menu-checkbox-item-indicator"
-          keepMounted
-        >
+        <BaseMenu.CheckboxItemIndicator data-slot="dropdown-menu-checkbox-item-indicator">
           <CheckIcon width={12} height={9} />
         </BaseMenu.CheckboxItemIndicator>
       </span>
@@ -259,10 +256,7 @@ const DropdownMenuRadioItem = forwardRef<
         aria-hidden="true"
         className="absolute left-3 grid h-4 w-4 place-content-center"
       >
-        <BaseMenu.RadioItemIndicator
-          data-slot="dropdown-menu-radio-item-indicator"
-          keepMounted
-        >
+        <BaseMenu.RadioItemIndicator data-slot="dropdown-menu-radio-item-indicator">
           <span className="h-2 w-2 rounded-full bg-primary-500" />
         </BaseMenu.RadioItemIndicator>
       </span>

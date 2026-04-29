@@ -1,0 +1,46 @@
+---
+title: Label
+description: Accessible label text associated with a form control.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { Input, Label } from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview>
+  <Label htmlFor="email">Email</Label>
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Label } from '@/components/ui/Label';
+
+<Label htmlFor="email">Email</Label>;
+```
+
+## With Input
+
+<ComponentPreview centered={false}>
+  <div className="flex w-80 flex-col gap-2">
+    <Label htmlFor="email-input">Email</Label>
+    <Input id="email-input" placeholder="name@example.com" />
+  </div>
+</ComponentPreview>
+
+```tsx
+<div className="flex flex-col gap-2">
+  <Label htmlFor="email">Email</Label>
+  <Input id="email" placeholder="name@example.com" />
+</div>
+```
+
+## Props
+
+| Prop        | Type                      | Default | Description                     |
+| ----------- | ------------------------- | ------- | ------------------------------- |
+| `htmlFor`   | `string`                  | —       | Associated control id           |
+| `className` | `string`                  | —       | Additional CSS classes          |
+| `style`     | `CSSProperties`           | —       | Inline styles                   |
+| `...props`  | `ComponentProps<'label'>` | —       | Native `label` props and events |

@@ -84,6 +84,38 @@ const visibleItems = getItems(
 </Cascader>;
 ```
 
+## Custom Trigger
+
+Use `Cascader` directly when the popup is still a hierarchical picker. If the trigger should look like a button, keep the same `CascaderContent` and replace only the trigger render.
+
+```tsx
+import { Button } from '@/components/ui/Button';
+import {
+  Cascader,
+  CascaderContent,
+  CascaderTrigger,
+} from '@/components/ui/Cascader';
+
+<Cascader>
+  <CascaderTrigger
+    render={({ className: _className, ...triggerProps }) => {
+      void _className;
+
+      return (
+        <Button {...triggerProps} theme="default">
+          Assign location
+        </Button>
+      );
+    }}
+  />
+  <CascaderContent>
+    {/* same Cascader popup content */}
+  </CascaderContent>
+</Cascader>;
+```
+
+Do not put `Cascader` inside `DropdownMenu` for this. `DropdownMenu` is for command items; `Cascader` owns the picker value, popup, search, back row, and listbox semantics.
+
 ## Props
 
 ### Cascader

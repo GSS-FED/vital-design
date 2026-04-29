@@ -37,14 +37,6 @@ import {
   DialogSizesPreview,
 } from '~/components/previews/DialogPreview';
 import {
-  ListOverflowPreview,
-  ListPreview,
-} from '~/components/previews/ListPreview';
-import {
-  MaskNoOverflowPreview,
-  MaskPreview,
-} from '~/components/previews/MaskPreview';
-import {
   RadioGroupPreview,
   RadioGroupVerticalPreview,
 } from '~/components/previews/RadioGroupPreview';
@@ -70,6 +62,7 @@ import {
 } from '~/components/previews/SplitButtonPreview';
 import {
   SwitchDisabledPreview,
+  SwitchInvalidPreview,
   SwitchPreview,
 } from '~/components/previews/SwitchPreview';
 import {
@@ -135,6 +128,7 @@ export default async function Page({
             SelectMultiplePreview,
             SwitchPreview,
             SwitchDisabledPreview,
+            SwitchInvalidPreview,
             CheckboxPreview,
             CheckboxStatesPreview,
             RadioGroupPreview,
@@ -154,10 +148,6 @@ export default async function Page({
             SliderMinMaxPreview,
             SliderVerticalPreview,
             CascaderPreview,
-            ListPreview,
-            ListOverflowPreview,
-            MaskPreview,
-            MaskNoOverflowPreview,
           }}
         />
       </DocsBody>

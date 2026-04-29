@@ -1,13 +1,15 @@
+import { useScrollMask } from '@/hooks/useScrollMask';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
 import { SearchIcon } from '@/icons/SearchIcon';
 import { cn } from '@/utils/cn';
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox';
-import { forwardRef } from 'react';
+import { forwardRef, useRef } from 'react';
 import type {
   ComponentPropsWithoutRef,
   ElementRef,
+  ForwardedRef,
   ReactElement,
   ReactNode,
 } from 'react';
@@ -43,6 +45,17 @@ const Combobox = BaseCombobox.Root as <
 >(
   props: ComboboxProps<Value, Multiple>,
 ) => ReactElement | null;
+
+function assignRef<T>(ref: ForwardedRef<T>, value: T) {
+  if (typeof ref === 'function') {
+    ref(value);
+    return;
+  }
+
+  if (ref) {
+    ref.current = value;
+  }
+}
 
 export type ComboboxInputGroupProps = ComponentPropsWithoutRef<
   typeof BaseCombobox.InputGroup
@@ -191,6 +204,11 @@ const Content = forwardRef<
   },
   ref,
 ) {
+  const listRef = useRef<ElementRef<typeof BaseCombobox.List> | null>(
+    null,
+  );
+  const { maskStyle, onScroll } = useScrollMask(listRef);
+
   return (
     <BaseCombobox.Portal>
       <BaseCombobox.Positioner
@@ -211,12 +229,15 @@ const Content = forwardRef<
         >
           {typeof children === 'function' ? (
             <BaseCombobox.List
+              ref={listRef}
               data-slot="combobox-list"
+              onScroll={onScroll}
               className={cn(
                 'min-h-0 overflow-auto',
                 '[&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:bg-transparent',
                 listClassName,
               )}
+              style={maskStyle}
             >
               {children}
             </BaseCombobox.List>
@@ -245,16 +266,36 @@ export type ComboboxListProps = ComponentPropsWithoutRef<
 const List = forwardRef<
   ElementRef<typeof BaseCombobox.List>,
   ComboboxListProps
->(function ComboboxList({ className, ...props }, ref) {
+>(function ComboboxList(
+  { className, onScroll, style, ...props },
+  ref,
+) {
+  const localRef = useRef<ElementRef<
+    typeof BaseCombobox.List
+  > | null>(null);
+  const { maskStyle, onScroll: onMaskScroll } =
+    useScrollMask(localRef);
+
   return (
     <BaseCombobox.List
-      ref={ref}
+      ref={(node: ElementRef<typeof BaseCombobox.List> | null) => {
+        localRef.current = node;
+        assignRef(ref, node);
+      }}
       data-slot="combobox-list"
+      onScroll={(event) => {
+        onMaskScroll(event);
+        onScroll?.(event);
+      }}
       className={cn(
         'min-h-0 overflow-auto',
         '[&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:bg-transparent',
         className,
       )}
+      style={{
+        ...maskStyle,
+        ...style,
+      }}
       {...props}
     />
   );

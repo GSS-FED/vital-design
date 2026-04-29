@@ -2,15 +2,110 @@ import { useArgs } from '@storybook/preview-api';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import { useState } from 'react';
-import {
-  RadioGroup,
-  RadioGroupItem,
-  type RadioGroupProps,
-} from './RadioGroup';
+import type { ReactNode } from 'react';
+import { Label } from '../label/Label';
+import { RadioGroup, RadioGroupItem } from './RadioGroup';
 
-type Story = StoryObj<typeof RadioGroup>;
+type RadioOption = {
+  label: ReactNode;
+  value: string;
+  disabled?: boolean;
+};
 
-const meta: Meta<typeof RadioGroup> = {
+type RadioGroupStoryArgs = {
+  options: RadioOption[];
+  value: string;
+  onValueChange: (value: string) => void;
+  direction?: 'horizontal' | 'vertical';
+  className?: string;
+};
+
+type Story = StoryObj<RadioGroupStoryArgs>;
+
+const options = [
+  { label: '選項一', value: 'unique-value-a', disabled: false },
+  { label: '選項二', value: 'unique-value-b', disabled: false },
+  { label: '選項三', value: 'unique-value-c', disabled: false },
+] satisfies RadioOption[];
+
+function radioGroupClassName(
+  direction: RadioGroupStoryArgs['direction'] = 'horizontal',
+) {
+  return [
+    'flex flex-wrap gap-4 box-border font-sans text-sm leading-5 text-grayscale-800',
+    direction === 'vertical' ? 'flex-col' : 'flex-row',
+  ].join(' ');
+}
+
+function RadioOption({
+  disabled,
+  idPrefix = 'radio-story',
+  label,
+  value,
+}: {
+  disabled?: boolean;
+  idPrefix?: string;
+  label: ReactNode;
+  value: string;
+}) {
+  const id = `${idPrefix}-${value}`;
+
+  return (
+    <div
+      className="group flex items-center gap-2"
+      data-disabled={disabled ? true : undefined}
+    >
+      <div className="flex h-5 flex-none items-center">
+        <RadioGroupItem
+          className={
+            disabled
+              ? 'data-checked:opacity-40'
+              : 'group-hover:border-primary-500 group-hover:shadow-(--shadow-focus-ring-primary)'
+          }
+          disabled={disabled}
+          id={id}
+          value={value}
+        />
+      </div>
+      <Label
+        className={
+          disabled
+            ? 'cursor-not-allowed font-normal leading-5 text-grayscale-500'
+            : 'cursor-pointer font-normal leading-5 text-grayscale-800'
+        }
+        htmlFor={id}
+      >
+        {label}
+      </Label>
+    </div>
+  );
+}
+
+function renderOptions(args: RadioGroupStoryArgs) {
+  const {
+    className,
+    direction = 'horizontal',
+    onValueChange,
+    options,
+    value,
+  } = args;
+
+  return (
+    <RadioGroup
+      className={[radioGroupClassName(direction), className]
+        .filter(Boolean)
+        .join(' ')}
+      value={value}
+      onValueChange={onValueChange}
+    >
+      {options.map((option) => (
+        <RadioOption key={option.value} {...option} />
+      ))}
+    </RadioGroup>
+  );
+}
+
+const meta: Meta<RadioGroupStoryArgs> = {
   title: 'Components/RadioGroup',
   component: RadioGroup,
   argTypes: {
@@ -21,25 +116,22 @@ const meta: Meta<typeof RadioGroup> = {
     },
   },
   args: {
-    onChange: fn(),
+    onValueChange: fn(),
     direction: 'horizontal',
-    options: [
-      { label: '選項一', value: 'unique-value-a', disabled: false },
-      { label: '選項二', value: 'unique-value-b', disabled: false },
-      { label: '選項三', value: 'unique-value-c', disabled: false },
-    ],
+    options,
+    value: 'unique-value-a',
   },
 };
 export default meta;
 
 export const Default: Story = {
   render: function Render(args) {
-    const [{ value }, updateArgs] = useArgs<RadioGroupProps>();
-    const onChange = (checkedValue: string) => {
+    const [{ value }, updateArgs] = useArgs<RadioGroupStoryArgs>();
+    const onValueChange = (checkedValue: string) => {
       updateArgs({ value: checkedValue });
     };
 
-    return <RadioGroup {...args} onChange={onChange} value={value} />;
+    return renderOptions({ ...args, onValueChange, value });
   },
 };
 
@@ -51,6 +143,7 @@ export const CheckedAndDisabled: Story = {
     ],
     value: 'unique-value',
   },
+  render: renderOptions,
 };
 
 export const LongTextOption: Story = {
@@ -66,6 +159,7 @@ export const LongTextOption: Story = {
       { label: '選項三', value: 'unique-value-c' },
     ],
   },
+  render: renderOptions,
 };
 
 export const OptionWithCustomizedLabel: Story = {
@@ -92,27 +186,7 @@ export const OptionWithCustomizedLabel: Story = {
       { label: '我沒有養寵物', value: 'unique-value-b' },
     ],
   },
-};
-
-export const AllowCancel: Story = {
-  name: 'Cancellable Option',
-  args: {
-    allowCancel: true,
-  },
-  render: function Render(args) {
-    const [checkedValue, setCheckedValue] = useState('');
-    const onChange = (checkedValue: string) => {
-      console.log(checkedValue);
-      setCheckedValue(checkedValue);
-    };
-    return (
-      <RadioGroup
-        {...args}
-        onChange={onChange}
-        value={checkedValue}
-      />
-    );
-  },
+  render: renderOptions,
 };
 
 export const CompoundItems: Story = {
@@ -121,23 +195,51 @@ export const CompoundItems: Story = {
     const [checkedValue, setCheckedValue] = useState('basic');
 
     return (
-      <RadioGroup value={checkedValue} onChange={setCheckedValue}>
-        <RadioGroupItem value="basic">
-          <div>
-            <div>Basic</div>
-            <div className="text-grayscale-500 text-xs">
-              Good for individual use
-            </div>
+      <RadioGroup
+        className={radioGroupClassName('horizontal')}
+        value={checkedValue}
+        onValueChange={setCheckedValue}
+      >
+        <div className="group flex items-center gap-2">
+          <div className="flex h-5 flex-none items-center">
+            <RadioGroupItem
+              className="group-hover:border-primary-500 group-hover:shadow-(--shadow-focus-ring-primary)"
+              id="radio-story-basic"
+              value="basic"
+            />
           </div>
-        </RadioGroupItem>
-        <RadioGroupItem value="pro">
-          <div>
-            <div>Pro</div>
-            <div className="text-grayscale-500 text-xs">
-              Recommended for teams
-            </div>
+          <Label
+            className="cursor-pointer font-normal leading-5"
+            htmlFor="radio-story-basic"
+          >
+            <span>
+              <span className="block">Basic</span>
+              <span className="block text-xs text-grayscale-500">
+                Good for individual use
+              </span>
+            </span>
+          </Label>
+        </div>
+        <div className="group flex items-center gap-2">
+          <div className="flex h-5 flex-none items-center">
+            <RadioGroupItem
+              className="group-hover:border-primary-500 group-hover:shadow-(--shadow-focus-ring-primary)"
+              id="radio-story-pro"
+              value="pro"
+            />
           </div>
-        </RadioGroupItem>
+          <Label
+            className="cursor-pointer font-normal leading-5"
+            htmlFor="radio-story-pro"
+          >
+            <span>
+              <span className="block">Pro</span>
+              <span className="block text-xs text-grayscale-500">
+                Recommended for teams
+              </span>
+            </span>
+          </Label>
+        </div>
       </RadioGroup>
     );
   },

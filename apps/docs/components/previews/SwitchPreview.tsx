@@ -8,7 +8,7 @@ export function SwitchPreview() {
   const [checked, setChecked] = useState(false);
   return (
     <ComponentPreview>
-      <Switch checked={checked} onChange={setChecked} />
+      <Switch checked={checked} onCheckedChange={setChecked} />
     </ComponentPreview>
   );
 }
@@ -18,6 +18,15 @@ export function SwitchDisabledPreview() {
     <ComponentPreview>
       <Switch checked={false} disabled />
       <Switch checked={true} disabled />
+    </ComponentPreview>
+  );
+}
+
+export function SwitchInvalidPreview() {
+  return (
+    <ComponentPreview>
+      <Switch aria-invalid checked={false} />
+      <Switch aria-invalid checked={true} />
     </ComponentPreview>
   );
 }

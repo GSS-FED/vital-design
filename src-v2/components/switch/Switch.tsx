@@ -1,61 +1,48 @@
 import { cn } from '@/utils/cn';
 import { Switch as BaseSwitch } from '@base-ui/react/switch';
-import type { CSSProperties } from 'react';
+import { forwardRef } from 'react';
+import type { ElementRef } from 'react';
 
-export type SwitchProps = {
-  checked: boolean;
-  onChange?: (checked: boolean) => void;
-  disabled?: boolean;
-  className?: string;
-  style?: CSSProperties;
-};
+export type SwitchProps = BaseSwitch.Root.Props;
 
-export function Switch(props: SwitchProps) {
-  const { checked, onChange, disabled, className, style } = props;
-
+const Switch = forwardRef<
+  ElementRef<typeof BaseSwitch.Root>,
+  SwitchProps
+>(function Switch({ className, disabled, ...props }, ref) {
   return (
     <BaseSwitch.Root
-      checked={checked}
-      onCheckedChange={
-        disabled
-          ? undefined
-          : (nextChecked: boolean) => {
-              onChange?.(nextChecked);
-            }
-      }
+      ref={ref}
+      data-slot="switch"
       disabled={disabled}
       className={cn(
-        'group relative inline-flex items-center',
-        'text-[13px] w-13 h-6 px-0.75',
-        'border border-grayscale-300 rounded-[100px]',
-        'text-grayscale-500 bg-grayscale-200',
-        'transition-colors duration-100 cursor-pointer',
-        'font-sans box-border',
+        'peer group/switch relative box-border inline-flex h-6 w-13 shrink-0 cursor-pointer items-center rounded-[100px] border border-grayscale-300 bg-grayscale-200 px-0.75 font-sans text-[13px] text-grayscale-500 outline-none transition-colors duration-100',
         'before:content-["Off"] before:absolute before:right-2',
-        'data-disabled:opacity-40 data-disabled:cursor-not-allowed',
-        'data-checked:text-white data-checked:bg-primary-500',
-        'data-checked:border-transparent',
+        'focus-visible:border-primary-500 focus-visible:shadow-(--shadow-focus-ring-primary)',
+        'aria-invalid:border-alarm-500 aria-invalid:shadow-(--shadow-focus-ring-alarm)',
+        'data-invalid:border-alarm-500 data-invalid:shadow-(--shadow-focus-ring-alarm)',
+        'data-disabled:cursor-not-allowed data-disabled:opacity-40',
+        'data-checked:border-transparent data-checked:bg-primary-500 data-checked:text-white',
         'data-checked:before:content-["On"]',
         'data-checked:before:left-2 data-checked:before:right-auto',
         className,
       )}
-      style={style}
+      {...props}
     >
       <BaseSwitch.Thumb
+        data-slot="switch-thumb"
         className={cn(
-          'inline-block w-4.5 h-4.5',
-          'border border-grayscale-300 rounded-full',
-          'translate-x-0 bg-white',
-          'transition-transform duration-100',
+          'pointer-events-none inline-block h-4.5 w-4.5 translate-x-0 rounded-full border border-grayscale-300 bg-white transition-transform duration-100',
           'data-checked:translate-x-[150%]',
           'data-checked:border-transparent',
           'data-disabled:opacity-80',
           !disabled &&
-            'group-hover:shadow-[0_0_0_1px_var(--grayscale-200)]',
+            'group-hover/switch:shadow-[0_0_0_1px_var(--grayscale-200)]',
           !disabled &&
-            'group-hover:data-checked:shadow-[0_0_0_5px_rgba(14,134,254,0.2)]',
+            'group-hover/switch:data-checked:shadow-[0_0_0_5px_rgba(14,134,254,0.2)]',
         )}
       />
     </BaseSwitch.Root>
   );
-}
+});
+
+export { Switch };

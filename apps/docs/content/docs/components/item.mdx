@@ -1,0 +1,255 @@
+---
+title: Item
+description: Content rows with media, title, description, and actions.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import {
+  Button,
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemFooter,
+  ItemGroup,
+  ItemHeader,
+  ItemMedia,
+  ItemSeparator,
+  ItemTitle,
+} from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview centered={false}>
+  <Item variant="outline" className="w-96">
+    <ItemMedia variant="icon">OK</ItemMedia>
+    <ItemContent>
+      <ItemTitle>Profile verified</ItemTitle>
+      <ItemDescription>
+        Your profile has been verified.
+      </ItemDescription>
+    </ItemContent>
+    <ItemActions>
+      <Button size="medium" theme="default">
+        Action
+      </Button>
+    </ItemActions>
+  </Item>
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from '@/components/ui/Item';
+
+<Item>
+  <ItemMedia variant="icon">
+    <Icon />
+  </ItemMedia>
+  <ItemContent>
+    <ItemTitle>Title</ItemTitle>
+    <ItemDescription>Description</ItemDescription>
+  </ItemContent>
+  <ItemActions>
+    <Button>Action</Button>
+  </ItemActions>
+</Item>;
+```
+
+## Composition
+
+```txt
+ItemGroup
+`-- Item
+    |-- ItemHeader
+    |-- ItemMedia
+    |-- ItemContent
+    |   |-- ItemTitle
+    |   `-- ItemDescription
+    |-- ItemActions
+    `-- ItemFooter
+```
+
+Use `Item` for display rows. Use `size="list"` when the row should match picker/list density. Use `Select`, `Combobox`, or `Cascader` for value picking, `DropdownMenu` for action menus, and `Command` for searchable command panels.
+
+## Variants
+
+<ComponentPreview centered={false}>
+  <div className="flex w-96 flex-col gap-3">
+    <Item>
+      <ItemContent>
+        <ItemTitle>Default</ItemTitle>
+        <ItemDescription>Transparent background.</ItemDescription>
+      </ItemContent>
+    </Item>
+    <Item variant="outline">
+      <ItemContent>
+        <ItemTitle>Outline</ItemTitle>
+        <ItemDescription>
+          Bordered row for clear grouping.
+        </ItemDescription>
+      </ItemContent>
+    </Item>
+    <Item variant="muted">
+      <ItemContent>
+        <ItemTitle>Muted</ItemTitle>
+        <ItemDescription>
+          Soft background for secondary content.
+        </ItemDescription>
+      </ItemContent>
+    </Item>
+  </div>
+</ComponentPreview>
+
+## Sizes
+
+<ComponentPreview centered={false}>
+  <div className="flex w-96 flex-col gap-3">
+    <Item variant="outline" size="default">
+      <ItemContent>
+        <ItemTitle>Default</ItemTitle>
+        <ItemDescription>Standard spacing.</ItemDescription>
+      </ItemContent>
+    </Item>
+    <Item variant="outline" size="sm">
+      <ItemContent>
+        <ItemTitle>Small</ItemTitle>
+        <ItemDescription>Compact spacing.</ItemDescription>
+      </ItemContent>
+    </Item>
+    <Item variant="outline" size="xs">
+      <ItemContent>
+        <ItemTitle>Extra small</ItemTitle>
+        <ItemDescription>Dense row spacing.</ItemDescription>
+      </ItemContent>
+    </Item>
+    <Item variant="outline" size="list">
+      <ItemContent>
+        <ItemTitle>List</ItemTitle>
+        <ItemDescription>Picker row spacing.</ItemDescription>
+      </ItemContent>
+    </Item>
+  </div>
+</ComponentPreview>
+
+## List Rows
+
+`size="list"` follows the select-option row pattern: text-sm, compact padding, hover, active, current, and disabled states.
+
+<ComponentPreview centered={false}>
+  <ItemGroup className="w-96">
+    <Item size="list">
+      <ItemContent>
+        <ItemTitle>Option</ItemTitle>
+      </ItemContent>
+    </Item>
+    <Item size="list" data-highlighted>
+      <ItemMedia variant="image">
+        <span className="grid size-full place-content-center rounded-full border border-primary-200 bg-primary-50 text-sm text-primary-500">
+          VD
+        </span>
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Hover row</ItemTitle>
+        <ItemDescription>Secondary text</ItemDescription>
+      </ItemContent>
+    </Item>
+    <Item size="list" data-active>
+      <ItemContent>
+        <ItemTitle>Active row</ItemTitle>
+      </ItemContent>
+      <ItemActions>
+        <span aria-hidden>&gt;</span>
+      </ItemActions>
+    </Item>
+    <Item size="list" data-current>
+      <ItemContent>
+        <ItemTitle>Current row</ItemTitle>
+        <ItemDescription>Current row description</ItemDescription>
+      </ItemContent>
+      <ItemActions>
+        <span aria-hidden>&gt;</span>
+      </ItemActions>
+    </Item>
+    <Item size="list" data-disabled>
+      <ItemContent>
+        <ItemTitle>Disabled row</ItemTitle>
+      </ItemContent>
+    </Item>
+  </ItemGroup>
+</ComponentPreview>
+
+## Group
+
+<ComponentPreview centered={false}>
+  <ItemGroup className="w-96 rounded border border-grayscale-300">
+    <Item>
+      <ItemMedia>
+        <span className="grid size-8 place-content-center rounded-full bg-grayscale-200 text-xs font-medium">
+          AL
+        </span>
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Alex Lin</ItemTitle>
+        <ItemDescription>alex.lin@vikosmos.com</ItemDescription>
+      </ItemContent>
+    </Item>
+    <ItemSeparator />
+    <Item>
+      <ItemMedia>
+        <span className="grid size-8 place-content-center rounded-full bg-grayscale-200 text-xs font-medium">
+          JC
+        </span>
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>Jamie Chen</ItemTitle>
+        <ItemDescription>jamie.chen@vikosmos.com</ItemDescription>
+      </ItemContent>
+    </Item>
+  </ItemGroup>
+</ComponentPreview>
+
+## Link
+
+<ComponentPreview centered={false}>
+  <Item
+    render={<a href="/docs" />}
+    variant="outline"
+    className="w-96"
+  >
+    <ItemContent>
+      <ItemTitle>Documentation</ItemTitle>
+      <ItemDescription>
+        Learn how to install registry items.
+      </ItemDescription>
+    </ItemContent>
+  </Item>
+</ComponentPreview>
+
+## Props
+
+### Item
+
+| Prop        | Type                                  | Default     | Description              |
+| ----------- | ------------------------------------- | ----------- | ------------------------ |
+| `variant`   | `'default' \| 'outline' \| 'muted'`   | `'default'` | Visual style             |
+| `size`      | `'default' \| 'sm' \| 'xs' \| 'list'` | `'default'` | Row density              |
+| `render`    | `ReactElement` or render function     | -           | Replace the root element |
+| `className` | `string`                              | -           | Additional CSS classes   |
+
+### ItemMedia
+
+| Prop      | Type                             | Default     | Description     |
+| --------- | -------------------------------- | ----------- | --------------- |
+| `variant` | `'default' \| 'icon' \| 'image'` | `'default'` | Media treatment |
+
+### Parts
+
+`ItemGroup` renders `role="list"` by default. `ItemDescription` is clamped to two lines by default. `ItemSeparator` uses `Separator` props. `ItemContent`, `ItemTitle`, `ItemDescription`, `ItemActions`, `ItemHeader`, and `ItemFooter` accept native element props.

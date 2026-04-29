@@ -51,3 +51,56 @@ export const ChevronUpIcon = (props: IconProps) => {
     </svg>
   );
 };
+
+export const ChevronRightIcon = (props: IconProps) => {
+  const {
+    opacity,
+    width = 6,
+    height = 11,
+    color,
+    fill,
+    fillOpacity,
+    ...svgProps
+  } = props;
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 6 11"
+      fill={fill ?? color ?? 'currentColor'}
+      fillOpacity={fillOpacity ?? opacity}
+      xmlns="http://www.w3.org/2000/svg"
+      {...svgProps}
+    >
+      <path d="M5.53125 4.71094C5.74219 4.94531 5.74219 5.29688 5.53125 5.50781L1.03125 10.0078C0.796875 10.2422 0.445312 10.2422 0.234375 10.0078C0 9.79688 0 9.44531 0.234375 9.23438L4.33594 5.13281L0.234375 1.00781C0 0.796875 0 0.445312 0.234375 0.234375C0.445312 0 0.796875 0 1.00781 0.234375L5.53125 4.71094Z" />
+    </svg>
+  );
+};
+
+export const ChevronLeftIcon = (props: IconProps) => {
+  const {
+    opacity = 0.4,
+    width = 6,
+    height = 11,
+    color = 'var(--grayscale-900)',
+    fill,
+    fillOpacity,
+    ...svgProps
+  } = props;
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 6 11"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...svgProps}
+    >
+      <path
+        d="M0.234375 4.71094L4.73438 0.234375C4.94531 0 5.29688 0 5.53125 0.234375C5.74219 0.445312 5.74219 0.796875 5.53125 1.00781L1.40625 5.10938L5.50781 9.23438C5.74219 9.44531 5.74219 9.79688 5.50781 10.0078C5.29688 10.2422 4.94531 10.2422 4.73438 10.0078L0.234375 5.50781C0 5.29688 0 4.94531 0.234375 4.71094Z"
+        fill={fill ?? color}
+        fillOpacity={fillOpacity ?? opacity}
+      />
+    </svg>
+  );
+};

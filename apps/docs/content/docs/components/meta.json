@@ -6,7 +6,10 @@
     "alert",
     "avatar",
     "chip",
+    "label",
     "input",
+    "item",
+    "separator",
     "select",
     "combobox",
     "cascader",
@@ -21,8 +24,6 @@
     "radio-group",
     "search-bar",
     "split-button",
-    "mask",
-    "list",
     "skeleton",
     "spinner"
   ]

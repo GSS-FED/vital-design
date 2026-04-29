@@ -1,17 +1,36 @@
 ---
 title: Input
-description: Text input components including TextInput, PasswordInput, and TextareaInput.
+description: Text input components including Input, PasswordInput, and Textarea.
 ---
 
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 import {
+  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
-  TextInput,
+  Textarea,
 } from '~/components/vital-components';
+
+## Input
+
+The base single-line input primitive.
+
+### Preview
+
+<ComponentPreview centered={false}>
+  <Input placeholder="Enter text..." />
+</ComponentPreview>
+
+### Usage
+
+```tsx
+import { Input } from '@/components/ui/Input';
+
+<Input placeholder="Enter text..." />;
+```
 
 ## InputGroup
 
@@ -64,87 +83,6 @@ import {
 | `InputGroupButton`   | Small action button inside an addon                 |
 | `InputGroupText`     | Static text inside an addon                         |
 
-## TextInput
-
-<a id="text-input"></a>
-
-A single-line text field with optional prefix/suffix elements.
-
-### Preview
-
-<ComponentPreview centered={false}>
-  <TextInput placeholder="Enter text..." />
-</ComponentPreview>
-
-### Usage
-
-```tsx
-import { TextInput } from '@/components/ui/TextInput';
-
-<TextInput
-  placeholder="Enter your name"
-  value={value}
-  onChange={(val) => setValue(val)}
-/>;
-```
-
-### States
-
-<ComponentPreview centered={false}>
-  <TextInput placeholder="Default" />
-  <TextInput placeholder="Disabled" disabled />
-  <TextInput placeholder="Error state" isError />
-</ComponentPreview>
-
-```tsx
-<TextInput placeholder="Default" />
-<TextInput placeholder="Disabled" disabled />
-<TextInput placeholder="Error" isError />
-```
-
-### With Prefix / Suffix
-
-<ComponentPreview centered={false}>
-  <TextInput
-    placeholder="Search..."
-    prefix={<span className="text-grayscale-500">🔍</span>}
-  />
-  <TextInput
-    placeholder="Amount"
-    suffix={<span className="text-grayscale-500">TWD</span>}
-  />
-</ComponentPreview>
-
-```tsx
-<TextInput
-  prefix={<SearchIcon />}
-  placeholder="Search..."
-/>
-<TextInput
-  suffix={<span>TWD</span>}
-  placeholder="Amount"
-/>
-```
-
-### TextInput Props
-
-| Prop           | Type                      | Default | Description                            |
-| -------------- | ------------------------- | ------- | -------------------------------------- |
-| `value`        | `string`                  | —       | Controlled value                       |
-| `defaultValue` | `string`                  | —       | Uncontrolled initial value             |
-| `placeholder`  | `string`                  | —       | Placeholder text                       |
-| `prefix`       | `ReactNode`               | —       | Element rendered inside the left side  |
-| `suffix`       | `ReactNode`               | —       | Element rendered inside the right side |
-| `disabled`     | `boolean`                 | `false` | Disables the input                     |
-| `isError`      | `boolean`                 | `false` | Applies error border styling           |
-| `onChange`     | `(value: string) => void` | —       | Value change callback                  |
-| `onEnter`      | `(value: string) => void` | —       | Called when Enter key is pressed       |
-| `width`        | `string`                  | —       | Custom width (e.g., `'300px'`)         |
-| `className`    | `string`                  | —       | Additional CSS classes                 |
-| `style`        | `CSSProperties`           | —       | Inline styles                          |
-
----
-
 ## PasswordInput
 
 <a id="password-input"></a>
@@ -181,37 +119,41 @@ import { PasswordInput } from '@/components/ui/PasswordInput';
 
 ---
 
-## TextareaInput
+## Textarea
 
-<a id="textarea-input"></a>
+<a id="textarea"></a>
 
 A multi-line text field.
+
+### Preview
+
+<ComponentPreview centered={false}>
+  <Textarea placeholder="Enter description..." rows={4} />
+</ComponentPreview>
 
 ### Usage
 
 ```tsx
-import { TextareaInput } from '@/components/ui/TextareaInput';
+import { Textarea } from '@/components/ui/Textarea';
 
-<TextareaInput
+<Textarea
   placeholder="Enter description..."
   value={text}
-  onChange={setText}
-  height="120px"
+  onChange={(event) => setText(event.currentTarget.value)}
+  rows={4}
 />;
 ```
 
-### TextareaInput Props
+### Textarea Props
 
-| Prop           | Type                      | Default | Description                        |
-| -------------- | ------------------------- | ------- | ---------------------------------- |
-| `value`        | `string`                  | —       | Controlled value                   |
-| `defaultValue` | `string`                  | —       | Uncontrolled initial value         |
-| `placeholder`  | `string`                  | —       | Placeholder text                   |
-| `disabled`     | `boolean`                 | `false` | Disables the textarea              |
-| `isError`      | `boolean`                 | `false` | Applies error border styling       |
-| `resizable`    | `boolean`                 | `false` | Allows user to resize the textarea |
-| `onChange`     | `(value: string) => void` | —       | Value change callback              |
-| `onEnter`      | `(value: string) => void` | —       | Called when Enter key is pressed   |
-| `width`        | `string`                  | —       | Custom width                       |
-| `height`       | `string`                  | —       | Custom height                      |
-| `className`    | `string`                  | —       | Additional CSS classes             |
+| Prop           | Type                                      | Default | Description                  |
+| -------------- | ----------------------------------------- | ------- | ---------------------------- |
+| `value`        | `string`                                  | —       | Controlled value             |
+| `defaultValue` | `string`                                  | —       | Uncontrolled initial value   |
+| `placeholder`  | `string`                                  | —       | Placeholder text             |
+| `disabled`     | `boolean`                                 | `false` | Disables the textarea        |
+| `aria-invalid` | `boolean`                                 | —       | Applies error border styling |
+| `onChange`     | `ChangeEventHandler<HTMLTextAreaElement>` | —       | Native value change callback |
+| `rows`         | `number`                                  | —       | Native visible row count     |
+| `className`    | `string`                                  | —       | Additional CSS classes       |
+| `style`        | `CSSProperties`                           | —       | Inline styles                |

@@ -116,24 +116,6 @@ export const base = [
     },
   },
   {
-    name: 'vital-constants',
-    type: 'registry:lib',
-    title: 'Vital Constants',
-    description: 'Mask constants for scroll containers',
-    files: [
-      {
-        path: 'src-v2/constants/mask.ts',
-        type: 'registry:lib',
-        target: 'src/lib/constants/mask.ts',
-      },
-      {
-        path: 'src-v2/constants/index.ts',
-        type: 'registry:lib',
-        target: 'src/lib/constants/index.ts',
-      },
-    ],
-  },
-  {
     name: 'vital-design-base',
     type: 'registry:base',
     title: 'Vital Design Base',
@@ -143,7 +125,6 @@ export const base = [
       '@vital-design/vital-theme',
       '@vital-design/utils',
       '@vital-design/vital-icons',
-      '@vital-design/vital-constants',
     ],
   },
   ...iconItems,

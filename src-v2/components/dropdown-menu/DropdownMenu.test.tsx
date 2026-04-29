@@ -1,16 +1,20 @@
 import {
   fireEvent,
+  queryAllByAttribute,
   render,
   screen,
   waitFor,
 } from '@testing-library/react';
 import { useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
+import { Button } from '../button/Button';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
@@ -43,6 +47,44 @@ describe('DropdownMenu', () => {
       expect(screen.getByText('First')).toBeInTheDocument();
     });
     expect(screen.getByText('Second')).toBeInTheDocument();
+  });
+
+  it('opens when the trigger renders a Button', async () => {
+    render(
+      <DropdownMenu>
+        <DropdownMenuTrigger render={<Button>Actions</Button>} />
+        <DropdownMenuContent>
+          <DropdownMenuItem>New file</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>,
+    );
+
+    fireEvent.click(screen.getByText('Actions'));
+
+    await waitFor(() => {
+      expect(screen.getByText('New file')).toBeInTheDocument();
+    });
+  });
+
+  it('renders labeled groups', async () => {
+    render(
+      <DropdownMenu>
+        <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuGroup>
+            <DropdownMenuLabel>Account</DropdownMenuLabel>
+            <DropdownMenuItem>Profile</DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>,
+    );
+
+    fireEvent.click(screen.getByText('Open'));
+
+    await waitFor(() => {
+      expect(screen.getByText('Account')).toBeInTheDocument();
+    });
+    expect(screen.getByText('Profile')).toBeInTheDocument();
   });
 
   it('fires onClick on item select', async () => {
@@ -95,8 +137,55 @@ describe('DropdownMenu', () => {
     expect(onClick).not.toHaveBeenCalled();
   });
 
+  it('does not render indicators for unchecked checkbox and radio items', async () => {
+    const { baseElement } = render(
+      <DropdownMenu>
+        <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuCheckboxItem checked={false}>
+            Hidden checkbox mark
+          </DropdownMenuCheckboxItem>
+          <DropdownMenuRadioGroup value="a">
+            <DropdownMenuRadioItem value="a">
+              Selected option
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="b">
+              Unselected option
+            </DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>,
+    );
+
+    fireEvent.click(screen.getByText('Open'));
+
+    await waitFor(() => {
+      expect(screen.getByText('Selected option')).toBeInTheDocument();
+    });
+
+    expect(
+      queryAllByAttribute(
+        'data-slot',
+        baseElement,
+        'dropdown-menu-checkbox-item-indicator',
+      ),
+    ).toHaveLength(0);
+    expect(
+      queryAllByAttribute(
+        'data-slot',
+        baseElement,
+        'dropdown-menu-radio-item-indicator',
+      ),
+    ).toHaveLength(1);
+    expect(
+      screen.getByRole('menuitemradio', {
+        name: 'Unselected option',
+      }),
+    ).not.toBeChecked();
+  });
+
   it('toggles a checkbox item via onCheckedChange', async () => {
-    const onCheckedChange = vi.fn<(checked: boolean) => void>();
+    const onCheckedChange = vi.fn<[boolean], void>();
 
     function Harness() {
       const [checked, setChecked] = useState(false);
@@ -134,7 +223,7 @@ describe('DropdownMenu', () => {
   });
 
   it('selects a radio item exclusively', async () => {
-    const onValueChange = vi.fn<(value: string) => void>();
+    const onValueChange = vi.fn<[string], void>();
 
     function Harness() {
       const [value, setValue] = useState('a');

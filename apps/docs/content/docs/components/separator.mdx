@@ -1,0 +1,42 @@
+---
+title: Separator
+description: Horizontal or vertical divider.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { Separator } from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview centered={false}>
+  <div className="w-80">
+    <Separator />
+  </div>
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Separator } from '@/components/ui/Separator';
+
+<Separator />;
+```
+
+## Vertical
+
+<ComponentPreview centered={false}>
+  <div className="flex h-16 items-stretch gap-4">
+    <span className="text-sm text-grayscale-700">Left</span>
+    <Separator orientation="vertical" />
+    <span className="text-sm text-grayscale-700">Right</span>
+  </div>
+</ComponentPreview>
+
+## Props
+
+| Prop          | Type                          | Default        | Description                    |
+| ------------- | ----------------------------- | -------------- | ------------------------------ |
+| `orientation` | `'horizontal' \| 'vertical'`  | `'horizontal'` | Separator direction            |
+| `className`   | `string`                      | —              | Additional CSS classes         |
+| `style`       | `CSSProperties`               | —              | Inline styles                  |
+| `...props`    | `ComponentProps<typeof Base>` | —              | Base UI separator props/events |

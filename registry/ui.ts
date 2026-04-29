@@ -80,6 +80,7 @@ export const ui = [
     ],
     registryDependencies: [
       '@vital-design/utils',
+      '@vital-design/separator',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -156,14 +157,8 @@ export const ui = [
     name: 'radio-group',
     type: 'registry:ui',
     title: 'Radio Group',
-    description:
-      'Radio group component with horizontal and vertical layouts',
-    dependencies: [
-      '@base-ui/react',
-      'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
-    ],
+    description: 'Composable radio group component',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -171,6 +166,23 @@ export const ui = [
     files: [
       {
         path: 'src-v2/components/radio-group/RadioGroup.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'label',
+    type: 'registry:ui',
+    title: 'Label',
+    description: 'Accessible label associated with form controls',
+    dependencies: ['clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/label/Label.tsx',
         type: 'registry:ui',
       },
     ],
@@ -210,24 +222,6 @@ export const ui = [
     files: [
       {
         path: 'src-v2/components/tag/Tag.tsx',
-        type: 'registry:ui',
-      },
-    ],
-  },
-  {
-    name: 'mask',
-    type: 'registry:ui',
-    title: 'Mask',
-    description: 'Scrollable container with gradient mask effect',
-    dependencies: ['clsx', 'tailwind-merge'],
-    registryDependencies: [
-      '@vital-design/utils',
-      '@vital-design/vital-constants',
-      '@vital-design/vital-theme',
-    ],
-    files: [
-      {
-        path: 'src-v2/components/mask/Mask.tsx',
         type: 'registry:ui',
       },
     ],
@@ -313,46 +307,35 @@ export const ui = [
     ],
   },
   {
-    name: 'text-input',
+    name: 'input',
     type: 'registry:ui',
-    title: 'Text Input',
-    description:
-      'Text input component with prefix/suffix slots and error state',
-    dependencies: [
-      'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
-    ],
+    title: 'Input',
+    description: 'Single-line input primitive',
+    dependencies: ['clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/input-group',
       '@vital-design/vital-theme',
     ],
     files: [
       {
-        path: 'src-v2/components/input/text-input/TextInput.tsx',
+        path: 'src-v2/components/input/input/Input.tsx',
         type: 'registry:ui',
       },
     ],
   },
   {
-    name: 'textarea-input',
+    name: 'textarea',
     type: 'registry:ui',
-    title: 'Textarea Input',
+    title: 'Textarea',
     description: 'Multiline text input component',
-    dependencies: [
-      'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
-    ],
+    dependencies: ['clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/input-group',
       '@vital-design/vital-theme',
     ],
     files: [
       {
-        path: 'src-v2/components/input/textarea-input/TextareaInput.tsx',
+        path: 'src-v2/components/textarea/Textarea.tsx',
         type: 'registry:ui',
       },
     ],
@@ -365,7 +348,6 @@ export const ui = [
     dependencies: ['clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/text-input',
       '@vital-design/input-group',
       '@vital-design/icon-eye',
       '@vital-design/icon-eye-slash',
@@ -379,24 +361,42 @@ export const ui = [
     ],
   },
   {
-    name: 'list-components',
+    name: 'item',
     type: 'registry:ui',
-    title: 'List Components',
+    title: 'Item',
     description:
-      'Reusable list container and item components with mask effect',
-    dependencies: ['clsx', 'tailwind-merge'],
+      'Content row with media, title, description, and actions',
+    dependencies: [
+      '@base-ui/react',
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/vital-constants',
+      '@vital-design/separator',
       '@vital-design/vital-theme',
     ],
     files: [
       {
-        path: 'src-v2/components/list/components/ListContainer.tsx',
+        path: 'src-v2/components/item/Item.tsx',
         type: 'registry:ui',
       },
+    ],
+  },
+  {
+    name: 'separator',
+    type: 'registry:ui',
+    title: 'Separator',
+    description: 'Horizontal or vertical divider',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
       {
-        path: 'src-v2/components/list/components/ListItem.tsx',
+        path: 'src-v2/components/separator/Separator.tsx',
         type: 'registry:ui',
       },
     ],
@@ -409,6 +409,7 @@ export const ui = [
     dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
+      '@vital-design/use-scroll-mask',
       '@vital-design/icon-check',
       '@vital-design/icon-chevron',
       '@vital-design/vital-theme',
@@ -428,6 +429,7 @@ export const ui = [
     dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
+      '@vital-design/use-scroll-mask',
       '@vital-design/icon-check',
       '@vital-design/icon-chevron',
       '@vital-design/icon-clear',
@@ -451,15 +453,11 @@ export const ui = [
     title: 'Command',
     description:
       'Composable command palette primitive with input, list, and items',
-    dependencies: [
-      '@radix-ui/react-icons',
-      'cmdk',
-      'clsx',
-      'tailwind-merge',
-    ],
+    dependencies: ['cmdk', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/vital-constants',
+      '@vital-design/use-scroll-mask',
+      '@vital-design/icon-chevron',
       '@vital-design/icon-search',
       '@vital-design/icon-spinner',
       '@vital-design/vital-theme',
@@ -476,12 +474,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Cascader',
     description: 'Nested path picker for hierarchical option lists',
-    dependencies: [
-      '@base-ui/react',
-      '@radix-ui/react-icons',
-      'clsx',
-      'tailwind-merge',
-    ],
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/command',
       '@vital-design/utils',
@@ -520,15 +513,11 @@ export const ui = [
     title: 'Dropdown Menu',
     description:
       'Action menu with checkbox items, radio items, and submenus',
-    dependencies: [
-      '@base-ui/react',
-      '@radix-ui/react-icons',
-      'clsx',
-      'tailwind-merge',
-    ],
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-check',
+      '@vital-design/icon-chevron',
       '@vital-design/vital-theme',
     ],
     files: [

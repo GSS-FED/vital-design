@@ -2,6 +2,9 @@ import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import {
   Combobox,
+  ComboboxChip,
+  ComboboxChipRemove,
+  ComboboxChips,
   ComboboxContent,
   ComboboxHeader,
   ComboboxItem,
@@ -164,6 +167,91 @@ export const Multiple: Story = {
             maxDisplayCount={2}
             placeholder="Search frameworks"
           />
+        </ComboboxTrigger>
+        <ComboboxContent emptyText="No results">
+          <ComboboxHeader>
+            <ComboboxSearchBar placeholder="Search frameworks" />
+          </ComboboxHeader>
+          <ComboboxList>
+            {(item: Option) => (
+              <ComboboxItem key={item.value} value={item}>
+                <ComboboxItemCheckbox />
+                <ComboboxItemText>{item.label}</ComboboxItemText>
+              </ComboboxItem>
+            )}
+          </ComboboxList>
+        </ComboboxContent>
+      </Combobox>
+    );
+  },
+};
+
+export const MultipleWrap: Story = {
+  render: function Render(args) {
+    const [value, setValue] = useState<Option[]>(
+      frameworks.slice(0, 5),
+    );
+
+    return (
+      <Combobox
+        autoHighlight={Boolean(args.autoHighlight)}
+        multiple
+        items={frameworks}
+        itemToStringLabel={(item) =>
+          itemToStringLabel(getOption(item))
+        }
+        itemToStringValue={(item) =>
+          itemToStringValue(getOption(item))
+        }
+        value={value}
+        onValueChange={(nextValue) =>
+          setValue(
+            uniqueOptions(
+              nextValue
+                .map((item) => getOption(item))
+                .filter(isOption),
+            ),
+          )
+        }
+      >
+        <ComboboxTrigger
+          nativeButton={false}
+          render={<div />}
+          className="h-auto min-h-8 w-72 items-start py-1"
+          aria-label="Open frameworks"
+        >
+          <ComboboxValue placeholder="Search frameworks">
+            {(selectedValue: unknown) => {
+              const selectedItems = Array.isArray(selectedValue)
+                ? selectedValue
+                    .map((item) => getOption(item))
+                    .filter(isOption)
+                : [];
+
+              if (selectedItems.length === 0) {
+                return (
+                  <span className="min-w-0 flex-1 truncate text-grayscale-400">
+                    Search frameworks
+                  </span>
+                );
+              }
+
+              return (
+                <ComboboxChips className="flex-wrap overflow-visible">
+                  {selectedItems.map((item) => (
+                    <ComboboxChip key={item.value}>
+                      <span className="min-w-0 truncate">
+                        {item.label}
+                      </span>
+                      <ComboboxChipRemove
+                        aria-label={`Remove ${item.label}`}
+                      />
+                    </ComboboxChip>
+                  ))}
+                </ComboboxChips>
+              );
+            }}
+          </ComboboxValue>
         </ComboboxTrigger>
         <ComboboxContent emptyText="No results">
           <ComboboxHeader>

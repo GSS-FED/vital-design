@@ -5,6 +5,7 @@ import {
   waitFor,
 } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
+import { Button } from '../button/Button';
 import {
   Popover,
   PopoverContent,
@@ -52,6 +53,23 @@ describe('Popover', () => {
     expect(screen.getByText('Description text')).toBeInTheDocument();
   });
 
+  it('opens when the trigger renders a Button', async () => {
+    render(
+      <Popover>
+        <PopoverTrigger render={<Button>View details</Button>} />
+        <PopoverContent>
+          <PopoverTitle>Details</PopoverTitle>
+        </PopoverContent>
+      </Popover>,
+    );
+
+    fireEvent.click(screen.getByText('View details'));
+
+    await waitFor(() => {
+      expect(screen.getByText('Details')).toBeInTheDocument();
+    });
+  });
+
   it('honors the defaultOpen prop', () => {
     renderPopover({ defaultOpen: true });
 
@@ -59,7 +77,7 @@ describe('Popover', () => {
   });
 
   it('fires onOpenChange when state changes', async () => {
-    const onOpenChange = vi.fn<(open: boolean) => void>();
+    const onOpenChange = vi.fn<[boolean, unknown], void>();
 
     render(
       <Popover onOpenChange={onOpenChange}>

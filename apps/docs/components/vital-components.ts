@@ -23,7 +23,21 @@ export {
   AvatarRoot,
 } from '../../../src-v2/components/avatar/Avatar';
 export { Chip } from '../../../src-v2/components/chip/Chip';
-export { TextInput } from '../../../src-v2/components/input/text-input/TextInput';
+export {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemFooter,
+  ItemGroup,
+  ItemHeader,
+  ItemMedia,
+  ItemSeparator,
+  ItemTitle,
+} from '../../../src-v2/components/item/Item';
+export { Label } from '../../../src-v2/components/label/Label';
+export { Separator } from '../../../src-v2/components/separator/Separator';
+export { Input } from '../../../src-v2/components/input/input/Input';
 export {
   InputGroup,
   InputGroupAddon,
@@ -33,7 +47,7 @@ export {
   InputGroupTextarea,
 } from '../../../src-v2/components/input/input-group/InputGroup';
 export { PasswordInput } from '../../../src-v2/components/input/password-input/PasswordInput';
-export { TextareaInput } from '../../../src-v2/components/input/textarea-input/TextareaInput';
+export { Textarea } from '../../../src-v2/components/textarea/Textarea';
 export { Select } from '../../../src-v2/components/select/Select';
 export { Combobox } from '../../../src-v2/components/combobox/Combobox';
 export { Cascader } from '../../../src-v2/components/cascader/Cascader';

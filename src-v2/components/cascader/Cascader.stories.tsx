@@ -1,6 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import type { UIEvent } from 'react';
+import { Button } from '../button/Button';
 import {
   Cascader,
   CascaderBackItem,
@@ -183,6 +184,106 @@ export const Default: Story = {
           </CascaderValue>
         </CascaderTrigger>
         <CascaderContent>
+          <CascaderBackItem>{currentPage?.label}</CascaderBackItem>
+          <CascaderSearch placeholder="Search locations" />
+          <CascaderList>
+            <CascaderGroup>
+              {visibleItems.map((item) => (
+                <CascaderItem
+                  key={item.value}
+                  value={item.value}
+                  closeOnSelect={!item.hasChildren}
+                  onSelect={() => {
+                    if (item.hasChildren) {
+                      openPage(item);
+                      return;
+                    }
+
+                    selectItem(item);
+                  }}
+                >
+                  <CascaderItemText>{item.label}</CascaderItemText>
+                  {item.hasChildren ? (
+                    <CascaderItemIndicator />
+                  ) : null}
+                </CascaderItem>
+              ))}
+            </CascaderGroup>
+          </CascaderList>
+        </CascaderContent>
+      </Cascader>
+    );
+  },
+};
+
+export const WithButtonTrigger: Story = {
+  render: function Render(args) {
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState<SelectedLocation | null>(null);
+    const [pages, setPages] = useState<LocationItem[]>([]);
+    const [searchValue, setSearchValue] = useState('');
+    const currentPage = pages[pages.length - 1] ?? null;
+    const visibleItems = getItems(
+      items,
+      currentPage?.value ?? null,
+      searchValue,
+    );
+
+    const resetView = () => {
+      setPages([]);
+      setSearchValue('');
+    };
+
+    const openPage = (item: LocationItem) => {
+      setPages((prev) => [...prev, item]);
+      setSearchValue('');
+    };
+
+    const selectItem = (item: LocationItem) => {
+      setValue({
+        label: item.label,
+        path: [...pages, item],
+        value: item.value,
+      });
+      setOpen(false);
+      resetView();
+    };
+
+    return (
+      <Cascader
+        {...args}
+        width="fit-content"
+        open={open}
+        onOpenChange={(nextOpen) => {
+          setOpen(nextOpen);
+
+          if (!nextOpen) {
+            resetView();
+          }
+        }}
+        pageKey={currentPage?.value}
+        searchValue={searchValue}
+        canGoBack={pages.length > 0}
+        onBack={() => {
+          setPages((prev) => prev.slice(0, -1));
+        }}
+        onSearchValueChange={setSearchValue}
+      >
+        <CascaderTrigger
+          clearable={false}
+          render={({ className: _className, ...triggerProps }) => {
+            void _className;
+
+            return (
+              <Button {...triggerProps} theme="default">
+                {value
+                  ? `Location: ${value.label}`
+                  : 'Assign location'}
+              </Button>
+            );
+          }}
+        />
+        <CascaderContent className="w-64">
           <CascaderBackItem>{currentPage?.label}</CascaderBackItem>
           <CascaderSearch placeholder="Search locations" />
           <CascaderList>

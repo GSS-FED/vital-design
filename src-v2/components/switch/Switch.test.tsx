@@ -6,7 +6,6 @@ import { Switch } from './Switch';
 it('renders an unchecked Switch', () => {
   const props = {
     checked: false,
-    onChange: vi.fn(),
   };
   render(<Switch {...props} />);
   const element = screen.getByRole('switch');
@@ -17,7 +16,6 @@ it('renders an unchecked Switch', () => {
 it('renders a checked Switch', () => {
   const props = {
     checked: true,
-    onChange: vi.fn(),
   };
   render(<Switch {...props} />);
   const element = screen.getByRole('switch');
@@ -25,35 +23,73 @@ it('renders a checked Switch', () => {
   expect(element).toBeChecked();
 });
 
-it('calls the onChange callback when clicked', async () => {
+it('calls the onCheckedChange callback when clicked', async () => {
   const props = {
     checked: false,
-    onChange: vi.fn(),
+    onCheckedChange: vi.fn(),
   };
   render(<Switch {...props} />);
   const element = screen.getByRole('switch');
   expect(element).toBeInTheDocument();
   await userEvent.click(element);
-  expect(props.onChange).toHaveBeenCalledWith(true);
+  expect(props.onCheckedChange).toHaveBeenCalledTimes(1);
+  expect(props.onCheckedChange).toHaveBeenCalledWith(
+    true,
+    expect.any(Object),
+  );
 });
 
-it('does not call the onChange callback when clicked if disabled', async () => {
+it('supports uncontrolled Base UI props', () => {
+  render(
+    <form aria-label="settings">
+      <Switch
+        aria-label="Notifications"
+        data-testid="notifications-switch"
+        defaultChecked
+        id="notifications"
+        name="notifications"
+        value="on"
+      />
+    </form>,
+  );
+  const element = screen.getByRole('switch');
+  const form = screen.getByRole<HTMLFormElement>('form', {
+    name: 'settings',
+  });
+  expect(element).toBeInTheDocument();
+  expect(element).toBeChecked();
+  expect(element).toHaveAttribute('aria-label', 'Notifications');
+  expect(element).toHaveAttribute(
+    'data-testid',
+    'notifications-switch',
+  );
+  expect(new FormData(form).get('notifications')).toBe('on');
+});
+
+it('does not call the onCheckedChange callback when clicked if disabled', async () => {
   const props = {
     checked: false,
-    onChange: vi.fn(),
+    onCheckedChange: vi.fn(),
     disabled: true,
   };
   render(<Switch {...props} />);
   const element = screen.getByRole('switch');
   expect(element).toBeInTheDocument();
   await userEvent.click(element);
-  expect(props.onChange).not.toHaveBeenCalled();
+  expect(props.onCheckedChange).not.toHaveBeenCalled();
+});
+
+it('supports aria-invalid styling', () => {
+  render(<Switch aria-invalid />);
+  const element = screen.getByRole('switch');
+  expect(element).toBeInTheDocument();
+  expect(element).toHaveAttribute('aria-invalid', 'true');
+  expect(element).toHaveClass('aria-invalid:border-alarm-500');
 });
 
 it('applies custom class names and styles', () => {
   const props = {
     checked: false,
-    onChange: vi.fn(),
     className: 'custom-class-1 custom-class-2',
     style: {
       color: '#FED655',

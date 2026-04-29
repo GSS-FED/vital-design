@@ -16,6 +16,8 @@ import {
 
 Use `Combobox` when the picker renders an input: search, autocomplete, or removable chips.
 
+Keep `Combobox` as the root when the popup is a searchable value picker. If only the trigger changes, customize `ComboboxTrigger`; do not wrap the combobox in `DropdownMenu`.
+
 ```tsx
 import {
   Combobox,
@@ -123,6 +125,15 @@ const [value, setValue] = useState<typeof frameworks>([]);
   </ComboboxContent>
 </Combobox>;
 ```
+
+## When to Choose What
+
+| Need                                 | Use            |
+| ------------------------------------ | -------------- |
+| Flat single or multiple value picker | `Select`       |
+| Searchable picker or tag picker      | `Combobox`     |
+| Hierarchical path picker             | `Cascader`     |
+| Command menu with callbacks          | `DropdownMenu` |
 
 Use named exports for shadcn-style imports:
 

@@ -11,13 +11,14 @@ import { DropdownMenuPreview } from '~/components/previews/DropdownMenuPreview';
 
 ## Usage
 
-`DropdownMenu` is a thin styled wrapper around Base UI Menu. The trigger is render-prop based and trigger-agnostic — pass any element (a button, an icon-only button, a `SplitButton`, anything) via `render`.
+`DropdownMenu` is a thin styled wrapper around Base UI Menu. Use it for commands, not value picking. The trigger is render-prop based and trigger-agnostic — pass any element (a button, an icon-only button, a `SplitButton`, anything) via `render`.
 
 ```tsx
 import { Button } from '@/components/ui/Button';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -27,9 +28,11 @@ import {
 <DropdownMenu>
   <DropdownMenuTrigger render={<Button>Account</Button>} />
   <DropdownMenuContent>
-    <DropdownMenuLabel>My account</DropdownMenuLabel>
-    <DropdownMenuItem>Profile</DropdownMenuItem>
-    <DropdownMenuItem>Billing</DropdownMenuItem>
+    <DropdownMenuGroup>
+      <DropdownMenuLabel>My account</DropdownMenuLabel>
+      <DropdownMenuItem>Profile</DropdownMenuItem>
+      <DropdownMenuItem>Billing</DropdownMenuItem>
+    </DropdownMenuGroup>
     <DropdownMenuSeparator />
     <DropdownMenuItem>Log out</DropdownMenuItem>
   </DropdownMenuContent>
@@ -38,15 +41,32 @@ import {
 
 ## When to Use
 
-| Need                                       | Component       |
-| ------------------------------------------ | --------------- |
-| **Action menu** (each item fires a callback) | **`DropdownMenu`** |
-| Flat value picker                          | `Select`        |
-| Searchable value picker                    | `Combobox`      |
-| Hierarchical value picker                  | `Cascader`      |
-| Floating panel with arbitrary content      | `Popover`       |
+| Need                                             | Use                |
+| ------------------------------------------------ | ------------------ |
+| **Action menu** where each item fires a callback | **`DropdownMenu`** |
+| Flat value picker                                | `Select`           |
+| Searchable value picker or tag picker            | `Combobox`         |
+| Hierarchical path picker                         | `Cascader`         |
+| Floating panel with arbitrary content            | `Popover`          |
 
 The key distinction: `DropdownMenu` items are **commands** (each triggers a side effect), not values. There is no value binding, no selected state on regular items, and selecting an item closes the menu by default.
+
+Do not wrap `Select`, `Combobox`, or `Cascader` inside `DropdownMenu` just to get a different trigger. Keep the picker as the root component and customize its own trigger with `render`.
+
+```tsx
+<Cascader>
+  <CascaderTrigger
+    render={({ className: _className, ...triggerProps }) => {
+      void _className;
+
+      return <Button {...triggerProps}>Assign location</Button>;
+    }}
+  />
+  <CascaderContent>
+    {/* same Cascader popup content */}
+  </CascaderContent>
+</Cascader>
+```
 
 ## Checkbox and Radio Items
 
@@ -57,6 +77,7 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
@@ -69,18 +90,27 @@ const [position, setPosition] = useState('bottom');
 <DropdownMenu>
   <DropdownMenuTrigger render={<Button>View</Button>} />
   <DropdownMenuContent>
-    <DropdownMenuLabel>Appearance</DropdownMenuLabel>
-    <DropdownMenuCheckboxItem
-      checked={showStatusBar}
-      onCheckedChange={setShowStatusBar}
-    >
-      Status bar
-    </DropdownMenuCheckboxItem>
-    <DropdownMenuLabel>Position</DropdownMenuLabel>
-    <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-      <DropdownMenuRadioItem value="top">Top</DropdownMenuRadioItem>
-      <DropdownMenuRadioItem value="bottom">Bottom</DropdownMenuRadioItem>
-    </DropdownMenuRadioGroup>
+    <DropdownMenuGroup>
+      <DropdownMenuLabel>Appearance</DropdownMenuLabel>
+      <DropdownMenuCheckboxItem
+        checked={showStatusBar}
+        onCheckedChange={setShowStatusBar}
+      >
+        Status bar
+      </DropdownMenuCheckboxItem>
+    </DropdownMenuGroup>
+    <DropdownMenuGroup>
+      <DropdownMenuLabel>Position</DropdownMenuLabel>
+      <DropdownMenuRadioGroup
+        value={position}
+        onValueChange={setPosition}
+      >
+        <DropdownMenuRadioItem value="top">Top</DropdownMenuRadioItem>
+        <DropdownMenuRadioItem value="bottom">
+          Bottom
+        </DropdownMenuRadioItem>
+      </DropdownMenuRadioGroup>
+    </DropdownMenuGroup>
   </DropdownMenuContent>
 </DropdownMenu>;
 ```
@@ -120,13 +150,13 @@ import {
 `DropdownMenu` is trigger-agnostic, so it composes with `SplitButton` cleanly. Control the open state externally and let the chevron half toggle the menu while the primary button keeps its own action. Anchor `DropdownMenuContent` to a wrapping `div` so the menu pops below the SplitButton.
 
 ```tsx
-import { useRef, useState } from 'react';
-import { SplitButton } from '@/components/ui/SplitButton';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/components/ui/DropdownMenu';
+import { SplitButton } from '@/components/ui/SplitButton';
+import { useRef, useState } from 'react';
 
 function SplitWithMenu() {
   const [open, setOpen] = useState(false);
@@ -154,19 +184,19 @@ function SplitWithMenu() {
 
 ## Exports
 
-| Export                       | Description                                                              |
-| ---------------------------- | ------------------------------------------------------------------------ |
-| `DropdownMenu`               | Root; manages open state                                                  |
-| `DropdownMenuTrigger`        | Render-prop trigger slot — accepts any element                            |
-| `DropdownMenuContent`        | Composite of Portal + Positioner + Popup                                  |
-| `DropdownMenuItem`           | Action row; fires `onClick`, closes menu by default                       |
-| `DropdownMenuCheckboxItem`   | Toggleable item with built-in indicator                                   |
-| `DropdownMenuRadioGroup`     | Radio group container                                                     |
-| `DropdownMenuRadioItem`      | Mutually exclusive item with built-in indicator                           |
-| `DropdownMenuLabel`          | Section label inside a group                                              |
-| `DropdownMenuSeparator`      | Horizontal divider                                                        |
-| `DropdownMenuGroup`          | Group container for related items                                         |
-| `DropdownMenuSub`            | Submenu root                                                              |
-| `DropdownMenuSubTrigger`     | Submenu trigger row with built-in chevron-right indicator                 |
-| `DropdownMenuSubContent`     | Submenu content composite                                                 |
-| `DropdownMenuPortal`         | Portal target (rarely used directly)                                      |
+| Export                     | Description                                               |
+| -------------------------- | --------------------------------------------------------- |
+| `DropdownMenu`             | Root; manages open state                                  |
+| `DropdownMenuTrigger`      | Render-prop trigger slot — accepts any element            |
+| `DropdownMenuContent`      | Composite of Portal + Positioner + Popup                  |
+| `DropdownMenuItem`         | Action row; fires `onClick`, closes menu by default       |
+| `DropdownMenuCheckboxItem` | Toggleable item with built-in indicator                   |
+| `DropdownMenuRadioGroup`   | Radio group container                                     |
+| `DropdownMenuRadioItem`    | Mutually exclusive item with built-in indicator           |
+| `DropdownMenuLabel`        | Section label inside a group                              |
+| `DropdownMenuSeparator`    | Horizontal divider                                        |
+| `DropdownMenuGroup`        | Group container for related items                         |
+| `DropdownMenuSub`          | Submenu root                                              |
+| `DropdownMenuSubTrigger`   | Submenu trigger row with built-in chevron-right indicator |
+| `DropdownMenuSubContent`   | Submenu content composite                                 |
+| `DropdownMenuPortal`       | Portal target (rarely used directly)                      |

@@ -9,7 +9,7 @@ const meta: Meta<typeof Switch> = {
   title: 'Components/Switch',
   component: Switch,
   args: {
-    onChange: fn(),
+    onCheckedChange: fn(),
     disabled: false,
     checked: false,
   },
@@ -19,10 +19,32 @@ export default meta;
 export const Default: Story = {
   render: function Render(args) {
     const [{ checked }, updateArgs] = useArgs<SwitchProps>();
-    const onChange = (isChecked: boolean) => {
+    const onCheckedChange: NonNullable<
+      SwitchProps['onCheckedChange']
+    > = (isChecked, eventDetails) => {
       updateArgs({ checked: isChecked });
+      args.onCheckedChange?.(isChecked, eventDetails);
     };
 
-    return <Switch {...args} onChange={onChange} checked={checked} />;
+    return (
+      <Switch
+        {...args}
+        checked={checked}
+        onCheckedChange={onCheckedChange}
+      />
+    );
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    checked: true,
+    disabled: true,
+  },
+};
+
+export const Invalid: Story = {
+  args: {
+    'aria-invalid': true,
   },
 };

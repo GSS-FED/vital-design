@@ -16,15 +16,21 @@ import {
 
 ```tsx
 import { Checkbox } from '@/components/ui/Checkbox';
+import { Label } from '@/components/ui/Label';
 import { useState } from 'react';
 
 function Agreement() {
   const [checked, setChecked] = useState(false);
 
   return (
-    <Checkbox checked={checked} onChange={setChecked}>
-      I accept the terms and conditions
-    </Checkbox>
+    <div className="flex items-center gap-2">
+      <Checkbox
+        id="terms"
+        checked={checked}
+        onCheckedChange={setChecked}
+      />
+      <Label htmlFor="terms">I accept the terms and conditions</Label>
+    </div>
   );
 }
 ```
@@ -41,22 +47,26 @@ The `indeterminate` state is useful for "select all" patterns where only some it
 const allChecked = items.every((i) => i.checked);
 const someChecked = items.some((i) => i.checked);
 
-<Checkbox
-  checked={allChecked ? true : someChecked ? 'indeterminate' : false}
-  onChange={(checked) => setAll(checked)}
->
-  Select all
-</Checkbox>;
+<div className="flex items-center gap-2">
+  <Checkbox
+    id="select-all"
+    checked={allChecked}
+    indeterminate={!allChecked && someChecked}
+    onCheckedChange={(checked) => setAll(checked)}
+  />
+  <Label htmlFor="select-all">Select all</Label>
+</div>;
 ```
 
 ## Props
 
-| Prop        | Type                         | Default | Description                                                                       |
-| ----------- | ---------------------------- | ------- | --------------------------------------------------------------------------------- |
-| `checked`   | `boolean \| 'indeterminate'` | —       | **Required.** Checkbox state                                                      |
-| `onChange`  | `(checked: boolean) => void` | —       | **Required.** Called on change (always passes `boolean`, never `'indeterminate'`) |
-| `children`  | `ReactNode`                  | —       | Label text                                                                        |
-| `disabled`  | `boolean`                    | `false` | Disables interaction                                                              |
-| `required`  | `boolean`                    | `false` | Applies error border when unchecked                                               |
-| `className` | `string`                     | —       | Additional CSS classes                                                            |
-| `style`     | `CSSProperties`              | —       | Inline styles                                                                     |
+| Prop              | Type             | Default | Description                       |
+| ----------------- | ---------------- | ------- | --------------------------------- |
+| `checked`         | `boolean`        | —       | Controlled checked state          |
+| `defaultChecked`  | `boolean`        | `false` | Initial checked state             |
+| `indeterminate`   | `boolean`        | `false` | Shows the mixed state             |
+| `onCheckedChange` | Base UI callback | —       | Called when checked state changes |
+| `disabled`        | `boolean`        | `false` | Disables interaction              |
+| `required`        | `boolean`        | `false` | Marks the checkbox as required    |
+| `className`       | `string`         | —       | Additional CSS classes            |
+| `style`           | `CSSProperties`  | —       | Inline styles                     |

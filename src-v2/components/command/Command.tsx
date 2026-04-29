@@ -1,16 +1,10 @@
-import masks from '@/constants/mask';
+import { useScrollMask } from '@/hooks/useScrollMask';
+import { ChevronLeftIcon } from '@/icons/ChevronIcon';
 import { SearchIcon } from '@/icons/SearchIcon';
 import { SpinnerIcon } from '@/icons/SpinnerIcon';
 import { cn } from '@/utils/cn';
-import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import { Command as CommandPrimitive } from 'cmdk';
-import {
-  forwardRef,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { forwardRef, useRef } from 'react';
 import type {
   ButtonHTMLAttributes,
   ComponentPropsWithoutRef,
@@ -29,24 +23,6 @@ function assignRef<T>(ref: ForwardedRef<T>, value: T) {
   if (ref) {
     ref.current = value;
   }
-}
-
-function getMaskImage(
-  scrollTop: number,
-  scrollHeight: number,
-  clientHeight: number,
-) {
-  if (scrollHeight <= clientHeight) {
-    return undefined;
-  }
-
-  const isScrollAtTop = scrollTop <= 0;
-  const isScrollAtBottom =
-    Math.abs(scrollHeight - clientHeight - scrollTop) <= 1;
-
-  if (isScrollAtTop) return masks.HIDE_TOP_MASK;
-  if (isScrollAtBottom) return masks.HIDE_BOTTOM_MASK;
-  return masks.FULL_MASK;
 }
 
 export type CommandProps = ComponentPropsWithoutRef<
@@ -125,51 +101,8 @@ const CommandList = forwardRef<
   const localRef = useRef<ElementRef<
     typeof CommandPrimitive.List
   > | null>(null);
-  const [scrollInfo, setScrollInfo] = useState({
-    scrollTop: 0,
-    scrollHeight: 0,
-    clientHeight: 0,
-  });
-
-  const maskImage = useMemo(
-    () =>
-      getMaskImage(
-        scrollInfo.scrollTop,
-        scrollInfo.scrollHeight,
-        scrollInfo.clientHeight,
-      ),
-    [
-      scrollInfo.clientHeight,
-      scrollInfo.scrollHeight,
-      scrollInfo.scrollTop,
-    ],
-  );
-
-  const syncScrollInfo = () => {
-    const node = localRef.current;
-    if (!node) return;
-
-    const nextValue = {
-      scrollTop: node.scrollTop,
-      scrollHeight: node.scrollHeight,
-      clientHeight: node.clientHeight,
-    };
-
-    setScrollInfo((prev) => {
-      if (
-        prev.scrollTop === nextValue.scrollTop &&
-        prev.scrollHeight === nextValue.scrollHeight &&
-        prev.clientHeight === nextValue.clientHeight
-      ) {
-        return prev;
-      }
-      return nextValue;
-    });
-  };
-
-  useEffect(() => {
-    syncScrollInfo();
-  });
+  const { maskStyle, onScroll: onMaskScroll } =
+    useScrollMask(localRef);
 
   return (
     <CommandPrimitive.List
@@ -180,7 +113,7 @@ const CommandList = forwardRef<
         assignRef(ref, node);
       }}
       onScroll={(event) => {
-        syncScrollInfo();
+        onMaskScroll(event);
         onScroll?.(event);
       }}
       className={cn(
@@ -190,8 +123,7 @@ const CommandList = forwardRef<
       )}
       style={{
         height: height ? `${height}px` : undefined,
-        maskImage,
-        WebkitMaskImage: maskImage,
+        ...maskStyle,
         ...style,
       }}
       {...props}

@@ -1,3 +1,4 @@
+import { Separator } from '@/components/separator/Separator';
 import { cn } from '@/utils/cn';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
@@ -66,13 +67,12 @@ const ButtonGroup = forwardRef<ElementRef<'div'>, ButtonGroupProps>(
   },
 );
 
-export type ButtonGroupSeparatorProps =
-  ComponentPropsWithoutRef<'div'> & {
-    orientation?: 'horizontal' | 'vertical';
-  };
+export type ButtonGroupSeparatorProps = ComponentPropsWithoutRef<
+  typeof Separator
+>;
 
 const ButtonGroupSeparator = forwardRef<
-  ElementRef<'div'>,
+  ElementRef<typeof Separator>,
   ButtonGroupSeparatorProps
 >(function ButtonGroupSeparator(props, ref) {
   const {
@@ -87,16 +87,15 @@ const ButtonGroupSeparator = forwardRef<
     (context?.orientation === 'vertical' ? 'horizontal' : 'vertical');
 
   return (
-    <div
+    <Separator
       ref={ref}
       role={role}
-      aria-orientation={orientation}
-      data-orientation={orientation}
+      orientation={orientation}
       data-slot="button-group-separator"
       className={cn(
         orientation === 'horizontal'
           ? 'h-px w-auto self-stretch'
-          : 'h-auto w-px self-stretch',
+          : 'h-auto min-h-0 w-px self-stretch',
         'relative shrink-0 self-stretch bg-grayscale-300',
         className,
       )}

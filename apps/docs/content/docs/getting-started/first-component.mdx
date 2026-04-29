@@ -35,11 +35,11 @@ import { Button } from '@fed/vital-design';
 
 Newer components may be registry-only until the legacy package distribution is updated.
 
-## Example: Form with TextInput and Button
+## Example: Form with Input and Button
 
 ```tsx
 import { Button } from '@/components/ui/Button';
-import { TextInput } from '@/components/ui/TextInput';
+import { Input } from '@/components/ui/Input';
 import { useState } from 'react';
 
 export default function LoginForm() {
@@ -47,10 +47,10 @@ export default function LoginForm() {
 
   return (
     <form className="flex flex-col gap-4">
-      <TextInput
+      <Input
         placeholder="Enter your email"
         value={email}
-        onChange={setEmail}
+        onChange={(event) => setEmail(event.currentTarget.value)}
       />
       <Button theme="primary" size="large">
         Sign In
@@ -65,7 +65,7 @@ export default function LoginForm() {
 Install paths follow the exported file names. Import prop types from the generated local component file when they are re-exported there:
 
 ```tsx
-import type { TextInputProps } from '@/components/ui/TextInput';
+import type { InputProps } from '@/components/ui/Input';
 ```
 
 ## Next Steps

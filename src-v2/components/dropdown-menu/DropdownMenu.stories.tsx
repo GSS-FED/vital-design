@@ -8,6 +8,7 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
@@ -76,19 +77,21 @@ export const WithCheckboxItems: Story = {
         <DropdownMenu>
           <DropdownMenuTrigger render={<Button>View</Button>} />
           <DropdownMenuContent>
-            <DropdownMenuLabel>Appearance</DropdownMenuLabel>
-            <DropdownMenuCheckboxItem
-              checked={showStatusBar}
-              onCheckedChange={setShowStatusBar}
-            >
-              Status bar
-            </DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem
-              checked={showActivityBar}
-              onCheckedChange={setShowActivityBar}
-            >
-              Activity bar
-            </DropdownMenuCheckboxItem>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel>Appearance</DropdownMenuLabel>
+              <DropdownMenuCheckboxItem
+                checked={showStatusBar}
+                onCheckedChange={setShowStatusBar}
+              >
+                Status bar
+              </DropdownMenuCheckboxItem>
+              <DropdownMenuCheckboxItem
+                checked={showActivityBar}
+                onCheckedChange={setShowActivityBar}
+              >
+                Activity bar
+              </DropdownMenuCheckboxItem>
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -109,24 +112,26 @@ export const WithRadioGroup: Story = {
             render={<Button>Panel position</Button>}
           />
           <DropdownMenuContent>
-            <DropdownMenuLabel>Position</DropdownMenuLabel>
-            <DropdownMenuRadioGroup
-              value={position}
-              onValueChange={setPosition}
-            >
-              <DropdownMenuRadioItem value="top">
-                Top
-              </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="right">
-                Right
-              </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="bottom">
-                Bottom
-              </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="left">
-                Left
-              </DropdownMenuRadioItem>
-            </DropdownMenuRadioGroup>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel>Position</DropdownMenuLabel>
+              <DropdownMenuRadioGroup
+                value={position}
+                onValueChange={setPosition}
+              >
+                <DropdownMenuRadioItem value="top">
+                  Top
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="right">
+                  Right
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="bottom">
+                  Bottom
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="left">
+                  Left
+                </DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -141,14 +146,18 @@ export const WithSeparatorAndLabel: Story = {
     <DropdownMenu>
       <DropdownMenuTrigger render={<Button>Account</Button>} />
       <DropdownMenuContent>
-        <DropdownMenuLabel>My account</DropdownMenuLabel>
-        <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
-        <DropdownMenuItem>Team</DropdownMenuItem>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>My account</DropdownMenuLabel>
+          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem>Billing</DropdownMenuItem>
+          <DropdownMenuItem>Team</DropdownMenuItem>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuLabel>Support</DropdownMenuLabel>
-        <DropdownMenuItem>Documentation</DropdownMenuItem>
-        <DropdownMenuItem>GitHub</DropdownMenuItem>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>Support</DropdownMenuLabel>
+          <DropdownMenuItem>Documentation</DropdownMenuItem>
+          <DropdownMenuItem>GitHub</DropdownMenuItem>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Log out</DropdownMenuItem>
       </DropdownMenuContent>

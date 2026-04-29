@@ -2,7 +2,11 @@ import { cn } from '@/utils/cn';
 import { Button as BaseButton } from '@base-ui/react/button';
 import { cva } from 'class-variance-authority';
 import { forwardRef } from 'react';
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  ReactNode,
+} from 'react';
 
 export type ButtonSize =
   | 'medium'
@@ -292,7 +296,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
   },
 });
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = forwardRef<ElementRef<typeof BaseButton>, ButtonProps>(
   function Button(props, ref) {
     const {
       children,
@@ -344,7 +348,4 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   },
 );
 
-Button.displayName = 'Button';
-
 export { Button };
-export default Button;

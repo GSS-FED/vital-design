@@ -1,5 +1,10 @@
 import { CheckIcon } from './CheckIcon';
-import { ChevronDownIcon, ChevronUpIcon } from './ChevronIcon';
+import {
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronUpIcon,
+} from './ChevronIcon';
 import { ClearIcon } from './ClearIcon';
 import { CloseIcon } from './CloseIcon';
 import { DisabledIcon } from './DisabledIcon';
@@ -14,6 +19,8 @@ import { UserIcon } from './UserIcon';
 export {
   CheckIcon,
   ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   ChevronUpIcon,
   ClearIcon,
   CloseIcon,

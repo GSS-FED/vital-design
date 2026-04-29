@@ -4,28 +4,28 @@
 
 ## 元件功能矩陣
 
-| 元件               | 導入路徑                                                    | UI 角色             | 常見用途                  |
-| ------------------ | ----------------------------------------------------------- | ------------------- | ------------------------- |
-| Button             | `@/components/button/Button`                                | 主/次操作、圖示按鈕 | 任何 CTA                  |
-| ButtonGroup        | `@/components/button/button-group/ButtonGroup`              | 按鈕群組容器        | 工具列、分段操作          |
-| SplitButton        | `@/components/button/split-button/SplitButton`              | 主操作 + 下拉選單   | 頁面標題、工具列          |
-| Avatar             | `@/components/avatar/Avatar`                                | 用戶身份展示        | 導覽列、資料卡            |
-| SearchBar          | `@/components/search-bar/SearchBar`                         | 文字搜尋輸入        | 導覽列、篩選區、工具列    |
-| Select             | `@/components/select/Select`                                | 單選 / 多選下拉     | 篩選區、表單              |
-| Combobox           | `@/components/combobox/Combobox`                            | 可搜尋輸入選擇      | 大量選項搜尋              |
-| Cascader           | `@/components/cascader/Cascader`                            | 階層路徑選擇        | 分類篩選、組織架構選擇    |
-| Chip               | `@/components/chip/Chip`                                    | 篩選標籤、切換選項  | 已選篩選條件展示          |
-| Tag                | `@/components/tag/Tag`                                      | 狀態標籤、角色標籤  | 資料卡、清單項目          |
-| Switch             | `@/components/switch/Switch`                                | 布林設定切換        | 設定面板                  |
-| InputGroup         | `@/components/input/input-group/InputGroup`                 | compound 輸入框基礎 | 自訂 prefix/suffix/action |
-| TextInput          | `@/components/input/textInput/TextInput`                    | 文字輸入            | 表單、設定                |
-| TextareaInput      | `@/components/input/textareaInput/TextareaInput`            | 多行文字輸入        | 評論、描述表單            |
-| PasswordInput      | `@/components/input/passwordInput/PasswordInput`            | 密碼輸入            | 登入表單                  |
-| Checkbox           | `@/components/checkbox/Checkbox`                            | 多選項目            | 表單、設定                |
-| RadioGroup         | `@/components/radio-group/RadioGroup`                       | 單選選項組          | 設定面板、篩選表單        |
-| ActionList         | `@/components/list/action-list/ActionList`                  | 可操作列表          | 選單、列表頁主體          |
-| ActionInfiniteList | `@/components/list/action-infinite-list/ActionInfiniteList` | 無限捲動列表        | 大量資料列表頁            |
-| Mask               | `@/components/mask/Mask`                                    | 遮罩 / 載入佔位     | 載入中狀態、骨架屏        |
+| 元件          | 導入路徑                                         | UI 角色             | 常見用途                            |
+| ------------- | ------------------------------------------------ | ------------------- | ----------------------------------- |
+| Button        | `@/components/button/Button`                     | 主/次操作、圖示按鈕 | 任何 CTA                            |
+| ButtonGroup   | `@/components/button/button-group/ButtonGroup`   | 按鈕群組容器        | 工具列、分段操作                    |
+| SplitButton   | `@/components/button/split-button/SplitButton`   | 主操作 + 下拉選單   | 頁面標題、工具列                    |
+| Avatar        | `@/components/avatar/Avatar`                     | 用戶身份展示        | 導覽列、資料卡                      |
+| SearchBar     | `@/components/search-bar/SearchBar`              | 文字搜尋輸入        | 導覽列、篩選區、工具列              |
+| Select        | `@/components/select/Select`                     | 單選 / 多選下拉     | 篩選區、表單                        |
+| Combobox      | `@/components/combobox/Combobox`                 | 可搜尋輸入選擇      | 大量選項搜尋                        |
+| Cascader      | `@/components/cascader/Cascader`                 | 階層路徑選擇        | 分類篩選、組織架構選擇              |
+| Chip          | `@/components/chip/Chip`                         | 篩選標籤、切換選項  | 已選篩選條件展示                    |
+| Tag           | `@/components/tag/Tag`                           | 狀態標籤、角色標籤  | 資料卡、清單項目                    |
+| Switch        | `@/components/switch/Switch`                     | 布林設定切換        | 設定面板                            |
+| InputGroup    | `@/components/input/input-group/InputGroup`      | compound 輸入框基礎 | 自訂 prefix/suffix/action           |
+| Input         | `@/components/input/input/Input`                 | 文字輸入            | 表單、設定                          |
+| Textarea      | `@/components/textarea/Textarea`                 | 多行文字輸入        | 評論、描述表單                      |
+| PasswordInput | `@/components/input/passwordInput/PasswordInput` | 密碼輸入            | 登入表單                            |
+| Checkbox      | `@/components/checkbox/Checkbox`                 | 多選項目            | 表單、設定                          |
+| RadioGroup    | `@/components/radio-group/RadioGroup`            | 單選選項組          | 設定面板、篩選表單                  |
+| Item          | `@/components/item/Item`                         | 內容列              | 資料卡、設定列、詳情列表、list rows |
+| Separator     | `@/components/separator/Separator`               | 分隔線              | 列表、工具列、區塊分隔              |
+| Command       | `@/components/command/Command`                   | 命令列表            | 搜尋命令面板、自訂彈窗              |
 
 ## 意圖 → 組合映射
 
@@ -68,7 +68,7 @@
 ### 登入表單 / LoginForm
 
 - **Layout**: `flex w-80 flex-col gap-4`
-- TextInput（帳號）+ PasswordInput（密碼）+ Checkbox（記住我）+ Button（登入）
+- Input（帳號）+ PasswordInput（密碼）+ Checkbox（記住我）+ Button（登入）
 
 ### 用戶資料卡 / UserProfileCard / profile card
 
@@ -79,28 +79,28 @@
 
 使用元件時，在 `registryDependencies` 中加入：
 
-| 元件               | registryDependencies 值              |
-| ------------------ | ------------------------------------ |
-| Button             | `@vital-design/button`               |
-| ButtonGroup        | `@vital-design/button-group`         |
-| SplitButton        | `@vital-design/split-button`         |
-| Avatar             | `@vital-design/avatar`               |
-| SearchBar          | `@vital-design/search-bar`           |
-| Select             | `@vital-design/select`               |
-| Combobox           | `@vital-design/combobox`             |
-| Cascader           | `@vital-design/cascader`             |
-| Chip               | `@vital-design/chip`                 |
-| Tag                | `@vital-design/tag`                  |
-| Switch             | `@vital-design/switch`               |
-| InputGroup         | `@vital-design/input-group`          |
-| TextInput          | `@vital-design/text-input`           |
-| TextareaInput      | `@vital-design/textarea-input`       |
-| PasswordInput      | `@vital-design/password-input`       |
-| Checkbox           | `@vital-design/checkbox`             |
-| RadioGroup         | `@vital-design/radio-group`          |
-| ActionList         | `@vital-design/action-list`          |
-| ActionInfiniteList | `@vital-design/action-infinite-list` |
-| Mask               | `@vital-design/mask`                 |
-| cn()               | `@vital-design/utils`                |
+| 元件          | registryDependencies 值        |
+| ------------- | ------------------------------ |
+| Button        | `@vital-design/button`         |
+| ButtonGroup   | `@vital-design/button-group`   |
+| SplitButton   | `@vital-design/split-button`   |
+| Avatar        | `@vital-design/avatar`         |
+| SearchBar     | `@vital-design/search-bar`     |
+| Select        | `@vital-design/select`         |
+| Combobox      | `@vital-design/combobox`       |
+| Cascader      | `@vital-design/cascader`       |
+| Chip          | `@vital-design/chip`           |
+| Tag           | `@vital-design/tag`            |
+| Switch        | `@vital-design/switch`         |
+| InputGroup    | `@vital-design/input-group`    |
+| Input         | `@vital-design/input`          |
+| Textarea      | `@vital-design/textarea`       |
+| PasswordInput | `@vital-design/password-input` |
+| Checkbox      | `@vital-design/checkbox`       |
+| RadioGroup    | `@vital-design/radio-group`    |
+| Item          | `@vital-design/item`           |
+| Separator     | `@vital-design/separator`      |
+| Command       | `@vital-design/command`        |
+| cn()          | `@vital-design/utils`          |
 
 所有 block 都需要 `dependencies: ["clsx", "tailwind-merge"]`。

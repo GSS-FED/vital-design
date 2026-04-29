@@ -1,205 +1,213 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { expect, it, vi } from 'vitest';
+import { Label } from '../label/Label';
 import { RadioGroup, RadioGroupItem } from './RadioGroup';
 
+function RadioOption({
+  disabled,
+  label,
+  value,
+}: {
+  disabled?: boolean;
+  label: string;
+  value: string;
+}) {
+  const id = `radio-test-${value}`;
+
+  return (
+    <div className="flex items-center gap-2">
+      <RadioGroupItem disabled={disabled} id={id} value={value} />
+      <Label htmlFor={id}>{label}</Label>
+    </div>
+  );
+}
+
 it('renders a radio button', () => {
-  const props = {
-    options: [{ label: 'Option 1', value: 'option-1' }],
-    value: '',
-    onChange: vi.fn(),
-  };
-  render(<RadioGroup {...props} />);
+  render(
+    <RadioGroup value="">
+      <RadioOption label="Option 1" value="option-1" />
+    </RadioGroup>,
+  );
+
   const radioButton = screen.getByRole('radio', {
     name: 'Option 1',
   });
+
   expect(radioButton).toBeInTheDocument();
   expect(radioButton).not.toBeChecked();
 });
 
 it('renders a checked radio button', () => {
-  const props = {
-    options: [{ label: 'Option 1', value: 'option-1' }],
-    value: 'option-1',
-    onChange: vi.fn(),
-  };
-  render(<RadioGroup {...props} />);
+  render(
+    <RadioGroup value="option-1">
+      <RadioOption label="Option 1" value="option-1" />
+    </RadioGroup>,
+  );
+
   const radioButton = screen.getByRole('radio', {
     name: 'Option 1',
   });
+
   expect(radioButton).toBeInTheDocument();
   expect(radioButton).toBeChecked();
 });
 
 it('renders a disabled radio button', () => {
-  const props = {
-    options: [
-      { label: 'Option 1', value: 'option-1', disabled: true },
-    ],
-    value: '',
-    onChange: vi.fn(),
-  };
-  render(<RadioGroup {...props} />);
+  render(
+    <RadioGroup value="">
+      <RadioOption disabled label="Option 1" value="option-1" />
+    </RadioGroup>,
+  );
+
   const radioButton = screen.getByRole('radio', {
     name: 'Option 1',
   });
+
   expect(radioButton).toBeInTheDocument();
   expect(radioButton).not.toBeChecked();
 });
 
 it('renders a disabled radio button which is also checked', () => {
-  const props = {
-    options: [
-      { label: 'Option 1', value: 'option-1', disabled: true },
-    ],
-    value: 'option-1',
-    onChange: vi.fn(),
-  };
-  render(<RadioGroup {...props} />);
+  render(
+    <RadioGroup value="option-1">
+      <RadioOption disabled label="Option 1" value="option-1" />
+    </RadioGroup>,
+  );
+
   const radioButton = screen.getByRole('radio', {
     name: 'Option 1',
   });
+
   expect(radioButton).toBeInTheDocument();
   expect(radioButton).toBeChecked();
   expect(radioButton).toHaveClass(
-    'data-disabled:data-checked:border-transparent',
-    'data-disabled:data-checked:bg-primary-500',
-    'opacity-40',
+    'data-disabled:cursor-not-allowed',
+    'data-disabled:opacity-50',
   );
 });
 
 it('renders multiple radio buttons', () => {
-  const props = {
-    options: [
-      { label: 'Option 1', value: 'option-1' },
-      { label: 'Option 2', value: 'option-2' },
-      { label: 'Option 3', value: 'option-3', disabled: true },
-    ],
-    value: 'option-1',
-    onChange: vi.fn(),
-  };
-  render(<RadioGroup {...props} />);
-  props.options.forEach((option) => {
-    const radioButton = screen.getByRole('radio', {
-      name: `${option.label}`,
-    });
-    expect(radioButton).toBeInTheDocument();
+  render(
+    <RadioGroup value="option-1">
+      <RadioOption label="Option 1" value="option-1" />
+      <RadioOption label="Option 2" value="option-2" />
+      <RadioOption disabled label="Option 3" value="option-3" />
+    </RadioGroup>,
+  );
+
+  ['Option 1', 'Option 2', 'Option 3'].forEach((name) => {
+    expect(screen.getByRole('radio', { name })).toBeInTheDocument();
   });
 });
 
-it('calls the onChange callback when an unchecked radio button is clicked', async () => {
+it('calls onValueChange when an unchecked radio button is clicked', async () => {
   const user = userEvent.setup();
-  const props = {
-    options: [
-      { label: 'Option 1', value: 'option-1' },
-      { label: 'Option 2', value: 'option-2' },
-    ],
-    value: 'option-1',
-    onChange: vi.fn(),
-  };
-  render(<RadioGroup {...props} />);
-  props.options.forEach((option) => {
-    const radioButton = screen.getByRole('radio', {
-      name: `${option.label}`,
-    });
-    expect(radioButton).toBeInTheDocument();
-  });
-  const secondRadioButton = screen.getByRole('radio', {
-    name: 'Option 2',
-  });
-  await user.click(secondRadioButton);
-  expect(props.onChange).toHaveBeenCalledWith('option-2');
+  const onValueChange = vi.fn();
+
+  render(
+    <RadioGroup value="option-1" onValueChange={onValueChange}>
+      <RadioOption label="Option 1" value="option-1" />
+      <RadioOption label="Option 2" value="option-2" />
+    </RadioGroup>,
+  );
+
+  await user.click(screen.getByRole('radio', { name: 'Option 2' }));
+
+  expect(onValueChange).toHaveBeenCalledWith(
+    'option-2',
+    expect.any(Object),
+  );
 });
 
-it('does not call the onChange callback when a disabled radio button is clicked', async () => {
+it('does not call onValueChange when a disabled radio button is clicked', async () => {
   const user = userEvent.setup();
-  const props = {
-    options: [
-      { label: 'Option 1', value: 'option-1' },
-      { label: 'Option 2', value: 'option-2', disabled: true },
-    ],
-    value: 'option-1',
-    onChange: vi.fn(),
-  };
-  render(<RadioGroup {...props} />);
-  props.options.forEach((option) => {
-    const radioButton = screen.getByRole('radio', {
-      name: `${option.label}`,
-    });
-    expect(radioButton).toBeInTheDocument();
-  });
-  const secondRadioButton = screen.getByRole('radio', {
-    name: 'Option 2',
-  });
-  await user.click(secondRadioButton);
-  expect(props.onChange).not.toHaveBeenCalled();
+  const onValueChange = vi.fn();
+
+  render(
+    <RadioGroup value="option-1" onValueChange={onValueChange}>
+      <RadioOption label="Option 1" value="option-1" />
+      <RadioOption disabled label="Option 2" value="option-2" />
+    </RadioGroup>,
+  );
+
+  await user.click(screen.getByRole('radio', { name: 'Option 2' }));
+
+  expect(onValueChange).not.toHaveBeenCalled();
 });
 
 it('applies custom class names and styles', () => {
-  const props = {
-    options: [
-      { label: 'Option 1', value: 'option-1' },
-      { label: 'Option 2', value: 'option-2' },
-    ],
-    value: 'option-1',
-    onChange: vi.fn(),
-    className: 'custom-class-1 custom-class-2',
-    style: {
-      color: '#FED655',
-      backgroundColor: '#655FED',
-    },
+  const style = {
+    color: '#FED655',
+    backgroundColor: '#655FED',
   };
-  render(<RadioGroup {...props} />);
+
+  render(
+    <RadioGroup
+      className="custom-class-1 custom-class-2"
+      style={style}
+      value="option-1"
+    >
+      <RadioOption label="Option 1" value="option-1" />
+    </RadioGroup>,
+  );
+
   const radioGroup = screen.getByRole('radiogroup');
+
   expect(radioGroup).toBeInTheDocument();
-  expect(radioGroup).toHaveClass(props.className);
-  expect(radioGroup).toHaveStyle(props.style);
+  expect(radioGroup).toHaveClass('custom-class-1 custom-class-2');
+  expect(radioGroup).toHaveStyle(style);
 });
-it('calls onChange with empty string when clicking selected radio button and allowCancel is true', async () => {
+
+it('does not clear the value when clicking the selected radio button', async () => {
   const user = userEvent.setup();
-  const onChange = vi.fn();
-  const props = {
-    options: [
-      { label: 'Option 1', value: 'option-1' },
-      { label: 'Option 2', value: 'option-2' },
-    ],
-    value: 'option-1',
-    onChange,
-    allowCancel: true,
-  };
-  render(<RadioGroup {...props} />);
+  const onValueChange = vi.fn();
+
+  render(
+    <RadioGroup value="option-1" onValueChange={onValueChange}>
+      <RadioOption label="Option 1" value="option-1" />
+      <RadioOption label="Option 2" value="option-2" />
+    </RadioGroup>,
+  );
 
   const selectedRadioButton = screen.getByRole('radio', {
     name: 'Option 1',
   });
-  expect(selectedRadioButton).toBeInTheDocument();
+
   expect(selectedRadioButton).toBeChecked();
 
   await user.click(selectedRadioButton);
 
-  expect(onChange).toHaveBeenCalledTimes(1);
-  expect(onChange).toHaveBeenCalledWith('');
+  expect(onValueChange).not.toHaveBeenCalled();
 });
 
-it('supports compound items with custom label content', async () => {
+it('supports composed label content', async () => {
   const user = userEvent.setup();
-  const onChange = vi.fn();
+  const onValueChange = vi.fn();
+
   render(
-    <RadioGroup value="basic" onChange={onChange}>
-      <RadioGroupItem value="basic">
-        <span>Basic plan</span>
-      </RadioGroupItem>
-      <RadioGroupItem value="pro">
-        <span>Pro plan</span>
+    <RadioGroup value="basic" onValueChange={onValueChange}>
+      <div className="flex items-center gap-2">
+        <RadioGroupItem id="radio-test-basic" value="basic" />
+        <Label htmlFor="radio-test-basic">Basic plan</Label>
+      </div>
+      <div className="flex items-center gap-2">
+        <RadioGroupItem id="radio-test-pro" value="pro" />
+        <Label htmlFor="radio-test-pro">Pro plan</Label>
         <span>Recommended</span>
-      </RadioGroupItem>
+      </div>
     </RadioGroup>,
   );
 
   expect(
     screen.getByRole('radio', { name: /Basic plan/ }),
   ).toBeChecked();
+
   await user.click(screen.getByRole('radio', { name: /Pro plan/ }));
-  expect(onChange).toHaveBeenCalledWith('pro');
+
+  expect(onValueChange).toHaveBeenCalledWith(
+    'pro',
+    expect.any(Object),
+  );
   expect(screen.getByText('Recommended')).toBeInTheDocument();
 });
