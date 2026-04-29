@@ -420,5 +420,14 @@ describe('Registry Validation', () => {
         `Items with missing required fields:\n${invalidItems.join('\n')}`,
       ).toHaveLength(0);
     });
+
+    it('loading primitives should be registered', () => {
+      const itemNames = new Set(
+        registry.items.map((item) => item.name),
+      );
+
+      expect(itemNames.has('skeleton')).toBe(true);
+      expect(itemNames.has('spinner')).toBe(true);
+    });
   });
 });

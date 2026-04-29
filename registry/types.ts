@@ -30,6 +30,8 @@ export type RegistryItemName =
   | 'switch'
   | 'tag'
   | 'mask'
+  | 'skeleton'
+  | 'spinner'
   | 'search-bar'
   | 'input-group'
   | 'text-input'

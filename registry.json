@@ -706,6 +706,47 @@
       ]
     },
     {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Loading placeholder with pulse animation",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/skeleton/Skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "description": "Loading indicator with accessible status text",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/icon-spinner",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/spinner/Spinner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "search-bar",
       "type": "registry:ui",
       "title": "Search Bar",
