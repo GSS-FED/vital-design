@@ -14,18 +14,22 @@ default:
   tags:
     - docker
 
+variables:
+  PNPM_VERSION: "10.17.1"
+
 before_script:
-  - npm i --prefer-offline
+  - npm i -g pnpm@${PNPM_VERSION}
+  - pnpm install --frozen-lockfile
 
 test-job:
   stage: test
   script:
-    - npm run test
+    - pnpm run test
 
 build-job:
   stage: build
   script:
-    - npm run build
+    - pnpm run build
   artifacts:
     paths:
       - dist/
@@ -59,8 +63,8 @@ publish-job:
 registry-validate-job:
   stage: registry-validate
   before_script:
-    - npm i --prefer-offline
-    - npm i -g pnpm
+    - npm i -g pnpm@${PNPM_VERSION}
+    - pnpm install --frozen-lockfile
   script:
     - pnpm run registry:validate
   rules:
@@ -78,8 +82,8 @@ registry-validate-job:
 pages:
   stage: registry-deploy
   before_script:
-    - npm i --prefer-offline
-    - npm i -g pnpm
+    - npm i -g pnpm@${PNPM_VERSION}
+    - pnpm install --frozen-lockfile
   script:
     - pnpm run registry:build
   artifacts:

@@ -28,7 +28,7 @@
     "tokens:build": "node --import tsx ./scripts/build-tokens.ts",
     "tokens:build:css": "node --import tsx ./scripts/build-tokens.ts css",
     "registry:generate": "tsx scripts/build-registry-json.ts",
-    "registry:build": "pnpm run tokens:build && tsx scripts/build-registry-json.ts && npx shadcn@latest build",
+    "registry:build": "pnpm run tokens:build && tsx scripts/build-registry-json.ts && shadcn build",
     "registry:validate": "tsx scripts/validate-registry.ts",
     "storybook:build": "pnpm run registry:build && storybook build",
     "prepublishOnly": "pnpm run build",
