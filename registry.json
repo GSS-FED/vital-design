@@ -34,6 +34,7 @@
           "radius-xl": "16px",
           "radius-full": "9999px",
           "font-sans": "Roboto, 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif",
+          "gradient-primary": "linear-gradient(45deg, #33CFFF 0%, #0E86FE 100%)",
           "gradient-primary-button": "linear-gradient(45deg, #33CFFF 0%, #0E86FE 100%)",
           "shadow-accent": "0 2px 8px 0 rgba(35, 35, 50, 0.15)",
           "shadow-base": "0 6px 10px 0 rgba(35, 35, 50, 0.08)",
@@ -945,6 +946,27 @@
       "files": [
         {
           "path": "src-v2/components/dialog/Dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "Simple slider component built on Base UI primitives",
+      "dependencies": [
+        "@base-ui/react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/slider/Slider.tsx",
           "type": "registry:ui"
         }
       ]

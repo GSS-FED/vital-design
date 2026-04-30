@@ -57,6 +57,14 @@ import {
   SelectPreview,
 } from '~/components/previews/SelectPreview';
 import {
+  SliderDisabledPreview,
+  SliderMinMaxPreview,
+  SliderPreview,
+  SliderRangePreview,
+  SliderStepPreview,
+  SliderVerticalPreview,
+} from '~/components/previews/SliderPreview';
+import {
   SplitButtonDefaultPreview,
   SplitButtonPreview,
 } from '~/components/previews/SplitButtonPreview';
@@ -139,6 +147,12 @@ export default async function Page({
             SearchBarDisabledPreview,
             SplitButtonPreview,
             SplitButtonDefaultPreview,
+            SliderPreview,
+            SliderRangePreview,
+            SliderDisabledPreview,
+            SliderStepPreview,
+            SliderMinMaxPreview,
+            SliderVerticalPreview,
             CascaderPreview,
             ListPreview,
             ListOverflowPreview,

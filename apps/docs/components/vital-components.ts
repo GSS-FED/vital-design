@@ -60,3 +60,4 @@ export { SearchBar } from '../../../src-v2/components/search-bar/SearchBar';
 export { Skeleton } from '../../../src-v2/components/skeleton/Skeleton';
 export { Spinner } from '../../../src-v2/components/spinner/Spinner';
 export { SplitButton } from '../../../src-v2/components/button/split-button/SplitButton';
+export { Slider } from '../../../src-v2/components/slider/Slider';

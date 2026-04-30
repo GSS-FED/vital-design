@@ -469,4 +469,22 @@ export const ui = [
       },
     ],
   },
+  {
+    name: 'slider',
+    type: 'registry:ui',
+    title: 'Slider',
+    description:
+      'Simple slider component built on Base UI primitives',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/slider/Slider.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
 ] satisfies VitalRegistryItem[];
