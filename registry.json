@@ -814,6 +814,7 @@
       "title": "Input",
       "description": "Single-line input primitive",
       "dependencies": [
+        "@base-ui/react",
         "clsx",
         "tailwind-merge"
       ],

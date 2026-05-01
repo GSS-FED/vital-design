@@ -74,7 +74,7 @@ rows cover legacy source files with v1 registry equivalents.
 | `Select`                     | `src/components/select/Select.tsx`                     | `@vital-design/select`         | `src-v2/components/select/Select.tsx`                      | Flat single or multiple dropdown                                                                                                                                                               |
 | `Switch`                     | `src/components/switch/Switch.tsx`                     | `@vital-design/switch`         | `src-v2/components/switch/Switch.tsx`                      | Same role                                                                                                                                                                                      |
 | `Tag`                        | `src/components/tag/Tag.tsx`                           | `@vital-design/tag`            | `src-v2/components/tag/Tag.tsx`                            | Same role                                                                                                                                                                                      |
-| `TextInput`                  | `src/components/input/textInput/TextInput.tsx`         | `@vital-design/input`          | `src-v2/components/input/input/Input.tsx`                  | Use `Input`; use `InputGroup` for addons                                                                                                                                                       |
+| `TextInput`                  | `src/components/input/textInput/TextInput.tsx`         | `@vital-design/input`          | `src-v2/components/input/input/Input.tsx`                  | Use `Input`; use `InputGroup` for addons; prefer Base UI `onValueChange` for value-style callers                                                                                                |
 | `TextareaInput` → `Textarea` | `src/components/input/textareaInput/TextareaInput.tsx` | `@vital-design/textarea`       | `src-v2/components/textarea/Textarea.tsx`                  | Native textarea primitive; use `InputGroupTextarea` only for custom input shells                                                                                                               |
 | `PasswordInput`              | `src/components/input/passwordInput/PasswordInput.tsx` | `@vital-design/password-input` | `src-v2/components/input/password-input/PasswordInput.tsx` | Built on `InputGroup`                                                                                                                                                                          |
 | `Mask`                       | `src/components/mask/Mask.tsx`                         | —                              | —                                                          | No direct v1 component; scroll fade is built into list and picker viewports                                                                                                                    |
@@ -198,6 +198,20 @@ Icon-only buttons now use size variants instead of empty children or icon props:
 
 Keep `size="md"` or `size="lg"` for buttons with labels. For filled label buttons, v1 keeps the v0 spacing contract: the icon side is 12px, and the non-icon side is 16px.
 If you used earlier v1 draft size names, rename `medium` to `md`, `large` to `lg`, `icon-medium` to `icon-md`, and `icon-large` to `icon-lg`.
+
+### Text input value changes
+
+`Input` is built on Base UI's input primitive. For controlled value
+updates, prefer `onValueChange`; keep native `onChange` only when the
+caller needs the DOM change event.
+
+```tsx
+// v0
+<TextInput value={name} onChange={(event) => setName(event.target.value)} />
+
+// v1
+<Input value={name} onValueChange={setName} />
+```
 
 ### Invalid form controls
 

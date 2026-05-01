@@ -337,7 +337,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Input',
     description: 'Single-line input primitive',
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',

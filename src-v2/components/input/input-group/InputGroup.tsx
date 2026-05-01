@@ -167,10 +167,12 @@ const InputGroupText = forwardRef<
   );
 });
 
-export type InputGroupInputProps = ComponentPropsWithoutRef<'input'>;
+export type InputGroupInputProps = ComponentPropsWithoutRef<
+  typeof Input
+>;
 
 const InputGroupInput = forwardRef<
-  ElementRef<'input'>,
+  ElementRef<typeof Input>,
   InputGroupInputProps
 >(function InputGroupInput({ className, ...props }, ref) {
   return (

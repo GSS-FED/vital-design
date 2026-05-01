@@ -29,8 +29,30 @@ The base single-line input primitive.
 ```tsx
 import { Input } from '@/components/ui/Input';
 
-<Input placeholder="Enter text..." />;
+<Input
+  placeholder="Enter text..."
+  value={text}
+  onValueChange={setText}
+/>;
 ```
+
+`Input` is built on Base UI's input primitive. Prefer `onValueChange`
+for controlled value updates; native input props such as `onChange`,
+`name`, `type`, `disabled`, and `aria-invalid` still pass through.
+
+### Input Props
+
+| Prop             | Type                                      | Default | Description                        |
+| ---------------- | ----------------------------------------- | ------- | ---------------------------------- |
+| `value`          | `string`                                  | —       | Controlled value                   |
+| `defaultValue`   | `string`                                  | —       | Uncontrolled initial value         |
+| `onValueChange`  | `(value: string) => void`                 | —       | Controlled value change callback   |
+| `onChange`       | `ChangeEventHandler<HTMLInputElement>`    | —       | Native input change callback       |
+| `placeholder`    | `string`                                  | —       | Placeholder text                   |
+| `disabled`       | `boolean`                                 | `false` | Disables the input                 |
+| `aria-invalid`   | `boolean`                                 | —       | Applies invalid border styling     |
+| `className`      | `string`                                  | —       | Additional CSS classes             |
+| `style`          | `CSSProperties`                           | —       | Inline styles                      |
 
 ## InputGroup
 

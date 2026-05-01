@@ -36,6 +36,17 @@ it('should call the native onChange callback when value changed', () => {
   expect(props.onChange).toHaveBeenCalled();
 });
 
+it('should call the Base UI onValueChange callback when value changed', () => {
+  const onValueChange = vi.fn((value: string) => value);
+  render(<Input onValueChange={onValueChange} />);
+  const input = screen.getByRole('textbox');
+  fireEvent.change(input, { target: { value: 'Hello' } });
+  expect(onValueChange).toHaveBeenCalledWith(
+    'Hello',
+    expect.anything(),
+  );
+});
+
 it('applies error style when aria-invalid is true', () => {
   render(<Input aria-invalid />);
   const input = screen.getByRole('textbox');
