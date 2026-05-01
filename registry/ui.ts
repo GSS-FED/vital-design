@@ -171,6 +171,30 @@ export const ui = [
     ],
   },
   {
+    name: 'field',
+    type: 'registry:ui',
+    title: 'Field',
+    description:
+      'Composable form field layout with labels, descriptions, errors, and groups',
+    dependencies: [
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/label',
+      '@vital-design/separator',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/field/Field.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
     name: 'label',
     type: 'registry:ui',
     title: 'Label',
@@ -290,13 +314,15 @@ export const ui = [
     title: 'Input Group',
     description: 'Composable input group with addons and actions',
     dependencies: [
-      '@base-ui/react',
       'class-variance-authority',
       'clsx',
       'tailwind-merge',
     ],
     registryDependencies: [
       '@vital-design/utils',
+      '@vital-design/button',
+      '@vital-design/input',
+      '@vital-design/textarea',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -465,26 +491,6 @@ export const ui = [
     files: [
       {
         path: 'src-v2/components/command/Command.tsx',
-        type: 'registry:ui',
-      },
-    ],
-  },
-  {
-    name: 'cascader',
-    type: 'registry:ui',
-    title: 'Cascader',
-    description: 'Nested path picker for hierarchical option lists',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
-    registryDependencies: [
-      '@vital-design/command',
-      '@vital-design/utils',
-      '@vital-design/icon-chevron',
-      '@vital-design/icon-clear',
-      '@vital-design/vital-theme',
-    ],
-    files: [
-      {
-        path: 'src-v2/components/cascader/Cascader.tsx',
         type: 'registry:ui',
       },
     ],

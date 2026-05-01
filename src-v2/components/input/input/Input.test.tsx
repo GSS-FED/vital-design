@@ -36,11 +36,8 @@ it('should call the native onChange callback when value changed', () => {
   expect(props.onChange).toHaveBeenCalled();
 });
 
-it('should applies error style when isError prop is true', () => {
-  const props = {
-    isError: true,
-  };
-  render(<Input {...props} />);
+it('applies error style when aria-invalid is true', () => {
+  render(<Input aria-invalid />);
   const input = screen.getByRole('textbox');
   expect(input).toHaveAttribute('aria-invalid', 'true');
   expect(input).toHaveClass('aria-invalid:border-alarm-500');

@@ -8,7 +8,7 @@ const meta: Meta<typeof SplitButton> = {
   title: 'Components/SplitButton',
   component: SplitButton,
   args: {
-    size: 'large',
+    size: 'lg',
     theme: 'primary',
     children: 'Button',
   },
@@ -27,7 +27,7 @@ const meta: Meta<typeof SplitButton> = {
     },
     size: {
       control: 'inline-radio',
-      options: ['medium', 'large'],
+      options: ['md', 'lg'],
     },
   },
 };

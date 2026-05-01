@@ -15,10 +15,6 @@ type Story = StoryObj<typeof InputGroup>;
 const meta: Meta<typeof InputGroup> = {
   title: 'Components/Input/InputGroup',
   component: InputGroup,
-  args: {
-    disabled: false,
-    isError: false,
-  },
 };
 
 export default meta;
@@ -71,19 +67,50 @@ export const Textarea: Story = {
 };
 
 export const Disabled: Story = {
-  args: {
-    disabled: true,
-  },
-  render: function Render(args) {
+  parameters: { controls: { disable: true } },
+  render: function Render() {
     return (
-      <InputGroup {...args} style={{ width: '450px' }}>
+      <InputGroup style={{ width: '450px' }}>
         <InputGroupAddon>
           <InputGroupText>$</InputGroupText>
         </InputGroupAddon>
-        <InputGroupInput defaultValue="2000" />
+        <InputGroupInput defaultValue="2000" disabled />
         <InputGroupAddon align="inline-end">
-          <InputGroupButton aria-label="Increase">+</InputGroupButton>
+          <InputGroupButton aria-label="Increase" disabled>
+            +
+          </InputGroupButton>
         </InputGroupAddon>
+      </InputGroup>
+    );
+  },
+};
+
+export const Invalid: Story = {
+  parameters: { controls: { disable: true } },
+  render: function Render() {
+    return (
+      <InputGroup style={{ width: '450px' }}>
+        <InputGroupAddon>
+          <InputGroupText>$</InputGroupText>
+        </InputGroupAddon>
+        <InputGroupInput aria-invalid defaultValue="2000" />
+      </InputGroup>
+    );
+  },
+};
+
+export const BlockAddon: Story = {
+  parameters: { controls: { disable: true } },
+  render: function Render() {
+    return (
+      <InputGroup style={{ width: '450px' }}>
+        <InputGroupAddon align="block-start" className="border-b">
+          <InputGroupText>Comment</InputGroupText>
+        </InputGroupAddon>
+        <InputGroupTextarea
+          defaultValue="Multiline content"
+          placeholder="Enter your message"
+        />
       </InputGroup>
     );
   },

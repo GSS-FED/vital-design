@@ -74,14 +74,14 @@ import {
 
 ### InputGroup Parts
 
-| Part                 | Description                                         |
-| -------------------- | --------------------------------------------------- |
-| `InputGroup`         | Visual shell with focus, disabled, and error states |
-| `InputGroupInput`    | Single-line input control                           |
-| `InputGroupTextarea` | Multiline textarea control                          |
-| `InputGroupAddon`    | Prefix or suffix slot                               |
-| `InputGroupButton`   | Small action button inside an addon                 |
-| `InputGroupText`     | Static text inside an addon                         |
+| Part                 | Description                                           |
+| -------------------- | ----------------------------------------------------- |
+| `InputGroup`         | Visual shell with focus, disabled, and invalid states |
+| `InputGroupInput`    | Single-line input control                             |
+| `InputGroupTextarea` | Multiline textarea control                            |
+| `InputGroupAddon`    | Prefix or suffix slot                                 |
+| `InputGroupButton`   | Small action button inside an addon                   |
+| `InputGroupText`     | Static text inside an addon                           |
 
 ## PasswordInput
 
@@ -105,15 +105,15 @@ import { PasswordInput } from '@/components/ui/PasswordInput';
 
 | Prop               | Type                      | Default | Description                           |
 | ------------------ | ------------------------- | ------- | ------------------------------------- |
-| `value`            | `string`                  | —       | **Required.** Controlled value        |
-| `onChange`         | `(value: string) => void` | —       | **Required.** Value change callback   |
+| `value`            | `string`                  | —       | Controlled value                      |
+| `defaultValue`     | `string`                  | —       | Uncontrolled initial value            |
+| `onChange`         | `(value: string) => void` | —       | Value change callback                 |
 | `placeholder`      | `string`                  | —       | Placeholder text                      |
 | `initiallyVisible` | `boolean`                 | `false` | Show password text initially          |
 | `disabled`         | `boolean`                 | `false` | Disables the input                    |
-| `isError`          | `boolean`                 | `false` | Applies error border styling          |
+| `aria-invalid`     | `boolean`                 | —       | Applies invalid border styling        |
 | `prefix`           | `ReactNode`               | —       | Element rendered inside the left side |
 | `onEnter`          | `(value: string) => void` | —       | Called when Enter key is pressed      |
-| `width`            | `string`                  | —       | Custom width (e.g., `'300px'`)        |
 | `className`        | `string`                  | —       | Additional CSS classes                |
 | `style`            | `CSSProperties`           | —       | Inline styles                         |
 

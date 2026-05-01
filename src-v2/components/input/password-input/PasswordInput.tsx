@@ -5,37 +5,38 @@ import {
 } from '@/components/input/input-group/InputGroup';
 import { EyeIcon } from '@/icons/EyeIcon';
 import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
+import { cn } from '@/utils/cn';
 import { useState } from 'react';
-import type { CSSProperties, ReactNode } from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 /* ---------------------------------- Types --------------------------------- */
 export type PasswordInputProps = {
+  'aria-invalid'?: ComponentPropsWithoutRef<'input'>['aria-invalid'];
   className?: string;
-  width?: string;
   placeholder?: string;
   prefix?: ReactNode;
   initiallyVisible?: boolean;
-  value: string;
+  defaultValue?: string;
+  value?: string;
   disabled?: boolean;
-  isError?: boolean;
-  style?: CSSProperties;
-  onChange: (value: string) => void;
+  style?: ComponentPropsWithoutRef<'div'>['style'];
+  onChange?: (value: string) => void;
   onEnter?: (value: string) => void;
 };
 
 /* ---------------------------------- Component --------------------------------- */
 export function PasswordInput(props: PasswordInputProps) {
   const {
+    'aria-invalid': ariaInvalid,
     className,
-    width,
     value,
+    defaultValue,
     placeholder,
     initiallyVisible = false,
     prefix,
     style,
     onChange,
     onEnter,
-    isError,
     disabled = false,
   } = props;
 
@@ -44,21 +45,17 @@ export function PasswordInput(props: PasswordInputProps) {
   const type = passwordVisible ? 'text' : 'password';
 
   return (
-    <InputGroup
-      className={className}
-      disabled={disabled}
-      isError={isError}
-      style={{ width: width ?? '100%', ...style }}
-    >
+    <InputGroup className={cn('w-full', className)} style={style}>
       {prefix !== null && prefix !== undefined && (
         <InputGroupAddon>{prefix}</InputGroupAddon>
       )}
       <InputGroupInput
         data-state={passwordVisible ? 'visible' : 'invisible'}
         data-testid="password-input"
-        aria-invalid={isError ? true : undefined}
+        aria-invalid={ariaInvalid}
+        defaultValue={defaultValue}
         disabled={disabled}
-        onInput={(event) => onChange(event.currentTarget.value)}
+        onInput={(event) => onChange?.(event.currentTarget.value)}
         onKeyDown={(event) => {
           if (event.key === 'Enter') {
             onEnter?.(event.currentTarget.value);

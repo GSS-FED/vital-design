@@ -8,11 +8,7 @@ import type {
   ReactNode,
 } from 'react';
 
-export type ButtonSize =
-  | 'medium'
-  | 'large'
-  | 'icon-medium'
-  | 'icon-large';
+export type ButtonSize = 'md' | 'lg' | 'icon-md' | 'icon-lg';
 
 export type ButtonTheme =
   | 'primary'
@@ -50,7 +46,7 @@ const BUTTON_BASE_CLASSES = [
   'transition-all duration-150 ease-in-out',
   'disabled:pointer-events-none',
   '[&_[data-icon]]:relative [&_[data-icon]]:z-[2] [&_[data-icon]]:m-0.75 [&_[data-icon]]:pointer-events-none [&_[data-icon]]:shrink-0',
-  '[&_[data-icon]]:size-3 data-[size=large]:[&_[data-icon]]:size-3.5 data-[size=icon-large]:[&_[data-icon]]:size-3.5',
+  '[&_[data-icon]]:size-3 data-[size=lg]:[&_[data-icon]]:size-3.5 data-[size=icon-lg]:[&_[data-icon]]:size-3.5',
 ] as const;
 
 const OVERLAY_CLASSES = [
@@ -68,10 +64,10 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
       text: '',
     },
     size: {
-      medium: 'text-sm rounded-[var(--radius-lg)]',
-      large: 'h-8 text-base rounded-[var(--radius-xl)]',
-      'icon-medium': 'h-[30px] text-sm rounded-[var(--radius-lg)]',
-      'icon-large': 'h-8 text-base rounded-[var(--radius-xl)]',
+      md: 'text-sm rounded-[var(--radius-lg)]',
+      lg: 'h-8 text-base rounded-[var(--radius-xl)]',
+      'icon-md': 'h-[30px] text-sm rounded-[var(--radius-lg)]',
+      'icon-lg': 'h-8 text-base rounded-[var(--radius-xl)]',
     },
     theme: {
       primary: '',
@@ -90,28 +86,28 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
   compoundVariants: [
     {
       variant: 'filled',
-      size: 'medium',
+      size: 'md',
       class: 'h-[30px]',
     },
     {
       variant: 'text',
-      size: 'medium',
+      size: 'md',
       class: 'h-7',
     },
     {
       variant: 'filled',
-      size: ['medium', 'large'],
+      size: ['md', 'lg'],
       class:
         'px-4 has-[_[data-icon=inline-start]]:pl-3 has-[_[data-icon=inline-end]]:pr-3',
     },
     {
       variant: 'filled',
-      size: ['icon-medium', 'icon-large'],
+      size: ['icon-md', 'icon-lg'],
       class: 'px-3',
     },
     {
       variant: 'text',
-      size: ['medium', 'large', 'icon-medium', 'icon-large'],
+      size: ['md', 'lg', 'icon-md', 'icon-lg'],
       class: 'px-0',
     },
     {
@@ -157,7 +153,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
     },
     {
       variant: 'filled',
-      size: ['medium', 'icon-medium'],
+      size: ['md', 'icon-md'],
       theme: ['default', 'dangerous'],
       class: 'border border-grayscale-300',
     },
@@ -205,43 +201,43 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
     },
     {
       variant: 'filled',
-      size: ['large', 'icon-large'],
+      size: ['lg', 'icon-lg'],
       theme: 'primary',
       class: 'shadow-button-primary',
     },
     {
       variant: 'filled',
-      size: ['large', 'icon-large'],
+      size: ['lg', 'icon-lg'],
       theme: 'success',
       class: 'shadow-button-success',
     },
     {
       variant: 'filled',
-      size: ['large', 'icon-large'],
+      size: ['lg', 'icon-lg'],
       theme: 'info',
       class: 'shadow-button-info',
     },
     {
       variant: 'filled',
-      size: ['large', 'icon-large'],
+      size: ['lg', 'icon-lg'],
       theme: 'warning',
       class: 'shadow-button-warning',
     },
     {
       variant: 'filled',
-      size: ['large', 'icon-large'],
+      size: ['lg', 'icon-lg'],
       theme: 'alarm',
       class: 'shadow-button-alarm',
     },
     {
       variant: 'filled',
-      size: ['large', 'icon-large'],
+      size: ['lg', 'icon-lg'],
       theme: ['default', 'dangerous'],
       class: 'shadow-base',
     },
     {
       variant: 'filled',
-      size: ['large', 'icon-large'],
+      size: ['lg', 'icon-lg'],
       theme: 'primary',
       disabled: false,
       class:
@@ -249,7 +245,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
     },
     {
       variant: 'filled',
-      size: ['large', 'icon-large'],
+      size: ['lg', 'icon-lg'],
       theme: 'success',
       disabled: false,
       class:
@@ -257,7 +253,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
     },
     {
       variant: 'filled',
-      size: ['large', 'icon-large'],
+      size: ['lg', 'icon-lg'],
       theme: 'info',
       disabled: false,
       class:
@@ -265,7 +261,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
     },
     {
       variant: 'filled',
-      size: ['large', 'icon-large'],
+      size: ['lg', 'icon-lg'],
       theme: 'warning',
       disabled: false,
       class:
@@ -273,7 +269,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
     },
     {
       variant: 'filled',
-      size: ['large', 'icon-large'],
+      size: ['lg', 'icon-lg'],
       theme: 'alarm',
       disabled: false,
       class:
@@ -281,7 +277,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
     },
     {
       variant: 'filled',
-      size: ['large', 'icon-large'],
+      size: ['lg', 'icon-lg'],
       theme: ['default', 'dangerous'],
       disabled: false,
       class:
@@ -290,7 +286,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
   ],
   defaultVariants: {
     variant: 'filled',
-    size: 'medium',
+    size: 'md',
     theme: 'primary',
     disabled: false,
   },
@@ -304,7 +300,7 @@ const Button = forwardRef<ElementRef<typeof BaseButton>, ButtonProps>(
       disabled = false,
       focusableWhenDisabled,
       onClick,
-      size = 'medium',
+      size = 'md',
       theme: themeProp,
       type = 'button',
       variant: variantProp,

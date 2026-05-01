@@ -78,9 +78,9 @@ rows cover legacy source files with v1 registry equivalents.
 | `TextareaInput` → `Textarea` | `src/components/input/textareaInput/TextareaInput.tsx` | `@vital-design/textarea`       | `src-v2/components/textarea/Textarea.tsx`                  | Native textarea primitive; use `InputGroupTextarea` only for custom input shells                                                                                                               |
 | `PasswordInput`              | `src/components/input/passwordInput/PasswordInput.tsx` | `@vital-design/password-input` | `src-v2/components/input/password-input/PasswordInput.tsx` | Built on `InputGroup`                                                                                                                                                                          |
 | `Mask`                       | `src/components/mask/Mask.tsx`                         | —                              | —                                                          | No direct v1 component; scroll fade is built into list and picker viewports                                                                                                                    |
-| `ActionList`                 | (removed)                                              | Pick by intent — see notes     | —                                                          | Action menu → `@vital-design/dropdown-menu`; value picker → `@vital-design/combobox` or `@vital-design/cascader`; display rows → `@vital-design/item`; command panel → `@vital-design/command` |
+| `ActionList`                 | (removed)                                              | Pick by intent — see notes     | —                                                          | Action menu → `@vital-design/dropdown-menu`; value picker → `@vital-design/combobox`; hierarchical picker → `@vital-design/command` + `@vital-design/popover`; display rows → `@vital-design/item` |
 | `ActionInfiniteList`         | (removed)                                              | Pick by intent — see notes     | —                                                          | Same as `ActionList`; own loading and paging in app                                                                                                                                            |
-| `TreeSelect`                 | `src/components/tree-select/TreeSelect.tsx`            | `@vital-design/cascader`       | `src-v2/components/cascader/Cascader.tsx`                  | Use for hierarchical path picking                                                                                                                                                              |
+| `TreeSelect`                 | `src/components/tree-select/TreeSelect.tsx`            | `@vital-design/command` + `@vital-design/popover` | `src-v2/components/command/Command.tsx` + `src-v2/components/popover/Popover.tsx` | Build hierarchical path pickers as a recipe; the screen owns page stack, search, loading, and selected path                                                                                              |
 
 ## New v1-Only Components
 
@@ -94,7 +94,6 @@ These components do not exist in the v0 npm package:
 | `Item`        | `@vital-design/item`         | Display rows with media and actions |
 | `Label`       | `@vital-design/label`        | Form control labels                 |
 | `Combobox`    | `@vital-design/combobox`     | Searchable picker or tag picker     |
-| `Cascader`    | `@vital-design/cascader`     | Hierarchical picker                 |
 | `Skeleton`    | `@vital-design/skeleton`     | Loading placeholder                 |
 | `Spinner`     | `@vital-design/spinner`      | Loading indicator                   |
 
@@ -106,31 +105,16 @@ Use the new picker split:
 | ----------------------------------------------- | --------------------------------------------------------- |
 | Flat single or multiple value picker            | `Select`                                                  |
 | Searchable value picker, autocomplete, or chips | `Combobox`                                                |
-| Hierarchical path picker                        | `Cascader`                                                |
+| Hierarchical path picker                        | `Command` + `Popover` recipe                              |
 | Action menu where each item fires a callback    | `DropdownMenu`                                            |
 | Display row list                                | `Item` + `ItemGroup` (`size="list"` for picker-like rows) |
 | Command panel                                   | `Command`                                                 |
 
-`Command` is shipped as a public primitive (`@vital-design/command`) for command palettes and custom searchable popups; `Cascader` consumes it internally.
+`Command` is shipped as a public primitive (`@vital-design/command`) for command palettes, custom searchable popups, and paged hierarchical pickers.
 
-Changing the trigger appearance does not change the component choice. Keep the picker as the root and customize its trigger:
+Changing the trigger appearance does not change the component choice. Keep `Select` and `Combobox` as their own roots; build hierarchical path pickers from `Popover` + `Command`.
 
-```tsx
-<Cascader>
-  <CascaderTrigger
-    render={({ className: _className, ...triggerProps }) => {
-      void _className;
-
-      return <Button {...triggerProps}>Assign location</Button>;
-    }}
-  />
-  <CascaderContent>
-    {/* same Cascader popup content */}
-  </CascaderContent>
-</Cascader>
-```
-
-Do not wrap `Select`, `Combobox`, or `Cascader` inside `DropdownMenu` to get a button trigger. Use `DropdownMenu` only when the popup rows are commands rather than a bound value.
+Do not wrap `Select`, `Combobox`, or custom `Command` pickers inside `DropdownMenu` to get a button trigger. Use `DropdownMenu` only when the popup rows are commands rather than a bound value.
 
 ## Code Changes
 
@@ -203,16 +187,43 @@ import { Spinner } from '@/components/ui/Spinner';
 Icon-only buttons now use size variants instead of empty children or icon props:
 
 ```tsx
-<Button size="icon-medium" aria-label="Search">
+<Button size="icon-md" aria-label="Search">
   <SearchIcon data-icon="inline-start" />
 </Button>
 
-<Button size="icon-large" aria-label="Search">
+<Button size="icon-lg" aria-label="Search">
   <SearchIcon data-icon="inline-start" />
 </Button>
 ```
 
-Keep `size="medium"` or `size="large"` for buttons with labels. For filled label buttons, v1 keeps the v0 spacing contract: the icon side is 12px, and the non-icon side is 16px.
+Keep `size="md"` or `size="lg"` for buttons with labels. For filled label buttons, v1 keeps the v0 spacing contract: the icon side is 12px, and the non-icon side is 16px.
+If you used earlier v1 draft size names, rename `medium` to `md`, `large` to `lg`, `icon-medium` to `icon-md`, and `icon-large` to `icon-lg`.
+
+### Invalid form controls
+
+V1-only `isError` props are removed from v2 form controls. Use `aria-invalid` on the actual control instead.
+
+```tsx
+// v0
+<Input isError />
+<InputGroup isError>
+  <InputGroupInput />
+</InputGroup>
+<PasswordInput isError value={password} onChange={setPassword} />
+
+// v1
+<Input aria-invalid />
+<InputGroup>
+  <InputGroupInput aria-invalid />
+</InputGroup>
+<PasswordInput
+  aria-invalid
+  value={password}
+  onChange={setPassword}
+/>
+```
+
+When using `Field`, set invalid state on both the field wrapper and the control: `Field data-invalid` handles label/help text styling, while `aria-invalid` on the actual control handles control semantics and the visible border.
 
 ### Switch
 
@@ -250,7 +261,7 @@ Use `Label` for visible field labels that point at `Input`, `InputGroupInput`, `
 Do not hide low-level label composition inside primitives:
 
 - `Checkbox` and `RadioGroupItem` are control primitives. Pair them with `Label htmlFor` at the callsite.
-- `InputGroupAddon render={<label />}` is a low-level composition escape hatch; keep it only when the addon itself must label the grouped input.
+- `InputGroupAddon` is presentational. Use `Label htmlFor` outside the group when the field has visible label text.
 
 Current v2 label audit:
 
@@ -274,7 +285,7 @@ Do not import `src-v2/styles/*` from the npm package. Use the registry install s
 `ActionList` and `ActionInfiniteList` are removed in v1. Pick the v1 replacement by intent:
 
 - **Action menu** (each item fires a callback, no value binding) → `DropdownMenu`.
-- **Searchable value picker** → `Combobox`. Hierarchical → `Cascader`.
+- **Searchable value picker** → `Combobox`. Hierarchical → `Command` + `Popover`.
 - **Display row or detail list** → `Item` + `ItemGroup`. Use `size="list"` for select-option density.
 - **Searchable command panel** (you own search, loading, paging, empty text) → `Command`.
 
@@ -297,8 +308,8 @@ import {
 
 ### TreeSelect
 
-Move `TreeSelect` screens to `Cascader`.
-The old component owned more data behavior. In v1, the screen owns the path, search value, loading state, and child loading.
+Move `TreeSelect` screens to a `Command` + `Popover` recipe.
+The old component owned more data behavior. In v1, the screen owns the path, search value, loading state, and child loading. See the `Command` Storybook `HierarchicalPicker` story for the recommended shape.
 
 Use `Combobox` instead if the old screen only needed searchable flat options.
 

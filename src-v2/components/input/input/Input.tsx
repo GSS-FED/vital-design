@@ -2,32 +2,22 @@ import { cn } from '@/utils/cn';
 import { forwardRef } from 'react';
 import type { ComponentPropsWithoutRef, ElementRef } from 'react';
 
-export type InputProps = Omit<
-  ComponentPropsWithoutRef<'input'>,
-  'prefix'
-> & {
-  isError?: boolean;
-};
+export type InputProps = ComponentPropsWithoutRef<'input'>;
 
 const Input = forwardRef<ElementRef<'input'>, InputProps>(
   function Input(props, ref) {
     const {
       className,
       disabled = false,
-      isError = false,
       type = 'text',
       ...inputProps
     } = props;
-    const ariaInvalid = isError ? true : inputProps['aria-invalid'];
 
     return (
       <input
         ref={ref}
         type={type}
-        {...inputProps}
         data-slot="input"
-        data-invalid={isError ? '' : undefined}
-        aria-invalid={ariaInvalid}
         disabled={disabled}
         className={cn(
           'box-border flex h-8 w-full min-w-0 rounded border border-grayscale-300 bg-white px-2 py-1.5 font-sans text-sm leading-5 font-normal text-grayscale-800 transition-colors duration-200 outline-none',
@@ -37,6 +27,7 @@ const Input = forwardRef<ElementRef<'input'>, InputProps>(
           'aria-invalid:border-alarm-500 aria-invalid:hover:border-alarm-500 aria-invalid:focus-visible:border-alarm-500',
           className,
         )}
+        {...inputProps}
       />
     );
   },

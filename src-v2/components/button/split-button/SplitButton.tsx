@@ -9,7 +9,7 @@ import { cn } from '@/utils/cn';
 import { cva } from 'class-variance-authority';
 import type { ComponentPropsWithoutRef, MouseEvent } from 'react';
 
-export type SplitButtonSize = 'medium' | 'large';
+export type SplitButtonSize = 'md' | 'lg';
 export type SplitButtonTheme = ButtonTheme;
 
 export type SplitButtonProps = {
@@ -41,9 +41,8 @@ const splitButtonGroupVariants = cva(
   {
     variants: {
       size: {
-        medium: 'rounded-[var(--radius-lg)]',
-        large:
-          'rounded-[var(--radius-xl)] transition-all duration-150',
+        md: 'rounded-[var(--radius-lg)]',
+        lg: 'rounded-[var(--radius-xl)] transition-all duration-150',
       },
       theme: {
         primary: 'bg-[image:var(--gradient-primary-button)]',
@@ -65,75 +64,75 @@ const splitButtonGroupVariants = cva(
         class: 'border border-grayscale-300',
       },
       {
-        size: 'large',
+        size: 'lg',
         theme: 'primary',
         class: 'shadow-button-primary',
       },
       {
-        size: 'large',
+        size: 'lg',
         theme: 'success',
         class: 'shadow-button-success',
       },
-      { size: 'large', theme: 'info', class: 'shadow-button-info' },
+      { size: 'lg', theme: 'info', class: 'shadow-button-info' },
       {
-        size: 'large',
+        size: 'lg',
         theme: 'warning',
         class: 'shadow-button-warning',
       },
       {
-        size: 'large',
+        size: 'lg',
         theme: 'alarm',
         class: 'shadow-button-alarm',
       },
       {
-        size: 'large',
+        size: 'lg',
         theme: ['default', 'dangerous'],
         class: 'shadow-base',
       },
       {
-        size: 'large',
+        size: 'lg',
         disabled: false,
         class: 'hover:-translate-y-px active:translate-y-0',
       },
       {
-        size: 'large',
+        size: 'lg',
         theme: 'primary',
         disabled: false,
         class: 'active:shadow-button-primary-active',
       },
       {
-        size: 'large',
+        size: 'lg',
         theme: 'success',
         disabled: false,
         class: 'active:shadow-button-success-active',
       },
       {
-        size: 'large',
+        size: 'lg',
         theme: 'info',
         disabled: false,
         class: 'active:shadow-button-info-active',
       },
       {
-        size: 'large',
+        size: 'lg',
         theme: 'warning',
         disabled: false,
         class: 'active:shadow-button-warning-active',
       },
       {
-        size: 'large',
+        size: 'lg',
         theme: 'alarm',
         disabled: false,
         class: 'active:shadow-button-alarm-active',
       },
       {
-        size: 'large',
+        size: 'lg',
         theme: ['default', 'dangerous'],
         disabled: false,
         class: 'active:shadow-[0_2px_4px_rgba(35,35,50,0.08)]',
       },
     ],
     defaultVariants: {
-      size: 'medium',
+      size: 'md',
       theme: 'default',
       disabled: false,
     },
@@ -156,7 +155,7 @@ export function SplitButton(props: SplitButtonProps) {
     focusableWhenDisabled = false,
     onClick,
     open,
-    size = 'medium',
+    size = 'md',
     splitOnClick,
     style,
     theme = 'default',
@@ -164,7 +163,7 @@ export function SplitButton(props: SplitButtonProps) {
   } = props;
 
   const ChevronIcon = open ? ChevronUpIcon : ChevronDownIcon;
-  const splitSize = size === 'large' ? 'icon-large' : 'icon-medium';
+  const splitSize = size === 'lg' ? 'icon-lg' : 'icon-md';
 
   return (
     <ButtonGroup

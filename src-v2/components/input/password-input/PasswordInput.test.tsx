@@ -4,16 +4,34 @@ import { expect, it, vi } from 'vitest';
 import { PasswordInput } from './PasswordInput';
 
 it('renders correctly with default props', () => {
-  const props = { value: '', onChange: vi.fn() };
-  render(<PasswordInput {...props} />);
+  render(<PasswordInput />);
   const input = screen.getByTestId('password-input');
   expect(input).toBeInTheDocument();
   expect(input).toHaveAttribute('type', 'password');
 });
 
+it('supports uncontrolled input with defaultValue', () => {
+  render(<PasswordInput defaultValue="secret" />);
+  const input = screen.getByTestId('password-input');
+
+  expect(input).toHaveValue('secret');
+  fireEvent.input(input, { target: { value: 'changed' } });
+  expect(input).toHaveValue('changed');
+});
+
+it('calls onChange when the value changes', () => {
+  const onChange = vi.fn();
+  render(<PasswordInput onChange={onChange} />);
+
+  fireEvent.input(screen.getByTestId('password-input'), {
+    target: { value: 'secret' },
+  });
+
+  expect(onChange).toHaveBeenCalledWith('secret');
+});
+
 it('toggles visibility when the visibility icon is clicked', () => {
-  const props = { value: '', onChange: vi.fn() };
-  render(<PasswordInput {...props} />);
+  render(<PasswordInput />);
   const toggleButton = screen.getByTestId('visibility-toggle');
   const input = screen.getByTestId('password-input');
   // Assuming the initial state is 'invisible'

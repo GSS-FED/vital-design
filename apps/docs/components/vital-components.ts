@@ -24,6 +24,18 @@ export {
 } from '../../../src-v2/components/avatar/Avatar';
 export { Chip } from '../../../src-v2/components/chip/Chip';
 export {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+  FieldTitle,
+} from '../../../src-v2/components/field/Field';
+export {
   Item,
   ItemActions,
   ItemContent,
@@ -50,7 +62,6 @@ export { PasswordInput } from '../../../src-v2/components/input/password-input/P
 export { Textarea } from '../../../src-v2/components/textarea/Textarea';
 export { Select } from '../../../src-v2/components/select/Select';
 export { Combobox } from '../../../src-v2/components/combobox/Combobox';
-export { Cascader } from '../../../src-v2/components/cascader/Cascader';
 export {
   Command,
   CommandBackButton,

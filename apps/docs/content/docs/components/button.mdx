@@ -10,16 +10,16 @@ import { Button, Spinner } from '~/components/vital-components';
 ## Preview
 
 <ComponentPreview>
-  <Button theme="primary" size="large">
+  <Button theme="primary" size="lg">
     Primary
   </Button>
-  <Button theme="default" size="large">
+  <Button theme="default" size="lg">
     Default
   </Button>
-  <Button theme="success" size="large">
+  <Button theme="success" size="lg">
     Success
   </Button>
-  <Button theme="alarm" size="large">
+  <Button theme="alarm" size="lg">
     Alarm
   </Button>
 </ComponentPreview>
@@ -29,7 +29,7 @@ import { Button, Spinner } from '~/components/vital-components';
 ```tsx
 import { Button } from '@/components/ui/Button';
 
-<Button theme="primary" size="large">
+<Button theme="primary" size="lg">
   Click me
 </Button>;
 ```
@@ -107,36 +107,36 @@ The `text` variant renders a transparent background button. Available for all th
 ### Sizes
 
 <ComponentPreview>
-  <Button theme="primary" size="medium">
+  <Button theme="primary" size="md">
     Medium
   </Button>
-  <Button theme="primary" size="large">
+  <Button theme="primary" size="lg">
     Large
   </Button>
-  <Button theme="primary" size="icon-medium" aria-label="Search">
+  <Button theme="primary" size="icon-md" aria-label="Search">
     <SearchIcon data-icon="inline-start" />
   </Button>
 </ComponentPreview>
 
 ```tsx
-<Button size="medium">Medium</Button>
-<Button size="large">Large</Button>
-<Button size="icon-medium" aria-label="Search">
+<Button size="md">Medium</Button>
+<Button size="lg">Large</Button>
+<Button size="icon-md" aria-label="Search">
   <SearchIcon data-icon="inline-start" />
 </Button>
 ```
 
 ### Icons
 
-Use `data-icon="inline-start"` or `data-icon="inline-end"` on child icons. For icon-only buttons, use `size="icon-medium"` or `size="icon-large"`.
+Use `data-icon="inline-start"` or `data-icon="inline-end"` on child icons. For icon-only buttons, use `size="icon-md"` or `size="icon-lg"`.
 Install or import the icon or spinner separately from the button.
 
 <ComponentPreview>
-  <Button theme="primary" size="large">
+  <Button theme="primary" size="lg">
     <SearchIcon data-icon="inline-start" />
     Search
   </Button>
-  <Button theme="default" size="large">
+  <Button theme="default" size="lg">
     Search
     <SearchIcon data-icon="inline-end" />
   </Button>
@@ -158,11 +158,11 @@ Install or import the icon or spinner separately from the button.
 Render a spinner as a child icon and disable the button while work is in flight.
 
 <ComponentPreview>
-  <Button theme="primary" size="large" disabled>
+  <Button theme="primary" size="lg" disabled>
     <Spinner data-icon="inline-start" />
     Saving
   </Button>
-  <Button theme="default" size="large" disabled>
+  <Button theme="default" size="lg" disabled>
     Loading
     <Spinner data-icon="inline-end" />
   </Button>
@@ -178,10 +178,10 @@ Render a spinner as a child icon and disable the button while work is in flight.
 ### Disabled
 
 <ComponentPreview>
-  <Button theme="primary" size="large" disabled>
+  <Button theme="primary" size="lg" disabled>
     Disabled
   </Button>
-  <Button variant="text" theme="primary" size="large" disabled>
+  <Button variant="text" theme="primary" size="lg" disabled>
     Disabled
   </Button>
 </ComponentPreview>
@@ -200,7 +200,7 @@ Render a spinner as a child icon and disable the button while work is in flight.
 | ----------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------- | ---------------------------------------------------------------- |
 | `variant`               | `'filled' \| 'text'`                                                                   | `'filled'`                                   | Visual variant                                                   |
 | `theme`                 | `'primary' \| 'default' \| 'success' \| 'info' \| 'warning' \| 'alarm' \| 'dangerous'` | `'primary'` for filled, `'default'` for text | Color theme (`'dangerous'` only available on `filled`)           |
-| `size`                  | `'medium' \| 'large' \| 'icon-medium' \| 'icon-large'`                                 | `'medium'`                                   | Button size                                                      |
+| `size`                  | `'md' \| 'lg' \| 'icon-md' \| 'icon-lg'`                                                 | `'md'`                                       | Button size                                                      |
 | `focusableWhenDisabled` | `boolean`                                                                              | `false`                                      | Keeps the button focusable even when disabled styling is applied |
 | `disabled`              | `boolean`                                                                              | `false`                                      | Native disabled attribute                                        |
 | `className`             | `string`                                                                               | —                                            | Additional CSS classes                                           |

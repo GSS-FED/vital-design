@@ -32,7 +32,7 @@ describe('Button', () => {
 
     expect(button).toHaveAttribute('data-slot', 'button');
     expect(button).toHaveAttribute('data-variant', 'filled');
-    expect(button).toHaveAttribute('data-size', 'medium');
+    expect(button).toHaveAttribute('data-size', 'md');
     expect(button).toHaveClass(
       'bg-[image:var(--gradient-primary-button)]',
     );
@@ -172,20 +172,20 @@ describe('Button', () => {
 
   it('supports icon-only buttons with icon size variants', () => {
     render(
-      <Button aria-label="Next" size="icon-medium">
+      <Button aria-label="Next" size="icon-md">
         <FlagIcon data-icon="inline-end" data-testid="end-icon" />
       </Button>,
     );
     const button = screen.getByRole('button', { name: 'Next' });
 
-    expect(button).toHaveAttribute('data-size', 'icon-medium');
+    expect(button).toHaveAttribute('data-size', 'icon-md');
     expect(button).toHaveClass('h-[30px]', 'px-3');
     expect(screen.getByTestId('end-icon')).toBeInTheDocument();
   });
 
-  it('uses medium bordered theme styles for icon-medium buttons', () => {
+  it('uses md bordered theme styles for icon-md buttons', () => {
     render(
-      <Button aria-label="Clear" size="icon-medium" theme="default">
+      <Button aria-label="Clear" size="icon-md" theme="default">
         <FlagIcon data-icon="inline-end" />
       </Button>,
     );
@@ -198,27 +198,27 @@ describe('Button', () => {
 
   it('scales icon-only button icons with large icon size', () => {
     render(
-      <Button aria-label="Next" size="icon-large">
+      <Button aria-label="Next" size="icon-lg">
         <FlagIcon data-icon="inline-end" data-testid="end-icon" />
       </Button>,
     );
     const button = screen.getByRole('button', { name: 'Next' });
 
-    expect(button).toHaveAttribute('data-size', 'icon-large');
+    expect(button).toHaveAttribute('data-size', 'icon-lg');
     expect(button).toHaveClass(
       'h-8',
       'px-3',
-      'data-[size=icon-large]:[&_[data-icon]]:size-3.5',
+      'data-[size=icon-lg]:[&_[data-icon]]:size-3.5',
     );
   });
 
-  it('uses large shadow styles for icon-large buttons', () => {
+  it('uses lg shadow styles for icon-lg buttons', () => {
     render(
       <>
-        <Button aria-label="Search" size="icon-large" theme="primary">
+        <Button aria-label="Search" size="icon-lg" theme="primary">
           <FlagIcon data-icon="inline-end" />
         </Button>
-        <Button aria-label="Clear" size="icon-large" theme="default">
+        <Button aria-label="Clear" size="icon-lg" theme="default">
           <FlagIcon data-icon="inline-end" />
         </Button>
       </>,

@@ -19,7 +19,6 @@ import {
   AlertPreview,
   AlertWithIconPreview,
 } from '~/components/previews/AlertPreview';
-import { CascaderPreview } from '~/components/previews/CascaderPreview';
 import {
   CheckboxPreview,
   CheckboxStatesPreview,
@@ -147,7 +146,6 @@ export default async function Page({
             SliderStepPreview,
             SliderMinMaxPreview,
             SliderVerticalPreview,
-            CascaderPreview,
           }}
         />
       </DocsBody>

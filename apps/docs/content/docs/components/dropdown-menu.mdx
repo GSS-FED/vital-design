@@ -46,27 +46,12 @@ import {
 | **Action menu** where each item fires a callback | **`DropdownMenu`** |
 | Flat value picker                                | `Select`           |
 | Searchable value picker or tag picker            | `Combobox`         |
-| Hierarchical path picker                         | `Cascader`         |
+| Hierarchical path picker                         | `Command` + `Popover` |
 | Floating panel with arbitrary content            | `Popover`          |
 
 The key distinction: `DropdownMenu` items are **commands** (each triggers a side effect), not values. There is no value binding, no selected state on regular items, and selecting an item closes the menu by default.
 
-Do not wrap `Select`, `Combobox`, or `Cascader` inside `DropdownMenu` just to get a different trigger. Keep the picker as the root component and customize its own trigger with `render`.
-
-```tsx
-<Cascader>
-  <CascaderTrigger
-    render={({ className: _className, ...triggerProps }) => {
-      void _className;
-
-      return <Button {...triggerProps}>Assign location</Button>;
-    }}
-  />
-  <CascaderContent>
-    {/* same Cascader popup content */}
-  </CascaderContent>
-</Cascader>
-```
+Do not wrap `Select`, `Combobox`, or a custom `Command` picker inside `DropdownMenu` just to get a different trigger. Use the picker primitive directly and customize its own trigger.
 
 ## Checkbox and Radio Items
 

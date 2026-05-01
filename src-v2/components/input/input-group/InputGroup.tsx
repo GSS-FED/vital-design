@@ -1,254 +1,213 @@
+import { Button } from '@/components/button/Button';
+import type {
+  ButtonProps,
+  ButtonTheme,
+} from '@/components/button/Button';
+import { Input } from '@/components/input/input/Input';
+import { Textarea } from '@/components/textarea/Textarea';
 import { cn } from '@/utils/cn';
-import { mergeProps } from '@base-ui/react/merge-props';
-import { useRender } from '@base-ui/react/use-render';
 import { type VariantProps, cva } from 'class-variance-authority';
-import { createContext, forwardRef, useContext } from 'react';
+import { forwardRef } from 'react';
 import type { ComponentPropsWithoutRef, ElementRef } from 'react';
 
-const inputGroupVariants = cva(
-  [
-    'group/input-group box-border flex min-h-8 w-full items-center gap-2',
-    'rounded border border-grayscale-300 bg-white px-2 py-1.5',
-    'font-sans text-grayscale-500 transition-colors duration-200',
-    'hover:border-grayscale-500 focus-within:border-primary-500',
-  ],
-  {
-    variants: {
-      disabled: {
-        true: [
-          'border-grayscale-300 bg-grayscale-200 text-grayscale-500',
-          'hover:border-grayscale-300',
-        ],
-        false: '',
-      },
-      isError: {
-        true: [
-          'border-alarm-500 hover:border-alarm-500',
-          'focus-within:border-alarm-500',
-        ],
-        false: '',
-      },
-    },
-    compoundVariants: [
-      {
-        disabled: true,
-        isError: true,
-        class: 'border-grayscale-300 hover:border-grayscale-300',
-      },
-    ],
-    defaultVariants: {
-      disabled: false,
-      isError: false,
-    },
-  },
-);
-
-export type InputGroupVariants = VariantProps<
-  typeof inputGroupVariants
->;
-
-export type InputGroupProps = ComponentPropsWithoutRef<'div'> & {
-  disabled?: boolean;
-  isError?: boolean;
-};
-
-const InputGroupContext = createContext<{ disabled: boolean } | null>(
-  null,
-);
+export type InputGroupProps = ComponentPropsWithoutRef<'div'>;
 
 const InputGroup = forwardRef<ElementRef<'div'>, InputGroupProps>(
-  function InputGroup(props, ref) {
-    const {
-      className,
-      disabled = false,
-      isError = false,
-      ...groupProps
-    } = props;
-
+  function InputGroup({ className, ...props }, ref) {
     return (
-      <InputGroupContext.Provider value={{ disabled }}>
-        <div
-          ref={ref}
-          data-disabled={disabled ? '' : undefined}
-          data-invalid={isError ? '' : undefined}
-          data-slot="input-group"
-          className={cn(
-            inputGroupVariants({ disabled, isError }),
-            className,
-          )}
-          {...groupProps}
-        />
-      </InputGroupContext.Provider>
+      <div
+        ref={ref}
+        role="group"
+        data-slot="input-group"
+        className={cn(
+          'group/input-group relative box-border flex h-8 w-full min-w-0 items-center rounded border border-grayscale-300 bg-white font-sans text-grayscale-500 transition-colors duration-200 outline-none',
+          'hover:border-grayscale-500',
+          'has-[:disabled]:border-grayscale-300 has-[:disabled]:bg-grayscale-200 has-[:disabled]:text-grayscale-500 has-[:disabled]:opacity-100 has-[:disabled]:hover:border-grayscale-300',
+          'has-[[data-slot=input-group-control]:focus-visible]:border-primary-500',
+          'has-[[data-slot][aria-invalid=true]]:border-alarm-500 has-[[data-slot][aria-invalid=true]]:hover:border-alarm-500 has-[[data-slot][aria-invalid=true]]:focus-within:border-alarm-500',
+          'aria-invalid:border-alarm-500 aria-invalid:hover:border-alarm-500 aria-invalid:focus-within:border-alarm-500',
+          'has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col',
+          'has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col',
+          'has-[>textarea]:h-auto',
+          'has-[>[data-align=block-end]]:[&>input]:pt-3',
+          'has-[>[data-align=block-start]]:[&>input]:pb-3',
+          'has-[>[data-align=inline-end]]:[&>input]:pr-1.5',
+          'has-[>[data-align=inline-start]]:[&>input]:pl-1.5',
+          className,
+        )}
+        {...props}
+      />
     );
   },
 );
+
+const inputGroupAddonVariants = cva(
+  'flex h-auto cursor-text items-center justify-center gap-2 py-1.5 text-sm leading-5 font-medium text-grayscale-500 select-none group-has-[:disabled]/input-group:opacity-50 [&>svg:not([class*=size-])]:size-4',
+  {
+    variants: {
+      align: {
+        'inline-start': 'order-first pl-2 has-[>button]:ml-[-0.3rem]',
+        'inline-end': 'order-last pr-2 has-[>button]:mr-[-0.3rem]',
+        'block-start':
+          'order-first w-full justify-start px-2.5 pt-2 group-has-[>input]/input-group:pt-2 [.border-b]:pb-2',
+        'block-end':
+          'order-last w-full justify-start px-2.5 pb-2 group-has-[>input]/input-group:pb-2 [.border-t]:pt-2',
+      },
+    },
+    defaultVariants: {
+      align: 'inline-start',
+    },
+  },
+);
+
+export type InputGroupAddonAlign = NonNullable<
+  VariantProps<typeof inputGroupAddonVariants>['align']
+>;
+
+export type InputGroupAddonProps = ComponentPropsWithoutRef<'div'> &
+  VariantProps<typeof inputGroupAddonVariants>;
+
+const InputGroupAddon = forwardRef<
+  ElementRef<'div'>,
+  InputGroupAddonProps
+>(function InputGroupAddon(
+  { align = 'inline-start', className, onClick, ...props },
+  ref,
+) {
+  return (
+    <div
+      ref={ref}
+      role="group"
+      data-align={align}
+      data-slot="input-group-addon"
+      className={cn(inputGroupAddonVariants({ align }), className)}
+      onClick={(event) => {
+        onClick?.(event);
+
+        if (
+          event.defaultPrevented ||
+          (event.target as HTMLElement).closest('button')
+        ) {
+          return;
+        }
+
+        event.currentTarget.parentElement
+          ?.querySelector<HTMLElement>(
+            '[data-slot="input-group-control"]',
+          )
+          ?.focus();
+      }}
+      {...props}
+    />
+  );
+});
+
+const inputGroupButtonVariants = cva(
+  'flex items-center gap-2 text-sm shadow-none',
+  {
+    variants: {
+      size: {
+        xs: 'h-6 gap-1 rounded px-1.5 [&>span]:gap-1 [&_svg:not([class*=size-])]:size-3.5',
+        sm: 'h-7 rounded px-2',
+        'icon-xs':
+          'size-6 rounded p-0 [&>span]:size-full [&>span]:gap-0',
+        'icon-sm':
+          'size-8 rounded p-0 [&>span]:size-full [&>span]:gap-0',
+      },
+    },
+    defaultVariants: {
+      size: 'xs',
+    },
+  },
+);
+
+export type InputGroupButtonProps = Omit<
+  ButtonProps,
+  'size' | 'variant' | 'theme'
+> & {
+  theme?: Exclude<ButtonTheme, 'dangerous'>;
+} & VariantProps<typeof inputGroupButtonVariants>;
+
+const InputGroupButton = forwardRef<
+  ElementRef<typeof Button>,
+  InputGroupButtonProps
+>(function InputGroupButton(
+  { className, size = 'xs', type = 'button', ...props },
+  ref,
+) {
+  return (
+    <Button
+      ref={ref}
+      type={type}
+      data-size={size}
+      variant="text"
+      size="md"
+      className={cn(inputGroupButtonVariants({ size }), className)}
+      {...props}
+    />
+  );
+});
+
+export type InputGroupTextProps = ComponentPropsWithoutRef<'span'>;
+
+const InputGroupText = forwardRef<
+  ElementRef<'span'>,
+  InputGroupTextProps
+>(function InputGroupText({ className, ...props }, ref) {
+  return (
+    <span
+      ref={ref}
+      data-slot="input-group-text"
+      className={cn(
+        'flex items-center gap-2 text-sm leading-5 text-grayscale-500 [&_svg]:pointer-events-none [&_svg:not([class*=size-])]:size-4',
+        className,
+      )}
+      {...props}
+    />
+  );
+});
 
 export type InputGroupInputProps = ComponentPropsWithoutRef<'input'>;
 
 const InputGroupInput = forwardRef<
   ElementRef<'input'>,
   InputGroupInputProps
->(function InputGroupInput(
-  { className, disabled: disabledProp, ...inputProps },
-  ref,
-) {
-  const context = useContext(InputGroupContext);
-  const disabled = disabledProp ?? context?.disabled ?? false;
-
+>(function InputGroupInput({ className, ...props }, ref) {
   return (
-    <input
+    <Input
       ref={ref}
       data-slot="input-group-control"
-      disabled={disabled}
       className={cn(
-        'order-1 min-w-0 flex-1 appearance-none border-none bg-transparent p-0',
-        'font-sans text-sm font-normal leading-5 text-grayscale-800',
-        'outline-none placeholder:text-grayscale-400',
-        'disabled:cursor-not-allowed disabled:text-grayscale-500',
+        'flex-1 rounded-none border-0 bg-transparent px-0 py-0 shadow-none',
+        'hover:border-0 focus-visible:border-0 focus-visible:ring-0 disabled:bg-transparent',
+        'aria-invalid:border-0 aria-invalid:ring-0',
         className,
       )}
-      {...inputProps}
+      {...props}
     />
   );
 });
 
 export type InputGroupTextareaProps =
-  ComponentPropsWithoutRef<'textarea'> & {
-    resizable?: boolean;
-  };
+  ComponentPropsWithoutRef<'textarea'>;
 
 const InputGroupTextarea = forwardRef<
   ElementRef<'textarea'>,
   InputGroupTextareaProps
->(function InputGroupTextarea(props, ref) {
-  const {
-    className,
-    disabled: disabledProp,
-    resizable = false,
-    ...textareaProps
-  } = props;
-  const context = useContext(InputGroupContext);
-  const disabled = disabledProp ?? context?.disabled ?? false;
-
+>(function InputGroupTextarea({ className, ...props }, ref) {
   return (
-    <textarea
+    <Textarea
       ref={ref}
       data-slot="input-group-control"
-      disabled={disabled}
       className={cn(
-        'order-1 w-full min-w-0 flex-1 border-none bg-transparent p-0',
-        'font-sans text-sm font-normal leading-5 text-grayscale-800',
-        'outline-none placeholder:text-grayscale-400',
-        'disabled:cursor-not-allowed disabled:text-grayscale-500',
-        resizable ? 'resize' : 'resize-none',
+        'flex-1 resize-none rounded-none border-0 bg-transparent px-0 py-2 shadow-none',
+        'hover:border-0 focus-visible:border-0 focus-visible:ring-0 disabled:bg-transparent',
+        'aria-invalid:border-0 aria-invalid:ring-0',
         className,
       )}
-      {...textareaProps}
+      {...props}
     />
   );
-});
-
-export type InputGroupAddonAlign = 'inline-start' | 'inline-end';
-
-export type InputGroupAddonProps = useRender.ComponentProps<'div'> & {
-  align?: InputGroupAddonAlign;
-};
-
-const addonAlignClasses: Record<InputGroupAddonAlign, string> = {
-  'inline-start': 'order-0',
-  'inline-end': 'order-2',
-};
-
-const InputGroupAddon = forwardRef<
-  ElementRef<'div'>,
-  InputGroupAddonProps
->(function InputGroupAddon(props, ref) {
-  const {
-    align = 'inline-start',
-    className,
-    render,
-    ...addonProps
-  } = props;
-
-  return useRender({
-    ref,
-    render,
-    defaultTagName: 'div',
-    state: {
-      align,
-      slot: 'input-group-addon',
-    },
-    props: mergeProps<'div'>(
-      {
-        className: cn(
-          'flex shrink-0 items-center text-grayscale-500',
-          addonAlignClasses[align],
-          className,
-        ),
-      },
-      addonProps,
-    ),
-  });
-});
-
-export type InputGroupButtonProps =
-  ComponentPropsWithoutRef<'button'>;
-
-const InputGroupButton = forwardRef<
-  ElementRef<'button'>,
-  InputGroupButtonProps
->(function InputGroupButton(props, ref) {
-  const {
-    className,
-    disabled: disabledProp,
-    type = 'button',
-    ...buttonProps
-  } = props;
-  const context = useContext(InputGroupContext);
-  const disabled = disabledProp ?? context?.disabled ?? false;
-
-  return (
-    <button
-      ref={ref}
-      type={type}
-      disabled={disabled}
-      data-slot="input-group-button"
-      className={cn(
-        'inline-flex h-5 w-5 items-center justify-center',
-        'text-grayscale-500 transition-colors duration-200',
-        'hover:text-grayscale-700 disabled:cursor-not-allowed disabled:text-grayscale-300',
-        className,
-      )}
-      {...buttonProps}
-    />
-  );
-});
-
-export type InputGroupTextProps = useRender.ComponentProps<'span'>;
-
-const InputGroupText = forwardRef<
-  ElementRef<'span'>,
-  InputGroupTextProps
->(function InputGroupText(props, ref) {
-  const { className, render, ...textProps } = props;
-
-  return useRender({
-    ref,
-    render,
-    defaultTagName: 'span',
-    state: {
-      slot: 'input-group-text',
-    },
-    props: mergeProps<'span'>(
-      {
-        className: cn(
-          'text-sm leading-5 text-grayscale-500',
-          className,
-        ),
-      },
-      textProps,
-    ),
-  });
 });
 
 export {

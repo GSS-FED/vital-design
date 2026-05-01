@@ -45,7 +45,7 @@ const meta: Meta<typeof Button> = {
   args: {
     children: 'Button',
     variant: 'filled',
-    size: 'large',
+    size: 'lg',
     disabled: false,
     theme: 'primary',
   },
@@ -59,10 +59,10 @@ export const Sizes: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <Row>
-      <Button size="medium" theme="primary">
+      <Button size="md" theme="primary">
         Medium
       </Button>
-      <Button size="large" theme="primary">
+      <Button size="lg" theme="primary">
         Large
       </Button>
     </Row>
@@ -105,13 +105,13 @@ export const IconOnly: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <Row>
-      <Button size="icon-medium" theme="default" aria-label="Clear">
+      <Button size="icon-md" theme="default" aria-label="Clear">
         <ClearIcon data-icon="inline-start" />
       </Button>
-      <Button size="icon-medium" theme="primary" aria-label="Search">
+      <Button size="icon-md" theme="primary" aria-label="Search">
         <SearchIcon data-icon="inline-start" />
       </Button>
-      <Button size="icon-large" theme="primary" aria-label="Expand">
+      <Button size="icon-lg" theme="primary" aria-label="Expand">
         <ChevronUpIcon data-icon="inline-start" />
       </Button>
     </Row>
@@ -169,26 +169,16 @@ export const FilledButton: Story = {
       <Grid column={4}>
         {filledTheme.map((theme, index) => (
           <React.Fragment key={`fragment-${index}`}>
-            <Button variant="filled" theme={theme} size="large">
+            <Button variant="filled" theme={theme} size="lg">
               按鈕
             </Button>
-            <Button variant="filled" theme={theme} size="medium">
+            <Button variant="filled" theme={theme} size="md">
               按鈕
             </Button>
-            <Button
-              variant="filled"
-              theme={theme}
-              size="large"
-              disabled
-            >
+            <Button variant="filled" theme={theme} size="lg" disabled>
               按鈕
             </Button>
-            <Button
-              variant="filled"
-              theme={theme}
-              size="medium"
-              disabled
-            >
+            <Button variant="filled" theme={theme} size="md" disabled>
               按鈕
             </Button>
           </React.Fragment>
@@ -213,26 +203,16 @@ export const TextButton: Story = {
       <Grid column={4}>
         {textTheme.map((theme, index) => (
           <React.Fragment key={`fragment-${index}`}>
-            <Button variant="text" theme={theme} size="large">
+            <Button variant="text" theme={theme} size="lg">
               按鈕
             </Button>
-            <Button variant="text" theme={theme} size="medium">
+            <Button variant="text" theme={theme} size="md">
               按鈕
             </Button>
-            <Button
-              variant="text"
-              theme={theme}
-              size="large"
-              disabled
-            >
+            <Button variant="text" theme={theme} size="lg" disabled>
               按鈕
             </Button>
-            <Button
-              variant="text"
-              theme={theme}
-              size="medium"
-              disabled
-            >
+            <Button variant="text" theme={theme} size="md" disabled>
               按鈕
             </Button>
           </React.Fragment>

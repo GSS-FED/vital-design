@@ -60,15 +60,15 @@ describe('Basic Functionality', () => {
 
   it('sets data-size on segment buttons for icon sizing', () => {
     render(
-      <SplitButton open={false} size="large">
+      <SplitButton open={false} size="lg">
         <FlagIcon data-icon="inline-start" />
         Publish
       </SplitButton>,
     );
     const buttons = screen.getAllByRole('button');
 
-    expect(buttons[0]).toHaveAttribute('data-size', 'large');
-    expect(buttons[1]).toHaveAttribute('data-size', 'icon-large');
+    expect(buttons[0]).toHaveAttribute('data-size', 'lg');
+    expect(buttons[1]).toHaveAttribute('data-size', 'icon-lg');
   });
 
   it('is disabled when disabled prop is true', () => {
@@ -208,7 +208,7 @@ describe('Theme', () => {
 
   it('keeps the grayscale border for large default buttons', () => {
     render(
-      <SplitButton open={false} size="large" theme="default">
+      <SplitButton open={false} size="lg" theme="default">
         Button
       </SplitButton>,
     );
@@ -222,7 +222,7 @@ describe('Theme', () => {
 
   it('puts the large primary shadow on the wrapper and resets child button surfaces', () => {
     render(
-      <SplitButton open={false} size="large" theme="primary">
+      <SplitButton open={false} size="lg" theme="primary">
         Button
       </SplitButton>,
     );

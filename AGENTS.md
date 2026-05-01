@@ -153,9 +153,9 @@ pnpm docs:start            # 啟動生產環境文件站
 - **Registry 依賴**：`registryDependencies` 必須加 `@vital-design/` 前綴
 - **Compound 基礎元件**：單行文字輸入使用 `Input` primitive；自訂輸入組合優先使用 `InputGroup` parts；按鈕群組優先使用 `ButtonGroup`。`PasswordInput`、`SearchBar`、`SplitButton` 保持 preset/compat wrapper。
 - **src-v2 exports**：`src-v2` components use named exports only; do not add component default exports.
-- **Button icons**：`Button` / `SplitButton` 不使用 `icon` / `iconPlacement` props；icon 或 spinner 作為 children 傳入，並在 icon 上標 `data-icon="inline-start"` 或 `data-icon="inline-end"`。Button label size 使用 `medium` / `large`；icon-only Button 使用 `icon-medium` / `icon-large`。
+- **Button icons**：`Button` / `SplitButton` 不使用 `icon` / `iconPlacement` props；icon 或 spinner 作為 children 傳入，並在 icon 上標 `data-icon="inline-start"` 或 `data-icon="inline-end"`。Button label size 使用 `md` / `lg`；icon-only Button 使用 `icon-md` / `icon-lg`。
 - **CVA helpers**：`src-v2` components may use `cva()` internally, but must not export raw variant helpers such as `buttonVariants`; component defaults live on the component API.
-- **Select family**：v2 public selection components are split by interaction: `Select` = flat dropdown for single or multiple values, `Combobox` = searchable input picker, `Cascader` = hierarchical path picker, `DropdownMenu` = action menu (no value binding). `Command` is also public — a primitive for command palettes and custom searchable popups, used internally by `Cascader`.
+- **Select family**：v2 public selection components are split by interaction: `Select` = flat dropdown for single or multiple values, `Combobox` = searchable input picker, `Command` + `Popover` = hierarchical path picker recipe, `DropdownMenu` = action menu (no value binding). `Command` is also public — a primitive for command palettes, custom searchable popups, and paged hierarchical pickers.
 - **Item**：display row primitive for media/title/description/actions. Use `size="list"` for select/list row density. Do not add search, loading, paging, or selection state to `Item`; use picker/menu/command primitives for those.
 - **Separator**：shared divider primitive. Prefer it over hand-rolled `div role="separator"` in new `src-v2` components.
 - **cn() 依賴**：registry 需列出 clsx + tailwind-merge

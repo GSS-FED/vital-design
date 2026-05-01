@@ -3,7 +3,6 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from '@/components/input/input-group/InputGroup';
-import type { InputGroupVariants } from '@/components/input/input-group/InputGroup';
 import { SearchIcon } from '@/icons/SearchIcon';
 import { cn } from '@/utils/cn';
 import { type VariantProps, cva } from 'class-variance-authority';
@@ -31,7 +30,6 @@ const searchIconVariants = cva(
   },
 );
 
-export type SearchBarVariants = InputGroupVariants;
 export type SearchIconVariants = VariantProps<
   typeof searchIconVariants
 >;
@@ -91,7 +89,6 @@ export function SearchBar(props: SearchBarProps) {
   return (
     <InputGroup
       className={cn('rounded-[20px] pl-2 pr-4', className)}
-      disabled={disabled}
       style={{ width: width ?? '100%', ...style }}
     >
       <InputGroupAddon

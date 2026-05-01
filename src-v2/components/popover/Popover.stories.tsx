@@ -40,7 +40,7 @@ export const SidePlacement: Story = {
       {(['top', 'right', 'bottom', 'left'] as const).map((side) => (
         <Popover key={side}>
           <PopoverTrigger
-            render={<Button size="medium">{side}</Button>}
+            render={<Button size="md">{side}</Button>}
           />
           <PopoverContent side={side} className="w-48">
             Anchored on the {side} side.

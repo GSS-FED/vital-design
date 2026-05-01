@@ -11,7 +11,7 @@ import { CommandPreview } from '~/components/previews/CommandPreview';
 
 ## Usage
 
-`Command` is a thin styled wrapper around [cmdk](https://github.com/pacocoursey/cmdk). Use it to build command palettes, custom searchable popups, or any list UI with keyboard-driven filtering. `Cascader` consumes it internally.
+`Command` is a thin styled wrapper around [cmdk](https://github.com/pacocoursey/cmdk). Use it to build command palettes, custom searchable popups, paged hierarchical pickers, or any list UI with keyboard-driven filtering.
 
 ```tsx
 import {
@@ -56,11 +56,11 @@ import {
 | ---------------------------------------- | --------------- |
 | Flat value picker                        | `Select`        |
 | Searchable value picker (input + popup)  | `Combobox`      |
-| Hierarchical path picker                 | `Cascader`      |
+| Hierarchical path picker                 | `Command` + `Popover` |
 | Action menu                              | `DropdownMenu`  |
 | Command palette / custom searchable list | `Command`       |
 
-`Command` does not include a popover or trigger — pair it with `Popover` (or your own surface) when you need a floating panel.
+`Command` does not include a popover or trigger — pair it with `Popover` (or your own surface) when you need a floating panel. The Storybook `HierarchicalPicker` story shows a paged tree picker built from `Command` and `Popover`.
 
 ## Exports
 

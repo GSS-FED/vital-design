@@ -24,7 +24,7 @@ export const Disabled: Story = {
 
 export const Error: Story = {
   args: {
-    isError: true,
+    'aria-invalid': true,
     placeholder: '錯誤狀態',
   },
 };
