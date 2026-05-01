@@ -77,11 +77,7 @@ type SliderRootComponent = <Value extends SliderValue = SliderValue>(
   props: SliderRootProps<Value> & { ref?: Ref<HTMLDivElement> },
 ) => ReactElement | null;
 
-type SliderRootWithDisplayName = SliderRootComponent & {
-  displayName?: string;
-};
-
-const SliderRoot = forwardRef(function SliderRoot<
+const Slider = forwardRef(function Slider<
   Value extends SliderValue = SliderValue,
 >(props: SliderRootProps<Value>, ref: ForwardedRef<HTMLDivElement>) {
   const [draggingThumbIndex, setDraggingThumbIndex] = useState<
@@ -118,7 +114,7 @@ const SliderRoot = forwardRef(function SliderRoot<
       />
     </SliderStepContext.Provider>
   );
-}) as SliderRootWithDisplayName;
+}) as SliderRootComponent;
 
 export type SliderControlProps = BaseSliderControl.Props;
 
@@ -349,27 +345,8 @@ const SliderLabel = forwardRef<HTMLDivElement, SliderLabelProps>(
   },
 );
 
-SliderRoot.displayName = 'Slider';
-SliderControl.displayName = 'SliderControl';
-SliderTrack.displayName = 'SliderTrack';
-SliderIndicator.displayName = 'SliderIndicator';
-SliderThumb.displayName = 'SliderThumb';
-SliderValue.displayName = 'SliderValue';
-SliderLabel.displayName = 'SliderLabel';
-
-const Slider = Object.assign(SliderRoot, {
-  Root: SliderRoot,
-  Control: SliderControl,
-  Track: SliderTrack,
-  Indicator: SliderIndicator,
-  Thumb: SliderThumb,
-  Value: SliderValue,
-  Label: SliderLabel,
-});
-
 export {
   Slider,
-  SliderRoot,
   SliderControl,
   SliderIndicator,
   SliderLabel,
@@ -377,4 +354,3 @@ export {
   SliderTrack,
   SliderValue,
 };
-export default Slider;

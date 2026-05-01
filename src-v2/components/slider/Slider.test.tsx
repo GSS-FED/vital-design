@@ -5,21 +5,23 @@ import {
   Slider,
   SliderControl,
   SliderIndicator,
+  SliderLabel,
   SliderThumb,
   SliderTrack,
+  SliderValue,
 } from './Slider';
 import type { SliderProps } from './Slider';
 
 function renderSlider(rootProps: Partial<SliderProps> = {}) {
   return render(
-    <Slider.Root defaultValue={50} {...rootProps}>
-      <Slider.Control data-testid="control">
-        <Slider.Track data-testid="track">
-          <Slider.Indicator data-testid="indicator" />
-        </Slider.Track>
-        <Slider.Thumb data-testid="thumb" />
-      </Slider.Control>
-    </Slider.Root>,
+    <Slider defaultValue={50} {...rootProps}>
+      <SliderControl data-testid="control">
+        <SliderTrack data-testid="track">
+          <SliderIndicator data-testid="indicator" />
+        </SliderTrack>
+        <SliderThumb data-testid="thumb" />
+      </SliderControl>
+    </Slider>,
   );
 }
 
@@ -49,15 +51,15 @@ it('applies disabled state through Base UI', () => {
 
 it('renders two Base UI inputs for a range slider', () => {
   render(
-    <Slider.Root defaultValue={[20, 80]}>
-      <Slider.Control>
-        <Slider.Track>
-          <Slider.Indicator />
-        </Slider.Track>
-        <Slider.Thumb index={0} />
-        <Slider.Thumb index={1} />
-      </Slider.Control>
-    </Slider.Root>,
+    <Slider defaultValue={[20, 80]}>
+      <SliderControl>
+        <SliderTrack>
+          <SliderIndicator />
+        </SliderTrack>
+        <SliderThumb index={0} />
+        <SliderThumb index={1} />
+      </SliderControl>
+    </Slider>,
   );
 
   const inputs = screen.getAllByRole('slider');
@@ -70,14 +72,14 @@ it('forwards refs from Base UI sub-components', () => {
   const ref = createRef<HTMLDivElement>();
 
   render(
-    <Slider.Root defaultValue={50}>
+    <Slider defaultValue={50}>
       <SliderControl ref={ref} data-testid="control">
         <SliderTrack>
           <SliderIndicator />
         </SliderTrack>
         <SliderThumb />
       </SliderControl>
-    </Slider.Root>,
+    </Slider>,
   );
 
   expect(ref.current).toBe(screen.getByTestId('control'));
@@ -97,24 +99,25 @@ it('does not render step dots when step is omitted', () => {
 
 it('renders Base UI label and value parts', () => {
   render(
-    <Slider.Root defaultValue={75}>
-      <Slider.Label>Volume</Slider.Label>
-      <Slider.Value />
-      <Slider.Control>
-        <Slider.Track>
-          <Slider.Indicator />
-        </Slider.Track>
-        <Slider.Thumb />
-      </Slider.Control>
-    </Slider.Root>,
+    <Slider defaultValue={75}>
+      <SliderLabel>Volume</SliderLabel>
+      <SliderValue />
+      <SliderControl>
+        <SliderTrack>
+          <SliderIndicator />
+        </SliderTrack>
+        <SliderThumb />
+      </SliderControl>
+    </Slider>,
   );
 
   expect(screen.getByText('Volume')).toBeInTheDocument();
   expect(screen.getByText('75')).toBeInTheDocument();
 });
 
-it('exposes Base UI parts on the compound Slider object', () => {
-  expect(Slider.Root).toBe(Slider);
-  expect(Slider.Control).toBe(SliderControl);
-  expect(Slider.Track).toBe(SliderTrack);
+it('exposes named slider parts', () => {
+  expect(SliderControl).toBeDefined();
+  expect(SliderTrack).toBeDefined();
+  expect(SliderIndicator).toBeDefined();
+  expect(SliderThumb).toBeDefined();
 });

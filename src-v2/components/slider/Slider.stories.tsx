@@ -1,6 +1,14 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { type ReactNode, useState } from 'react';
-import Slider from './Slider';
+import {
+  Slider,
+  SliderControl,
+  SliderIndicator,
+  SliderLabel,
+  SliderThumb,
+  SliderTrack,
+  SliderValue,
+} from './Slider';
 
 const meta: Meta<typeof Slider> = {
   title: 'Components/Slider',
@@ -13,19 +21,19 @@ type Story = StoryObj<typeof Slider>;
 
 function SliderParts({ range = false }: { range?: boolean }) {
   return (
-    <Slider.Control>
-      <Slider.Track>
-        <Slider.Indicator />
-      </Slider.Track>
+    <SliderControl>
+      <SliderTrack>
+        <SliderIndicator />
+      </SliderTrack>
       {range ? (
         <>
-          <Slider.Thumb index={0} />
-          <Slider.Thumb index={1} />
+          <SliderThumb index={0} />
+          <SliderThumb index={1} />
         </>
       ) : (
-        <Slider.Thumb />
+        <SliderThumb />
       )}
-    </Slider.Control>
+    </SliderControl>
   );
 }
 
@@ -128,8 +136,8 @@ export const WithLabelAndValue: Story = {
     <HorizontalSliderFrame>
       <Slider {...args}>
         <div className="mb-2 flex items-center justify-between">
-          <Slider.Label>Volume</Slider.Label>
-          <Slider.Value />
+          <SliderLabel>Volume</SliderLabel>
+          <SliderValue />
         </div>
         <SliderParts />
       </Slider>

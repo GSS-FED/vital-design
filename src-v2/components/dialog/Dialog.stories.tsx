@@ -1,12 +1,25 @@
-import Button from '@/components/button/Button';
+import { Button } from '@/components/button/Button';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import type { ComponentProps } from 'react';
-import Dialog from './Dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogBody,
+  DialogClose,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogPopup,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+  DialogViewport,
+} from './Dialog';
 
 type Story = StoryObj<typeof Dialog>;
 type DialogSize = NonNullable<
-  ComponentProps<typeof Dialog.Popup>['size']
+  ComponentProps<typeof DialogPopup>['size']
 >;
 
 const meta: Meta<typeof Dialog> = {
@@ -25,40 +38,40 @@ export const Default: Story = {
   render: function Render(args) {
     return (
       <Dialog {...args}>
-        <Dialog.Trigger render={<Button>Open Dialog</Button>} />
-        <Dialog.Portal>
-          <Dialog.Backdrop />
-          <Dialog.Viewport>
-            <Dialog.Popup>
-              <Dialog.Header>
+        <DialogTrigger render={<Button>Open Dialog</Button>} />
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogViewport>
+            <DialogPopup>
+              <DialogHeader>
                 <div className="space-y-1">
-                  <Dialog.Title>Delete project?</Dialog.Title>
-                  <Dialog.Description>
+                  <DialogTitle>Delete project?</DialogTitle>
+                  <DialogDescription>
                     This action cannot be undone. The project and all
                     related records will be permanently removed.
-                  </Dialog.Description>
+                  </DialogDescription>
                 </div>
-                <Dialog.Close />
-              </Dialog.Header>
-              <Dialog.Body>
+                <DialogClose />
+              </DialogHeader>
+              <DialogBody>
                 Make sure every teammate has exported anything they
                 need before continuing.
-              </Dialog.Body>
-              <Dialog.Footer>
-                <Dialog.Close
+              </DialogBody>
+              <DialogFooter>
+                <DialogClose
                   render={
                     <Button variant="text" theme="default">
                       Cancel
                     </Button>
                   }
                 />
-                <Dialog.Close
+                <DialogClose
                   render={<Button theme="alarm">Delete</Button>}
                 />
-              </Dialog.Footer>
-            </Dialog.Popup>
-          </Dialog.Viewport>
-        </Dialog.Portal>
+              </DialogFooter>
+            </DialogPopup>
+          </DialogViewport>
+        </DialogPortal>
       </Dialog>
     );
   },
@@ -67,34 +80,34 @@ export const Default: Story = {
 function SizeDialog({ size }: { size: DialogSize }) {
   return (
     <Dialog>
-      <Dialog.Trigger
+      <DialogTrigger
         render={<Button className="capitalize">{size}</Button>}
       />
-      <Dialog.Portal>
-        <Dialog.Backdrop />
-        <Dialog.Viewport>
-          <Dialog.Popup size={size}>
-            <Dialog.Header>
-              <Dialog.Title className="capitalize">
+      <DialogPortal>
+        <DialogBackdrop />
+        <DialogViewport>
+          <DialogPopup size={size}>
+            <DialogHeader>
+              <DialogTitle className="capitalize">
                 {size} dialog
-              </Dialog.Title>
-              <Dialog.Close />
-            </Dialog.Header>
-            <Dialog.Body>
+              </DialogTitle>
+              <DialogClose />
+            </DialogHeader>
+            <DialogBody>
               Dialog popup width is controlled by the size prop.
-            </Dialog.Body>
-            <Dialog.Footer>
-              <Dialog.Close
+            </DialogBody>
+            <DialogFooter>
+              <DialogClose
                 render={
                   <Button variant="text" theme="default">
                     Close
                   </Button>
                 }
               />
-            </Dialog.Footer>
-          </Dialog.Popup>
-        </Dialog.Viewport>
-      </Dialog.Portal>
+            </DialogFooter>
+          </DialogPopup>
+        </DialogViewport>
+      </DialogPortal>
     </Dialog>
   );
 }

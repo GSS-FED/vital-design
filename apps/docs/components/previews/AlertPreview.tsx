@@ -22,7 +22,7 @@ export function AlertPreview() {
           draft until the reviewer opens it.
         </AlertDescription>
         <AlertAction>
-          <Button size="medium" variant="text" theme="primary">
+          <Button size="md" variant="text" theme="primary">
             View request
           </Button>
         </AlertAction>
@@ -57,16 +57,19 @@ export function AlertCustomContentPreview() {
           Leaving this page will discard the edits in the current
           form.
           <div className="mt-4">
-            <Checkbox checked={hiddenToday} onChange={setHiddenToday}>
+            <Checkbox
+              checked={hiddenToday}
+              onCheckedChange={setHiddenToday}
+            >
               Do not remind me again today
             </Checkbox>
           </div>
         </AlertDescription>
         <AlertAction>
-          <Button size="medium" variant="text" theme="default">
+          <Button size="md" variant="text" theme="default">
             Cancel
           </Button>
-          <Button size="medium" variant="text" theme="primary">
+          <Button size="md" variant="text" theme="primary">
             Continue
           </Button>
         </AlertAction>

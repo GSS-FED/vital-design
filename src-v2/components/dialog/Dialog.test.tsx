@@ -1,7 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { expect, it, vi } from 'vitest';
-import Dialog, {
+import {
+  Dialog,
   DialogBackdrop,
   DialogBody,
   DialogClose,
@@ -10,7 +11,6 @@ import Dialog, {
   DialogHeader,
   DialogPopup,
   DialogPortal,
-  Dialog as DialogRoot,
   DialogTitle,
   DialogTrigger,
   DialogViewport,
@@ -25,27 +25,27 @@ function renderDialog({
 } = {}) {
   render(
     <Dialog defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
-      <Dialog.Trigger>Open Dialog</Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Backdrop />
-        <Dialog.Viewport>
-          <Dialog.Popup>
-            <Dialog.Header data-testid="dialog-header">
+      <DialogTrigger>Open Dialog</DialogTrigger>
+      <DialogPortal>
+        <DialogBackdrop />
+        <DialogViewport>
+          <DialogPopup>
+            <DialogHeader data-testid="dialog-header">
               <div>
-                <Dialog.Title>Confirm changes</Dialog.Title>
-                <Dialog.Description>
+                <DialogTitle>Confirm changes</DialogTitle>
+                <DialogDescription>
                   Review your updates before continuing.
-                </Dialog.Description>
+                </DialogDescription>
               </div>
-              <Dialog.Close />
-            </Dialog.Header>
-            <Dialog.Body>Dialog body content</Dialog.Body>
-            <Dialog.Footer>
-              <Dialog.Close>Cancel</Dialog.Close>
-            </Dialog.Footer>
-          </Dialog.Popup>
-        </Dialog.Viewport>
-      </Dialog.Portal>
+              <DialogClose />
+            </DialogHeader>
+            <DialogBody>Dialog body content</DialogBody>
+            <DialogFooter>
+              <DialogClose>Cancel</DialogClose>
+            </DialogFooter>
+          </DialogPopup>
+        </DialogViewport>
+      </DialogPortal>
     </Dialog>,
   );
 }
@@ -94,16 +94,16 @@ it('closes the dialog and calls onOpenChange when the close button is clicked', 
 it('renders in controlled open mode', () => {
   render(
     <Dialog open>
-      <Dialog.Portal>
-        <Dialog.Viewport>
-          <Dialog.Popup>
-            <Dialog.Title>Controlled dialog</Dialog.Title>
-            <Dialog.Description>
+      <DialogPortal>
+        <DialogViewport>
+          <DialogPopup>
+            <DialogTitle>Controlled dialog</DialogTitle>
+            <DialogDescription>
               Controlled description
-            </Dialog.Description>
-          </Dialog.Popup>
-        </Dialog.Viewport>
-      </Dialog.Portal>
+            </DialogDescription>
+          </DialogPopup>
+        </DialogViewport>
+      </DialogPortal>
     </Dialog>,
   );
 
@@ -115,18 +115,18 @@ it('renders in controlled open mode', () => {
 it('applies popup size, custom className, and style', () => {
   render(
     <Dialog defaultOpen>
-      <Dialog.Portal>
-        <Dialog.Viewport>
-          <Dialog.Popup
+      <DialogPortal>
+        <DialogViewport>
+          <DialogPopup
             size="large"
             className="custom-dialog-popup"
             style={{ width: '520px' }}
             data-testid="dialog-popup"
           >
-            <Dialog.Title>Styled dialog</Dialog.Title>
-          </Dialog.Popup>
-        </Dialog.Viewport>
-      </Dialog.Portal>
+            <DialogTitle>Styled dialog</DialogTitle>
+          </DialogPopup>
+        </DialogViewport>
+      </DialogPortal>
     </Dialog>,
   );
 
@@ -136,7 +136,7 @@ it('applies popup size, custom className, and style', () => {
   expect(popup).toHaveStyle({ width: '520px' });
 });
 
-it('supports the static compound parts', () => {
+it('supports the styled parts', () => {
   renderDialog({ defaultOpen: true });
 
   expect(
@@ -159,7 +159,7 @@ it('supports the static compound parts', () => {
 
 it('supports the named export surface', () => {
   render(
-    <DialogRoot defaultOpen>
+    <Dialog defaultOpen>
       <DialogTrigger>Open named dialog</DialogTrigger>
       <DialogPortal>
         <DialogBackdrop />
@@ -180,7 +180,7 @@ it('supports the named export surface', () => {
           </DialogPopup>
         </DialogViewport>
       </DialogPortal>
-    </DialogRoot>,
+    </Dialog>,
   );
 
   expect(

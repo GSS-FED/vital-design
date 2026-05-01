@@ -1,4 +1,4 @@
-import Button from '@/components/button/Button';
+import { Button } from '@/components/button/Button';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import { expect, it } from 'vitest';

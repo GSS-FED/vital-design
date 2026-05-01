@@ -19,7 +19,15 @@ import {
 ## Usage
 
 ```tsx
-import Slider from '@/components/ui/Slider';
+import {
+  Slider,
+  SliderControl,
+  SliderIndicator,
+  SliderLabel,
+  SliderThumb,
+  SliderTrack,
+  SliderValue,
+} from '@/components/ui/Slider';
 import { useState } from 'react';
 
 function VolumeSlider() {
@@ -35,15 +43,15 @@ function VolumeSlider() {
       }}
     >
       <div className="mb-2 flex items-center justify-between">
-        <Slider.Label>Volume</Slider.Label>
-        <Slider.Value />
+        <SliderLabel>Volume</SliderLabel>
+        <SliderValue />
       </div>
-      <Slider.Control>
-        <Slider.Track>
-          <Slider.Indicator />
-        </Slider.Track>
-        <Slider.Thumb />
-      </Slider.Control>
+      <SliderControl>
+        <SliderTrack>
+          <SliderIndicator />
+        </SliderTrack>
+        <SliderThumb />
+      </SliderControl>
     </Slider>
   );
 }
@@ -66,13 +74,13 @@ const [value, setValue] = useState<readonly number[]>([20, 80]);
     }
   }}
 >
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Indicator />
-    </Slider.Track>
-    <Slider.Thumb index={0} />
-    <Slider.Thumb index={1} />
-  </Slider.Control>
+  <SliderControl>
+    <SliderTrack>
+      <SliderIndicator />
+    </SliderTrack>
+    <SliderThumb index={0} />
+    <SliderThumb index={1} />
+  </SliderControl>
 </Slider>;
 ```
 
@@ -88,12 +96,12 @@ Step values render tick dots on the track.
 
 ```tsx
 <Slider defaultValue={40} step={10}>
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Indicator />
-    </Slider.Track>
-    <Slider.Thumb />
-  </Slider.Control>
+  <SliderControl>
+    <SliderTrack>
+      <SliderIndicator />
+    </SliderTrack>
+    <SliderThumb />
+  </SliderControl>
 </Slider>
 ```
 
@@ -103,12 +111,12 @@ Step values render tick dots on the track.
 
 ```tsx
 <Slider defaultValue={20} min={-40} max={40} step={20}>
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Indicator />
-    </Slider.Track>
-    <Slider.Thumb />
-  </Slider.Control>
+  <SliderControl>
+    <SliderTrack>
+      <SliderIndicator />
+    </SliderTrack>
+    <SliderThumb />
+  </SliderControl>
 </Slider>
 ```
 
@@ -118,20 +126,20 @@ Step values render tick dots on the track.
 
 ```tsx
 <Slider defaultValue={60} orientation="vertical">
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Indicator />
-    </Slider.Track>
-    <Slider.Thumb />
-  </Slider.Control>
+  <SliderControl>
+    <SliderTrack>
+      <SliderIndicator />
+    </SliderTrack>
+    <SliderThumb />
+  </SliderControl>
 </Slider>
 ```
 
 ## Props
 
-### Slider.Root
+### Slider
 
-`Slider` is the root component. `Slider.Root` is also available as an alias.
+`Slider` is the root component.
 
 | Prop                    | Type                                       | Default        | Description                                |
 | ----------------------- | ------------------------------------------ | -------------- | ------------------------------------------ |
@@ -152,7 +160,7 @@ Step values render tick dots on the track.
 | `locale`                | `Intl.LocalesArgument`                     | —              | Locale for value formatting                |
 | `className`             | `string \| (state) => string \| undefined` | —              | Additional classes for the root element    |
 
-### Slider.Thumb
+### SliderThumb
 
 | Prop               | Type                                       | Default | Description                      |
 | ------------------ | ------------------------------------------ | ------- | -------------------------------- |
@@ -164,4 +172,4 @@ Step values render tick dots on the track.
 
 ### Slider Parts
 
-`Slider.Control`, `Slider.Track`, `Slider.Indicator`, `Slider.Value`, and `Slider.Label` forward refs to their underlying DOM elements and accept Base UI `className` state functions.
+`SliderControl`, `SliderTrack`, `SliderIndicator`, `SliderValue`, and `SliderLabel` forward refs to their underlying DOM elements and accept Base UI `className` state functions.

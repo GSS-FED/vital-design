@@ -83,10 +83,4 @@ const AlertAction = forwardRef<ElementRef<'div'>, AlertActionProps>(
   },
 );
 
-Alert.displayName = 'Alert';
-AlertTitle.displayName = 'AlertTitle';
-AlertDescription.displayName = 'AlertDescription';
-AlertAction.displayName = 'AlertAction';
-
 export { Alert, AlertAction, AlertDescription, AlertTitle };
-export default Alert;

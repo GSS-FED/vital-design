@@ -1,4 +1,4 @@
-import Button from '@/components/button/Button';
+import { Button } from '@/components/button/Button';
 import { Checkbox } from '@/components/checkbox/Checkbox';
 import { ClearIcon } from '@/icons';
 import { type Meta, type StoryObj } from '@storybook/react';
@@ -37,7 +37,7 @@ export const Default: Story = {
       <AlertTitle>提示訊息</AlertTitle>
       <AlertDescription>描述文字</AlertDescription>
       <AlertAction>
-        <Button size="medium" variant="text" theme="primary">
+        <Button size="md" variant="text" theme="primary">
           我知道了
         </Button>
       </AlertAction>
@@ -63,10 +63,10 @@ export const WithAction: Story = {
       <AlertTitle>提示訊息</AlertTitle>
       <AlertDescription>描述文字</AlertDescription>
       <AlertAction>
-        <Button size="medium" variant="text" theme="default">
+        <Button size="md" variant="text" theme="default">
           取消
         </Button>
-        <Button size="medium" variant="text" theme="primary">
+        <Button size="md" variant="text" theme="primary">
           我知道了
         </Button>
       </AlertAction>
@@ -83,19 +83,16 @@ export const WithCustom: Story = {
         <AlertDescription>
           描述文字
           <div className="mt-4">
-            <Checkbox
-              checked={checked}
-              onChange={() => setChecked(!checked)}
-            >
+            <Checkbox checked={checked} onCheckedChange={setChecked}>
               今日不再詢問
             </Checkbox>
           </div>
         </AlertDescription>
         <AlertAction>
-          <Button size="medium" variant="text" theme="default">
+          <Button size="md" variant="text" theme="default">
             取消
           </Button>
-          <Button size="medium" variant="text" theme="primary">
+          <Button size="md" variant="text" theme="primary">
             我知道了
           </Button>
         </AlertAction>

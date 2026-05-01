@@ -1,25 +1,33 @@
 'use client';
 
-import Slider from '@/components/slider/Slider';
+import {
+  Slider,
+  SliderControl,
+  SliderIndicator,
+  SliderLabel,
+  SliderThumb,
+  SliderTrack,
+  SliderValue,
+} from '@/components/slider/Slider';
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 function SliderParts({ range = false }: { range?: boolean }) {
   return (
-    <Slider.Control>
-      <Slider.Track>
-        <Slider.Indicator />
-      </Slider.Track>
+    <SliderControl>
+      <SliderTrack>
+        <SliderIndicator />
+      </SliderTrack>
       {range ? (
         <>
-          <Slider.Thumb index={0} />
-          <Slider.Thumb index={1} />
+          <SliderThumb index={0} />
+          <SliderThumb index={1} />
         </>
       ) : (
-        <Slider.Thumb />
+        <SliderThumb />
       )}
-    </Slider.Control>
+    </SliderControl>
   );
 }
 
@@ -42,8 +50,8 @@ export function SliderPreview() {
           }}
         >
           <div className="mb-2 flex items-center justify-between">
-            <Slider.Label>Volume</Slider.Label>
-            <Slider.Value />
+            <SliderLabel>Volume</SliderLabel>
+            <SliderValue />
           </div>
           <SliderParts />
         </Slider>

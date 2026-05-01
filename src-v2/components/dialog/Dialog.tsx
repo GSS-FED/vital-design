@@ -98,7 +98,7 @@ const dialogCloseBaseClasses = [
 export type DialogProps<Payload = unknown> =
   BaseDialogRoot.Props<Payload>;
 
-function DialogRoot<Payload = unknown>(props: DialogProps<Payload>) {
+function Dialog<Payload = unknown>(props: DialogProps<Payload>) {
   return <BaseDialog.Root {...props} />;
 }
 
@@ -340,33 +340,6 @@ const DialogFooter = forwardRef<HTMLDivElement, DialogFooterProps>(
   },
 );
 
-DialogRoot.displayName = 'Dialog';
-DialogTrigger.displayName = 'DialogTrigger';
-DialogPortal.displayName = 'DialogPortal';
-DialogBackdrop.displayName = 'DialogBackdrop';
-DialogViewport.displayName = 'DialogViewport';
-DialogPopup.displayName = 'DialogPopup';
-DialogTitle.displayName = 'DialogTitle';
-DialogDescription.displayName = 'DialogDescription';
-DialogClose.displayName = 'DialogClose';
-DialogHeader.displayName = 'DialogHeader';
-DialogBody.displayName = 'DialogBody';
-DialogFooter.displayName = 'DialogFooter';
-
-const Dialog = Object.assign(DialogRoot, {
-  Trigger: DialogTrigger,
-  Portal: DialogPortal,
-  Backdrop: DialogBackdrop,
-  Viewport: DialogViewport,
-  Popup: DialogPopup,
-  Title: DialogTitle,
-  Description: DialogDescription,
-  Close: DialogClose,
-  Header: DialogHeader,
-  Body: DialogBody,
-  Footer: DialogFooter,
-});
-
 export {
   Dialog,
   DialogBackdrop,
@@ -381,4 +354,3 @@ export {
   DialogTrigger,
   DialogViewport,
 };
-export default Dialog;
