@@ -104,6 +104,36 @@ it('does not call onCheckedChange when clicked if disabled', async () => {
   expect(onCheckedChange).not.toHaveBeenCalled();
 });
 
+it('keeps selected disabled states in the primary style', () => {
+  render(
+    <>
+      <Checkbox checked disabled aria-label="Checked disabled" />
+      <Checkbox
+        disabled
+        indeterminate
+        aria-label="Indeterminate disabled"
+      />
+    </>,
+  );
+
+  expect(
+    screen.getByRole('checkbox', { name: 'Checked disabled' }),
+  ).toHaveClass(
+    'data-disabled:data-checked:border-primary-500',
+    'data-disabled:data-checked:bg-primary-500',
+    'data-disabled:data-checked:opacity-40',
+  );
+  expect(
+    screen.getByRole('checkbox', {
+      name: 'Indeterminate disabled',
+    }),
+  ).toHaveClass(
+    'data-disabled:data-indeterminate:border-primary-500',
+    'data-disabled:data-indeterminate:bg-primary-500',
+    'data-disabled:data-indeterminate:opacity-40',
+  );
+});
+
 it('applies custom class names and styles to the checkbox', () => {
   const style = {
     color: '#FED655',

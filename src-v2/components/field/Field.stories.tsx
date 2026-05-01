@@ -48,10 +48,13 @@ export const Invalid: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <Field className="w-80" data-invalid="true">
-      <FieldLabel htmlFor="field-invalid-email">Email</FieldLabel>
+      <FieldLabel htmlFor="field-invalid-email" required>
+        Email
+      </FieldLabel>
       <Input
         id="field-invalid-email"
         placeholder="name@example.com"
+        required
         aria-invalid
       />
       <FieldError errors={[{ message: 'Enter a valid email.' }]} />

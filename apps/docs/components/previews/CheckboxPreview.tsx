@@ -32,7 +32,7 @@ function CheckboxField({
           className={
             disabled
               ? 'data-checked:opacity-40 data-indeterminate:opacity-40'
-              : 'group-hover:border-primary-500 group-hover:shadow-(--shadow-focus-ring-primary)'
+              : undefined
           }
           disabled={disabled}
           id={id}

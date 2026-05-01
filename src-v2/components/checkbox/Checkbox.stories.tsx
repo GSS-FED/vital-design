@@ -45,7 +45,7 @@ function CheckboxField({
           className={
             disabled
               ? 'data-checked:opacity-40 data-indeterminate:opacity-40'
-              : 'group-hover:border-primary-500 group-hover:shadow-(--shadow-focus-ring-primary) group-hover:aria-invalid:border-alarm-500 group-hover:aria-invalid:shadow-(--shadow-focus-ring-alarm)'
+              : undefined
           }
           disabled={disabled}
           id={id}
@@ -105,7 +105,17 @@ export const Disabled: Story = {
   render: CheckboxField,
 };
 
+export const DisabledChecked: Story = {
+  args: { checked: true, disabled: true },
+  render: CheckboxField,
+};
+
 export const Indeterminate: Story = {
   args: { checked: 'indeterminate' },
+  render: CheckboxField,
+};
+
+export const DisabledIndeterminate: Story = {
+  args: { checked: 'indeterminate', disabled: true },
   render: CheckboxField,
 };

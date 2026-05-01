@@ -33,6 +33,24 @@ export const WithInput: Story = {
   },
 };
 
+export const Required: Story = {
+  parameters: { controls: { disable: true } },
+  render: function Render() {
+    return (
+      <div className="flex w-80 flex-col gap-2">
+        <Label htmlFor="required-email" required>
+          Email
+        </Label>
+        <Input
+          id="required-email"
+          placeholder="name@example.com"
+          required
+        />
+      </div>
+    );
+  },
+};
+
 export const WithDisabledInput: Story = {
   parameters: { controls: { disable: true } },
   render: function Render() {
