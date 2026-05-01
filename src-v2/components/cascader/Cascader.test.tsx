@@ -265,12 +265,12 @@ describe('Cascader', () => {
     expect(screen.getByText('Taiwan')).toBeInTheDocument();
   });
 
-  it('keeps disabled and error styling on the trigger', () => {
+  it('keeps disabled and invalid styling on the trigger', () => {
     render(
       <Cascader>
         <CascaderTrigger
           disabled
-          isError
+          aria-invalid
           placeholder="Select location"
         />
       </Cascader>,

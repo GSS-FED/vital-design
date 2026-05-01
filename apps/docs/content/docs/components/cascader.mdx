@@ -38,10 +38,10 @@ const visibleItems = getItems(
 );
 
 <Cascader
+  className="w-60"
   pageKey={currentPage?.value}
   searchValue={searchValue}
   canGoBack={pages.length > 0}
-  width="240px"
   onBack={() => setPages((prev) => prev.slice(0, -1))}
   onSearchValueChange={setSearchValue}
 >
@@ -120,27 +120,26 @@ Do not put `Cascader` inside `DropdownMenu` for this. `DropdownMenu` is for comm
 
 ### Cascader
 
-| Prop                  | Type                      | Default | Description                              |
-| --------------------- | ------------------------- | ------- | ---------------------------------------- |
-| `canGoBack`           | `boolean`                 | `false` | Enables the back row and back keys       |
-| `pageKey`             | `React.Key`               | —       | Stable key for the current page          |
-| `searchValue`         | `string`                  | —       | Controlled search value                  |
-| `onSearchValueChange` | `(value: string) => void` | —       | Called when search changes               |
-| `onBack`              | `() => void`              | —       | Called by back row and Backspace/Escape  |
-| `open`                | `boolean`                 | —       | Controlled open state                    |
-| `onOpenChange`        | `(open: boolean) => void` | —       | Called when popup open state changes     |
-| `children`            | `ReactNode`               | —       | Compound sub-components                  |
-| `width`               | `string`                  | —       | Width of the trigger and popup container |
+| Prop                  | Type                      | Default | Description                             |
+| --------------------- | ------------------------- | ------- | --------------------------------------- |
+| `canGoBack`           | `boolean`                 | `false` | Enables the back row and back keys      |
+| `pageKey`             | `React.Key`               | —       | Stable key for the current page         |
+| `searchValue`         | `string`                  | —       | Controlled search value                 |
+| `onSearchValueChange` | `(value: string) => void` | —       | Called when search changes              |
+| `onBack`              | `() => void`              | —       | Called by back row and Backspace/Escape |
+| `open`                | `boolean`                 | —       | Controlled open state                   |
+| `onOpenChange`        | `(open: boolean) => void` | —       | Called when popup open state changes    |
+| `children`            | `ReactNode`               | —       | Compound sub-components                 |
 
 ### CascaderTrigger
 
-| Prop          | Type         | Default | Description                          |
-| ------------- | ------------ | ------- | ------------------------------------ |
-| `disabled`    | `boolean`    | `false` | Disables the trigger                 |
-| `isError`     | `boolean`    | `false` | Applies error styling to the trigger |
-| `clearable`   | `boolean`    | `false` | Shows the clear affordance           |
-| `onClear`     | `() => void` | —       | Called by click or Backspace/Delete  |
-| `placeholder` | `ReactNode`  | `''`    | Fallback text for `CascaderValue`    |
+| Prop           | Type         | Default | Description                            |
+| -------------- | ------------ | ------- | -------------------------------------- |
+| `disabled`     | `boolean`    | `false` | Disables the trigger                   |
+| `aria-invalid` | `boolean`    | —       | Applies invalid styling to the trigger |
+| `clearable`    | `boolean`    | `false` | Shows the clear affordance             |
+| `onClear`      | `() => void` | —       | Called by click or Backspace/Delete    |
+| `placeholder`  | `ReactNode`  | `''`    | Fallback text for `CascaderValue`      |
 
 ### CascaderItem
 

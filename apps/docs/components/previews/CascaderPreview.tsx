@@ -87,10 +87,10 @@ export function CascaderPreview() {
   return (
     <ComponentPreview>
       <Cascader
+        className="w-60"
         pageKey={currentPage?.value}
         searchValue={searchValue}
         canGoBack={pages.length > 0}
-        width="240px"
         onBack={() => {
           setPages((prev) => prev.slice(0, -1));
         }}

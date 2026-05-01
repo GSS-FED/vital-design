@@ -1,3 +1,5 @@
+'use client';
+
 import {
   CommandBackButton,
   CommandEmpty,
@@ -29,7 +31,6 @@ import {
   useState,
 } from 'react';
 import type {
-  CSSProperties,
   ComponentPropsWithoutRef,
   ElementRef,
   ForwardedRef,
@@ -93,8 +94,6 @@ export type CascaderProps = Omit<
   open?: boolean;
   pageKey?: Key | null;
   searchValue?: string;
-  style?: CSSProperties;
-  width?: string;
 };
 
 function CascaderRoot({
@@ -109,8 +108,6 @@ function CascaderRoot({
   open: openProp,
   pageKey = null,
   searchValue: searchValueProp,
-  style,
-  width,
   ...rootProps
 }: CascaderProps) {
   const [uncontrolledOpen, setUncontrolledOpen] =
@@ -200,7 +197,6 @@ function CascaderRoot({
         <div
           data-slot="cascader-root"
           className={cn('relative font-sans', className)}
-          style={{ width: width ?? '100%', ...style }}
         >
           {children}
         </div>
@@ -213,7 +209,6 @@ export type CascaderTriggerProps = ComponentPropsWithoutRef<
   typeof BasePopover.Trigger
 > & {
   clearable?: boolean;
-  isError?: boolean;
   onClear?: () => void;
   placeholder?: ReactNode;
 };
@@ -228,7 +223,6 @@ const CascaderTrigger = forwardRef<
     className,
     clearable = false,
     disabled = false,
-    isError = false,
     onKeyDown,
     onClear,
     placeholder = '',
@@ -248,7 +242,7 @@ const CascaderTrigger = forwardRef<
       role="combobox"
       aria-expanded={open}
       aria-haspopup="listbox"
-      aria-invalid={ariaInvalid ?? (isError || undefined)}
+      aria-invalid={ariaInvalid}
       disabled={disabled}
       onKeyDown={(event) => {
         onKeyDown?.(event);
@@ -278,12 +272,11 @@ const CascaderTrigger = forwardRef<
       }}
       {...props}
       className={cn(
-        'box-border flex h-8 w-full cursor-pointer items-center justify-between gap-2 rounded border border-grayscale-300 bg-white py-2 pr-1.5 pl-3 text-left text-sm leading-5 font-normal text-grayscale-800 transition-colors duration-200',
+        'group box-border flex h-8 w-full cursor-pointer items-center justify-between gap-2 rounded border border-grayscale-300 bg-white py-2 pr-1.5 pl-3 text-left text-sm leading-5 font-normal text-grayscale-800 transition-colors duration-200',
         'hover:border-grayscale-500 focus:border-primary-500 focus:outline-none',
+        'data-[popup-open]:border-primary-500',
         'disabled:pointer-events-none disabled:bg-grayscale-200 disabled:text-grayscale-500',
         'aria-invalid:border-alarm-500 aria-invalid:hover:border-alarm-500',
-        open && 'border-primary-500',
-        isError && 'border-alarm-500 hover:border-alarm-500',
         className,
       )}
     >
@@ -309,11 +302,12 @@ const CascaderTrigger = forwardRef<
           data-slot="cascader-trigger-icon"
           className="flex h-5 w-5 shrink-0 items-center justify-center text-grayscale-700"
         >
-          {open ? (
-            <ChevronUpIcon width={14} />
-          ) : (
+          <span className="block group-data-[popup-open]:hidden">
             <ChevronDownIcon width={14} />
-          )}
+          </span>
+          <span className="hidden group-data-[popup-open]:block">
+            <ChevronUpIcon width={14} />
+          </span>
         </span>
       )}
     </BasePopover.Trigger>
@@ -365,7 +359,6 @@ export type CascaderContentProps = Omit<
     'finalFocus' | 'initialFocus'
   > & {
     onKeyDown?: (event: KeyboardEvent<HTMLDivElement>) => void;
-    popupClassName?: string;
     positionerClassName?: string;
   };
 
@@ -381,7 +374,6 @@ const CascaderContent = forwardRef<
     finalFocus,
     initialFocus,
     onKeyDown,
-    popupClassName,
     positionerClassName,
     shouldFilter = false,
     side,
@@ -414,7 +406,7 @@ const CascaderContent = forwardRef<
           data-slot="cascader-popup"
           finalFocus={finalFocus}
           initialFocus={initialFocus ?? inputRef}
-          className={cn('outline-none', popupClassName)}
+          className="outline-none"
         >
           <CommandRoot
             ref={ref}
@@ -488,7 +480,6 @@ export type CascaderSearchProps = Omit<
 > & {
   onValueChange?: (value: string) => void;
 };
-export type CascaderInputProps = CascaderSearchProps;
 
 const CascaderSearch = forwardRef<
   HTMLInputElement,
@@ -659,15 +650,12 @@ const CascaderItemIndicator = forwardRef<
   );
 });
 
-const CascaderInput = CascaderSearch;
-
 export {
   CascaderRoot as Cascader,
   CascaderBackItem,
   CascaderContent,
   CascaderEmpty,
   CascaderGroup,
-  CascaderInput,
   CascaderItem,
   CascaderItemIndicator,
   CascaderItemText,

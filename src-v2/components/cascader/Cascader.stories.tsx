@@ -127,7 +127,7 @@ const meta: Meta<typeof Cascader> = {
   component: Cascader,
   tags: ['autodocs'],
   args: {
-    width: '240px',
+    className: 'w-60',
   },
 };
 
@@ -252,7 +252,7 @@ export const WithButtonTrigger: Story = {
     return (
       <Cascader
         {...args}
-        width="fit-content"
+        className="w-fit"
         open={open}
         onOpenChange={(nextOpen) => {
           setOpen(nextOpen);
