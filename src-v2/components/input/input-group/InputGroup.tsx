@@ -5,7 +5,7 @@ import type {
 } from '@/components/button/Button';
 import { Input } from '@/components/input/input/Input';
 import { Textarea } from '@/components/textarea/Textarea';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { forwardRef } from 'react';
 import type { ComponentPropsWithoutRef, ElementRef } from 'react';

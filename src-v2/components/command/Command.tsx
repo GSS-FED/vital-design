@@ -2,7 +2,7 @@ import { useScrollMask } from '@/hooks/useScrollMask';
 import { ChevronLeftIcon } from '@/icons/ChevronIcon';
 import { SearchIcon } from '@/icons/SearchIcon';
 import { SpinnerIcon } from '@/icons/SpinnerIcon';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { Command as CommandPrimitive } from 'cmdk';
 import { forwardRef, useRef } from 'react';
 import type {

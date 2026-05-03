@@ -3,7 +3,7 @@ import { CheckIcon } from '@/icons/CheckIcon';
 import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
 import { SearchIcon } from '@/icons/SearchIcon';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox';
 import { forwardRef, useRef } from 'react';
 import type {

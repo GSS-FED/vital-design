@@ -97,7 +97,7 @@ export const base = [
     title: 'Utils',
     description: 'Utility functions including cn() for class merging',
     dependencies: ['clsx', 'tailwind-merge'],
-    files: [{ path: 'src-v2/utils/cn.ts', type: 'registry:lib' }],
+    files: [{ path: 'src-v2/lib/utils.ts', type: 'registry:lib' }],
   },
   {
     name: 'vital-theme',

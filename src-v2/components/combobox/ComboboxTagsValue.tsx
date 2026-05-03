@@ -1,5 +1,5 @@
 import { CloseIcon } from '@/icons/CloseIcon';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox';
 import { forwardRef } from 'react';
 import type {

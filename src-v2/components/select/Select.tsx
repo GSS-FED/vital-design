@@ -1,7 +1,7 @@
 import { useScrollMask } from '@/hooks/useScrollMask';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { Select as BaseSelect } from '@base-ui/react/select';
 import { forwardRef, useRef } from 'react';
 import type {

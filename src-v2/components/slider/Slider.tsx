@@ -1,4 +1,4 @@
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { Slider as BaseSlider } from '@base-ui/react/slider';
 import type {
   SliderControl as BaseSliderControl,
@@ -17,7 +17,7 @@ import {
 } from 'react';
 import type { ForwardedRef, ReactElement, Ref } from 'react';
 
-export type SliderValue = number | readonly number[];
+export type SliderRootValue = number | readonly number[];
 
 type SliderStepContextValue = {
   draggingThumbIndex: number | null;
@@ -67,18 +67,22 @@ const sliderValueClasses = 'font-sans text-sm text-grayscale-700';
 
 const sliderLabelClasses = 'font-sans text-sm text-grayscale-600';
 
-export type SliderRootProps<Value extends SliderValue = SliderValue> =
-  BaseSliderRoot.Props<Value>;
+export type SliderRootProps<
+  Value extends SliderRootValue = SliderRootValue,
+> = BaseSliderRoot.Props<Value>;
 
-export type SliderProps<Value extends SliderValue = SliderValue> =
-  SliderRootProps<Value>;
+export type SliderProps<
+  Value extends SliderRootValue = SliderRootValue,
+> = SliderRootProps<Value>;
 
-type SliderRootComponent = <Value extends SliderValue = SliderValue>(
+type SliderRootComponent = <
+  Value extends SliderRootValue = SliderRootValue,
+>(
   props: SliderRootProps<Value> & { ref?: Ref<HTMLDivElement> },
 ) => ReactElement | null;
 
 const Slider = forwardRef(function Slider<
-  Value extends SliderValue = SliderValue,
+  Value extends SliderRootValue = SliderRootValue,
 >(props: SliderRootProps<Value>, ref: ForwardedRef<HTMLDivElement>) {
   const [draggingThumbIndex, setDraggingThumbIndex] = useState<
     number | null

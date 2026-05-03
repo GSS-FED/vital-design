@@ -1,5 +1,5 @@
 import { Separator } from '@/components/separator/Separator';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
 import { type VariantProps, cva } from 'class-variance-authority';

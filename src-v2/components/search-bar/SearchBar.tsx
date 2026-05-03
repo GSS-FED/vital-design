@@ -4,7 +4,7 @@ import {
   InputGroupInput,
 } from '@/components/input/input-group/InputGroup';
 import { SearchIcon } from '@/icons/SearchIcon';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { useRef } from 'react';
 import type { CSSProperties } from 'react';

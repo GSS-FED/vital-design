@@ -5,7 +5,7 @@ import {
 } from '@/components/input/input-group/InputGroup';
 import { EyeIcon } from '@/icons/EyeIcon';
 import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 

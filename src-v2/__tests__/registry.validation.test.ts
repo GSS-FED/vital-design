@@ -303,7 +303,7 @@ describe('Registry Validation', () => {
 
           const content = fs.readFileSync(filePath, 'utf-8');
           if (
-            content.includes("from '@/utils/cn'") ||
+            content.includes("from '@/lib/utils'") ||
             content.includes('cn(')
           ) {
             usesCn = true;

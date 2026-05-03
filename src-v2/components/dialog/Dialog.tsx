@@ -1,5 +1,5 @@
 import { CloseIcon } from '@/icons/CloseIcon';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { Dialog as BaseDialog } from '@base-ui/react/dialog';
 import type {
   DialogBackdrop as BaseDialogBackdrop,

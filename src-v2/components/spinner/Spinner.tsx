@@ -1,5 +1,5 @@
 import { SpinnerIcon } from '@/icons/SpinnerIcon';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import type { ComponentProps } from 'react';
 
 export type SpinnerProps = ComponentProps<'svg'>;

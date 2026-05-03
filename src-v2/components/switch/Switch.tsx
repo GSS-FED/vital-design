@@ -1,4 +1,4 @@
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { Switch as BaseSwitch } from '@base-ui/react/switch';
 import { forwardRef } from 'react';
 import type { ElementRef } from 'react';

@@ -1,6 +1,6 @@
 import { CheckIcon } from '@/icons/CheckIcon';
 import { MinusIcon } from '@/icons/MinusIcon';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
 import { forwardRef } from 'react';
 import type { ElementRef } from 'react';

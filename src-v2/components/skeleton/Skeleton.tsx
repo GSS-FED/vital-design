@@ -1,4 +1,4 @@
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import type { ComponentPropsWithoutRef } from 'react';
 
 export type SkeletonProps = ComponentPropsWithoutRef<'div'>;

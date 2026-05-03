@@ -1,6 +1,6 @@
 import { DisabledIcon } from '@/icons/DisabledIcon';
 import { UserIcon } from '@/icons/UserIcon';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { Avatar as BaseAvatar } from '@base-ui/react/avatar';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { forwardRef } from 'react';

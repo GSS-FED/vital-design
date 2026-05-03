@@ -2,7 +2,7 @@
 
 import { Label } from '@/components/label/Label';
 import { Separator } from '@/components/separator/Separator';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { useMemo } from 'react';
 import type { ComponentProps, ReactNode } from 'react';

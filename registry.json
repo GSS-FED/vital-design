@@ -15,7 +15,7 @@
       ],
       "files": [
         {
-          "path": "src-v2/utils/cn.ts",
+          "path": "src-v2/lib/utils.ts",
           "type": "registry:lib"
         }
       ]

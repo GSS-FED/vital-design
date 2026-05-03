@@ -1,6 +1,6 @@
 import { CheckIcon } from '@/icons/CheckIcon';
 import { ChevronRightIcon } from '@/icons/ChevronIcon';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { Menu as BaseMenu } from '@base-ui/react/menu';
 import { forwardRef } from 'react';
 import type { ComponentPropsWithoutRef, ElementRef } from 'react';
