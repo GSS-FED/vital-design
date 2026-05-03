@@ -1,5 +1,6 @@
 import {
   fireEvent,
+  queryByAttribute,
   render,
   screen,
   within,
@@ -47,7 +48,7 @@ function renderSelect(
 ) {
   const onValueChange = createValueChangeMock();
 
-  render(
+  const view = render(
     <Select
       items={fruitItems}
       value={props.value}
@@ -69,7 +70,7 @@ function renderSelect(
     </Select>,
   );
 
-  return { onValueChange };
+  return { onValueChange, ...view };
 }
 
 function renderMultipleSelect(value: string[] = []) {
@@ -122,6 +123,25 @@ describe('Select', () => {
     renderSelect();
     fireEvent.click(getSelectTrigger());
     expect(screen.getByText('Apple')).toBeInTheDocument();
+  });
+
+  it('includes the shared floating motion classes', () => {
+    const { baseElement } = renderSelect();
+
+    openSelect();
+    const content = queryByAttribute(
+      'data-slot',
+      baseElement,
+      'select-content',
+    );
+
+    expect(content).toHaveClass(
+      'origin-(--transform-origin)',
+      'duration-100',
+      'data-open:animate-in',
+      'data-closed:animate-out',
+      'data-[side=bottom]:slide-in-from-top-2',
+    );
   });
 
   it('calls onValueChange when item is selected', () => {

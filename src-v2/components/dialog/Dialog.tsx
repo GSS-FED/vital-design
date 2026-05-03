@@ -46,14 +46,12 @@ const dialogTriggerClasses = [
 
 const dialogBackdropClasses = [
   'fixed inset-0 z-[9998] bg-grayscale-900/40',
-  'transition-opacity duration-150 ease-out',
-  'data-[starting-style]:opacity-0 data-[ending-style]:opacity-0',
+  'duration-150 data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0',
 ].join(' ');
 
 const dialogViewportClasses = [
   'fixed inset-0 z-[9999] flex min-h-dvh items-center justify-center',
   'overflow-y-auto px-4 py-4',
-  'data-[starting-style]:opacity-0 data-[ending-style]:opacity-0',
 ].join(' ');
 
 const dialogPopupVariants = cva(
@@ -61,9 +59,7 @@ const dialogPopupVariants = cva(
     'box-border flex w-full max-h-[calc(100vh-2rem)] flex-col',
     'overflow-hidden rounded-[var(--radius-sm)] bg-white',
     'font-sans text-grayscale-800 shadow-top-level outline-none',
-    'transition-[opacity,transform] duration-150 ease-out',
-    'data-[starting-style]:scale-95 data-[starting-style]:opacity-0',
-    'data-[ending-style]:scale-95 data-[ending-style]:opacity-0',
+    'duration-150 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95',
   ],
   {
     variants: {

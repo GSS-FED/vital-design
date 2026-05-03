@@ -1,4 +1,9 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import {
+  fireEvent,
+  queryByAttribute,
+  render,
+  screen,
+} from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import {
   Combobox,
@@ -26,7 +31,7 @@ vi.stubGlobal('ResizeObserver', ResizeObserverMock);
 function renderSingleCombobox() {
   const onValueChange = vi.fn();
 
-  render(
+  const view = render(
     <Combobox
       items={['Apple', 'Banana']}
       value={null}
@@ -51,7 +56,7 @@ function renderSingleCombobox() {
     </Combobox>,
   );
 
-  return { onValueChange };
+  return { onValueChange, ...view };
 }
 
 function openOptions() {
@@ -74,6 +79,25 @@ describe('Combobox', () => {
     expect(
       screen.queryByRole('option', { name: 'Banana' }),
     ).not.toBeInTheDocument();
+  });
+
+  it('includes the shared floating motion classes', () => {
+    const { baseElement } = renderSingleCombobox();
+
+    openOptions();
+    const content = queryByAttribute(
+      'data-slot',
+      baseElement,
+      'combobox-content',
+    );
+
+    expect(content).toHaveClass(
+      'origin-(--transform-origin)',
+      'duration-100',
+      'data-open:animate-in',
+      'data-closed:animate-out',
+      'data-[side=bottom]:slide-in-from-top-2',
+    );
   });
 
   it('calls onValueChange when an item is selected', () => {

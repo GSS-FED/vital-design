@@ -105,6 +105,7 @@ export const base = [
     title: 'Vital Design Theme',
     description:
       'CSS variables and Tailwind v4 theme tokens for vital-design components',
+    dependencies: ['tw-animate-css'],
     cssVars: vitalThemeCssVars,
     css: {
       '@custom-variant not-disabled (&:not(:disabled))': {},

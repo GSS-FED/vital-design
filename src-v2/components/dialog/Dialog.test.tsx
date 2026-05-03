@@ -136,6 +136,34 @@ it('applies popup size, custom className, and style', () => {
   expect(popup).toHaveStyle({ width: '520px' });
 });
 
+it('includes the shared modal motion classes', () => {
+  render(
+    <Dialog defaultOpen>
+      <DialogPortal>
+        <DialogBackdrop data-testid="dialog-backdrop" />
+        <DialogViewport>
+          <DialogPopup data-testid="dialog-popup">
+            <DialogTitle>Animated dialog</DialogTitle>
+          </DialogPopup>
+        </DialogViewport>
+      </DialogPortal>
+    </Dialog>,
+  );
+
+  expect(screen.getByTestId('dialog-backdrop')).toHaveClass(
+    'duration-150',
+    'data-open:animate-in',
+    'data-closed:animate-out',
+  );
+  expect(screen.getByTestId('dialog-popup')).toHaveClass(
+    'duration-150',
+    'data-open:animate-in',
+    'data-open:zoom-in-95',
+    'data-closed:animate-out',
+    'data-closed:zoom-out-95',
+  );
+});
+
 it('supports the styled parts', () => {
   renderDialog({ defaultOpen: true });
 

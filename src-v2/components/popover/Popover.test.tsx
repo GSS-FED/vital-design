@@ -1,5 +1,6 @@
 import {
   fireEvent,
+  queryByAttribute,
   render,
   screen,
   waitFor,
@@ -74,6 +75,28 @@ describe('Popover', () => {
     renderPopover({ defaultOpen: true });
 
     expect(screen.getByText('Title')).toBeInTheDocument();
+  });
+
+  it('includes the default popover motion classes', () => {
+    const { baseElement } = renderPopover({ defaultOpen: true });
+
+    const content = queryByAttribute(
+      'data-slot',
+      baseElement,
+      'popover-content',
+    );
+
+    expect(content).toHaveClass(
+      'origin-(--transform-origin)',
+      'duration-100',
+      'data-open:animate-in',
+      'data-open:fade-in-0',
+      'data-open:zoom-in-95',
+      'data-closed:animate-out',
+      'data-closed:fade-out-0',
+      'data-closed:zoom-out-95',
+      'data-[side=bottom]:slide-in-from-top-2',
+    );
   });
 
   it('fires onOpenChange when state changes', async () => {

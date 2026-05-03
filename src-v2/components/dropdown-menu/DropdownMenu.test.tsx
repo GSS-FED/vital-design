@@ -1,6 +1,7 @@
 import {
   fireEvent,
   queryAllByAttribute,
+  queryByAttribute,
   render,
   screen,
   waitFor,
@@ -47,6 +48,37 @@ describe('DropdownMenu', () => {
       expect(screen.getByText('First')).toBeInTheDocument();
     });
     expect(screen.getByText('Second')).toBeInTheDocument();
+  });
+
+  it('includes the shared floating motion classes', async () => {
+    const { baseElement } = render(
+      <DropdownMenu>
+        <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem>First</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>,
+    );
+
+    fireEvent.click(screen.getByText('Open'));
+
+    await waitFor(() => {
+      expect(screen.getByText('First')).toBeInTheDocument();
+    });
+
+    const content = queryByAttribute(
+      'data-slot',
+      baseElement,
+      'dropdown-menu-content',
+    );
+
+    expect(content).toHaveClass(
+      'origin-(--transform-origin)',
+      'duration-100',
+      'data-open:animate-in',
+      'data-closed:animate-out',
+      'data-[side=bottom]:slide-in-from-top-2',
+    );
   });
 
   it('opens when the trigger renders a Button', async () => {

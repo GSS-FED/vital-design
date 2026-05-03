@@ -3,6 +3,9 @@ import { Popover as BasePopover } from '@base-ui/react/popover';
 import { forwardRef } from 'react';
 import type { ComponentPropsWithoutRef, ElementRef } from 'react';
 
+const POPOVER_CONTENT_CLASSES =
+  'box-border origin-(--transform-origin) rounded bg-white p-4 font-sans text-sm leading-5 text-grayscale-800 shadow-emphasis outline-none duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95';
+
 export type PopoverProps = ComponentPropsWithoutRef<
   typeof BasePopover.Root
 >;
@@ -59,10 +62,7 @@ const PopoverContent = forwardRef<
         <BasePopover.Popup
           ref={ref}
           data-slot="popover-content"
-          className={cn(
-            'box-border rounded bg-white p-4 font-sans text-sm leading-5 text-grayscale-800 shadow-emphasis outline-none',
-            className,
-          )}
+          className={cn(POPOVER_CONTENT_CLASSES, className)}
           {...props}
         >
           {children}
