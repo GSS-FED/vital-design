@@ -61,7 +61,7 @@
     "200": { "$value": "#FFDC99" },
     "100": { "$value": "#FFEDCC" }
   },
-  "alarm": {
+  "destructive": {
     "$type": "color",
     "900": { "$value": "#1F0B00" },
     "800": { "$value": "#521C00" },

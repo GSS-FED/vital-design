@@ -28,7 +28,7 @@ function RadioGroupItem({
         'after:absolute after:-inset-x-3 after:-inset-y-2',
         'focus-visible:border-primary-500 focus-visible:shadow-(--shadow-focus-ring-primary)',
         'data-disabled:cursor-not-allowed data-disabled:border-grayscale-300 data-disabled:bg-grayscale-200 data-disabled:opacity-50',
-        'aria-invalid:border-alarm-500 aria-invalid:shadow-(--shadow-focus-ring-alarm)',
+        'aria-invalid:border-destructive-500 aria-invalid:shadow-(--shadow-focus-ring-destructive)',
         'data-checked:border-transparent data-checked:bg-primary-500',
         className,
       )}

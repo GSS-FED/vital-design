@@ -73,7 +73,7 @@ const InputGroup = forwardRef<
         'group box-border flex min-h-8 w-full cursor-text items-center gap-1 rounded border border-grayscale-300 bg-white py-1 pr-1.5 pl-3 font-sans text-sm leading-5 font-normal text-grayscale-800 transition-colors duration-200',
         'hover:border-grayscale-500 focus-within:border-primary-500 focus-within:outline-none',
         'data-[popup-open]:border-primary-500 data-[disabled]:pointer-events-none data-[disabled]:bg-grayscale-200 data-[disabled]:text-grayscale-500',
-        'aria-invalid:border-alarm-500 aria-invalid:hover:border-alarm-500',
+        'aria-invalid:border-destructive-500 aria-invalid:hover:border-destructive-500',
         className,
       )}
       {...props}

@@ -2,6 +2,8 @@
 
 本文件說明 vital-design 元件庫的 Tailwind CSS + CVA 樣式架構與使用流程。
 
+> ⚠️ **僅適用於 v1（`src/`）**：本文件描述 legacy 元件庫的樣式架構與舊版 token 命名（`--alarm-*`、`--text-primary`、`--surface-default` 等）。v2（`src-v2/`）已改採 shadcn 對齊的命名（`--destructive-*`、`--foreground`、`--background`），詳見 [`apps/docs/content/docs/design-tokens/colors.mdx`](../apps/docs/content/docs/design-tokens/colors.mdx)。
+
 ---
 
 ## 1. 架構總覽

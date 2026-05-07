@@ -23,6 +23,23 @@ const sd = new SD({
   log: { verbosity: 'silent' },
   source: ['tokens/**/*.json'],
   hooks: {
+    transforms: {
+      // Drops a leading `theme.` segment from semantic shadcn tokens so they
+      // emit unprefixed names (e.g. `theme.primary` → `--primary`). This lets
+      // semantic slots coexist with primitive scales like `--primary-500` in a
+      // single Style Dictionary tree without path collision.
+      'name/vital-kebab': {
+        type: 'name',
+        transitive: true,
+        transform: (token) => {
+          const parts =
+            token.path[0] === 'theme'
+              ? token.path.slice(1)
+              : token.path;
+          return parts.join('-');
+        },
+      },
+    },
     formats: {
       // Outputs: :root { --name: value } + @theme inline { --color-name: var(--name); --name: value; }
       'css/vital-tokens': ({ dictionary }) => {
@@ -99,14 +116,14 @@ const sd = new SD({
   },
   platforms: {
     css: {
-      transforms: ['name/kebab'],
+      transforms: ['name/vital-kebab'],
       buildPath: 'src-v2/styles/tokens/',
       files: [
         { format: 'css/vital-tokens', destination: 'generated.css' },
       ],
     },
     registry: {
-      transforms: ['name/kebab'],
+      transforms: ['name/vital-kebab'],
       buildPath: 'registry/',
       files: [
         {

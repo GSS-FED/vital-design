@@ -143,13 +143,13 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
       variant: 'filled',
       theme: 'alarm',
       class:
-        'text-white bg-alarm-500 focus-visible:shadow-focus-alarm',
+        'text-white bg-destructive-500 focus-visible:shadow-focus-destructive',
     },
     {
       variant: 'filled',
       theme: 'dangerous',
       class:
-        'text-alarm-500 bg-white focus-visible:shadow-focus-alarm disabled:text-alarm-100 data-[disabled]:text-alarm-100',
+        'text-destructive-500 bg-white focus-visible:shadow-focus-destructive disabled:text-destructive-100 data-[disabled]:text-destructive-100',
     },
     {
       variant: 'filled',
@@ -197,7 +197,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
       variant: 'text',
       theme: 'alarm',
       class:
-        'text-alarm-500 hover:not-disabled:not-data-[disabled]:text-alarm-400 active:not-disabled:not-data-[disabled]:text-alarm-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-alarm',
+        'text-destructive-500 hover:not-disabled:not-data-[disabled]:text-destructive-400 active:not-disabled:not-data-[disabled]:text-destructive-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-destructive',
     },
     {
       variant: 'filled',
@@ -227,7 +227,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
       variant: 'filled',
       size: ['lg', 'icon-lg'],
       theme: 'alarm',
-      class: 'shadow-button-alarm',
+      class: 'shadow-button-destructive',
     },
     {
       variant: 'filled',
@@ -273,7 +273,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
       theme: 'alarm',
       disabled: false,
       class:
-        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-alarm-active',
+        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-destructive-active',
     },
     {
       variant: 'filled',

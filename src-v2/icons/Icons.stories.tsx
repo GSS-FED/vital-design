@@ -93,7 +93,7 @@ export const Colors: Story = {
         <FlagIcon className="size-5 text-primary-500" />
         <FlagIcon className="size-5 text-success-500" />
         <FlagIcon className="size-5 text-warning-500" />
-        <FlagIcon className="size-5 text-alarm-500" />
+        <FlagIcon className="size-5 text-destructive-500" />
         <FlagIcon className="size-5 text-grayscale-700" />
       </div>
     );

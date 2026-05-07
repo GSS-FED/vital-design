@@ -12,8 +12,8 @@ const filledThemeCases = [
   ['success', 'bg-success-500'],
   ['info', 'bg-info-500'],
   ['warning', 'bg-warning-500'],
-  ['alarm', 'bg-alarm-500'],
-  ['dangerous', 'text-alarm-500'],
+  ['alarm', 'bg-destructive-500'],
+  ['dangerous', 'text-destructive-500'],
 ] as const;
 
 const textThemeCases = [
@@ -22,7 +22,7 @@ const textThemeCases = [
   ['success', 'text-success-500'],
   ['info', 'text-info-500'],
   ['warning', 'text-warning-500'],
-  ['alarm', 'text-alarm-500'],
+  ['alarm', 'text-destructive-500'],
 ] as const;
 
 describe('Button', () => {

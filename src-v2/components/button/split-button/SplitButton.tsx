@@ -49,7 +49,7 @@ const splitButtonGroupVariants = cva(
         success: 'bg-success-500',
         info: 'bg-info-500',
         warning: 'bg-warning-500',
-        alarm: 'bg-alarm-500',
+        alarm: 'bg-destructive-500',
         default: 'bg-white',
         dangerous: 'bg-white',
       },
@@ -82,7 +82,7 @@ const splitButtonGroupVariants = cva(
       {
         size: 'lg',
         theme: 'alarm',
-        class: 'shadow-button-alarm',
+        class: 'shadow-button-destructive',
       },
       {
         size: 'lg',
@@ -122,7 +122,7 @@ const splitButtonGroupVariants = cva(
         size: 'lg',
         theme: 'alarm',
         disabled: false,
-        class: 'active:shadow-button-alarm-active',
+        class: 'active:shadow-button-destructive-active',
       },
       {
         size: 'lg',

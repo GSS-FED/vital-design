@@ -64,7 +64,7 @@ function FieldGroup({ className, ...props }: FieldGroupProps) {
 }
 
 const fieldVariants = cva(
-  'group/field flex w-full data-[invalid=true]:text-alarm-500',
+  'group/field flex w-full data-[invalid=true]:text-destructive-500',
   {
     variants: {
       orientation: {
@@ -282,7 +282,7 @@ function FieldError({
       role="alert"
       data-slot="field-error"
       className={cn(
-        'font-sans text-sm font-normal text-alarm-500',
+        'font-sans text-sm font-normal text-destructive-500',
         className,
       )}
       {...props}

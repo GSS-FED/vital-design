@@ -21,7 +21,7 @@ const Checkbox = forwardRef<
         'focus-visible:border-primary-500 focus-visible:shadow-(--shadow-focus-ring-primary)',
         'data-disabled:cursor-not-allowed data-disabled:border-grayscale-300 data-disabled:bg-grayscale-200 data-disabled:opacity-50',
         'data-disabled:hover:border-grayscale-300 data-disabled:hover:shadow-none',
-        'aria-invalid:border-alarm-500 aria-invalid:shadow-(--shadow-focus-ring-alarm) aria-invalid:hover:border-alarm-500 aria-invalid:hover:shadow-(--shadow-focus-ring-alarm)',
+        'aria-invalid:border-destructive-500 aria-invalid:shadow-(--shadow-focus-ring-destructive) aria-invalid:hover:border-destructive-500 aria-invalid:hover:shadow-(--shadow-focus-ring-destructive)',
         'data-checked:border-primary-500 data-checked:bg-primary-500',
         'data-indeterminate:border-primary-500 data-indeterminate:bg-primary-500',
         'data-disabled:data-checked:border-primary-500 data-disabled:data-checked:bg-primary-500 data-disabled:data-checked:opacity-40',

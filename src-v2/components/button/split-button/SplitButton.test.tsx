@@ -260,21 +260,24 @@ describe('Theme', () => {
       'border-grayscale-300',
     );
     const buttons = screen.getAllByRole('button');
-    expect(buttons[0]).toHaveClass('text-alarm-500');
-    expect(buttons[1]).toHaveClass('text-alarm-500');
+    expect(buttons[0]).toHaveClass('text-destructive-500');
+    expect(buttons[1]).toHaveClass('text-destructive-500');
   });
 
-  it.each(['success', 'info', 'warning', 'alarm'] as const)(
+  it.each([
+    ['success', 'bg-success-500'],
+    ['info', 'bg-info-500'],
+    ['warning', 'bg-warning-500'],
+    ['alarm', 'bg-destructive-500'],
+  ] as const)(
     'paints the %s solid surface with a light separator',
-    (theme) => {
+    (theme, surfaceClass) => {
       render(
         <SplitButton open={false} theme={theme}>
           Button
         </SplitButton>,
       );
-      expect(screen.getByRole('group')).toHaveClass(
-        `bg-${theme}-500`,
-      );
+      expect(screen.getByRole('group')).toHaveClass(surfaceClass);
       const buttons = screen.getAllByRole('button');
       expect(buttons[0]).toHaveClass('text-white');
       expect(buttons[1]).toHaveClass('text-white');

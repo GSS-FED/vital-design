@@ -51,7 +51,7 @@ it('applies error style when aria-invalid is true', () => {
   render(<Input aria-invalid />);
   const input = screen.getByRole('textbox');
   expect(input).toHaveAttribute('aria-invalid', 'true');
-  expect(input).toHaveClass('aria-invalid:border-alarm-500');
+  expect(input).toHaveClass('aria-invalid:border-destructive-500');
 });
 
 it('cannot focus when disabled', () => {

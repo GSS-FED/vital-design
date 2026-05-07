@@ -37,7 +37,7 @@ it('marks required labels with a visual data attribute only', () => {
   expect(label).not.toBeRequired();
   expect(label).toHaveClass(
     'data-[required=true]:before:-left-2',
-    'data-[required=true]:before:bg-alarm-500',
+    'data-[required=true]:before:bg-destructive-500',
   );
 });
 

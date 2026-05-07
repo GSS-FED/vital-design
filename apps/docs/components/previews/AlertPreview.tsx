@@ -35,7 +35,7 @@ export function AlertWithIconPreview() {
   return (
     <ComponentPreview centered={false} className="grid gap-4">
       <Alert role="status">
-        <ClearIcon className="text-alarm-500" />
+        <ClearIcon className="text-destructive-500" />
         <AlertTitle>Payment method expired</AlertTitle>
         <AlertDescription>
           Update the billing card before the next renewal date to

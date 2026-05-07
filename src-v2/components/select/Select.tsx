@@ -78,7 +78,7 @@ const SelectTrigger = forwardRef<
         'hover:border-grayscale-500 focus:border-primary-500 focus:outline-none',
         'disabled:pointer-events-none disabled:bg-grayscale-200 disabled:text-grayscale-500',
         'data-[popup-open]:border-primary-500',
-        'aria-invalid:border-alarm-500 aria-invalid:hover:border-alarm-500',
+        'aria-invalid:border-destructive-500 aria-invalid:hover:border-destructive-500',
         className,
       )}
       {...props}

@@ -39,7 +39,7 @@ export const Colors: Story = {
       <div className="flex items-center gap-4">
         <Spinner className="text-primary-500" />
         <Spinner className="text-success-500" />
-        <Spinner className="text-alarm-500" />
+        <Spinner className="text-destructive-500" />
         <Spinner className="text-grayscale-500" />
       </div>
     );

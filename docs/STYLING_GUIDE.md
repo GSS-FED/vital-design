@@ -2,6 +2,8 @@
 
 > 此文件協助新開發人員快速了解專案的樣式系統
 
+> ⚠️ **僅適用於 v1（`src/`）**：本指南描述 legacy 元件庫的樣式系統，使用舊版 token 命名（`--alarm-*`、`--text-primary`、`--surface-default` 等）。v2（`src-v2/`）已改採 shadcn 對齊的命名（`--destructive-*`、`--foreground`、`--background`），詳見 [`apps/docs/content/docs/design-tokens/colors.mdx`](../apps/docs/content/docs/design-tokens/colors.mdx)。
+
 ---
 
 ## 概述

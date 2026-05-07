@@ -9,16 +9,17 @@ import {
   TagPalette,
 } from '~/components/tokens/Swatch';
 import {
-  alarmTokens,
   avatarTokens,
-  borderToken,
+  destructiveTokens,
   grayscaleTokens,
   infoTokens,
   primaryTokens,
-  semanticFeedbackTokens,
-  semanticInteractiveTokens,
+  semanticActionTokens,
+  semanticChartTokens,
+  semanticFormTokens,
+  semanticStatusTokens,
   semanticSurfaceTokens,
-  semanticTextTokens,
+  semanticVitalTokens,
   successTokens,
   tagTokens,
   warningTokens,
@@ -26,16 +27,27 @@ import {
 
 ## Overview
 
-All colors are defined as CSS custom properties on `:root` and
-mapped to Tailwind utilities via `@theme inline` in
-`src-v2/styles/globals.css`. Use them as `var(--primary-500)` in CSS
-or `bg-primary-500` / `text-primary-500` / `border-primary-500` in
-Tailwind.
+Vital Design follows the [shadcn/ui](https://ui.shadcn.com/docs/theming)
+naming convention for its semantic layer. Colors are defined as CSS
+custom properties on `:root` and exposed to Tailwind via `@theme inline`
+in `src-v2/styles/globals.css`.
 
 ```ts
 // 3 layers, generated from tokens/*.json by Style Dictionary
 primitive  →  semantic  →  component
 ```
+
+- **Primitive scales** (`--primary-50…900`, `--grayscale-100…900`,
+  `--success-100…900`, etc.) — internal foundation. Reach for these
+  when you need a specific shade for charts, illustrations, or
+  fine-grained tinting. Tailwind utility: `bg-primary-500`,
+  `text-grayscale-700`, etc.
+- **Semantic tokens** (`--background`, `--primary`, `--card`,
+  `--destructive`, …) — the public API. These describe **intent**
+  and pair with `-foreground` siblings for legible content on the
+  surface. Tailwind utility: `bg-primary text-primary-foreground`.
+- **Component tokens** (`--avatar-*-fg`, `--tag-*-solid`) — closed
+  palettes used by specific components.
 
 ## Primary
 
@@ -69,44 +81,72 @@ Caution states — soft warnings that don't block flow.
 
 <ColorPalette tokens={warningTokens} />
 
-## Alarm
+## Destructive
 
 Errors, destructive actions, hard validation failures.
 
-<ColorPalette tokens={alarmTokens} />
-
-## Border
-
-A neutral, opaque border token used by elevated surfaces (where
-grayscale's transparency would composite incorrectly).
-
-<ColorPalette tokens={borderToken} columns={3} />
+<ColorPalette tokens={destructiveTokens} />
 
 ## Semantic Tokens
 
-Intent-based aliases that point to primitive colors. Prefer these
-when expressing **intent** (e.g. "the primary text color") rather
-than reaching for a specific palette step.
+Intent-based aliases that point to primitive colors. Each surface
+ships with a paired `-foreground` token — use them together so text
+remains legible regardless of theme overrides.
 
-### Text
+```tsx
+<button className="bg-primary text-primary-foreground">Save</button>
+<div className="bg-card text-card-foreground border border-border">…</div>
+```
 
-<ColorPalette tokens={semanticTextTokens} columns={3} />
+### Surfaces
 
-### Interactive
+Page chrome, cards, popovers, and muted/accent regions. `background`
+is the page; `card` and `popover` are elevated containers; `muted`
+and `accent` are subtle background tints (e.g. table stripes, hover
+states).
 
-<ColorPalette tokens={semanticInteractiveTokens} columns={4} />
+<ColorPalette tokens={semanticSurfaceTokens} columns={2} />
 
-### Feedback
+### Actions
 
-<ColorPalette tokens={semanticFeedbackTokens} columns={4} />
+Brand action surfaces. `primary` is the dominant call-to-action;
+`secondary` is the alternative button surface.
 
-### Surface
+<ColorPalette tokens={semanticActionTokens} columns={2} />
 
-<ColorPalette tokens={semanticSurfaceTokens} columns={3} />
+### Status
+
+Feedback colors paired with foreground for legible content.
+
+<ColorPalette tokens={semanticStatusTokens} columns={2} />
+
+### Form
+
+Borders, input strokes, and focus rings. `border` is the canonical
+solid divider; `input` matches it by default but can be themed
+independently; `ring` paints focus outlines.
+
+<ColorPalette tokens={semanticFormTokens} columns={3} />
+
+### Charts
+
+Five-step palette for data visualization. Defaults rotate through
+`primary → success → warning → info → destructive` so chart series
+inherit brand color regardless of theme overrides.
+
+<ColorPalette tokens={semanticChartTokens} columns={5} />
+
+### Vital Extensions
+
+Tokens unique to Vital Design with no shadcn equivalent. Kept
+unprefixed for ecosystem consistency (matching how Origin UI ships
+its extensions).
+
+<ColorPalette tokens={semanticVitalTokens} columns={3} />
 
 ## Avatar Palette
 
-Each named avatar color exposes three tokens — `color` (text /
+Each named avatar color exposes three tokens — `fg` (text /
 initials), `border`, and `bg`. Used by `AvatarRoot color="…"`.
 
 <AvatarPalette tokens={avatarTokens} />
@@ -114,7 +154,7 @@ initials), `border`, and `bg`. Used by `AvatarRoot color="…"`.
 ```css
 background: var(--avatar-tiffany-bg);
 border-color: var(--avatar-tiffany-border);
-color: var(--avatar-tiffany-color);
+color: var(--avatar-tiffany-fg);
 ```
 
 ## Tag Palette

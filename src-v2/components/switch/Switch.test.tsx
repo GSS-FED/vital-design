@@ -84,7 +84,7 @@ it('supports aria-invalid styling', () => {
   const element = screen.getByRole('switch');
   expect(element).toBeInTheDocument();
   expect(element).toHaveAttribute('aria-invalid', 'true');
-  expect(element).toHaveClass('aria-invalid:border-alarm-500');
+  expect(element).toHaveClass('aria-invalid:border-destructive-500');
 });
 
 it('applies custom class names and styles', () => {

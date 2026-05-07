@@ -81,7 +81,7 @@ export const warningTokens = palette('warning', [
   { step: 100, value: '#FFEDCC' },
 ]);
 
-export const alarmTokens = palette('alarm', [
+export const destructiveTokens = palette('destructive', [
   { step: 900, value: '#1F0B00' },
   { step: 800, value: '#521C00' },
   { step: 700, value: '#852D00' },
@@ -93,110 +93,194 @@ export const alarmTokens = palette('alarm', [
   { step: 100, value: '#FFD0B8' },
 ]);
 
-export const borderToken: ColorEntry[] = [
+// Surface/foreground pairs — page chrome, cards, popovers, muted/accent regions.
+export const semanticSurfaceTokens: ColorEntry[] = [
   {
-    name: '--border',
-    value: '#DEDEE2',
-    utility: 'border-(--border)',
+    name: '--background',
+    value: '#FFFFFF',
+    utility: 'bg-background',
+  },
+  {
+    name: '--foreground',
+    value: '#232332',
+    utility: 'text-foreground',
+  },
+  { name: '--card', value: '#FFFFFF', utility: 'bg-card' },
+  {
+    name: '--card-foreground',
+    value: '#232332',
+    utility: 'text-card-foreground',
+  },
+  { name: '--popover', value: '#FFFFFF', utility: 'bg-popover' },
+  {
+    name: '--popover-foreground',
+    value: '#232332',
+    utility: 'text-popover-foreground',
+  },
+  {
+    name: '--muted',
+    value: 'rgba(35,35,50,0.03)',
+    utility: 'bg-muted',
+  },
+  {
+    name: '--muted-foreground',
+    value: 'rgba(35,35,50,0.70)',
+    utility: 'text-muted-foreground',
+  },
+  {
+    name: '--accent',
+    value: 'rgba(35,35,50,0.08)',
+    utility: 'bg-accent',
+  },
+  {
+    name: '--accent-foreground',
+    value: '#232332',
+    utility: 'text-accent-foreground',
   },
 ];
 
-export const semanticTextTokens: ColorEntry[] = [
+// Action surfaces — primary brand action and secondary alternative.
+export const semanticActionTokens: ColorEntry[] = [
+  { name: '--primary', value: '#0E86FE', utility: 'bg-primary' },
   {
-    name: '--text-primary',
-    value: '#232332',
-    utility: 'text-(--text-primary)',
+    name: '--primary-foreground',
+    value: '#FFFFFF',
+    utility: 'text-primary-foreground',
   },
-  { name: '--text-secondary', value: 'rgba(35,35,50,0.70)' },
+  {
+    name: '--secondary',
+    value: 'rgba(35,35,50,0.03)',
+    utility: 'bg-secondary',
+  },
+  {
+    name: '--secondary-foreground',
+    value: '#232332',
+    utility: 'text-secondary-foreground',
+  },
+];
+
+// Status colors — paired with foreground for legible content on the surface.
+export const semanticStatusTokens: ColorEntry[] = [
+  { name: '--success', value: '#2BCD86', utility: 'bg-success' },
+  {
+    name: '--success-foreground',
+    value: '#FFFFFF',
+    utility: 'text-success-foreground',
+  },
+  { name: '--info', value: '#00C3FF', utility: 'bg-info' },
+  {
+    name: '--info-foreground',
+    value: '#FFFFFF',
+    utility: 'text-info-foreground',
+  },
+  { name: '--warning', value: '#FFA700', utility: 'bg-warning' },
+  {
+    name: '--warning-foreground',
+    value: '#232332',
+    utility: 'text-warning-foreground',
+  },
+  {
+    name: '--destructive',
+    value: '#EB5000',
+    utility: 'bg-destructive',
+  },
+  {
+    name: '--destructive-foreground',
+    value: '#FFFFFF',
+    utility: 'text-destructive-foreground',
+  },
+];
+
+// Form-related — borders, input strokes, focus rings.
+export const semanticFormTokens: ColorEntry[] = [
+  { name: '--border', value: '#DEDEE2', utility: 'border-border' },
+  { name: '--input', value: '#DEDEE2', utility: 'border-input' },
+  { name: '--ring', value: '#0E86FE', utility: 'ring-ring' },
+];
+
+// Chart series — five-color palette for data visualization.
+export const semanticChartTokens: ColorEntry[] = [
+  { name: '--chart-1', value: '#0E86FE', utility: 'bg-chart-1' },
+  { name: '--chart-2', value: '#2BCD86', utility: 'bg-chart-2' },
+  { name: '--chart-3', value: '#FFA700', utility: 'bg-chart-3' },
+  { name: '--chart-4', value: '#00C3FF', utility: 'bg-chart-4' },
+  { name: '--chart-5', value: '#EB5000', utility: 'bg-chart-5' },
+];
+
+// Vital-specific extensions — no shadcn equivalent. Kept unprefixed per Origin
+// UI's pattern for ecosystem consistency.
+export const semanticVitalTokens: ColorEntry[] = [
   { name: '--text-tertiary', value: 'rgba(35,35,50,0.55)' },
   { name: '--text-disabled', value: 'rgba(35,35,50,0.25)' },
-  { name: '--text-on-accent', value: '#FFFFFF' },
-];
-
-export const semanticInteractiveTokens: ColorEntry[] = [
-  { name: '--interactive-default', value: '#0E86FE' },
   { name: '--interactive-hover', value: '#016DD8' },
   { name: '--interactive-pressed', value: '#0153A5' },
   { name: '--interactive-subtle', value: '#EBF5FF' },
 ];
 
-export const semanticFeedbackTokens: ColorEntry[] = [
-  { name: '--feedback-success', value: '#2BCD86' },
-  { name: '--feedback-info', value: '#00C3FF' },
-  { name: '--feedback-warning', value: '#FFA700' },
-  { name: '--feedback-error', value: '#EB5000' },
-];
-
-export const semanticSurfaceTokens: ColorEntry[] = [
-  { name: '--surface-default', value: '#FFFFFF' },
-  { name: '--surface-subtle', value: 'rgba(35,35,50,0.03)' },
-  { name: '--surface-muted', value: 'rgba(35,35,50,0.08)' },
-];
-
 export const avatarTokens = [
   {
     name: 'tiffany',
-    color: '--avatar-tiffany-color',
+    color: '--avatar-tiffany-fg',
     border: '--avatar-tiffany-border',
     bg: '--avatar-tiffany-bg',
   },
   {
     name: 'green',
-    color: '--avatar-green-color',
+    color: '--avatar-green-fg',
     border: '--avatar-green-border',
     bg: '--avatar-green-bg',
   },
   {
     name: 'orange',
-    color: '--avatar-orange-color',
+    color: '--avatar-orange-fg',
     border: '--avatar-orange-border',
     bg: '--avatar-orange-bg',
   },
   {
     name: 'pink',
-    color: '--avatar-pink-color',
+    color: '--avatar-pink-fg',
     border: '--avatar-pink-border',
     bg: '--avatar-pink-bg',
   },
   {
     name: 'blue',
-    color: '--avatar-blue-color',
+    color: '--avatar-blue-fg',
     border: '--avatar-blue-border',
     bg: '--avatar-blue-bg',
   },
   {
     name: 'sky',
-    color: '--avatar-sky-color',
+    color: '--avatar-sky-fg',
     border: '--avatar-sky-border',
     bg: '--avatar-sky-bg',
   },
   {
     name: 'purple',
-    color: '--avatar-purple-color',
+    color: '--avatar-purple-fg',
     border: '--avatar-purple-border',
     bg: '--avatar-purple-bg',
   },
   {
     name: 'light-gold',
-    color: '--avatar-light-gold-color',
+    color: '--avatar-light-gold-fg',
     border: '--avatar-light-gold-border',
     bg: '--avatar-light-gold-bg',
   },
   {
     name: 'salmon',
-    color: '--avatar-salmon-color',
+    color: '--avatar-salmon-fg',
     border: '--avatar-salmon-border',
     bg: '--avatar-salmon-bg',
   },
   {
     name: 'ice',
-    color: '--avatar-ice-color',
+    color: '--avatar-ice-fg',
     border: '--avatar-ice-border',
     bg: '--avatar-ice-bg',
   },
   {
     name: 'lavender',
-    color: '--avatar-lavender-color',
+    color: '--avatar-lavender-fg',
     border: '--avatar-lavender-border',
     bg: '--avatar-lavender-bg',
   },
@@ -277,9 +361,9 @@ export const focusShadowTokens = [
   { name: '--shadow-focus-success' },
   { name: '--shadow-focus-info' },
   { name: '--shadow-focus-warning' },
-  { name: '--shadow-focus-alarm' },
+  { name: '--shadow-focus-destructive' },
   { name: '--shadow-focus-ring-primary' },
-  { name: '--shadow-focus-ring-alarm' },
+  { name: '--shadow-focus-ring-destructive' },
 ];
 
 export const buttonShadowTokens = [
@@ -291,8 +375,8 @@ export const buttonShadowTokens = [
   { name: '--shadow-button-info-active' },
   { name: '--shadow-button-warning' },
   { name: '--shadow-button-warning-active' },
-  { name: '--shadow-button-alarm' },
-  { name: '--shadow-button-alarm-active' },
+  { name: '--shadow-button-destructive' },
+  { name: '--shadow-button-destructive-active' },
 ];
 
 export const gradientTokens = [

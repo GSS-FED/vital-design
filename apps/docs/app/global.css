@@ -20,29 +20,29 @@
 
   /* Map Fumadocs theme tokens onto Vital Design semantic tokens so docs
      chrome (sidebar, nav, links, code blocks) matches src-v2/ and Storybook. */
-  --color-fd-background: var(--surface-default);
-  --color-fd-foreground: var(--text-primary);
-  --color-fd-muted: var(--surface-subtle);
+  --color-fd-background: var(--background);
+  --color-fd-foreground: var(--foreground);
+  --color-fd-muted: var(--muted);
   --color-fd-muted-foreground: var(--text-tertiary);
-  --color-fd-popover: var(--surface-default);
-  --color-fd-popover-foreground: var(--text-primary);
-  --color-fd-card: var(--surface-subtle);
-  --color-fd-card-foreground: var(--text-primary);
+  --color-fd-popover: var(--background);
+  --color-fd-popover-foreground: var(--foreground);
+  --color-fd-card: var(--muted);
+  --color-fd-card-foreground: var(--foreground);
   /* Fumadocs applies --color-fd-border globally via `*` border-color, so use a
      softer rgba grayscale to keep dividers/inputs/cards from feeling heavy.
      VD components that need the canonical solid border still use border-border
      directly, which resolves to --border. */
   --color-fd-border: var(--grayscale-200);
-  --color-fd-primary: var(--interactive-default);
-  --color-fd-primary-foreground: var(--text-on-accent);
-  --color-fd-secondary: var(--surface-subtle);
-  --color-fd-secondary-foreground: var(--text-primary);
+  --color-fd-primary: var(--primary);
+  --color-fd-primary-foreground: var(--primary-foreground);
+  --color-fd-secondary: var(--muted);
+  --color-fd-secondary-foreground: var(--foreground);
   --color-fd-accent: var(--interactive-subtle);
   --color-fd-accent-foreground: var(--interactive-pressed);
   --color-fd-ring: var(--primary-300);
 
-  --color-fd-info: var(--feedback-info);
-  --color-fd-warning: var(--feedback-warning);
-  --color-fd-error: var(--feedback-error);
-  --color-fd-success: var(--feedback-success);
+  --color-fd-info: var(--info);
+  --color-fd-warning: var(--warning);
+  --color-fd-error: var(--destructive);
+  --color-fd-success: var(--success);
 }

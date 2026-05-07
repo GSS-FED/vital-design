@@ -11,7 +11,7 @@ it('renders a skeleton element', () => {
   expect(element).toHaveClass(
     'animate-pulse',
     'rounded-md',
-    'bg-surface-muted',
+    'bg-accent',
   );
 });
 
