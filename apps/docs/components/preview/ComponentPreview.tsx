@@ -15,7 +15,7 @@ export function ComponentPreview({
 }: ComponentPreviewProps) {
   return (
     <div
-      className={`not-prose my-4 rounded-lg border border-grayscale-300 bg-white p-6 ${centered ? 'flex flex-wrap items-center gap-3' : ''} ${className}`}
+      className={`not-prose my-4 rounded-md border border-grayscale-200 bg-surface-subtle p-6 ${centered ? 'flex flex-wrap items-center gap-3' : ''} ${className}`}
     >
       {children}
     </div>

@@ -17,4 +17,32 @@
   --radius-lg: 15px;
   --radius-xl: 16px;
   --radius-full: 9999px;
+
+  /* Map Fumadocs theme tokens onto Vital Design semantic tokens so docs
+     chrome (sidebar, nav, links, code blocks) matches src-v2/ and Storybook. */
+  --color-fd-background: var(--surface-default);
+  --color-fd-foreground: var(--text-primary);
+  --color-fd-muted: var(--surface-subtle);
+  --color-fd-muted-foreground: var(--text-tertiary);
+  --color-fd-popover: var(--surface-default);
+  --color-fd-popover-foreground: var(--text-primary);
+  --color-fd-card: var(--surface-subtle);
+  --color-fd-card-foreground: var(--text-primary);
+  /* Fumadocs applies --color-fd-border globally via `*` border-color, so use a
+     softer rgba grayscale to keep dividers/inputs/cards from feeling heavy.
+     VD components that need the canonical solid border still use border-border
+     directly, which resolves to --border. */
+  --color-fd-border: var(--grayscale-200);
+  --color-fd-primary: var(--interactive-default);
+  --color-fd-primary-foreground: var(--text-on-accent);
+  --color-fd-secondary: var(--surface-subtle);
+  --color-fd-secondary-foreground: var(--text-primary);
+  --color-fd-accent: var(--interactive-subtle);
+  --color-fd-accent-foreground: var(--interactive-pressed);
+  --color-fd-ring: var(--primary-300);
+
+  --color-fd-info: var(--feedback-info);
+  --color-fd-warning: var(--feedback-warning);
+  --color-fd-error: var(--feedback-error);
+  --color-fd-success: var(--feedback-success);
 }

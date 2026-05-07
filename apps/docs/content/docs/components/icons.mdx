@@ -1,0 +1,112 @@
+---
+title: Icons
+description: Built-in SVG icon set used across Vital Design components.
+---
+
+import {
+  IconColorsPreview,
+  IconSizesPreview,
+  IconSpinnerPreview,
+  IconsGalleryPreview,
+} from '~/components/previews/IconsPreview';
+
+## Gallery
+
+All icons render as inline SVGs that inherit `currentColor`, so they
+adapt to the text color of their container.
+
+<IconsGalleryPreview />
+
+## Usage
+
+Import each icon from its dedicated file. Barrel imports
+(`@/icons`) are intentionally not allowed in component source so
+that registry consumers only pull in the icons they actually use.
+
+```tsx
+import { SearchIcon } from '@/icons/SearchIcon';
+
+<SearchIcon className="size-4 text-grayscale-700" />;
+```
+
+Available icons:
+
+```ts
+import { CheckIcon } from '@/icons/CheckIcon';
+import {
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronUpIcon,
+} from '@/icons/ChevronIcon';
+import { ClearIcon } from '@/icons/ClearIcon';
+import { CloseIcon } from '@/icons/CloseIcon';
+import { DisabledIcon } from '@/icons/DisabledIcon';
+import { EyeIcon } from '@/icons/EyeIcon';
+import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
+import { FlagIcon } from '@/icons/FlagIcon';
+import { MinusIcon } from '@/icons/MinusIcon';
+import { SearchIcon } from '@/icons/SearchIcon';
+import { SpinnerIcon } from '@/icons/SpinnerIcon';
+import { UserIcon } from '@/icons/UserIcon';
+```
+
+## Sizes
+
+Control the icon size with Tailwind's `size-*` utility — each icon
+SVG fills the container set by width/height.
+
+<IconSizesPreview />
+
+```tsx
+<SearchIcon className="size-3" />
+<SearchIcon className="size-4" />
+<SearchIcon className="size-5" />
+<SearchIcon className="size-6" />
+<SearchIcon className="size-8" />
+```
+
+## Colors
+
+Icons inherit `currentColor`, so any Tailwind text color utility
+applies.
+
+<IconColorsPreview />
+
+```tsx
+<FlagIcon className="size-5 text-primary-500" />
+<FlagIcon className="size-5 text-success-500" />
+<FlagIcon className="size-5 text-warning-500" />
+<FlagIcon className="size-5 text-alarm-500" />
+<FlagIcon className="size-5 text-grayscale-700" />
+```
+
+## SpinnerIcon
+
+`SpinnerIcon` ships with a built-in rotation animation. Pass
+`animated={false}` to render the static glyph (useful for snapshot
+tests or non-loading contexts).
+
+<IconSpinnerPreview />
+
+```tsx
+<SpinnerIcon className="size-6 text-primary-500" />
+<SpinnerIcon className="size-6 text-grayscale-500" animated={false} />
+```
+
+## Props
+
+All icons accept the standard SVG props plus shared visual
+shortcuts.
+
+| Prop          | Type                            | Default          | Description                                        |
+| ------------- | ------------------------------- | ---------------- | -------------------------------------------------- |
+| `className`   | `string`                        | —                | Additional CSS classes (use `size-*` for sizing)   |
+| `width`       | `number \| string`              | varies per icon  | SVG width                                          |
+| `height`      | `number \| string`              | —                | SVG height                                         |
+| `color`       | `string`                        | `'currentColor'` | Shortcut for `fill` (Chevron / Clear / Search)     |
+| `fill`        | `string`                        | `'currentColor'` | SVG fill color                                     |
+| `fillOpacity` | `number \| string`              | —                | SVG fill opacity                                   |
+| `opacity`     | `number \| string`              | —                | Shortcut for `fillOpacity` on supported icons      |
+| `animated`    | `boolean`                       | `true`           | `SpinnerIcon` only — toggles the rotate animation  |
+| `...props`    | `ComponentProps<'svg'>`         | —                | Native `svg` props and events                      |

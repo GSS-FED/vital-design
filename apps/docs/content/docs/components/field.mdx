@@ -1,0 +1,277 @@
+---
+title: Field
+description: Composable form field layout with labels, descriptions, errors, and groups.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import {
+  Checkbox,
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+  FieldTitle,
+  Input,
+} from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview centered={false}>
+  <Field className="w-80">
+    <FieldLabel htmlFor="field-email">Email</FieldLabel>
+    <Input id="field-email" placeholder="name@example.com" />
+    <FieldDescription>
+      Used for notifications and account recovery.
+    </FieldDescription>
+  </Field>
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import {
+  Field,
+  FieldDescription,
+  FieldLabel,
+} from '@/components/ui/Field';
+import { Input } from '@/components/ui/Input';
+
+<Field>
+  <FieldLabel htmlFor="email">Email</FieldLabel>
+  <Input id="email" placeholder="name@example.com" />
+  <FieldDescription>
+    Used for notifications and account recovery.
+  </FieldDescription>
+</Field>;
+```
+
+`Field` provides a layout primitive that arranges a label, control,
+description, and error message. Pair `FieldLabel` `htmlFor` with the
+control's `id` for accessible focus and click behavior.
+
+## Orientation
+
+`Field` supports `vertical` (default), `horizontal`, and `responsive`
+orientations. `responsive` switches from vertical to horizontal at
+the `@md` container breakpoint defined on the parent `FieldGroup`.
+
+<ComponentPreview centered={false} className="grid gap-6">
+  <Field orientation="horizontal" className="w-80">
+    <FieldLabel
+      htmlFor="field-horizontal-email"
+      className="!w-[100px] !flex-none py-1.5"
+    >
+      Email
+    </FieldLabel>
+    <FieldContent>
+      <Input
+        id="field-horizontal-email"
+        placeholder="name@example.com"
+      />
+      <FieldDescription>Used for account alerts.</FieldDescription>
+    </FieldContent>
+  </Field>
+</ComponentPreview>
+
+```tsx
+<Field orientation="horizontal">
+  <FieldLabel htmlFor="email">Email</FieldLabel>
+  <FieldContent>
+    <Input id="email" placeholder="name@example.com" />
+    <FieldDescription>Used for account alerts.</FieldDescription>
+  </FieldContent>
+</Field>
+```
+
+## With Checkbox
+
+When a field wraps a control that already carries the label semantics
+(checkbox, radio), use `FieldContent` with `FieldTitle` and
+`FieldDescription` so the title is read alongside the control.
+
+<ComponentPreview centered={false}>
+  <Field className="w-80" orientation="horizontal">
+    <Checkbox id="field-notifications" />
+    <FieldContent>
+      <FieldLabel htmlFor="field-notifications">Notifications</FieldLabel>
+      <FieldDescription>
+        Email, SMS, and push delivery options.
+      </FieldDescription>
+    </FieldContent>
+  </Field>
+</ComponentPreview>
+
+```tsx
+<Field orientation="horizontal">
+  <Checkbox id="notifications" />
+  <FieldContent>
+    <FieldLabel htmlFor="notifications">Notifications</FieldLabel>
+    <FieldDescription>
+      Email, SMS, and push delivery options.
+    </FieldDescription>
+  </FieldContent>
+</Field>
+```
+
+## Required
+
+Pass `required` to `FieldLabel` to render the Vital Design required
+dot before the label text. Keep the actual `required` prop on the
+control too so the form validates correctly.
+
+<ComponentPreview centered={false}>
+  <Field className="w-80 pl-3">
+    <FieldLabel htmlFor="field-required-email" required>
+      Email
+    </FieldLabel>
+    <Input
+      id="field-required-email"
+      placeholder="name@example.com"
+      required
+    />
+  </Field>
+</ComponentPreview>
+
+```tsx
+<Field>
+  <FieldLabel htmlFor="email" required>
+    Email
+  </FieldLabel>
+  <Input id="email" required />
+</Field>
+```
+
+The dot is rendered as a `::before` pseudo positioned at `-left-2`,
+so make sure the `Field` (or its parent) has enough left padding for
+the dot to be visible.
+
+## Invalid
+
+Mark a field as invalid by setting `data-invalid="true"` on the
+`Field` and `aria-invalid` on the input. Use `FieldError` to render
+one or more validation messages.
+
+<ComponentPreview centered={false}>
+  <Field className="w-80 pl-3" data-invalid="true">
+    <FieldLabel htmlFor="field-invalid-email" required>
+      Email
+    </FieldLabel>
+    <Input
+      id="field-invalid-email"
+      placeholder="name@example.com"
+      required
+      aria-invalid
+    />
+    <FieldError errors={[{ message: 'Enter a valid email.' }]} />
+  </Field>
+</ComponentPreview>
+
+```tsx
+<Field data-invalid="true">
+  <FieldLabel htmlFor="email" required>
+    Email
+  </FieldLabel>
+  <Input id="email" required aria-invalid />
+  <FieldError errors={[{ message: 'Enter a valid email.' }]} />
+</Field>
+```
+
+## Grouped Fields
+
+Use `FieldSet` + `FieldLegend` for grouped form sections, with
+`FieldGroup` to control vertical spacing between fields and
+`FieldSeparator` for inline section breaks.
+
+<ComponentPreview centered={false}>
+  <FieldSet className="w-80">
+    <FieldLegend>Profile</FieldLegend>
+    <FieldGroup>
+      <Field>
+        <FieldLabel htmlFor="field-name">Name</FieldLabel>
+        <Input id="field-name" placeholder="Ada Lovelace" />
+      </Field>
+      <Field>
+        <FieldLabel htmlFor="field-role">Role</FieldLabel>
+        <Input id="field-role" placeholder="Researcher" />
+      </Field>
+      <FieldSeparator>Optional</FieldSeparator>
+      <Field orientation="horizontal">
+        <Checkbox id="field-public" />
+        <FieldContent>
+          <FieldTitle>Public profile</FieldTitle>
+          <FieldDescription>
+            Show this profile in team directories.
+          </FieldDescription>
+        </FieldContent>
+      </Field>
+    </FieldGroup>
+  </FieldSet>
+</ComponentPreview>
+
+```tsx
+<FieldSet>
+  <FieldLegend>Profile</FieldLegend>
+  <FieldGroup>
+    <Field>
+      <FieldLabel htmlFor="name">Name</FieldLabel>
+      <Input id="name" />
+    </Field>
+    <FieldSeparator>Optional</FieldSeparator>
+    <Field orientation="horizontal">
+      <Checkbox id="public" />
+      <FieldContent>
+        <FieldTitle>Public profile</FieldTitle>
+        <FieldDescription>
+          Show this profile in team directories.
+        </FieldDescription>
+      </FieldContent>
+    </Field>
+  </FieldGroup>
+</FieldSet>
+```
+
+## Parts
+
+| Part               | Description                                                       |
+| ------------------ | ----------------------------------------------------------------- |
+| `Field`            | Layout container for a single field; supports orientation variant |
+| `FieldLabel`       | Wraps `Label`; ties to a control via `htmlFor`                    |
+| `FieldTitle`       | Non-interactive label used inside `FieldContent`                  |
+| `FieldDescription` | Helper text shown below or beside the control                     |
+| `FieldError`       | Validation message — accepts `errors` array or children           |
+| `FieldContent`     | Stacks label + description next to a checkbox/radio control       |
+| `FieldGroup`       | Vertical stack of related fields                                  |
+| `FieldSet`         | `<fieldset>` wrapper for grouped sections                         |
+| `FieldLegend`      | `<legend>` heading for a `FieldSet`                               |
+| `FieldSeparator`   | Inline divider with optional centered label                       |
+
+## Field Props
+
+| Prop          | Type                                          | Default      | Description                                |
+| ------------- | --------------------------------------------- | ------------ | ------------------------------------------ |
+| `orientation` | `'vertical' \| 'horizontal' \| 'responsive'`  | `'vertical'` | Controls layout direction                  |
+| `data-invalid`| `boolean`                                     | —            | Marks the field as invalid for styling     |
+| `data-disabled`| `boolean`                                    | —            | Marks the field as disabled for styling    |
+| `className`   | `string`                                      | —            | Additional CSS classes                     |
+| `...props`    | `ComponentProps<'div'>`                       | —            | Native `div` props and events              |
+
+## FieldLegend Props
+
+| Prop        | Type                    | Default     | Description                          |
+| ----------- | ----------------------- | ----------- | ------------------------------------ |
+| `variant`   | `'legend' \| 'label'`   | `'legend'`  | `legend` is larger; `label` is `sm`  |
+| `className` | `string`                | —           | Additional CSS classes               |
+| `...props`  | `ComponentProps<'legend'>` | —        | Native `legend` props                |
+
+## FieldError Props
+
+| Prop       | Type                                        | Default | Description                                       |
+| ---------- | ------------------------------------------- | ------- | ------------------------------------------------- |
+| `errors`   | `Array<{ message?: string } \| undefined>`  | —       | Renders deduped messages; multiple → bullet list  |
+| `children` | `ReactNode`                                 | —       | Override messages with custom content             |
+| `className`| `string`                                    | —       | Additional CSS classes                            |

@@ -1,0 +1,62 @@
+---
+title: Border Radius
+description: Corner radius tokens shared by inputs, buttons, cards, and dialogs.
+---
+
+import { RadiusPalette } from '~/components/tokens/Swatch';
+import { radiusTokens } from '~/components/tokens/data';
+
+## Tokens
+
+Vital Design exposes six radius steps via CSS custom properties.
+They are mapped to Tailwind's `rounded-*` utilities, so you can use
+either form.
+
+<RadiusPalette tokens={radiusTokens} />
+
+## Usage Guidance
+
+| Token             | Recommended usage                                                  |
+| ----------------- | ------------------------------------------------------------------ |
+| `--radius-none`   | Square corners — utility surfaces, inline edge-to-edge groups      |
+| `--radius-sm`     | Small inputs, compact buttons, tags                                |
+| `--radius-md`     | Default form controls, table cells, cards                          |
+| `--radius-lg`     | Medium buttons, alert containers                                   |
+| `--radius-xl`     | Cards, dialogs, large buttons                                      |
+| `--radius-full`   | Pill / circular shapes — chips, avatars, status dots               |
+
+```css
+/* CSS */
+.card {
+  border-radius: var(--radius-md);
+}
+```
+
+```html
+<!-- Tailwind utility -->
+<div class="rounded-md">…</div>
+```
+
+## Combining With Sizes
+
+Pair radius tokens with size utilities to get consistent component
+shapes. Vital's button, input, and chip components all key off the
+same scale internally.
+
+<div className="not-prose my-4 flex flex-wrap items-center gap-4 rounded-md border border-grayscale-200 bg-white p-6">
+  <span className="rounded-sm bg-primary-100 px-3 py-1 text-sm text-primary-700">
+    rounded-sm
+  </span>
+  <span className="rounded-md bg-primary-100 px-3 py-1 text-sm text-primary-700">
+    rounded-md
+  </span>
+  <span className="rounded-lg bg-primary-100 px-3 py-1 text-sm text-primary-700">
+    rounded-lg
+  </span>
+  <span className="rounded-xl bg-primary-100 px-3 py-1 text-sm text-primary-700">
+    rounded-xl
+  </span>
+  <span className="rounded-full bg-primary-100 px-3 py-1 text-sm text-primary-700">
+    rounded-full
+  </span>
+</div>

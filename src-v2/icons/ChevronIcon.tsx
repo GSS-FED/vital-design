@@ -5,7 +5,7 @@ type IconProps = ComponentPropsWithoutRef<'svg'>;
 export const ChevronDownIcon = (props: IconProps) => {
   const {
     opacity = 1,
-    width = 50,
+    width = 12,
     height,
     color,
     fill,
@@ -30,7 +30,7 @@ export const ChevronDownIcon = (props: IconProps) => {
 export const ChevronUpIcon = (props: IconProps) => {
   const {
     opacity,
-    width = 50,
+    width = 12,
     height,
     color,
     fill,

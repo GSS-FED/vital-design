@@ -7,6 +7,7 @@ import { SearchIcon } from '@/icons/SearchIcon';
 import {
   SplitButtonDefaultPreview,
   SplitButtonPreview,
+  SplitButtonSizesPreview,
 } from '~/components/previews/SplitButtonPreview';
 
 ## Preview
@@ -50,6 +51,22 @@ function SaveButton() {
   splitOnClick={toggleOpen}
 >
   Action
+</SplitButton>
+```
+
+## Sizes
+
+`size="lg"` adds the themed drop shadow and hover lift; `size="md"`
+is the compact variant without shadow.
+
+<SplitButtonSizesPreview />
+
+```tsx
+<SplitButton size="md" theme="primary" open={open} {...handlers}>
+  Medium
+</SplitButton>
+<SplitButton size="lg" theme="primary" open={open} {...handlers}>
+  Large
 </SplitButton>
 ```
 

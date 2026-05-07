@@ -1,87 +1,130 @@
 ---
 title: Colors
-description: Vital Design color system based on CSS custom properties and Tailwind CSS 4 theme tokens.
+description: Vital Design color system — primitive palettes, semantic aliases, and named component tokens.
 ---
+
+import {
+  AvatarPalette,
+  ColorPalette,
+  TagPalette,
+} from '~/components/tokens/Swatch';
+import {
+  alarmTokens,
+  avatarTokens,
+  borderToken,
+  grayscaleTokens,
+  infoTokens,
+  primaryTokens,
+  semanticFeedbackTokens,
+  semanticInteractiveTokens,
+  semanticSurfaceTokens,
+  semanticTextTokens,
+  successTokens,
+  tagTokens,
+  warningTokens,
+} from '~/components/tokens/data';
 
 ## Overview
 
-All colors are defined as CSS custom properties in `:root` and mapped to Tailwind utility classes via `@theme inline`. This means you can use them both as `var(--primary-500)` in CSS and as `text-primary-500` / `bg-primary-500` in Tailwind.
+All colors are defined as CSS custom properties on `:root` and
+mapped to Tailwind utilities via `@theme inline` in
+`src-v2/styles/globals.css`. Use them as `var(--primary-500)` in CSS
+or `bg-primary-500` / `text-primary-500` / `border-primary-500` in
+Tailwind.
+
+```ts
+// 3 layers, generated from tokens/*.json by Style Dictionary
+primitive  →  semantic  →  component
+```
 
 ## Primary
 
-The primary palette is a blue scale used for interactive elements, buttons, and focus rings.
+The primary palette is a blue scale used for interactive elements,
+buttons, focus states, and key affordances.
 
-| Token | Value | Tailwind Class |
-|-------|-------|----------------|
-| `--primary-900` | `#002040` | `bg-primary-900` |
-| `--primary-800` | `#003A73` | `bg-primary-800` |
-| `--primary-700` | `#0153A5` | `bg-primary-700` |
-| `--primary-600` | `#016DD8` | `bg-primary-600` |
-| `--primary-500` | `#0E86FE` | `bg-primary-500` |
-| `--primary-400` | `#419FFE` | `bg-primary-400` |
-| `--primary-300` | `#73B9FE` | `bg-primary-300` |
-| `--primary-200` | `#A6D2FF` | `bg-primary-200` |
-| `--primary-100` | `#D9ECFF` | `bg-primary-100` |
-| `--primary-50` | `#EBF5FF` | `bg-primary-50` |
+<ColorPalette tokens={primaryTokens} />
 
 ## Grayscale
 
-The grayscale palette uses `rgba(35, 35, 50, α)` to maintain tonal consistency over any background.
+The grayscale palette uses `rgba(35, 35, 50, α)` so it tonally adapts
+over any background. `--grayscale-900` is the only solid hex.
 
-| Token | Alpha | Tailwind Class |
-|-------|-------|----------------|
-| `--grayscale-900` | 100% | `text-grayscale-900` |
-| `--grayscale-800` | 85% | `text-grayscale-800` |
-| `--grayscale-700` | 70% | `text-grayscale-700` |
-| `--grayscale-600` | 55% | `text-grayscale-600` |
-| `--grayscale-500` | 40% | `text-grayscale-500` |
-| `--grayscale-400` | 25% | `text-grayscale-400` |
-| `--grayscale-300` | 15% | `border-grayscale-300` |
-| `--grayscale-200` | 8% | `bg-grayscale-200` |
-| `--grayscale-150` | 5% | `bg-grayscale-150` |
-| `--grayscale-100` | 3% | `bg-grayscale-100` |
+<ColorPalette tokens={grayscaleTokens} />
 
-## Semantic Colors
+## Success
 
-Four semantic palettes for status communication.
+Positive feedback, confirmations, "saved" states.
 
-### Success
-`#2BCD86` base — green scale for positive feedback.
+<ColorPalette tokens={successTokens} />
 
-### Info
-`#00C3FF` base — cyan scale for informational messages.
+## Info
 
-### Warning
-`#FFA700` base — amber scale for caution states.
+Informational messaging and neutral status indicators.
 
-### Alarm
-`#EB5000` base — orange-red scale for errors and destructive actions.
+<ColorPalette tokens={infoTokens} />
 
-Each semantic palette has `100–900` steps following the same naming convention:
+## Warning
+
+Caution states — soft warnings that don't block flow.
+
+<ColorPalette tokens={warningTokens} />
+
+## Alarm
+
+Errors, destructive actions, hard validation failures.
+
+<ColorPalette tokens={alarmTokens} />
+
+## Border
+
+A neutral, opaque border token used by elevated surfaces (where
+grayscale's transparency would composite incorrectly).
+
+<ColorPalette tokens={borderToken} columns={3} />
+
+## Semantic Tokens
+
+Intent-based aliases that point to primitive colors. Prefer these
+when expressing **intent** (e.g. "the primary text color") rather
+than reaching for a specific palette step.
+
+### Text
+
+<ColorPalette tokens={semanticTextTokens} columns={3} />
+
+### Interactive
+
+<ColorPalette tokens={semanticInteractiveTokens} columns={4} />
+
+### Feedback
+
+<ColorPalette tokens={semanticFeedbackTokens} columns={4} />
+
+### Surface
+
+<ColorPalette tokens={semanticSurfaceTokens} columns={3} />
+
+## Avatar Palette
+
+Each named avatar color exposes three tokens — `color` (text /
+initials), `border`, and `bg`. Used by `AvatarRoot color="…"`.
+
+<AvatarPalette tokens={avatarTokens} />
+
 ```css
-var(--success-500)   /* base */
-var(--warning-100)   /* light tint */
-var(--alarm-900)     /* dark shade */
+background: var(--avatar-tiffany-bg);
+border-color: var(--avatar-tiffany-border);
+color: var(--avatar-tiffany-color);
 ```
 
-## Shadows
+## Tag Palette
 
-Shadow tokens are defined in `@theme inline` and available as Tailwind utilities:
+Each named tag color exposes `solid` (text / icon) and `tint`
+(background). Used by `Tag color="…"`.
 
-| Token | Usage |
-|-------|-------|
-| `--shadow-accent` | Subtle element shadow |
-| `--shadow-base` | Default card shadow |
-| `--shadow-emphasis` | Elevated panel shadow |
-| `--shadow-top-level` | Modal / top-level overlay shadow |
-| `--shadow-focus-primary` | Primary focus ring |
-| `--shadow-button-primary` | Primary button hover shadow |
+<TagPalette tokens={tagTokens} />
 
 ```css
-.card {
-  box-shadow: var(--shadow-base);
-}
-.card:focus-visible {
-  box-shadow: var(--shadow-focus-primary);
-}
+background: var(--tag-teal-tint);
+color: var(--tag-teal-solid);
 ```

@@ -133,3 +133,8 @@ export {
   SliderTrack,
   SliderValue,
 } from '../../../src-v2/components/slider/Slider';
+export {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from '../../../src-v2/components/resizable/Resizable';

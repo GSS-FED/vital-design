@@ -9,6 +9,7 @@
     "label",
     "input",
     "item",
+    "field",
     "separator",
     "select",
     "combobox",
@@ -24,6 +25,10 @@
     "search-bar",
     "split-button",
     "skeleton",
-    "spinner"
+    "spinner",
+    "table",
+    "toolbar",
+    "resizable",
+    "icons"
   ]
 }

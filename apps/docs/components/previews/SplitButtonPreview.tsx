@@ -11,6 +11,7 @@ export function SplitButtonPreview() {
     <ComponentPreview>
       <SplitButton
         theme="primary"
+        size="lg"
         open={open}
         onClick={() => {}}
         splitOnClick={() => setOpen((v) => !v)}
@@ -28,11 +29,39 @@ export function SplitButtonDefaultPreview() {
     <ComponentPreview>
       <SplitButton
         theme="default"
+        size="lg"
         open={open}
         onClick={() => {}}
         splitOnClick={() => setOpen((v) => !v)}
       >
         Action
+      </SplitButton>
+    </ComponentPreview>
+  );
+}
+
+export function SplitButtonSizesPreview() {
+  const [openMd, setOpenMd] = useState(false);
+  const [openLg, setOpenLg] = useState(false);
+  return (
+    <ComponentPreview>
+      <SplitButton
+        theme="primary"
+        size="md"
+        open={openMd}
+        onClick={() => {}}
+        splitOnClick={() => setOpenMd((v) => !v)}
+      >
+        Medium
+      </SplitButton>
+      <SplitButton
+        theme="primary"
+        size="lg"
+        open={openLg}
+        onClick={() => {}}
+        splitOnClick={() => setOpenLg((v) => !v)}
+      >
+        Large
       </SplitButton>
     </ComponentPreview>
   );

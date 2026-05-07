@@ -46,7 +46,9 @@ export type RegistryItemName =
   | 'popover'
   | 'dropdown-menu'
   | 'dialog'
-  | 'slider';
+  | 'slider'
+  | 'table'
+  | 'toolbar';
 
 /**
  * Extends the official shadcn RegistryItem with:

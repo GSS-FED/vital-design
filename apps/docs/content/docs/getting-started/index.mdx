@@ -19,25 +19,62 @@ description: Vital Design is a React 18 component library built with TypeScript 
 
 ## Component Categories
 
-### Atomic Components
+### Foundation
 
-Foundational UI building blocks used across the design system:
+Small building blocks for labels, actions, status, and text entry.
 
-| Component       | Description                                                 |
-| --------------- | ----------------------------------------------------------- |
-| `Button`        | Filled and text variants with multiple themes               |
-| `Avatar`        | Profile images with 12 color variants and fallback initials |
-| `Chip`          | Toggle chip for filter and tag selection                    |
-| `Input`         | Single-line text field                                      |
-| `PasswordInput` | Text field with visibility toggle                           |
-| `Textarea`      | Multi-line text field                                       |
-| `Select`        | Single and multiple dropdown                                |
-| `Combobox`      | Searchable input picker with chip selection                 |
-| `Switch`        | Toggle switch for boolean settings                          |
-| `Tag`           | Read-only label with color variants                         |
-| `Checkbox`      | Checkbox with indeterminate state support                   |
-| `RadioGroup`    | Radio button group                                          |
-| `SearchBar`     | Styled search input                                         |
+| Component                                    | Description                                                 |
+| -------------------------------------------- | ----------------------------------------------------------- |
+| [Button](/docs/components/button)            | Filled and text action button variants                      |
+| [ButtonGroup](/docs/components/button-group) | Group related buttons with shared borders                   |
+| [Avatar](/docs/components/avatar)            | Profile image with color fallback initials                  |
+| [Chip](/docs/components/chip)                | Compact selectable token for filters                        |
+| [Tag](/docs/components/tag)                  | Read-only label with color variants                         |
+| [Label](/docs/components/label)              | Accessible form label primitive                             |
+| [Input](/docs/components/input)              | Single-line, password, grouped, and textarea input patterns |
+| [SearchBar](/docs/components/search-bar)     | Search input preset built on `InputGroup`                   |
+| [Separator](/docs/components/separator)      | Horizontal or vertical divider                              |
+| [Skeleton](/docs/components/skeleton)        | Loading placeholder                                         |
+| [Spinner](/docs/components/spinner)          | Inline loading indicator                                    |
+| [Icons](/docs/components/icons)              | Registry-ready icon components                              |
+
+### Forms
+
+Controls and form composition helpers.
+
+| Component                                  | Description                                  |
+| ------------------------------------------ | -------------------------------------------- |
+| [Field](/docs/components/field)            | Form field, label, description, and error UI |
+| [Checkbox](/docs/components/checkbox)      | Checkbox with indeterminate state            |
+| [RadioGroup](/docs/components/radio-group) | Mutually exclusive radio choices             |
+| [Switch](/docs/components/switch)          | Boolean on/off control                       |
+| [Slider](/docs/components/slider)          | Numeric range input                          |
+
+### Pickers and Menus
+
+Use these when the component owns popup state, search, or keyboard navigation.
+
+| Component                                      | Description                                      |
+| ---------------------------------------------- | ------------------------------------------------ |
+| [Select](/docs/components/select)              | Flat single or multiple dropdown picker          |
+| [Combobox](/docs/components/combobox)          | Searchable input picker with optional tag values |
+| [Command](/docs/components/command)            | Command palette and custom searchable list base  |
+| [DropdownMenu](/docs/components/dropdown-menu) | Action menu                                      |
+| [Popover](/docs/components/popover)            | Anchored floating content                        |
+
+### Layout and Overlays
+
+Larger UI parts, surfaces, and structure helpers.
+
+| Component                                    | Description                                     |
+| -------------------------------------------- | ----------------------------------------------- |
+| [Alert](/docs/components/alert)              | Status or feedback message                      |
+| [Dialog](/docs/components/dialog)            | Modal overlay                                   |
+| [Item](/docs/components/item)                | Reusable media, title, description, actions row |
+| [SplitButton](/docs/components/split-button) | Primary action with adjacent secondary trigger  |
+| [Table](/docs/components/table)              | Data table primitives                           |
+| [Toolbar](/docs/components/toolbar)          | Horizontal command surface                      |
+| [Resizable](/docs/components/resizable)      | Resizable panel layout                          |
 
 ### Composite Blocks
 
