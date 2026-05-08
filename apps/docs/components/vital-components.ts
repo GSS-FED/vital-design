@@ -58,6 +58,16 @@ export {
   InputGroupText,
   InputGroupTextarea,
 } from '../../../src-v2/components/input/input-group/InputGroup';
+export {
+  NumberInput,
+  NumberInputControl,
+  NumberInputDecrement,
+  NumberInputGroup,
+  NumberInputIncrement,
+  NumberInputScrubArea,
+  NumberInputScrubAreaCursor,
+  NumberInputSteppers,
+} from '../../../src-v2/components/input/number-input/NumberInput';
 export { PasswordInput } from '../../../src-v2/components/input/password-input/PasswordInput';
 export { Textarea } from '../../../src-v2/components/textarea/Textarea';
 export { Select } from '../../../src-v2/components/select/Select';

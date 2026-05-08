@@ -8,6 +8,7 @@
     "chip",
     "label",
     "input",
+    "number-input",
     "item",
     "field",
     "separator",
