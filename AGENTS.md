@@ -78,7 +78,6 @@ pnpm docs:start            # 啟動生產環境文件站
 - `src-v2/hooks/` - React Hooks
 - `src-v2/icons/` - SVG 圖示
 - `src-v2/utils/` - 工具函數（`cn.ts` 等）
-- `src-v2/constants/` - 共用常數（`mask.ts` 等）
 - `src-v2/styles/` - 全域 CSS（`globals.css`）
 - 路徑別名：`@/` → `src-v2/`
 - `tokens/` - Design token 定義（Style Dictionary v5，三層結構）
