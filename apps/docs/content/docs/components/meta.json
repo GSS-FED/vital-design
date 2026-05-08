@@ -13,6 +13,7 @@
     "field",
     "separator",
     "select",
+    "autocomplete",
     "combobox",
     "command",
     "popover",

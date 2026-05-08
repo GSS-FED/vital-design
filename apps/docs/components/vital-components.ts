@@ -71,6 +71,31 @@ export {
 export { PasswordInput } from '../../../src-v2/components/input/password-input/PasswordInput';
 export { Textarea } from '../../../src-v2/components/textarea/Textarea';
 export { Select } from '../../../src-v2/components/select/Select';
+export {
+  Autocomplete,
+  AutocompleteArrow,
+  AutocompleteBackdrop,
+  AutocompleteClear,
+  AutocompleteCollection,
+  AutocompleteContent,
+  AutocompleteEmpty,
+  AutocompleteGroup,
+  AutocompleteGroupLabel,
+  AutocompleteIcon,
+  AutocompleteInput,
+  AutocompleteInputGroup,
+  AutocompleteItem,
+  AutocompleteItemText,
+  AutocompleteList,
+  AutocompletePopup,
+  AutocompletePortal,
+  AutocompletePositioner,
+  AutocompleteRow,
+  AutocompleteSeparator,
+  AutocompleteStatus,
+  AutocompleteTrigger,
+  AutocompleteValue,
+} from '../../../src-v2/components/autocomplete/Autocomplete';
 export { Combobox } from '../../../src-v2/components/combobox/Combobox';
 export {
   Command,

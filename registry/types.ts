@@ -41,6 +41,7 @@ export type RegistryItemName =
   | 'textarea'
   | 'password-input'
   | 'select'
+  | 'autocomplete'
   | 'combobox'
   | 'command'
   | 'popover'
