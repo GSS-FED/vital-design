@@ -13,3 +13,17 @@ if (typeof window !== 'undefined' && !window.PointerEvent) {
     value: PointerEventPolyfill,
   });
 }
+
+if (
+  typeof window !== 'undefined' &&
+  !window.HTMLElement.prototype.getAnimations
+) {
+  Object.defineProperty(
+    window.HTMLElement.prototype,
+    'getAnimations',
+    {
+      configurable: true,
+      value: () => [],
+    },
+  );
+}

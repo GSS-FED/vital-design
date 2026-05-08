@@ -3,6 +3,10 @@ import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import {
+  ScrollArea,
+  ScrollAreaViewport,
+} from '../scroll-area/ScrollArea';
+import {
   Select,
   SelectContent,
   SelectGroup,
@@ -50,6 +54,11 @@ const ITEM_LIST = [
   { label: '選項 14', value: '14' },
   { label: '選項 15', value: '15' },
 ];
+
+const LONG_ITEM_LIST = Array.from({ length: 36 }, (_, index) => ({
+  label: `長清單選項 ${index + 1}`,
+  value: `long-${index + 1}`,
+}));
 
 const FRUIT_LIST = [
   { label: 'React', value: 'react' },
@@ -247,6 +256,51 @@ export const Grouped: Story = {
                 </SelectItem>
               ))}
             </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+    );
+  },
+};
+
+export const WithScrollAreaFade: Story = {
+  render: function Render(args) {
+    const [value, setValue] = useState<string | null>(null);
+
+    return (
+      <div className="w-80">
+        <Select
+          disabled={args.disabled}
+          items={LONG_ITEM_LIST}
+          value={value}
+          onValueChange={(nextValue) => {
+            if (isSingleValue(nextValue)) {
+              setValue(nextValue);
+            }
+          }}
+        >
+          <SelectTrigger placeholder="請選擇" />
+          <SelectContent
+            className="h-75 py-0"
+            listRender={
+              <ScrollAreaViewport className="h-full py-2" fadeEdges />
+            }
+            listWrapper={(list) => (
+              <ScrollArea
+                className="h-full min-h-0"
+                overflowEdgeThreshold={1}
+              >
+                {list}
+              </ScrollArea>
+            )}
+            showScrollButtons={false}
+          >
+            {LONG_ITEM_LIST.map((item) => (
+              <SelectItem key={item.value} value={item.value}>
+                <SelectItemText>{item.label}</SelectItemText>
+                <SelectItemCheck />
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>

@@ -52,28 +52,28 @@ import {
 
 ## When to Use
 
-| Need                                     | Component       |
-| ---------------------------------------- | --------------- |
-| Flat value picker                        | `Select`        |
-| Searchable value picker (input + popup)  | `Combobox`      |
+| Need                                     | Component             |
+| ---------------------------------------- | --------------------- |
+| Flat value picker                        | `Select`              |
+| Searchable value picker (input + popup)  | `Combobox`            |
 | Hierarchical path picker                 | `Command` + `Popover` |
-| Action menu                              | `DropdownMenu`  |
-| Command palette / custom searchable list | `Command`       |
+| Action menu                              | `DropdownMenu`        |
+| Command palette / custom searchable list | `Command`             |
 
 `Command` does not include a popover or trigger — pair it with `Popover` (or your own surface) when you need a floating panel. The Storybook `HierarchicalPicker` story shows a paged tree picker built from `Command` and `Popover`.
 
 ## Exports
 
-| Export              | Description                                         |
-| ------------------- | --------------------------------------------------- |
+| Export              | Description                                                               |
+| ------------------- | ------------------------------------------------------------------------- |
 | `Command`           | Root container; accepts cmdk props (`shouldFilter`, `filter`, `label`, …) |
-| `CommandInput`      | Search input row with leading search icon           |
-| `CommandList`       | Scrollable list with edge-fade mask                 |
-| `CommandEmpty`      | Empty state shown when no items match               |
-| `CommandGroup`      | Grouped items with optional `heading`               |
-| `CommandSeparator`  | Horizontal divider between groups                   |
-| `CommandItem`       | Selectable row; fires `onSelect`                    |
-| `CommandShortcut`   | Right-aligned keyboard hint inside an item          |
-| `CommandLoading`    | Loading row with default spinner                    |
-| `CommandHeader`     | Header slot above input (used for back button)      |
-| `CommandBackButton` | Styled back button for paged flows                  |
+| `CommandInput`      | Search input row with leading search icon                                 |
+| `CommandList`       | Scrollable list primitive                                                 |
+| `CommandEmpty`      | Empty state shown when no items match                                     |
+| `CommandGroup`      | Grouped items with optional `heading`                                     |
+| `CommandSeparator`  | Horizontal divider between groups                                         |
+| `CommandItem`       | Selectable row; fires `onSelect`                                          |
+| `CommandShortcut`   | Right-aligned keyboard hint inside an item                                |
+| `CommandLoading`    | Loading row with default spinner                                          |
+| `CommandHeader`     | Header slot above input (used for back button)                            |
+| `CommandBackButton` | Styled back button for paged flows                                        |

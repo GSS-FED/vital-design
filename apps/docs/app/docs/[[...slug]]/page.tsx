@@ -40,6 +40,10 @@ import {
   RadioGroupVerticalPreview,
 } from '~/components/previews/RadioGroupPreview';
 import {
+  ScrollAreaFadePreview,
+  ScrollAreaPreview,
+} from '~/components/previews/ScrollAreaPreview';
+import {
   SearchBarDisabledPreview,
   SearchBarPreview,
 } from '~/components/previews/SearchBarPreview';
@@ -138,6 +142,8 @@ export default async function Page({
             TagRemovablePreview,
             SearchBarPreview,
             SearchBarDisabledPreview,
+            ScrollAreaPreview,
+            ScrollAreaFadePreview,
             SplitButtonPreview,
             SplitButtonDefaultPreview,
             SliderPreview,

@@ -13,17 +13,4 @@ export const hooks = [
       },
     ],
   },
-  {
-    name: 'use-scroll-mask',
-    type: 'registry:hook',
-    title: 'useScrollMask',
-    description:
-      'Hook for applying edge fades to scrollable viewports',
-    files: [
-      {
-        path: 'src-v2/hooks/useScrollMask.ts',
-        type: 'registry:hook',
-      },
-    ],
-  },
 ] satisfies VitalRegistryItem[];

@@ -48,6 +48,14 @@ export {
   ItemTitle,
 } from '../../../src-v2/components/item/Item';
 export { Label } from '../../../src-v2/components/label/Label';
+export {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaCorner,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '../../../src-v2/components/scroll-area/ScrollArea';
 export { Separator } from '../../../src-v2/components/separator/Separator';
 export { Input } from '../../../src-v2/components/input/input/Input';
 export {

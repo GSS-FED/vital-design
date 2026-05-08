@@ -467,18 +467,6 @@
       ]
     },
     {
-      "name": "use-scroll-mask",
-      "type": "registry:hook",
-      "title": "useScrollMask",
-      "description": "Hook for applying edge fades to scrollable viewports",
-      "files": [
-        {
-          "path": "src-v2/hooks/useScrollMask.ts",
-          "type": "registry:hook"
-        }
-      ]
-    },
-    {
       "name": "alert",
       "type": "registry:ui",
       "title": "Alert",
@@ -938,6 +926,27 @@
       ]
     },
     {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll Area",
+      "description": "Scrollable viewport with optional edge fade and custom scrollbars",
+      "dependencies": [
+        "@base-ui/react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/scroll-area/ScrollArea.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "select",
       "type": "registry:ui",
       "title": "Select",
@@ -949,7 +958,6 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/use-scroll-mask",
         "@vital-design/icon-check",
         "@vital-design/icon-chevron",
         "@vital-design/vital-theme"
@@ -973,7 +981,6 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/use-scroll-mask",
         "@vital-design/icon-chevron",
         "@vital-design/icon-clear",
         "@vital-design/icon-search",
@@ -998,7 +1005,6 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/use-scroll-mask",
         "@vital-design/icon-check",
         "@vital-design/icon-chevron",
         "@vital-design/icon-clear",
@@ -1028,7 +1034,6 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/use-scroll-mask",
         "@vital-design/icon-chevron",
         "@vital-design/icon-search",
         "@vital-design/icon-spinner",

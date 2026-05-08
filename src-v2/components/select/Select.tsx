@@ -1,9 +1,8 @@
-import { useScrollMask } from '@/hooks/useScrollMask';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
 import { cn } from '@/lib/utils';
 import { Select as BaseSelect } from '@base-ui/react/select';
-import { forwardRef, useRef } from 'react';
+import { forwardRef } from 'react';
 import type {
   ComponentPropsWithoutRef,
   ElementRef,
@@ -110,7 +109,12 @@ export type SelectContentProps = ComponentPropsWithoutRef<
     | 'side'
     | 'sideOffset'
     | 'alignItemWithTrigger'
-  >;
+  > & {
+    listClassName?: SelectListProps['className'];
+    listRender?: SelectListProps['render'];
+    listWrapper?: (list: ReactNode) => ReactNode;
+    showScrollButtons?: boolean;
+  };
 
 const SelectContent = forwardRef<
   ElementRef<typeof BaseSelect.Popup>,
@@ -122,17 +126,16 @@ const SelectContent = forwardRef<
     alignOffset,
     children,
     className,
+    listClassName,
+    listRender,
+    listWrapper,
+    showScrollButtons = true,
     side,
     sideOffset = 4,
     ...props
   },
   ref,
 ) {
-  const listRef = useRef<ElementRef<typeof BaseSelect.List> | null>(
-    null,
-  );
-  const { maskStyle, onScroll } = useScrollMask(listRef);
-
   return (
     <BaseSelect.Portal>
       <BaseSelect.Positioner
@@ -153,20 +156,41 @@ const SelectContent = forwardRef<
           )}
           {...props}
         >
-          <SelectScrollUpButton />
-          <BaseSelect.List
-            ref={listRef}
-            data-slot="select-list"
-            onScroll={onScroll}
-            className="min-h-0 overflow-auto [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:bg-transparent"
-            style={maskStyle}
-          >
-            {children}
-          </BaseSelect.List>
-          <SelectScrollDownButton />
+          {showScrollButtons ? <SelectScrollUpButton /> : null}
+          {listWrapper?.(
+            <SelectList className={listClassName} render={listRender}>
+              {children}
+            </SelectList>,
+          ) ?? (
+            <SelectList className={listClassName} render={listRender}>
+              {children}
+            </SelectList>
+          )}
+          {showScrollButtons ? <SelectScrollDownButton /> : null}
         </BaseSelect.Popup>
       </BaseSelect.Positioner>
     </BaseSelect.Portal>
+  );
+});
+
+export type SelectListProps = ComponentPropsWithoutRef<
+  typeof BaseSelect.List
+>;
+
+const SelectList = forwardRef<
+  ElementRef<typeof BaseSelect.List>,
+  SelectListProps
+>(function SelectList({ className, ...props }, ref) {
+  return (
+    <BaseSelect.List
+      ref={ref}
+      data-slot="select-list"
+      className={cn(
+        'min-h-0 overflow-auto [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:bg-transparent',
+        className,
+      )}
+      {...props}
+    />
   );
 });
 
@@ -364,6 +388,7 @@ export {
   SelectItemCheckbox,
   SelectItemText,
   SelectLabel,
+  SelectList,
   SelectScrollDownButton,
   SelectScrollUpButton,
   SelectSeparator,

@@ -428,6 +428,24 @@ export const ui = [
     ],
   },
   {
+    name: 'scroll-area',
+    type: 'registry:ui',
+    title: 'Scroll Area',
+    description:
+      'Scrollable viewport with optional edge fade and custom scrollbars',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/scroll-area/ScrollArea.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
     name: 'select',
     type: 'registry:ui',
     title: 'Select',
@@ -435,7 +453,6 @@ export const ui = [
     dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/use-scroll-mask',
       '@vital-design/icon-check',
       '@vital-design/icon-chevron',
       '@vital-design/vital-theme',
@@ -456,7 +473,6 @@ export const ui = [
     dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/use-scroll-mask',
       '@vital-design/icon-chevron',
       '@vital-design/icon-clear',
       '@vital-design/icon-search',
@@ -477,7 +493,6 @@ export const ui = [
     dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/use-scroll-mask',
       '@vital-design/icon-check',
       '@vital-design/icon-chevron',
       '@vital-design/icon-clear',
@@ -504,7 +519,6 @@ export const ui = [
     dependencies: ['cmdk', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/use-scroll-mask',
       '@vital-design/icon-chevron',
       '@vital-design/icon-search',
       '@vital-design/icon-spinner',

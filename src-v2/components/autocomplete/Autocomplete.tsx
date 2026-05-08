@@ -1,14 +1,12 @@
-import { useScrollMask } from '@/hooks/useScrollMask';
 import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
 import { SearchIcon } from '@/icons/SearchIcon';
 import { cn } from '@/lib/utils';
 import { Autocomplete as BaseAutocomplete } from '@base-ui/react/autocomplete';
-import { forwardRef, useRef } from 'react';
+import { forwardRef } from 'react';
 import type {
   ComponentPropsWithoutRef,
   ElementRef,
-  ForwardedRef,
   ReactElement,
   ReactNode,
 } from 'react';
@@ -19,17 +17,6 @@ export type AutocompleteProps<ItemValue = unknown> =
 const Autocomplete = BaseAutocomplete.Root as <ItemValue = unknown>(
   props: AutocompleteProps<ItemValue>,
 ) => ReactElement | null;
-
-function assignRef<T>(ref: ForwardedRef<T>, value: T) {
-  if (typeof ref === 'function') {
-    ref(value);
-    return;
-  }
-
-  if (ref) {
-    ref.current = value;
-  }
-}
 
 export type AutocompleteValueProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.Value
@@ -273,11 +260,6 @@ const Content = forwardRef<
   },
   ref,
 ) {
-  const listRef = useRef<ElementRef<
-    typeof BaseAutocomplete.List
-  > | null>(null);
-  const { maskStyle, onScroll } = useScrollMask(listRef);
-
   return (
     <Portal>
       <Positioner
@@ -290,15 +272,12 @@ const Content = forwardRef<
         <Popup ref={ref} className={className} {...props}>
           {typeof children === 'function' ? (
             <BaseAutocomplete.List
-              ref={listRef}
               data-slot="autocomplete-list"
-              onScroll={onScroll}
               className={cn(
                 'min-h-0 overflow-auto',
                 '[&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:bg-transparent',
                 listClassName,
               )}
-              style={maskStyle}
             >
               {children}
             </BaseAutocomplete.List>
@@ -319,38 +298,17 @@ export type AutocompleteListProps = ComponentPropsWithoutRef<
 const List = forwardRef<
   ElementRef<typeof BaseAutocomplete.List>,
   AutocompleteListProps
->(function AutocompleteList(
-  { className, onScroll, style, ...props },
-  ref,
-) {
-  const localRef = useRef<ElementRef<
-    typeof BaseAutocomplete.List
-  > | null>(null);
-  const { maskStyle, onScroll: onMaskScroll } =
-    useScrollMask(localRef);
-
+>(function AutocompleteList({ className, onScroll, ...props }, ref) {
   return (
     <BaseAutocomplete.List
-      ref={(
-        node: ElementRef<typeof BaseAutocomplete.List> | null,
-      ) => {
-        localRef.current = node;
-        assignRef(ref, node);
-      }}
+      ref={ref}
       data-slot="autocomplete-list"
-      onScroll={(event) => {
-        onMaskScroll(event);
-        onScroll?.(event);
-      }}
+      onScroll={onScroll}
       className={cn(
         'min-h-0 overflow-auto',
         '[&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:bg-transparent',
         className,
       )}
-      style={{
-        ...maskStyle,
-        ...style,
-      }}
       {...props}
     />
   );

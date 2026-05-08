@@ -12,6 +12,7 @@
     "item",
     "field",
     "separator",
+    "scroll-area",
     "select",
     "autocomplete",
     "combobox",

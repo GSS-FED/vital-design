@@ -1,29 +1,16 @@
-import { useScrollMask } from '@/hooks/useScrollMask';
 import { ChevronLeftIcon } from '@/icons/ChevronIcon';
 import { SearchIcon } from '@/icons/SearchIcon';
 import { SpinnerIcon } from '@/icons/SpinnerIcon';
 import { cn } from '@/lib/utils';
 import { Command as CommandPrimitive } from 'cmdk';
-import { forwardRef, useRef } from 'react';
+import { forwardRef } from 'react';
 import type {
   ButtonHTMLAttributes,
   ComponentPropsWithoutRef,
   ElementRef,
-  ForwardedRef,
   HTMLAttributes,
   ReactNode,
 } from 'react';
-
-function assignRef<T>(ref: ForwardedRef<T>, value: T) {
-  if (typeof ref === 'function') {
-    ref(value);
-    return;
-  }
-
-  if (ref) {
-    ref.current = value;
-  }
-}
 
 export type CommandProps = ComponentPropsWithoutRef<
   typeof CommandPrimitive
@@ -98,34 +85,24 @@ const CommandList = forwardRef<
   { className, height, onScroll, style, ...props },
   ref,
 ) {
-  const localRef = useRef<ElementRef<
-    typeof CommandPrimitive.List
-  > | null>(null);
-  const { maskStyle, onScroll: onMaskScroll } =
-    useScrollMask(localRef);
+  const listStyle =
+    height === undefined
+      ? style
+      : {
+          height: `${height}px`,
+          ...style,
+        };
 
   return (
     <CommandPrimitive.List
-      ref={(
-        node: ElementRef<typeof CommandPrimitive.List> | null,
-      ) => {
-        localRef.current = node;
-        assignRef(ref, node);
-      }}
-      onScroll={(event) => {
-        onMaskScroll(event);
-        onScroll?.(event);
-      }}
+      ref={ref}
+      onScroll={onScroll}
       className={cn(
         'min-h-0 overflow-auto pb-1',
         '[&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:bg-transparent',
         className,
       )}
-      style={{
-        height: height ? `${height}px` : undefined,
-        ...maskStyle,
-        ...style,
-      }}
+      style={listStyle}
       {...props}
     />
   );
