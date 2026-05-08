@@ -96,6 +96,33 @@ export {
   PopoverTrigger,
 } from '../../../src-v2/components/popover/Popover';
 export {
+  Tooltip,
+  TooltipArrow,
+  TooltipContent,
+  TooltipPortal,
+  TooltipPositioner,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../../../src-v2/components/tooltip/Tooltip';
+export {
+  Toast,
+  ToastAction,
+  ToastCancel,
+  ToastClose,
+  ToastContent,
+  ToastDescription,
+  ToastIcon,
+  ToastPortal,
+  ToastProvider,
+  ToastTitle,
+  ToastViewport,
+  Toaster,
+} from '../../../src-v2/components/toast/Toast';
+export {
+  createToastManager,
+  useToast,
+} from '../../../src-v2/components/toast/useToast';
+export {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,

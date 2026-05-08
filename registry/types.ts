@@ -44,6 +44,8 @@ export type RegistryItemName =
   | 'combobox'
   | 'command'
   | 'popover'
+  | 'tooltip'
+  | 'toast'
   | 'dropdown-menu'
   | 'dialog'
   | 'slider'

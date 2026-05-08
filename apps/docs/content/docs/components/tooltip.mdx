@@ -1,0 +1,144 @@
+---
+title: Tooltip
+description: A short, transient hint anchored to a trigger element with arrow and side controls.
+---
+
+import {
+  TooltipAlignPreview,
+  TooltipLongContentPreview,
+  TooltipPreview,
+  TooltipSidePreview,
+  TooltipWithIconPreview,
+  TooltipWithoutArrowPreview,
+} from '~/components/previews/TooltipPreview';
+
+## Preview
+
+<TooltipPreview />
+
+## Usage
+
+`Tooltip` is built on Base UI's
+[Tooltip](https://base-ui.com/react/components/tooltip).
+Wrap a region of triggers in `TooltipProvider` to share open and close
+delays, then compose `Tooltip`, `TooltipTrigger`, and `TooltipContent`.
+The default offset matches the design (8 px from the anchor).
+
+```tsx
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/Tooltip';
+
+<TooltipProvider>
+  <Tooltip>
+    <TooltipTrigger render={<Button>Hover me</Button>} />
+    <TooltipContent>提示文字</TooltipContent>
+  </Tooltip>
+</TooltipProvider>;
+```
+
+## With Icon
+
+The content is a flex row, so add an icon next to the message to mark
+warnings or status hints.
+
+<TooltipWithIconPreview />
+
+```tsx
+<TooltipContent>
+  <FlagIcon className="size-5 shrink-0 text-warning-500" />
+  <span>請先儲存後再離開頁面</span>
+</TooltipContent>
+```
+
+## Side
+
+`side` selects which edge of the trigger the tooltip anchors to. Base UI
+will flip the side automatically to avoid clipping.
+
+<TooltipSidePreview />
+
+```tsx
+<TooltipContent side="top">從 top 顯示提示</TooltipContent>
+```
+
+## Align
+
+`align` shifts the tooltip along the chosen side.
+
+<TooltipAlignPreview />
+
+```tsx
+<TooltipContent align="start">align: start</TooltipContent>
+```
+
+## Long Content
+
+The popup wraps at the configured `400px` max width.
+
+<TooltipLongContentPreview />
+
+## Without Arrow
+
+Pass `arrow={false}` to drop the pointer when the tooltip is anchored to
+custom layouts that don't need a beak.
+
+<TooltipWithoutArrowPreview />
+
+```tsx
+<TooltipContent arrow={false}>提示文字</TooltipContent>
+```
+
+## Props
+
+### Tooltip
+
+`Tooltip` is the root and accepts every Base UI
+[`Tooltip.Root`](https://base-ui.com/react/components/tooltip#api-reference-tooltiproot)
+prop.
+
+| Prop                    | Type                                | Default | Description                                |
+| ----------------------- | ----------------------------------- | ------- | ------------------------------------------ |
+| `defaultOpen`           | `boolean`                           | `false` | Whether the tooltip is initially open      |
+| `open`                  | `boolean`                           | —       | Controlled open state                      |
+| `onOpenChange`          | `(open, eventDetails) => void`      | —       | Called when the open state changes         |
+| `disabled`              | `boolean`                           | `false` | Disables the tooltip                       |
+| `disableHoverablePopup` | `boolean`                           | `false` | Whether the popup itself can be hovered    |
+| `trackCursorAxis`       | `'none' \| 'x' \| 'y' \| 'both'`    | `'none'`| Track the cursor along the given axis      |
+
+### TooltipProvider
+
+| Prop         | Type      | Default | Description                                          |
+| ------------ | --------- | ------- | ---------------------------------------------------- |
+| `delay`      | `number`  | `200`   | Open delay in ms                                     |
+| `closeDelay` | `number`  | `100`   | Close delay in ms                                    |
+| `timeout`    | `number`  | `400`   | Window during which adjacent tooltips open instantly |
+
+### TooltipContent
+
+`TooltipContent` portals its children, positions them with Base UI, and
+adds the styled popup with an optional arrow.
+
+| Prop                  | Type                                              | Default    | Description                              |
+| --------------------- | ------------------------------------------------- | ---------- | ---------------------------------------- |
+| `side`                | `'top' \| 'right' \| 'bottom' \| 'left' \| 'inline-start' \| 'inline-end'` | `'top'`    | Side relative to the trigger             |
+| `sideOffset`          | `number`                                          | `8`        | Distance from the trigger in px          |
+| `align`               | `'start' \| 'center' \| 'end'`                    | `'center'` | Alignment along the side                 |
+| `alignOffset`         | `number`                                          | `0`        | Offset along the alignment axis          |
+| `arrow`               | `boolean`                                         | `true`     | Whether to render the arrow              |
+| `positionerClassName` | `string`                                          | —          | Classes for the inner positioner element |
+
+### Tooltip Parts
+
+| Part                | Description                                                              |
+| ------------------- | ------------------------------------------------------------------------ |
+| `TooltipProvider`   | Shares delays for grouped tooltips                                       |
+| `Tooltip`           | Root that controls a single tooltip's open state                         |
+| `TooltipTrigger`    | Element that opens the tooltip on hover or focus                         |
+| `TooltipContent`    | Portal + positioner + popup with the styled body and optional arrow      |
+| `TooltipPortal`     | Lower-level portal exposed for advanced composition                      |
+| `TooltipPositioner` | Lower-level positioner exposed for advanced composition                  |
+| `TooltipArrow`      | Standalone arrow element when composing the content manually             |

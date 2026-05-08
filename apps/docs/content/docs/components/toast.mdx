@@ -1,0 +1,307 @@
+---
+title: Toast
+description: Status-coloured notifications dispatched imperatively from anywhere in the app.
+---
+
+import {
+  ToastActionPreview,
+  ToastCustomDataPreview,
+  ToastDescriptionPreview,
+  ToastIconPreview,
+  ToastLoadingPreview,
+  ToastPreview,
+  ToastPromisePreview,
+  ToastSubtlePreview,
+  ToastTopCenterPreview,
+  ToastTopRightPreview,
+} from '~/components/previews/ToastPreview';
+
+## Preview
+
+<ToastPreview />
+
+## Usage
+
+`Toast` is built on Base UI's
+[Toast](https://base-ui.com/react/components/toast).
+Mount `ToastProvider` at the top of the tree, drop one `<Toaster />`
+into the layout, and dispatch toasts with the `useToast` hook. The
+`type` field selects the colour. `Toaster` is the Vital preset renderer:
+it understands `data.icon` and `data.cancelProps`, while custom domain
+data should use the primitive parts directly.
+
+```tsx
+import {
+  ToastProvider,
+  Toaster,
+  useToast,
+} from '@/components/ui/Toast';
+
+function App() {
+  return (
+    <ToastProvider>
+      <Page />
+      <Toaster />
+    </ToastProvider>
+  );
+}
+
+function SaveButton() {
+  const toast = useToast();
+  return (
+    <Button
+      onClick={() =>
+        toast.add({ type: 'success', title: '已成功儲存' })
+      }
+    >
+      Save
+    </Button>
+  );
+}
+```
+
+## Status
+
+`type` accepts `success`, `warning`, `error`, `info`, or `loading`.
+The toast applies the matching colour but does not pick an icon —
+icons are opt-in. In the `Toaster` preset, `loading` swaps the close X
+for a cancel button when `data.cancelProps` is supplied.
+
+## Position
+
+`Toaster` accepts a `position` prop with six anchors:
+`top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`,
+`bottom-right`. The viewport snaps to the corner (or the centre on
+`*-center`) and the stack direction flips so older toasts spread away
+from the anchor.
+
+<ToastTopRightPreview />
+
+```tsx
+<Toaster position="top-right" />
+```
+
+### Top centre
+
+<ToastTopCenterPreview />
+
+```tsx
+<Toaster position="top-center" />
+```
+
+## Variants
+
+The `solid` variant (default) fills the toast with the status colour
+on a white-on-coloured layout. The `subtle` variant flips the design
+to a white surface with a tinted icon and primary action — matches the
+"notification" pattern in the design system.
+
+<ToastSubtlePreview />
+
+```tsx
+<Toaster position="top-right" variant="subtle" />
+```
+
+## Loading
+
+For long-running operations, dispatch a toast with `type: 'loading'`
+and `timeout: 0`. Pair it with `actionProps` and a `data.cancelProps`
+button (instead of the close X) so the user can cancel the operation,
+then `update` the toast on completion.
+
+<ToastLoadingPreview />
+
+```tsx
+const toast = useToast();
+const id = toast.add({
+  type: 'loading',
+  title: '上傳中',
+  timeout: 0,
+  data: {
+    icon: <SpinnerIcon width={20} height={20} />,
+    cancelProps: { children: '取消', onClick: cancelUpload },
+  },
+  actionProps: { children: '動作', onClick: openLog },
+});
+
+await upload();
+toast.update(id, {
+  type: 'success',
+  title: '上傳完成',
+  timeout: 4000,
+  data: { icon: <CheckIcon width={20} height={20} /> },
+});
+```
+
+## With Icon
+
+Pass any icon node through `data.icon`; the `Toaster` preset renders it
+inside the icon slot.
+
+<ToastIconPreview />
+
+```tsx
+toast.add({
+  type: 'warning',
+  title: '請注意系統公告',
+  data: {
+    icon: <FlagIcon className="size-5" />,
+  },
+});
+```
+
+## With Description
+
+Add a second line of context with `description`.
+
+<ToastDescriptionPreview />
+
+```tsx
+toast.add({
+  type: 'success',
+  title: '已成功儲存',
+  description: '所有變更已套用至專案。',
+});
+```
+
+## With Action
+
+`actionProps` is forwarded to the action button rendered by `Toaster`.
+Use it for an "Undo" or other recovery affordance.
+
+<ToastActionPreview />
+
+```tsx
+toast.add({
+  type: 'info',
+  title: '已封存項目',
+  actionProps: {
+    children: '復原',
+    onClick: () => undoArchive(),
+  },
+});
+```
+
+## Promise
+
+`toast.promise` swaps a single toast through loading, success, and
+error states.
+
+<ToastPromisePreview />
+
+```tsx
+toast.promise(saveDraft(), {
+  loading: { type: 'info', title: '處理中…' },
+  success: { type: 'success', title: '已儲存' },
+  error: { type: 'error', title: '失敗，請稍後再試' },
+});
+```
+
+## Custom Data
+
+Base UI already provides typed custom data through `toast.data`. Vital
+does not add a second custom-data API. The `Toaster` preset only reads
+its own small data shape (`data.icon`, `data.cancelProps`). For domain
+data such as `userId`, render with the primitive parts.
+
+<ToastCustomDataPreview />
+
+```tsx
+type UserToastData = {
+  userId: string;
+};
+
+function UserToastButton() {
+  const toast = useToast<UserToastData>();
+
+  return (
+    <Button
+      onClick={() =>
+        toast.add({
+          title: 'Toast with custom data',
+          data: { userId: '123' },
+        })
+      }
+    >
+      Custom data toast
+    </Button>
+  );
+}
+
+function UserToastList() {
+  const { toasts } = useToast<UserToastData>();
+
+  return toasts.map((toast) => (
+    <Toast key={toast.id} toast={toast}>
+      <ToastContent>
+        <ToastTitle>{toast.title}</ToastTitle>
+        <ToastDescription>
+          userId: {toast.data?.userId}
+        </ToastDescription>
+        <ToastClose aria-label="Close" />
+      </ToastContent>
+    </Toast>
+  ));
+}
+```
+
+## Props
+
+### ToastProvider
+
+| Prop      | Type     | Default | Description                                             |
+| --------- | -------- | ------- | ------------------------------------------------------- |
+| `timeout` | `number` | `5000`  | Default auto-dismiss duration in ms (`0` keeps it open) |
+| `limit`   | `number` | `3`     | Maximum toasts in the viewport                          |
+
+### useToast
+
+`useToast()` returns the imperative toast manager.
+
+| Method    | Signature                                                  | Description                                                 |
+| --------- | ---------------------------------------------------------- | ----------------------------------------------------------- |
+| `add`     | `(options) => string`                                      | Adds a toast and returns its id                             |
+| `update`  | `(id, options) => void`                                    | Updates an existing toast                                   |
+| `close`   | `(id?) => void`                                            | Closes a toast (or all toasts when no id)                   |
+| `promise` | `(promise, { loading, success, error }) => Promise<Value>` | Threads loading/success/error states through a single toast |
+
+#### Add Options
+
+| Option             | Type                                                       | Description                                                                  |
+| ------------------ | ---------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `type`             | `'success' \| 'warning' \| 'error' \| 'info' \| 'loading'` | Status colour and icon                                                       |
+| `title`            | `ReactNode`                                                | Main message                                                                 |
+| `description`      | `ReactNode`                                                | Secondary text shown after the title                                         |
+| `timeout`          | `number`                                                   | Override the provider timeout (`0` keeps it open)                            |
+| `priority`         | `'low' \| 'high'`                                          | ARIA live region politeness                                                  |
+| `actionProps`      | `ButtonHTMLAttributes`                                     | Props forwarded to the action button (`children` etc.)                       |
+| `data`             | `object`                                                   | Base UI custom data. `Toaster` reads `data.icon` and `data.cancelProps` only |
+| `data.icon`        | `ReactNode`                                                | `Toaster` preset icon rendered before the title                              |
+| `data.cancelProps` | `ButtonHTMLAttributes`                                     | `Toaster` preset cancel button — replaces the close X when set or loading    |
+| `onClose`          | `() => void`                                               | Called when the toast closes                                                 |
+
+### Toaster
+
+| Prop        | Type                                                                                              | Default          | Description                                      |
+| ----------- | ------------------------------------------------------------------------------------------------- | ---------------- | ------------------------------------------------ |
+| `position`  | `'top-left' \| 'top-center' \| 'top-right' \| 'bottom-left' \| 'bottom-center' \| 'bottom-right'` | `'bottom-right'` | Anchor position for the viewport                 |
+| `variant`   | `'solid' \| 'subtle'`                                                                             | `'solid'`        | Solid status-coloured surface or subtle white bg |
+| `closable`  | `boolean`                                                                                         | `true`           | Render the close button                          |
+| `className` | `string`                                                                                          | —                | Additional classes for the viewport              |
+
+### Toast Parts
+
+| Part               | Description                                                              |
+| ------------------ | ------------------------------------------------------------------------ |
+| `ToastProvider`    | Mounts the toast manager and limits the number of concurrent toasts      |
+| `Toaster`          | Preset that renders styled toasts (solid or subtle) at a chosen position |
+| `useToast`         | Hook that returns the imperative toast manager                           |
+| `Toast`            | Root for an individual toast — accepts `status` to colour the body       |
+| `ToastViewport`    | Lower-level viewport for custom toast layouts                            |
+| `ToastContent`     | Flex row that holds the icon, title, and description                     |
+| `ToastIcon`        | Styled icon slot — wrap any icon node inside it                          |
+| `ToastTitle`       | Bold message text                                                        |
+| `ToastDescription` | Secondary text                                                           |
+| `ToastAction`      | Underlined action button — uses Base UI's `actionProps` data             |
+| `ToastCancel`      | Cancel button rendered when `data.cancelProps` is set (e.g. on loading)  |
+| `ToastClose`       | Close button on the trailing edge                                        |

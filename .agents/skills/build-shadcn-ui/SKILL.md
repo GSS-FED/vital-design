@@ -65,3 +65,7 @@ Build Vital Design components as registry-ready primitives first. Prefer thin, c
 pnpm exec vitest run src-v2/components/<component>/<Component>.test.tsx
 pnpm run build
 ```
+
+## Final
+Build like shadcn. Ship like Vital.
+meaning: copyable, composable, boring API; but default UI, density, tokens, and presets feel like Vital Design.
