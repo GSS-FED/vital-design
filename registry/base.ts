@@ -3,6 +3,12 @@ import { vitalThemeCssVars } from './vital-theme-vars';
 
 const iconFiles = [
   {
+    name: 'icon-calendar',
+    title: 'Calendar Icon',
+    path: 'src-v2/icons/CalendarIcon.tsx',
+    target: 'src/components/icons/CalendarIcon.tsx',
+  },
+  {
     name: 'icon-check',
     title: 'Check Icon',
     path: 'src-v2/icons/CheckIcon.tsx',
@@ -19,6 +25,12 @@ const iconFiles = [
     title: 'Clear Icon',
     path: 'src-v2/icons/ClearIcon.tsx',
     target: 'src/components/icons/ClearIcon.tsx',
+  },
+  {
+    name: 'icon-clock',
+    title: 'Clock Icon',
+    path: 'src-v2/icons/ClockIcon.tsx',
+    target: 'src/components/icons/ClockIcon.tsx',
   },
   {
     name: 'icon-close',

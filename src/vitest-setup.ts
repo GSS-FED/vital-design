@@ -27,3 +27,18 @@ if (
     },
   );
 }
+
+if (
+  typeof window !== 'undefined' &&
+  !window.HTMLElement.prototype.scrollIntoView
+) {
+  Object.defineProperty(
+    window.HTMLElement.prototype,
+    'scrollIntoView',
+    {
+      configurable: true,
+      writable: true,
+      value: () => {},
+    },
+  );
+}

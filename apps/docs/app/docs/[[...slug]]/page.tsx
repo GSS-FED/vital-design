@@ -20,6 +20,13 @@ import {
   AlertWithIconPreview,
 } from '~/components/previews/AlertPreview';
 import {
+  CalendarCJKLocalePreview,
+  CalendarDatePickerPreview,
+  CalendarDropdownCaptionPreview,
+  CalendarPreview,
+  CalendarRangePreview,
+} from '~/components/previews/CalendarPreview';
+import {
   CheckboxPreview,
   CheckboxStatesPreview,
 } from '~/components/previews/CheckboxPreview';
@@ -74,6 +81,13 @@ import {
   TagRemovablePreview,
   TagSolidPreview,
 } from '~/components/previews/TagPreview';
+import {
+  TimePickerCustomHeightPreview,
+  TimePickerHoursMinutesPreview,
+  TimePickerInPopoverPreview,
+  TimePickerPreview,
+  TimePickerStepsPreview,
+} from '~/components/previews/TimePickerPreview';
 import { source } from '~/lib/source';
 
 // fumadocs-mdx generates body, toc, etc. from CompiledMDXProperties, but
@@ -121,6 +135,11 @@ export default async function Page({
             AlertPreview,
             AlertWithIconPreview,
             AlertCustomContentPreview,
+            CalendarPreview,
+            CalendarRangePreview,
+            CalendarDropdownCaptionPreview,
+            CalendarCJKLocalePreview,
+            CalendarDatePickerPreview,
             ChipPreview,
             ChipStatesPreview,
             ComboboxPreview,
@@ -152,6 +171,11 @@ export default async function Page({
             SliderStepPreview,
             SliderMinMaxPreview,
             SliderVerticalPreview,
+            TimePickerPreview,
+            TimePickerHoursMinutesPreview,
+            TimePickerStepsPreview,
+            TimePickerCustomHeightPreview,
+            TimePickerInPopoverPreview,
           }}
         />
       </DocsBody>

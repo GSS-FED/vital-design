@@ -1,0 +1,165 @@
+---
+title: Calendar
+description: Date picker calendar built on react-day-picker. Single, range, and multi-select modes with full classNames and components overrides.
+---
+
+import {
+  CalendarCJKLocalePreview,
+  CalendarDatePickerPreview,
+  CalendarDropdownCaptionPreview,
+  CalendarPreview,
+  CalendarRangePreview,
+} from '~/components/previews/CalendarPreview';
+
+## Preview
+
+<CalendarPreview />
+
+## Usage
+
+```tsx
+import { Calendar } from '@/components/ui/Calendar';
+import { useState } from 'react';
+
+function Demo() {
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  return <Calendar mode="single" selected={date} onSelect={setDate} />;
+}
+```
+
+## Range Selection
+
+<CalendarRangePreview />
+
+```tsx
+import { Calendar } from '@/components/ui/Calendar';
+import { addDays } from 'date-fns';
+import { useState } from 'react';
+import type { DateRange } from 'react-day-picker';
+
+function RangeDemo() {
+  const [range, setRange] = useState<DateRange | undefined>({
+    from: new Date(),
+    to: addDays(new Date(), 8),
+  });
+  return (
+    <Calendar
+      mode="range"
+      selected={range}
+      onSelect={setRange}
+      numberOfMonths={2}
+    />
+  );
+}
+```
+
+## Year/Month Dropdown Caption
+
+<CalendarDropdownCaptionPreview />
+
+Pass `captionLayout="dropdown"` (or `"dropdown-months"` / `"dropdown-years"`) and bound the navigable range with `startMonth` / `endMonth`.
+
+```tsx
+<Calendar
+  mode="single"
+  captionLayout="dropdown"
+  startMonth={new Date(2000, 0)}
+  endMonth={new Date(2030, 11)}
+/>
+```
+
+## Localization
+
+<CalendarCJKLocalePreview />
+
+Override individual `formatters` to localize weekday names and the month caption. No props on the primitive — pure react-day-picker pass-through.
+
+```tsx
+const weekLabels = ['日', '一', '二', '三', '四', '五', '六'];
+
+<Calendar
+  mode="single"
+  formatters={{
+    formatWeekdayName: (d) => weekLabels[d.getDay()] ?? '',
+    formatCaption: (d) => `${d.getFullYear()}  ${d.getMonth() + 1}月`,
+  }}
+/>;
+```
+
+## Date Picker (Popover + Calendar)
+
+There is no separate `DatePicker` component — compose `Popover`, `Calendar`, and an input-style trigger:
+
+<CalendarDatePickerPreview />
+
+```tsx
+import { Calendar } from '@/components/ui/Calendar';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@/components/ui/InputGroup';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/Popover';
+import { CalendarIcon } from '@/components/icons/CalendarIcon';
+import { format } from 'date-fns';
+import { useState } from 'react';
+
+function DatePicker() {
+  const [date, setDate] = useState<Date | undefined>();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger
+        render={
+          <InputGroup className="cursor-pointer">
+            <InputGroupInput
+              readOnly
+              value={date ? format(date, 'yyyy/MM/dd') : ''}
+              placeholder="Pick a date"
+              className="cursor-pointer"
+            />
+            <InputGroupAddon align="inline-end">
+              <CalendarIcon width={16} height={16} />
+            </InputGroupAddon>
+          </InputGroup>
+        }
+      />
+      <PopoverContent className="p-0" sideOffset={8}>
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={(next) => {
+            setDate(next);
+            if (next) setOpen(false);
+          }}
+        />
+      </PopoverContent>
+    </Popover>
+  );
+}
+```
+
+## Props
+
+`Calendar` extends [`DayPickerProps`](https://daypicker.dev/api/interfaces/DayPickerProps) from `react-day-picker`. The most common props:
+
+| Prop              | Type                                                                            | Default   | Description                                              |
+| ----------------- | ------------------------------------------------------------------------------- | --------- | -------------------------------------------------------- |
+| `mode`            | `'single' \| 'range' \| 'multiple'`                                             | —         | Selection mode                                           |
+| `selected`        | `Date \| DateRange \| Date[]`                                                   | —         | Selected date(s); shape depends on `mode`                |
+| `onSelect`        | `(value) => void`                                                               | —         | Called when selection changes                            |
+| `numberOfMonths`  | `number`                                                                        | `1`       | How many months to render side-by-side                   |
+| `showOutsideDays` | `boolean`                                                                       | `true`    | Render leading/trailing days from adjacent months        |
+| `captionLayout`   | `'label' \| 'dropdown' \| 'dropdown-months' \| 'dropdown-years'`                | `'label'` | Month/year header style                                  |
+| `startMonth`      | `Date`                                                                          | —         | Earliest month the user can navigate to                  |
+| `endMonth`        | `Date`                                                                          | —         | Latest month the user can navigate to                    |
+| `disabled`        | `Matcher \| Matcher[]`                                                          | —         | Days that cannot be selected (see react-day-picker docs) |
+| `formatters`      | `Partial<Formatters>`                                                           | —         | Override label formatters (weekday, caption, etc.)       |
+| `classNames`      | `Partial<ClassNames>`                                                           | —         | Override class names per part                            |
+| `components`      | `Partial<CustomComponents>`                                                     | —         | Override built-in components (e.g. `Nav`, `DayButton`)   |
+| `className`       | `string`                                                                        | —         | Additional classes on root                               |

@@ -5,9 +5,11 @@ export type RegistryItemName =
   | 'vital-theme'
   | 'vital-design-base'
   | 'vital-icons'
+  | 'icon-calendar'
   | 'icon-check'
   | 'icon-chevron'
   | 'icon-clear'
+  | 'icon-clock'
   | 'icon-close'
   | 'icon-disabled'
   | 'icon-eye'
@@ -51,7 +53,9 @@ export type RegistryItemName =
   | 'dialog'
   | 'slider'
   | 'table'
-  | 'toolbar';
+  | 'toolbar'
+  | 'calendar'
+  | 'time-picker';
 
 /**
  * Extends the official shadcn RegistryItem with:

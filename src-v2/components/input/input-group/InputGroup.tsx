@@ -180,7 +180,7 @@ const InputGroupInput = forwardRef<
       ref={ref}
       data-slot="input-group-control"
       className={cn(
-        'flex-1 rounded-none border-0 bg-transparent px-0 py-0 shadow-none',
+        'flex-1 rounded-none border-0 bg-transparent shadow-none',
         'hover:border-0 focus-visible:border-0 focus-visible:ring-0 disabled:bg-transparent',
         'aria-invalid:border-0 aria-invalid:ring-0',
         className,
@@ -202,7 +202,7 @@ const InputGroupTextarea = forwardRef<
       ref={ref}
       data-slot="input-group-control"
       className={cn(
-        'flex-1 resize-none rounded-none border-0 bg-transparent px-0 py-2 shadow-none',
+        'flex-1 resize-none rounded-none border-0 bg-transparent py-2 shadow-none',
         'hover:border-0 focus-visible:border-0 focus-visible:ring-0 disabled:bg-transparent',
         'aria-invalid:border-0 aria-invalid:ring-0',
         className,

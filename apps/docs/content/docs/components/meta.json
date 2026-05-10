@@ -23,6 +23,8 @@
     "dropdown-menu",
     "dialog",
     "slider",
+    "calendar",
+    "time-picker",
     "switch",
     "tag",
     "checkbox",

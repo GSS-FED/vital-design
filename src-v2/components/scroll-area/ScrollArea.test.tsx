@@ -35,7 +35,7 @@ describe('ScrollArea', () => {
 
     const viewport = screen.getByTestId('viewport');
 
-    expect(viewport).toHaveClass('mask-image');
+    expect(viewport).toHaveClass('[mask-repeat:no-repeat]');
     expect(viewport).toHaveStyle({
       '--vital-scroll-area-fade-size': '24px',
     });

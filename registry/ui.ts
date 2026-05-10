@@ -693,4 +693,46 @@ export const ui = [
       },
     ],
   },
+  {
+    name: 'calendar',
+    type: 'registry:ui',
+    title: 'Calendar',
+    description:
+      'Date picker calendar built on react-day-picker; supports single, range, and multi-select modes plus full classNames/components overrides',
+    dependencies: [
+      'react-day-picker',
+      'date-fns',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-chevron',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/calendar/Calendar.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'time-picker',
+    type: 'registry:ui',
+    title: 'Time Picker',
+    description:
+      'Three-column time picker (hours, minutes, seconds) with click-to-select and CSS scroll-snap',
+    dependencies: ['clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/time-picker/TimePicker.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
 ] satisfies VitalRegistryItem[];
