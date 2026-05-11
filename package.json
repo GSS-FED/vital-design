@@ -35,7 +35,7 @@
     "release": "semantic-release",
     "docs:dev": "pnpm --filter @fed/vital-docs dev",
     "docs:lint": "pnpm --filter @fed/vital-docs lint",
-    "docs:build": "pnpm --filter @fed/vital-docs build",
+    "docs:build": "pnpm run tokens:build:css && pnpm --filter @fed/vital-docs build",
     "docs:start": "pnpm --filter @fed/vital-docs start"
   },
   "dependencies": {
