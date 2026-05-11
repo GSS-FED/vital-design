@@ -735,4 +735,41 @@ export const ui = [
       },
     ],
   },
+  {
+    name: 'collapsible',
+    type: 'registry:ui',
+    title: 'Collapsible',
+    description:
+      'Expand and collapse a panel with a trigger button; built on Base UI primitives',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/collapsible/Collapsible.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'sheet',
+    type: 'registry:ui',
+    title: 'Sheet',
+    description:
+      'Side-anchored dialog that slides in from any edge; modal by default, supports docked panel mode via `modal={false}`',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-close',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/sheet/Sheet.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
 ] satisfies VitalRegistryItem[];

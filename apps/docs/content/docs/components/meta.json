@@ -22,6 +22,8 @@
     "toast",
     "dropdown-menu",
     "dialog",
+    "sheet",
+    "collapsible",
     "slider",
     "calendar",
     "time-picker",

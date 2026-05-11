@@ -33,34 +33,8 @@ function mergeClassName<State>(
   return cn(baseClassName, className);
 }
 
-const dialogTriggerClasses = [
-  'inline-flex h-8 items-center justify-center px-4',
-  'rounded-[var(--radius-xl)] bg-primary-500',
-  'font-sans text-sm leading-5 text-white',
-  'transition-colors duration-150',
-  'cursor-pointer hover:bg-primary-400 active:bg-primary-600',
-  'focus-visible:shadow-focus-primary focus-visible:outline-none',
-  'disabled:cursor-not-allowed disabled:opacity-60',
-  'data-disabled:cursor-not-allowed data-disabled:opacity-60',
-].join(' ');
-
-const dialogBackdropClasses = [
-  'fixed inset-0 z-[9998] bg-grayscale-900/40',
-  'duration-150 data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0',
-].join(' ');
-
-const dialogViewportClasses = [
-  'fixed inset-0 z-[9999] flex min-h-dvh items-center justify-center',
-  'overflow-y-auto px-4 py-4',
-].join(' ');
-
 const dialogPopupVariants = cva(
-  [
-    'box-border flex w-full max-h-[calc(100vh-2rem)] flex-col',
-    'overflow-hidden rounded-[var(--radius-sm)] bg-white',
-    'font-sans text-grayscale-800 shadow-top-level outline-none',
-    'duration-150 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95',
-  ],
+  'box-border flex w-full max-h-[calc(100vh-2rem)] flex-col overflow-hidden rounded-[var(--radius-sm)] bg-white font-sans text-grayscale-800 shadow-top-level outline-none duration-150 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95',
   {
     variants: {
       size: {
@@ -74,22 +48,6 @@ const dialogPopupVariants = cva(
     },
   },
 );
-
-const dialogTitleBaseClasses =
-  'font-sans text-lg font-medium leading-6';
-
-const dialogDescriptionBaseClasses = 'font-sans text-sm leading-5';
-
-const dialogCloseBaseClasses = [
-  'inline-flex items-center justify-center',
-  'font-sans text-sm leading-5',
-  'h-6 text-white hover:text-white/40',
-  'disabled:text-white/40 data-disabled:text-white/40',
-  'transition-colors duration-200',
-  'cursor-pointer',
-  'focus-visible:shadow-focus-primary focus-visible:outline-none',
-  'disabled:cursor-not-allowed data-disabled:cursor-not-allowed',
-].join(' ');
 
 export type DialogProps<Payload = unknown> =
   BaseDialogRoot.Props<Payload>;
@@ -112,8 +70,9 @@ const DialogTrigger = forwardRef<
     <BaseDialog.Trigger
       ref={ref}
       type={type}
+      data-slot="dialog-trigger"
       className={mergeClassName<BaseDialogTrigger.State>(
-        dialogTriggerClasses,
+        'inline-flex h-8 cursor-pointer items-center justify-center rounded-[var(--radius-xl)] bg-primary-500 px-4 font-sans text-sm leading-5 text-white transition-colors duration-150 hover:bg-primary-400 active:bg-primary-600 focus-visible:shadow-focus-primary focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60 data-disabled:cursor-not-allowed data-disabled:opacity-60',
         className,
       )}
       {...props}
@@ -138,8 +97,9 @@ const DialogBackdrop = forwardRef<
   return (
     <BaseDialog.Backdrop
       ref={ref}
+      data-slot="dialog-backdrop"
       className={mergeClassName<BaseDialogBackdrop.State>(
-        dialogBackdropClasses,
+        'fixed inset-0 z-[9998] bg-grayscale-900/40 duration-150 data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0',
         className,
       )}
       {...props}
@@ -156,8 +116,9 @@ const DialogViewport = forwardRef<
   return (
     <BaseDialog.Viewport
       ref={ref}
+      data-slot="dialog-viewport"
       className={mergeClassName<BaseDialogViewport.State>(
-        dialogViewportClasses,
+        'fixed inset-0 z-[9999] flex min-h-dvh items-center justify-center overflow-y-auto px-4 py-4',
         className,
       )}
       {...props}
@@ -180,6 +141,7 @@ const DialogPopup = forwardRef<HTMLDivElement, DialogPopupProps>(
     return (
       <BaseDialog.Popup
         ref={ref}
+        data-slot="dialog-popup"
         className={mergeClassName<BaseDialogPopup.State>(
           dialogPopupVariants({ size }),
           className,
@@ -199,9 +161,10 @@ const DialogTitle = forwardRef<HTMLHeadingElement, DialogTitleProps>(
     return (
       <BaseDialog.Title
         ref={ref}
+        data-slot="dialog-title"
         className={mergeClassName<BaseDialogTitle.State>(
           cn(
-            dialogTitleBaseClasses,
+            'font-sans text-lg font-medium leading-6',
             isInHeader ? 'text-white' : 'text-grayscale-900',
           ),
           className,
@@ -223,9 +186,10 @@ const DialogDescription = forwardRef<
   return (
     <BaseDialog.Description
       ref={ref}
+      data-slot="dialog-description"
       className={mergeClassName<BaseDialogDescription.State>(
         cn(
-          dialogDescriptionBaseClasses,
+          'font-sans text-sm leading-5',
           isInHeader ? 'text-white' : 'text-grayscale-600',
         ),
         className,
@@ -257,6 +221,7 @@ const DialogClose = forwardRef<HTMLButtonElement, DialogCloseProps>(
         ref={ref}
         type={type}
         render={render}
+        data-slot="dialog-close"
         aria-label={
           ariaLabel ??
           (hasChildren || hasCustomRender ? undefined : 'Close')
@@ -265,7 +230,7 @@ const DialogClose = forwardRef<HTMLButtonElement, DialogCloseProps>(
           hasCustomRender
             ? className
             : mergeClassName<BaseDialogClose.State>(
-                cn(dialogCloseBaseClasses),
+                'inline-flex h-6 cursor-pointer items-center justify-center font-sans text-sm leading-5 text-white transition-colors duration-200 hover:text-white/40 focus-visible:shadow-focus-primary focus-visible:outline-none disabled:cursor-not-allowed disabled:text-white/40 data-disabled:cursor-not-allowed data-disabled:text-white/40',
                 className,
               )
         }
@@ -289,9 +254,9 @@ const DialogHeader = forwardRef<HTMLDivElement, DialogHeaderProps>(
       <DialogHeaderContext.Provider value={true}>
         <div
           ref={ref}
+          data-slot="dialog-header"
           className={cn(
-            'flex items-start justify-between gap-4 pl-4 pr-3.5 py-2.25',
-            'bg-(image:--gradient-primary)',
+            'flex items-start justify-between gap-4 bg-(image:--gradient-primary) py-2.25 pl-4 pr-3.5',
             className,
           )}
           {...props}
@@ -308,6 +273,7 @@ const DialogBody = forwardRef<HTMLDivElement, DialogBodyProps>(
     return (
       <div
         ref={ref}
+        data-slot="dialog-body"
         className={cn(
           'min-h-0 flex-1 overflow-auto px-4 py-6 text-sm text-grayscale-700',
           className,
@@ -325,9 +291,9 @@ const DialogFooter = forwardRef<HTMLDivElement, DialogFooterProps>(
     return (
       <div
         ref={ref}
+        data-slot="dialog-footer"
         className={cn(
-          'flex items-center justify-end gap-2.5 px-5 py-2',
-          'bg-grayscale-100 border-t border-t-gray-200',
+          'flex items-center justify-end gap-2.5 border-t border-t-gray-200 bg-grayscale-100 px-5 py-2',
           className,
         )}
         {...props}

@@ -55,7 +55,9 @@ export type RegistryItemName =
   | 'table'
   | 'toolbar'
   | 'calendar'
-  | 'time-picker';
+  | 'time-picker'
+  | 'collapsible'
+  | 'sheet';
 
 /**
  * Extends the official shadcn RegistryItem with:

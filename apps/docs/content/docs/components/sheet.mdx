@@ -1,0 +1,131 @@
+---
+title: Sheet
+description: A side-anchored dialog that slides in from any edge — for navigation, filters, forms, and inspectors.
+---
+
+import {
+  SheetNonModalPreview,
+  SheetPreview,
+  SheetSidesPreview,
+} from '~/components/previews/SheetPreview';
+
+## Preview
+
+<SheetPreview />
+
+## Usage
+
+`Sheet` is built on Base UI Dialog. The `SheetContent` part bundles the portal, overlay, popup, and a corner close button so the common case is a single composition.
+
+```tsx
+import { Button } from '@/components/ui/Button';
+import {
+  Sheet,
+  SheetBody,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/Sheet';
+
+function EditProfileSheet() {
+  return (
+    <Sheet>
+      <SheetTrigger render={<Button>Open sheet</Button>} />
+      <SheetContent>
+        <SheetHeader>
+          <SheetTitle>Edit profile</SheetTitle>
+          <SheetDescription>
+            Make changes to your profile here. Click save when you are
+            done.
+          </SheetDescription>
+        </SheetHeader>
+        <SheetBody>{/* form fields */}</SheetBody>
+        <SheetFooter>
+          <SheetClose
+            render={
+              <Button variant="text" theme="default">
+                Cancel
+              </Button>
+            }
+          />
+          <SheetClose render={<Button>Save</Button>} />
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
+  );
+}
+```
+
+## Sides
+
+The `side` prop on `SheetContent` controls which edge the sheet slides in from.
+
+<SheetSidesPreview />
+
+```tsx
+<SheetContent side="top">...</SheetContent>
+<SheetContent side="right">...</SheetContent>
+<SheetContent side="bottom">...</SheetContent>
+<SheetContent side="left">...</SheetContent>
+```
+
+## Non-modal docked panel
+
+Pass `modal={false}` on the `Sheet` root to drop the backdrop and keep the page interactive. Use this for filters, inspectors, or any panel that should coexist with the main content.
+
+<SheetNonModalPreview />
+
+```tsx
+<Sheet modal={false}>
+  <SheetTrigger render={<Button>Open docked panel</Button>} />
+  <SheetContent>
+    <SheetHeader>
+      <SheetTitle>Filters</SheetTitle>
+    </SheetHeader>
+    <SheetBody>{/* filter controls */}</SheetBody>
+  </SheetContent>
+</Sheet>
+```
+
+The overlay rendering is tied to `modal` automatically — when the sheet is non-modal, no backdrop is rendered.
+
+## Anatomy
+
+```tsx
+<Sheet>
+  <SheetTrigger />
+  <SheetContent>
+    <SheetHeader>
+      <SheetTitle />
+      <SheetDescription />
+    </SheetHeader>
+    <SheetBody />
+    <SheetFooter>
+      <SheetClose />
+    </SheetFooter>
+  </SheetContent>
+</Sheet>
+```
+
+## Props
+
+`Sheet` accepts Base UI `Dialog.Root` props, including `open`, `defaultOpen`, `onOpenChange`, and `modal`.
+
+### SheetContent
+
+| Prop               | Type                                       | Default   | Description                                          |
+| ------------------ | ------------------------------------------ | --------- | ---------------------------------------------------- |
+| `side`             | `'top' \| 'right' \| 'bottom' \| 'left'`   | `'right'` | Edge the sheet slides in from                        |
+| `showCloseButton`  | `boolean`                                  | `true`    | Render a corner close button                         |
+| `closeLabel`       | `string`                                   | `'Close'` | `aria-label` for the corner close button             |
+| `overlayClassName` | `string`                                   | -         | Custom classes for the overlay (when rendered)       |
+| `portalContainer`  | `HTMLElement \| null`                      | -         | Custom portal container                              |
+| `className`        | `string`                                   | -         | Additional classes on the popup                      |
+
+## Accessibility
+
+Always include `SheetTitle` for screen readers; add `SheetDescription` when the sheet's purpose is not obvious from the title alone. Keep destructive or irreversible actions explicit in the footer.

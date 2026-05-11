@@ -35,6 +35,10 @@ import {
   ChipStatesPreview,
 } from '~/components/previews/ChipPreview';
 import {
+  CollapsiblePreview,
+  CollapsibleProductDetailsPreview,
+} from '~/components/previews/CollapsiblePreview';
+import {
   ComboboxMultiplePreview,
   ComboboxPreview,
 } from '~/components/previews/ComboboxPreview';
@@ -58,6 +62,11 @@ import {
   SelectMultiplePreview,
   SelectPreview,
 } from '~/components/previews/SelectPreview';
+import {
+  SheetNonModalPreview,
+  SheetPreview,
+  SheetSidesPreview,
+} from '~/components/previews/SheetPreview';
 import {
   SliderDisabledPreview,
   SliderMinMaxPreview,
@@ -142,12 +151,17 @@ export default async function Page({
             CalendarDatePickerPreview,
             ChipPreview,
             ChipStatesPreview,
+            CollapsiblePreview,
+            CollapsibleProductDetailsPreview,
             ComboboxPreview,
             ComboboxMultiplePreview,
             DialogPreview,
             DialogSizesPreview,
             SelectPreview,
             SelectMultiplePreview,
+            SheetPreview,
+            SheetSidesPreview,
+            SheetNonModalPreview,
             SwitchPreview,
             SwitchDisabledPreview,
             SwitchInvalidPreview,
