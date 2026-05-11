@@ -19,6 +19,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={roboto.variable}>
         <RootProvider
+          search={{
+            options: {
+              type: 'static',
+            },
+          }}
           theme={{
             defaultTheme: 'light',
             forcedTheme: 'light',

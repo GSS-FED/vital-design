@@ -5,6 +5,7 @@ import path from 'path';
 const withMDX = createMDX();
 
 const config: NextConfig = {
+  output: 'export',
   transpilePackages: ['@fed/vital-design'],
   reactStrictMode: true,
   outputFileTracingRoot: path.resolve(__dirname, '../../'),
