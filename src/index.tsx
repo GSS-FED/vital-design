@@ -9,6 +9,12 @@ import Checkbox, {
   type CheckboxProps,
 } from './components/checkbox/Checkbox';
 import Chip, { type ChipProps } from './components/chip/Chip';
+import ActionInfiniteList, {
+  type ActionInfiniteListProps,
+} from './components/list/action-infinite-list/ActionInfiniteList';
+import ActionList, {
+  type ActionListProps,
+} from './components/list/action-list/ActionList';
 import RadioGroup, {
   type RadioGroupProps,
   type RadioOption,
@@ -37,6 +43,8 @@ import TreeSelect, {
 
 export {
   Avatar,
+  ActionInfiniteList,
+  ActionList,
   Button,
   Checkbox,
   Chip,
@@ -51,6 +59,8 @@ export {
 
 export type {
   AvatarProps,
+  ActionInfiniteListProps,
+  ActionListProps,
   ButtonProps,
   CheckboxProps,
   ChipProps,
