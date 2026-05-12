@@ -92,7 +92,7 @@ describe('Command', () => {
 
     expect(onBack).toHaveBeenCalled();
     expect(
-      screen.getByLabelText('Loading animation'),
+      screen.getByRole('progressbar', { name: /Loading/ }),
     ).toBeInTheDocument();
   });
 });

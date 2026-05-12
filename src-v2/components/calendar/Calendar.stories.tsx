@@ -9,12 +9,10 @@ import {
   PopoverTrigger,
 } from '@/components/popover/Popover';
 import { CalendarIcon } from '@/icons/CalendarIcon';
-import {
-  ChevronDoubleLeftIcon,
-  ChevronDoubleRightIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from '@/icons/ChevronIcon';
+import { ChevronDoubleLeftIcon } from '@/icons/ChevronDoubleLeftIcon';
+import { ChevronDoubleRightIcon } from '@/icons/ChevronDoubleRightIcon';
+import { ChevronLeftIcon } from '@/icons/ChevronLeftIcon';
+import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
 import { cn } from '@/lib/utils';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { addDays, addYears, format } from 'date-fns';
@@ -171,7 +169,7 @@ function YearJumpNavComponent({ className }: NavProps) {
           }
           className={navButton}
         >
-          <ChevronDoubleLeftIcon width={11} height={10} />
+          <ChevronDoubleLeftIcon className="size-[11px]" />
         </button>
         <button
           type="button"
@@ -180,7 +178,7 @@ function YearJumpNavComponent({ className }: NavProps) {
           onClick={() => previousMonth && goToMonth(previousMonth)}
           className={navButton}
         >
-          <ChevronLeftIcon width={6} height={11} opacity={1} />
+          <ChevronLeftIcon className="size-[11px]" />
         </button>
       </div>
       <div className="flex">
@@ -191,7 +189,7 @@ function YearJumpNavComponent({ className }: NavProps) {
           onClick={() => nextMonth && goToMonth(nextMonth)}
           className={navButton}
         >
-          <ChevronRightIcon width={6} height={11} />
+          <ChevronRightIcon className="size-[11px]" />
         </button>
         <button
           type="button"
@@ -202,7 +200,7 @@ function YearJumpNavComponent({ className }: NavProps) {
           }
           className={navButton}
         >
-          <ChevronDoubleRightIcon width={11} height={10} />
+          <ChevronDoubleRightIcon className="size-[11px]" />
         </button>
       </div>
     </nav>
@@ -228,11 +226,7 @@ export const InsideDatePicker: Story = {
                   className="cursor-pointer"
                 />
                 <InputGroupAddon align="inline-end">
-                  <CalendarIcon
-                    width={16}
-                    height={16}
-                    className="text-grayscale-500"
-                  />
+                  <CalendarIcon className="size-4 text-grayscale-500" />
                 </InputGroupAddon>
               </InputGroup>
             }

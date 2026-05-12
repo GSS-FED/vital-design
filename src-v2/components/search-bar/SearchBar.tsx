@@ -99,7 +99,7 @@ export function SearchBar(props: SearchBarProps) {
           clickable: isSearchIconClickable && !disabled,
         })}
       >
-        <SearchIcon width={18} height={18} />
+        <SearchIcon className="size-4.5" />
       </InputGroupAddon>
 
       <InputGroupInput

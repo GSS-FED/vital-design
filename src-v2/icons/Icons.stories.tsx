@@ -1,12 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentType, SVGProps } from 'react';
 import { CheckIcon } from './CheckIcon';
-import {
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ChevronUpIcon,
-} from './ChevronIcon';
+import { ChevronDownIcon } from './ChevronDownIcon';
+import { ChevronLeftIcon } from './ChevronLeftIcon';
+import { ChevronRightIcon } from './ChevronRightIcon';
+import { ChevronUpIcon } from './ChevronUpIcon';
 import { ClearIcon } from './ClearIcon';
 import { CloseIcon } from './CloseIcon';
 import { DisabledIcon } from './DisabledIcon';
@@ -104,11 +102,8 @@ export const Spinner: Story = {
   render: function Render() {
     return (
       <div className="flex items-center gap-4">
-        <SpinnerIcon className="size-6 text-primary-500" />
-        <SpinnerIcon
-          className="size-6 text-grayscale-500"
-          animated={false}
-        />
+        <SpinnerIcon className="size-6 animate-spin text-primary-500" />
+        <SpinnerIcon className="size-6 text-grayscale-500" />
       </div>
     );
   },

@@ -147,7 +147,7 @@ const SheetContent = forwardRef<
             aria-label={closeLabel}
             className="absolute right-3 top-3 inline-flex h-6 w-6 cursor-pointer items-center justify-center rounded-(--radius-xs) text-grayscale-600 transition-colors duration-150 hover:bg-grayscale-100 hover:text-grayscale-900 focus-visible:shadow-focus-primary focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60 data-disabled:cursor-not-allowed data-disabled:opacity-60"
           >
-            <CloseIcon width={14} height={14} />
+            <CloseIcon />
           </BaseDialog.Close>
         ) : null}
       </BaseDialog.Popup>

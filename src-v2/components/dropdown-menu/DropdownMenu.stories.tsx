@@ -47,19 +47,11 @@ export const WithIcons: Story = {
       <DropdownMenuTrigger render={<Button>Quick actions</Button>} />
       <DropdownMenuContent>
         <DropdownMenuItem>
-          <SearchIcon
-            data-icon="inline-start"
-            width={14}
-            height={14}
-          />
+          <SearchIcon data-icon="inline-start" className="size-3.5" />
           <span>Search</span>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <CheckIcon
-            data-icon="inline-start"
-            width={14}
-            height={14}
-          />
+          <CheckIcon data-icon="inline-start" className="size-3.5" />
           <span>Mark complete</span>
         </DropdownMenuItem>
       </DropdownMenuContent>

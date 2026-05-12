@@ -1,6 +1,6 @@
-import { ChevronLeftIcon } from '@/icons/ChevronIcon';
+import { Spinner } from '@/components/spinner/Spinner';
+import { ChevronLeftIcon } from '@/icons/ChevronLeftIcon';
 import { SearchIcon } from '@/icons/SearchIcon';
-import { SpinnerIcon } from '@/icons/SpinnerIcon';
 import { cn } from '@/lib/utils';
 import { Command as CommandPrimitive } from 'cmdk';
 import { forwardRef } from 'react';
@@ -56,7 +56,7 @@ const CommandInput = forwardRef<
     >
       {prefix ?? (
         <span className="flex shrink-0 items-center text-grayscale-500">
-          <SearchIcon width={13} height={13} />
+          <SearchIcon className="size-[13px]" />
         </span>
       )}
       <CommandPrimitive.Input
@@ -230,11 +230,7 @@ const CommandLoading = forwardRef<
       {...props}
     >
       {children ?? indicator ?? (
-        <SpinnerIcon
-          width={18}
-          height={18}
-          fill="var(--grayscale-400)"
-        />
+        <Spinner className="size-[18px] text-grayscale-400" />
       )}
     </CommandPrimitive.Loading>
   );

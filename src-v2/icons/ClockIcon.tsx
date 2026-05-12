@@ -1,31 +1,15 @@
-import type { ComponentPropsWithoutRef } from 'react';
+import type { SVGProps } from 'react';
 
-type IconProps = ComponentPropsWithoutRef<'svg'>;
-
-export const ClockIcon = (props: IconProps) => {
-  const {
-    width = 16,
-    height,
-    color,
-    fill,
-    fillOpacity,
-    opacity,
-    ...svgProps
-  } = props;
-  return (
-    <svg
-      width={width}
-      height={height ?? width}
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...svgProps}
-    >
-      <path
-        d="M8 1.5C11.5898 1.5 14.5 4.41016 14.5 8C14.5 11.5898 11.5898 14.5 8 14.5C4.41016 14.5 1.5 11.5898 1.5 8C1.5 4.41016 4.41016 1.5 8 1.5ZM8 13.5C11.0376 13.5 13.5 11.0376 13.5 8C13.5 4.96243 11.0376 2.5 8 2.5C4.96243 2.5 2.5 4.96243 2.5 8C2.5 11.0376 4.96243 13.5 8 13.5ZM8.5 4.5V8.20703L10.7148 9.78125C10.957 9.93164 11.0273 10.2461 10.8867 10.4883C10.7461 10.7305 10.4316 10.8008 10.1875 10.6406L7.6875 8.85938C7.56055 8.78125 7.5 8.64453 7.5 8.5V4.5C7.5 4.22383 7.72383 4 8 4C8.27617 4 8.5 4.22383 8.5 4.5Z"
-        fill={fill ?? color ?? 'currentColor'}
-        fillOpacity={fillOpacity ?? opacity}
-      />
-    </svg>
-  );
-};
+export const ClockIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 16 16"
+    width="1em"
+    height="1em"
+    fill="currentColor"
+    aria-hidden="true"
+    {...props}
+  >
+    <path d="M8 1.5C11.5898 1.5 14.5 4.41016 14.5 8C14.5 11.5898 11.5898 14.5 8 14.5C4.41016 14.5 1.5 11.5898 1.5 8C1.5 4.41016 4.41016 1.5 8 1.5ZM8 13.5C11.0376 13.5 13.5 11.0376 13.5 8C13.5 4.96243 11.0376 2.5 8 2.5C4.96243 2.5 2.5 4.96243 2.5 8C2.5 11.0376 4.96243 13.5 8 13.5ZM8.5 4.5V8.20703L10.7148 9.78125C10.957 9.93164 11.0273 10.2461 10.8867 10.4883C10.7461 10.7305 10.4316 10.8008 10.1875 10.6406L7.6875 8.85938C7.56055 8.78125 7.5 8.64453 7.5 8.5V4.5C7.5 4.22383 7.72383 4 8 4C8.27617 4 8.5 4.22383 8.5 4.5Z" />
+  </svg>
+);

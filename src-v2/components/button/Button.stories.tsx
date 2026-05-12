@@ -7,7 +7,7 @@ import { Spinner } from '@/components/spinner/Spinner';
 import {
   ChevronDownIcon,
   ChevronUpIcon,
-  ClearIcon,
+  CloseIcon,
   FlagIcon,
   SearchIcon,
 } from '@/icons';
@@ -105,8 +105,8 @@ export const IconOnly: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <Row>
-      <Button size="icon-md" theme="default" aria-label="Clear">
-        <ClearIcon data-icon="inline-start" />
+      <Button size="icon-md" theme="default" aria-label="Close">
+        <CloseIcon data-icon="inline-start" />
       </Button>
       <Button size="icon-md" theme="primary" aria-label="Search">
         <SearchIcon data-icon="inline-start" />

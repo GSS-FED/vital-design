@@ -6,7 +6,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/collapsible/Collapsible';
-import { ChevronDownIcon } from '@/icons/ChevronIcon';
+import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 export function CollapsiblePreview() {

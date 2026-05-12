@@ -1,5 +1,5 @@
 import { CheckIcon } from '@/icons/CheckIcon';
-import { ChevronRightIcon } from '@/icons/ChevronIcon';
+import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
 import { cn } from '@/lib/utils';
 import { Menu as BaseMenu } from '@base-ui/react/menu';
 import { forwardRef } from 'react';
@@ -221,7 +221,7 @@ const DropdownMenuCheckboxItem = forwardRef<
         className="absolute left-3 grid h-4 w-4 place-content-center text-primary-500"
       >
         <BaseMenu.CheckboxItemIndicator data-slot="dropdown-menu-checkbox-item-indicator">
-          <CheckIcon width={12} height={9} />
+          <CheckIcon className="size-3" />
         </BaseMenu.CheckboxItemIndicator>
       </span>
       {children}

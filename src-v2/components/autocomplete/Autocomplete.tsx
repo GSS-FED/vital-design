@@ -1,4 +1,5 @@
-import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
+import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
+import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
 import { SearchIcon } from '@/icons/SearchIcon';
 import { cn } from '@/lib/utils';
@@ -99,13 +100,11 @@ const Trigger = forwardRef<
         <>
           <ChevronDownIcon
             data-slot="autocomplete-trigger-icon-down"
-            width={14}
-            className="block group-data-[popup-open]:hidden"
+            className="block size-3.5 group-data-[popup-open]:hidden"
           />
           <ChevronUpIcon
             data-slot="autocomplete-trigger-icon-up"
-            width={14}
-            className="hidden group-data-[popup-open]:block"
+            className="hidden size-3.5 group-data-[popup-open]:block"
           />
         </>
       )}
@@ -131,7 +130,7 @@ const Icon = forwardRef<
       )}
       {...props}
     >
-      {children ?? <SearchIcon width={18} height={18} />}
+      {children ?? <SearchIcon className="size-4.5" />}
     </BaseAutocomplete.Icon>
   );
 });
@@ -149,14 +148,14 @@ const Clear = forwardRef<
       ref={ref}
       data-slot="autocomplete-clear"
       className={cn(
-        'grid h-5 w-5 shrink-0 cursor-pointer place-content-center outline-none',
+        'grid h-5 w-5 shrink-0 cursor-pointer place-content-center text-grayscale-900 outline-none',
         'hover:[&_svg>path]:fill-grayscale-700 hover:[&_svg>path]:transition-colors hover:[&_svg>path]:duration-200',
         'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
         className,
       )}
       {...props}
     >
-      {children ?? <ClearIcon width={20} />}
+      {children ?? <ClearIcon className="size-5" />}
     </BaseAutocomplete.Clear>
   );
 });

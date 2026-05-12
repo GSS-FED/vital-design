@@ -15,14 +15,12 @@ it('applies custom svg props', () => {
   render(
     <Spinner
       aria-label="Saving"
-      className="text-primary-500"
+      className="size-5 text-primary-500"
       data-testid="spinner"
-      width={20}
     />,
   );
   const spinner = screen.getByRole('status', { name: 'Saving' });
 
   expect(spinner).toHaveAttribute('data-testid', 'spinner');
-  expect(spinner).toHaveAttribute('width', '20');
-  expect(spinner).toHaveClass('text-primary-500');
+  expect(spinner).toHaveClass('size-5', 'text-primary-500');
 });

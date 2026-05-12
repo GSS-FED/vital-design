@@ -1,5 +1,5 @@
 import { Button } from '@/components/button/Button';
-import { ChevronDownIcon } from '@/icons/ChevronIcon';
+import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import {

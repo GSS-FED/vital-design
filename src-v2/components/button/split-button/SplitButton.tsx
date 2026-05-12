@@ -4,7 +4,8 @@ import {
   ButtonGroup,
   ButtonGroupSeparator,
 } from '@/components/button/button-group/ButtonGroup';
-import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
+import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
+import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
 import { cn } from '@/lib/utils';
 import { cva } from 'class-variance-authority';
 import type { ComponentPropsWithoutRef, MouseEvent } from 'react';

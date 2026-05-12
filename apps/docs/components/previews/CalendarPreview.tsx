@@ -97,11 +97,7 @@ export function CalendarDatePickerPreview() {
                   className="cursor-pointer"
                 />
                 <InputGroupAddon align="inline-end">
-                  <CalendarIcon
-                    width={16}
-                    height={16}
-                    className="text-grayscale-500"
-                  />
+                  <CalendarIcon className="size-4 text-grayscale-500" />
                 </InputGroupAddon>
               </InputGroup>
             }

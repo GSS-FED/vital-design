@@ -1,7 +1,7 @@
+import { Spinner } from '@/components/spinner/Spinner';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { CloseIcon } from '@/icons/CloseIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
-import { SpinnerIcon } from '@/icons/SpinnerIcon';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { Button } from '../button/Button';
 import {
@@ -28,11 +28,11 @@ const STATUSES: ToastStatus[] = [
 ];
 
 const STATUS_ICON_NODE: Record<ToastStatus, React.ReactNode> = {
-  success: <CheckIcon width={20} height={20} />,
-  warning: <FlagIcon width={20} height={20} />,
-  error: <CloseIcon width={20} height={20} />,
-  info: <FlagIcon width={20} height={20} />,
-  loading: <SpinnerIcon width={20} height={20} />,
+  success: <CheckIcon className="size-5" />,
+  warning: <FlagIcon className="size-5" />,
+  error: <CloseIcon className="size-5" />,
+  info: <FlagIcon className="size-5" />,
+  loading: <Spinner className="size-5" />,
 };
 
 const POSITIONS: ToastPosition[] = [
@@ -164,7 +164,7 @@ function LoadingButton() {
           title: '上傳中',
           timeout: 0,
           data: {
-            icon: <SpinnerIcon width={20} height={20} />,
+            icon: <Spinner />,
             cancelProps: {
               children: '取消',
               onClick: () => {
@@ -185,7 +185,7 @@ function LoadingButton() {
             title: '上傳完成',
             timeout: 4000,
             data: {
-              icon: <CheckIcon width={20} height={20} />,
+              icon: <CheckIcon />,
             },
           });
         }, 2500);

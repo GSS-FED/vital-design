@@ -163,12 +163,13 @@ describe('Avatar', () => {
   });
 
   it('renders UserIcon when no name or custom fallback is provided', () => {
-    render(<Avatar alt="avatar" />);
-
-    expect(screen.getByTestId('flag-icon')).toHaveAttribute(
-      'data-slot',
-      'avatar-placeholder-icon',
+    const { container } = render(<Avatar alt="avatar" />);
+    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access -- data-slot is the documented styling hook; structural assertion is intentional
+    const placeholder = container.querySelector(
+      '[data-slot="avatar-placeholder-icon"]',
     );
+    expect(placeholder).toBeInTheDocument();
+    expect(placeholder?.tagName.toLowerCase()).toBe('svg');
   });
 
   it('calls onLoadingStatusChange when image status changes', () => {

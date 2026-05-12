@@ -1,4 +1,4 @@
-import { ChevronRightIcon } from '@/icons/ChevronIcon';
+import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
 import { UserIcon } from '@/icons/UserIcon';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { Fragment } from 'react';
@@ -117,7 +117,7 @@ export const IconRows: Story = {
     <ItemGroup className="w-96">
       <Item size="list">
         <ItemMedia variant="icon">
-          <UserIcon width={16} height={16} />
+          <UserIcon className="size-4" />
         </ItemMedia>
         <ItemContent>
           <ItemTitle>Left icon</ItemTitle>
@@ -125,7 +125,7 @@ export const IconRows: Story = {
       </Item>
       <Item size="list" data-highlighted>
         <ItemMedia variant="icon">
-          <UserIcon width={16} height={16} />
+          <UserIcon className="size-4" />
         </ItemMedia>
         <ItemContent>
           <ItemTitle>Hover</ItemTitle>
@@ -136,30 +136,30 @@ export const IconRows: Story = {
           <ItemTitle>Right icon</ItemTitle>
         </ItemContent>
         <ItemActions>
-          <ChevronRightIcon width={6} height={11} />
+          <ChevronRightIcon className="size-[11px]" />
         </ItemActions>
       </Item>
       <Item size="list" data-current>
         <ItemMedia variant="icon">
-          <UserIcon width={16} height={16} />
+          <UserIcon className="size-4" />
         </ItemMedia>
         <ItemContent>
           <ItemTitle>Current</ItemTitle>
           <ItemDescription>Description text</ItemDescription>
         </ItemContent>
         <ItemActions>
-          <ChevronRightIcon width={6} height={11} />
+          <ChevronRightIcon className="size-[11px]" />
         </ItemActions>
       </Item>
       <Item size="list" data-disabled>
         <ItemMedia variant="icon">
-          <UserIcon width={16} height={16} />
+          <UserIcon className="size-4" />
         </ItemMedia>
         <ItemContent>
           <ItemTitle>Disabled</ItemTitle>
         </ItemContent>
         <ItemActions>
-          <ChevronRightIcon width={6} height={11} />
+          <ChevronRightIcon className="size-[11px]" />
         </ItemActions>
       </Item>
     </ItemGroup>
@@ -193,7 +193,7 @@ export const ImageRows: Story = {
             </ItemContent>
             {index < 3 ? (
               <ItemActions>
-                <ChevronRightIcon width={6} height={11} />
+                <ChevronRightIcon className="size-[11px]" />
               </ItemActions>
             ) : null}
           </Item>

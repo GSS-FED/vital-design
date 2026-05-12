@@ -1,12 +1,10 @@
 'use client';
 
 import { CheckIcon } from '@/icons/CheckIcon';
-import {
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ChevronUpIcon,
-} from '@/icons/ChevronIcon';
+import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
+import { ChevronLeftIcon } from '@/icons/ChevronLeftIcon';
+import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
+import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
 import { CloseIcon } from '@/icons/CloseIcon';
 import { DisabledIcon } from '@/icons/DisabledIcon';
@@ -90,11 +88,8 @@ export function IconColorsPreview() {
 export function IconSpinnerPreview() {
   return (
     <ComponentPreview>
-      <SpinnerIcon className="size-6 text-primary-500" />
-      <SpinnerIcon
-        className="size-6 text-grayscale-500"
-        animated={false}
-      />
+      <SpinnerIcon className="size-6 animate-spin text-primary-500" />
+      <SpinnerIcon className="size-6 text-grayscale-500" />
     </ComponentPreview>
   );
 }

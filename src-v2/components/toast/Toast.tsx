@@ -269,7 +269,7 @@ const ToastClose = forwardRef<
       )}
       {...props}
     >
-      {children ?? <CloseIcon width={12} height={12} />}
+      {children ?? <CloseIcon />}
     </BaseToast.Close>
   );
 });

@@ -101,7 +101,8 @@ export const ui = [
       '@vital-design/utils',
       '@vital-design/button',
       '@vital-design/button-group',
-      '@vital-design/icon-chevron',
+      '@vital-design/icon-chevron-down',
+      '@vital-design/icon-chevron-up',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -454,7 +455,8 @@ export const ui = [
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-check',
-      '@vital-design/icon-chevron',
+      '@vital-design/icon-chevron-down',
+      '@vital-design/icon-chevron-up',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -473,7 +475,8 @@ export const ui = [
     dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/icon-chevron',
+      '@vital-design/icon-chevron-down',
+      '@vital-design/icon-chevron-up',
       '@vital-design/icon-clear',
       '@vital-design/icon-search',
       '@vital-design/vital-theme',
@@ -494,7 +497,8 @@ export const ui = [
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-check',
-      '@vital-design/icon-chevron',
+      '@vital-design/icon-chevron-down',
+      '@vital-design/icon-chevron-up',
       '@vital-design/icon-clear',
       '@vital-design/icon-close',
       '@vital-design/vital-theme',
@@ -519,9 +523,9 @@ export const ui = [
     dependencies: ['cmdk', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/icon-chevron',
+      '@vital-design/icon-chevron-left',
       '@vital-design/icon-search',
-      '@vital-design/icon-spinner',
+      '@vital-design/spinner',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -600,7 +604,7 @@ export const ui = [
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-check',
-      '@vital-design/icon-chevron',
+      '@vital-design/icon-chevron-right',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -707,7 +711,9 @@ export const ui = [
     ],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/icon-chevron',
+      '@vital-design/icon-chevron-down',
+      '@vital-design/icon-chevron-left',
+      '@vital-design/icon-chevron-right',
       '@vital-design/vital-theme',
     ],
     files: [

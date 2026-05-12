@@ -1,5 +1,6 @@
 import { CheckIcon } from '@/icons/CheckIcon';
-import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
+import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
+import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
 import { SearchIcon } from '@/icons/SearchIcon';
 import { cn } from '@/lib/utils';
@@ -122,10 +123,10 @@ const Trigger = forwardRef<
       {children}
       <span className="flex h-5 w-5 shrink-0 items-center justify-center text-grayscale-700">
         <span className="block group-data-[popup-open]:hidden">
-          <ChevronDownIcon width={14} />
+          <ChevronDownIcon className="size-3.5" />
         </span>
         <span className="hidden group-data-[popup-open]:block">
-          <ChevronUpIcon width={14} />
+          <ChevronUpIcon className="size-3.5" />
         </span>
       </span>
     </BaseCombobox.Trigger>
@@ -145,14 +146,14 @@ const Clear = forwardRef<
       ref={ref}
       data-slot="combobox-clear"
       className={cn(
-        'grid h-5 w-5 shrink-0 cursor-pointer place-content-center outline-none',
+        'grid h-5 w-5 shrink-0 cursor-pointer place-content-center text-grayscale-900 outline-none',
         'hover:[&_svg>path]:fill-grayscale-700 hover:[&_svg>path]:transition-colors hover:[&_svg>path]:duration-200',
         'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
         className,
       )}
       {...props}
     >
-      {children ?? <ClearIcon width={20} />}
+      {children ?? <ClearIcon className="size-5" />}
     </BaseCombobox.Clear>
   );
 });
@@ -283,7 +284,7 @@ const SearchBar = forwardRef<
         )}
       >
         <span className="flex shrink-0 items-center [&_svg]:fill-grayscale-500 group-focus-within:[&_svg]:fill-primary-500">
-          <SearchIcon width={18} height={18} />
+          <SearchIcon className="size-4.5" />
         </span>
         <BaseCombobox.Input
           ref={ref}
@@ -361,7 +362,7 @@ const ItemCheck = forwardRef<
       )}
       {...props}
     >
-      {children ?? <CheckIcon width={12} height={9} />}
+      {children ?? <CheckIcon className="size-3" />}
     </BaseCombobox.ItemIndicator>
   );
 });
@@ -389,7 +390,7 @@ const ItemCheckbox = forwardRef<
       {...props}
     >
       <BaseCombobox.ItemIndicator data-slot="combobox-item-indicator">
-        {children ?? <CheckIcon width={10} height={8} />}
+        {children ?? <CheckIcon className="size-2.5" />}
       </BaseCombobox.ItemIndicator>
     </span>
   );

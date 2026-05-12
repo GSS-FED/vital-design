@@ -118,7 +118,7 @@ const id = toast.add({
   title: '上傳中',
   timeout: 0,
   data: {
-    icon: <SpinnerIcon width={20} height={20} />,
+    icon: <Spinner className="size-5" />,
     cancelProps: { children: '取消', onClick: cancelUpload },
   },
   actionProps: { children: '動作', onClick: openLog },
@@ -129,7 +129,7 @@ toast.update(id, {
   type: 'success',
   title: '上傳完成',
   timeout: 4000,
-  data: { icon: <CheckIcon width={20} height={20} /> },
+  data: { icon: <CheckIcon className="size-5" /> },
 });
 ```
 

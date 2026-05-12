@@ -1,43 +1,19 @@
-import { CalendarIcon } from './CalendarIcon';
-import { CheckIcon } from './CheckIcon';
-import {
-  ChevronDoubleLeftIcon,
-  ChevronDoubleRightIcon,
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ChevronUpIcon,
-} from './ChevronIcon';
-import { ClearIcon } from './ClearIcon';
-import { ClockIcon } from './ClockIcon';
-import { CloseIcon } from './CloseIcon';
-import { DisabledIcon } from './DisabledIcon';
-import { EyeIcon } from './EyeIcon';
-import { EyeSlashIcon } from './EyeSlashIcon';
-import { FlagIcon } from './FlagIcon';
-import { MinusIcon } from './MinusIcon';
-import { SearchIcon } from './SearchIcon';
-import { SpinnerIcon } from './SpinnerIcon';
-import { UserIcon } from './UserIcon';
-
-export {
-  CalendarIcon,
-  CheckIcon,
-  ChevronDoubleLeftIcon,
-  ChevronDoubleRightIcon,
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ChevronUpIcon,
-  ClearIcon,
-  ClockIcon,
-  CloseIcon,
-  DisabledIcon,
-  EyeIcon,
-  EyeSlashIcon,
-  FlagIcon,
-  MinusIcon,
-  SearchIcon,
-  SpinnerIcon,
-  UserIcon,
-};
+export { CalendarIcon } from './CalendarIcon';
+export { CheckIcon } from './CheckIcon';
+export { ChevronDoubleLeftIcon } from './ChevronDoubleLeftIcon';
+export { ChevronDoubleRightIcon } from './ChevronDoubleRightIcon';
+export { ChevronDownIcon } from './ChevronDownIcon';
+export { ChevronLeftIcon } from './ChevronLeftIcon';
+export { ChevronRightIcon } from './ChevronRightIcon';
+export { ChevronUpIcon } from './ChevronUpIcon';
+export { ClearIcon } from './ClearIcon';
+export { ClockIcon } from './ClockIcon';
+export { CloseIcon } from './CloseIcon';
+export { DisabledIcon } from './DisabledIcon';
+export { EyeIcon } from './EyeIcon';
+export { EyeSlashIcon } from './EyeSlashIcon';
+export { FlagIcon } from './FlagIcon';
+export { MinusIcon } from './MinusIcon';
+export { SearchIcon } from './SearchIcon';
+export { SpinnerIcon } from './SpinnerIcon';
+export { UserIcon } from './UserIcon';

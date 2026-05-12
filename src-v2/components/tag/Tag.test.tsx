@@ -14,10 +14,9 @@ it('renders a tag', () => {
 });
 
 it('renders a tag with an icon', () => {
-  render(<Tag icon={<FlagIcon />}>Tag</Tag>);
-  const icon = screen.getByTestId('flag-icon');
+  render(<Tag icon={<FlagIcon data-testid="tag-icon" />}>Tag</Tag>);
   expect(screen.getByText('Tag')).toBeInTheDocument();
-  expect(icon).toBeInTheDocument();
+  expect(screen.getByTestId('tag-icon')).toBeInTheDocument();
 });
 
 it('renders a removable tag', () => {

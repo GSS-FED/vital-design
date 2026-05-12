@@ -30,14 +30,13 @@ it('renders a chip with an icon', () => {
   const props = {
     selected: false,
     onChange: vi.fn(),
-    icon: <FlagIcon />,
+    icon: <FlagIcon data-testid="chip-icon" />,
   };
   render(<Chip {...props}>Chip</Chip>);
   const chip = screen.getByRole('button');
-  const icon = screen.getByTestId('flag-icon');
   expect(chip).toBeInTheDocument();
   expect(chip).toHaveAttribute('data-state', 'unselected');
-  expect(icon).toBeInTheDocument();
+  expect(screen.getByTestId('chip-icon')).toBeInTheDocument();
 });
 
 it('calls the onChange callback when clicked', async () => {

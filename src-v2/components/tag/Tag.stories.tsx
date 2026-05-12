@@ -41,11 +41,7 @@ export const Clickable: Story = {
     return (
       <>
         <Tag {...args} onClick={() => {}} />
-        <Tag
-          {...args}
-          icon={<FlagIcon width={12} height={12} />}
-          onClick={() => {}}
-        />
+        <Tag {...args} icon={<FlagIcon />} onClick={() => {}} />
       </>
     );
   },
@@ -71,7 +67,7 @@ export const Removable: Story = {
           <Tag
             {...args}
             removable
-            icon={<FlagIcon width={12} height={12} />}
+            icon={<FlagIcon />}
             onRemove={() => {
               setIsSecondTagShown(false);
             }}
@@ -105,7 +101,7 @@ export const ClickableAndRemovable: Story = {
           <Tag
             {...args}
             removable
-            icon={<FlagIcon width={12} height={12} />}
+            icon={<FlagIcon />}
             onClick={() => {}}
             onRemove={() => {
               setIsSecondTagShown(false);
@@ -142,7 +138,7 @@ export const Selected: Story = {
           onClick={() => {
             toggleByIndex(1);
           }}
-          icon={<FlagIcon width={12} height={12} />}
+          icon={<FlagIcon />}
         />
       </>
     );

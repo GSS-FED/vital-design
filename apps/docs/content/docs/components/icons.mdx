@@ -33,12 +33,10 @@ Available icons:
 
 ```ts
 import { CheckIcon } from '@/icons/CheckIcon';
-import {
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ChevronUpIcon,
-} from '@/icons/ChevronIcon';
+import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
+import { ChevronLeftIcon } from '@/icons/ChevronLeftIcon';
+import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
+import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
 import { CloseIcon } from '@/icons/CloseIcon';
 import { DisabledIcon } from '@/icons/DisabledIcon';
@@ -83,30 +81,26 @@ applies.
 
 ## SpinnerIcon
 
-`SpinnerIcon` ships with a built-in rotation animation. Pass
-`animated={false}` to render the static glyph (useful for snapshot
-tests or non-loading contexts).
+`SpinnerIcon` renders the static glyph. Add Tailwind's `animate-spin`
+utility when you need rotation, or use the `Spinner` component for
+loading status UI.
 
 <IconSpinnerPreview />
 
 ```tsx
-<SpinnerIcon className="size-6 text-primary-500" />
-<SpinnerIcon className="size-6 text-grayscale-500" animated={false} />
+<SpinnerIcon className="size-6 animate-spin text-primary-500" />
+<SpinnerIcon className="size-6 text-grayscale-500" />
 ```
 
 ## Props
 
-All icons accept the standard SVG props plus shared visual
-shortcuts.
+All icons accept standard SVG props. Size and color should normally be
+controlled with Tailwind classes.
 
-| Prop          | Type                            | Default          | Description                                        |
-| ------------- | ------------------------------- | ---------------- | -------------------------------------------------- |
-| `className`   | `string`                        | —                | Additional CSS classes (use `size-*` for sizing)   |
-| `width`       | `number \| string`              | varies per icon  | SVG width                                          |
-| `height`      | `number \| string`              | —                | SVG height                                         |
-| `color`       | `string`                        | `'currentColor'` | Shortcut for `fill` (Chevron / Clear / Search)     |
-| `fill`        | `string`                        | `'currentColor'` | SVG fill color                                     |
-| `fillOpacity` | `number \| string`              | —                | SVG fill opacity                                   |
-| `opacity`     | `number \| string`              | —                | Shortcut for `fillOpacity` on supported icons      |
-| `animated`    | `boolean`                       | `true`           | `SpinnerIcon` only — toggles the rotate animation  |
-| `...props`    | `ComponentProps<'svg'>`         | —                | Native `svg` props and events                      |
+| Prop          | Type                    | Default         | Description                                      |
+| ------------- | ----------------------- | --------------- | ------------------------------------------------ |
+| `className`   | `string`                | —               | Additional CSS classes                           |
+| `width`       | `number \| string`      | `'1em'`         | SVG width                                        |
+| `height`      | `number \| string`      | `'1em'`         | SVG height                                       |
+| `aria-hidden` | `boolean`               | `true`          | Hide decorative icons from assistive technology  |
+| `...props`    | `ComponentProps<'svg'>` | —               | Native `svg` props and events                    |

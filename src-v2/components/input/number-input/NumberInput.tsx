@@ -1,4 +1,5 @@
-import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
+import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
+import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
 import { cn } from '@/lib/utils';
 import { NumberField as BaseNumberField } from '@base-ui/react/number-field';
 import { forwardRef } from 'react';
@@ -97,7 +98,7 @@ const NumberInputIncrement = forwardRef<
       )}
       {...props}
     >
-      {children ?? <ChevronUpIcon width={10} height={10} />}
+      {children ?? <ChevronUpIcon className="size-2.5" />}
     </BaseNumberField.Increment>
   );
 });
@@ -120,7 +121,7 @@ const NumberInputDecrement = forwardRef<
       className={cn(stepperBaseClasses, className)}
       {...props}
     >
-      {children ?? <ChevronDownIcon width={10} height={10} />}
+      {children ?? <ChevronDownIcon className="size-2.5" />}
     </BaseNumberField.Decrement>
   );
 });

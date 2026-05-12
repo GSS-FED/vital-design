@@ -24,7 +24,7 @@ export const Default: Story = {
     return (
       <InputGroup {...args} style={{ width: '450px' }}>
         <InputGroupAddon>
-          <SearchIcon width={18} height={18} />
+          <SearchIcon className="size-4.5" />
         </InputGroupAddon>
         <InputGroupInput placeholder="Search..." />
         <InputGroupAddon align="inline-end">

@@ -236,11 +236,7 @@ const DialogClose = forwardRef<HTMLButtonElement, DialogCloseProps>(
         }
         {...props}
       >
-        {hasChildren || hasCustomRender ? (
-          children
-        ) : (
-          <CloseIcon width={14} height={14} />
-        )}
+        {hasChildren || hasCustomRender ? children : <CloseIcon />}
       </BaseDialog.Close>
     );
   },

@@ -1,106 +1,95 @@
 import type { VitalRegistryItem } from './types';
 import { vitalThemeCssVars } from './vital-theme-vars';
 
-const iconFiles = [
+type IconFile = { path: string; target: string };
+const iconFile = (name: string): IconFile => ({
+  path: `src-v2/icons/${name}.tsx`,
+  target: `src/components/icons/${name}.tsx`,
+});
+
+const iconGroups = [
   {
     name: 'icon-calendar',
     title: 'Calendar Icon',
-    path: 'src-v2/icons/CalendarIcon.tsx',
-    target: 'src/components/icons/CalendarIcon.tsx',
+    files: ['CalendarIcon'],
+  },
+  { name: 'icon-check', title: 'Check Icon', files: ['CheckIcon'] },
+  {
+    name: 'icon-chevron-down',
+    title: 'Chevron Down Icon',
+    files: ['ChevronDownIcon'],
   },
   {
-    name: 'icon-check',
-    title: 'Check Icon',
-    path: 'src-v2/icons/CheckIcon.tsx',
-    target: 'src/components/icons/CheckIcon.tsx',
+    name: 'icon-chevron-up',
+    title: 'Chevron Up Icon',
+    files: ['ChevronUpIcon'],
   },
   {
-    name: 'icon-chevron',
-    title: 'Chevron Icons',
-    path: 'src-v2/icons/ChevronIcon.tsx',
-    target: 'src/components/icons/ChevronIcon.tsx',
+    name: 'icon-chevron-left',
+    title: 'Chevron Left Icon',
+    files: ['ChevronLeftIcon'],
   },
   {
-    name: 'icon-clear',
-    title: 'Clear Icon',
-    path: 'src-v2/icons/ClearIcon.tsx',
-    target: 'src/components/icons/ClearIcon.tsx',
+    name: 'icon-chevron-right',
+    title: 'Chevron Right Icon',
+    files: ['ChevronRightIcon'],
   },
   {
-    name: 'icon-clock',
-    title: 'Clock Icon',
-    path: 'src-v2/icons/ClockIcon.tsx',
-    target: 'src/components/icons/ClockIcon.tsx',
+    name: 'icon-chevron-double-left',
+    title: 'Chevron Double Left Icon',
+    files: ['ChevronDoubleLeftIcon'],
   },
   {
-    name: 'icon-close',
-    title: 'Close Icon',
-    path: 'src-v2/icons/CloseIcon.tsx',
-    target: 'src/components/icons/CloseIcon.tsx',
+    name: 'icon-chevron-double-right',
+    title: 'Chevron Double Right Icon',
+    files: ['ChevronDoubleRightIcon'],
   },
+  { name: 'icon-clear', title: 'Clear Icon', files: ['ClearIcon'] },
+  { name: 'icon-clock', title: 'Clock Icon', files: ['ClockIcon'] },
+  { name: 'icon-close', title: 'Close Icon', files: ['CloseIcon'] },
   {
     name: 'icon-disabled',
     title: 'Disabled Icon',
-    path: 'src-v2/icons/DisabledIcon.tsx',
-    target: 'src/components/icons/DisabledIcon.tsx',
+    files: ['DisabledIcon'],
   },
-  {
-    name: 'icon-eye',
-    title: 'Eye Icon',
-    path: 'src-v2/icons/EyeIcon.tsx',
-    target: 'src/components/icons/EyeIcon.tsx',
-  },
+  { name: 'icon-eye', title: 'Eye Icon', files: ['EyeIcon'] },
   {
     name: 'icon-eye-slash',
     title: 'Eye Slash Icon',
-    path: 'src-v2/icons/EyeSlashIcon.tsx',
-    target: 'src/components/icons/EyeSlashIcon.tsx',
+    files: ['EyeSlashIcon'],
   },
-  {
-    name: 'icon-flag',
-    title: 'Flag Icon',
-    path: 'src-v2/icons/FlagIcon.tsx',
-    target: 'src/components/icons/FlagIcon.tsx',
-  },
-  {
-    name: 'icon-minus',
-    title: 'Minus Icon',
-    path: 'src-v2/icons/MinusIcon.tsx',
-    target: 'src/components/icons/MinusIcon.tsx',
-  },
+  { name: 'icon-flag', title: 'Flag Icon', files: ['FlagIcon'] },
+  { name: 'icon-minus', title: 'Minus Icon', files: ['MinusIcon'] },
   {
     name: 'icon-search',
     title: 'Search Icon',
-    path: 'src-v2/icons/SearchIcon.tsx',
-    target: 'src/components/icons/SearchIcon.tsx',
+    files: ['SearchIcon'],
   },
   {
     name: 'icon-spinner',
     title: 'Spinner Icon',
-    path: 'src-v2/icons/SpinnerIcon.tsx',
-    target: 'src/components/icons/SpinnerIcon.tsx',
+    files: ['SpinnerIcon'],
   },
-  {
-    name: 'icon-user',
-    title: 'User Icon',
-    path: 'src-v2/icons/UserIcon.tsx',
-    target: 'src/components/icons/UserIcon.tsx',
-  },
+  { name: 'icon-user', title: 'User Icon', files: ['UserIcon'] },
 ] as const;
 
-const iconItems = iconFiles.map((icon) => ({
-  name: icon.name,
+const iconItems = iconGroups.map((group) => ({
+  name: group.name,
   type: 'registry:ui',
-  title: icon.title,
-  description: `${icon.title} component`,
-  files: [
-    {
-      path: icon.path,
-      type: 'registry:ui',
-      target: icon.target,
-    },
-  ],
+  title: group.title,
+  description: `${group.title} component`,
+  files: group.files.map((name: string) => ({
+    ...iconFile(name),
+    type: 'registry:ui' as const,
+  })),
 })) satisfies VitalRegistryItem[];
+
+const allIconFiles = Array.from(
+  new Set<string>(iconGroups.flatMap((g) => g.files)),
+).map((name) => ({
+  ...iconFile(name),
+  type: 'registry:ui' as const,
+}));
 
 export const base = [
   {
@@ -146,10 +135,6 @@ export const base = [
     type: 'registry:ui',
     title: 'Vital Icons',
     description: 'Custom SVG icon components',
-    files: iconFiles.map((icon) => ({
-      path: icon.path,
-      type: 'registry:ui',
-      target: icon.target,
-    })),
+    files: allIconFiles,
   },
 ] satisfies VitalRegistryItem[];

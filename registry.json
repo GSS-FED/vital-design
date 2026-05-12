@@ -238,8 +238,8 @@
       "files": [
         {
           "path": "src-v2/icons/CalendarIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/CalendarIcon.tsx"
+          "target": "src/components/icons/CalendarIcon.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -251,21 +251,86 @@
       "files": [
         {
           "path": "src-v2/icons/CheckIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/CheckIcon.tsx"
+          "target": "src/components/icons/CheckIcon.tsx",
+          "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "icon-chevron",
+      "name": "icon-chevron-down",
       "type": "registry:ui",
-      "title": "Chevron Icons",
-      "description": "Chevron Icons component",
+      "title": "Chevron Down Icon",
+      "description": "Chevron Down Icon component",
       "files": [
         {
-          "path": "src-v2/icons/ChevronIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/ChevronIcon.tsx"
+          "path": "src-v2/icons/ChevronDownIcon.tsx",
+          "target": "src/components/icons/ChevronDownIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-chevron-up",
+      "type": "registry:ui",
+      "title": "Chevron Up Icon",
+      "description": "Chevron Up Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ChevronUpIcon.tsx",
+          "target": "src/components/icons/ChevronUpIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-chevron-left",
+      "type": "registry:ui",
+      "title": "Chevron Left Icon",
+      "description": "Chevron Left Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ChevronLeftIcon.tsx",
+          "target": "src/components/icons/ChevronLeftIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-chevron-right",
+      "type": "registry:ui",
+      "title": "Chevron Right Icon",
+      "description": "Chevron Right Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ChevronRightIcon.tsx",
+          "target": "src/components/icons/ChevronRightIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-chevron-double-left",
+      "type": "registry:ui",
+      "title": "Chevron Double Left Icon",
+      "description": "Chevron Double Left Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ChevronDoubleLeftIcon.tsx",
+          "target": "src/components/icons/ChevronDoubleLeftIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-chevron-double-right",
+      "type": "registry:ui",
+      "title": "Chevron Double Right Icon",
+      "description": "Chevron Double Right Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ChevronDoubleRightIcon.tsx",
+          "target": "src/components/icons/ChevronDoubleRightIcon.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -277,8 +342,8 @@
       "files": [
         {
           "path": "src-v2/icons/ClearIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/ClearIcon.tsx"
+          "target": "src/components/icons/ClearIcon.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -290,8 +355,8 @@
       "files": [
         {
           "path": "src-v2/icons/ClockIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/ClockIcon.tsx"
+          "target": "src/components/icons/ClockIcon.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -303,8 +368,8 @@
       "files": [
         {
           "path": "src-v2/icons/CloseIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/CloseIcon.tsx"
+          "target": "src/components/icons/CloseIcon.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -316,8 +381,8 @@
       "files": [
         {
           "path": "src-v2/icons/DisabledIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/DisabledIcon.tsx"
+          "target": "src/components/icons/DisabledIcon.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -329,8 +394,8 @@
       "files": [
         {
           "path": "src-v2/icons/EyeIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/EyeIcon.tsx"
+          "target": "src/components/icons/EyeIcon.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -342,8 +407,8 @@
       "files": [
         {
           "path": "src-v2/icons/EyeSlashIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/EyeSlashIcon.tsx"
+          "target": "src/components/icons/EyeSlashIcon.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -355,8 +420,8 @@
       "files": [
         {
           "path": "src-v2/icons/FlagIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/FlagIcon.tsx"
+          "target": "src/components/icons/FlagIcon.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -368,8 +433,8 @@
       "files": [
         {
           "path": "src-v2/icons/MinusIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/MinusIcon.tsx"
+          "target": "src/components/icons/MinusIcon.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -381,8 +446,8 @@
       "files": [
         {
           "path": "src-v2/icons/SearchIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/SearchIcon.tsx"
+          "target": "src/components/icons/SearchIcon.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -394,8 +459,8 @@
       "files": [
         {
           "path": "src-v2/icons/SpinnerIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/SpinnerIcon.tsx"
+          "target": "src/components/icons/SpinnerIcon.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -407,8 +472,8 @@
       "files": [
         {
           "path": "src-v2/icons/UserIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/UserIcon.tsx"
+          "target": "src/components/icons/UserIcon.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -420,73 +485,98 @@
       "files": [
         {
           "path": "src-v2/icons/CalendarIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/CalendarIcon.tsx"
+          "target": "src/components/icons/CalendarIcon.tsx",
+          "type": "registry:ui"
         },
         {
           "path": "src-v2/icons/CheckIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/CheckIcon.tsx"
+          "target": "src/components/icons/CheckIcon.tsx",
+          "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/ChevronIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/ChevronIcon.tsx"
+          "path": "src-v2/icons/ChevronDownIcon.tsx",
+          "target": "src/components/icons/ChevronDownIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/ChevronUpIcon.tsx",
+          "target": "src/components/icons/ChevronUpIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/ChevronLeftIcon.tsx",
+          "target": "src/components/icons/ChevronLeftIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/ChevronRightIcon.tsx",
+          "target": "src/components/icons/ChevronRightIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/ChevronDoubleLeftIcon.tsx",
+          "target": "src/components/icons/ChevronDoubleLeftIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/ChevronDoubleRightIcon.tsx",
+          "target": "src/components/icons/ChevronDoubleRightIcon.tsx",
+          "type": "registry:ui"
         },
         {
           "path": "src-v2/icons/ClearIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/ClearIcon.tsx"
+          "target": "src/components/icons/ClearIcon.tsx",
+          "type": "registry:ui"
         },
         {
           "path": "src-v2/icons/ClockIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/ClockIcon.tsx"
+          "target": "src/components/icons/ClockIcon.tsx",
+          "type": "registry:ui"
         },
         {
           "path": "src-v2/icons/CloseIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/CloseIcon.tsx"
+          "target": "src/components/icons/CloseIcon.tsx",
+          "type": "registry:ui"
         },
         {
           "path": "src-v2/icons/DisabledIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/DisabledIcon.tsx"
+          "target": "src/components/icons/DisabledIcon.tsx",
+          "type": "registry:ui"
         },
         {
           "path": "src-v2/icons/EyeIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/EyeIcon.tsx"
+          "target": "src/components/icons/EyeIcon.tsx",
+          "type": "registry:ui"
         },
         {
           "path": "src-v2/icons/EyeSlashIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/EyeSlashIcon.tsx"
+          "target": "src/components/icons/EyeSlashIcon.tsx",
+          "type": "registry:ui"
         },
         {
           "path": "src-v2/icons/FlagIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/FlagIcon.tsx"
+          "target": "src/components/icons/FlagIcon.tsx",
+          "type": "registry:ui"
         },
         {
           "path": "src-v2/icons/MinusIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/MinusIcon.tsx"
+          "target": "src/components/icons/MinusIcon.tsx",
+          "type": "registry:ui"
         },
         {
           "path": "src-v2/icons/SearchIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/SearchIcon.tsx"
+          "target": "src/components/icons/SearchIcon.tsx",
+          "type": "registry:ui"
         },
         {
           "path": "src-v2/icons/SpinnerIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/SpinnerIcon.tsx"
+          "target": "src/components/icons/SpinnerIcon.tsx",
+          "type": "registry:ui"
         },
         {
           "path": "src-v2/icons/UserIcon.tsx",
-          "type": "registry:ui",
-          "target": "src/components/icons/UserIcon.tsx"
+          "target": "src/components/icons/UserIcon.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -604,7 +694,8 @@
         "@vital-design/utils",
         "@vital-design/button",
         "@vital-design/button-group",
-        "@vital-design/icon-chevron",
+        "@vital-design/icon-chevron-down",
+        "@vital-design/icon-chevron-up",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -995,7 +1086,8 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-check",
-        "@vital-design/icon-chevron",
+        "@vital-design/icon-chevron-down",
+        "@vital-design/icon-chevron-up",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1017,7 +1109,8 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-chevron",
+        "@vital-design/icon-chevron-down",
+        "@vital-design/icon-chevron-up",
         "@vital-design/icon-clear",
         "@vital-design/icon-search",
         "@vital-design/vital-theme"
@@ -1042,7 +1135,8 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-check",
-        "@vital-design/icon-chevron",
+        "@vital-design/icon-chevron-down",
+        "@vital-design/icon-chevron-up",
         "@vital-design/icon-clear",
         "@vital-design/icon-close",
         "@vital-design/vital-theme"
@@ -1070,9 +1164,9 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-chevron",
+        "@vital-design/icon-chevron-left",
         "@vital-design/icon-search",
-        "@vital-design/icon-spinner",
+        "@vital-design/spinner",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1163,7 +1257,7 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-check",
-        "@vital-design/icon-chevron",
+        "@vital-design/icon-chevron-right",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1272,7 +1366,9 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-chevron",
+        "@vital-design/icon-chevron-down",
+        "@vital-design/icon-chevron-left",
+        "@vital-design/icon-chevron-right",
         "@vital-design/vital-theme"
       ],
       "files": [

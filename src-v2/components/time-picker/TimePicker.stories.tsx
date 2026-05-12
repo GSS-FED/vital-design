@@ -76,11 +76,7 @@ export const InsideTimePicker: Story = {
                   className="cursor-pointer"
                 />
                 <InputGroupAddon align="inline-end">
-                  <ClockIcon
-                    width={16}
-                    height={16}
-                    className="text-grayscale-500"
-                  />
+                  <ClockIcon className="text-grayscale-500" />
                 </InputGroupAddon>
               </InputGroup>
             }

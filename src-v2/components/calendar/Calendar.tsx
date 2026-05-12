@@ -1,11 +1,8 @@
-/* eslint-disable react/prop-types */
 'use client';
 
-import { ChevronDownIcon } from '@/icons/ChevronIcon';
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from '@/icons/ChevronIcon';
+import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
+import { ChevronLeftIcon } from '@/icons/ChevronLeftIcon';
+import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
 import { cn } from '@/lib/utils';
 import * as React from 'react';
 import {

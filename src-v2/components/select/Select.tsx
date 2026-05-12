@@ -1,5 +1,6 @@
 import { CheckIcon } from '@/icons/CheckIcon';
-import { ChevronDownIcon, ChevronUpIcon } from '@/icons/ChevronIcon';
+import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
+import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
 import { cn } from '@/lib/utils';
 import { Select as BaseSelect } from '@base-ui/react/select';
 import { forwardRef } from 'react';
@@ -87,10 +88,10 @@ const SelectTrigger = forwardRef<
         render={
           <span className="flex h-5 w-5 shrink-0 items-center justify-center text-grayscale-700">
             <span className="block group-data-[popup-open]:hidden">
-              <ChevronDownIcon width={14} />
+              <ChevronDownIcon className="size-3.5" />
             </span>
             <span className="hidden group-data-[popup-open]:block">
-              <ChevronUpIcon width={14} />
+              <ChevronUpIcon className="size-3.5" />
             </span>
           </span>
         }
@@ -277,7 +278,7 @@ const SelectItemCheck = forwardRef<
       )}
       {...props}
     >
-      {children ?? <CheckIcon width={12} height={9} />}
+      {children ?? <CheckIcon className="size-3" />}
     </BaseSelect.ItemIndicator>
   );
 });
@@ -306,7 +307,7 @@ const SelectItemCheckbox = forwardRef<
       {...props}
     >
       <BaseSelect.ItemIndicator data-slot="select-item-indicator">
-        {children ?? <CheckIcon width={10} height={8} />}
+        {children ?? <CheckIcon className="size-2.5" />}
       </BaseSelect.ItemIndicator>
     </span>
   );
@@ -351,7 +352,7 @@ const SelectScrollUpButton = forwardRef<
       )}
       {...props}
     >
-      <ChevronUpIcon width={14} />
+      <ChevronUpIcon className="size-3.5" />
     </BaseSelect.ScrollUpArrow>
   );
 });
@@ -374,7 +375,7 @@ const SelectScrollDownButton = forwardRef<
       )}
       {...props}
     >
-      <ChevronDownIcon width={14} />
+      <ChevronDownIcon className="size-3.5" />
     </BaseSelect.ScrollDownArrow>
   );
 });
