@@ -37,7 +37,7 @@
     "docs:dev": "pnpm --filter @fed/vital-docs dev",
     "docs:lint": "pnpm --filter @fed/vital-docs lint",
     "docs:build": "pnpm run tokens:build:css && pnpm --filter @fed/vital-docs build",
-    "docs:start": "pnpm --filter @fed/vital-docs start"
+    "docs:start": "npx serve apps/docs/out"
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.8",

@@ -3,6 +3,8 @@ import { type ReactNode } from 'react';
 import {
   Avatar,
   AvatarFallback,
+  AvatarGroup,
+  AvatarGroupCount,
   AvatarImage,
   AvatarRoot,
 } from './Avatar';
@@ -218,6 +220,19 @@ export const Disabled: Story = {
       <Avatar size="md" disabled alt="Disabled Avatar" />
       <Avatar size="lg" disabled alt="Disabled Avatar" />
       <Avatar size="xl" disabled alt="Disabled Avatar" />
+    </Col>
+  ),
+};
+
+export const Group: Story = {
+  render: () => (
+    <Col>
+      <AvatarGroup>
+        <Avatar color="green" name="Arthur Lu" />
+        <Avatar color="blue" name="Dover Shen" />
+        <Avatar color="ice" name="Luka Jung" />
+        <AvatarGroupCount>+3</AvatarGroupCount>
+      </AvatarGroup>
     </Col>
   ),
 };

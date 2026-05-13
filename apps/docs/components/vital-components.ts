@@ -19,6 +19,8 @@ export {
 export {
   Avatar,
   AvatarFallback,
+  AvatarGroup,
+  AvatarGroupCount,
   AvatarImage,
   AvatarRoot,
 } from '../../../src-v2/components/avatar/Avatar';

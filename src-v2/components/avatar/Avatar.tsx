@@ -214,6 +214,7 @@ const AvatarRoot = forwardRef<
       ref={ref}
       data-slot="avatar"
       data-size={size}
+      data-color={color}
       data-disabled={disabled ? '' : undefined}
       aria-disabled={disabled || undefined}
       onClick={disabled ? undefined : onClick}
@@ -267,6 +268,43 @@ const AvatarFallback = forwardRef<
     />
   );
 });
+
+function AvatarGroup({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<'div'>) {
+  return (
+    <div
+      data-slot="avatar-group"
+      className={cn(
+        'group/avatar-group flex -space-x-2 group-has-data-[size=lg]/avatar-group:-space-x-3 group-has-data-[size=xl]/avatar-group:-space-x-3 *:data-[color=default]:bg-background *:data-[slot=avatar]:isolate *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background',
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+function AvatarGroupCount({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<'div'>) {
+  return (
+    <div
+      data-slot="avatar-group-count"
+      className={cn(
+        'relative isolate inline-flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-background font-sans text-xl leading-none text-grayscale-700 ring-2 ring-background',
+        'group-has-data-[size=xs]/avatar-group:size-6 group-has-data-[size=xs]/avatar-group:text-xs group-has-data-[size=xs]/avatar-group:[&>svg]:size-2.5',
+        'group-has-data-[size=sm]/avatar-group:size-8 group-has-data-[size=sm]/avatar-group:text-base group-has-data-[size=sm]/avatar-group:[&>svg]:size-3',
+        'group-has-data-[size=lg]/avatar-group:size-12 group-has-data-[size=lg]/avatar-group:text-2xl group-has-data-[size=lg]/avatar-group:[&>svg]:size-4.5',
+        'group-has-data-[size=xl]/avatar-group:size-[60px] group-has-data-[size=xl]/avatar-group:text-[32px] group-has-data-[size=xl]/avatar-group:[&>svg]:size-6',
+        '[&>svg]:size-4',
+        className,
+      )}
+      {...props}
+    />
+  );
+}
 
 function getInitials(name: string | undefined) {
   return name
@@ -326,4 +364,11 @@ function Avatar(props: AvatarProps) {
   );
 }
 
-export { Avatar, AvatarFallback, AvatarImage, AvatarRoot };
+export {
+  Avatar,
+  AvatarFallback,
+  AvatarGroup,
+  AvatarGroupCount,
+  AvatarImage,
+  AvatarRoot,
+};

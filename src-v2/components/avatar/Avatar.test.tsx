@@ -7,6 +7,8 @@ import { describe, expect, it, vi } from 'vitest';
 import {
   Avatar,
   AvatarFallback,
+  AvatarGroup,
+  AvatarGroupCount,
   AvatarImage,
   AvatarRoot,
 } from './Avatar';
@@ -199,6 +201,10 @@ describe('Avatar', () => {
       'data-size',
       'lg',
     );
+    expect(screen.getByTestId('avatar-root')).toHaveAttribute(
+      'data-color',
+      'blue',
+    );
     expect(
       screen.getByRole('img', { name: 'Arthur Lu' }),
     ).toHaveAttribute('data-slot', 'avatar-image');
@@ -206,5 +212,39 @@ describe('Avatar', () => {
       'data-slot',
       'avatar-fallback',
     );
+  });
+
+  it('renders AvatarGroup and count with Vital avatar sizing hooks', () => {
+    const { container } = render(
+      <AvatarGroup data-testid="avatar-group">
+        <Avatar name="Arthur Lu" size="xl" />
+        <AvatarGroupCount data-testid="avatar-group-count">
+          +2
+        </AvatarGroupCount>
+      </AvatarGroup>,
+    );
+
+    expect(screen.getByTestId('avatar-group')).toHaveAttribute(
+      'data-slot',
+      'avatar-group',
+    );
+    expect(screen.getByTestId('avatar-group-count')).toHaveAttribute(
+      'data-slot',
+      'avatar-group-count',
+    );
+    expect(screen.getByTestId('avatar-group-count')).toHaveClass(
+      'size-10',
+      'border-border',
+      'bg-background',
+      'text-grayscale-700',
+      'group-has-data-[size=xl]/avatar-group:size-[60px]',
+    );
+    expect(screen.getByTestId('avatar-group')).toHaveClass(
+      '*:data-[color=default]:bg-background',
+    );
+    expect(
+      // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+      container.querySelector('[data-slot="avatar"][data-size="xl"]'),
+    ).toBeInTheDocument();
   });
 });
