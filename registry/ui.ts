@@ -287,6 +287,24 @@ export const ui = [
     ],
   },
   {
+    name: 'progress',
+    type: 'registry:ui',
+    title: 'Progress',
+    description:
+      'Progress primitives and segmented status indicators styled with VD tokens',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/progress/Progress.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
     name: 'search-bar',
     type: 'registry:ui',
     title: 'Search Bar',

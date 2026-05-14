@@ -39,6 +39,7 @@ export type RegistryItemName =
   | 'tag'
   | 'skeleton'
   | 'spinner'
+  | 'progress'
   | 'search-bar'
   | 'input-group'
   | 'input'

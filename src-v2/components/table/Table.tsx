@@ -2,20 +2,26 @@ import { cn } from '@/lib/utils';
 import { forwardRef } from 'react';
 import type { ComponentPropsWithoutRef, ElementRef } from 'react';
 
-export type TableProps = ComponentPropsWithoutRef<'table'>;
+export interface TableProps
+  extends ComponentPropsWithoutRef<'table'> {
+  containerClassName?: string;
+}
 
 const Table = forwardRef<ElementRef<'table'>, TableProps>(
-  function Table({ className, ...props }, ref) {
+  function Table({ className, containerClassName, ...props }, ref) {
     return (
       <div
         data-slot="table-container"
-        className="relative w-full overflow-x-auto"
+        className={cn(
+          'relative w-full overflow-x-auto',
+          containerClassName,
+        )}
       >
         <table
           ref={ref}
           data-slot="table"
           className={cn(
-            'w-full caption-bottom text-sm leading-5 text-grayscale-800',
+            'w-full caption-bottom border-collapse font-sans text-sm leading-5 text-grayscale-800',
             className,
           )}
           {...props}
@@ -34,7 +40,7 @@ const TableHeader = forwardRef<ElementRef<'thead'>, TableHeaderProps>(
         ref={ref}
         data-slot="table-header"
         className={cn(
-          '[&_tr]:border-b [&_tr]:border-grayscale-200',
+          '[&_tr]:border-b [&_tr]:border-grayscale-300',
           className,
         )}
         {...props}
@@ -67,7 +73,7 @@ const TableFooter = forwardRef<ElementRef<'tfoot'>, TableFooterProps>(
         ref={ref}
         data-slot="table-footer"
         className={cn(
-          'border-t border-grayscale-200 bg-grayscale-50 font-medium [&>tr]:last:border-b-0',
+          'border-t border-grayscale-300 bg-grayscale-100 font-medium [&>tr]:last:border-b-0',
           className,
         )}
         {...props}
@@ -85,8 +91,8 @@ const TableRow = forwardRef<ElementRef<'tr'>, TableRowProps>(
         ref={ref}
         data-slot="table-row"
         className={cn(
-          'border-b border-grayscale-200 transition-colors',
-          'hover:bg-grayscale-50 has-aria-expanded:bg-grayscale-50 data-[state=selected]:bg-grayscale-100',
+          'border-b border-grayscale-300 transition-colors',
+          'hover:bg-grayscale-100 has-aria-expanded:bg-grayscale-100 data-[state=selected]:bg-grayscale-100',
           className,
         )}
         {...props}
@@ -104,8 +110,8 @@ const TableHead = forwardRef<ElementRef<'th'>, TableHeadProps>(
         ref={ref}
         data-slot="table-head"
         className={cn(
-          'h-10 px-3 text-left align-middle font-medium whitespace-nowrap text-grayscale-700',
-          '[&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+          'h-8 border-r border-grayscale-300 bg-white px-3 py-1.5 text-left align-middle font-normal whitespace-nowrap text-grayscale-800 last:border-r-0',
+          '[&:has([role=checkbox])]:w-10 [&:has([role=checkbox])]:px-3 [&>[role=checkbox]]:mx-auto',
           className,
         )}
         {...props}
@@ -123,8 +129,8 @@ const TableCell = forwardRef<ElementRef<'td'>, TableCellProps>(
         ref={ref}
         data-slot="table-cell"
         className={cn(
-          'p-3 align-middle whitespace-nowrap text-grayscale-800',
-          '[&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+          'h-11 border-r border-grayscale-300 px-3 py-1 align-middle whitespace-nowrap text-grayscale-800 last:border-r-0',
+          '[&:has([role=checkbox])]:w-10 [&:has([role=checkbox])]:px-3 [&>[role=checkbox]]:mx-auto',
           className,
         )}
         {...props}

@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { expect, it } from 'vitest';
+import { Checkbox } from '../checkbox/Checkbox';
 import {
   Table,
   TableBody,
@@ -81,6 +82,51 @@ it('marks selected rows with data-state="selected"', () => {
   const row = screen.getByTestId('row');
   expect(row).toHaveAttribute('data-state', 'selected');
   expect(row).toHaveClass('data-[state=selected]:bg-grayscale-100');
+});
+
+it('uses the dense framed table defaults from the Vital work table', () => {
+  render(
+    <Table data-testid="table">
+      <TableHeader>
+        <TableRow data-testid="row">
+          <TableHead data-testid="th">
+            <Checkbox aria-label="Select all" />
+          </TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow>
+          <TableCell data-testid="td">
+            <Checkbox aria-label="Select Ada" />
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>,
+  );
+
+  expect(screen.getByTestId('table')).toHaveClass(
+    'border-collapse',
+    'text-grayscale-800',
+  );
+  expect(screen.getByTestId('row')).toHaveClass(
+    'border-grayscale-300',
+    'hover:bg-grayscale-100',
+  );
+  expect(screen.getByTestId('th')).toHaveClass(
+    'h-8',
+    'border-r',
+    'border-grayscale-300',
+    'font-normal',
+    '[&:has([role=checkbox])]:w-10',
+    '[&>[role=checkbox]]:mx-auto',
+  );
+  expect(screen.getByTestId('td')).toHaveClass(
+    'h-11',
+    'border-r',
+    'border-grayscale-300',
+    '[&:has([role=checkbox])]:w-10',
+    '[&>[role=checkbox]]:mx-auto',
+  );
 });
 
 it('applies custom className to each part', () => {

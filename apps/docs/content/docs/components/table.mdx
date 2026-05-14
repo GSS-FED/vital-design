@@ -37,7 +37,7 @@ import {
       <TableCell className="text-right">$250.00</TableCell>
     </TableRow>
   </TableBody>
-</Table>
+</Table>;
 ```
 
 ## When to use
@@ -47,16 +47,16 @@ import {
 
 ## Parts
 
-| Part           | Element     | Notes                                                        |
-| -------------- | ----------- | ------------------------------------------------------------ |
-| `Table`        | `<table>`   | Wrapped in a `<div data-slot="table-container">` that scrolls horizontally. |
-| `TableHeader`  | `<thead>`   | Adds a bottom border on each child `<tr>`.                  |
-| `TableBody`    | `<tbody>`   | Drops the border from the last row.                         |
-| `TableFooter`  | `<tfoot>`   | Subtle muted background, top border.                        |
-| `TableRow`     | `<tr>`      | Hover + `aria-expanded` + `data-state="selected"` styling.  |
-| `TableHead`    | `<th>`      | Compact 10/12 row, left aligned, medium weight.             |
-| `TableCell`    | `<td>`      | Standard padding, vertical-aligned middle.                  |
-| `TableCaption` | `<caption>` | Muted, top margin.                                           |
+| Part           | Element     | Notes                                                                       |
+| -------------- | ----------- | --------------------------------------------------------------------------- |
+| `Table`        | `<table>`   | Wrapped in a scroll container. Use `containerClassName` to style the frame. |
+| `TableHeader`  | `<thead>`   | Adds a bottom border on each child `<tr>`.                                  |
+| `TableBody`    | `<tbody>`   | Drops the border from the last row.                                         |
+| `TableFooter`  | `<tfoot>`   | Muted background with top border.                                           |
+| `TableRow`     | `<tr>`      | Hover + `aria-expanded` + `data-state="selected"` styling.                  |
+| `TableHead`    | `<th>`      | Dense header cell with right border.                                        |
+| `TableCell`    | `<td>`      | Dense body cell with right border.                                          |
+| `TableCaption` | `<caption>` | Muted, top margin.                                                          |
 
 ## Selected row state
 

@@ -195,6 +195,16 @@ export { RadioGroupItem } from '../../../src-v2/components/radio-group/RadioGrou
 export { SearchBar } from '../../../src-v2/components/search-bar/SearchBar';
 export { Skeleton } from '../../../src-v2/components/skeleton/Skeleton';
 export { Spinner } from '../../../src-v2/components/spinner/Spinner';
+export {
+  Progress,
+  ProgressIndicator,
+  ProgressLabel,
+  ProgressRoot,
+  ProgressSegment,
+  ProgressSegments,
+  ProgressTrack,
+  ProgressValue,
+} from '../../../src-v2/components/progress/Progress';
 export { SplitButton } from '../../../src-v2/components/button/split-button/SplitButton';
 export {
   Slider,
