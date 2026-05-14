@@ -37,6 +37,7 @@
     "spinner",
     "progress",
     "table",
+    "tabs",
     "toolbar",
     "resizable",
     "icons"

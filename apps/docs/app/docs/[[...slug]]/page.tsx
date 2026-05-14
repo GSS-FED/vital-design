@@ -85,6 +85,12 @@ import {
   SwitchPreview,
 } from '~/components/previews/SwitchPreview';
 import {
+  TabsBorderedPreview,
+  TabsPillPreview,
+  TabsPreview,
+  TabsVerticalPreview,
+} from '~/components/previews/TabsPreview';
+import {
   TagColorsPreview,
   TagPreview,
   TagRemovablePreview,
@@ -173,6 +179,10 @@ export default async function Page({
             TagColorsPreview,
             TagSolidPreview,
             TagRemovablePreview,
+            TabsPreview,
+            TabsBorderedPreview,
+            TabsPillPreview,
+            TabsVerticalPreview,
             SearchBarPreview,
             SearchBarDisabledPreview,
             ScrollAreaPreview,
