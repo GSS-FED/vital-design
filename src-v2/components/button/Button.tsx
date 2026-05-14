@@ -19,13 +19,18 @@ export type ButtonTheme =
   | 'alarm'
   | 'dangerous';
 
-export type FilledButtonProps = {
-  variant?: 'filled';
+export type DefaultButtonProps = {
+  variant?: 'default';
   theme?: ButtonTheme;
 };
 
 export type TextButtonProps = {
   variant: 'text';
+  theme?: Exclude<ButtonTheme, 'dangerous'>;
+};
+
+export type GhostButtonProps = {
+  variant: 'ghost';
   theme?: Exclude<ButtonTheme, 'dangerous'>;
 };
 
@@ -38,7 +43,7 @@ export type ButtonProps = {
   children?: ReactNode;
   className?: string;
   size?: ButtonSize;
-} & (FilledButtonProps | TextButtonProps) &
+} & (DefaultButtonProps | TextButtonProps | GhostButtonProps) &
   BaseButtonProps;
 
 const BUTTON_BASE_CLASSES = [
@@ -60,8 +65,9 @@ const OVERLAY_CLASSES = [
 const buttonVariants = cva(BUTTON_BASE_CLASSES, {
   variants: {
     variant: {
-      filled: '',
+      default: '',
       text: '',
+      ghost: '',
     },
     size: {
       md: 'text-sm rounded-[var(--radius-lg)]',
@@ -85,7 +91,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
   },
   compoundVariants: [
     {
-      variant: 'filled',
+      variant: ['default', 'ghost'],
       size: 'md',
       class: 'h-[30px]',
     },
@@ -95,13 +101,13 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
       class: 'h-7',
     },
     {
-      variant: 'filled',
+      variant: ['default', 'ghost'],
       size: ['md', 'lg'],
       class:
         'px-4 has-[_[data-icon=inline-start]]:pl-3 has-[_[data-icon=inline-end]]:pr-3',
     },
     {
-      variant: 'filled',
+      variant: ['default', 'ghost'],
       size: ['icon-md', 'icon-lg'],
       class: 'px-3',
     },
@@ -111,54 +117,54 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
       class: 'px-0',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       theme: 'primary',
       class:
         'text-white bg-[image:var(--gradient-primary-button)] focus-visible:shadow-focus-primary',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       theme: 'default',
       class:
         'text-grayscale-800 bg-white focus-visible:shadow-focus-primary disabled:text-grayscale-300 data-[disabled]:text-grayscale-300',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       theme: 'success',
       class:
         'text-white bg-success-500 focus-visible:shadow-focus-success',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       theme: 'info',
       class: 'text-white bg-info-500 focus-visible:shadow-focus-info',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       theme: 'warning',
       class:
         'text-white bg-warning-500 focus-visible:shadow-focus-warning',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       theme: 'alarm',
       class:
         'text-white bg-destructive-500 focus-visible:shadow-focus-destructive',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       theme: 'dangerous',
       class:
         'text-destructive-500 bg-white focus-visible:shadow-focus-destructive disabled:text-destructive-100 data-[disabled]:text-destructive-100',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       size: ['md', 'icon-md'],
       theme: ['default', 'dangerous'],
       class: 'border border-grayscale-300',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       theme: ['primary', 'success', 'info', 'warning', 'alarm'],
       disabled: true,
       class: 'opacity-60',
@@ -200,43 +206,79 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
         'text-destructive-500 hover:not-disabled:not-data-[disabled]:text-destructive-400 active:not-disabled:not-data-[disabled]:text-destructive-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-destructive',
     },
     {
-      variant: 'filled',
+      variant: 'ghost',
+      class:
+        'bg-transparent disabled:text-grayscale-300 data-[disabled]:text-grayscale-300',
+    },
+    {
+      variant: 'ghost',
+      theme: 'primary',
+      class: 'text-primary-500 focus-visible:shadow-focus-primary',
+    },
+    {
+      variant: 'ghost',
+      theme: 'default',
+      class: 'text-grayscale-800 focus-visible:shadow-focus-primary',
+    },
+    {
+      variant: 'ghost',
+      theme: 'success',
+      class: 'text-success-500 focus-visible:shadow-focus-success',
+    },
+    {
+      variant: 'ghost',
+      theme: 'info',
+      class: 'text-info-500 focus-visible:shadow-focus-info',
+    },
+    {
+      variant: 'ghost',
+      theme: 'warning',
+      class: 'text-warning-500 focus-visible:shadow-focus-warning',
+    },
+    {
+      variant: 'ghost',
+      theme: 'alarm',
+      class:
+        'text-destructive-500 focus-visible:shadow-focus-destructive',
+    },
+    {
+      variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'primary',
       class: 'shadow-button-primary',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'success',
       class: 'shadow-button-success',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'info',
       class: 'shadow-button-info',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'warning',
       class: 'shadow-button-warning',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'alarm',
       class: 'shadow-button-destructive',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: ['default', 'dangerous'],
       class: 'shadow-base',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'primary',
       disabled: false,
@@ -244,7 +286,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
         'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-primary-active',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'success',
       disabled: false,
@@ -252,7 +294,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
         'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-success-active',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'info',
       disabled: false,
@@ -260,7 +302,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
         'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-info-active',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'warning',
       disabled: false,
@@ -268,7 +310,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
         'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-warning-active',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'alarm',
       disabled: false,
@@ -276,7 +318,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
         'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-destructive-active',
     },
     {
-      variant: 'filled',
+      variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: ['default', 'dangerous'],
       disabled: false,
@@ -285,7 +327,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
     },
   ],
   defaultVariants: {
-    variant: 'filled',
+    variant: 'default',
     size: 'md',
     theme: 'primary',
     disabled: false,
@@ -306,10 +348,12 @@ const Button = forwardRef<ElementRef<typeof BaseButton>, ButtonProps>(
       variant: variantProp,
       ...buttonProps
     } = props;
-    const variant = variantProp ?? 'filled';
+    const variant = variantProp ?? 'default';
     const theme =
       themeProp ?? (variant === 'text' ? 'default' : 'primary');
     const isDisabled = Boolean(disabled);
+    const useOverlay =
+      !isDisabled && (variant === 'default' || variant === 'ghost');
 
     return (
       <BaseButton
@@ -328,7 +372,7 @@ const Button = forwardRef<ElementRef<typeof BaseButton>, ButtonProps>(
             theme,
             disabled: isDisabled,
           }),
-          variant === 'filled' && !isDisabled && OVERLAY_CLASSES,
+          useOverlay && OVERLAY_CLASSES,
           className,
         )}
         {...buttonProps}

@@ -1,6 +1,6 @@
 ---
 title: Button
-description: Trigger actions with filled and text button variants, multiple themes, and icon support.
+description: Trigger actions with default, text, and ghost variants, multiple themes, and icon support.
 ---
 
 import { SearchIcon } from '@/icons/SearchIcon';
@@ -36,42 +36,43 @@ import { Button } from '@/components/ui/Button';
 
 ## Variants
 
-### Filled (Default)
+### Default
 
-The default `filled` variant renders a solid background button.
+The `default` variant renders a solid background button. It is the
+default rendering style.
 
 <ComponentPreview>
-  <Button variant="filled" theme="primary">
+  <Button variant="default" theme="primary">
     Primary
   </Button>
-  <Button variant="filled" theme="default">
+  <Button variant="default" theme="default">
     Default
   </Button>
-  <Button variant="filled" theme="success">
+  <Button variant="default" theme="success">
     Success
   </Button>
-  <Button variant="filled" theme="info">
+  <Button variant="default" theme="info">
     Info
   </Button>
-  <Button variant="filled" theme="warning">
+  <Button variant="default" theme="warning">
     Warning
   </Button>
-  <Button variant="filled" theme="alarm">
+  <Button variant="default" theme="alarm">
     Alarm
   </Button>
-  <Button variant="filled" theme="dangerous">
+  <Button variant="default" theme="dangerous">
     Dangerous
   </Button>
 </ComponentPreview>
 
 ```tsx
-<Button variant="filled" theme="primary">Primary</Button>
-<Button variant="filled" theme="default">Default</Button>
-<Button variant="filled" theme="success">Success</Button>
-<Button variant="filled" theme="info">Info</Button>
-<Button variant="filled" theme="warning">Warning</Button>
-<Button variant="filled" theme="alarm">Alarm</Button>
-<Button variant="filled" theme="dangerous">Dangerous</Button>
+<Button variant="default" theme="primary">Primary</Button>
+<Button variant="default" theme="default">Default</Button>
+<Button variant="default" theme="success">Success</Button>
+<Button variant="default" theme="info">Info</Button>
+<Button variant="default" theme="warning">Warning</Button>
+<Button variant="default" theme="alarm">Alarm</Button>
+<Button variant="default" theme="dangerous">Dangerous</Button>
 ```
 
 ### Text
@@ -102,6 +103,25 @@ The `text` variant renders a transparent background button. Available for all th
 ```tsx
 <Button variant="text" theme="primary">Primary</Button>
 <Button variant="text" theme="default">Default</Button>
+```
+
+### Ghost
+
+The `ghost` variant renders a transparent button that surfaces a
+background on hover. Use it inside popovers, toolbars, and split-button
+menus where the surrounding chrome provides the affordance.
+
+<ComponentPreview>
+  <Button variant="ghost" theme="primary">
+    Primary
+  </Button>
+  <Button variant="ghost" theme="default">
+    Default
+  </Button>
+</ComponentPreview>
+
+```tsx
+<Button variant="ghost" theme="default">Default</Button>
 ```
 
 ### Sizes
@@ -198,8 +218,8 @@ Render a spinner as a child icon and disable the button while work is in flight.
 
 | Prop                    | Type                                                                                   | Default                                      | Description                                                      |
 | ----------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------- | ---------------------------------------------------------------- |
-| `variant`               | `'filled' \| 'text'`                                                                   | `'filled'`                                   | Visual variant                                                   |
-| `theme`                 | `'primary' \| 'default' \| 'success' \| 'info' \| 'warning' \| 'alarm' \| 'dangerous'` | `'primary'` for filled, `'default'` for text | Color theme (`'dangerous'` only available on `filled`)           |
+| `variant`               | `'default' \| 'text' \| 'ghost'`                                                       | `'default'`                                   | Visual variant                                                   |
+| `theme`                 | `'primary' \| 'default' \| 'success' \| 'info' \| 'warning' \| 'alarm' \| 'dangerous'` | `'primary'` for default, `'default'` for text | Color theme (`'dangerous'` only available on `default`)          |
 | `size`                  | `'md' \| 'lg' \| 'icon-md' \| 'icon-lg'`                                                 | `'md'`                                       | Button size                                                      |
 | `focusableWhenDisabled` | `boolean`                                                                              | `false`                                      | Keeps the button focusable even when disabled styling is applied |
 | `disabled`              | `boolean`                                                                              | `false`                                      | Native disabled attribute                                        |

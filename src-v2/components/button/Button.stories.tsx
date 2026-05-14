@@ -1,6 +1,7 @@
 import {
   Button,
-  type FilledButtonProps,
+  type DefaultButtonProps,
+  type GhostButtonProps,
   type TextButtonProps,
 } from '@/components/button/Button';
 import { Spinner } from '@/components/spinner/Spinner';
@@ -44,7 +45,7 @@ const meta: Meta<typeof Button> = {
   },
   args: {
     children: 'Button',
-    variant: 'filled',
+    variant: 'default',
     size: 'lg',
     disabled: false,
     theme: 'primary',
@@ -139,7 +140,7 @@ export const FocusableWhenDisabled: Story = {
   render: () => (
     <Row>
       <Button theme="primary" disabled focusableWhenDisabled>
-        Filled (Tab to me)
+        Default (Tab to me)
       </Button>
       <Button
         variant="text"
@@ -153,10 +154,10 @@ export const FocusableWhenDisabled: Story = {
   ),
 };
 
-export const FilledButton: Story = {
+export const DefaultButton: Story = {
   parameters: { controls: { disable: true } },
   render: () => {
-    const filledTheme: FilledButtonProps['theme'][] = [
+    const defaultTheme: DefaultButtonProps['theme'][] = [
       'primary',
       'default',
       'success',
@@ -167,18 +168,28 @@ export const FilledButton: Story = {
     ];
     return (
       <Grid column={4}>
-        {filledTheme.map((theme, index) => (
+        {defaultTheme.map((theme, index) => (
           <React.Fragment key={`fragment-${index}`}>
-            <Button variant="filled" theme={theme} size="lg">
+            <Button variant="default" theme={theme} size="lg">
               按鈕
             </Button>
-            <Button variant="filled" theme={theme} size="md">
+            <Button variant="default" theme={theme} size="md">
               按鈕
             </Button>
-            <Button variant="filled" theme={theme} size="lg" disabled>
+            <Button
+              variant="default"
+              theme={theme}
+              size="lg"
+              disabled
+            >
               按鈕
             </Button>
-            <Button variant="filled" theme={theme} size="md" disabled>
+            <Button
+              variant="default"
+              theme={theme}
+              size="md"
+              disabled
+            >
               按鈕
             </Button>
           </React.Fragment>
@@ -213,6 +224,40 @@ export const TextButton: Story = {
               按鈕
             </Button>
             <Button variant="text" theme={theme} size="md" disabled>
+              按鈕
+            </Button>
+          </React.Fragment>
+        ))}
+      </Grid>
+    );
+  },
+};
+
+export const GhostButton: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => {
+    const ghostTheme: GhostButtonProps['theme'][] = [
+      'primary',
+      'default',
+      'success',
+      'info',
+      'warning',
+      'alarm',
+    ];
+    return (
+      <Grid column={4}>
+        {ghostTheme.map((theme, index) => (
+          <React.Fragment key={`fragment-${index}`}>
+            <Button variant="ghost" theme={theme} size="lg">
+              按鈕
+            </Button>
+            <Button variant="ghost" theme={theme} size="md">
+              按鈕
+            </Button>
+            <Button variant="ghost" theme={theme} size="lg" disabled>
+              按鈕
+            </Button>
+            <Button variant="ghost" theme={theme} size="md" disabled>
               按鈕
             </Button>
           </React.Fragment>

@@ -6,7 +6,7 @@ import { createRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { Button } from './Button';
 
-const filledThemeCases = [
+const defaultThemeCases = [
   ['primary', 'bg-[image:var(--gradient-primary-button)]'],
   ['default', 'bg-white'],
   ['success', 'bg-success-500'],
@@ -26,12 +26,12 @@ const textThemeCases = [
 ] as const;
 
 describe('Button', () => {
-  it('renders the default filled button', () => {
+  it('renders the default variant button', () => {
     render(<Button>Button</Button>);
     const button = screen.getByRole('button', { name: 'Button' });
 
     expect(button).toHaveAttribute('data-slot', 'button');
-    expect(button).toHaveAttribute('data-variant', 'filled');
+    expect(button).toHaveAttribute('data-variant', 'default');
     expect(button).toHaveAttribute('data-size', 'md');
     expect(button).toHaveClass(
       'bg-[image:var(--gradient-primary-button)]',
@@ -110,14 +110,26 @@ describe('Button', () => {
     expect(button).toHaveClass('text-grayscale-800');
   });
 
-  it.each(filledThemeCases)(
-    'renders the filled %s theme',
+  it.each(defaultThemeCases)(
+    'renders the default variant %s theme',
     (theme, expectedClass) => {
       render(<Button theme={theme}>Button</Button>);
 
       expect(screen.getByRole('button')).toHaveClass(expectedClass);
     },
   );
+
+  it('renders the ghost variant (transparent + themed text)', () => {
+    render(
+      <Button variant="ghost" theme="primary">
+        Ghost
+      </Button>,
+    );
+    const button = screen.getByRole('button', { name: 'Ghost' });
+
+    expect(button).toHaveAttribute('data-variant', 'ghost');
+    expect(button).toHaveClass('bg-transparent', 'text-primary-500');
+  });
 
   it.each(textThemeCases)(
     'renders the text %s theme',

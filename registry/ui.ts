@@ -49,7 +49,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Button',
     description:
-      'Button component with filled and text variants, multiple themes and sizes',
+      'Button component with default, text, and ghost variants, multiple themes and sizes',
     dependencies: [
       '@base-ui/react',
       'class-variance-authority',

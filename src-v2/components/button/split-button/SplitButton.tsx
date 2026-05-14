@@ -178,7 +178,7 @@ export function SplitButton(props: SplitButtonProps) {
       {...groupProps}
     >
       <Button
-        variant="filled"
+        variant="default"
         theme={theme}
         size={size}
         disabled={disabled}
@@ -196,7 +196,7 @@ export function SplitButton(props: SplitButtonProps) {
         )}
       />
       <Button
-        variant="filled"
+        variant="default"
         theme={theme}
         size={splitSize}
         disabled={disabled}
