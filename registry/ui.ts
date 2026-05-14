@@ -606,10 +606,6 @@ export const ui = [
         path: 'src-v2/components/toast/Toast.tsx',
         type: 'registry:ui',
       },
-      {
-        path: 'src-v2/components/toast/useToast.ts',
-        type: 'registry:ui',
-      },
     ],
   },
   {

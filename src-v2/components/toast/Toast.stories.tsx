@@ -3,22 +3,18 @@ import { CheckIcon } from '@/icons/CheckIcon';
 import { CloseIcon } from '@/icons/CloseIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
 import { type Meta, type StoryObj } from '@storybook/react';
+import { useMemo, useRef, useState } from 'react';
 import { Button } from '../button/Button';
 import {
-  Toast,
-  ToastClose,
-  ToastContent,
-  ToastDescription,
-  ToastPortal,
+  AnchoredToastProvider,
   type ToastPosition,
   ToastProvider,
   type ToastStatus,
-  ToastTitle,
-  ToastViewport,
-  Toaster,
+  type ToastVariant,
   type ToasterToastData,
+  createToastManager,
+  useToast,
 } from './Toast';
-import { useToast } from './useToast';
 
 const STATUSES: ToastStatus[] = [
   'success',
@@ -44,28 +40,62 @@ const POSITIONS: ToastPosition[] = [
   'bottom-right',
 ];
 
-const meta: Meta<typeof Toaster> = {
+type ToastStoryParams = {
+  anchored?: boolean;
+  position?: ToastPosition;
+  variant?: ToastVariant;
+};
+
+const meta: Meta<typeof ToastProvider> = {
   title: 'Components/Toast',
-  component: Toaster,
+  component: ToastProvider,
+  decorators: [
+    (Story, context) => {
+      const params = (context.parameters.toast ??
+        {}) as ToastStoryParams;
+      const manager = useMemo(
+        () => createToastManager<ToasterToastData>(),
+        [],
+      );
+
+      if (params.anchored) {
+        return (
+          <AnchoredToastProvider
+            toastManager={manager}
+            variant={params.variant}
+          >
+            <Story />
+          </AnchoredToastProvider>
+        );
+      }
+
+      return (
+        <ToastProvider
+          toastManager={manager}
+          position={params.position}
+          variant={params.variant}
+        >
+          <Story />
+        </ToastProvider>
+      );
+    },
+  ],
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Toaster>;
+type Story = StoryObj<typeof ToastProvider>;
 
 function StatusButtons() {
-  const toast = useToast();
+  const toast = useToast<ToasterToastData>();
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-2 p-6">
       {STATUSES.map((status) => (
         <Button
           key={status}
           theme="primary"
           onClick={() =>
-            toast.add({
-              type: status,
-              title: `${status} 提示`,
-            })
+            toast.add({ type: status, title: `${status} 提示` })
           }
         >
           {status}
@@ -78,7 +108,7 @@ function StatusButtons() {
 function StatusIconButtons() {
   const toast = useToast<ToasterToastData>();
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-2 p-6">
       {STATUSES.map((status) => (
         <Button
           key={status}
@@ -99,63 +129,33 @@ function StatusIconButtons() {
 }
 
 export const SolidBottomRight: Story = {
-  render: () => (
-    <ToastProvider>
-      <div className="min-h-[240px] p-6">
-        <StatusButtons />
-      </div>
-      <Toaster position="bottom-right" />
-    </ToastProvider>
-  ),
+  render: () => <StatusButtons />,
 };
 
 export const SolidTopRight: Story = {
-  render: () => (
-    <ToastProvider>
-      <div className="min-h-[240px] p-6">
-        <StatusButtons />
-      </div>
-      <Toaster position="top-right" />
-    </ToastProvider>
-  ),
+  parameters: { toast: { position: 'top-right' } },
+  render: () => <StatusButtons />,
 };
 
 export const SolidTopCenter: Story = {
-  render: () => (
-    <ToastProvider>
-      <div className="min-h-[240px] p-6">
-        <StatusButtons />
-      </div>
-      <Toaster position="top-center" />
-    </ToastProvider>
-  ),
+  parameters: { toast: { position: 'top-center' } },
+  render: () => <StatusButtons />,
 };
 
 export const SubtleTopRight: Story = {
-  render: () => (
-    <ToastProvider>
-      <div className="min-h-[240px] p-6">
-        <StatusIconButtons />
-      </div>
-      <Toaster position="top-right" variant="subtle" />
-    </ToastProvider>
-  ),
+  parameters: {
+    toast: { position: 'top-right', variant: 'subtle' },
+  },
+  render: () => <StatusIconButtons />,
 };
 
 export const SubtleBottomRight: Story = {
-  render: () => (
-    <ToastProvider>
-      <div className="min-h-[240px] p-6">
-        <StatusIconButtons />
-      </div>
-      <Toaster position="bottom-right" variant="subtle" />
-    </ToastProvider>
-  ),
+  parameters: { toast: { variant: 'subtle' } },
+  render: () => <StatusIconButtons />,
 };
 
 function LoadingButton() {
   const toast = useToast<ToasterToastData>();
-
   return (
     <Button
       onClick={() => {
@@ -167,16 +167,12 @@ function LoadingButton() {
             icon: <Spinner />,
             cancelProps: {
               children: '取消',
-              onClick: () => {
-                window.alert('已取消');
-              },
+              onClick: () => window.alert('已取消'),
             },
           },
           actionProps: {
             children: '動作',
-            onClick: () => {
-              window.alert('已執行動作');
-            },
+            onClick: () => window.alert('已執行動作'),
           },
         });
         setTimeout(() => {
@@ -184,9 +180,7 @@ function LoadingButton() {
             type: 'success',
             title: '上傳完成',
             timeout: 4000,
-            data: {
-              icon: <CheckIcon />,
-            },
+            data: { icon: <CheckIcon /> },
           });
         }, 2500);
       }}
@@ -197,58 +191,52 @@ function LoadingButton() {
 }
 
 export const Loading: Story = {
+  parameters: {
+    toast: { position: 'top-right', variant: 'subtle' },
+  },
   render: () => (
-    <ToastProvider>
-      <div className="min-h-[240px] p-6">
-        <LoadingButton />
-      </div>
-      <Toaster position="top-right" variant="subtle" />
-    </ToastProvider>
+    <div className="p-6">
+      <LoadingButton />
+    </div>
   ),
 };
 
-function PositionsRow({ position }: { position: ToastPosition }) {
-  const toast = useToast();
-  return (
-    <Button
-      onClick={() =>
-        toast.add({
-          type: 'info',
-          title: position,
-        })
-      }
-    >
-      {position}
-    </Button>
+function PositionScene({ position }: { position: ToastPosition }) {
+  const manager = useMemo(
+    () => createToastManager<ToasterToastData>(),
+    [],
   );
-}
-
-function PositionsScene({ position }: { position: ToastPosition }) {
   return (
-    <ToastProvider>
+    <ToastProvider toastManager={manager} position={position}>
       <div className="flex min-h-[140px] flex-col gap-3 rounded border border-grayscale-200 bg-white p-4">
         <p className="font-sans text-xs text-grayscale-600">
           position: {position}
         </p>
-        <PositionsRow position={position} />
+        <Button
+          onClick={() =>
+            manager.add({ type: 'info', title: position })
+          }
+        >
+          {position}
+        </Button>
       </div>
-      <Toaster position={position} />
     </ToastProvider>
   );
 }
 
 export const Positions: Story = {
+  decorators: [(Story) => <Story />],
   render: () => (
     <div className="grid grid-cols-1 gap-3 p-4 md:grid-cols-3">
       {POSITIONS.map((position) => (
-        <PositionsScene key={position} position={position} />
+        <PositionScene key={position} position={position} />
       ))}
     </div>
   ),
 };
 
 function WithDescriptionButton() {
-  const toast = useToast();
+  const toast = useToast<ToasterToastData>();
   return (
     <Button
       onClick={() =>
@@ -266,17 +254,14 @@ function WithDescriptionButton() {
 
 export const WithDescription: Story = {
   render: () => (
-    <ToastProvider>
-      <div className="min-h-[240px] p-6">
-        <WithDescriptionButton />
-      </div>
-      <Toaster />
-    </ToastProvider>
+    <div className="p-6">
+      <WithDescriptionButton />
+    </div>
   ),
 };
 
 function WithActionButton() {
-  const toast = useToast();
+  const toast = useToast<ToasterToastData>();
   return (
     <Button
       onClick={() =>
@@ -285,9 +270,7 @@ function WithActionButton() {
           title: '已封存項目',
           actionProps: {
             children: '復原',
-            onClick: () => {
-              window.alert('已復原');
-            },
+            onClick: () => window.alert('已復原'),
           },
         })
       }
@@ -299,12 +282,9 @@ function WithActionButton() {
 
 export const WithAction: Story = {
   render: () => (
-    <ToastProvider>
-      <div className="min-h-[240px] p-6">
-        <WithActionButton />
-      </div>
-      <Toaster />
-    </ToastProvider>
+    <div className="p-6">
+      <WithActionButton />
+    </div>
   ),
 };
 
@@ -327,17 +307,14 @@ function WithIconButton() {
 
 export const WithIcon: Story = {
   render: () => (
-    <ToastProvider>
-      <div className="min-h-[240px] p-6">
-        <WithIconButton />
-      </div>
-      <Toaster />
-    </ToastProvider>
+    <div className="p-6">
+      <WithIconButton />
+    </div>
   ),
 };
 
 function PromiseButton() {
-  const toast = useToast();
+  const toast = useToast<ToasterToastData>();
   return (
     <Button
       onClick={() => {
@@ -346,10 +323,7 @@ function PromiseButton() {
         );
         void toast.promise(work, {
           loading: { type: 'info', title: '處理中…' },
-          success: (result) => ({
-            type: 'success',
-            title: result,
-          }),
+          success: (result) => ({ type: 'success', title: result }),
           error: { type: 'error', title: '失敗，請稍後再試' },
         });
       }}
@@ -361,17 +335,14 @@ function PromiseButton() {
 
 export const PromiseFlow: Story = {
   render: () => (
-    <ToastProvider>
-      <div className="min-h-[240px] p-6">
-        <PromiseButton />
-      </div>
-      <Toaster />
-    </ToastProvider>
+    <div className="p-6">
+      <PromiseButton />
+    </div>
   ),
 };
 
 function StackedButton() {
-  const toast = useToast();
+  const toast = useToast<ToasterToastData>();
   return (
     <Button
       onClick={() => {
@@ -387,69 +358,126 @@ function StackedButton() {
 
 export const Stacked: Story = {
   render: () => (
-    <ToastProvider>
-      <div className="min-h-[240px] p-6">
-        <StackedButton />
-      </div>
-      <Toaster />
-    </ToastProvider>
+    <div className="p-6">
+      <StackedButton />
+    </div>
   ),
 };
 
-type UserToastData = {
-  userId: string;
-};
-
-function UserToastButton() {
-  const toast = useToast<UserToastData>();
+/**
+ * Pattern: two channels for two positions.
+ *
+ * Each position needs its own manager + ToastProvider. Mount both
+ * providers at the app root, then import the relevant manager wherever
+ * you fire a toast. The default `toastManager` and `anchoredToastManager`
+ * are exported from `'./Toast'`; create extra managers with `createToastManager`.
+ *
+ * ```tsx
+ * // toast-managers.ts
+ * import { createToastManager, type ToasterToastData } from '@/components/toast'
+ * export const errorToast = createToastManager<ToasterToastData>()
+ *
+ * // app root
+ * import { toastManager, ToastProvider } from '@/components/toast'
+ * import { errorToast } from './toast-managers'
+ *
+ * <ToastProvider position="bottom-right">              // default toastManager
+ *   <ToastProvider toastManager={errorToast} position="top-center">
+ *     {children}
+ *   </ToastProvider>
+ * </ToastProvider>
+ *
+ * // anywhere
+ * import { toastManager } from '@/components/toast'
+ * import { errorToast } from './toast-managers'
+ *
+ * toastManager.add({ type: 'success', title: 'Saved' })
+ * errorToast.add({ type: 'error', title: 'Connection lost' })
+ * ```
+ */
+function TwoChannelsScene() {
+  const bottomManager = useMemo(
+    () => createToastManager<ToasterToastData>(),
+    [],
+  );
+  const topManager = useMemo(
+    () => createToastManager<ToasterToastData>(),
+    [],
+  );
 
   return (
-    <Button
-      onClick={() =>
-        toast.add({
-          title: 'Toast with custom data',
-          data: { userId: '123' },
-        })
-      }
+    <ToastProvider
+      toastManager={bottomManager}
+      position="bottom-right"
     >
-      Custom data toast
+      <ToastProvider
+        toastManager={topManager}
+        position="top-center"
+        variant="subtle"
+      >
+        <div className="flex flex-wrap gap-2 p-6">
+          <Button
+            onClick={() =>
+              bottomManager.add({
+                type: 'success',
+                title: 'Saved to draft',
+              })
+            }
+          >
+            Bottom-right success
+          </Button>
+          <Button
+            onClick={() =>
+              topManager.add({
+                type: 'error',
+                title: 'Connection lost',
+                data: {
+                  icon: <CloseIcon className="size-5" />,
+                },
+              })
+            }
+          >
+            Top-center error
+          </Button>
+        </div>
+      </ToastProvider>
+    </ToastProvider>
+  );
+}
+
+export const TwoChannels: Story = {
+  decorators: [(Story) => <Story />],
+  render: () => <TwoChannelsScene />,
+};
+
+function AnchoredButton() {
+  const ref = useRef<HTMLButtonElement>(null);
+  const [count, setCount] = useState(0);
+  const toast = useToast<ToasterToastData>();
+  return (
+    <Button
+      ref={ref}
+      theme="primary"
+      onClick={() => {
+        const next = count + 1;
+        setCount(next);
+        toast.add({
+          type: 'success',
+          title: `Copied! (${next})`,
+          positionerProps: { anchor: ref.current, side: 'top' },
+        });
+      }}
+    >
+      Copy
     </Button>
   );
 }
 
-function UserToastList() {
-  const { toasts } = useToast<UserToastData>();
-
-  return toasts.map((toast) => (
-    <Toast
-      key={toast.id}
-      toast={toast}
-      className="bottom-0 right-0 min-w-[300px] bg-white p-4 text-grayscale-800"
-    >
-      <ToastContent className="min-w-0 flex-1">
-        <div className="min-w-0 flex-1">
-          <ToastTitle>{toast.title}</ToastTitle>
-          <ToastDescription className="text-grayscale-600">
-            userId: {toast.data?.userId}
-          </ToastDescription>
-        </div>
-        <ToastClose className="text-grayscale-500 hover:text-grayscale-700 focus-visible:text-grayscale-700" />
-      </ToastContent>
-    </Toast>
-  ));
-}
-
-export const CustomDataRenderer: Story = {
+export const Anchored: Story = {
+  parameters: { toast: { anchored: true, variant: 'subtle' } },
   render: () => (
-    <ToastProvider>
-      <div className="min-h-[240px] p-6">
-        <UserToastButton />
-      </div>
-      <ToastPortal>
-        <ToastViewport>
-          <UserToastList />
-        </ToastViewport>
-      </ToastPortal>
-    </ToastProvider>
+    <div className="flex min-h-[240px] items-center justify-center p-6">
+      <AnchoredButton />
+    </div>
   ),
 };

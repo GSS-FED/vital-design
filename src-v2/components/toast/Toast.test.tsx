@@ -1,19 +1,20 @@
 import {
+  act,
   fireEvent,
   queryByAttribute,
   render,
   screen,
   waitFor,
 } from '@testing-library/react';
+import type { ReactNode } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { Button } from '../button/Button';
 import {
   ToastProvider,
   type ToastStatus,
-  Toaster,
   type ToasterToastData,
+  createToastManager,
 } from './Toast';
-import { useToast } from './useToast';
 
 const ResizeObserverMock = vi.fn(() => ({
   observe: vi.fn(),
@@ -31,48 +32,45 @@ function findSlot(container: HTMLElement, slot: string): HTMLElement {
   return el;
 }
 
-function ToastTrigger({
-  description,
-  icon,
-  status = 'success',
-}: {
-  description?: string;
-  icon?: React.ReactNode;
-  status?: ToastStatus;
-}) {
-  const toast = useToast<{ icon?: React.ReactNode }>();
+type Manager = ReturnType<
+  typeof createToastManager<ToasterToastData>
+>;
 
-  return (
-    <Button
-      onClick={() =>
-        toast.add({
-          type: status,
-          title: `${status} 提示`,
-          description,
-          data: icon ? { icon } : undefined,
-        })
-      }
-    >
-      Open
-    </Button>
+function setup(
+  providerProps?: Omit<
+    React.ComponentProps<typeof ToastProvider>,
+    'toastManager' | 'children'
+  >,
+) {
+  const manager = createToastManager<ToasterToastData>();
+  const utils = render(
+    <ToastProvider toastManager={manager} {...providerProps} />,
   );
+  return { manager, ...utils };
 }
 
-function renderToaster(
-  node: React.ReactNode,
-  toasterProps?: React.ComponentProps<typeof Toaster>,
+function clickTrigger(
+  manager: Manager,
+  options: {
+    status?: ToastStatus;
+    description?: string;
+    icon?: ReactNode;
+  },
 ) {
-  return render(
-    <ToastProvider>
-      {node}
-      <Toaster {...toasterProps} />
-    </ToastProvider>,
-  );
+  const { status = 'success', description, icon } = options;
+  act(() => {
+    manager.add({
+      type: status,
+      title: `${status} 提示`,
+      description,
+      data: icon ? { icon } : undefined,
+    });
+  });
 }
 
 describe('Toast', () => {
   it('keeps the viewport empty until a toast is added', () => {
-    const { baseElement } = renderToaster(<ToastTrigger />);
+    const { baseElement } = setup();
 
     expect(
       queryByAttribute('data-slot', baseElement, 'toast'),
@@ -80,11 +78,8 @@ describe('Toast', () => {
   });
 
   it('renders the toast slot when add() is called', async () => {
-    const { baseElement } = renderToaster(
-      <ToastTrigger status="success" />,
-    );
-
-    fireEvent.click(screen.getByText('Open'));
+    const { manager, baseElement } = setup();
+    clickTrigger(manager, { status: 'success' });
 
     await screen.findByText('success 提示');
     const toast = findSlot(baseElement, 'toast');
@@ -102,11 +97,8 @@ describe('Toast', () => {
     ];
 
     for (const { status, bg } of cases) {
-      const { baseElement, unmount } = renderToaster(
-        <ToastTrigger status={status} />,
-      );
-
-      fireEvent.click(screen.getByText('Open'));
+      const { manager, baseElement, unmount } = setup();
+      clickTrigger(manager, { status });
 
       await screen.findByText(`${status} 提示`);
       const toast = findSlot(baseElement, 'toast');
@@ -119,11 +111,8 @@ describe('Toast', () => {
   });
 
   it('renders the title, description, and close slot', async () => {
-    const { baseElement } = renderToaster(
-      <ToastTrigger description="完整描述" />,
-    );
-
-    fireEvent.click(screen.getByText('Open'));
+    const { manager, baseElement } = setup();
+    clickTrigger(manager, { description: '完整描述' });
 
     await screen.findByText('success 提示');
     expect(screen.getByText('完整描述')).toBeInTheDocument();
@@ -134,9 +123,8 @@ describe('Toast', () => {
   });
 
   it('omits the icon slot unless an icon is supplied via toast data', async () => {
-    const { baseElement } = renderToaster(<ToastTrigger />);
-
-    fireEvent.click(screen.getByText('Open'));
+    const { manager, baseElement } = setup();
+    clickTrigger(manager, {});
 
     await screen.findByText('success 提示');
     expect(
@@ -145,13 +133,10 @@ describe('Toast', () => {
   });
 
   it('renders the supplied icon inside the icon slot', async () => {
-    const { baseElement } = renderToaster(
-      <ToastTrigger
-        icon={<span data-testid="custom-icon">!</span>}
-      />,
-    );
-
-    fireEvent.click(screen.getByText('Open'));
+    const { manager, baseElement } = setup();
+    clickTrigger(manager, {
+      icon: <span data-testid="custom-icon">!</span>,
+    });
 
     await screen.findByText('success 提示');
     const slot = findSlot(baseElement, 'toast-icon');
@@ -159,9 +144,9 @@ describe('Toast', () => {
   });
 
   it('positions the viewport at bottom-right by default', async () => {
-    const { baseElement } = renderToaster(<ToastTrigger />);
+    const { manager, baseElement } = setup();
+    clickTrigger(manager, {});
 
-    fireEvent.click(screen.getByText('Open'));
     await screen.findByText('success 提示');
 
     const viewport = findSlot(baseElement, 'toast-viewport');
@@ -173,12 +158,12 @@ describe('Toast', () => {
     expect(toast).toHaveClass('bottom-0', 'right-0');
   });
 
-  it('honors the position prop on the viewport and toast anchor', async () => {
-    const { baseElement } = renderToaster(<ToastTrigger />, {
+  it('honors position on the viewport and toast anchor', async () => {
+    const { manager, baseElement } = setup({
       position: 'top-right',
     });
+    clickTrigger(manager, {});
 
-    fireEvent.click(screen.getByText('Open'));
     await screen.findByText('success 提示');
 
     const viewport = findSlot(baseElement, 'toast-viewport');
@@ -191,34 +176,16 @@ describe('Toast', () => {
   });
 
   it('hides the close X and renders cancel button when toast is loading', async () => {
-    function LoadingTrigger() {
-      const toast = useToast<ToasterToastData>();
-      return (
-        <Button
-          onClick={() =>
-            toast.add({
-              type: 'loading',
-              title: '上傳中',
-              timeout: 0,
-              data: {
-                cancelProps: { children: '取消' },
-              },
-            })
-          }
-        >
-          Open
-        </Button>
-      );
-    }
+    const { manager, baseElement } = setup();
+    act(() => {
+      manager.add({
+        type: 'loading',
+        title: '上傳中',
+        timeout: 0,
+        data: { cancelProps: { children: '取消' } },
+      });
+    });
 
-    const { baseElement } = render(
-      <ToastProvider>
-        <LoadingTrigger />
-        <Toaster />
-      </ToastProvider>,
-    );
-
-    fireEvent.click(screen.getByText('Open'));
     await screen.findByText('上傳中');
 
     const toast = findSlot(baseElement, 'toast');
@@ -234,35 +201,18 @@ describe('Toast', () => {
 
   it('closes the toast when the cancel button is clicked', async () => {
     const onCancel = vi.fn();
+    const { manager, baseElement } = setup();
+    act(() => {
+      manager.add({
+        type: 'loading',
+        title: '上傳中',
+        timeout: 0,
+        data: {
+          cancelProps: { children: '取消', onClick: onCancel },
+        },
+      });
+    });
 
-    function LoadingTrigger() {
-      const toast = useToast<ToasterToastData>();
-      return (
-        <Button
-          onClick={() =>
-            toast.add({
-              type: 'loading',
-              title: '上傳中',
-              timeout: 0,
-              data: {
-                cancelProps: { children: '取消', onClick: onCancel },
-              },
-            })
-          }
-        >
-          Open
-        </Button>
-      );
-    }
-
-    const { baseElement } = render(
-      <ToastProvider>
-        <LoadingTrigger />
-        <Toaster />
-      </ToastProvider>,
-    );
-
-    fireEvent.click(screen.getByText('Open'));
     await screen.findByText('上傳中');
 
     const cancel = findSlot(baseElement, 'toast-cancel');
@@ -277,11 +227,9 @@ describe('Toast', () => {
   });
 
   it('switches to white-bg styling for the subtle variant', async () => {
-    const { baseElement } = renderToaster(<ToastTrigger />, {
-      variant: 'subtle',
-    });
+    const { manager, baseElement } = setup({ variant: 'subtle' });
+    clickTrigger(manager, {});
 
-    fireEvent.click(screen.getByText('Open'));
     await screen.findByText('success 提示');
 
     const toast = findSlot(baseElement, 'toast');
@@ -292,9 +240,8 @@ describe('Toast', () => {
   });
 
   it('closes the toast when the close button is clicked', async () => {
-    const { baseElement } = renderToaster(<ToastTrigger />);
-
-    fireEvent.click(screen.getByText('Open'));
+    const { manager, baseElement } = setup();
+    clickTrigger(manager, {});
 
     await screen.findByText('success 提示');
 
@@ -306,5 +253,61 @@ describe('Toast', () => {
         queryByAttribute('data-slot', baseElement, 'toast'),
       ).not.toBeInTheDocument();
     });
+  });
+
+  it('supports two managers side-by-side (different positions)', async () => {
+    const topManager = createToastManager<ToasterToastData>();
+    const bottomManager = createToastManager<ToasterToastData>();
+
+    render(
+      <>
+        <ToastProvider
+          toastManager={topManager}
+          position="top-center"
+        />
+        <ToastProvider
+          toastManager={bottomManager}
+          position="bottom-right"
+        />
+      </>,
+    );
+
+    act(() => {
+      topManager.add({ type: 'error', title: 'top toast' });
+      bottomManager.add({ type: 'success', title: 'bottom toast' });
+    });
+
+    const topToast = await screen.findByText('top toast');
+    const bottomToast = await screen.findByText('bottom toast');
+
+    expect(topToast).toBeInTheDocument();
+    expect(bottomToast).toBeInTheDocument();
+  });
+
+  it('renders a Button onClick that fires the manager from anywhere', async () => {
+    const manager = createToastManager<ToasterToastData>();
+    function Trigger() {
+      return (
+        <Button
+          onClick={() =>
+            manager.add({ type: 'info', title: 'from button' })
+          }
+        >
+          Open
+        </Button>
+      );
+    }
+    const { baseElement } = render(
+      <ToastProvider toastManager={manager}>
+        <Trigger />
+      </ToastProvider>,
+    );
+
+    fireEvent.click(screen.getByText('Open'));
+    await screen.findByText('from button');
+    expect(findSlot(baseElement, 'toast')).toHaveAttribute(
+      'data-status',
+      'info',
+    );
   });
 });

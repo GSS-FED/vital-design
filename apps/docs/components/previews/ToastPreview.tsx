@@ -3,22 +3,16 @@
 import { Button } from '@/components/button/Button';
 import { Spinner } from '@/components/spinner/Spinner';
 import {
-  Toast,
-  ToastClose,
-  ToastContent,
-  ToastDescription,
-  ToastPortal,
+  AnchoredToastProvider,
   ToastProvider,
   type ToastStatus,
-  ToastTitle,
-  ToastViewport,
-  Toaster,
   type ToasterToastData,
+  createToastManager,
 } from '@/components/toast/Toast';
-import { useToast } from '@/components/toast/useToast';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { CloseIcon } from '@/icons/CloseIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
+import { useMemo, useRef, useState } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 const STATUSES: ToastStatus[] = [
@@ -36,8 +30,15 @@ const STATUS_ICON_NODE: Record<ToastStatus, React.ReactNode> = {
   loading: <Spinner className="size-5" />,
 };
 
-function StatusButtons() {
-  const toast = useToast();
+function useFreshManager() {
+  return useMemo(() => createToastManager<ToasterToastData>(), []);
+}
+
+function StatusButtons({
+  manager,
+}: {
+  manager: ReturnType<typeof useFreshManager>;
+}) {
   return (
     <div className="flex flex-wrap gap-2">
       {STATUSES.map((status) => (
@@ -45,10 +46,7 @@ function StatusButtons() {
           key={status}
           theme="primary"
           onClick={() =>
-            toast.add({
-              type: status,
-              title: `${status} 提示`,
-            })
+            manager.add({ type: status, title: `${status} 提示` })
           }
         >
           {status}
@@ -58,8 +56,11 @@ function StatusButtons() {
   );
 }
 
-function StatusIconButtons() {
-  const toast = useToast<ToasterToastData>();
+function StatusIconButtons({
+  manager,
+}: {
+  manager: ReturnType<typeof useFreshManager>;
+}) {
   return (
     <div className="flex flex-wrap gap-2">
       {STATUSES.map((status) => (
@@ -67,7 +68,7 @@ function StatusIconButtons() {
           key={status}
           theme="primary"
           onClick={() =>
-            toast.add({
+            manager.add({
               type: status,
               title: `${status} 提示`,
               data: { icon: STATUS_ICON_NODE[status] },
@@ -82,55 +83,62 @@ function StatusIconButtons() {
 }
 
 export function ToastPreview() {
+  const manager = useFreshManager();
   return (
     <ComponentPreview centered={false}>
-      <ToastProvider>
-        <StatusButtons />
-        <Toaster />
+      <ToastProvider toastManager={manager}>
+        <StatusButtons manager={manager} />
       </ToastProvider>
     </ComponentPreview>
   );
 }
 
 export function ToastTopRightPreview() {
+  const manager = useFreshManager();
   return (
     <ComponentPreview centered={false}>
-      <ToastProvider>
-        <StatusButtons />
-        <Toaster position="top-right" />
+      <ToastProvider toastManager={manager} position="top-right">
+        <StatusButtons manager={manager} />
       </ToastProvider>
     </ComponentPreview>
   );
 }
 
 export function ToastSubtlePreview() {
+  const manager = useFreshManager();
   return (
     <ComponentPreview centered={false}>
-      <ToastProvider>
-        <StatusIconButtons />
-        <Toaster position="top-right" variant="subtle" />
+      <ToastProvider
+        toastManager={manager}
+        position="top-right"
+        variant="subtle"
+      >
+        <StatusIconButtons manager={manager} />
       </ToastProvider>
     </ComponentPreview>
   );
 }
 
 export function ToastTopCenterPreview() {
+  const manager = useFreshManager();
   return (
     <ComponentPreview centered={false}>
-      <ToastProvider>
-        <StatusButtons />
-        <Toaster position="top-center" />
+      <ToastProvider toastManager={manager} position="top-center">
+        <StatusButtons manager={manager} />
       </ToastProvider>
     </ComponentPreview>
   );
 }
 
-function LoadingButton() {
-  const toast = useToast<ToasterToastData>();
+function LoadingButton({
+  manager,
+}: {
+  manager: ReturnType<typeof useFreshManager>;
+}) {
   return (
     <Button
       onClick={() => {
-        const id = toast.add({
+        const id = manager.add({
           type: 'loading',
           title: '上傳中',
           timeout: 0,
@@ -138,20 +146,16 @@ function LoadingButton() {
             icon: <Spinner className="size-5" />,
             cancelProps: {
               children: '取消',
-              onClick: () => {
-                window.alert('已取消');
-              },
+              onClick: () => window.alert('已取消'),
             },
           },
           actionProps: {
             children: '動作',
-            onClick: () => {
-              window.alert('已執行動作');
-            },
+            onClick: () => window.alert('已執行動作'),
           },
         });
         setTimeout(() => {
-          toast.update(id, {
+          manager.update(id, {
             type: 'success',
             title: '上傳完成',
             timeout: 4000,
@@ -166,195 +170,179 @@ function LoadingButton() {
 }
 
 export function ToastLoadingPreview() {
+  const manager = useFreshManager();
   return (
     <ComponentPreview centered={false}>
-      <ToastProvider>
-        <LoadingButton />
-        <Toaster position="top-right" variant="subtle" />
+      <ToastProvider
+        toastManager={manager}
+        position="top-right"
+        variant="subtle"
+      >
+        <LoadingButton manager={manager} />
       </ToastProvider>
     </ComponentPreview>
-  );
-}
-
-function DescriptionButton() {
-  const toast = useToast();
-  return (
-    <Button
-      onClick={() =>
-        toast.add({
-          type: 'success',
-          title: '已成功儲存',
-          description: '所有變更已套用至專案。',
-        })
-      }
-    >
-      Toast with description
-    </Button>
   );
 }
 
 export function ToastDescriptionPreview() {
+  const manager = useFreshManager();
   return (
     <ComponentPreview centered={false}>
-      <ToastProvider>
-        <DescriptionButton />
-        <Toaster />
+      <ToastProvider toastManager={manager}>
+        <Button
+          onClick={() =>
+            manager.add({
+              type: 'success',
+              title: '已成功儲存',
+              description: '所有變更已套用至專案。',
+            })
+          }
+        >
+          Toast with description
+        </Button>
       </ToastProvider>
     </ComponentPreview>
-  );
-}
-
-function ActionButton() {
-  const toast = useToast();
-  return (
-    <Button
-      onClick={() =>
-        toast.add({
-          type: 'info',
-          title: '已封存項目',
-          actionProps: {
-            children: '復原',
-            onClick: () => {
-              window.alert('已復原');
-            },
-          },
-        })
-      }
-    >
-      Toast with action
-    </Button>
   );
 }
 
 export function ToastActionPreview() {
+  const manager = useFreshManager();
   return (
     <ComponentPreview centered={false}>
-      <ToastProvider>
-        <ActionButton />
-        <Toaster />
+      <ToastProvider toastManager={manager}>
+        <Button
+          onClick={() =>
+            manager.add({
+              type: 'info',
+              title: '已封存項目',
+              actionProps: {
+                children: '復原',
+                onClick: () => window.alert('已復原'),
+              },
+            })
+          }
+        >
+          Toast with action
+        </Button>
       </ToastProvider>
     </ComponentPreview>
-  );
-}
-
-function IconButton() {
-  const toast = useToast<ToasterToastData>();
-  return (
-    <Button
-      onClick={() =>
-        toast.add({
-          type: 'warning',
-          title: '請注意系統公告',
-          data: {
-            icon: <FlagIcon className="size-5" />,
-          },
-        })
-      }
-    >
-      Toast with icon
-    </Button>
   );
 }
 
 export function ToastIconPreview() {
+  const manager = useFreshManager();
   return (
     <ComponentPreview centered={false}>
-      <ToastProvider>
-        <IconButton />
-        <Toaster />
+      <ToastProvider toastManager={manager}>
+        <Button
+          onClick={() =>
+            manager.add({
+              type: 'warning',
+              title: '請注意系統公告',
+              data: { icon: <FlagIcon className="size-5" /> },
+            })
+          }
+        >
+          Toast with icon
+        </Button>
       </ToastProvider>
     </ComponentPreview>
-  );
-}
-
-function PromiseButton() {
-  const toast = useToast();
-  return (
-    <Button
-      onClick={() => {
-        const work = new Promise<string>((resolve) =>
-          setTimeout(() => resolve('完成'), 1500),
-        );
-        void toast.promise(work, {
-          loading: { type: 'info', title: '處理中…' },
-          success: (result) => ({
-            type: 'success',
-            title: result,
-          }),
-          error: { type: 'error', title: '失敗，請稍後再試' },
-        });
-      }}
-    >
-      Promise toast
-    </Button>
   );
 }
 
 export function ToastPromisePreview() {
+  const manager = useFreshManager();
   return (
     <ComponentPreview centered={false}>
-      <ToastProvider>
-        <PromiseButton />
-        <Toaster />
+      <ToastProvider toastManager={manager}>
+        <Button
+          onClick={() => {
+            const work = new Promise<string>((resolve) =>
+              setTimeout(() => resolve('完成'), 1500),
+            );
+            void manager.promise(work, {
+              loading: { type: 'info', title: '處理中…' },
+              success: (result) => ({
+                type: 'success',
+                title: result,
+              }),
+              error: { type: 'error', title: '失敗，請稍後再試' },
+            });
+          }}
+        >
+          Promise toast
+        </Button>
       </ToastProvider>
     </ComponentPreview>
   );
 }
 
-type UserToastData = {
-  userId: string;
-};
-
-function UserToastButton() {
-  const toast = useToast<UserToastData>();
-
+export function ToastTwoChannelsPreview() {
+  const bottomManager = useFreshManager();
+  const topManager = useFreshManager();
   return (
-    <Button
-      onClick={() =>
-        toast.add({
-          title: 'Toast with custom data',
-          data: { userId: '123' },
-        })
-      }
-    >
-      Custom data toast
-    </Button>
+    <ComponentPreview centered={false}>
+      <ToastProvider
+        toastManager={bottomManager}
+        position="bottom-right"
+      >
+        <ToastProvider
+          toastManager={topManager}
+          position="top-center"
+          variant="subtle"
+        >
+          <div className="flex flex-wrap gap-2">
+            <Button
+              onClick={() =>
+                bottomManager.add({
+                  type: 'success',
+                  title: 'Saved to draft',
+                })
+              }
+            >
+              Bottom-right success
+            </Button>
+            <Button
+              onClick={() =>
+                topManager.add({
+                  type: 'error',
+                  title: 'Connection lost',
+                  data: { icon: <CloseIcon className="size-5" /> },
+                })
+              }
+            >
+              Top-center error
+            </Button>
+          </div>
+        </ToastProvider>
+      </ToastProvider>
+    </ComponentPreview>
   );
 }
 
-function UserToastList() {
-  const { toasts } = useToast<UserToastData>();
-
-  return toasts.map((toast) => (
-    <Toast
-      key={toast.id}
-      toast={toast}
-      className="bottom-0 right-0 min-w-[300px] bg-white p-4 text-grayscale-800"
-    >
-      <ToastContent className="min-w-0 flex-1">
-        <div className="min-w-0 flex-1">
-          <ToastTitle>{toast.title}</ToastTitle>
-          <ToastDescription className="text-grayscale-600">
-            userId: {toast.data?.userId}
-          </ToastDescription>
-        </div>
-        <ToastClose className="text-grayscale-500 hover:text-grayscale-700 focus-visible:text-grayscale-700" />
-      </ToastContent>
-    </Toast>
-  ));
-}
-
-export function ToastCustomDataPreview() {
+export function ToastAnchoredPreview() {
+  const manager = useFreshManager();
+  const ref = useRef<HTMLButtonElement>(null);
+  const [count, setCount] = useState(0);
   return (
-    <ComponentPreview centered={false}>
-      <ToastProvider>
-        <UserToastButton />
-        <ToastPortal>
-          <ToastViewport>
-            <UserToastList />
-          </ToastViewport>
-        </ToastPortal>
-      </ToastProvider>
+    <ComponentPreview>
+      <AnchoredToastProvider toastManager={manager} variant="subtle">
+        <Button
+          ref={ref}
+          theme="primary"
+          onClick={() => {
+            const next = count + 1;
+            setCount(next);
+            manager.add({
+              type: 'success',
+              title: `Copied! (${next})`,
+              positionerProps: { anchor: ref.current, side: 'top' },
+            });
+          }}
+        >
+          Copy
+        </Button>
+      </AnchoredToastProvider>
     </ComponentPreview>
   );
 }
