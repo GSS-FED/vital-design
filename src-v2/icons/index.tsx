@@ -10,6 +10,7 @@ export { ClearIcon } from './ClearIcon';
 export { ClockIcon } from './ClockIcon';
 export { CloseIcon } from './CloseIcon';
 export { DisabledIcon } from './DisabledIcon';
+export { EllipsisIcon } from './EllipsisIcon';
 export { EyeIcon } from './EyeIcon';
 export { EyeSlashIcon } from './EyeSlashIcon';
 export { FlagIcon } from './FlagIcon';

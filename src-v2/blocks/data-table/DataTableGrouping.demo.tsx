@@ -4,7 +4,9 @@ import { Checkbox } from '@/components/checkbox/Checkbox';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/dropdown-menu/DropdownMenu';
 import {
@@ -16,6 +18,7 @@ import { Switch } from '@/components/switch/Switch';
 import { Tag } from '@/components/tag/Tag';
 import { Toolbar, ToolbarSpacer } from '@/components/toolbar/Toolbar';
 import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
+import { EllipsisIcon } from '@/icons/EllipsisIcon';
 import { cn } from '@/lib/utils';
 import type { ColumnDef } from '@tanstack/react-table';
 import type { ComponentProps, ReactNode } from 'react';
@@ -106,26 +109,43 @@ function UserCell({
 
 export function MoreButton() {
   return (
-    <button
-      type="button"
-      aria-label="更多操作"
-      className="inline-flex size-5 items-center justify-center rounded text-grayscale-500 hover:bg-grayscale-100"
-    >
-      ...
-    </button>
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        render={
+          <Button
+            type="button"
+            aria-label="更多操作"
+            variant="text"
+            size="icon-md"
+            theme="default"
+          >
+            <EllipsisIcon />
+          </Button>
+        }
+      />
+      <DropdownMenuContent align="start">
+        <DropdownMenuGroup>
+          <DropdownMenuItem>編輯</DropdownMenuItem>
+          <DropdownMenuItem>複制</DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>刪除</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
 function CandidateStage({ count = 3 }: { count?: number }) {
   return (
-    <span className="inline-flex w-24 items-center gap-1">
+    <ProgressSegments className="gap-1">
       {Array.from({ length: count }).map((_, index) => (
-        <span
+        <ProgressSegment
           key={index}
-          className="h-0.5 flex-1 rounded bg-grayscale-300"
+          className="flex-1"
+          data-state="inactive"
         />
       ))}
-    </span>
+    </ProgressSegments>
   );
 }
 
@@ -257,7 +277,9 @@ export const candidateColumns: ColumnDef<Candidate>[] = [
   {
     accessorKey: 'stage',
     header: '面試階段',
-    cell: () => <CandidateStage />,
+    cell: ({ row }) => (
+      <CandidateStage count={row.index % 2 == 0 ? 3 : 5} />
+    ),
     size: 108,
   },
   {
@@ -397,8 +419,25 @@ export const emissions: Emission[] = [
 export const emissionColumns: ColumnDef<EmissionTreeRow>[] = [
   {
     id: 'select',
-    header: () => <Checkbox aria-label="Select all" />,
-    cell: () => <Checkbox aria-label="Select row" />,
+    header: ({ table }) => (
+      <Checkbox
+        aria-label="Select all"
+        checked={table.getIsAllPageRowsSelected()}
+        indeterminate={table.getIsSomePageRowsSelected()}
+        onCheckedChange={(value) =>
+          table.toggleAllPageRowsSelected(Boolean(value))
+        }
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        aria-label={`Select row ${row.original.id}`}
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) =>
+          row.toggleSelected(Boolean(value))
+        }
+      />
+    ),
     size: 40,
     enableSorting: false,
   },
@@ -521,7 +560,7 @@ export const emissionColumns: ColumnDef<EmissionTreeRow>[] = [
     header: '量化',
     cell: ({ row }) =>
       row.original.kind === 'source' ? (
-        <Switch checked={row.original.quantified} />
+        <Switch defaultChecked={row.original.quantified} />
       ) : null,
     size: 68,
     enableSorting: false,
@@ -672,8 +711,25 @@ function ProgressChart({ value }: { value: EsgTopic['progress'] }) {
 export const esgColumns: ColumnDef<EsgTopic>[] = [
   {
     id: 'select',
-    header: () => <Checkbox aria-label="Select all" />,
-    cell: () => <Checkbox aria-label="Select row" />,
+    header: ({ table }) => (
+      <Checkbox
+        aria-label="Select all"
+        checked={table.getIsAllPageRowsSelected()}
+        indeterminate={table.getIsSomePageRowsSelected()}
+        onCheckedChange={(value) =>
+          table.toggleAllPageRowsSelected(Boolean(value))
+        }
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        aria-label={`Select row ${row.original.id}`}
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) =>
+          row.toggleSelected(Boolean(value))
+        }
+      />
+    ),
     size: 40,
     enableSorting: false,
   },

@@ -2,12 +2,20 @@ import { Card } from '@/components/card/Card';
 import { ToolbarGroup } from '@/components/toolbar/Toolbar';
 import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
 import {
+  type RowSelectionState,
   type SortingState,
   getCoreRowModel,
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { useMemo, useState } from 'react';
+import {
+  type RefCallback,
+  type UIEvent,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { DataTable } from './DataTable';
 import {
   ActionBar,
@@ -18,18 +26,16 @@ import {
   esgData,
 } from './DataTableGrouping.demo';
 
-const stickyTableClassName = [
-  'min-w-[1010px] table-fixed border-separate border-spacing-0',
-  '[&_[data-slot=table-head]]:sticky [&_[data-slot=table-head]]:top-[54px] [&_[data-slot=table-head]]:z-20',
-].join(' ');
+const tableClassName =
+  'w-[1010px] table-fixed border-separate border-spacing-0';
 
 const frozenColumnClassNames = {
   select: {
-    head: 'left-0 !z-40',
+    head: 'sticky left-0 z-30',
     cell: 'sticky left-0 z-20 bg-white group-hover:bg-[#f8f8f9]',
   },
   id: {
-    head: 'left-10 !z-40 after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-300 after:content-[""]',
+    head: 'sticky left-10 z-30 after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-300 after:content-[""]',
     cell: 'sticky left-10 z-20 bg-white group-hover:bg-[#f8f8f9] after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-300 after:content-[""]',
   },
 };
@@ -48,30 +54,45 @@ function makeScrollableRows(rows: EsgTopic[]) {
 }
 
 function PillarCard({
+  onScroll,
   pillar,
+  registerScroller,
   rows,
 }: {
+  onScroll: (pillar: EsgTopic['pillar'], scrollLeft: number) => void;
   pillar: EsgTopic['pillar'];
+  registerScroller: (
+    pillar: EsgTopic['pillar'],
+  ) => RefCallback<HTMLDivElement>;
   rows: EsgTopic[];
 }) {
   const [open, setOpen] = useState(true);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>(
+    {},
+  );
   const [sorting, setSorting] = useState<SortingState>([]);
   const table = useReactTable({
     data: rows,
     columns: esgColumns,
-    state: { sorting },
+    state: { rowSelection, sorting },
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
 
+  const handleScroll = (event: UIEvent<HTMLDivElement>) => {
+    onScroll(pillar, event.currentTarget.scrollLeft);
+  };
+
   return (
-    <Card className="min-w-[1010px] overflow-visible">
+    <Card className="w-[min(1010px,calc(100vw-48px))] overflow-visible">
       <button
         type="button"
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
-        className="sticky top-0 left-0 z-50 flex w-[min(1010px,calc(100vw-24px))] items-center gap-10 rounded-t border-b border-grayscale-300 bg-white py-2.5 text-left transition-colors hover:bg-grayscale-50"
+        className="sticky top-0 z-50 flex h-[55px] w-full items-center gap-10 rounded-t border-b border-grayscale-300 bg-white py-2.5 text-left transition-colors hover:bg-grayscale-50"
       >
         <span className="flex flex-1 items-center">
           <span className="flex w-10 items-center justify-center py-2">
@@ -81,25 +102,35 @@ function PillarCard({
               }`}
             />
           </span>
-          <span className="text-sm font-medium leading-5 text-grayscale-800">
+          <span className="text-sm leading-5 font-medium text-grayscale-800">
             {pillar}
           </span>
         </span>
         <PillarSummary rows={rows} />
       </button>
       {open && (
-        <DataTable
-          table={table}
-          className={stickyTableClassName}
-          containerClassName="overflow-visible"
-          columnClassNames={frozenColumnClassNames}
-        />
+        <div
+          ref={registerScroller(pillar)}
+          onScroll={handleScroll}
+          className="overflow-x-auto"
+        >
+          <DataTable
+            table={table}
+            className={tableClassName}
+            containerClassName="overflow-visible"
+            columnClassNames={frozenColumnClassNames}
+          />
+        </div>
       )}
     </Card>
   );
 }
 
 export function DataTableGroupingCardsBlock() {
+  const scrollersRef = useRef(
+    new Map<EsgTopic['pillar'], HTMLDivElement>(),
+  );
+  const syncingRef = useRef(false);
   const grouped = useMemo(() => {
     const out = new Map<EsgTopic['pillar'], EsgTopic[]>();
     for (const topic of esgData) {
@@ -110,9 +141,32 @@ export function DataTableGroupingCardsBlock() {
     return out;
   }, []);
 
+  const registerScroller = useCallback(
+    (pillar: EsgTopic['pillar']) => (node: HTMLDivElement | null) => {
+      if (node) scrollersRef.current.set(pillar, node);
+      else scrollersRef.current.delete(pillar);
+    },
+    [],
+  );
+
+  const handleScroll = useCallback(
+    (source: EsgTopic['pillar'], scrollLeft: number) => {
+      if (syncingRef.current) return;
+
+      syncingRef.current = true;
+      for (const [pillar, scroller] of scrollersRef.current) {
+        if (pillar !== source && scroller.scrollLeft !== scrollLeft) {
+          scroller.scrollLeft = scrollLeft;
+        }
+      }
+      syncingRef.current = false;
+    },
+    [],
+  );
+
   return (
-    <div className="w-[1034px] max-w-none pr-6">
-      <div className="sticky left-0 z-[60] w-[min(1010px,calc(100vw-48px))]">
+    <div className="w-[min(1010px,calc(100vw-48px))] max-w-none pb-3">
+      <div className="sticky left-0 z-[60]">
         <ActionBar
           searchPlaceholder="搜尋"
           left={
@@ -124,13 +178,15 @@ export function DataTableGroupingCardsBlock() {
           raised
         />
       </div>
-      <div className="mt-4 w-[1010px] space-y-4 pb-3">
+      <div className="mt-4 space-y-4 pb-3">
         {Array.from(grouped).map(([pillar, rows]) => {
           const scrollableRows = makeScrollableRows(rows);
           return (
             <PillarCard
               key={pillar}
+              onScroll={handleScroll}
               pillar={pillar}
+              registerScroller={registerScroller}
               rows={scrollableRows}
             />
           );

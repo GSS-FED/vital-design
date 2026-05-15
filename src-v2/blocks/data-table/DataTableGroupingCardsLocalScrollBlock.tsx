@@ -2,6 +2,7 @@ import { Card } from '@/components/card/Card';
 import { ToolbarGroup } from '@/components/toolbar/Toolbar';
 import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
 import {
+  type RowSelectionState,
   type SortingState,
   getCoreRowModel,
   getSortedRowModel,
@@ -53,11 +54,16 @@ function PillarCard({
   rows: EsgTopic[];
 }) {
   const [open, setOpen] = useState(true);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>(
+    {},
+  );
   const [sorting, setSorting] = useState<SortingState>([]);
   const table = useReactTable({
     data: rows,
     columns: esgColumns,
-    state: { sorting },
+    state: { rowSelection, sorting },
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),

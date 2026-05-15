@@ -10,6 +10,7 @@ import {
   type ExpandedState,
   type HeaderGroup,
   type Row,
+  type RowSelectionState,
   type SortingState,
   flexRender,
   getCoreRowModel,
@@ -81,7 +82,7 @@ function EmissionRailLine({ branch = false }: { branch?: boolean }) {
       {branch && (
         <span
           aria-hidden="true"
-          className="absolute right-0 top-0 h-[22px] w-3 rounded-bl-lg border-b border-l border-grayscale-300"
+          className="absolute right-0 top-0 h-[22px] w-3 rounded-bl-lg border-b border-l border-border"
         />
       )}
     </div>
@@ -275,12 +276,17 @@ function EmissionSourceRow({
 export function DataTableGroupingNestedBlock() {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [expanded, setExpanded] = useState<ExpandedState>(true);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>(
+    {},
+  );
   const data = useMemo(() => buildEmissionTree(emissions), []);
   const table = useReactTable({
     data,
     columns: emissionColumns,
-    state: { expanded, sorting },
+    state: { expanded, rowSelection, sorting },
+    enableRowSelection: true,
     onExpandedChange: setExpanded,
+    onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     getSubRows: (row) =>
       row.kind === 'source' ? undefined : row.subRows,
