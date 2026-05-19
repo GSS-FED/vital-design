@@ -44,6 +44,7 @@ publish-job:
     - build-job
   script:
     - npm i --prefer-offline
+    - npm i -g pnpm@8.15.9
     - npm run release
   only:
     - main
