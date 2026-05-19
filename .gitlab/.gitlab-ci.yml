@@ -32,6 +32,7 @@ build-job:
 publish-job:
   stage: publish
   variables:
+    HUSKY: 0
     NPM_TOKEN: ${CI_JOB_TOKEN}
   before_script:
     - |
@@ -43,7 +44,6 @@ publish-job:
     - build-job
   script:
     - npm i --prefer-offline
-    - npm i -g pnpm
     - npm run release
   only:
     - main
