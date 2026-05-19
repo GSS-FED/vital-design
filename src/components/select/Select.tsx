@@ -506,9 +506,8 @@ const Text = styled.div`
   white-space: nowrap;
   max-width: 100%;
 `;
-const Placeholder = styled.span`
+const Placeholder = styled(Text)`
   color: ${colors.grayscale400};
-  vertical-align: baseline;
 `;
 const TagsWrapper = styled.div`
   display: flex;
