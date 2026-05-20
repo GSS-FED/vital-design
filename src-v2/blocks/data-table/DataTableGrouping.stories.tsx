@@ -3,8 +3,8 @@ import { DataTableGroupingCardsBlock } from './DataTableGroupingCardsBlock';
 import { DataTableGroupingCardsBodyScrollGutterBlock } from './DataTableGroupingCardsBodyScrollGutterBlock';
 import { DataTableGroupingCardsJsStickyBlock } from './DataTableGroupingCardsJsStickyBlock';
 import { DataTableGroupingCardsLocalScrollBlock } from './DataTableGroupingCardsLocalScrollBlock';
-import { DataTableGroupingFlatBlock } from './DataTableGroupingFlatBlock';
-import { DataTableGroupingNestedBlock } from './DataTableGroupingNestedBlock';
+import { DataTableGroup01 } from './data-table-group-01/DataTableGroup01';
+import { DataTableGroup02 } from './data-table-group-02/DataTableGroup02';
 
 const meta: Meta = {
   title: 'Blocks/DataTable/Grouping',
@@ -23,12 +23,12 @@ type Story = StoryObj;
 
 export const FlatSections: Story = {
   name: 'V1 — Flat sections (one table)',
-  render: () => <DataTableGroupingFlatBlock />,
+  render: () => <DataTableGroup01 />,
 };
 
 export const NestedSections: Story = {
   name: 'V2 — Nested 2-level sections',
-  render: () => <DataTableGroupingNestedBlock />,
+  render: () => <DataTableGroup02 />,
 };
 
 export const CardPerGroup: Story = {
