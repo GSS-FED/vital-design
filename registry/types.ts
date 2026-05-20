@@ -17,6 +17,7 @@ export type RegistryItemName =
   | 'icon-clock'
   | 'icon-close'
   | 'icon-disabled'
+  | 'icon-ellipsis'
   | 'icon-eye'
   | 'icon-eye-slash'
   | 'icon-flag'
@@ -27,9 +28,11 @@ export type RegistryItemName =
   | 'use-debounce-value'
   | 'alert'
   | 'avatar'
+  | 'badge'
   | 'button'
   | 'button-group'
   | 'split-button'
+  | 'card'
   | 'checkbox'
   | 'chip'
   | 'field'
@@ -43,6 +46,7 @@ export type RegistryItemName =
   | 'search-bar'
   | 'input-group'
   | 'input'
+  | 'number-input'
   | 'item'
   | 'separator'
   | 'scroll-area'
@@ -57,13 +61,17 @@ export type RegistryItemName =
   | 'toast'
   | 'dropdown-menu'
   | 'dialog'
+  | 'resizable'
   | 'slider'
   | 'table'
+  | 'tabs'
   | 'toolbar'
   | 'calendar'
   | 'time-picker'
   | 'collapsible'
-  | 'sheet';
+  | 'sheet'
+  | 'data-table-group-01'
+  | 'data-table-group-02';
 
 /**
  * Extends the official shadcn RegistryItem with:

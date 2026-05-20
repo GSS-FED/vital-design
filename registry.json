@@ -387,6 +387,19 @@
       ]
     },
     {
+      "name": "icon-ellipsis",
+      "type": "registry:ui",
+      "title": "Ellipsis Icon",
+      "description": "Ellipsis Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/EllipsisIcon.tsx",
+          "target": "src/components/icons/EllipsisIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-eye",
       "type": "registry:ui",
       "title": "Eye Icon",
@@ -541,6 +554,11 @@
         {
           "path": "src-v2/icons/DisabledIcon.tsx",
           "target": "src/components/icons/DisabledIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/EllipsisIcon.tsx",
+          "target": "src/components/icons/EllipsisIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -1476,6 +1494,217 @@
         {
           "path": "src-v2/components/sheet/Sheet.tsx",
           "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Status indicator badge with primary, success, warning, destructive, and info variants",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/badge/Badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Composable card primitive with header, title, description, action, content, and footer parts",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/card/Card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "number-input",
+      "type": "registry:ui",
+      "title": "Number Input",
+      "description": "Numeric input with increment/decrement steppers and scrub area",
+      "dependencies": [
+        "@base-ui/react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/icon-chevron-down",
+        "@vital-design/icon-chevron-up",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/input/number-input/NumberInput.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "resizable",
+      "type": "registry:ui",
+      "title": "Resizable",
+      "description": "Accessible resizable panel group backed by react-resizable-panels",
+      "dependencies": [
+        "clsx",
+        "react-resizable-panels",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/resizable/Resizable.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "data-table-group-01",
+      "type": "registry:block",
+      "title": "Data Table — Candidate Tree",
+      "description": "Grouped tree-style data table with selectable rows, column pinning, action bar, and filter dropdown",
+      "categories": [
+        "data-table"
+      ],
+      "dependencies": [
+        "@tanstack/react-table",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/avatar",
+        "@vital-design/button",
+        "@vital-design/card",
+        "@vital-design/checkbox",
+        "@vital-design/dropdown-menu",
+        "@vital-design/progress",
+        "@vital-design/search-bar",
+        "@vital-design/table",
+        "@vital-design/tag",
+        "@vital-design/toolbar",
+        "@vital-design/icon-chevron-down",
+        "@vital-design/icon-ellipsis",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-01/DataTableGroup01.tsx",
+          "target": "src/blocks/data-table-group-01/DataTableGroup01.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-01/action-bar.tsx",
+          "target": "src/blocks/data-table-group-01/action-bar.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-01/columns.tsx",
+          "target": "src/blocks/data-table-group-01/columns.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-01/data.ts",
+          "target": "src/blocks/data-table-group-01/data.ts",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-01/pinning.ts",
+          "target": "src/blocks/data-table-group-01/pinning.ts",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "data-table-group-02",
+      "type": "registry:block",
+      "title": "Data Table — ESG Emission Tree",
+      "description": "Expandable tree data table with sticky rail, sortable headers, selection, action bar, and inline switch toggles",
+      "categories": [
+        "data-table"
+      ],
+      "dependencies": [
+        "@tanstack/react-table",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/avatar",
+        "@vital-design/badge",
+        "@vital-design/button",
+        "@vital-design/card",
+        "@vital-design/checkbox",
+        "@vital-design/dropdown-menu",
+        "@vital-design/search-bar",
+        "@vital-design/switch",
+        "@vital-design/table",
+        "@vital-design/tag",
+        "@vital-design/toolbar",
+        "@vital-design/icon-chevron-down",
+        "@vital-design/icon-chevron-up",
+        "@vital-design/icon-ellipsis",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-02/DataTableGroup02.tsx",
+          "target": "src/blocks/data-table-group-02/DataTableGroup02.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-02/action-bar.tsx",
+          "target": "src/blocks/data-table-group-02/action-bar.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-02/columns.tsx",
+          "target": "src/blocks/data-table-group-02/columns.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-02/data-table-column-header.tsx",
+          "target": "src/blocks/data-table-group-02/data-table-column-header.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-02/data.ts",
+          "target": "src/blocks/data-table-group-02/data.ts",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-02/pinning.ts",
+          "target": "src/blocks/data-table-group-02/pinning.ts",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-02/table-rail.tsx",
+          "target": "src/blocks/data-table-group-02/table-rail.tsx",
+          "type": "registry:block"
         }
       ]
     }

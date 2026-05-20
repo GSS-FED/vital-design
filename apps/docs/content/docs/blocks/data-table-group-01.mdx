@@ -1,0 +1,39 @@
+---
+title: Data Table — Candidate Tree
+description: Tree-style data table with grouped candidate rows, action bar, filter dropdown, and column pinning.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { DataTableGroup01 } from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview centered={false} className="overflow-x-auto">
+  <DataTableGroup01 />
+</ComponentPreview>
+
+## Composition
+
+This block is built on the following Vital Design primitives:
+
+- `Avatar`, `Button`, `Card`, `Checkbox`, `DropdownMenu`, `Progress`, `SearchBar`, `Table`, `Tag`, `Toolbar`
+- `ChevronDownIcon`, `EllipsisIcon`
+- [`@tanstack/react-table`](https://tanstack.com/table/v8) for state management
+
+## Files
+
+| File                       | Description                                              |
+| -------------------------- | -------------------------------------------------------- |
+| `DataTableGroup01.tsx`     | Block entry — wires columns, state, expand, pinning      |
+| `action-bar.tsx`           | Search bar, filter buttons, more-actions dropdown        |
+| `columns.tsx`              | `ColumnDef` array with custom cells                      |
+| `data.ts`                  | Sample candidate dataset + tree builder                  |
+| `pinning.ts`               | Left/right column pinning style helpers                  |
+
+## Installation
+
+```bash
+npx shadcn@latest add @vital-design/data-table-group-01
+```
+
+This installs the block under `src/blocks/data-table-group-01/` and pulls every required primitive automatically.

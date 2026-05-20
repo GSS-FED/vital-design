@@ -1,13 +1,18 @@
 'use client';
 
+import { CalendarIcon } from '@/icons/CalendarIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
+import { ChevronDoubleLeftIcon } from '@/icons/ChevronDoubleLeftIcon';
+import { ChevronDoubleRightIcon } from '@/icons/ChevronDoubleRightIcon';
 import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
 import { ChevronLeftIcon } from '@/icons/ChevronLeftIcon';
 import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
 import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
+import { ClockIcon } from '@/icons/ClockIcon';
 import { CloseIcon } from '@/icons/CloseIcon';
 import { DisabledIcon } from '@/icons/DisabledIcon';
+import { EllipsisIcon } from '@/icons/EllipsisIcon';
 import { EyeIcon } from '@/icons/EyeIcon';
 import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
@@ -24,14 +29,19 @@ type IconEntry = {
 };
 
 const icons: IconEntry[] = [
+  { name: 'CalendarIcon', Icon: CalendarIcon },
   { name: 'CheckIcon', Icon: CheckIcon },
   { name: 'ChevronDownIcon', Icon: ChevronDownIcon },
   { name: 'ChevronUpIcon', Icon: ChevronUpIcon },
   { name: 'ChevronLeftIcon', Icon: ChevronLeftIcon },
   { name: 'ChevronRightIcon', Icon: ChevronRightIcon },
+  { name: 'ChevronDoubleLeftIcon', Icon: ChevronDoubleLeftIcon },
+  { name: 'ChevronDoubleRightIcon', Icon: ChevronDoubleRightIcon },
   { name: 'ClearIcon', Icon: ClearIcon },
+  { name: 'ClockIcon', Icon: ClockIcon },
   { name: 'CloseIcon', Icon: CloseIcon },
   { name: 'DisabledIcon', Icon: DisabledIcon },
+  { name: 'EllipsisIcon', Icon: EllipsisIcon },
   { name: 'EyeIcon', Icon: EyeIcon },
   { name: 'EyeSlashIcon', Icon: EyeSlashIcon },
   { name: 'FlagIcon', Icon: FlagIcon },

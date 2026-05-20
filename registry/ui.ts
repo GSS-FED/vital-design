@@ -810,4 +810,86 @@ export const ui = [
       },
     ],
   },
+  {
+    name: 'badge',
+    type: 'registry:ui',
+    title: 'Badge',
+    description:
+      'Status indicator badge with primary, success, warning, destructive, and info variants',
+    dependencies: [
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/badge/Badge.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'card',
+    type: 'registry:ui',
+    title: 'Card',
+    description:
+      'Composable card primitive with header, title, description, action, content, and footer parts',
+    dependencies: ['clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/card/Card.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'number-input',
+    type: 'registry:ui',
+    title: 'Number Input',
+    description:
+      'Numeric input with increment/decrement steppers and scrub area',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-chevron-down',
+      '@vital-design/icon-chevron-up',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/input/number-input/NumberInput.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'resizable',
+    type: 'registry:ui',
+    title: 'Resizable',
+    description:
+      'Accessible resizable panel group backed by react-resizable-panels',
+    dependencies: [
+      'clsx',
+      'react-resizable-panels',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/resizable/Resizable.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
 ] satisfies VitalRegistryItem[];

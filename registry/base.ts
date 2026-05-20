@@ -52,6 +52,11 @@ const iconGroups = [
     title: 'Disabled Icon',
     files: ['DisabledIcon'],
   },
+  {
+    name: 'icon-ellipsis',
+    title: 'Ellipsis Icon',
+    files: ['EllipsisIcon'],
+  },
   { name: 'icon-eye', title: 'Eye Icon', files: ['EyeIcon'] },
   {
     name: 'icon-eye-slash',

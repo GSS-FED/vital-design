@@ -24,6 +24,16 @@ export {
   AvatarImage,
   AvatarRoot,
 } from '../../../src-v2/components/avatar/Avatar';
+export { Badge } from '../../../src-v2/components/badge/Badge';
+export {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '../../../src-v2/components/card/Card';
 export { Chip } from '../../../src-v2/components/chip/Chip';
 export {
   Field,
@@ -218,3 +228,7 @@ export {
   ResizablePanel,
   ResizablePanelGroup,
 } from '../../../src-v2/components/resizable/Resizable';
+
+// Blocks
+export { DataTableGroup01 } from '../../../src-v2/blocks/data-table/data-table-group-01/DataTableGroup01';
+export { DataTableGroup02 } from '../../../src-v2/blocks/data-table/data-table-group-02/DataTableGroup02';

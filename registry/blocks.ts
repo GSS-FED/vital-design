@@ -1,3 +1,81 @@
 import type { VitalRegistryItem } from './types';
 
-export const blocks: VitalRegistryItem[] = [];
+const groupFile = (group: string, file: string) => ({
+  path: `src-v2/blocks/data-table/${group}/${file}`,
+  target: `src/blocks/${group}/${file}`,
+  type: 'registry:block' as const,
+});
+
+export const blocks: VitalRegistryItem[] = [
+  {
+    name: 'data-table-group-01',
+    type: 'registry:block',
+    title: 'Data Table — Candidate Tree',
+    description:
+      'Grouped tree-style data table with selectable rows, column pinning, action bar, and filter dropdown',
+    categories: ['data-table'],
+    dependencies: ['@tanstack/react-table', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/avatar',
+      '@vital-design/button',
+      '@vital-design/card',
+      '@vital-design/checkbox',
+      '@vital-design/dropdown-menu',
+      '@vital-design/progress',
+      '@vital-design/search-bar',
+      '@vital-design/table',
+      '@vital-design/tag',
+      '@vital-design/toolbar',
+      '@vital-design/icon-chevron-down',
+      '@vital-design/icon-ellipsis',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      groupFile('data-table-group-01', 'DataTableGroup01.tsx'),
+      groupFile('data-table-group-01', 'action-bar.tsx'),
+      groupFile('data-table-group-01', 'columns.tsx'),
+      groupFile('data-table-group-01', 'data.ts'),
+      groupFile('data-table-group-01', 'pinning.ts'),
+    ],
+  },
+  {
+    name: 'data-table-group-02',
+    type: 'registry:block',
+    title: 'Data Table — ESG Emission Tree',
+    description:
+      'Expandable tree data table with sticky rail, sortable headers, selection, action bar, and inline switch toggles',
+    categories: ['data-table'],
+    dependencies: ['@tanstack/react-table', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/avatar',
+      '@vital-design/badge',
+      '@vital-design/button',
+      '@vital-design/card',
+      '@vital-design/checkbox',
+      '@vital-design/dropdown-menu',
+      '@vital-design/search-bar',
+      '@vital-design/switch',
+      '@vital-design/table',
+      '@vital-design/tag',
+      '@vital-design/toolbar',
+      '@vital-design/icon-chevron-down',
+      '@vital-design/icon-chevron-up',
+      '@vital-design/icon-ellipsis',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      groupFile('data-table-group-02', 'DataTableGroup02.tsx'),
+      groupFile('data-table-group-02', 'action-bar.tsx'),
+      groupFile('data-table-group-02', 'columns.tsx'),
+      groupFile(
+        'data-table-group-02',
+        'data-table-column-header.tsx',
+      ),
+      groupFile('data-table-group-02', 'data.ts'),
+      groupFile('data-table-group-02', 'pinning.ts'),
+      groupFile('data-table-group-02', 'table-rail.tsx'),
+    ],
+  },
+];
