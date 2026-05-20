@@ -336,7 +336,11 @@ export function ToastAnchoredPreview() {
             manager.add({
               type: 'success',
               title: `Copied! (${next})`,
-              positionerProps: { anchor: ref.current, side: 'top' },
+              positionerProps: {
+                anchor: ref.current,
+                side: 'top',
+                sideOffset: 8,
+              },
             });
           }}
         >

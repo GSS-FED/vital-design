@@ -282,7 +282,11 @@ function CopyButton() {
         anchoredToastManager.add({
           type: 'success',
           title: 'Copied!',
-          positionerProps: { anchor: ref.current, side: 'top' },
+          positionerProps: {
+            anchor: ref.current,
+            side: 'top',
+            sideOffset: 8,
+          },
         });
       }}
     >

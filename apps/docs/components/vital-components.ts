@@ -140,6 +140,7 @@ export {
   TooltipTrigger,
 } from '../../../src-v2/components/tooltip/Tooltip';
 export {
+  createToastManager,
   Toast,
   ToastAction,
   ToastCancel,
@@ -152,11 +153,8 @@ export {
   ToastTitle,
   ToastViewport,
   Toaster,
-} from '../../../src-v2/components/toast/Toast';
-export {
-  createToastManager,
   useToast,
-} from '../../../src-v2/components/toast/useToast';
+} from '../../../src-v2/components/toast/Toast';
 export {
   DropdownMenu,
   DropdownMenuCheckboxItem,
