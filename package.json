@@ -18,13 +18,14 @@
   "scripts": {
     "prepare": "husky install",
     "dev": "pnpm run storybook:dev",
+    "dev:portless": "portless --script storybook:dev",
     "build": "tsc && vite build",
     "lint": "eslint . --ext cjs,js,jsx,mjs,ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write \"**/**.{cjs,js,jsx,mjs,ts,tsx}\" --ignore-path .gitignore",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
-    "storybook:dev": "storybook dev -p 6006",
+    "storybook:dev": "storybook dev -p ${PORT:-6006}",
     "tokens:build": "node --import tsx ./scripts/build-tokens.ts",
     "tokens:build:css": "node --import tsx ./scripts/build-tokens.ts css",
     "icons:build": "tsx scripts/build-icons.ts && prettier --write \"src-v2/icons/*.tsx\" --log-level warn",
@@ -35,6 +36,7 @@
     "prepublishOnly": "pnpm run build",
     "release": "semantic-release",
     "docs:dev": "pnpm --filter @fed/vital-docs dev",
+    "docs:dev:portless": "cd apps/docs && portless",
     "docs:lint": "pnpm --filter @fed/vital-docs lint",
     "docs:build": "pnpm run tokens:build:css && pnpm --filter @fed/vital-docs build",
     "docs:start": "npx serve apps/docs/out"
@@ -129,5 +131,9 @@
     "react-dom": "^18.0.0",
     "styled-components": ">= 5"
   },
-  "packageManager": "pnpm@10.17.1+sha512.17c560fca4867ae9473a3899ad84a88334914f379be46d455cbf92e5cf4b39d34985d452d2583baf19967fa76cb5c17bc9e245529d0b98745721aa7200ecaf7a"
+  "packageManager": "pnpm@10.17.1+sha512.17c560fca4867ae9473a3899ad84a88334914f379be46d455cbf92e5cf4b39d34985d452d2583baf19967fa76cb5c17bc9e245529d0b98745721aa7200ecaf7a",
+  "portless": {
+    "name": "storybook.vital-design",
+    "script": "storybook:dev"
+  }
 }
