@@ -8,7 +8,7 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 export function SplitButtonPreview() {
   const [open, setOpen] = useState(false);
   return (
-    <ComponentPreview>
+    <ComponentPreview name="SplitButtonPreview">
       <SplitButton
         theme="primary"
         size="lg"
@@ -26,7 +26,7 @@ export function SplitButtonPreview() {
 export function SplitButtonDefaultPreview() {
   const [open, setOpen] = useState(false);
   return (
-    <ComponentPreview>
+    <ComponentPreview name="SplitButtonDefaultPreview">
       <SplitButton
         theme="default"
         size="lg"
@@ -44,7 +44,7 @@ export function SplitButtonSizesPreview() {
   const [openMd, setOpenMd] = useState(false);
   const [openLg, setOpenLg] = useState(false);
   return (
-    <ComponentPreview>
+    <ComponentPreview name="SplitButtonSizesPreview">
       <SplitButton
         theme="primary"
         size="md"

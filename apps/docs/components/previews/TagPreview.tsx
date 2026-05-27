@@ -6,7 +6,7 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 export function TagPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="TagPreview">
       <Tag color="blue" colorVariant="tint">
         Design
       </Tag>
@@ -36,7 +36,7 @@ export function TagColorsPreview() {
     'navy',
   ] as const;
   return (
-    <ComponentPreview>
+    <ComponentPreview name="TagColorsPreview">
       {colors.map((color) => (
         <Tag key={color} color={color} colorVariant="tint">
           {color}
@@ -56,7 +56,7 @@ export function TagSolidPreview() {
     'red',
   ] as const;
   return (
-    <ComponentPreview>
+    <ComponentPreview name="TagSolidPreview">
       {colors.map((color) => (
         <Tag key={color} color={color} colorVariant="solid">
           {color}
@@ -73,7 +73,7 @@ export function TagRemovablePreview() {
     'Tailwind',
   ]);
   return (
-    <ComponentPreview>
+    <ComponentPreview name="TagRemovablePreview">
       {tags.map((tag) => (
         <Tag
           key={tag}

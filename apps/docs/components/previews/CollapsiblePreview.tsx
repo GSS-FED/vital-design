@@ -11,7 +11,7 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 export function CollapsiblePreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="CollapsiblePreview">
       <Collapsible className="w-80 space-y-2">
         <CollapsibleTrigger
           render={
@@ -41,7 +41,7 @@ export function CollapsiblePreview() {
 
 export function CollapsibleProductDetailsPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="CollapsibleProductDetailsPreview">
       <div className="w-96 space-y-4 rounded-(--radius-sm) border border-grayscale-opacity-200 p-4">
         <div>
           <div className="font-medium text-grayscale-opacity-900">

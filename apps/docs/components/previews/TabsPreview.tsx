@@ -20,7 +20,7 @@ export function TabsPreview() {
   const [value, setValue] = useState('overview');
 
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="TabsPreview" centered={false}>
       <Tabs value={value} onValueChange={setValue} className="w-full">
         <TabsList>
           {tabs.map((tab) => (
@@ -44,7 +44,7 @@ export function TabsBorderedPreview() {
   const [value, setValue] = useState('overview');
 
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="TabsBorderedPreview" centered={false}>
       <Tabs value={value} onValueChange={setValue} className="w-full">
         <TabsList bordered>
           {tabs.map((tab) => (
@@ -63,7 +63,7 @@ export function TabsPillPreview() {
   const [value, setValue] = useState('overview');
 
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="TabsPillPreview" centered={false}>
       <Tabs
         value={value}
         onValueChange={setValue}
@@ -86,7 +86,7 @@ export function TabsVerticalPreview() {
   const [value, setValue] = useState('overview');
 
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="TabsVerticalPreview" centered={false}>
       <Tabs
         value={value}
         onValueChange={setValue}

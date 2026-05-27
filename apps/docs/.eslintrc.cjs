@@ -8,7 +8,11 @@ module.exports = {
     'next/core-web-vitals',
     'prettier',
   ],
-  ignorePatterns: ['.next', 'out'],
+  ignorePatterns: [
+    '.next',
+    'out',
+    'components/previews/__sources__.ts',
+  ],
   parserOptions: {
     project: ['./tsconfig.json'],
     tsconfigRootDir: __dirname,
@@ -26,6 +30,13 @@ module.exports = {
       parser: 'espree',
       env: { node: true, commonjs: true },
       parserOptions: { sourceType: 'script' },
+    },
+    {
+      files: ['*.mjs', 'scripts/**/*.mjs'],
+      extends: ['plugin:@typescript-eslint/disable-type-checked'],
+      parser: 'espree',
+      env: { node: true, es2022: true },
+      parserOptions: { sourceType: 'module', ecmaVersion: 'latest' },
     },
   ],
   rules: {
@@ -50,6 +61,8 @@ module.exports = {
     '@typescript-eslint/no-unsafe-return': 'off',
     '@typescript-eslint/require-await': 'off',
     'react-refresh/only-export-components': 'off',
+    // App Router only — no pages/ dir, but next plugin checks for it.
+    '@next/next/no-html-link-for-pages': 'off',
   },
   settings: {
     react: {

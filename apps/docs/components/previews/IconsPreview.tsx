@@ -53,7 +53,7 @@ const icons: IconEntry[] = [
 
 export function IconsGalleryPreview() {
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="IconsGalleryPreview" centered={false}>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {icons.map(({ name, Icon }) => (
           <div
@@ -73,7 +73,7 @@ export function IconsGalleryPreview() {
 
 export function IconSizesPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="IconSizesPreview">
       <SearchIcon className="size-3" />
       <SearchIcon className="size-4" />
       <SearchIcon className="size-5" />
@@ -85,7 +85,7 @@ export function IconSizesPreview() {
 
 export function IconColorsPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="IconColorsPreview">
       <FlagIcon className="size-5 text-primary-500" />
       <FlagIcon className="size-5 text-success-500" />
       <FlagIcon className="size-5 text-warning-500" />
@@ -97,7 +97,7 @@ export function IconColorsPreview() {
 
 export function IconSpinnerPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="IconSpinnerPreview">
       <SpinnerIcon className="size-6 animate-spin text-primary-500" />
       <SpinnerIcon className="size-6 text-grayscale-opacity-500" />
     </ComponentPreview>

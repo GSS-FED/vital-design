@@ -20,7 +20,7 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 export function CalendarPreview() {
   const [date, setDate] = useState<Date | undefined>(new Date());
   return (
-    <ComponentPreview>
+    <ComponentPreview name="CalendarPreview">
       <Calendar mode="single" selected={date} onSelect={setDate} />
     </ComponentPreview>
   );
@@ -32,7 +32,7 @@ export function CalendarRangePreview() {
     to: addDays(new Date(), 8),
   });
   return (
-    <ComponentPreview>
+    <ComponentPreview name="CalendarRangePreview">
       <Calendar
         mode="range"
         selected={range}
@@ -46,7 +46,7 @@ export function CalendarRangePreview() {
 export function CalendarDropdownCaptionPreview() {
   const [date, setDate] = useState<Date | undefined>();
   return (
-    <ComponentPreview>
+    <ComponentPreview name="CalendarDropdownCaptionPreview">
       <Calendar
         mode="single"
         selected={date}
@@ -64,7 +64,7 @@ const CJK_WEEK_LABELS = ['日', '一', '二', '三', '四', '五', '六'];
 export function CalendarCJKLocalePreview() {
   const [date, setDate] = useState<Date | undefined>(new Date());
   return (
-    <ComponentPreview>
+    <ComponentPreview name="CalendarCJKLocalePreview">
       <Calendar
         mode="single"
         selected={date}
@@ -84,7 +84,7 @@ export function CalendarDatePickerPreview() {
   const [open, setOpen] = useState(false);
 
   return (
-    <ComponentPreview>
+    <ComponentPreview name="CalendarDatePickerPreview">
       <div className="w-72">
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger

@@ -39,7 +39,7 @@ export function SliderPreview() {
   const [value, setValue] = useState(50);
 
   return (
-    <ComponentPreview>
+    <ComponentPreview name="SliderPreview">
       <HorizontalFrame>
         <Slider
           value={value}
@@ -64,7 +64,7 @@ export function SliderRangePreview() {
   const [value, setValue] = useState<readonly number[]>([20, 80]);
 
   return (
-    <ComponentPreview>
+    <ComponentPreview name="SliderRangePreview">
       <HorizontalFrame>
         <Slider
           value={value}
@@ -83,7 +83,7 @@ export function SliderRangePreview() {
 
 export function SliderDisabledPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="SliderDisabledPreview">
       <HorizontalFrame>
         <Slider defaultValue={40} disabled>
           <SliderParts />
@@ -95,7 +95,7 @@ export function SliderDisabledPreview() {
 
 export function SliderStepPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="SliderStepPreview">
       <HorizontalFrame>
         <Slider defaultValue={40} step={10}>
           <SliderParts />
@@ -107,7 +107,7 @@ export function SliderStepPreview() {
 
 export function SliderMinMaxPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="SliderMinMaxPreview">
       <HorizontalFrame>
         <Slider defaultValue={20} max={40} min={-40} step={20}>
           <SliderParts />
@@ -123,7 +123,7 @@ export function SliderMinMaxPreview() {
 
 export function SliderVerticalPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="SliderVerticalPreview">
       <div className="flex h-48 items-center justify-center">
         <Slider defaultValue={60} orientation="vertical">
           <SliderParts />

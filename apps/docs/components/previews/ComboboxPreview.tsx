@@ -63,7 +63,7 @@ export function ComboboxPreview() {
   const [value, setValue] = useState<Option | null>(null);
 
   return (
-    <ComponentPreview>
+    <ComponentPreview name="ComboboxPreview">
       <Combobox
         items={options}
         itemToStringLabel={itemToStringLabel}
@@ -98,7 +98,7 @@ export function ComboboxMultiplePreview() {
   );
 
   return (
-    <ComponentPreview>
+    <ComponentPreview name="ComboboxMultiplePreview">
       <Combobox
         multiple
         items={frameworks}

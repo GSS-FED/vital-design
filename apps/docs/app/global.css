@@ -1,7 +1,139 @@
-/*@import "tailwindcss";*/
 @source "../../../src-v2/**/*.{tsx,ts}";
 
 /* fumadocs-ui 先 import，讓 Vital Design tokens 後蓋前，確保主色調一致 */
 @import 'fumadocs-ui/css/shadcn.css';
 @import 'fumadocs-ui/css/preset.css';
 @import "../../../src-v2/styles/globals.css";
+
+@layer base {
+  /* fumadocs-ui/css/shadcn.css maps --color-fd-* to bare --background /
+     --border / --muted etc. but doesn't define them. Without these, the
+     `border` utility falls back to currentColor (dark text) — which is the
+     "still black border" you see. Map them onto VD tokens here. */
+  :root {
+    --background: #fff;
+    --foreground: var(--grayscale-900);
+    --border: var(--grayscale-opacity-200);
+    --input: var(--grayscale-opacity-200);
+    --ring: var(--primary-300);
+
+    --card: #fff;
+    --card-foreground: var(--grayscale-900);
+    --popover: #fff;
+    --popover-foreground: var(--grayscale-900);
+
+    --muted: var(--grayscale-100);
+    --muted-foreground: var(--grayscale-opacity-700);
+
+    --primary: var(--primary-500);
+    --primary-foreground: #fff;
+    --secondary: var(--grayscale-100);
+    --secondary-foreground: var(--grayscale-900);
+    --accent: var(--primary-50);
+    --accent-foreground: var(--primary-700);
+    --destructive: var(--destructive-500);
+    --destructive-foreground: #fff;
+
+    --sidebar: var(--grayscale-100);
+    --sidebar-foreground: var(--grayscale-900);
+    --sidebar-border: var(--grayscale-opacity-200);
+    --sidebar-primary: var(--primary-500);
+    --sidebar-primary-foreground: #fff;
+    --sidebar-accent: var(--primary-50);
+    --sidebar-accent-foreground: var(--primary-700);
+    --sidebar-ring: var(--primary-300);
+  }
+
+  /* Tailwind v4 dropped the implicit gray-200 default for the `border`
+     utility, so anything that doesn't specify a color falls back to
+     currentColor — which is dark text in our theme. Pin it to the soft
+     alpha border so fumadocs's UI chrome (search trigger, kbd keys, etc.)
+     reads as light. */
+  *,
+  ::before,
+  ::after {
+    border-color: var(--grayscale-opacity-200);
+  }
+
+  /* Soften the page bg so the article panel can read as elevated. */
+  body {
+    background-color: var(--grayscale-100);
+  }
+
+  /* Lift the docs article into a card. fumadocs renders <article> as the
+     content container; we add panel chrome via CSS so we don't have to
+     reach into the layout component. Margins give the panel air on all
+     sides so it doesn't read as flush against the sidebar/TOC.
+     !important is needed because fumadocs sets `md:mx-auto` and `px-*`
+     via Tailwind utilities which live in a higher layer than our @layer
+     base rule. */
+  #nd-docs-layout #nd-page article {
+    background-color: #fff;
+    border: 1px solid var(--grayscale-opacity-200);
+    border-radius: 1rem;
+    padding: 2.5rem 3rem !important;
+    margin: 1.5rem 3rem 2rem 1.5rem !important;
+    box-shadow:
+      0 1px 2px 0 var(--grayscale-opacity-100),
+      0 1px 3px 0 var(--grayscale-opacity-150);
+  }
+
+  @media (max-width: 1023px) {
+    #nd-docs-layout #nd-page article {
+      padding: 1.5rem 1.25rem !important;
+      margin: 1rem !important;
+    }
+  }
+
+  /* Tighten title typography to match coss feel. */
+  #nd-docs-layout article h1:first-of-type {
+    font-size: 2rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Description right under H1 should look like a deck, not body text. */
+  #nd-docs-layout article > p:first-of-type,
+  #nd-docs-layout article > div + p:first-of-type {
+    color: var(--grayscale-opacity-700);
+  }
+
+  /* Blockquote — drop browser-default italic, give it a real treatment. */
+  #nd-docs-layout article blockquote,
+  #nd-docs-layout .prose blockquote {
+    border-left: 3px solid var(--primary-500) !important;
+    background-color: var(--primary-50);
+    color: var(--grayscale-opacity-800);
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    font-style: normal !important;
+    quotes: none;
+  }
+
+  #nd-docs-layout article blockquote p,
+  #nd-docs-layout .prose blockquote p {
+    font-style: normal !important;
+    quotes: none;
+  }
+
+  #nd-docs-layout article blockquote p::before,
+  #nd-docs-layout article blockquote p::after,
+  #nd-docs-layout .prose blockquote p::before,
+  #nd-docs-layout .prose blockquote p::after {
+    content: none !important;
+  }
+
+  /* Sidebar nav — make the active-row affordance match brand. */
+  #nd-docs-layout aside a[data-active='true'] {
+    color: var(--primary-600);
+    background-color: var(--primary-50);
+  }
+
+  /* Hide the fumadocs theme toggle — light-only docs. */
+  [aria-label='Toggle Theme'],
+  [aria-label='Toggle theme'],
+  [data-theme-toggle] {
+    display: none !important;
+  }
+}

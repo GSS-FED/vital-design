@@ -33,7 +33,7 @@ export function SelectPreview() {
   const [value, setValue] = useState<string | null>(null);
 
   return (
-    <ComponentPreview>
+    <ComponentPreview name="SelectPreview">
       <div className="w-50">
         <Select
           items={options}
@@ -69,7 +69,7 @@ export function SelectMultiplePreview() {
   const [values, setValues] = useState<string[]>([]);
 
   return (
-    <ComponentPreview>
+    <ComponentPreview name="SelectMultiplePreview">
       <div className="w-60">
         <Select
           multiple

@@ -128,7 +128,7 @@ function TaskProgress({ state }: { state: string }) {
 
 export function TablePreview() {
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="TablePreview" centered={false}>
       <Table containerClassName="max-w-5xl rounded-(--radius-sm) border border-grayscale-opacity-300 bg-white shadow-(--shadow-base)">
         <TableHeader>
           <TableRow>

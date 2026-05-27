@@ -47,7 +47,7 @@ function RadioOption({
 export function RadioGroupPreview() {
   const [value, setValue] = useState('a');
   return (
-    <ComponentPreview>
+    <ComponentPreview name="RadioGroupPreview">
       <RadioGroup
         className="flex flex-row flex-wrap gap-4 font-sans text-sm leading-5 text-grayscale-opacity-800"
         value={value}
@@ -68,7 +68,7 @@ export function RadioGroupPreview() {
 export function RadioGroupVerticalPreview() {
   const [value, setValue] = useState('a');
   return (
-    <ComponentPreview>
+    <ComponentPreview name="RadioGroupVerticalPreview">
       <RadioGroup
         className="flex flex-col flex-wrap gap-4 font-sans text-sm leading-5 text-grayscale-opacity-800"
         value={value}

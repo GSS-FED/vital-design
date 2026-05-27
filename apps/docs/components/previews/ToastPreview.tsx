@@ -85,7 +85,7 @@ function StatusIconButtons({
 export function ToastPreview() {
   const manager = useFreshManager();
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="ToastPreview" centered={false}>
       <ToastProvider toastManager={manager}>
         <StatusButtons manager={manager} />
       </ToastProvider>
@@ -96,7 +96,7 @@ export function ToastPreview() {
 export function ToastTopRightPreview() {
   const manager = useFreshManager();
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="ToastTopRightPreview" centered={false}>
       <ToastProvider toastManager={manager} position="top-right">
         <StatusButtons manager={manager} />
       </ToastProvider>
@@ -107,7 +107,7 @@ export function ToastTopRightPreview() {
 export function ToastSubtlePreview() {
   const manager = useFreshManager();
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="ToastSubtlePreview" centered={false}>
       <ToastProvider
         toastManager={manager}
         position="top-right"
@@ -122,7 +122,7 @@ export function ToastSubtlePreview() {
 export function ToastTopCenterPreview() {
   const manager = useFreshManager();
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="ToastTopCenterPreview" centered={false}>
       <ToastProvider toastManager={manager} position="top-center">
         <StatusButtons manager={manager} />
       </ToastProvider>
@@ -172,7 +172,7 @@ function LoadingButton({
 export function ToastLoadingPreview() {
   const manager = useFreshManager();
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="ToastLoadingPreview" centered={false}>
       <ToastProvider
         toastManager={manager}
         position="top-right"
@@ -187,7 +187,7 @@ export function ToastLoadingPreview() {
 export function ToastDescriptionPreview() {
   const manager = useFreshManager();
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="ToastDescriptionPreview" centered={false}>
       <ToastProvider toastManager={manager}>
         <Button
           onClick={() =>
@@ -208,7 +208,7 @@ export function ToastDescriptionPreview() {
 export function ToastActionPreview() {
   const manager = useFreshManager();
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="ToastActionPreview" centered={false}>
       <ToastProvider toastManager={manager}>
         <Button
           onClick={() =>
@@ -232,7 +232,7 @@ export function ToastActionPreview() {
 export function ToastIconPreview() {
   const manager = useFreshManager();
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="ToastIconPreview" centered={false}>
       <ToastProvider toastManager={manager}>
         <Button
           onClick={() =>
@@ -253,7 +253,7 @@ export function ToastIconPreview() {
 export function ToastPromisePreview() {
   const manager = useFreshManager();
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="ToastPromisePreview" centered={false}>
       <ToastProvider toastManager={manager}>
         <Button
           onClick={() => {
@@ -281,7 +281,7 @@ export function ToastTwoChannelsPreview() {
   const bottomManager = useFreshManager();
   const topManager = useFreshManager();
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="ToastTwoChannelsPreview" centered={false}>
       <ToastProvider
         toastManager={bottomManager}
         position="bottom-right"
@@ -325,7 +325,7 @@ export function ToastAnchoredPreview() {
   const ref = useRef<HTMLButtonElement>(null);
   const [count, setCount] = useState(0);
   return (
-    <ComponentPreview>
+    <ComponentPreview name="ToastAnchoredPreview">
       <AnchoredToastProvider toastManager={manager} variant="subtle">
         <Button
           ref={ref}

@@ -14,7 +14,7 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 export function DropdownMenuPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="DropdownMenuPreview">
       <DropdownMenu>
         <DropdownMenuTrigger render={<Button>Account</Button>} />
         <DropdownMenuContent>

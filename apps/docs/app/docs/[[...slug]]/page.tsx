@@ -12,7 +12,11 @@ import {
   DocsTitle,
 } from 'fumadocs-ui/page';
 import { notFound } from 'next/navigation';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
 import type { FC } from 'react';
+import { MdxPre } from '~/components/docs/MdxPre';
+import { TitleActions } from '~/components/docs/TitleActions';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 import {
   AlertCustomContentPreview,
@@ -116,17 +120,57 @@ interface CompiledPageData {
   full?: boolean;
 }
 
+const REGISTRY_BASE_URL =
+  'https://bizform.vikosmos.com/vittal-design/r';
+
+async function loadRawMarkdown(
+  slug: string[] | undefined,
+): Promise<string | undefined> {
+  const segments = slug ?? [];
+  const contentRoot = path.join(process.cwd(), 'content', 'docs');
+  const candidates =
+    segments.length === 0
+      ? [path.join(contentRoot, 'index.mdx')]
+      : [
+          path.join(contentRoot, ...segments) + '.mdx',
+          path.join(contentRoot, ...segments, 'index.mdx'),
+        ];
+  for (const candidate of candidates) {
+    try {
+      return await readFile(candidate, 'utf-8');
+    } catch {
+      // try next candidate
+    }
+  }
+  return undefined;
+}
+
+function registryUrlFor(
+  slug: string[] | undefined,
+): string | undefined {
+  if (!slug || slug.length !== 2) return undefined;
+  const [section, name] = slug;
+  if (section !== 'components' && section !== 'blocks')
+    return undefined;
+  return `${REGISTRY_BASE_URL}/${name}.json`;
+}
+
 export default async function Page({
   params,
 }: {
   params: Promise<{ slug?: string[] }>;
 }) {
-  const page = source.getPage((await params).slug);
+  const slug = (await params).slug;
+  const page = source.getPage(slug);
   if (!page) notFound();
 
   const data = page.data as unknown as CompiledPageData;
   const MDX = data.body;
   const neighbours = findNeighbour(source.pageTree, page.url);
+  const [rawMarkdown, registryUrl] = [
+    await loadRawMarkdown(slug),
+    registryUrlFor(slug),
+  ];
 
   return (
     <DocsPage
@@ -136,10 +180,15 @@ export default async function Page({
     >
       <DocsTitle>{data.title}</DocsTitle>
       <DocsDescription>{data.description}</DocsDescription>
+      <TitleActions
+        rawMarkdown={rawMarkdown}
+        registryUrl={registryUrl}
+      />
       <DocsBody>
         <MDX
           components={{
             ...defaultMdxComponents,
+            pre: MdxPre,
             Callout,
             Step,
             Steps,

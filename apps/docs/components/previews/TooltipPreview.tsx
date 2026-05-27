@@ -15,7 +15,7 @@ const ALIGNS = ['start', 'center', 'end'] as const;
 
 export function TooltipPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="TooltipPreview">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger render={<Button>Hover me</Button>} />
@@ -28,7 +28,7 @@ export function TooltipPreview() {
 
 export function TooltipWithIconPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="TooltipWithIconPreview">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger render={<Button>說明</Button>} />
@@ -44,7 +44,7 @@ export function TooltipWithIconPreview() {
 
 export function TooltipSidePreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="TooltipSidePreview">
       <TooltipProvider>
         <div className="flex flex-wrap items-center gap-3">
           {SIDES.map((side) => (
@@ -65,7 +65,7 @@ export function TooltipSidePreview() {
 
 export function TooltipAlignPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="TooltipAlignPreview">
       <TooltipProvider>
         <div className="flex flex-wrap items-center gap-3">
           {ALIGNS.map((align) => (
@@ -86,7 +86,7 @@ export function TooltipAlignPreview() {
 
 export function TooltipLongContentPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="TooltipLongContentPreview">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger render={<Button>長文字</Button>} />
@@ -102,7 +102,7 @@ export function TooltipLongContentPreview() {
 
 export function TooltipWithoutArrowPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="TooltipWithoutArrowPreview">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger render={<Button>無箭頭</Button>} />

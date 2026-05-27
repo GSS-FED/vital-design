@@ -11,7 +11,7 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 export function ToolbarPreview() {
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="ToolbarPreview" centered={false}>
       <Toolbar variant="outline">
         <ToolbarGroup>
           <Button size="md" theme="default" variant="text">

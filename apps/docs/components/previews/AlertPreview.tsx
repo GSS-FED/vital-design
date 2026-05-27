@@ -14,7 +14,11 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 export function AlertPreview() {
   return (
-    <ComponentPreview centered={false} className="grid gap-4">
+    <ComponentPreview
+      name="AlertPreview"
+      centered={false}
+      className="grid gap-4"
+    >
       <Alert>
         <AlertTitle>Request submitted</AlertTitle>
         <AlertDescription>
@@ -33,7 +37,11 @@ export function AlertPreview() {
 
 export function AlertWithIconPreview() {
   return (
-    <ComponentPreview centered={false} className="grid gap-4">
+    <ComponentPreview
+      name="AlertWithIconPreview"
+      centered={false}
+      className="grid gap-4"
+    >
       <Alert role="status">
         <ClearIcon className="text-destructive-500" />
         <AlertTitle>Payment method expired</AlertTitle>
@@ -50,7 +58,11 @@ export function AlertCustomContentPreview() {
   const [hiddenToday, setHiddenToday] = useState(false);
 
   return (
-    <ComponentPreview centered={false} className="grid gap-4">
+    <ComponentPreview
+      name="AlertCustomContentPreview"
+      centered={false}
+      className="grid gap-4"
+    >
       <Alert>
         <AlertTitle>Unsaved changes</AlertTitle>
         <AlertDescription>

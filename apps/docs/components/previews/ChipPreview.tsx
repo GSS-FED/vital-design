@@ -9,7 +9,7 @@ export function ChipPreview() {
   const [selected2, setSelected2] = useState(false);
 
   return (
-    <ComponentPreview>
+    <ComponentPreview name="ChipPreview">
       <Chip selected={selected1} onChange={setSelected1}>
         Selected
       </Chip>
@@ -25,7 +25,7 @@ export function ChipStatesPreview() {
   const [inactive, setInactive] = useState(false);
 
   return (
-    <ComponentPreview>
+    <ComponentPreview name="ChipStatesPreview">
       <Chip selected={active} onChange={setActive}>
         Active
       </Chip>

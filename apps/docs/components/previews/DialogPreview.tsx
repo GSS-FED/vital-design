@@ -21,7 +21,7 @@ const sizes = ['small', 'medium', 'large'] as const;
 
 export function DialogPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="DialogPreview">
       <Dialog>
         <DialogTrigger render={<Button>Open dialog</Button>} />
         <DialogPortal>
@@ -64,7 +64,7 @@ export function DialogPreview() {
 
 export function DialogSizesPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="DialogSizesPreview">
       {sizes.map((size) => (
         <Dialog key={size}>
           <DialogTrigger

@@ -63,7 +63,7 @@ const commands = [
 
 export function AutocompletePreview() {
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="AutocompletePreview" centered={false}>
       <Autocomplete<Tag>
         items={tags}
         itemToStringValue={(tag) => tag.value}
@@ -92,7 +92,10 @@ export function AutocompletePreview() {
 
 export function AutocompleteInlinePreview() {
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview
+      name="AutocompleteInlinePreview"
+      centered={false}
+    >
       <Autocomplete<Tag>
         items={tags}
         itemToStringValue={(tag) => tag.value}
@@ -122,7 +125,10 @@ export function AutocompleteInlinePreview() {
 
 export function AutocompleteGroupedPreview() {
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview
+      name="AutocompleteGroupedPreview"
+      centered={false}
+    >
       <Autocomplete<TagGroup> items={groupedTags} openOnInputClick>
         <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-opacity-800">
           Search grouped tags
@@ -154,7 +160,10 @@ export function AutocompleteGroupedPreview() {
 
 export function AutocompleteLimitedPreview() {
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview
+      name="AutocompleteLimitedPreview"
+      centered={false}
+    >
       <Autocomplete<Tag>
         items={tags}
         itemToStringValue={(tag) => tag.value}
@@ -190,7 +199,10 @@ export function AutocompleteLimitedPreview() {
 
 export function AutocompleteCommandPreview() {
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview
+      name="AutocompleteCommandPreview"
+      centered={false}
+    >
       <Autocomplete<string> items={commands} openOnInputClick>
         <AutocompleteInputGroup className="w-80">
           <AutocompleteIcon />
@@ -215,7 +227,10 @@ export function AutocompleteCommandPreview() {
 
 export function AutocompleteSubmitPreview() {
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview
+      name="AutocompleteSubmitPreview"
+      centered={false}
+    >
       <form
         className="flex flex-col gap-3"
         onSubmit={(event) => {

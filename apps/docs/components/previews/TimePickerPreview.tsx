@@ -25,7 +25,7 @@ const at = (h: number, m: number, s = 0) => {
 export function TimePickerPreview() {
   const [value, setValue] = useState<Date>(at(9, 30));
   return (
-    <ComponentPreview>
+    <ComponentPreview name="TimePickerPreview">
       <div className="flex flex-col items-center gap-4">
         <TimePicker value={value} onValueChange={setValue} />
         <code className="text-sm text-grayscale-opacity-600">
@@ -39,7 +39,7 @@ export function TimePickerPreview() {
 export function TimePickerHoursMinutesPreview() {
   const [value, setValue] = useState<Date>(at(14, 0));
   return (
-    <ComponentPreview>
+    <ComponentPreview name="TimePickerHoursMinutesPreview">
       <TimePicker
         value={value}
         onValueChange={setValue}
@@ -52,7 +52,7 @@ export function TimePickerHoursMinutesPreview() {
 export function TimePickerStepsPreview() {
   const [value, setValue] = useState<Date>(at(9, 0));
   return (
-    <ComponentPreview>
+    <ComponentPreview name="TimePickerStepsPreview">
       <TimePicker
         value={value}
         onValueChange={setValue}
@@ -67,7 +67,7 @@ export function TimePickerStepsPreview() {
 export function TimePickerCustomHeightPreview() {
   const [value, setValue] = useState<Date>(at(9, 30));
   return (
-    <ComponentPreview>
+    <ComponentPreview name="TimePickerCustomHeightPreview">
       <TimePicker
         value={value}
         onValueChange={setValue}
@@ -82,7 +82,7 @@ export function TimePickerInPopoverPreview() {
   const [open, setOpen] = useState(false);
 
   return (
-    <ComponentPreview>
+    <ComponentPreview name="TimePickerInPopoverPreview">
       <div className="w-72">
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger

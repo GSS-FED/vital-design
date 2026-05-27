@@ -16,7 +16,7 @@ function Frame({ children }: { children: ReactNode }) {
 
 export function NumberInputPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="NumberInputPreview">
       <Frame>
         <NumberInput defaultValue={0}>
           <NumberInputGroup>
@@ -31,7 +31,7 @@ export function NumberInputPreview() {
 
 export function NumberInputRangePreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="NumberInputRangePreview">
       <Frame>
         <NumberInput defaultValue={5} min={0} max={10} step={1}>
           <NumberInputGroup>
@@ -46,7 +46,7 @@ export function NumberInputRangePreview() {
 
 export function NumberInputDisabledPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="NumberInputDisabledPreview">
       <Frame>
         <NumberInput defaultValue={12} disabled>
           <NumberInputGroup>
@@ -61,7 +61,7 @@ export function NumberInputDisabledPreview() {
 
 export function NumberInputErrorPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="NumberInputErrorPreview">
       <Frame>
         <NumberInput defaultValue={99}>
           <NumberInputGroup>
@@ -76,7 +76,7 @@ export function NumberInputErrorPreview() {
 
 export function NumberInputDecimalsPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="NumberInputDecimalsPreview">
       <Frame>
         <NumberInput
           defaultValue={1.5}
@@ -96,7 +96,7 @@ export function NumberInputDecimalsPreview() {
 
 export function NumberInputCurrencyPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="NumberInputCurrencyPreview">
       <Frame>
         <NumberInput
           defaultValue={1234}
@@ -120,7 +120,7 @@ export function NumberInputControlledPreview() {
   const [value, setValue] = useState<number | null>(0);
 
   return (
-    <ComponentPreview>
+    <ComponentPreview name="NumberInputControlledPreview">
       <Frame>
         <div className="flex flex-col gap-2">
           <NumberInput

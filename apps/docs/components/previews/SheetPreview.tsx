@@ -28,7 +28,7 @@ const sides: readonly SheetSide[] = [
 
 export function SheetPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="SheetPreview">
       <Sheet>
         <SheetTrigger render={<Button>Open sheet</Button>} />
         <SheetContent>
@@ -68,7 +68,7 @@ export function SheetPreview() {
 
 export function SheetSidesPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="SheetSidesPreview">
       <div className="flex flex-wrap gap-3">
         {sides.map((side) => (
           <Sheet key={side}>
@@ -106,7 +106,7 @@ export function SheetSidesPreview() {
 
 export function SheetNonModalPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="SheetNonModalPreview">
       <Sheet modal={false}>
         <SheetTrigger render={<Button>Open docked panel</Button>} />
         <SheetContent>

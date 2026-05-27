@@ -25,8 +25,7 @@ export default function RootLayout({
             },
           }}
           theme={{
-            defaultTheme: 'light',
-            forcedTheme: 'light',
+            enabled: false,
           }}
         >
           {children}

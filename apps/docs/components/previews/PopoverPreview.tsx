@@ -12,7 +12,7 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 export function PopoverPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="PopoverPreview">
       <Popover>
         <PopoverTrigger render={<Button>View details</Button>} />
         <PopoverContent className="w-72">

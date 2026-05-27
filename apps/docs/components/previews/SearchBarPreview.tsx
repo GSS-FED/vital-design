@@ -7,7 +7,7 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 export function SearchBarPreview() {
   const [lastSearch, setLastSearch] = useState('');
   return (
-    <ComponentPreview>
+    <ComponentPreview name="SearchBarPreview">
       <div className="flex flex-col items-center gap-2">
         <SearchBar placeholder="Search..." onSearch={setLastSearch} />
         {lastSearch && (
@@ -25,7 +25,7 @@ export function SearchBarPreview() {
 
 export function SearchBarDisabledPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="SearchBarDisabledPreview">
       <SearchBar placeholder="Search..." disabled />
     </ComponentPreview>
   );

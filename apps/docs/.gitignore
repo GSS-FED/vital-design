@@ -16,3 +16,4 @@ dist/
 .env
 .env.local
 .env.*.local
+components/previews/__sources__.ts

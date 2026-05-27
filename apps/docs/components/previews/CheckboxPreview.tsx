@@ -57,7 +57,7 @@ function CheckboxField({
 export function CheckboxPreview() {
   const [checked, setChecked] = useState(false);
   return (
-    <ComponentPreview>
+    <ComponentPreview name="CheckboxPreview">
       <CheckboxField
         checked={checked}
         id="checkbox-preview-terms"
@@ -71,7 +71,7 @@ export function CheckboxPreview() {
 
 export function CheckboxStatesPreview() {
   return (
-    <ComponentPreview>
+    <ComponentPreview name="CheckboxStatesPreview">
       <CheckboxField checked={false} id="checkbox-preview-unchecked">
         Unchecked
       </CheckboxField>

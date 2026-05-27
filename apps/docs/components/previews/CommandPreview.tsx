@@ -14,7 +14,7 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 export function CommandPreview() {
   return (
-    <ComponentPreview centered={false}>
+    <ComponentPreview name="CommandPreview" centered={false}>
       <Command
         label="Command palette"
         className="h-[300px] w-[280px]"

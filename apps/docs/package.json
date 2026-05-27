@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
+    "previews:sources": "node scripts/generate-preview-sources.mjs",
+    "predev": "pnpm previews:sources",
+    "prebuild": "pnpm previews:sources",
     "dev": "next dev",
     "lint": "eslint . --ext js,jsx,ts,tsx --max-warnings 0",
     "build": "next build",
