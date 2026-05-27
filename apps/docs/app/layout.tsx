@@ -1,3 +1,4 @@
+import { Agentation } from 'agentation';
 import { RootProvider } from 'fumadocs-ui/provider';
 import { Roboto } from 'next/font/google';
 import type { ReactNode } from 'react';
@@ -30,6 +31,7 @@ export default function RootLayout({
         >
           {children}
         </RootProvider>
+        {process.env.NODE_ENV === 'development' && <Agentation />}
       </body>
     </html>
   );

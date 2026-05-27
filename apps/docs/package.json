@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@fed/vital-design": "workspace:*",
+    "agentation": "^3.0.2",
     "fumadocs-core": "15.7.13",
     "fumadocs-mdx": "^11",
     "fumadocs-ui": "15.7.13",
