@@ -18,8 +18,8 @@ const searchIconVariants = cva(
   {
     variants: {
       disabled: {
-        true: '[&_svg]:fill-grayscale-300',
-        false: '[&_svg]:fill-grayscale-500',
+        true: '[&_svg]:fill-grayscale-opacity-300',
+        false: '[&_svg]:fill-grayscale-opacity-500',
       },
       clickable: {
         true: 'cursor-pointer',

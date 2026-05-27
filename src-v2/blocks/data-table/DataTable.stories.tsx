@@ -286,7 +286,10 @@ export const WithToolbar: Story = {
 
     return (
       <Card className="max-w-5xl">
-        <Toolbar size="sm" className="border-b border-grayscale-200">
+        <Toolbar
+          size="sm"
+          className="border-b border-grayscale-opacity-200"
+        >
           <SearchBar
             placeholder="搜尋議題"
             width="220px"

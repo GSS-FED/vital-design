@@ -221,18 +221,18 @@ export const HierarchicalPicker: Story = {
           type="button"
           role="combobox"
           aria-haspopup="listbox"
-          className="group box-border flex h-8 w-60 cursor-pointer items-center justify-between gap-2 rounded border border-grayscale-300 bg-white py-2 pr-1.5 pl-3 text-left text-sm leading-5 font-normal text-grayscale-800 transition-colors duration-200 hover:border-grayscale-500 focus:border-primary-500 focus:outline-none data-[popup-open]:border-primary-500"
+          className="group box-border flex h-8 w-60 cursor-pointer items-center justify-between gap-2 rounded border border-grayscale-opacity-300 bg-white py-2 pr-1.5 pl-3 text-left text-sm leading-5 font-normal text-grayscale-opacity-800 transition-colors duration-200 hover:border-grayscale-opacity-500 focus:border-primary-500 focus:outline-none data-[popup-open]:border-primary-500"
         >
           <span
             className={
               value
                 ? 'min-w-0 flex-1 truncate text-left'
-                : 'min-w-0 flex-1 truncate text-left text-grayscale-400'
+                : 'min-w-0 flex-1 truncate text-left text-grayscale-opacity-400'
             }
           >
             {value?.label ?? 'Select location'}
           </span>
-          <span className="flex h-5 w-5 shrink-0 items-center justify-center text-grayscale-700">
+          <span className="flex h-5 w-5 shrink-0 items-center justify-center text-grayscale-opacity-700">
             <ChevronDownIcon className="size-3.5" />
           </span>
         </PopoverTrigger>
@@ -283,7 +283,7 @@ export const HierarchicalPicker: Story = {
                       {item.label}
                     </span>
                     {item.hasChildren ? (
-                      <span className="ml-auto flex shrink-0 text-grayscale-500">
+                      <span className="ml-auto flex shrink-0 text-grayscale-opacity-500">
                         <ChevronRightIcon className="size-5" />
                       </span>
                     ) : null}

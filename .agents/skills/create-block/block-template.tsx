@@ -26,7 +26,7 @@ export function BlockName({
         // 基礎 Layout classes
         'flex items-center gap-4',
         // 視覺樣式 classes
-        'border border-grayscale-200 rounded-lg bg-white p-4',
+        'border border-grayscale-opacity-200 rounded-lg bg-white p-4',
         // 允許外部覆寫
         className,
       )}

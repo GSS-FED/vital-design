@@ -58,10 +58,10 @@ export function IconsGalleryPreview() {
         {icons.map(({ name, Icon }) => (
           <div
             key={name}
-            className="flex flex-col items-center justify-center gap-2 rounded-md border border-grayscale-200 bg-white p-4 text-grayscale-800"
+            className="flex flex-col items-center justify-center gap-2 rounded-md border border-grayscale-opacity-200 bg-white p-4 text-grayscale-opacity-800"
           >
             <Icon className="size-6" />
-            <span className="font-mono text-xs text-grayscale-600">
+            <span className="font-mono text-xs text-grayscale-opacity-600">
               {name}
             </span>
           </div>
@@ -90,7 +90,7 @@ export function IconColorsPreview() {
       <FlagIcon className="size-5 text-success-500" />
       <FlagIcon className="size-5 text-warning-500" />
       <FlagIcon className="size-5 text-destructive-500" />
-      <FlagIcon className="size-5 text-grayscale-700" />
+      <FlagIcon className="size-5 text-grayscale-opacity-700" />
     </ComponentPreview>
   );
 }
@@ -99,7 +99,7 @@ export function IconSpinnerPreview() {
   return (
     <ComponentPreview>
       <SpinnerIcon className="size-6 animate-spin text-primary-500" />
-      <SpinnerIcon className="size-6 text-grayscale-500" />
+      <SpinnerIcon className="size-6 text-grayscale-opacity-500" />
     </ComponentPreview>
   );
 }

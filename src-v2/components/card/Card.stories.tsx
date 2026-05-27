@@ -51,11 +51,11 @@ export const WithAction: Story = {
 export const WithFooter: Story = {
   render: () => (
     <Card className="w-[360px]">
-      <CardHeader className="border-b border-grayscale-300">
+      <CardHeader className="border-b border-grayscale-opacity-300">
         <CardTitle>申請表單</CardTitle>
       </CardHeader>
       <CardContent>請填寫表單欄位。</CardContent>
-      <CardFooter className="justify-end border-t border-grayscale-300">
+      <CardFooter className="justify-end border-t border-grayscale-opacity-300">
         <Button variant="ghost">取消</Button>
         <Button>送出</Button>
       </CardFooter>

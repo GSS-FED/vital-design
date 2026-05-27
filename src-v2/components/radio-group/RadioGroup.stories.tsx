@@ -32,7 +32,7 @@ function radioGroupClassName(
   direction: RadioGroupStoryArgs['direction'] = 'horizontal',
 ) {
   return [
-    'flex flex-wrap gap-4 box-border font-sans text-sm leading-5 text-grayscale-800',
+    'flex flex-wrap gap-4 box-border font-sans text-sm leading-5 text-grayscale-opacity-800',
     direction === 'vertical' ? 'flex-col' : 'flex-row',
   ].join(' ');
 }
@@ -70,8 +70,8 @@ function RadioOption({
       <Label
         className={
           disabled
-            ? 'cursor-not-allowed font-normal leading-5 text-grayscale-500'
-            : 'cursor-pointer font-normal leading-5 text-grayscale-800'
+            ? 'cursor-not-allowed font-normal leading-5 text-grayscale-opacity-500'
+            : 'cursor-pointer font-normal leading-5 text-grayscale-opacity-800'
         }
         htmlFor={id}
       >
@@ -214,7 +214,7 @@ export const CompoundItems: Story = {
           >
             <span>
               <span className="block">Basic</span>
-              <span className="block text-xs text-grayscale-500">
+              <span className="block text-xs text-grayscale-opacity-500">
                 Good for individual use
               </span>
             </span>
@@ -234,7 +234,7 @@ export const CompoundItems: Story = {
           >
             <span>
               <span className="block">Pro</span>
-              <span className="block text-xs text-grayscale-500">
+              <span className="block text-xs text-grayscale-opacity-500">
                 Recommended for teams
               </span>
             </span>

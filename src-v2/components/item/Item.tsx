@@ -17,21 +17,21 @@ const ItemGroupContext = createContext<ItemGroupContextValue | null>(
 const itemVariants = cva(
   [
     'group/item box-border flex flex-wrap items-center border border-transparent',
-    'font-sans text-sm leading-5 text-grayscale-800 outline-none transition-colors duration-200',
+    'font-sans text-sm leading-5 text-grayscale-opacity-800 outline-none transition-colors duration-200',
     'focus-visible:shadow-focus-primary',
-    'hover:bg-grayscale-100 active:bg-grayscale-200',
-    'data-[highlighted]:bg-grayscale-100 data-[active]:bg-grayscale-200',
+    'hover:bg-grayscale-opacity-100 active:bg-grayscale-opacity-200',
+    'data-[highlighted]:bg-grayscale-opacity-100 data-[active]:bg-grayscale-opacity-200',
     'data-[current]:text-primary-500 aria-current:text-primary-500',
-    'data-[disabled]:pointer-events-none data-[disabled]:text-grayscale-500',
-    'aria-disabled:pointer-events-none aria-disabled:text-grayscale-500',
-    'disabled:pointer-events-none disabled:text-grayscale-500',
+    'data-[disabled]:pointer-events-none data-[disabled]:text-grayscale-opacity-500',
+    'aria-disabled:pointer-events-none aria-disabled:text-grayscale-opacity-500',
+    'disabled:pointer-events-none disabled:text-grayscale-opacity-500',
   ],
   {
     variants: {
       variant: {
         default: 'bg-transparent',
-        outline: 'border-grayscale-300 bg-white',
-        muted: 'bg-grayscale-100',
+        outline: 'border-grayscale-opacity-300 bg-white',
+        muted: 'bg-grayscale-opacity-100',
       },
       size: {
         default: 'gap-4 rounded p-4',
@@ -117,7 +117,7 @@ const ItemSeparator = forwardRef<
     <Separator
       ref={ref}
       data-slot="item-separator"
-      className={cn('bg-grayscale-200', className)}
+      className={cn('bg-grayscale-opacity-200', className)}
       {...props}
     />
   );
@@ -220,7 +220,7 @@ const ItemDescription = forwardRef<
       ref={ref}
       data-slot="item-description"
       className={cn(
-        'm-0 line-clamp-2 break-anywhere text-sm leading-5 font-normal text-grayscale-500',
+        'm-0 line-clamp-2 break-anywhere text-sm leading-5 font-normal text-grayscale-opacity-500',
         'group-data-[current]/item:text-primary-500',
         '[&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary-500',
         className,

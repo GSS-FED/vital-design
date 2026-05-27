@@ -37,8 +37,8 @@ const frozenColumnClassNames = {
     cell: 'sticky left-0 z-20 bg-white group-hover:bg-[#f8f8f9]',
   },
   id: {
-    head: 'sticky left-10 !z-40 after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-300 after:content-[""]',
-    cell: 'sticky left-10 z-20 bg-white group-hover:bg-[#f8f8f9] after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-300 after:content-[""]',
+    head: 'sticky left-10 !z-40 after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-opacity-300 after:content-[""]',
+    cell: 'sticky left-10 z-20 bg-white group-hover:bg-[#f8f8f9] after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-opacity-300 after:content-[""]',
   },
 };
 
@@ -253,7 +253,7 @@ function StickyHeaderOverlay({
             <div
               key={header.id}
               data-overlay-header-cell={measure.id}
-              className="absolute top-0 flex h-8 items-center border-r border-b border-grayscale-300 bg-white px-3 py-1.5 text-left text-sm leading-5 font-normal whitespace-nowrap text-grayscale-800"
+              className="absolute top-0 flex h-8 items-center border-r border-b border-grayscale-opacity-300 bg-white px-3 py-1.5 text-left text-sm leading-5 font-normal whitespace-nowrap text-grayscale-opacity-800"
               style={{ left: measure.start, width: measure.width }}
             >
               {header.isPlaceholder
@@ -275,7 +275,7 @@ function StickyHeaderOverlay({
             <div
               key={header.id}
               data-overlay-header-cell={measure.id}
-              className="flex h-8 items-center border-r border-b border-grayscale-300 bg-white px-3 py-1.5 text-left text-sm leading-5 font-normal whitespace-nowrap text-grayscale-800"
+              className="flex h-8 items-center border-r border-b border-grayscale-opacity-300 bg-white px-3 py-1.5 text-left text-sm leading-5 font-normal whitespace-nowrap text-grayscale-opacity-800"
               style={{ width: measure.width }}
             >
               {header.isPlaceholder
@@ -336,17 +336,17 @@ function PillarCard({
           aria-expanded={open}
           onClick={() => setOpen((value) => !value)}
           style={stickyHeaderStyle}
-          className="z-50 flex h-[55px] w-[min(1010px,calc(100vw-48px))] items-center gap-10 rounded-t border-b border-grayscale-300 bg-white py-2.5 text-left transition-colors hover:bg-grayscale-50"
+          className="z-50 flex h-[55px] w-[min(1010px,calc(100vw-48px))] items-center gap-10 rounded-t border-b border-grayscale-opacity-300 bg-white py-2.5 text-left transition-colors hover:bg-grayscale-50"
         >
           <span className="flex flex-1 items-center">
             <span className="flex w-10 items-center justify-center py-2">
               <ChevronDownIcon
-                className={`size-3 text-grayscale-600 transition-transform ${
+                className={`size-3 text-grayscale-opacity-600 transition-transform ${
                   open ? '' : '-rotate-90'
                 }`}
               />
             </span>
-            <span className="text-sm font-medium leading-5 text-grayscale-800">
+            <span className="text-sm font-medium leading-5 text-grayscale-opacity-800">
               {pillar}
             </span>
           </span>

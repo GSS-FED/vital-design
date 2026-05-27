@@ -106,9 +106,9 @@ describe('Autocomplete', () => {
 
     expect(
       findSlot(baseElement, 'autocomplete-input-group'),
-    ).toHaveClass('border-grayscale-300', 'bg-white');
+    ).toHaveClass('border-grayscale-opacity-300', 'bg-white');
     expect(findSlot(baseElement, 'autocomplete-input')).toHaveClass(
-      'placeholder:text-grayscale-400',
+      'placeholder:text-grayscale-opacity-400',
     );
     expect(
       findSlot(baseElement, 'autocomplete-icon'),
@@ -133,7 +133,7 @@ describe('Autocomplete', () => {
     ).toBeInTheDocument();
     expect(
       findSlots(baseElement, 'autocomplete-item')[0],
-    ).toHaveClass('data-[highlighted]:bg-grayscale-100');
+    ).toHaveClass('data-[highlighted]:bg-grayscale-opacity-100');
     expect(screen.getByText('feature')).toBeInTheDocument();
   });
 

@@ -7,7 +7,7 @@ it('renders the textarea primitive with shadcn slot hooks', () => {
   const textarea = screen.getByRole('textbox');
 
   expect(textarea).toHaveAttribute('data-slot', 'textarea');
-  expect(textarea).toHaveClass('border-grayscale-300');
+  expect(textarea).toHaveClass('border-grayscale-opacity-300');
 });
 
 it('renders a textarea with placeholder', () => {

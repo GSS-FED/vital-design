@@ -58,8 +58,8 @@ const OVERLAY_CLASSES = [
   'before:content-[""] before:absolute before:inset-0',
   'before:rounded-[inherit] before:pointer-events-none before:opacity-0',
   'before:transition-all before:duration-150 before:z-[1]',
-  'hover:not-disabled:not-data-[disabled]:before:bg-grayscale-100 hover:not-disabled:not-data-[disabled]:before:opacity-100',
-  'active:not-disabled:not-data-[disabled]:before:bg-grayscale-200 active:not-disabled:not-data-[disabled]:before:opacity-100',
+  'hover:not-disabled:not-data-[disabled]:before:bg-grayscale-opacity-100 hover:not-disabled:not-data-[disabled]:before:opacity-100',
+  'active:not-disabled:not-data-[disabled]:before:bg-grayscale-opacity-200 active:not-disabled:not-data-[disabled]:before:opacity-100',
 ] as const;
 
 const buttonVariants = cva(BUTTON_BASE_CLASSES, {
@@ -126,7 +126,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
       variant: 'default',
       theme: 'default',
       class:
-        'text-grayscale-800 bg-white focus-visible:shadow-focus-primary disabled:text-grayscale-300 data-[disabled]:text-grayscale-300',
+        'text-grayscale-opacity-800 bg-white focus-visible:shadow-focus-primary disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300',
     },
     {
       variant: 'default',
@@ -161,7 +161,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
       variant: 'default',
       size: ['md', 'icon-md'],
       theme: ['default', 'dangerous'],
-      class: 'border border-grayscale-300',
+      class: 'border border-grayscale-opacity-300',
     },
     {
       variant: 'default',
@@ -173,42 +173,42 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
       variant: 'text',
       theme: 'primary',
       class:
-        'text-primary-500 hover:not-disabled:not-data-[disabled]:text-primary-400 active:not-disabled:not-data-[disabled]:text-primary-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-primary',
+        'text-primary-500 hover:not-disabled:not-data-[disabled]:text-primary-400 active:not-disabled:not-data-[disabled]:text-primary-600 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-primary',
     },
     {
       variant: 'text',
       theme: 'default',
       class:
-        'text-grayscale-800 hover:not-disabled:not-data-[disabled]:text-grayscale-700 active:not-disabled:not-data-[disabled]:text-grayscale-800 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-primary',
+        'text-grayscale-opacity-800 hover:not-disabled:not-data-[disabled]:text-grayscale-opacity-700 active:not-disabled:not-data-[disabled]:text-grayscale-opacity-800 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-primary',
     },
     {
       variant: 'text',
       theme: 'success',
       class:
-        'text-success-500 hover:not-disabled:not-data-[disabled]:text-success-400 active:not-disabled:not-data-[disabled]:text-success-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-success',
+        'text-success-500 hover:not-disabled:not-data-[disabled]:text-success-400 active:not-disabled:not-data-[disabled]:text-success-600 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-success',
     },
     {
       variant: 'text',
       theme: 'info',
       class:
-        'text-info-500 hover:not-disabled:not-data-[disabled]:text-info-400 active:not-disabled:not-data-[disabled]:text-info-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-info',
+        'text-info-500 hover:not-disabled:not-data-[disabled]:text-info-400 active:not-disabled:not-data-[disabled]:text-info-600 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-info',
     },
     {
       variant: 'text',
       theme: 'warning',
       class:
-        'text-warning-500 hover:not-disabled:not-data-[disabled]:text-warning-400 active:not-disabled:not-data-[disabled]:text-warning-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-warning',
+        'text-warning-500 hover:not-disabled:not-data-[disabled]:text-warning-400 active:not-disabled:not-data-[disabled]:text-warning-600 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-warning',
     },
     {
       variant: 'text',
       theme: 'alarm',
       class:
-        'text-destructive-500 hover:not-disabled:not-data-[disabled]:text-destructive-400 active:not-disabled:not-data-[disabled]:text-destructive-600 disabled:text-grayscale-300 data-[disabled]:text-grayscale-300 focus-visible:shadow-focus-destructive',
+        'text-destructive-500 hover:not-disabled:not-data-[disabled]:text-destructive-400 active:not-disabled:not-data-[disabled]:text-destructive-600 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-destructive',
     },
     {
       variant: 'ghost',
       class:
-        'bg-transparent disabled:text-grayscale-300 data-[disabled]:text-grayscale-300',
+        'bg-transparent disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300',
     },
     {
       variant: 'ghost',
@@ -218,7 +218,8 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
     {
       variant: 'ghost',
       theme: 'default',
-      class: 'text-grayscale-800 focus-visible:shadow-focus-primary',
+      class:
+        'text-grayscale-opacity-800 focus-visible:shadow-focus-primary',
     },
     {
       variant: 'ghost',

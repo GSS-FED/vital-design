@@ -20,10 +20,10 @@ function ScrollAreaItems() {
     <div className="flex flex-col py-2">
       {items.map((item) => (
         <div key={item.label} className="px-4 py-2">
-          <div className="text-sm leading-5 font-medium text-grayscale-800">
+          <div className="text-sm leading-5 font-medium text-grayscale-opacity-800">
             {item.label}
           </div>
-          <div className="text-xs leading-4 text-grayscale-500">
+          <div className="text-xs leading-4 text-grayscale-opacity-500">
             {item.description}
           </div>
         </div>
@@ -34,7 +34,7 @@ function ScrollAreaItems() {
 
 function ScrollAreaPreview() {
   return (
-    <ScrollArea className="h-64 w-80 rounded border border-grayscale-200 bg-white">
+    <ScrollArea className="h-64 w-80 rounded border border-grayscale-opacity-200 bg-white">
       <ScrollAreaViewport className="h-full">
         <ScrollAreaItems />
       </ScrollAreaViewport>
@@ -48,7 +48,7 @@ function ScrollAreaPreview() {
 function ScrollAreaFadePreview() {
   return (
     <ScrollArea
-      className="h-64 w-80 rounded border border-grayscale-200 bg-white"
+      className="h-64 w-80 rounded border border-grayscale-opacity-200 bg-white"
       overflowEdgeThreshold={1}
     >
       <ScrollAreaViewport className="h-full" fadeEdges>

@@ -36,9 +36,9 @@ const NumberInputGroup = forwardRef<
       ref={ref}
       data-slot="number-input-group"
       className={cn(
-        'group/number-input box-border flex h-8 w-full min-w-0 items-stretch overflow-hidden rounded border border-grayscale-300 bg-white font-sans text-grayscale-800 transition-colors duration-200 outline-none',
-        'hover:border-grayscale-500 focus-within:border-primary-500',
-        'has-[input:disabled]:border-grayscale-300 has-[input:disabled]:bg-grayscale-200 has-[input:disabled]:text-grayscale-500 has-[input:disabled]:hover:border-grayscale-300',
+        'group/number-input box-border flex h-8 w-full min-w-0 items-stretch overflow-hidden rounded border border-grayscale-opacity-300 bg-white font-sans text-grayscale-opacity-800 transition-colors duration-200 outline-none',
+        'hover:border-grayscale-opacity-500 focus-within:border-primary-500',
+        'has-[input:disabled]:border-grayscale-opacity-300 has-[input:disabled]:bg-grayscale-opacity-200 has-[input:disabled]:text-grayscale-opacity-500 has-[input:disabled]:hover:border-grayscale-opacity-300',
         'has-[input[aria-invalid=true]]:border-destructive-500 has-[input[aria-invalid=true]]:hover:border-destructive-500 has-[input[aria-invalid=true]]:focus-within:border-destructive-500',
         className,
       )}
@@ -60,9 +60,9 @@ const NumberInputControl = forwardRef<
       ref={ref}
       data-slot="number-input-control"
       className={cn(
-        'box-border h-full w-full min-w-0 bg-transparent px-2 py-1.5 text-right text-sm leading-5 font-normal text-grayscale-800 outline-none',
-        'placeholder:text-grayscale-400',
-        'disabled:cursor-not-allowed disabled:bg-transparent disabled:text-grayscale-500',
+        'box-border h-full w-full min-w-0 bg-transparent px-2 py-1.5 text-right text-sm leading-5 font-normal text-grayscale-opacity-800 outline-none',
+        'placeholder:text-grayscale-opacity-400',
+        'disabled:cursor-not-allowed disabled:bg-transparent disabled:text-grayscale-opacity-500',
         className,
       )}
       {...props}
@@ -71,9 +71,9 @@ const NumberInputControl = forwardRef<
 });
 
 const stepperBaseClasses = [
-  'flex h-1/2 w-6 cursor-pointer items-center justify-center border-l border-grayscale-300 bg-white text-grayscale-700 transition-colors duration-150 outline-none select-none',
-  'hover:bg-grayscale-100 active:bg-grayscale-200',
-  'disabled:cursor-not-allowed disabled:bg-grayscale-100 disabled:text-grayscale-300',
+  'flex h-1/2 w-6 cursor-pointer items-center justify-center border-l border-grayscale-opacity-300 bg-white text-grayscale-opacity-700 transition-colors duration-150 outline-none select-none',
+  'hover:bg-grayscale-opacity-100 active:bg-grayscale-opacity-200',
+  'disabled:cursor-not-allowed disabled:bg-grayscale-opacity-100 disabled:text-grayscale-opacity-300',
 ] as const;
 
 export type NumberInputIncrementProps = ComponentPropsWithoutRef<
@@ -93,7 +93,7 @@ const NumberInputIncrement = forwardRef<
       data-slot="number-input-increment"
       className={cn(
         stepperBaseClasses,
-        'border-b border-grayscale-300',
+        'border-b border-grayscale-opacity-300',
         className,
       )}
       {...props}
@@ -141,7 +141,7 @@ const NumberInputSteppers = forwardRef<
       ref={ref}
       data-slot="number-input-steppers"
       className={cn(
-        'flex h-full flex-col items-stretch text-grayscale-800',
+        'flex h-full flex-col items-stretch text-grayscale-opacity-800',
         className,
       )}
       {...props}
@@ -185,7 +185,7 @@ const NumberInputScrubAreaCursor = forwardRef<
     <BaseNumberField.ScrubAreaCursor
       ref={ref}
       data-slot="number-input-scrub-area-cursor"
-      className={cn('text-grayscale-800', className)}
+      className={cn('text-grayscale-opacity-800', className)}
       {...props}
     />
   );

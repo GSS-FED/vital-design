@@ -45,7 +45,7 @@ import {
     >
       <ProgressSegment className="w-2 bg-success-500" />
       <ProgressSegment className="w-2 bg-warning-500" />
-      <ProgressSegment className="w-2 bg-grayscale-600" />
+      <ProgressSegment className="w-2 bg-grayscale-opacity-600" />
       <ProgressSegment className="w-2 bg-destructive-500" />
       {Array.from({ length: 8 }).map((_, index) => (
         <ProgressSegment
@@ -61,7 +61,7 @@ import {
     >
       <ProgressSegment className="flex-1 bg-success-500" />
       <ProgressSegment className="flex-1 bg-warning-500" />
-      <ProgressSegment className="flex-1 bg-grayscale-600" />
+      <ProgressSegment className="flex-1 bg-grayscale-opacity-600" />
       <ProgressSegment className="flex-1" data-state="inactive" />
     </ProgressSegments>
   </div>
@@ -75,7 +75,7 @@ import {
     className="w-[118px] gap-0"
     joint="connected"
   >
-    <ProgressSegment className="flex-1 bg-grayscale-600" />
+    <ProgressSegment className="flex-1 bg-grayscale-opacity-600" />
     <ProgressSegment className="flex-1 bg-warning-500" />
   </ProgressSegments>
 </ComponentPreview>
@@ -107,7 +107,7 @@ import {
   className="w-[118px] gap-0"
   joint="connected"
 >
-  <ProgressSegment className="flex-1 bg-grayscale-600" />
+  <ProgressSegment className="flex-1 bg-grayscale-opacity-600" />
   <ProgressSegment className="flex-1 bg-warning-500" />
 </ProgressSegments>
 ```
@@ -152,7 +152,7 @@ import {
 
 // Connected stacked bar
 <ProgressSegments className="w-[118px] gap-0" joint="connected">
-  <ProgressSegment className="flex-1 bg-grayscale-600" />
+  <ProgressSegment className="flex-1 bg-grayscale-opacity-600" />
   <ProgressSegment className="flex-1 bg-warning-500" />
 </ProgressSegments>
 ```

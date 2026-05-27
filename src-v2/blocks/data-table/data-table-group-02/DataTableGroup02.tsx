@@ -78,7 +78,7 @@ function EmissionHeaderRows({
               key={header.id}
               style={getPinningStyles(header.column)}
               className={cn(
-                'border-b border-grayscale-300',
+                'border-b border-grayscale-opacity-300',
                 getPinnedClassName(header.column),
               )}
             >
@@ -90,7 +90,7 @@ function EmissionHeaderRows({
                   )}
             </TableHead>
           ))}
-          <td className="border-b border-grayscale-300 p-0" />
+          <td className="border-b border-grayscale-opacity-300 p-0" />
         </TableRow>
       ))}
     </>
@@ -137,7 +137,7 @@ function EmissionCategoryRow({
       />
       <TableCell
         colSpan={titleColSpan}
-        className="h-9 overflow-visible border-r-0 bg-transparent py-0 pl-0 pr-3 text-sm font-medium text-grayscale-900"
+        className="h-9 overflow-visible border-r-0 bg-transparent py-0 pl-0 pr-3 text-sm font-medium text-grayscale-opacity-900"
       >
         <div
           className="flex items-center gap-2 overflow-hidden whitespace-nowrap pr-3"
@@ -148,7 +148,7 @@ function EmissionCategoryRow({
           </Badge>
           <Avatar fallback="" size="xs" color="tiffany" />
           <span className="truncate">{row.original.title}</span>
-          <span className="ml-auto text-sm font-normal tabular-nums text-grayscale-700">
+          <span className="ml-auto text-sm font-normal tabular-nums text-grayscale-opacity-700">
             {getEmissionLeaves(row.original).length}
           </span>
         </div>
@@ -180,7 +180,7 @@ function EmissionSubcategoryRow({
           row.toggleExpanded();
         }
       }}
-      className="sticky top-9 z-20 cursor-pointer bg-white hover:bg-grayscale-100"
+      className="sticky top-9 z-20 cursor-pointer bg-white hover:bg-grayscale-opacity-100"
     >
       <RailCells
         variant="branch"
@@ -193,7 +193,7 @@ function EmissionSubcategoryRow({
       />
       <TableCell
         colSpan={titleColSpan}
-        className="h-11 overflow-visible border-r-0 bg-transparent py-0 pl-0 pr-3 text-sm font-medium text-grayscale-800"
+        className="h-11 overflow-visible border-r-0 bg-transparent py-0 pl-0 pr-3 text-sm font-medium text-grayscale-opacity-800"
       >
         <div
           className="flex items-center gap-2 overflow-hidden whitespace-nowrap pr-3"
@@ -204,7 +204,7 @@ function EmissionSubcategoryRow({
           </Badge>
           <Avatar fallback="" size="xs" color="tiffany" />
           <span className="truncate">{row.original.title}</span>
-          <span className="ml-auto text-sm font-normal tabular-nums text-grayscale-700">
+          <span className="ml-auto text-sm font-normal tabular-nums text-grayscale-opacity-700">
             {getEmissionLeaves(row.original).length}
           </span>
         </div>
@@ -228,7 +228,7 @@ function EmissionSourceRow({ row }: { row: Row<EmissionTreeRow> }) {
               scope="row"
               style={pinStyle}
               className={cn(
-                'h-11 border-b border-grayscale-300 bg-transparent px-3 py-1 align-middle font-normal text-grayscale-800',
+                'h-11 border-b border-grayscale-opacity-300 bg-transparent px-3 py-1 align-middle font-normal text-grayscale-opacity-800',
                 pinClass,
               )}
             >
@@ -245,7 +245,7 @@ function EmissionSourceRow({ row }: { row: Row<EmissionTreeRow> }) {
             key={cell.id}
             style={pinStyle}
             className={cn(
-              'border-b border-grayscale-300 bg-transparent',
+              'border-b border-grayscale-opacity-300 bg-transparent',
               pinClass,
             )}
           >
@@ -256,7 +256,7 @@ function EmissionSourceRow({ row }: { row: Row<EmissionTreeRow> }) {
           </TableCell>
         );
       })}
-      <td className="border-b border-grayscale-300 p-0" />
+      <td className="border-b border-grayscale-opacity-300 p-0" />
     </TableRow>
   );
 }

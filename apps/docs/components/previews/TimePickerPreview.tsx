@@ -28,7 +28,7 @@ export function TimePickerPreview() {
     <ComponentPreview>
       <div className="flex flex-col items-center gap-4">
         <TimePicker value={value} onValueChange={setValue} />
-        <code className="text-sm text-grayscale-600">
+        <code className="text-sm text-grayscale-opacity-600">
           {format(value, 'HH:mm:ss')}
         </code>
       </div>
@@ -95,7 +95,7 @@ export function TimePickerInPopoverPreview() {
                   className="cursor-pointer"
                 />
                 <InputGroupAddon align="inline-end">
-                  <ClockIcon className="size-4 text-grayscale-500" />
+                  <ClockIcon className="size-4 text-grayscale-opacity-500" />
                 </InputGroupAddon>
               </InputGroup>
             }

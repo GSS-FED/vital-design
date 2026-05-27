@@ -37,7 +37,7 @@ function FieldLegend({
       data-slot="field-legend"
       data-variant={variant}
       className={cn(
-        'mb-1.5 font-sans font-medium text-grayscale-800',
+        'mb-1.5 font-sans font-medium text-grayscale-opacity-800',
         'data-[variant=label]:text-sm',
         'data-[variant=legend]:text-base',
         className,
@@ -165,7 +165,7 @@ function FieldTitle({ className, ...props }: FieldTitleProps) {
     <div
       data-slot="field-label"
       className={cn(
-        'flex w-fit items-center gap-2 font-sans text-sm font-medium text-grayscale-800',
+        'flex w-fit items-center gap-2 font-sans text-sm font-medium text-grayscale-opacity-800',
         'group-data-[disabled=true]/field:opacity-50',
         className,
       )}
@@ -184,7 +184,7 @@ function FieldDescription({
     <p
       data-slot="field-description"
       className={cn(
-        'text-left font-sans text-xs leading-4 font-normal text-grayscale-600',
+        'text-left font-sans text-xs leading-4 font-normal text-grayscale-opacity-600',
         'group-has-[[data-orientation=horizontal]]/field:text-balance',
         '[[data-variant=legend]+&]:-mt-1.5',
         'last:mt-0 nth-last-2:-mt-1',
@@ -220,7 +220,7 @@ function FieldSeparator({
       {children ? (
         <span
           data-slot="field-separator-content"
-          className="relative mx-auto block w-fit bg-white px-2 text-grayscale-500"
+          className="relative mx-auto block w-fit bg-white px-2 text-grayscale-opacity-500"
         >
           {children}
         </span>

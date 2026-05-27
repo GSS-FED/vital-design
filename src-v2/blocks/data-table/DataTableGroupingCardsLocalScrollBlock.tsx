@@ -28,8 +28,8 @@ const frozenColumnClassNames = {
     cell: 'sticky left-0 z-20 bg-white group-hover:bg-[#f8f8f9]',
   },
   id: {
-    head: 'sticky left-10 z-30 after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-300 after:content-[""]',
-    cell: 'sticky left-10 z-20 bg-white group-hover:bg-[#f8f8f9] after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-300 after:content-[""]',
+    head: 'sticky left-10 z-30 after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-opacity-300 after:content-[""]',
+    cell: 'sticky left-10 z-20 bg-white group-hover:bg-[#f8f8f9] after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-opacity-300 after:content-[""]',
   },
 };
 
@@ -75,17 +75,17 @@ function PillarCard({
         type="button"
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
-        className="sticky left-0 z-40 flex w-[min(1010px,calc(100vw-48px))] items-center gap-10 rounded-t border-b border-grayscale-300 bg-white py-2.5 text-left transition-colors hover:bg-grayscale-50"
+        className="sticky left-0 z-40 flex w-[min(1010px,calc(100vw-48px))] items-center gap-10 rounded-t border-b border-grayscale-opacity-300 bg-white py-2.5 text-left transition-colors hover:bg-grayscale-50"
       >
         <span className="flex flex-1 items-center">
           <span className="flex w-10 items-center justify-center py-2">
             <ChevronDownIcon
-              className={`size-3 text-grayscale-600 transition-transform ${
+              className={`size-3 text-grayscale-opacity-600 transition-transform ${
                 open ? '' : '-rotate-90'
               }`}
             />
           </span>
-          <span className="text-sm font-medium leading-5 text-grayscale-800">
+          <span className="text-sm font-medium leading-5 text-grayscale-opacity-800">
             {pillar}
           </span>
         </span>

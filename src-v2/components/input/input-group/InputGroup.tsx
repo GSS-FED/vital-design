@@ -20,9 +20,9 @@ const InputGroup = forwardRef<ElementRef<'div'>, InputGroupProps>(
         role="group"
         data-slot="input-group"
         className={cn(
-          'group/input-group relative box-border flex h-8 w-full min-w-0 items-center rounded border border-grayscale-300 bg-white font-sans text-grayscale-500 transition-colors duration-200 outline-none',
-          'hover:border-grayscale-500',
-          'has-[:disabled]:border-grayscale-300 has-[:disabled]:bg-grayscale-200 has-[:disabled]:text-grayscale-500 has-[:disabled]:opacity-100 has-[:disabled]:hover:border-grayscale-300',
+          'group/input-group relative box-border flex h-8 w-full min-w-0 items-center rounded border border-grayscale-opacity-300 bg-white font-sans text-grayscale-opacity-500 transition-colors duration-200 outline-none',
+          'hover:border-grayscale-opacity-500',
+          'has-[:disabled]:border-grayscale-opacity-300 has-[:disabled]:bg-grayscale-opacity-200 has-[:disabled]:text-grayscale-opacity-500 has-[:disabled]:opacity-100 has-[:disabled]:hover:border-grayscale-opacity-300',
           'has-[[data-slot=input-group-control]:focus-visible]:border-primary-500',
           'has-[[data-slot][aria-invalid=true]]:border-destructive-500 has-[[data-slot][aria-invalid=true]]:hover:border-destructive-500 has-[[data-slot][aria-invalid=true]]:focus-within:border-destructive-500',
           'aria-invalid:border-destructive-500 aria-invalid:hover:border-destructive-500 aria-invalid:focus-within:border-destructive-500',
@@ -42,7 +42,7 @@ const InputGroup = forwardRef<ElementRef<'div'>, InputGroupProps>(
 );
 
 const inputGroupAddonVariants = cva(
-  'flex h-auto cursor-text items-center justify-center gap-2 py-1.5 text-sm leading-5 font-medium text-grayscale-500 select-none group-has-[:disabled]/input-group:opacity-50 [&>svg:not([class*=size-])]:size-4',
+  'flex h-auto cursor-text items-center justify-center gap-2 py-1.5 text-sm leading-5 font-medium text-grayscale-opacity-500 select-none group-has-[:disabled]/input-group:opacity-50 [&>svg:not([class*=size-])]:size-4',
   {
     variants: {
       align: {
@@ -159,7 +159,7 @@ const InputGroupText = forwardRef<
       ref={ref}
       data-slot="input-group-text"
       className={cn(
-        'flex items-center gap-2 text-sm leading-5 text-grayscale-500 [&_svg]:pointer-events-none [&_svg:not([class*=size-])]:size-4',
+        'flex items-center gap-2 text-sm leading-5 text-grayscale-opacity-500 [&_svg]:pointer-events-none [&_svg:not([class*=size-])]:size-4',
         className,
       )}
       {...props}

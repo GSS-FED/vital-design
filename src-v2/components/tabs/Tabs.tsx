@@ -30,7 +30,7 @@ const Tabs = forwardRef<ElementRef<typeof BaseTabs.Root>, TabsProps>(
         className={cn(
           'group/tabs font-sans',
           variant === 'underline' &&
-            'text-base leading-4 text-grayscale-700',
+            'text-base leading-4 text-grayscale-opacity-700',
           variant === 'pill' && 'text-sm leading-5',
           orientation === 'vertical' && 'flex items-start',
           className,
@@ -62,9 +62,9 @@ const TabsList = forwardRef<
         'group-data-[variant=underline]/tabs:data-[orientation=vertical]:w-[148px] group-data-[variant=underline]/tabs:data-[orientation=vertical]:flex-col group-data-[variant=underline]/tabs:data-[orientation=vertical]:items-stretch',
         'group-data-[variant=pill]/tabs:flex-wrap group-data-[variant=pill]/tabs:items-center group-data-[variant=pill]/tabs:gap-2',
         bordered &&
-          'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:h-[47px] group-data-[variant=underline]/tabs:data-[orientation=horizontal]:items-start group-data-[variant=underline]/tabs:data-[orientation=horizontal]:border-b group-data-[variant=underline]/tabs:data-[orientation=horizontal]:border-grayscale-200 group-data-[variant=underline]/tabs:data-[orientation=horizontal]:pl-3 group-data-[variant=underline]/tabs:data-[orientation=horizontal]:pt-4',
+          'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:h-[47px] group-data-[variant=underline]/tabs:data-[orientation=horizontal]:items-start group-data-[variant=underline]/tabs:data-[orientation=horizontal]:border-b group-data-[variant=underline]/tabs:data-[orientation=horizontal]:border-grayscale-opacity-200 group-data-[variant=underline]/tabs:data-[orientation=horizontal]:pl-3 group-data-[variant=underline]/tabs:data-[orientation=horizontal]:pt-4',
         bordered &&
-          'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:gap-4 group-data-[variant=underline]/tabs:data-[orientation=vertical]:border-r group-data-[variant=underline]/tabs:data-[orientation=vertical]:border-grayscale-200 group-data-[variant=underline]/tabs:data-[orientation=vertical]:pt-3',
+          'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:gap-4 group-data-[variant=underline]/tabs:data-[orientation=vertical]:border-r group-data-[variant=underline]/tabs:data-[orientation=vertical]:border-grayscale-opacity-200 group-data-[variant=underline]/tabs:data-[orientation=vertical]:pt-3',
         className,
       )}
       {...props}
@@ -96,15 +96,15 @@ const TabsTrigger = forwardRef<
         'group-data-[variant=underline]/tabs:hover:not-disabled:not-data-[disabled]:text-primary-500',
         'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:px-1 group-data-[variant=underline]/tabs:data-[orientation=horizontal]:text-center',
         'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:data-[active]:text-primary-500',
-        'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:not-data-[active]:text-grayscale-600',
+        'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:not-data-[active]:text-grayscale-opacity-600',
         'group-data-[variant=underline]/tabs:data-[orientation=vertical]:w-full group-data-[variant=underline]/tabs:data-[orientation=vertical]:justify-between group-data-[variant=underline]/tabs:data-[orientation=vertical]:px-2 group-data-[variant=underline]/tabs:data-[orientation=vertical]:py-3 group-data-[variant=underline]/tabs:data-[orientation=vertical]:text-left',
         'group-data-[variant=underline]/tabs:data-[orientation=vertical]:data-[active]:text-primary-500',
-        'group-data-[variant=underline]/tabs:data-[orientation=vertical]:not-data-[active]:text-grayscale-700',
+        'group-data-[variant=underline]/tabs:data-[orientation=vertical]:not-data-[active]:text-grayscale-opacity-700',
         'group-data-[bordered]/tabs-list:font-normal',
         'group-data-[bordered]/tabs-list:data-[orientation=horizontal]:gap-3',
-        'group-data-[bordered]/tabs-list:data-[orientation=horizontal]:not-data-[active]:text-grayscale-700',
-        'group-data-[variant=pill]/tabs:gap-1 group-data-[variant=pill]/tabs:rounded-sm group-data-[variant=pill]/tabs:px-2 group-data-[variant=pill]/tabs:py-1.5 group-data-[variant=pill]/tabs:text-sm group-data-[variant=pill]/tabs:leading-5 group-data-[variant=pill]/tabs:font-normal group-data-[variant=pill]/tabs:text-grayscale-800',
-        'group-data-[variant=pill]/tabs:hover:bg-grayscale-200',
+        'group-data-[bordered]/tabs-list:data-[orientation=horizontal]:not-data-[active]:text-grayscale-opacity-700',
+        'group-data-[variant=pill]/tabs:gap-1 group-data-[variant=pill]/tabs:rounded-sm group-data-[variant=pill]/tabs:px-2 group-data-[variant=pill]/tabs:py-1.5 group-data-[variant=pill]/tabs:text-sm group-data-[variant=pill]/tabs:leading-5 group-data-[variant=pill]/tabs:font-normal group-data-[variant=pill]/tabs:text-grayscale-opacity-800',
+        'group-data-[variant=pill]/tabs:hover:bg-grayscale-opacity-200',
         'group-data-[variant=pill]/tabs:data-[active]:bg-primary-50 group-data-[variant=pill]/tabs:data-[active]:text-primary-500',
         className,
       )}
@@ -150,7 +150,7 @@ const TabsContent = forwardRef<
       ref={ref}
       data-slot="tabs-content"
       className={cn(
-        'mt-4 font-sans text-sm leading-5 text-grayscale-700 outline-none focus-visible:shadow-focus-primary',
+        'mt-4 font-sans text-sm leading-5 text-grayscale-opacity-700 outline-none focus-visible:shadow-focus-primary',
         'data-[orientation=vertical]:mt-0 data-[orientation=vertical]:ml-4 data-[orientation=vertical]:flex-1',
         className,
       )}

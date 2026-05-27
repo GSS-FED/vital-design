@@ -29,8 +29,8 @@ const chipVariants = cva(
           'hover:before:bg-primary-500/20',
         ],
         false: [
-          'text-grayscale-800 bg-grayscale-200',
-          'hover:before:bg-grayscale-800/20',
+          'text-grayscale-opacity-800 bg-grayscale-opacity-200',
+          'hover:before:bg-grayscale-opacity-800/20',
         ],
       },
     },

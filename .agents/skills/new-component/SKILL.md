@@ -49,7 +49,7 @@ allowed-tools: Read, Write, Edit, Bash
 - 使用 CVA 管理 variants（參考 component-template.tsx）
 - 使用 `cn()` 合併類名
 - 所有 import 使用完整路徑（禁止 barrel import）
-- 顏色使用設計系統 token（`text-grayscale-900`, `bg-primary-500` 等）
+- 顏色使用設計系統 token（`text-grayscale-opacity-900`, `bg-primary-500` 等）
 - 不要加 `theme` prop；主題透過 CSS variables 統一處理
 - 類型使用 `import type` 語法
 

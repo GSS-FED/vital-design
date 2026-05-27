@@ -24,7 +24,7 @@ const CommandRoot = forwardRef<
     <CommandPrimitive
       ref={ref}
       className={cn(
-        'box-border flex w-full flex-col overflow-hidden rounded bg-white font-sans text-sm text-grayscale-800 shadow-emphasis',
+        'box-border flex w-full flex-col overflow-hidden rounded bg-white font-sans text-sm text-grayscale-opacity-800 shadow-emphasis',
         className,
       )}
       {...props}
@@ -49,21 +49,21 @@ const CommandInput = forwardRef<
   return (
     <div
       className={cn(
-        'mx-2 my-2 flex items-center gap-2 rounded-[4rem] border border-grayscale-300 bg-white px-3 py-1.5 text-grayscale-500 transition-colors duration-200',
-        'hover:border-grayscale-500 focus-within:border-primary-500',
+        'mx-2 my-2 flex items-center gap-2 rounded-[4rem] border border-grayscale-opacity-300 bg-white px-3 py-1.5 text-grayscale-opacity-500 transition-colors duration-200',
+        'hover:border-grayscale-opacity-500 focus-within:border-primary-500',
         containerClassName,
       )}
     >
       {prefix ?? (
-        <span className="flex shrink-0 items-center text-grayscale-500">
+        <span className="flex shrink-0 items-center text-grayscale-opacity-500">
           <SearchIcon className="size-[13px]" />
         </span>
       )}
       <CommandPrimitive.Input
         ref={ref}
         className={cn(
-          'flex h-5 w-full min-w-0 border-none bg-transparent p-0 text-sm font-normal leading-5 text-grayscale-800 outline-none',
-          'placeholder:text-grayscale-400 disabled:cursor-not-allowed disabled:text-grayscale-500',
+          'flex h-5 w-full min-w-0 border-none bg-transparent p-0 text-sm font-normal leading-5 text-grayscale-opacity-800 outline-none',
+          'placeholder:text-grayscale-opacity-400 disabled:cursor-not-allowed disabled:text-grayscale-opacity-500',
           className,
         )}
         {...props}
@@ -120,7 +120,7 @@ const CommandEmpty = forwardRef<
     <CommandPrimitive.Empty
       ref={ref}
       className={cn(
-        'px-4 py-6 text-center text-sm text-grayscale-500',
+        'px-4 py-6 text-center text-sm text-grayscale-opacity-500',
         className,
       )}
       {...props}
@@ -140,9 +140,9 @@ const CommandGroup = forwardRef<
     <CommandPrimitive.Group
       ref={ref}
       className={cn(
-        'overflow-hidden p-1 text-grayscale-800',
+        'overflow-hidden p-1 text-grayscale-opacity-800',
         '[&_[cmdk-group-heading]]:mb-1.5 [&_[cmdk-group-heading]]:px-2.5',
-        '[&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:leading-[1.3] [&_[cmdk-group-heading]]:text-grayscale-500',
+        '[&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:leading-[1.3] [&_[cmdk-group-heading]]:text-grayscale-opacity-500',
         className,
       )}
       {...props}
@@ -161,7 +161,7 @@ const CommandSeparator = forwardRef<
   return (
     <CommandPrimitive.Separator
       ref={ref}
-      className={cn('mx-3 h-px bg-grayscale-300', className)}
+      className={cn('mx-3 h-px bg-grayscale-opacity-300', className)}
       {...props}
     />
   );
@@ -179,9 +179,9 @@ const CommandItem = forwardRef<
     <CommandPrimitive.Item
       ref={ref}
       className={cn(
-        'box-border flex cursor-default items-center gap-2 rounded px-4 py-1.5 text-sm font-normal leading-[1.43] text-grayscale-800 outline-none select-none',
-        'data-[selected=true]:bg-grayscale-150',
-        'data-[disabled=true]:pointer-events-none data-[disabled=true]:text-grayscale-500',
+        'box-border flex cursor-default items-center gap-2 rounded px-4 py-1.5 text-sm font-normal leading-[1.43] text-grayscale-opacity-800 outline-none select-none',
+        'data-[selected=true]:bg-grayscale-opacity-150',
+        'data-[disabled=true]:pointer-events-none data-[disabled=true]:text-grayscale-opacity-500',
         className,
       )}
       {...props}
@@ -199,7 +199,7 @@ const CommandShortcut = forwardRef<
     <span
       ref={ref}
       className={cn(
-        'ml-auto text-xs font-medium tracking-wide text-grayscale-500',
+        'ml-auto text-xs font-medium tracking-wide text-grayscale-opacity-500',
         className,
       )}
       {...props}
@@ -224,13 +224,13 @@ const CommandLoading = forwardRef<
     <CommandPrimitive.Loading
       ref={ref}
       className={cn(
-        'flex items-center justify-center px-5 py-1.5 text-grayscale-400',
+        'flex items-center justify-center px-5 py-1.5 text-grayscale-opacity-400',
         className,
       )}
       {...props}
     >
       {children ?? indicator ?? (
-        <Spinner className="size-[18px] text-grayscale-400" />
+        <Spinner className="size-[18px] text-grayscale-opacity-400" />
       )}
     </CommandPrimitive.Loading>
   );
@@ -267,8 +267,8 @@ const CommandBackButton = forwardRef<
       ref={ref}
       type={type}
       className={cn(
-        'box-border flex w-full items-center gap-1 rounded px-3 py-1.5 text-left text-xs font-medium text-grayscale-500 transition-colors duration-200',
-        'hover:bg-grayscale-100',
+        'box-border flex w-full items-center gap-1 rounded px-3 py-1.5 text-left text-xs font-medium text-grayscale-opacity-500 transition-colors duration-200',
+        'hover:bg-grayscale-opacity-100',
         className,
       )}
       {...props}

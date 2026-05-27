@@ -197,12 +197,12 @@ describe('Theme', () => {
     expect(group).toHaveClass(
       'bg-white',
       'border',
-      'border-grayscale-300',
+      'border-grayscale-opacity-300',
     );
     const buttons = screen.getAllByRole('button');
-    expect(buttons[0]).toHaveClass('text-grayscale-800');
+    expect(buttons[0]).toHaveClass('text-grayscale-opacity-800');
     expect(screen.getByRole('separator')).toHaveClass(
-      'bg-grayscale-300',
+      'bg-grayscale-opacity-300',
     );
   });
 
@@ -215,7 +215,7 @@ describe('Theme', () => {
     expect(screen.getByRole('group')).toHaveClass(
       'bg-white',
       'border',
-      'border-grayscale-300',
+      'border-grayscale-opacity-300',
       'shadow-base',
     );
   });
@@ -257,7 +257,7 @@ describe('Theme', () => {
     expect(screen.getByRole('group')).toHaveClass(
       'bg-white',
       'border',
-      'border-grayscale-300',
+      'border-grayscale-opacity-300',
     );
     const buttons = screen.getAllByRole('button');
     expect(buttons[0]).toHaveClass('text-destructive-500');

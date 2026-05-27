@@ -26,17 +26,17 @@ export default meta;
 export const FadeEdges: Story = {
   render: () => (
     <ScrollArea
-      className="h-64 w-80 rounded border border-grayscale-200 bg-white"
+      className="h-64 w-80 rounded border border-grayscale-opacity-200 bg-white"
       overflowEdgeThreshold={1}
     >
       <ScrollAreaViewport className="h-full" fadeEdges>
         <div className="flex flex-col py-2">
           {ITEMS.map((item) => (
             <div key={item.label} className="px-4 py-2">
-              <div className="text-sm leading-5 font-medium text-grayscale-800">
+              <div className="text-sm leading-5 font-medium text-grayscale-opacity-800">
                 {item.label}
               </div>
-              <div className="text-xs leading-4 text-grayscale-500">
+              <div className="text-xs leading-4 text-grayscale-opacity-500">
                 {item.description}
               </div>
             </div>
@@ -49,15 +49,15 @@ export const FadeEdges: Story = {
 
 export const Vertical: Story = {
   render: () => (
-    <ScrollArea className="h-64 w-80 rounded border border-grayscale-200 bg-white">
+    <ScrollArea className="h-64 w-80 rounded border border-grayscale-opacity-200 bg-white">
       <ScrollAreaViewport className="h-full">
         <div className="flex flex-col py-2">
           {ITEMS.map((item) => (
             <div key={item.label} className="px-4 py-2">
-              <div className="text-sm leading-5 font-medium text-grayscale-800">
+              <div className="text-sm leading-5 font-medium text-grayscale-opacity-800">
                 {item.label}
               </div>
-              <div className="text-xs leading-4 text-grayscale-500">
+              <div className="text-xs leading-4 text-grayscale-opacity-500">
                 {item.description}
               </div>
             </div>

@@ -36,7 +36,7 @@ it('renders the field compound slots', () => {
     'field-description',
   );
   expect(description).toHaveClass('text-xs', 'leading-4');
-  expect(description).toHaveClass('text-grayscale-600');
+  expect(description).toHaveClass('text-grayscale-opacity-600');
   expect(screen.getByLabelText('Email')).toHaveAttribute(
     'id',
     'email',

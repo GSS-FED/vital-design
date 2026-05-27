@@ -40,7 +40,7 @@ export const Colors: Story = {
         <Spinner className="text-primary-500" />
         <Spinner className="text-success-500" />
         <Spinner className="text-destructive-500" />
-        <Spinner className="text-grayscale-500" />
+        <Spinner className="text-grayscale-opacity-500" />
       </div>
     );
   },

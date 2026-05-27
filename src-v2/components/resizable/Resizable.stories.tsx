@@ -23,7 +23,7 @@ const meta: Meta<typeof ResizablePanelGroup> = {
 
 function PanelContent({ children }: { children: string }) {
   return (
-    <div className="flex h-full items-center justify-center p-6 font-sans text-sm font-medium text-grayscale-800">
+    <div className="flex h-full items-center justify-center p-6 font-sans text-sm font-medium text-grayscale-opacity-800">
       {children}
     </div>
   );
@@ -37,7 +37,7 @@ export const Default: Story = {
     return (
       <ResizablePanelGroup
         orientation="horizontal"
-        className="min-h-[200px] max-w-md rounded-md border border-grayscale-300"
+        className="min-h-[200px] max-w-md rounded-md border border-grayscale-opacity-300"
       >
         <ResizablePanel defaultSize="50%">
           <PanelContent>One</PanelContent>
@@ -65,7 +65,7 @@ export const Vertical: Story = {
     return (
       <ResizablePanelGroup
         orientation="vertical"
-        className="min-h-[240px] max-w-md rounded-md border border-grayscale-300"
+        className="min-h-[240px] max-w-md rounded-md border border-grayscale-opacity-300"
       >
         <ResizablePanel defaultSize="30%">
           <PanelContent>Header</PanelContent>
@@ -85,7 +85,7 @@ export const WithHandle: Story = {
     return (
       <ResizablePanelGroup
         orientation="horizontal"
-        className="min-h-[200px] max-w-md rounded-md border border-grayscale-300"
+        className="min-h-[200px] max-w-md rounded-md border border-grayscale-opacity-300"
       >
         <ResizablePanel defaultSize="30%" minSize="20%">
           <PanelContent>Sidebar</PanelContent>

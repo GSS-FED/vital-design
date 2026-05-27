@@ -62,7 +62,7 @@ const splitButtonGroupVariants = cva(
     compoundVariants: [
       {
         theme: ['default', 'dangerous'],
-        class: 'border border-grayscale-300',
+        class: 'border border-grayscale-opacity-300',
       },
       {
         size: 'lg',
@@ -192,7 +192,7 @@ export function SplitButton(props: SplitButtonProps) {
         className={cn(
           LIGHT_SEPARATOR_THEMES.has(theme)
             ? 'bg-white/30'
-            : 'bg-grayscale-300',
+            : 'bg-grayscale-opacity-300',
         )}
       />
       <Button

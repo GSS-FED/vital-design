@@ -69,7 +69,7 @@ export function AutocompletePreview() {
         itemToStringValue={(tag) => tag.value}
         openOnInputClick
       >
-        <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-800">
+        <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-opacity-800">
           Search tags
           <AutocompleteInputGroup>
             <AutocompleteIcon />
@@ -99,7 +99,7 @@ export function AutocompleteInlinePreview() {
         mode="both"
         openOnInputClick
       >
-        <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-800">
+        <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-opacity-800">
           Inline completion
           <AutocompleteInputGroup>
             <AutocompleteIcon />
@@ -124,7 +124,7 @@ export function AutocompleteGroupedPreview() {
   return (
     <ComponentPreview centered={false}>
       <Autocomplete<TagGroup> items={groupedTags} openOnInputClick>
-        <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-800">
+        <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-opacity-800">
           Search grouped tags
           <AutocompleteInputGroup>
             <AutocompleteIcon />
@@ -161,7 +161,7 @@ export function AutocompleteLimitedPreview() {
         limit={4}
         openOnInputClick
       >
-        <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-800">
+        <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-opacity-800">
           Limit results to 4
           <AutocompleteInputGroup>
             <AutocompleteIcon />
@@ -229,7 +229,7 @@ export function AutocompleteSubmitPreview() {
           name="query"
           submitOnItemClick
         >
-          <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-800">
+          <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-opacity-800">
             Search and submit
             <AutocompleteInputGroup>
               <AutocompleteIcon />

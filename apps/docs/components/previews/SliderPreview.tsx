@@ -111,7 +111,7 @@ export function SliderMinMaxPreview() {
       <HorizontalFrame>
         <Slider defaultValue={20} max={40} min={-40} step={20}>
           <SliderParts />
-          <div className="mt-2 flex justify-between font-sans text-sm text-grayscale-600">
+          <div className="mt-2 flex justify-between font-sans text-sm text-grayscale-opacity-600">
             <span>-40</span>
             <span>40</span>
           </div>

@@ -43,7 +43,7 @@ export const Default: Story = {
             </Button>
           }
         />
-        <CollapsibleContent className="rounded-sm bg-grayscale-50 p-4 text-grayscale-700">
+        <CollapsibleContent className="rounded-sm bg-grayscale-50 p-4 text-grayscale-opacity-700">
           Yes. Free to use for personal and commercial projects. No
           attribution required.
         </CollapsibleContent>
@@ -56,12 +56,14 @@ export const ProductDetails: Story = {
   parameters: { controls: { disable: true } },
   render: function Render() {
     return (
-      <div className="w-96 space-y-4 rounded-sm border border-grayscale-200 p-4">
+      <div className="w-96 space-y-4 rounded-sm border border-grayscale-opacity-200 p-4">
         <div>
-          <div className="font-medium text-grayscale-900">
+          <div className="font-medium text-grayscale-opacity-900">
             Vital Design Hoodie
           </div>
-          <div className="text-sm text-grayscale-600">$48</div>
+          <div className="text-sm text-grayscale-opacity-600">
+            $48
+          </div>
         </div>
         <Collapsible className="space-y-2">
           <CollapsibleTrigger
@@ -77,7 +79,7 @@ export const ProductDetails: Story = {
               </Button>
             }
           />
-          <CollapsibleContent className="space-y-1 text-grayscale-700">
+          <CollapsibleContent className="space-y-1 text-grayscale-opacity-700">
             <p>100% cotton, double-stitched seams.</p>
             <p>Ships within 2 business days.</p>
             <p>Free returns within 30 days.</p>

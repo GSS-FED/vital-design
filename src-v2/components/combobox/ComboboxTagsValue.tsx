@@ -81,7 +81,7 @@ const Chip = forwardRef<
       ref={ref}
       data-slot="combobox-chip"
       className={cn(
-        'inline-flex h-5 min-w-0 max-w-full shrink-0 items-center gap-1 overflow-hidden rounded-full bg-grayscale-solid-700 px-2.5 text-xs leading-5 text-white outline-none',
+        'inline-flex h-5 min-w-0 max-w-full shrink-0 items-center gap-1 overflow-hidden rounded-full bg-grayscale-700 px-2.5 text-xs leading-5 text-white outline-none',
         'data-[disabled]:opacity-50',
         className,
       )}
@@ -130,7 +130,7 @@ const OverflowChip = forwardRef<
       ref={ref}
       data-slot="combobox-overflow-chip"
       className={cn(
-        'inline-flex h-5 shrink-0 items-center rounded-full bg-grayscale-200 px-2.5 text-xs leading-5 text-grayscale-700',
+        'inline-flex h-5 shrink-0 items-center rounded-full bg-grayscale-opacity-200 px-2.5 text-xs leading-5 text-grayscale-opacity-700',
         className,
       )}
       {...props}
@@ -196,7 +196,7 @@ const TagsValue = ({
               </OverflowChip>
             ) : null}
             {selectedItems.length === 0 ? (
-              <span className="min-w-0 flex-1 truncate text-grayscale-400">
+              <span className="min-w-0 flex-1 truncate text-grayscale-opacity-400">
                 {resolvedInputPlaceholder}
               </span>
             ) : null}

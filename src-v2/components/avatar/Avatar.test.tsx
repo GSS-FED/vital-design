@@ -236,7 +236,7 @@ describe('Avatar', () => {
       'size-10',
       'border-border',
       'bg-background',
-      'text-grayscale-700',
+      'text-grayscale-opacity-700',
       'group-has-data-[size=xl]/avatar-group:size-[60px]',
     );
     expect(screen.getByTestId('avatar-group')).toHaveClass(

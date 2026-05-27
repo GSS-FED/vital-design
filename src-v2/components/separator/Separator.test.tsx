@@ -10,7 +10,11 @@ it('renders a horizontal separator by default', () => {
   expect(separator).toHaveAttribute('role', 'separator');
   expect(separator).toHaveAttribute('aria-orientation', 'horizontal');
   expect(separator).toHaveAttribute('data-orientation', 'horizontal');
-  expect(separator).toHaveClass('h-px', 'w-full', 'bg-grayscale-200');
+  expect(separator).toHaveClass(
+    'h-px',
+    'w-full',
+    'bg-grayscale-opacity-200',
+  );
 });
 
 it('renders a vertical separator', () => {

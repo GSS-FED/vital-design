@@ -135,7 +135,7 @@ export function NumberInputControlledPreview() {
               <NumberInputSteppers />
             </NumberInputGroup>
           </NumberInput>
-          <span className="font-sans text-xs text-grayscale-600">
+          <span className="font-sans text-xs text-grayscale-opacity-600">
             目前值：{value ?? '空'}
           </span>
         </div>

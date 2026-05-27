@@ -76,7 +76,9 @@ export function DataTable<TData>({
           <TableRow>
             <TableCell
               colSpan={columnCount}
-              className={cn('h-24 text-center text-grayscale-500')}
+              className={cn(
+                'h-24 text-center text-grayscale-opacity-500',
+              )}
             >
               {emptyMessage}
             </TableCell>

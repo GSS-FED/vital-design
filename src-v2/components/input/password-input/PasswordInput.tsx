@@ -93,7 +93,7 @@ function VisibilityToggle({
       data-testid="visibility-toggle"
       disabled={disabled}
       onClick={onClick}
-      className="flex h-5 w-5 items-center justify-center transition-colors duration-200 hover:text-grayscale-700 disabled:cursor-not-allowed disabled:text-grayscale-300"
+      className="flex h-5 w-5 items-center justify-center transition-colors duration-200 hover:text-grayscale-opacity-700 disabled:cursor-not-allowed disabled:text-grayscale-opacity-300"
     >
       {children}
     </button>

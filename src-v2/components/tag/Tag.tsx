@@ -70,12 +70,12 @@ const tagVariants = cva(
       {
         color: 'default',
         colorVariant: 'solid',
-        class: 'text-white bg-grayscale-solid-700',
+        class: 'text-white bg-grayscale-700',
       },
       {
         color: 'default',
         colorVariant: 'tint',
-        class: 'text-grayscale-700 bg-grayscale-200',
+        class: 'text-grayscale-opacity-700 bg-grayscale-opacity-200',
       },
       // teal
       {

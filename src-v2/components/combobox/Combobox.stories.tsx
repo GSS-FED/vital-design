@@ -230,7 +230,7 @@ export const MultipleWrap: Story = {
 
               if (selectedItems.length === 0) {
                 return (
-                  <span className="min-w-0 flex-1 truncate text-grayscale-400">
+                  <span className="min-w-0 flex-1 truncate text-grayscale-opacity-400">
                     Search frameworks
                   </span>
                 );

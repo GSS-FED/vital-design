@@ -68,7 +68,7 @@ function AutocompleteField() {
       itemToStringValue={(tag) => tag.value}
       openOnInputClick
     >
-      <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-800">
+      <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-opacity-800">
         Search tags
         <AutocompleteInputGroup>
           <AutocompleteIcon />
@@ -105,7 +105,7 @@ export const InlineAutocomplete: Story = {
         mode="both"
         openOnInputClick
       >
-        <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-800">
+        <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-opacity-800">
           Search tags
           <AutocompleteInputGroup>
             <AutocompleteIcon />
@@ -133,7 +133,7 @@ export const Grouped: Story = {
         items={groupedTags}
         openOnInputClick
       >
-        <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-800">
+        <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-opacity-800">
           Search grouped tags
           <AutocompleteInputGroup>
             <AutocompleteIcon />
@@ -170,7 +170,7 @@ export const LimitedResults: Story = {
         limit={4}
         openOnInputClick
       >
-        <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-800">
+        <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-opacity-800">
           Limit results to 4
           <AutocompleteInputGroup>
             <AutocompleteIcon />
@@ -268,7 +268,7 @@ export const SubmitSearch: Story = {
       }}
     >
       <Autocomplete<Tag> items={tags} name="query" submitOnItemClick>
-        <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-800">
+        <label className="flex w-80 flex-col gap-1 font-sans text-sm leading-5 text-grayscale-opacity-800">
           Search and submit
           <AutocompleteInputGroup>
             <AutocompleteIcon />

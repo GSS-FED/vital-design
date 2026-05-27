@@ -26,7 +26,9 @@ function UserCell({
     <span
       className={cn(
         'inline-flex items-center gap-1.5',
-        muted ? 'text-grayscale-500' : 'text-grayscale-800',
+        muted
+          ? 'text-grayscale-opacity-500'
+          : 'text-grayscale-opacity-800',
       )}
     >
       <Avatar fallback={fallback} size="xs" color={color} />

@@ -54,16 +54,16 @@
 #### Grayscale 色階
 
 ```css
---grayscale-900: #232332;
---grayscale-800: rgba(35, 35, 50, 0.85);
---grayscale-700: rgba(35, 35, 50, 0.70);
---grayscale-600: rgba(35, 35, 50, 0.55);
---grayscale-500: rgba(35, 35, 50, 0.40);
---grayscale-400: rgba(35, 35, 50, 0.25);
---grayscale-300: rgba(35, 35, 50, 0.15);
---grayscale-200: rgba(35, 35, 50, 0.08);
---grayscale-150: rgba(35, 35, 50, 0.05);
---grayscale-100: rgba(35, 35, 50, 0.03);
+--grayscale-opacity-900: #232332;
+--grayscale-opacity-800: rgba(35, 35, 50, 0.85);
+--grayscale-opacity-700: rgba(35, 35, 50, 0.70);
+--grayscale-opacity-600: rgba(35, 35, 50, 0.55);
+--grayscale-opacity-500: rgba(35, 35, 50, 0.40);
+--grayscale-opacity-400: rgba(35, 35, 50, 0.25);
+--grayscale-opacity-300: rgba(35, 35, 50, 0.15);
+--grayscale-opacity-200: rgba(35, 35, 50, 0.08);
+--grayscale-opacity-150: rgba(35, 35, 50, 0.05);
+--grayscale-opacity-100: rgba(35, 35, 50, 0.03);
 ```
 
 #### Semantic 語意色彩
@@ -171,7 +171,7 @@ Tailwind v4 使用 `@theme inline` 區塊將 CSS 變數對應到 Tailwind 類別
 @theme inline {
   /* 色彩對應 */
   --color-primary-500: var(--primary-500);
-  --color-grayscale-800: var(--grayscale-800);
+  --color-grayscale-opacity-800: var(--grayscale-opacity-800);
 
   /* 陰影對應 */
   --shadow-focus-primary: 0 0 0 2px #A6D2FF;
@@ -186,7 +186,7 @@ Tailwind v4 使用 `@theme inline` 區塊將 CSS 變數對應到 Tailwind 類別
 對應後即可使用 Tailwind 類別：
 
 ```tsx
-<div className="bg-primary-500 text-grayscale-800 rounded-lg shadow-focus-primary">
+<div className="bg-primary-500 text-grayscale-opacity-800 rounded-lg shadow-focus-primary">
 ```
 
 ### 自訂 Variant
@@ -227,7 +227,7 @@ export const componentVariants = cva(
       },
       theme: {
         primary: 'bg-primary-500 text-white',
-        default: 'bg-white text-grayscale-800',
+        default: 'bg-white text-grayscale-opacity-800',
       },
     },
     defaultVariants: {

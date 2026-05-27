@@ -11,6 +11,7 @@ import {
 import {
   avatarTokens,
   destructiveTokens,
+  grayscaleOpacityTokens,
   grayscaleTokens,
   infoTokens,
   primaryTokens,
@@ -38,10 +39,10 @@ primitive  →  semantic  →  component
 ```
 
 - **Primitive scales** (`--primary-50…900`, `--grayscale-100…900`,
-  `--success-100…900`, etc.) — internal foundation. Reach for these
-  when you need a specific shade for charts, illustrations, or
-  fine-grained tinting. Tailwind utility: `bg-primary-500`,
-  `text-grayscale-700`, etc.
+  `--grayscale-opacity-100…900`, `--success-100…900`, etc.) — internal
+  foundation. Reach for these when you need a specific shade for
+  charts, illustrations, or fine-grained tinting. Tailwind utility:
+  `bg-primary-500`, `text-grayscale-700`, etc.
 - **Semantic tokens** (`--background`, `--primary`, `--card`,
   `--destructive`, …) — the public API. These describe **intent**
   and pair with `-foreground` siblings for legible content on the
@@ -58,10 +59,19 @@ buttons, focus states, and key affordances.
 
 ## Grayscale
 
-The grayscale palette uses `rgba(35, 35, 50, α)` so it tonally adapts
-over any background. `--grayscale-900` is the only solid hex.
+The default grayscale palette is fully solid — use it whenever the
+surface must be opaque (popovers, tooltips, toasts, solid chips).
 
 <ColorPalette tokens={grayscaleTokens} />
+
+## Grayscale (Opacity)
+
+The opacity variant uses `rgba(35, 35, 50, α)` so it tonally adapts
+over any background. Use it for hover tints, dividers, disabled fields,
+and other states where translucency is desired. `--grayscale-opacity-900`
+is the only solid hex.
+
+<ColorPalette tokens={grayscaleOpacityTokens} />
 
 ## Success
 

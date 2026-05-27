@@ -20,7 +20,7 @@ const Separator = forwardRef<
       orientation={orientation}
       data-slot="separator"
       className={cn(
-        'shrink-0 bg-grayscale-200',
+        'shrink-0 bg-grayscale-opacity-200',
         orientation === 'horizontal'
           ? 'h-px w-full'
           : 'h-full min-h-4 w-px',

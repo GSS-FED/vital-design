@@ -10,7 +10,7 @@ function ProgressRoot({ className, ...props }: ProgressRootProps) {
     <BaseProgress.Root
       data-slot="progress"
       className={cn(
-        'grid w-full gap-1.5 font-sans text-sm leading-5 text-grayscale-800',
+        'grid w-full gap-1.5 font-sans text-sm leading-5 text-grayscale-opacity-800',
         className,
       )}
       {...props}
@@ -43,7 +43,7 @@ function ProgressTrack({ className, ...props }: ProgressTrackProps) {
     <BaseProgress.Track
       data-slot="progress-track"
       className={cn(
-        'relative flex h-1.5 w-full items-center overflow-hidden rounded-(--radius-full) bg-grayscale-200',
+        'relative flex h-1.5 w-full items-center overflow-hidden rounded-(--radius-full) bg-grayscale-opacity-200',
         className,
       )}
       {...props}
@@ -76,7 +76,7 @@ function ProgressLabel({ className, ...props }: ProgressLabelProps) {
     <BaseProgress.Label
       data-slot="progress-label"
       className={cn(
-        'font-sans text-sm leading-5 font-medium text-grayscale-800',
+        'font-sans text-sm leading-5 font-medium text-grayscale-opacity-800',
         className,
       )}
       {...props}
@@ -91,7 +91,7 @@ function ProgressValue({ className, ...props }: ProgressValueProps) {
     <BaseProgress.Value
       data-slot="progress-value"
       className={cn(
-        'ml-auto font-sans text-sm leading-5 text-grayscale-600 tabular-nums',
+        'ml-auto font-sans text-sm leading-5 text-grayscale-opacity-600 tabular-nums',
         className,
       )}
       {...props}
@@ -107,7 +107,7 @@ export type ProgressSegmentsProps = Omit<
 };
 
 const progressSegmentsClasses =
-  'flex items-center [&>[data-slot=progress-segment]]:h-1.5 [&>[data-slot=progress-segment]]:rounded-(--radius-full) [&>[data-slot=progress-segment][data-state=inactive]]:h-0.5 [&>[data-slot=progress-segment][data-state=inactive]]:bg-grayscale-300 data-[joint=connected]:[&>[data-slot=progress-segment]:not(:first-child)]:rounded-l-none data-[joint=connected]:[&>[data-slot=progress-segment]:not(:last-child)]:rounded-r-none';
+  'flex items-center [&>[data-slot=progress-segment]]:h-1.5 [&>[data-slot=progress-segment]]:rounded-(--radius-full) [&>[data-slot=progress-segment][data-state=inactive]]:h-0.5 [&>[data-slot=progress-segment][data-state=inactive]]:bg-grayscale-opacity-300 data-[joint=connected]:[&>[data-slot=progress-segment]:not(:first-child)]:rounded-l-none data-[joint=connected]:[&>[data-slot=progress-segment]:not(:last-child)]:rounded-r-none';
 
 const ProgressSegments = forwardRef<
   HTMLDivElement,

@@ -206,12 +206,12 @@ export const ImageRows: Story = {
 export const GroupedRows: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <ItemGroup className="w-96 rounded border border-grayscale-300">
+    <ItemGroup className="w-96 rounded border border-grayscale-opacity-300">
       {['Alex Lin', 'Jamie Chen', 'Morgan Wu'].map((name, index) => (
         <Fragment key={name}>
           <Item size="list">
             <ItemMedia variant="image">
-              <span className="grid size-full place-content-center rounded-full bg-grayscale-100 text-xs text-grayscale-700">
+              <span className="grid size-full place-content-center rounded-full bg-grayscale-opacity-100 text-xs text-grayscale-opacity-700">
                 {name
                   .split(' ')
                   .map((part) => part[0])

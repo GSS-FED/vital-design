@@ -29,7 +29,7 @@ it('applies variant + size classes', () => {
   expect(el).toHaveAttribute('data-variant', 'outline');
   expect(el).toHaveClass(
     'border-b',
-    'border-grayscale-200',
+    'border-grayscale-opacity-200',
     'bg-white',
   );
   expect(el).toHaveClass('px-3', 'py-2');

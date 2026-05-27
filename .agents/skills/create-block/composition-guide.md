@@ -31,7 +31,7 @@
 
 ### 導覽列 / Navbar / 頂部導覽 / navigation bar
 
-- **Layout**: `flex items-center justify-between h-14 px-6 border-b border-grayscale-200 bg-white`
+- **Layout**: `flex items-center justify-between h-14 px-6 border-b border-grayscale-opacity-200 bg-white`
 - 左側: logo slot + Button variant="text"（導航連結）
 - 右側: Avatar（用戶身份）+ Button（登出/設定）
 - 可選: SearchBar（如搜尋在導覽列中）
@@ -56,8 +56,8 @@
 
 ### 設定卡片 / SettingsCard / 設定列 / settings
 
-- **Layout**: `flex items-center justify-between p-4 border border-grayscale-200 rounded-lg`
-- 左側: label（text-grayscale-900 font-medium）+ description（text-xs text-grayscale-600）
+- **Layout**: `flex items-center justify-between p-4 border border-grayscale-opacity-200 rounded-lg`
+- 左側: label（text-grayscale-opacity-900 font-medium）+ description（text-xs text-grayscale-opacity-600）
 - 右側: Switch（切換）或 Button variant="text"（操作）
 
 ### 空白狀態 / EmptyState / 空狀態佔位 / empty state
@@ -72,7 +72,7 @@
 
 ### 用戶資料卡 / UserProfileCard / profile card
 
-- **Layout**: `flex items-center gap-4 rounded-lg p-4 border border-grayscale-200`
+- **Layout**: `flex items-center gap-4 rounded-lg p-4 border border-grayscale-opacity-200`
 - Avatar + 姓名/角色文字 + Tag（角色標籤）+ Button variant="text"（編輯）
 
 ## Registry 依賴前綴規則

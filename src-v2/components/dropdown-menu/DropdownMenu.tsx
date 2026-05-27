@@ -6,10 +6,10 @@ import { forwardRef } from 'react';
 import type { ComponentPropsWithoutRef, ElementRef } from 'react';
 
 const ITEM_BASE_CLASSES =
-  'relative flex cursor-pointer items-center gap-2 py-1.5 px-3 text-sm leading-5 font-normal text-grayscale-800 outline-none select-none transition-colors duration-200';
+  'relative flex cursor-pointer items-center gap-2 py-1.5 px-3 text-sm leading-5 font-normal text-grayscale-opacity-800 outline-none select-none transition-colors duration-200';
 
 const ITEM_STATE_CLASSES =
-  'data-[highlighted]:bg-grayscale-100 data-[disabled]:pointer-events-none data-[disabled]:text-grayscale-500';
+  'data-[highlighted]:bg-grayscale-opacity-100 data-[disabled]:pointer-events-none data-[disabled]:text-grayscale-opacity-500';
 
 export type DropdownMenuProps = ComponentPropsWithoutRef<
   typeof BaseMenu.Root
@@ -179,7 +179,7 @@ const DropdownMenuSubTrigger = forwardRef<
       className={cn(
         ITEM_BASE_CLASSES,
         ITEM_STATE_CLASSES,
-        'pr-2 data-[popup-open]:bg-grayscale-100',
+        'pr-2 data-[popup-open]:bg-grayscale-opacity-100',
         className,
       )}
       {...props}
@@ -187,7 +187,7 @@ const DropdownMenuSubTrigger = forwardRef<
       {children}
       <ChevronRightIcon
         aria-hidden="true"
-        className="ml-auto text-grayscale-500"
+        className="ml-auto text-grayscale-opacity-500"
       />
     </BaseMenu.SubmenuTrigger>
   );
@@ -278,7 +278,7 @@ const DropdownMenuLabel = forwardRef<
       ref={ref}
       data-slot="dropdown-menu-label"
       className={cn(
-        'px-3 py-1.5 text-xs leading-4 font-medium text-grayscale-500 not-first-of-type:pt-4',
+        'px-3 py-1.5 text-xs leading-4 font-medium text-grayscale-opacity-500 not-first-of-type:pt-4',
         className,
       )}
       {...props}
@@ -299,7 +299,7 @@ const DropdownMenuSeparator = forwardRef<
       ref={ref}
       data-slot="dropdown-menu-separator"
       className={cn(
-        'pointer-events-none mx-3 my-2 h-px bg-grayscale-300',
+        'pointer-events-none mx-3 my-2 h-px bg-grayscale-opacity-300',
         className,
       )}
       {...props}

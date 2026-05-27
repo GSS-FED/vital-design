@@ -46,7 +46,7 @@ export const Segments: Story = {
       >
         <ProgressSegment className="w-2 bg-success-500" />
         <ProgressSegment className="w-2 bg-warning-500" />
-        <ProgressSegment className="w-2 bg-grayscale-600" />
+        <ProgressSegment className="w-2 bg-grayscale-opacity-600" />
         <ProgressSegment className="w-2 bg-destructive-500" />
         {Array.from({ length: 8 }).map((_, index) => (
           <ProgressSegment
@@ -62,7 +62,7 @@ export const Segments: Story = {
       >
         <ProgressSegment className="flex-1 bg-success-500" />
         <ProgressSegment className="flex-1 bg-warning-500" />
-        <ProgressSegment className="flex-1 bg-grayscale-600" />
+        <ProgressSegment className="flex-1 bg-grayscale-opacity-600" />
         <ProgressSegment className="flex-1" data-state="inactive" />
       </ProgressSegments>
       <ProgressSegments
@@ -92,7 +92,7 @@ export const CustomSegments: Story = {
       />
       <ProgressSegment
         aria-label="Waiting"
-        className="flex-1 bg-grayscale-600"
+        className="flex-1 bg-grayscale-opacity-600"
       />
       <ProgressSegment
         aria-label="Not started"

@@ -28,14 +28,14 @@ export function DataTableColumnHeader<TData, TValue>({
       data-sort={sort || undefined}
       onClick={column.getToggleSortingHandler()}
       className={cn(
-        'inline-flex cursor-pointer items-center gap-1 font-normal text-grayscale-800 transition-colors hover:text-grayscale-900 focus-visible:shadow-focus-primary focus-visible:outline-none',
+        'inline-flex cursor-pointer items-center gap-1 font-normal text-grayscale-opacity-800 transition-colors hover:text-grayscale-opacity-900 focus-visible:shadow-focus-primary focus-visible:outline-none',
         className,
       )}
     >
       <span>{title}</span>
       <span
         aria-hidden="true"
-        className="inline-flex size-4 items-center justify-center text-grayscale-500"
+        className="inline-flex size-4 items-center justify-center text-grayscale-opacity-500"
       >
         {sort === 'desc' ? (
           <ChevronDownIcon className="size-3.5" />

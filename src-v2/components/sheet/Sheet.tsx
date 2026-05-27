@@ -83,7 +83,7 @@ const SheetOverlay = forwardRef<
       ref={ref}
       data-slot="sheet-overlay"
       className={cn(
-        'fixed inset-0 z-[9998] bg-grayscale-900/40 transition-opacity duration-300 ease-in-out data-starting-style:opacity-0 data-ending-style:opacity-0',
+        'fixed inset-0 z-[9998] bg-grayscale-opacity-900/40 transition-opacity duration-300 ease-in-out data-starting-style:opacity-0 data-ending-style:opacity-0',
         className,
       )}
       {...props}
@@ -130,11 +130,11 @@ const SheetContent = forwardRef<
         data-slot="sheet-content"
         data-side={side}
         className={cn(
-          'fixed z-[9999] box-border flex flex-col gap-4 bg-white p-6 font-sans text-grayscale-800 shadow-top-level outline-none transition-transform duration-300 ease-in-out',
-          'data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:max-h-[80vh] data-[side=top]:border-b data-[side=top]:border-grayscale-200 data-[side=top]:data-starting-style:-translate-y-full data-[side=top]:data-ending-style:-translate-y-full',
-          'data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:max-h-[80vh] data-[side=bottom]:border-t data-[side=bottom]:border-grayscale-200 data-[side=bottom]:data-starting-style:translate-y-full data-[side=bottom]:data-ending-style:translate-y-full',
-          'data-[side=left]:inset-y-0 data-[side=left]:left-0 data-[side=left]:h-dvh data-[side=left]:w-3/4 data-[side=left]:max-w-md data-[side=left]:border-r data-[side=left]:border-grayscale-200 data-[side=left]:data-starting-style:-translate-x-full data-[side=left]:data-ending-style:-translate-x-full',
-          'data-[side=right]:inset-y-0 data-[side=right]:right-0 data-[side=right]:h-dvh data-[side=right]:w-3/4 data-[side=right]:max-w-md data-[side=right]:border-l data-[side=right]:border-grayscale-200 data-[side=right]:data-starting-style:translate-x-full data-[side=right]:data-ending-style:translate-x-full',
+          'fixed z-[9999] box-border flex flex-col gap-4 bg-white p-6 font-sans text-grayscale-opacity-800 shadow-top-level outline-none transition-transform duration-300 ease-in-out',
+          'data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:max-h-[80vh] data-[side=top]:border-b data-[side=top]:border-grayscale-opacity-200 data-[side=top]:data-starting-style:-translate-y-full data-[side=top]:data-ending-style:-translate-y-full',
+          'data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:max-h-[80vh] data-[side=bottom]:border-t data-[side=bottom]:border-grayscale-opacity-200 data-[side=bottom]:data-starting-style:translate-y-full data-[side=bottom]:data-ending-style:translate-y-full',
+          'data-[side=left]:inset-y-0 data-[side=left]:left-0 data-[side=left]:h-dvh data-[side=left]:w-3/4 data-[side=left]:max-w-md data-[side=left]:border-r data-[side=left]:border-grayscale-opacity-200 data-[side=left]:data-starting-style:-translate-x-full data-[side=left]:data-ending-style:-translate-x-full',
+          'data-[side=right]:inset-y-0 data-[side=right]:right-0 data-[side=right]:h-dvh data-[side=right]:w-3/4 data-[side=right]:max-w-md data-[side=right]:border-l data-[side=right]:border-grayscale-opacity-200 data-[side=right]:data-starting-style:translate-x-full data-[side=right]:data-ending-style:translate-x-full',
           className,
         )}
         {...props}
@@ -145,7 +145,7 @@ const SheetContent = forwardRef<
             type="button"
             data-slot="sheet-close"
             aria-label={closeLabel}
-            className="absolute right-3 top-3 inline-flex h-6 w-6 cursor-pointer items-center justify-center rounded-(--radius-xs) text-grayscale-600 transition-colors duration-150 hover:bg-grayscale-100 hover:text-grayscale-900 focus-visible:shadow-focus-primary focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60 data-disabled:cursor-not-allowed data-disabled:opacity-60"
+            className="absolute right-3 top-3 inline-flex h-6 w-6 cursor-pointer items-center justify-center rounded-(--radius-xs) text-grayscale-opacity-600 transition-colors duration-150 hover:bg-grayscale-opacity-100 hover:text-grayscale-opacity-900 focus-visible:shadow-focus-primary focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60 data-disabled:cursor-not-allowed data-disabled:opacity-60"
           >
             <CloseIcon />
           </BaseDialog.Close>
@@ -179,7 +179,7 @@ const SheetBody = forwardRef<HTMLDivElement, SheetBodyProps>(
         ref={ref}
         data-slot="sheet-body"
         className={cn(
-          'min-h-0 flex-1 overflow-auto text-sm text-grayscale-700',
+          'min-h-0 flex-1 overflow-auto text-sm text-grayscale-opacity-700',
           className,
         )}
         {...props}
@@ -219,7 +219,7 @@ const SheetTitle = forwardRef<
       ref={ref}
       data-slot="sheet-title"
       className={cn(
-        'font-sans text-lg font-medium leading-6 text-grayscale-900',
+        'font-sans text-lg font-medium leading-6 text-grayscale-opacity-900',
         className,
       )}
       {...props}
@@ -240,7 +240,7 @@ const SheetDescription = forwardRef<
       ref={ref}
       data-slot="sheet-description"
       className={cn(
-        'font-sans text-sm leading-5 text-grayscale-600',
+        'font-sans text-sm leading-5 text-grayscale-opacity-600',
         className,
       )}
       {...props}

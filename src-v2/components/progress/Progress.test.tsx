@@ -53,7 +53,7 @@ it('renders the shorthand progress with track and indicator', () => {
     'Upload',
   );
   expect(screen.getByRole('progressbar')).toHaveClass(
-    'text-grayscale-800',
+    'text-grayscale-opacity-800',
   );
   expect(screen.getByRole('progressbar')).toContainHTML(
     'data-slot="progress-track"',
@@ -79,7 +79,7 @@ it('renders status segments with caller-owned fixed sizing', () => {
       />
       <ProgressSegment
         aria-label="Waiting"
-        className="w-2 bg-grayscale-600"
+        className="w-2 bg-grayscale-opacity-600"
       />
       <ProgressSegment
         aria-label="Error"
@@ -122,7 +122,7 @@ it('renders status segments with caller-owned fluid sizing', () => {
       />
       <ProgressSegment
         aria-label="Waiting"
-        className="flex-1 bg-grayscale-600"
+        className="flex-1 bg-grayscale-opacity-600"
       />
       <ProgressSegment
         aria-label="Not started"

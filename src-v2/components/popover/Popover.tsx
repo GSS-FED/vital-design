@@ -60,7 +60,7 @@ const PopoverContent = forwardRef<
           ref={ref}
           data-slot="popover-content"
           className={cn(
-            'box-border origin-(--transform-origin) rounded bg-white p-4 font-sans text-sm leading-5 text-grayscale-800 shadow-emphasis outline-none duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95',
+            'box-border origin-(--transform-origin) rounded bg-white p-4 font-sans text-sm leading-5 text-grayscale-opacity-800 shadow-emphasis outline-none duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95',
             className,
           )}
           {...props}
@@ -121,7 +121,7 @@ const PopoverTitle = forwardRef<
       ref={ref}
       data-slot="popover-title"
       className={cn(
-        'text-sm font-medium leading-5 text-grayscale-800',
+        'text-sm font-medium leading-5 text-grayscale-opacity-800',
         className,
       )}
       {...props}
@@ -142,7 +142,7 @@ const PopoverDescription = forwardRef<
       ref={ref}
       data-slot="popover-description"
       className={cn(
-        'text-sm leading-5 text-grayscale-600',
+        'text-sm leading-5 text-grayscale-opacity-600',
         className,
       )}
       {...props}

@@ -15,7 +15,7 @@ function Container({ children }: { children: ReactNode }) {
 
 function Section({ children }: { children: ReactNode }) {
   return (
-    <div className="font-sans box-border inline-flex flex-col items-center p-5 border border-grayscale-200">
+    <div className="font-sans box-border inline-flex flex-col items-center p-5 border border-grayscale-opacity-200">
       {children}
     </div>
   );

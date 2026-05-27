@@ -206,18 +206,22 @@ function ProgressChart({ value }: { value: EsgTopic['progress'] }) {
 
   const colors =
     value === 'quarterly'
-      ? ['bg-success-500', 'bg-warning-500', 'bg-grayscale-500']
+      ? [
+          'bg-success-500',
+          'bg-warning-500',
+          'bg-grayscale-opacity-500',
+        ]
       : [
           'bg-success-500',
           'bg-warning-500',
-          'bg-grayscale-500',
+          'bg-grayscale-opacity-500',
           'bg-destructive-500',
-          'bg-grayscale-300',
-          'bg-grayscale-300',
-          'bg-grayscale-300',
-          'bg-grayscale-300',
-          'bg-grayscale-300',
-          'bg-grayscale-300',
+          'bg-grayscale-opacity-300',
+          'bg-grayscale-opacity-300',
+          'bg-grayscale-opacity-300',
+          'bg-grayscale-opacity-300',
+          'bg-grayscale-opacity-300',
+          'bg-grayscale-opacity-300',
         ];
 
   return (
@@ -228,7 +232,7 @@ function ProgressChart({ value }: { value: EsgTopic['progress'] }) {
           className={cn(
             'h-1.5 flex-1 rounded',
             color,
-            color === 'bg-grayscale-300' && 'h-0.5',
+            color === 'bg-grayscale-opacity-300' && 'h-0.5',
           )}
         />
       ))}
@@ -346,28 +350,28 @@ export function PillarSummary({ rows }: { rows: EsgTopic[] }) {
       <div className="flex h-6 items-center justify-between gap-1">
         <div className="flex items-center gap-1">
           <span className="inline-flex items-center gap-1">
-            <span className="size-1.5 rounded-[3px] bg-grayscale-500" />
-            <span className="text-base font-medium leading-6 text-grayscale-800 tabular-nums">
+            <span className="size-1.5 rounded-[3px] bg-grayscale-opacity-500" />
+            <span className="text-base font-medium leading-6 text-grayscale-opacity-800 tabular-nums">
               {todo}
             </span>
-            <span className="text-[13px] leading-5 text-grayscale-600">
+            <span className="text-[13px] leading-5 text-grayscale-opacity-600">
               待填寫
             </span>
           </span>
-          <span className="text-[13px] leading-5 text-grayscale-600">
+          <span className="text-[13px] leading-5 text-grayscale-opacity-600">
             /
           </span>
           <span className="inline-flex items-center gap-1">
             <span className="size-1.5 rounded-[3px] bg-warning-500" />
-            <span className="text-base font-medium leading-6 text-grayscale-800 tabular-nums">
+            <span className="text-base font-medium leading-6 text-grayscale-opacity-800 tabular-nums">
               {review}
             </span>
-            <span className="text-[13px] leading-5 text-grayscale-600">
+            <span className="text-[13px] leading-5 text-grayscale-opacity-600">
               待覆核
             </span>
           </span>
         </div>
-        <span className="text-[13px] leading-5 text-grayscale-600 tabular-nums">
+        <span className="text-[13px] leading-5 text-grayscale-opacity-600 tabular-nums">
           共 {rows.length} 項
         </span>
       </div>
@@ -377,7 +381,7 @@ export function PillarSummary({ rows }: { rows: EsgTopic[] }) {
         className="h-1.5 w-full overflow-hidden rounded-[3px] bg-success-500"
       >
         <ProgressSegment
-          className="bg-grayscale-500"
+          className="bg-grayscale-opacity-500"
           style={{ flex: todo || 0.001 }}
         />
         <ProgressSegment

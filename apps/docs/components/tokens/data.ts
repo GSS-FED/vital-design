@@ -28,8 +28,20 @@ export const primaryTokens = palette('primary', [
   { step: 50, value: '#EBF5FF' },
 ]);
 
-export const grayscaleTokens = palette(
-  'grayscale',
+export const grayscaleTokens = palette('grayscale', [
+  { step: 900, value: '#232327' },
+  { step: 800, value: '#43434B' },
+  { step: 700, value: '#63636F' },
+  { step: 600, value: '#848492' },
+  { step: 500, value: '#A8A8B2' },
+  { step: 400, value: '#C8C8D0' },
+  { step: 300, value: '#DEDEE2' },
+  { step: 200, value: '#F0F0F2' },
+  { step: 100, value: '#F9F9FA' },
+]);
+
+export const grayscaleOpacityTokens = palette(
+  'grayscale-opacity',
   [
     { step: 900, value: '#232332 · 100%' },
     { step: 800, value: 'rgba(35,35,50,0.85)' },

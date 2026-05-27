@@ -18,7 +18,7 @@ const defaultThemeCases = [
 
 const textThemeCases = [
   ['primary', 'text-primary-500'],
-  ['default', 'text-grayscale-800'],
+  ['default', 'text-grayscale-opacity-800'],
   ['success', 'text-success-500'],
   ['info', 'text-info-500'],
   ['warning', 'text-warning-500'],
@@ -107,7 +107,7 @@ describe('Button', () => {
     });
 
     expect(button).toHaveAttribute('data-variant', 'text');
-    expect(button).toHaveClass('text-grayscale-800');
+    expect(button).toHaveClass('text-grayscale-opacity-800');
   });
 
   it.each(defaultThemeCases)(
@@ -204,7 +204,7 @@ describe('Button', () => {
 
     expect(screen.getByRole('button', { name: 'Clear' })).toHaveClass(
       'border',
-      'border-grayscale-300',
+      'border-grayscale-opacity-300',
     );
   });
 

@@ -13,7 +13,7 @@ export function SearchBarPreview() {
         {lastSearch && (
           <p
             className="text-sm"
-            style={{ color: 'var(--grayscale-500)' }}
+            style={{ color: 'var(--grayscale-opacity-500)' }}
           >
             Searched: <strong>{lastSearch}</strong>
           </p>

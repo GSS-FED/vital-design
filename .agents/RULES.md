@@ -74,7 +74,7 @@ import { CheckIcon, CloseIcon } from '@/icons';
 
 ## 主題（Theme）
 
-元件**不使用** React-level `theme` prop。主題透過 `vital-theme` registry 的 CSS variables 統一處理（如 `var(--primary-500)`、`var(--grayscale-900)`），在 HTML root 或容器套用 class 即可切換，元件本身無需額外 prop。
+元件**不使用** React-level `theme` prop。主題透過 `vital-theme` registry 的 CSS variables 統一處理（如 `var(--primary-500)`、`var(--grayscale-opacity-900)`），在 HTML root 或容器套用 class 即可切換，元件本身無需額外 prop。
 
 ## Primitive Library
 

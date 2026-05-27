@@ -128,7 +128,7 @@ const ScrollAreaThumb = forwardRef<
       ref={ref}
       data-slot="scroll-area-thumb"
       className={cn(
-        'rounded-full bg-grayscale-300',
+        'rounded-full bg-grayscale-opacity-300',
         'data-[orientation=horizontal]:h-full',
         'data-[orientation=vertical]:w-full',
         className,

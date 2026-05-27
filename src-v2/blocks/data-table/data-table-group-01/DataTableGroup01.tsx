@@ -98,10 +98,10 @@ function CandidateGroupRow({
   };
 
   return (
-    <TableRow className="group cursor-pointer border-y border-grayscale-300 bg-[rgba(35,35,50,0.03)] transition-colors hover:bg-[rgba(35,35,50,0.06)]">
+    <TableRow className="group cursor-pointer border-y border-grayscale-opacity-300 bg-[rgba(35,35,50,0.03)] transition-colors hover:bg-[rgba(35,35,50,0.06)]">
       <TableCell
         colSpan={columnCount}
-        className="sticky top-0 left-0 z-50 h-auto bg-[#f8f8f9] p-0 text-sm font-medium text-grayscale-800"
+        className="sticky top-0 left-0 z-50 h-auto bg-[#f8f8f9] p-0 text-sm font-medium text-grayscale-opacity-800"
         style={{ width: tableWidth }}
       >
         <button
@@ -113,7 +113,7 @@ function CandidateGroupRow({
         >
           <ChevronDownIcon
             className={cn(
-              'size-3 text-grayscale-700 transition-transform',
+              'size-3 text-grayscale-opacity-700 transition-transform',
               !open && '-rotate-90',
             )}
           />
@@ -184,7 +184,7 @@ export function DataTableGroup01() {
                   {table.getHeaderGroups().map((hg) => (
                     <TableRow
                       key={hg.id}
-                      className="border-b border-grayscale-300"
+                      className="border-b border-grayscale-opacity-300"
                     >
                       {hg.headers.map((header) => (
                         <TableHead
@@ -213,7 +213,7 @@ export function DataTableGroup01() {
                   {groupRow.subRows.map((candidateRow) => (
                     <TableRow
                       key={candidateRow.id}
-                      className="group border-b border-grayscale-300 transition-colors hover:bg-grayscale-100"
+                      className="group border-b border-grayscale-opacity-300 transition-colors hover:bg-grayscale-opacity-100"
                     >
                       {candidateRow.getVisibleCells().map((cell) => (
                         <TableCell

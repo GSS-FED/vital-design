@@ -81,7 +81,7 @@ function TimeColumn({
             data-slot="time-picker-item"
             data-selected={isSelected || undefined}
             className={cn(
-              'flex h-8 cursor-pointer snap-start items-center justify-center font-normal text-grayscale-800 transition-colors duration-100 select-none',
+              'flex h-8 cursor-pointer snap-start items-center justify-center font-normal text-grayscale-opacity-800 transition-colors duration-100 select-none',
               'hover:bg-primary-50',
               'data-[selected=true]:bg-primary-500 data-[selected=true]:text-white',
               'data-[selected=true]:hover:bg-primary-600',
@@ -161,7 +161,7 @@ const TimePicker = forwardRef<ElementRef<'div'>, TimePickerProps>(
         ref={ref}
         data-slot="time-picker"
         className={cn(
-          'box-border inline-flex h-75 divide-x divide-grayscale-200 overflow-hidden rounded bg-white',
+          'box-border inline-flex h-75 divide-x divide-grayscale-opacity-200 overflow-hidden rounded bg-white',
           className,
         )}
         {...props}

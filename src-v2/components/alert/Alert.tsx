@@ -6,7 +6,7 @@ const alertBaseClasses = [
   'group/alert',
   'grid w-full gap-x-3 gap-y-2',
   'rounded bg-white px-6 py-4 shadow-emphasis',
-  'font-sans text-grayscale-800',
+  'font-sans text-grayscale-opacity-800',
   'has-[>svg]:grid-cols-[auto_1fr]',
   '*:[svg]:row-span-2 *:[svg]:size-6',
 ];
@@ -16,7 +16,7 @@ const alertTitleClasses = [
   'group-has-[>svg]/alert:col-start-2',
 ];
 const alertDescriptionClasses = [
-  'text-base text-grayscale-700',
+  'text-base text-grayscale-opacity-700',
   'group-has-[>svg]/alert:col-start-2',
 ];
 const alertActionClasses = ['col-span-full flex justify-end gap-6'];

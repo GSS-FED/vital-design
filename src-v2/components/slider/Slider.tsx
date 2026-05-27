@@ -52,20 +52,22 @@ const sliderControlClasses =
   'relative flex h-4 w-full touch-none select-none items-center data-[orientation=vertical]:h-40 data-[orientation=vertical]:w-5 data-[orientation=vertical]:justify-center';
 
 const sliderTrackClasses =
-  'relative h-1 w-full rounded-[var(--radius-full)] bg-grayscale-200 data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5';
+  'relative h-1 w-full rounded-[var(--radius-full)] bg-grayscale-opacity-200 data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5';
 
 const sliderStepDotClasses =
   'pointer-events-none absolute z-[1] size-1 rounded-[var(--radius-full)] data-[orientation=horizontal]:top-1/2 data-[orientation=horizontal]:-translate-x-1/2 data-[orientation=horizontal]:-translate-y-1/2 data-[orientation=vertical]:left-1/2 data-[orientation=vertical]:-translate-x-1/2 data-[orientation=vertical]:translate-y-1/2';
 
 const sliderIndicatorClasses =
-  'rounded-[var(--radius-full)] bg-primary-500 data-[disabled]:bg-grayscale-400';
+  'rounded-[var(--radius-full)] bg-primary-500 data-[disabled]:bg-grayscale-opacity-400';
 
 const sliderThumbClasses =
-  'size-4 rounded-[var(--radius-full)] border-[5px] border-primary-500 bg-white shadow-base outline-none transition-[box-shadow] not-data-[disabled]:hover:ring-[3px] not-data-[disabled]:hover:ring-primary-200 data-[disabled]:hover:ring-[3px] data-[disabled]:hover:ring-grayscale-300 has-[:focus-visible]:shadow-focus-primary data-[disabled]:border-grayscale-400 data-[disabled]:shadow-none';
+  'size-4 rounded-[var(--radius-full)] border-[5px] border-primary-500 bg-white shadow-base outline-none transition-[box-shadow] not-data-[disabled]:hover:ring-[3px] not-data-[disabled]:hover:ring-primary-200 data-[disabled]:hover:ring-[3px] data-[disabled]:hover:ring-grayscale-opacity-300 has-[:focus-visible]:shadow-focus-primary data-[disabled]:border-grayscale-opacity-400 data-[disabled]:shadow-none';
 
-const sliderValueClasses = 'font-sans text-sm text-grayscale-700';
+const sliderValueClasses =
+  'font-sans text-sm text-grayscale-opacity-700';
 
-const sliderLabelClasses = 'font-sans text-sm text-grayscale-600';
+const sliderLabelClasses =
+  'font-sans text-sm text-grayscale-opacity-600';
 
 export type SliderRootProps<
   Value extends SliderRootValue = SliderRootValue,
@@ -207,7 +209,7 @@ function SliderStepDots({ state }: { state: BaseSliderTrack.State }) {
             sliderStepDotClasses,
             isStepDotActive(value, state.values)
               ? 'bg-white/50'
-              : 'bg-grayscale-300',
+              : 'bg-grayscale-opacity-300',
           )}
           data-orientation={state.orientation}
           data-slot="slider-step-dot"

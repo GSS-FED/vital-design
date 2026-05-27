@@ -31,9 +31,11 @@ export const Vertical: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex h-16 items-stretch gap-4">
-      <span className="text-sm text-grayscale-700">Left</span>
+      <span className="text-sm text-grayscale-opacity-700">Left</span>
       <Separator orientation="vertical" />
-      <span className="text-sm text-grayscale-700">Right</span>
+      <span className="text-sm text-grayscale-opacity-700">
+        Right
+      </span>
     </div>
   ),
 };
@@ -42,11 +44,11 @@ export const InList: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex w-80 flex-col">
-      <span className="px-5 py-1.5 text-sm leading-5 text-grayscale-800">
+      <span className="px-5 py-1.5 text-sm leading-5 text-grayscale-opacity-800">
         First row
       </span>
       <Separator />
-      <span className="px-5 py-1.5 text-sm leading-5 text-grayscale-800">
+      <span className="px-5 py-1.5 text-sm leading-5 text-grayscale-opacity-800">
         Second row
       </span>
     </div>

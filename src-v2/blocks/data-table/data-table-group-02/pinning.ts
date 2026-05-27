@@ -29,7 +29,7 @@ export function getPinningStyles(
     width: column.getSize(),
     zIndex: 10,
     boxShadow: column.getIsLastColumn('left')
-      ? 'inset -1px 0 0 var(--grayscale-300)'
+      ? 'inset -1px 0 0 var(--grayscale-opacity-300)'
       : undefined,
   };
 }

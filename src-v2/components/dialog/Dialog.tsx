@@ -34,7 +34,7 @@ function mergeClassName<State>(
 }
 
 const dialogPopupVariants = cva(
-  'box-border flex w-full max-h-[calc(100vh-2rem)] flex-col overflow-hidden rounded-[var(--radius-sm)] bg-white font-sans text-grayscale-800 shadow-top-level outline-none duration-150 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95',
+  'box-border flex w-full max-h-[calc(100vh-2rem)] flex-col overflow-hidden rounded-[var(--radius-sm)] bg-white font-sans text-grayscale-opacity-800 shadow-top-level outline-none duration-150 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95',
   {
     variants: {
       size: {
@@ -99,7 +99,7 @@ const DialogBackdrop = forwardRef<
       ref={ref}
       data-slot="dialog-backdrop"
       className={mergeClassName<BaseDialogBackdrop.State>(
-        'fixed inset-0 z-[9998] bg-grayscale-900/40 duration-150 data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0',
+        'fixed inset-0 z-[9998] bg-grayscale-opacity-900/40 duration-150 data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0',
         className,
       )}
       {...props}
@@ -165,7 +165,7 @@ const DialogTitle = forwardRef<HTMLHeadingElement, DialogTitleProps>(
         className={mergeClassName<BaseDialogTitle.State>(
           cn(
             'font-sans text-lg font-medium leading-6',
-            isInHeader ? 'text-white' : 'text-grayscale-900',
+            isInHeader ? 'text-white' : 'text-grayscale-opacity-900',
           ),
           className,
         )}
@@ -190,7 +190,7 @@ const DialogDescription = forwardRef<
       className={mergeClassName<BaseDialogDescription.State>(
         cn(
           'font-sans text-sm leading-5',
-          isInHeader ? 'text-white' : 'text-grayscale-600',
+          isInHeader ? 'text-white' : 'text-grayscale-opacity-600',
         ),
         className,
       )}
@@ -271,7 +271,7 @@ const DialogBody = forwardRef<HTMLDivElement, DialogBodyProps>(
         ref={ref}
         data-slot="dialog-body"
         className={cn(
-          'min-h-0 flex-1 overflow-auto px-4 py-6 text-sm text-grayscale-700',
+          'min-h-0 flex-1 overflow-auto px-4 py-6 text-sm text-grayscale-opacity-700',
           className,
         )}
         {...props}
@@ -289,7 +289,7 @@ const DialogFooter = forwardRef<HTMLDivElement, DialogFooterProps>(
         ref={ref}
         data-slot="dialog-footer"
         className={cn(
-          'flex items-center justify-end gap-2.5 border-t border-t-gray-200 bg-grayscale-100 px-5 py-2',
+          'flex items-center justify-end gap-2.5 border-t border-t-gray-200 bg-grayscale-opacity-100 px-5 py-2',
           className,
         )}
         {...props}

@@ -13,7 +13,7 @@ const Card = forwardRef<ElementRef<'div'>, CardProps>(function Card(
       ref={ref}
       data-slot="card"
       className={cn(
-        'flex flex-col rounded bg-white font-sans text-grayscale-800 shadow-emphasis',
+        'flex flex-col rounded bg-white font-sans text-grayscale-opacity-800 shadow-emphasis',
         className,
       )}
       {...props}
@@ -49,7 +49,7 @@ const CardTitle = forwardRef<ElementRef<'div'>, CardTitleProps>(
         ref={ref}
         data-slot="card-title"
         className={cn(
-          'text-base leading-6 font-medium text-grayscale-900',
+          'text-base leading-6 font-medium text-grayscale-opacity-900',
           className,
         )}
         {...props}
@@ -69,7 +69,7 @@ const CardDescription = forwardRef<
       ref={ref}
       data-slot="card-description"
       className={cn(
-        'text-sm leading-5 text-grayscale-600',
+        'text-sm leading-5 text-grayscale-opacity-600',
         className,
       )}
       {...props}

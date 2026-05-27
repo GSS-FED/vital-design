@@ -74,7 +74,7 @@ export function ChevronCell({
     >
       <ChevronDownIcon
         className={cn(
-          'mx-auto size-3 text-grayscale-700 transition-transform',
+          'mx-auto size-3 text-grayscale-opacity-700 transition-transform',
           !expanded && '-rotate-90',
         )}
       />

@@ -51,7 +51,7 @@ it('renders a resizable panel group', () => {
     'resizable-panel',
   );
   expect(handle).toHaveAttribute('data-slot', 'resizable-handle');
-  expect(handle).toHaveClass('bg-grayscale-300');
+  expect(handle).toHaveClass('bg-grayscale-opacity-300');
 });
 
 it('renders the visible handle indicator', () => {
@@ -69,7 +69,7 @@ it('renders the visible handle indicator', () => {
     'data-slot="resizable-handle-indicator"',
   );
   expect(handle).toContainHTML('aria-hidden="true"');
-  expect(handle).toContainHTML('border-grayscale-300');
+  expect(handle).toContainHTML('border-grayscale-opacity-300');
   expect(handle).toContainHTML('bg-white');
 });
 

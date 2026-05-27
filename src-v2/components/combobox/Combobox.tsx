@@ -58,9 +58,9 @@ const InputGroup = forwardRef<
       ref={ref}
       data-slot="combobox-input-group"
       className={cn(
-        'group box-border flex min-h-8 w-full cursor-text items-center gap-1 rounded border border-grayscale-300 bg-white py-1 pr-1.5 pl-3 font-sans text-sm leading-5 font-normal text-grayscale-800 transition-colors duration-200',
-        'hover:border-grayscale-500 focus-within:border-primary-500 focus-within:outline-none',
-        'data-[popup-open]:border-primary-500 data-[disabled]:pointer-events-none data-[disabled]:bg-grayscale-200 data-[disabled]:text-grayscale-500',
+        'group box-border flex min-h-8 w-full cursor-text items-center gap-1 rounded border border-grayscale-opacity-300 bg-white py-1 pr-1.5 pl-3 font-sans text-sm leading-5 font-normal text-grayscale-opacity-800 transition-colors duration-200',
+        'hover:border-grayscale-opacity-500 focus-within:border-primary-500 focus-within:outline-none',
+        'data-[popup-open]:border-primary-500 data-[disabled]:pointer-events-none data-[disabled]:bg-grayscale-opacity-200 data-[disabled]:text-grayscale-opacity-500',
         'aria-invalid:border-destructive-500 aria-invalid:hover:border-destructive-500',
         className,
       )}
@@ -90,8 +90,8 @@ const Input = forwardRef<
       ref={ref}
       data-slot="combobox-input"
       className={cn(
-        'min-w-16 flex-1 bg-transparent font-sans text-sm leading-5 text-grayscale-800 outline-none placeholder:text-grayscale-400',
-        'data-[disabled]:cursor-not-allowed data-[disabled]:text-grayscale-500',
+        'min-w-16 flex-1 bg-transparent font-sans text-sm leading-5 text-grayscale-opacity-800 outline-none placeholder:text-grayscale-opacity-400',
+        'data-[disabled]:cursor-not-allowed data-[disabled]:text-grayscale-opacity-500',
         className,
       )}
       {...props}
@@ -112,16 +112,16 @@ const Trigger = forwardRef<
       ref={ref}
       data-slot="combobox-trigger"
       className={cn(
-        'group box-border flex h-8 w-full cursor-pointer items-center justify-between gap-2 rounded border border-grayscale-300 bg-white py-2 pr-1.5 pl-3 font-sans text-sm leading-5 font-normal text-grayscale-800 transition-colors duration-200',
-        'hover:border-grayscale-500 focus:border-primary-500 focus:outline-none',
-        'data-[placeholder]:text-grayscale-400 data-[popup-open]:border-primary-500',
-        'data-[disabled]:pointer-events-none data-[disabled]:bg-grayscale-200 data-[disabled]:text-grayscale-500',
+        'group box-border flex h-8 w-full cursor-pointer items-center justify-between gap-2 rounded border border-grayscale-opacity-300 bg-white py-2 pr-1.5 pl-3 font-sans text-sm leading-5 font-normal text-grayscale-opacity-800 transition-colors duration-200',
+        'hover:border-grayscale-opacity-500 focus:border-primary-500 focus:outline-none',
+        'data-[placeholder]:text-grayscale-opacity-400 data-[popup-open]:border-primary-500',
+        'data-[disabled]:pointer-events-none data-[disabled]:bg-grayscale-opacity-200 data-[disabled]:text-grayscale-opacity-500',
         className,
       )}
       {...props}
     >
       {children}
-      <span className="flex h-5 w-5 shrink-0 items-center justify-center text-grayscale-700">
+      <span className="flex h-5 w-5 shrink-0 items-center justify-center text-grayscale-opacity-700">
         <span className="block group-data-[popup-open]:hidden">
           <ChevronDownIcon className="size-3.5" />
         </span>
@@ -146,8 +146,8 @@ const Clear = forwardRef<
       ref={ref}
       data-slot="combobox-clear"
       className={cn(
-        'grid h-5 w-5 shrink-0 cursor-pointer place-content-center text-grayscale-900 outline-none',
-        'hover:[&_svg>path]:fill-grayscale-700 hover:[&_svg>path]:transition-colors hover:[&_svg>path]:duration-200',
+        'grid h-5 w-5 shrink-0 cursor-pointer place-content-center text-grayscale-opacity-900 outline-none',
+        'hover:[&_svg>path]:fill-grayscale-opacity-700 hover:[&_svg>path]:transition-colors hover:[&_svg>path]:duration-200',
         'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
         className,
       )}
@@ -278,12 +278,12 @@ const SearchBar = forwardRef<
       <div
         data-slot="combobox-search-bar"
         className={cn(
-          'group box-border flex min-h-8 w-full items-center gap-2 rounded-[20px] border border-grayscale-300 bg-white py-1.5 pr-4 pl-2 font-sans text-grayscale-500 transition-colors duration-200',
-          'hover:border-grayscale-500 focus-within:border-primary-500',
-          'data-[disabled]:border-grayscale-300 data-[disabled]:bg-grayscale-200 data-[disabled]:text-grayscale-500',
+          'group box-border flex min-h-8 w-full items-center gap-2 rounded-[20px] border border-grayscale-opacity-300 bg-white py-1.5 pr-4 pl-2 font-sans text-grayscale-opacity-500 transition-colors duration-200',
+          'hover:border-grayscale-opacity-500 focus-within:border-primary-500',
+          'data-[disabled]:border-grayscale-opacity-300 data-[disabled]:bg-grayscale-opacity-200 data-[disabled]:text-grayscale-opacity-500',
         )}
       >
-        <span className="flex shrink-0 items-center [&_svg]:fill-grayscale-500 group-focus-within:[&_svg]:fill-primary-500">
+        <span className="flex shrink-0 items-center [&_svg]:fill-grayscale-opacity-500 group-focus-within:[&_svg]:fill-primary-500">
           <SearchIcon className="size-4.5" />
         </span>
         <BaseCombobox.Input
@@ -291,9 +291,9 @@ const SearchBar = forwardRef<
           data-slot="combobox-search-input"
           className={cn(
             'order-1 min-w-0 flex-1 appearance-none border-none bg-transparent p-0',
-            'font-sans text-sm leading-5 font-normal text-grayscale-800',
-            'outline-none placeholder:text-grayscale-400',
-            'data-[disabled]:cursor-not-allowed data-[disabled]:text-grayscale-500',
+            'font-sans text-sm leading-5 font-normal text-grayscale-opacity-800',
+            'outline-none placeholder:text-grayscale-opacity-400',
+            'data-[disabled]:cursor-not-allowed data-[disabled]:text-grayscale-opacity-500',
             inputClassName,
           )}
           {...props}
@@ -316,10 +316,10 @@ const Item = forwardRef<
       ref={ref}
       data-slot="combobox-item"
       className={cn(
-        'relative flex cursor-pointer items-center gap-2 px-5 py-1.5 pr-8 text-sm leading-5 font-normal text-grayscale-800 outline-none select-none',
+        'relative flex cursor-pointer items-center gap-2 px-5 py-1.5 pr-8 text-sm leading-5 font-normal text-grayscale-opacity-800 outline-none select-none',
         'break-anywhere transition-colors duration-200',
-        'data-[highlighted]:bg-grayscale-100 data-[active]:bg-grayscale-200',
-        'data-[disabled]:pointer-events-none data-[disabled]:text-grayscale-500',
+        'data-[highlighted]:bg-grayscale-opacity-100 data-[active]:bg-grayscale-opacity-200',
+        'data-[disabled]:pointer-events-none data-[disabled]:text-grayscale-opacity-500',
         'data-[selected]:[&_[data-slot=combobox-item-check]]:text-primary-500',
         '[&[data-selected]_[data-slot=combobox-item-checkbox]]:border-primary-500 [&[data-selected]_[data-slot=combobox-item-checkbox]]:bg-primary-500',
         className,
@@ -383,7 +383,7 @@ const ItemCheckbox = forwardRef<
       aria-hidden="true"
       data-slot="combobox-item-checkbox"
       className={cn(
-        'grid h-4 w-4 shrink-0 place-content-center rounded-xs border border-grayscale-300 bg-white text-white',
+        'grid h-4 w-4 shrink-0 place-content-center rounded-xs border border-grayscale-opacity-300 bg-white text-white',
         'transition-colors duration-200',
         className,
       )}
@@ -427,7 +427,7 @@ const Label = forwardRef<
       ref={ref}
       data-slot="combobox-label"
       className={cn(
-        'px-5 py-1.5 text-xs leading-4 font-medium text-grayscale-500 not-first-of-type:pt-4',
+        'px-5 py-1.5 text-xs leading-4 font-medium text-grayscale-opacity-500 not-first-of-type:pt-4',
         className,
       )}
       {...props}
@@ -447,7 +447,10 @@ const Separator = forwardRef<
     <BaseCombobox.Separator
       ref={ref}
       data-slot="combobox-separator"
-      className={cn('mx-4 my-2 h-px bg-grayscale-300', className)}
+      className={cn(
+        'mx-4 my-2 h-px bg-grayscale-opacity-300',
+        className,
+      )}
       {...props}
     />
   );
@@ -465,7 +468,10 @@ const Empty = forwardRef<
     <BaseCombobox.Empty
       ref={ref}
       data-slot="combobox-empty"
-      className={cn('text-[13px] text-grayscale-600', className)}
+      className={cn(
+        'text-[13px] text-grayscale-opacity-600',
+        className,
+      )}
       {...props}
     >
       <span className="flex items-center justify-center px-4 py-6">

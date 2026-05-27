@@ -37,7 +37,7 @@ it('styles from invalid and disabled controls', () => {
   );
 
   expect(screen.getByTestId('group')).toHaveClass(
-    'has-[:disabled]:bg-grayscale-200',
+    'has-[:disabled]:bg-grayscale-opacity-200',
     'has-[[data-slot][aria-invalid=true]]:border-destructive-500',
   );
   expect(screen.getByRole('textbox')).toHaveAttribute(

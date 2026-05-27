@@ -147,9 +147,9 @@ function YearJumpNavComponent({ className }: NavProps) {
   const visibleMonth = months[0]?.date;
 
   const navButton = cn(
-    'inline-flex h-7 w-7 cursor-pointer items-center justify-center rounded text-grayscale-700 transition-colors duration-200 outline-none',
-    'hover:bg-grayscale-100',
-    'disabled:pointer-events-none disabled:text-grayscale-300',
+    'inline-flex h-7 w-7 cursor-pointer items-center justify-center rounded text-grayscale-opacity-700 transition-colors duration-200 outline-none',
+    'hover:bg-grayscale-opacity-100',
+    'disabled:pointer-events-none disabled:text-grayscale-opacity-300',
   );
 
   return (
@@ -226,7 +226,7 @@ export const InsideDatePicker: Story = {
                   className="cursor-pointer"
                 />
                 <InputGroupAddon align="inline-end">
-                  <CalendarIcon className="size-4 text-grayscale-500" />
+                  <CalendarIcon className="size-4 text-grayscale-opacity-500" />
                 </InputGroupAddon>
               </InputGroup>
             }

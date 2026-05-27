@@ -30,7 +30,7 @@ const avatarVariants = cva(
         xl: 'w-[60px] text-[32px] [&_[data-slot=avatar-placeholder-icon]]:size-6',
       },
       color: {
-        default: 'bg-grayscale-100',
+        default: 'bg-grayscale-opacity-100',
         tiffany: 'bg-avatar-tiffany-bg',
         green: 'bg-avatar-green-bg',
         orange: 'bg-avatar-orange-bg',
@@ -133,7 +133,7 @@ const fallbackVariants = cva(
   {
     variants: {
       color: {
-        default: 'text-grayscale-600',
+        default: 'text-grayscale-opacity-600',
         tiffany: 'text-avatar-tiffany-fg',
         green: 'text-avatar-green-fg',
         orange: 'text-avatar-orange-fg',
@@ -293,7 +293,7 @@ function AvatarGroupCount({
     <div
       data-slot="avatar-group-count"
       className={cn(
-        'relative isolate inline-flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-background font-sans text-xl leading-none text-grayscale-700 ring-2 ring-background',
+        'relative isolate inline-flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-background font-sans text-xl leading-none text-grayscale-opacity-700 ring-2 ring-background',
         'group-has-data-[size=xs]/avatar-group:size-6 group-has-data-[size=xs]/avatar-group:text-xs group-has-data-[size=xs]/avatar-group:[&>svg]:size-2.5',
         'group-has-data-[size=sm]/avatar-group:size-8 group-has-data-[size=sm]/avatar-group:text-base group-has-data-[size=sm]/avatar-group:[&>svg]:size-3',
         'group-has-data-[size=lg]/avatar-group:size-12 group-has-data-[size=lg]/avatar-group:text-2xl group-has-data-[size=lg]/avatar-group:[&>svg]:size-4.5',
@@ -353,7 +353,7 @@ function Avatar(props: AvatarProps) {
           aria-hidden="true"
           className={cn(
             'pointer-events-none absolute inset-0 inline-flex items-center justify-center text-white',
-            'before:absolute before:inset-0 before:bg-grayscale-500 before:content-[""]',
+            'before:absolute before:inset-0 before:bg-grayscale-opacity-500 before:content-[""]',
             '[&_svg]:absolute [&_svg]:inset-1/2 [&_svg]:w-3/4 [&_svg]:-translate-x-1/2 [&_svg]:-translate-y-1/2',
           )}
         >

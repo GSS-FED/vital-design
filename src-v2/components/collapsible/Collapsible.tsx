@@ -58,7 +58,7 @@ const CollapsibleContent = forwardRef<
       ref={ref}
       data-slot="collapsible-content"
       className={cn(
-        'h-(--collapsible-panel-height) overflow-hidden font-sans text-sm leading-5 text-grayscale-700 transition-[height] duration-150 ease-out data-starting-style:h-0 data-ending-style:h-0',
+        'h-(--collapsible-panel-height) overflow-hidden font-sans text-sm leading-5 text-grayscale-opacity-700 transition-[height] duration-150 ease-out data-starting-style:h-0 data-ending-style:h-0',
         className,
       )}
       {...props}

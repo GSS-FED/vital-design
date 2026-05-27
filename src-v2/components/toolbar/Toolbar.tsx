@@ -5,13 +5,13 @@ import { forwardRef } from 'react';
 import type { ComponentPropsWithoutRef, ElementRef } from 'react';
 
 const toolbarVariants = cva(
-  'flex w-full flex-wrap items-center gap-2 font-sans text-sm leading-5 text-grayscale-800',
+  'flex w-full flex-wrap items-center gap-2 font-sans text-sm leading-5 text-grayscale-opacity-800',
   {
     variants: {
       variant: {
         default: 'bg-transparent',
         bar: 'bg-grayscale-50',
-        outline: 'border-b border-grayscale-200 bg-white',
+        outline: 'border-b border-grayscale-opacity-200 bg-white',
       },
       size: {
         default: 'px-4 py-3',

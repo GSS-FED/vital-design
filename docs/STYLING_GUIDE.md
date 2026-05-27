@@ -39,7 +39,7 @@ Utility Classes (可使用的類別)
 | 類別 | 範圍 | 範例 |
 |------|------|------|
 | Primary | 900-50 | `text-primary-500`, `bg-primary-100` |
-| Grayscale | 900-100 | `text-grayscale-800`, `bg-grayscale-200` |
+| Grayscale | 900-100 | `text-grayscale-opacity-800`, `bg-grayscale-opacity-200` |
 | Success | 900-100 | `text-success-500`, `bg-success-100` |
 | Info | 900-100 | `text-info-500` |
 | Warning | 900-100 | `text-warning-500` |
@@ -125,7 +125,7 @@ export const buttonVariants = cva(
       },
       theme: {
         primary: 'text-white bg-primary-500',
-        default: 'text-grayscale-800 bg-white border',
+        default: 'text-grayscale-opacity-800 bg-white border',
       },
     },
     defaultVariants: {
@@ -186,8 +186,8 @@ function Button({ size, theme, className, ...props }) {
 const OVERLAY_CLASSES = [
   'before:content-[""] before:absolute before:inset-0',
   'before:pointer-events-none before:opacity-0',
-  'hover:not-disabled:before:bg-grayscale-100 hover:not-disabled:before:opacity-100',
-  'active:not-disabled:before:bg-grayscale-200',
+  'hover:not-disabled:before:bg-grayscale-opacity-100 hover:not-disabled:before:opacity-100',
+  'active:not-disabled:before:bg-grayscale-opacity-200',
 ];
 ```
 
@@ -209,7 +209,7 @@ const OVERLAY_CLASSES = [
 ```typescript
 const THEME_CLASSES: Record<Theme, string> = {
   primary: 'text-white bg-primary-500',
-  default: 'text-grayscale-800 bg-white',
+  default: 'text-grayscale-opacity-800 bg-white',
 };
 
 // 使用
@@ -222,7 +222,7 @@ const THEME_CLASSES: Record<Theme, string> = {
 
 ```tsx
 // 設定容器文字顏色
-<div className="text-grayscale-500">
+<div className="text-grayscale-opacity-500">
   <ChevronDownIcon className="size-3.5" />  {/* 自動繼承顏色 */}
 </div>
 ```
@@ -258,7 +258,7 @@ export const buttonVariants = cva(
       },
       theme: {
         primary: 'text-white bg-primary-500',
-        default: 'text-grayscale-800 bg-white border border-grayscale-300',
+        default: 'text-grayscale-opacity-800 bg-white border border-grayscale-opacity-300',
       },
     },
     defaultVariants: { size: 'medium', theme: 'primary' },

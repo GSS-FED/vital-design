@@ -96,7 +96,7 @@ const ButtonGroupSeparator = forwardRef<
         orientation === 'horizontal'
           ? 'h-px w-auto self-stretch'
           : 'h-auto min-h-0 w-px self-stretch',
-        'relative shrink-0 self-stretch bg-grayscale-300',
+        'relative shrink-0 self-stretch bg-grayscale-opacity-300',
         className,
       )}
       {...separatorProps}
@@ -122,7 +122,7 @@ const ButtonGroupText = forwardRef<
     props: mergeProps<'span'>(
       {
         className: cn(
-          'flex items-center gap-2 border border-grayscale-300 bg-grayscale-100 px-4 text-sm font-medium leading-5 text-grayscale-700',
+          'flex items-center gap-2 border border-grayscale-opacity-300 bg-grayscale-opacity-100 px-4 text-sm font-medium leading-5 text-grayscale-opacity-700',
           className,
         ),
       },

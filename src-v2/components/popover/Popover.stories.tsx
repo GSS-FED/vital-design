@@ -60,7 +60,7 @@ export const RichContent: Story = {
         <PopoverDescription className="mt-1">
           Senior Engineer · Tokyo
         </PopoverDescription>
-        <p className="mt-3 text-sm text-grayscale-600">
+        <p className="mt-3 text-sm text-grayscale-opacity-600">
           Joined the platform team in 2021. Owns the registry pipeline
           and the storybook deployment.
         </p>

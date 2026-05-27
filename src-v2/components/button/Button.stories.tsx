@@ -31,7 +31,7 @@ const Row = styled.div<{ border?: boolean }>`
   flex-wrap: wrap;
   gap: 20px;
   border: ${({ border }) =>
-    border ? '1px solid var(--grayscale-300)' : 'none'};
+    border ? '1px solid var(--grayscale-opacity-300)' : 'none'};
 `;
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',

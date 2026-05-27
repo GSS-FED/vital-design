@@ -16,11 +16,11 @@ const Checkbox = forwardRef<
       ref={ref}
       data-slot="checkbox"
       className={cn(
-        'peer flex size-4 shrink-0 items-center justify-center rounded-sm border border-grayscale-400 bg-white outline-none transition-colors duration-100',
+        'peer flex size-4 shrink-0 items-center justify-center rounded-sm border border-grayscale-opacity-400 bg-white outline-none transition-colors duration-100',
         'hover:border-primary-500 hover:shadow-(--shadow-focus-ring-primary)',
         'focus-visible:border-primary-500 focus-visible:shadow-(--shadow-focus-ring-primary)',
-        'data-disabled:cursor-not-allowed data-disabled:border-grayscale-300 data-disabled:bg-grayscale-200 data-disabled:opacity-50',
-        'data-disabled:hover:border-grayscale-300 data-disabled:hover:shadow-none',
+        'data-disabled:cursor-not-allowed data-disabled:border-grayscale-opacity-300 data-disabled:bg-grayscale-opacity-200 data-disabled:opacity-50',
+        'data-disabled:hover:border-grayscale-opacity-300 data-disabled:hover:shadow-none',
         'aria-invalid:border-destructive-500 aria-invalid:shadow-(--shadow-focus-ring-destructive) aria-invalid:hover:border-destructive-500 aria-invalid:hover:shadow-(--shadow-focus-ring-destructive)',
         'data-checked:border-primary-500 data-checked:bg-primary-500',
         'data-indeterminate:border-primary-500 data-indeterminate:bg-primary-500',

@@ -89,7 +89,7 @@ export const Disabled: Story = {
     <HorizontalSliderFrame>
       <Slider {...args}>
         <SliderParts />
-        <div className="mt-2 flex justify-between font-sans text-sm text-grayscale-600">
+        <div className="mt-2 flex justify-between font-sans text-sm text-grayscale-opacity-600">
           <span>{args.min}</span>
           <span>{args.max}</span>
         </div>

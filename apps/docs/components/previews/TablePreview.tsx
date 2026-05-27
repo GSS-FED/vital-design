@@ -100,7 +100,7 @@ function TaskProgress({ state }: { state: string }) {
       >
         <ProgressSegment className="flex-1 bg-success-500" />
         <ProgressSegment className="flex-1 bg-warning-500" />
-        <ProgressSegment className="flex-1 bg-grayscale-600" />
+        <ProgressSegment className="flex-1 bg-grayscale-opacity-600" />
         <ProgressSegment className="flex-1" data-state="inactive" />
       </ProgressSegments>
     );
@@ -129,7 +129,7 @@ function TaskProgress({ state }: { state: string }) {
 export function TablePreview() {
   return (
     <ComponentPreview centered={false}>
-      <Table containerClassName="max-w-5xl rounded-(--radius-sm) border border-grayscale-300 bg-white shadow-(--shadow-base)">
+      <Table containerClassName="max-w-5xl rounded-(--radius-sm) border border-grayscale-opacity-300 bg-white shadow-(--shadow-base)">
         <TableHeader>
           <TableRow>
             <TableHead>

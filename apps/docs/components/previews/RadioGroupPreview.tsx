@@ -35,7 +35,7 @@ function RadioOption({
         />
       </div>
       <Label
-        className="cursor-pointer font-normal leading-5 text-grayscale-800"
+        className="cursor-pointer font-normal leading-5 text-grayscale-opacity-800"
         htmlFor={id}
       >
         {label}
@@ -49,7 +49,7 @@ export function RadioGroupPreview() {
   return (
     <ComponentPreview>
       <RadioGroup
-        className="flex flex-row flex-wrap gap-4 font-sans text-sm leading-5 text-grayscale-800"
+        className="flex flex-row flex-wrap gap-4 font-sans text-sm leading-5 text-grayscale-opacity-800"
         value={value}
         onValueChange={setValue}
       >
@@ -70,7 +70,7 @@ export function RadioGroupVerticalPreview() {
   return (
     <ComponentPreview>
       <RadioGroup
-        className="flex flex-col flex-wrap gap-4 font-sans text-sm leading-5 text-grayscale-800"
+        className="flex flex-col flex-wrap gap-4 font-sans text-sm leading-5 text-grayscale-opacity-800"
         value={value}
         onValueChange={setValue}
       >

@@ -32,8 +32,8 @@ const frozenColumnClassNames = {
     cell: 'sticky left-[var(--datatable-sticky-inset,24px)] z-20 bg-white before:absolute before:top-0 before:left-[calc(var(--datatable-sticky-inset,24px)*-1)] before:h-full before:w-[var(--datatable-sticky-inset,24px)] before:bg-white before:content-[""] group-hover:bg-[#f8f8f9] group-hover:before:bg-[#f8f8f9]',
   },
   id: {
-    head: 'left-[calc(var(--datatable-sticky-inset,24px)+40px)] !z-40 after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-300 after:content-[""]',
-    cell: 'sticky left-[calc(var(--datatable-sticky-inset,24px)+40px)] z-20 bg-white group-hover:bg-[#f8f8f9] after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-300 after:content-[""]',
+    head: 'left-[calc(var(--datatable-sticky-inset,24px)+40px)] !z-40 after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-opacity-300 after:content-[""]',
+    cell: 'sticky left-[calc(var(--datatable-sticky-inset,24px)+40px)] z-20 bg-white group-hover:bg-[#f8f8f9] after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-opacity-300 after:content-[""]',
   },
 };
 
@@ -83,17 +83,17 @@ function PillarCard({
           left: stickyInset,
           width: `min(1010px, calc(100vw - (${stickyInset} * 2)))`,
         }}
-        className="sticky top-0 z-50 flex items-center gap-10 rounded-t border-b border-grayscale-300 bg-white py-2.5 text-left transition-colors hover:bg-grayscale-50"
+        className="sticky top-0 z-50 flex items-center gap-10 rounded-t border-b border-grayscale-opacity-300 bg-white py-2.5 text-left transition-colors hover:bg-grayscale-50"
       >
         <span className="flex flex-1 items-center">
           <span className="flex w-10 items-center justify-center py-2">
             <ChevronDownIcon
-              className={`size-3 text-grayscale-600 transition-transform ${
+              className={`size-3 text-grayscale-opacity-600 transition-transform ${
                 open ? '' : '-rotate-90'
               }`}
             />
           </span>
-          <span className="text-sm font-medium leading-5 text-grayscale-800">
+          <span className="text-sm font-medium leading-5 text-grayscale-opacity-800">
             {pillar}
           </span>
         </span>

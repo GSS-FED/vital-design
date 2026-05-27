@@ -21,7 +21,7 @@ const Table = forwardRef<ElementRef<'table'>, TableProps>(
           ref={ref}
           data-slot="table"
           className={cn(
-            'w-full caption-bottom border-collapse font-sans text-sm leading-5 text-grayscale-800',
+            'w-full caption-bottom border-collapse font-sans text-sm leading-5 text-grayscale-opacity-800',
             className,
           )}
           {...props}
@@ -40,7 +40,7 @@ const TableHeader = forwardRef<ElementRef<'thead'>, TableHeaderProps>(
         ref={ref}
         data-slot="table-header"
         className={cn(
-          '[&_tr]:border-b [&_tr]:border-grayscale-300',
+          '[&_tr]:border-b [&_tr]:border-grayscale-opacity-300',
           className,
         )}
         {...props}
@@ -73,7 +73,7 @@ const TableFooter = forwardRef<ElementRef<'tfoot'>, TableFooterProps>(
         ref={ref}
         data-slot="table-footer"
         className={cn(
-          'border-t border-grayscale-300 bg-grayscale-100 font-medium [&>tr]:last:border-b-0',
+          'border-t border-grayscale-opacity-300 bg-grayscale-opacity-100 font-medium [&>tr]:last:border-b-0',
           className,
         )}
         {...props}
@@ -91,8 +91,8 @@ const TableRow = forwardRef<ElementRef<'tr'>, TableRowProps>(
         ref={ref}
         data-slot="table-row"
         className={cn(
-          'border-b border-grayscale-300 transition-colors',
-          'hover:bg-grayscale-100 has-aria-expanded:bg-grayscale-100 data-[state=selected]:bg-grayscale-100',
+          'border-b border-grayscale-opacity-300 transition-colors',
+          'hover:bg-grayscale-opacity-100 has-aria-expanded:bg-grayscale-opacity-100 data-[state=selected]:bg-grayscale-opacity-100',
           className,
         )}
         {...props}
@@ -110,7 +110,7 @@ const TableHead = forwardRef<ElementRef<'th'>, TableHeadProps>(
         ref={ref}
         data-slot="table-head"
         className={cn(
-          'h-8 border-r border-grayscale-300 bg-white px-3 py-1.5 text-left align-middle font-normal whitespace-nowrap text-grayscale-800 last:border-r-0',
+          'h-8 border-r border-grayscale-opacity-300 bg-white px-3 py-1.5 text-left align-middle font-normal whitespace-nowrap text-grayscale-opacity-800 last:border-r-0',
           '[&:has([role=checkbox])]:w-10 [&:has([role=checkbox])]:px-3 [&>[role=checkbox]]:mx-auto',
           className,
         )}
@@ -129,7 +129,7 @@ const TableCell = forwardRef<ElementRef<'td'>, TableCellProps>(
         ref={ref}
         data-slot="table-cell"
         className={cn(
-          'h-11 border-r border-grayscale-300 px-3 py-1 align-middle whitespace-nowrap text-grayscale-800 last:border-r-0',
+          'h-11 border-r border-grayscale-opacity-300 px-3 py-1 align-middle whitespace-nowrap text-grayscale-opacity-800 last:border-r-0',
           '[&:has([role=checkbox])]:w-10 [&:has([role=checkbox])]:px-3 [&>[role=checkbox]]:mx-auto',
           className,
         )}
@@ -150,7 +150,7 @@ const TableCaption = forwardRef<
       ref={ref}
       data-slot="table-caption"
       className={cn(
-        'mt-4 text-sm leading-5 text-grayscale-500',
+        'mt-4 text-sm leading-5 text-grayscale-opacity-500',
         className,
       )}
       {...props}

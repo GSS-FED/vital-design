@@ -35,7 +35,7 @@ function CheckboxField({
 
   return (
     <div
-      className="group flex items-start gap-2 font-sans text-sm leading-5 text-grayscale-800"
+      className="group flex items-start gap-2 font-sans text-sm leading-5 text-grayscale-opacity-800"
       data-disabled={disabled ? true : undefined}
     >
       <div className="flex h-5 flex-none items-center">
@@ -56,8 +56,8 @@ function CheckboxField({
       <Label
         className={
           disabled
-            ? 'cursor-not-allowed font-normal leading-5 text-grayscale-500'
-            : 'cursor-pointer font-normal leading-5 text-grayscale-800'
+            ? 'cursor-not-allowed font-normal leading-5 text-grayscale-opacity-500'
+            : 'cursor-pointer font-normal leading-5 text-grayscale-opacity-800'
         }
         htmlFor={id}
       >

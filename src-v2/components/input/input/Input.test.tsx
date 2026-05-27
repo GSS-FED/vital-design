@@ -7,7 +7,7 @@ it('renders the input primitive with shadcn slot hooks', () => {
   const input = screen.getByRole('textbox');
 
   expect(input).toHaveAttribute('data-slot', 'input');
-  expect(input).toHaveClass('border-grayscale-300');
+  expect(input).toHaveClass('border-grayscale-opacity-300');
 });
 
 it('renders with placeholder', () => {

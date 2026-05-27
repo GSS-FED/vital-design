@@ -54,7 +54,7 @@ describe('Item', () => {
     expect(item).toHaveAttribute('data-slot', 'item');
     expect(item).toHaveAttribute('data-variant', 'outline');
     expect(item).toHaveAttribute('data-size', 'list');
-    expect(item).toHaveClass('border-grayscale-300', 'px-5');
+    expect(item).toHaveClass('border-grayscale-opacity-300', 'px-5');
   });
 
   it('supports render prop for links', () => {

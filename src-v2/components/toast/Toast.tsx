@@ -387,8 +387,8 @@ const SOLID_BG: Record<ToastStatus, string> = {
   success: 'bg-success-500',
   warning: 'bg-warning-500',
   error: 'bg-destructive-500',
-  info: 'bg-grayscale-solid-700',
-  loading: 'bg-grayscale-solid-700',
+  info: 'bg-grayscale-700',
+  loading: 'bg-grayscale-700',
 };
 
 const SUBTLE_ICON: Record<ToastStatus, string> = {
@@ -433,7 +433,7 @@ function ToasterItem({
       className={cn(
         variant === 'solid'
           ? cn(SOLID_BG[status], 'w-fit px-4 py-1.5 text-white')
-          : 'min-w-[300px] bg-white p-4 text-grayscale-800',
+          : 'min-w-[300px] bg-white p-4 text-grayscale-opacity-800',
       )}
     >
       <ToastContent
@@ -464,7 +464,7 @@ function ToasterItem({
             className={
               variant === 'solid'
                 ? 'text-white/90'
-                : 'text-grayscale-600'
+                : 'text-grayscale-opacity-600'
             }
           >
             {toast.description}
@@ -492,7 +492,7 @@ function ToasterItem({
           className={cn(
             variant === 'solid'
               ? 'text-white/80 hover:text-white focus-visible:text-white'
-              : 'text-grayscale-600 hover:text-grayscale-800 focus-visible:text-grayscale-800',
+              : 'text-grayscale-opacity-600 hover:text-grayscale-opacity-800 focus-visible:text-grayscale-opacity-800',
             cancelProps.className,
           )}
         />
@@ -502,7 +502,7 @@ function ToasterItem({
           className={
             variant === 'solid'
               ? 'text-white hover:text-white/80 focus-visible:text-white/80'
-              : 'text-grayscale-500 hover:text-grayscale-700 focus-visible:text-grayscale-700'
+              : 'text-grayscale-opacity-500 hover:text-grayscale-opacity-700 focus-visible:text-grayscale-opacity-700'
           }
         />
       ) : null}
@@ -567,7 +567,7 @@ function AnchoredToasterItem({
         ANCHORED_TOAST_CLASSES,
         variant === 'solid'
           ? cn(SOLID_BG[status], 'text-white')
-          : 'bg-white text-grayscale-800',
+          : 'bg-white text-grayscale-opacity-800',
       )}
     >
       {icon ? (
@@ -592,7 +592,7 @@ function AnchoredToasterItem({
           className={cn(
             variant === 'solid'
               ? 'text-white/80 hover:text-white focus-visible:text-white'
-              : 'text-grayscale-600 hover:text-grayscale-800 focus-visible:text-grayscale-800',
+              : 'text-grayscale-opacity-600 hover:text-grayscale-opacity-800 focus-visible:text-grayscale-opacity-800',
             cancelProps.className,
           )}
         />
@@ -602,7 +602,7 @@ function AnchoredToasterItem({
           className={
             variant === 'solid'
               ? 'text-white hover:text-white/80 focus-visible:text-white/80'
-              : 'text-grayscale-500 hover:text-grayscale-700 focus-visible:text-grayscale-700'
+              : 'text-grayscale-opacity-500 hover:text-grayscale-opacity-700 focus-visible:text-grayscale-opacity-700'
           }
         />
       ) : null}

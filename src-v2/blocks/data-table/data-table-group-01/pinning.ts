@@ -13,9 +13,9 @@ export function getCommonPinningStyles<TData>(
 
   return {
     boxShadow: isLastLeftPinnedColumn
-      ? 'inset -1px 0 0 var(--grayscale-300)'
+      ? 'inset -1px 0 0 var(--grayscale-opacity-300)'
       : isFirstRightPinnedColumn
-        ? 'inset 1px 0 0 var(--grayscale-300)'
+        ? 'inset 1px 0 0 var(--grayscale-opacity-300)'
         : undefined,
     left:
       isPinned === 'left'
