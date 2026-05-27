@@ -387,8 +387,8 @@ const SOLID_BG: Record<ToastStatus, string> = {
   success: 'bg-success-500',
   warning: 'bg-warning-500',
   error: 'bg-destructive-500',
-  info: 'bg-grayscale-700',
-  loading: 'bg-grayscale-700',
+  info: 'bg-grayscale-solid-700',
+  loading: 'bg-grayscale-solid-700',
 };
 
 const SUBTLE_ICON: Record<ToastStatus, string> = {

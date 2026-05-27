@@ -58,7 +58,7 @@ describe('Tooltip', () => {
 
     expect(content).toBeInTheDocument();
     expect(content).toHaveClass(
-      'bg-grayscale-700',
+      'bg-grayscale-solid-700',
       'text-white',
       'shadow-emphasis',
       'rounded',

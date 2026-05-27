@@ -70,7 +70,7 @@ const tagVariants = cva(
       {
         color: 'default',
         colorVariant: 'solid',
-        class: 'text-white bg-grayscale-700',
+        class: 'text-white bg-grayscale-solid-700',
       },
       {
         color: 'default',

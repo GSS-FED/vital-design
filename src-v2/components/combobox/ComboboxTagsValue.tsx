@@ -81,7 +81,7 @@ const Chip = forwardRef<
       ref={ref}
       data-slot="combobox-chip"
       className={cn(
-        'inline-flex h-5 min-w-0 max-w-full shrink-0 items-center gap-1 overflow-hidden rounded-full bg-grayscale-700 px-2.5 text-xs leading-5 text-white outline-none',
+        'inline-flex h-5 min-w-0 max-w-full shrink-0 items-center gap-1 overflow-hidden rounded-full bg-grayscale-solid-700 px-2.5 text-xs leading-5 text-white outline-none',
         'data-[disabled]:opacity-50',
         className,
       )}

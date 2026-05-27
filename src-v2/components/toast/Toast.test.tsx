@@ -93,7 +93,7 @@ describe('Toast', () => {
     const cases: Array<{ status: ToastStatus; bg: string }> = [
       { status: 'warning', bg: 'bg-warning-500' },
       { status: 'error', bg: 'bg-destructive-500' },
-      { status: 'info', bg: 'bg-grayscale-700' },
+      { status: 'info', bg: 'bg-grayscale-solid-700' },
     ];
 
     for (const { status, bg } of cases) {
