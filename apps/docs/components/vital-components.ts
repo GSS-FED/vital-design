@@ -36,6 +36,12 @@ export {
 } from '../../../src-v2/components/card/Card';
 export { Chip } from '../../../src-v2/components/chip/Chip';
 export {
+  Editable,
+  EditableDisplay,
+  EditableInput,
+  EditableTextarea,
+} from '../../../src-v2/components/editable/Editable';
+export {
   Field,
   FieldContent,
   FieldDescription,
