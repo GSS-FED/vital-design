@@ -71,7 +71,15 @@ function EmissionHeaderRows({
   return (
     <>
       {headerGroups.map((hg) => (
-        <TableRow key={hg.id} className="hover:bg-transparent">
+        // Sticks below the category (top-0, h-9) + subcategory (top-9, h-11)
+        // titles → 36 + 44 = 80px. z-[15] keeps it above source rows (pinned
+        // cells z-10) but below the subcategory (z-20) and category (z-30)
+        // titles. The row's z-index makes the whole header (incl. its pinned
+        // cells) paint above source rows during vertical scroll.
+        <TableRow
+          key={hg.id}
+          className="sticky top-20 z-[15] hover:bg-transparent"
+        >
           <RailCells variant="vertical" />
           {hg.headers.map((header) => (
             <TableHead
@@ -90,7 +98,7 @@ function EmissionHeaderRows({
                   )}
             </TableHead>
           ))}
-          <td className="border-b border-grayscale-opacity-300 p-0" />
+          <td className="border-b border-grayscale-opacity-300 bg-white p-0" />
         </TableRow>
       ))}
     </>

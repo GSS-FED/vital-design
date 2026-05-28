@@ -35,6 +35,9 @@ import {
 
 const flatTableTargetWidth = 1040;
 const flatViewportWidth = 860;
+// Sticky group-title row height (h-9 button + 1px bottom border); column
+// headers stick directly below it.
+const groupTitleHeight = 37;
 
 const baseCandidateWidth = candidateColumns.reduce(
   (total, column) => total + (column.size ?? 150),
@@ -98,17 +101,17 @@ function CandidateGroupRow({
   };
 
   return (
-    <TableRow className="group cursor-pointer border-y border-grayscale-opacity-300 bg-[rgba(35,35,50,0.03)] transition-colors hover:bg-[rgba(35,35,50,0.06)]">
+    <TableRow className="group cursor-pointer bg-[rgba(35,35,50,0.03)] transition-colors hover:bg-[rgba(35,35,50,0.06)]">
       <TableCell
         colSpan={columnCount}
-        className="sticky top-0 left-0 z-50 h-auto bg-[#f8f8f9] p-0 text-sm font-medium text-grayscale-opacity-800"
+        className="sticky top-0 left-0 z-50 h-auto border-b border-grayscale-opacity-300 bg-[#f8f8f9] p-0 text-sm font-medium text-grayscale-opacity-800"
         style={{ width: tableWidth }}
       >
         <button
           type="button"
           aria-expanded={open}
           onClick={row.getToggleExpandedHandler()}
-          className="sticky left-0 flex items-center gap-2 px-4 py-2 text-left"
+          className="sticky left-0 flex h-9 items-center gap-2 px-4 text-left"
           style={stickyTitleStyle}
         >
           <ChevronDownIcon
@@ -182,10 +185,7 @@ export function DataTableGroup01() {
               {groupRow.getIsExpanded() && (
                 <>
                   {table.getHeaderGroups().map((hg) => (
-                    <TableRow
-                      key={hg.id}
-                      className="border-b border-grayscale-opacity-300"
-                    >
+                    <TableRow key={hg.id}>
                       {hg.headers.map((header) => (
                         <TableHead
                           key={header.id}
@@ -194,10 +194,11 @@ export function DataTableGroup01() {
                           style={getCommonPinningStyles(
                             header.column,
                             30,
+                            groupTitleHeight,
                           )}
                           className={getPinnedCellClassName(
                             header.column,
-                            'overflow-hidden text-ellipsis',
+                            'overflow-hidden border-b border-grayscale-opacity-300 text-ellipsis',
                           )}
                         >
                           {header.isPlaceholder
@@ -213,7 +214,7 @@ export function DataTableGroup01() {
                   {groupRow.subRows.map((candidateRow) => (
                     <TableRow
                       key={candidateRow.id}
-                      className="group border-b border-grayscale-opacity-300 transition-colors hover:bg-grayscale-opacity-100"
+                      className="group transition-colors hover:bg-grayscale-opacity-100"
                     >
                       {candidateRow.getVisibleCells().map((cell) => (
                         <TableCell
@@ -224,7 +225,7 @@ export function DataTableGroup01() {
                           )}
                           className={getPinnedCellClassName(
                             cell.column,
-                            'overflow-hidden text-ellipsis',
+                            'overflow-hidden border-b border-grayscale-opacity-300 text-ellipsis',
                           )}
                         >
                           {flexRender(
