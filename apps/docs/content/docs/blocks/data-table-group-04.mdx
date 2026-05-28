@@ -1,0 +1,42 @@
+---
+title: Data Table — Editable Cells
+description: Editable data table with inline text cells, popover pickers, tag multi-select, and date selection.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { DataTableGroup04 } from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview
+  centered={false}
+  className="overflow-x-auto"
+  minHeight="min-h-0"
+>
+  <DataTableGroup04 />
+</ComponentPreview>
+
+## Composition
+
+This block is built on the following Vital Design primitives:
+
+- `Avatar`, `Calendar`, `Card`, `Editable`, `Popover`, `Table`, `Tag`
+- `CheckIcon`
+- [`@tanstack/react-table`](https://tanstack.com/table/v8) for table state
+
+## Files
+
+| File                   | Description                                     |
+| ---------------------- | ----------------------------------------------- |
+| `DataTableGroup04.tsx` | Block entry — fixed-width table and row updates |
+| `columns.tsx`          | Editable text cells and popover cell renderers  |
+| `data.ts`              | Sample emission rows, people, and tag options   |
+| `popover-edit.tsx`     | Person, tags, and date popover editors          |
+
+## Installation
+
+```bash
+npx shadcn@latest add @vital-design/data-table-group-04
+```
+
+This installs the block under `src/blocks/data-table-group-04/` and pulls every required primitive automatically.

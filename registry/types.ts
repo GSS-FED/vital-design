@@ -46,6 +46,7 @@ export type RegistryItemName =
   | 'search-bar'
   | 'input-group'
   | 'input'
+  | 'editable'
   | 'number-input'
   | 'item'
   | 'separator'
@@ -71,7 +72,8 @@ export type RegistryItemName =
   | 'collapsible'
   | 'sheet'
   | 'data-table-group-01'
-  | 'data-table-group-02';
+  | 'data-table-group-02'
+  | 'data-table-group-04';
 
 /**
  * Extends the official shadcn RegistryItem with:

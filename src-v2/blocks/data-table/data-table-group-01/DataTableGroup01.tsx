@@ -155,7 +155,7 @@ export function DataTableGroup01() {
   const visibleColumnCount = table.getVisibleLeafColumns().length;
 
   return (
-    <Card className="max-w-[860px]">
+    <Card className="w-full max-w-[860px]">
       <ActionBar
         searchPlaceholder="搜尋姓名"
         left={

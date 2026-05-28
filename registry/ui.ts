@@ -369,6 +369,25 @@ export const ui = [
     ],
   },
   {
+    name: 'editable',
+    type: 'registry:ui',
+    title: 'Editable',
+    description:
+      'Inline editable text field with display, input, and textarea parts',
+    dependencies: ['clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/input',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/editable/Editable.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
     name: 'textarea',
     type: 'registry:ui',
     title: 'Textarea',

@@ -28,3 +28,10 @@ export const Error: Story = {
     placeholder: '錯誤狀態',
   },
 };
+
+export const Ghost: Story = {
+  args: {
+    appearance: 'ghost',
+    placeholder: '無邊框（hover/focus 才顯示）',
+  },
+};

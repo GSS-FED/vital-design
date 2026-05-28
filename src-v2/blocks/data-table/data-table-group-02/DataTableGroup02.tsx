@@ -302,7 +302,7 @@ export function DataTableGroup02() {
   const subcategoryTitleColSpan = visibleColumns.length + 1;
 
   return (
-    <Card className="max-w-[1408px]">
+    <Card className="w-full max-w-[1408px]">
       <ActionBar
         searchPlaceholder="搜尋"
         left={

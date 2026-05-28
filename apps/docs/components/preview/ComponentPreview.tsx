@@ -31,6 +31,7 @@ type ComponentPreviewProps = {
 
 export function ComponentPreview({
   children,
+  className,
   name,
   align,
   centered = true,
@@ -44,7 +45,7 @@ export function ComponentPreview({
   if (!entry) {
     return (
       <div
-        className={`not-prose my-6 flex flex-wrap gap-4 rounded-xl border border-grayscale-opacity-200 bg-white p-8 ${minHeight} ${alignClass[resolvedAlign]}`}
+        className={`not-prose my-6 flex flex-wrap gap-4 rounded-xl border border-grayscale-opacity-200 bg-white p-8 ${minHeight} ${alignClass[resolvedAlign]} ${className ?? ''}`}
       >
         {children}
       </div>
@@ -76,7 +77,7 @@ export function ComponentPreview({
       <div className="relative overflow-hidden rounded-xl border border-grayscale-opacity-200 bg-white">
         {tab === 'preview' ? (
           <div
-            className={`flex flex-wrap gap-4 p-8 ${minHeight} ${alignClass[resolvedAlign]}`}
+            className={`flex flex-wrap gap-4 p-8 ${minHeight} ${alignClass[resolvedAlign]} ${className ?? ''}`}
           >
             {children}
           </div>

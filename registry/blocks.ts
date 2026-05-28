@@ -78,4 +78,31 @@ export const blocks: VitalRegistryItem[] = [
       groupFile('data-table-group-02', 'table-rail.tsx'),
     ],
   },
+  {
+    name: 'data-table-group-04',
+    type: 'registry:block',
+    title: 'Data Table — Editable Cells',
+    description:
+      'Editable data table with inline text cells, popover pickers, tag multi-select, and date selection',
+    categories: ['data-table'],
+    dependencies: ['@tanstack/react-table', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/avatar',
+      '@vital-design/calendar',
+      '@vital-design/card',
+      '@vital-design/editable',
+      '@vital-design/popover',
+      '@vital-design/table',
+      '@vital-design/tag',
+      '@vital-design/icon-check',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      groupFile('data-table-group-04', 'DataTableGroup04.tsx'),
+      groupFile('data-table-group-04', 'columns.tsx'),
+      groupFile('data-table-group-04', 'data.ts'),
+      groupFile('data-table-group-04', 'popover-edit.tsx'),
+    ],
+  },
 ];

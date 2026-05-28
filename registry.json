@@ -1014,6 +1014,27 @@
       ]
     },
     {
+      "name": "editable",
+      "type": "registry:ui",
+      "title": "Editable",
+      "description": "Inline editable text field with display, input, and textarea parts",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/input",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/editable/Editable.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "textarea",
       "type": "registry:ui",
       "title": "Textarea",
@@ -1713,6 +1734,54 @@
         {
           "path": "src-v2/blocks/data-table/data-table-group-02/table-rail.tsx",
           "target": "src/blocks/data-table-group-02/table-rail.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "data-table-group-04",
+      "type": "registry:block",
+      "title": "Data Table — Editable Cells",
+      "description": "Editable data table with inline text cells, popover pickers, tag multi-select, and date selection",
+      "categories": [
+        "data-table"
+      ],
+      "dependencies": [
+        "@tanstack/react-table",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/avatar",
+        "@vital-design/calendar",
+        "@vital-design/card",
+        "@vital-design/editable",
+        "@vital-design/popover",
+        "@vital-design/table",
+        "@vital-design/tag",
+        "@vital-design/icon-check",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-04/DataTableGroup04.tsx",
+          "target": "src/blocks/data-table-group-04/DataTableGroup04.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-04/columns.tsx",
+          "target": "src/blocks/data-table-group-04/columns.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-04/data.ts",
+          "target": "src/blocks/data-table-group-04/data.ts",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-04/popover-edit.tsx",
+          "target": "src/blocks/data-table-group-04/popover-edit.tsx",
           "type": "registry:block"
         }
       ]
