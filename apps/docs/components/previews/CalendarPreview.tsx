@@ -14,7 +14,8 @@ import {
 import { CalendarIcon } from '@/icons/CalendarIcon';
 import { addDays, format } from 'date-fns';
 import { useState } from 'react';
-import type { DateRange } from 'react-day-picker';
+import { type DateRange, defaultDateLib } from 'react-day-picker';
+import { zhTW } from 'react-day-picker/locale';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 export function CalendarPreview() {
@@ -59,20 +60,35 @@ export function CalendarDropdownCaptionPreview() {
   );
 }
 
-const CJK_WEEK_LABELS = ['日', '一', '二', '三', '四', '五', '六'];
-
-export function CalendarCJKLocalePreview() {
+export function CalendarLocalePreview() {
   const [date, setDate] = useState<Date | undefined>(new Date());
   return (
-    <ComponentPreview name="CalendarCJKLocalePreview">
+    <ComponentPreview name="CalendarLocalePreview">
       <Calendar
         mode="single"
         selected={date}
         onSelect={setDate}
+        locale={zhTW}
+      />
+    </ComponentPreview>
+  );
+}
+
+export function CalendarLocaleFormatterPreview() {
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  return (
+    <ComponentPreview name="CalendarLocaleFormatterPreview">
+      <Calendar
+        mode="single"
+        selected={date}
+        onSelect={setDate}
+        locale={zhTW}
+        captionLayout="dropdown"
+        startMonth={new Date(2000, 0)}
+        endMonth={new Date(2030, 11)}
         formatters={{
-          formatWeekdayName: (d) => CJK_WEEK_LABELS[d.getDay()] ?? '',
-          formatCaption: (d) =>
-            `${d.getFullYear()}  ${d.getMonth() + 1}月`,
+          formatMonthDropdown: (month, dateLib) =>
+            (dateLib ?? defaultDateLib).format(month, 'LLL'),
         }}
       />
     </ComponentPreview>

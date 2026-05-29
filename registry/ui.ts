@@ -762,6 +762,9 @@ export const ui = [
     ],
     registryDependencies: [
       '@vital-design/utils',
+      '@vital-design/popover',
+      '@vital-design/icon-chevron-double-left',
+      '@vital-design/icon-chevron-double-right',
       '@vital-design/icon-chevron-down',
       '@vital-design/icon-chevron-left',
       '@vital-design/icon-chevron-right',

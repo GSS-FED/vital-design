@@ -67,6 +67,103 @@ describe('Calendar', () => {
     });
   });
 
+  it('marks today on the day button when it is not selected', () => {
+    render(
+      <Calendar mode="single" defaultMonth={FIXED} today={FIXED} />,
+    );
+    expect(
+      screen.getByRole('button', { name: /january 15/i }),
+    ).toHaveAttribute('data-today', 'true');
+  });
+
+  it('does not mark the day button as today when it is selected', () => {
+    render(
+      <Calendar
+        mode="single"
+        defaultMonth={FIXED}
+        today={FIXED}
+        selected={FIXED}
+      />,
+    );
+    expect(
+      screen.getByRole('button', { name: /january 15/i }),
+    ).not.toHaveAttribute('data-today');
+  });
+
+  it('renders year-jump and month-step navigation', () => {
+    render(<Calendar mode="single" defaultMonth={FIXED} />);
+    expect(
+      screen.getByRole('button', { name: /previous year/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /next year/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /previous month/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /next month/i }),
+    ).toBeInTheDocument();
+  });
+
+  it('jumps a full year when the year nav is clicked', () => {
+    const onMonthChange = vi.fn<[Date], void>();
+    render(
+      <Calendar
+        mode="single"
+        defaultMonth={FIXED}
+        onMonthChange={onMonthChange}
+      />,
+    );
+
+    fireEvent.click(
+      screen.getByRole('button', { name: /next year/i }),
+    );
+
+    expect(onMonthChange).toHaveBeenCalledTimes(1);
+    const arg = onMonthChange.mock.calls[0]?.[0];
+    expect(arg?.getFullYear()).toBe(2025);
+    expect(arg?.getMonth()).toBe(0);
+  });
+
+  it('clamps year jumps to endMonth', () => {
+    const onMonthChange = vi.fn<[Date], void>();
+    render(
+      <Calendar
+        mode="single"
+        defaultMonth={FIXED}
+        endMonth={new Date(2024, 5)} // June 2024
+        onMonthChange={onMonthChange}
+      />,
+    );
+
+    fireEvent.click(
+      screen.getByRole('button', { name: /next year/i }),
+    );
+
+    const arg = onMonthChange.mock.calls[0]?.[0];
+    expect(arg?.getFullYear()).toBe(2024);
+    expect(arg?.getMonth()).toBe(5);
+  });
+
+  it('renders custom month and year dropdown triggers in dropdown caption layout', () => {
+    render(
+      <Calendar
+        mode="single"
+        defaultMonth={FIXED}
+        captionLayout="dropdown"
+        startMonth={new Date(2020, 0)}
+        endMonth={new Date(2030, 11)}
+      />,
+    );
+    expect(
+      screen.getByRole('button', { name: /choose the month/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /choose the year/i }),
+    ).toBeInTheDocument();
+  });
+
   it('disables days outside min/max', () => {
     render(
       <Calendar

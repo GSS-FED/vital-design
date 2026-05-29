@@ -24,9 +24,10 @@ import {
   AlertWithIconPreview,
 } from '~/components/previews/AlertPreview';
 import {
-  CalendarCJKLocalePreview,
   CalendarDatePickerPreview,
   CalendarDropdownCaptionPreview,
+  CalendarLocaleFormatterPreview,
+  CalendarLocalePreview,
   CalendarPreview,
   CalendarRangePreview,
 } from '~/components/previews/CalendarPreview';
@@ -202,7 +203,8 @@ export default async function Page({
             CalendarPreview,
             CalendarRangePreview,
             CalendarDropdownCaptionPreview,
-            CalendarCJKLocalePreview,
+            CalendarLocalePreview,
+            CalendarLocaleFormatterPreview,
             CalendarDatePickerPreview,
             ChipPreview,
             ChipStatesPreview,
