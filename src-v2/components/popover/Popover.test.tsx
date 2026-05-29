@@ -1,5 +1,6 @@
 import {
   fireEvent,
+  queryAllByAttribute,
   queryByAttribute,
   render,
   screen,
@@ -14,6 +15,20 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from './Popover';
+
+type SharedTriggerPayload =
+  | { kind: 'assignee'; label: string }
+  | { kind: 'status'; label: string };
+
+const assigneePayload: SharedTriggerPayload = {
+  kind: 'assignee',
+  label: '林○方',
+};
+
+const statusPayload: SharedTriggerPayload = {
+  kind: 'status',
+  label: '審核中',
+};
 
 const ResizeObserverMock = vi.fn(() => ({
   observe: vi.fn(),
@@ -117,5 +132,45 @@ describe('Popover', () => {
       expect(onOpenChange).toHaveBeenCalled();
     });
     expect(onOpenChange.mock.calls[0]?.[0]).toBe(true);
+  });
+
+  it('shares one content surface across multiple trigger payloads', async () => {
+    const { baseElement } = render(
+      <Popover<SharedTriggerPayload>>
+        {({ payload }) => (
+          <>
+            <PopoverTrigger payload={assigneePayload}>
+              Assignee
+            </PopoverTrigger>
+            <PopoverTrigger payload={statusPayload}>
+              Status
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverTitle>{payload?.label}</PopoverTitle>
+            </PopoverContent>
+          </>
+        )}
+      </Popover>,
+    );
+
+    fireEvent.click(screen.getByText('Assignee'));
+
+    await waitFor(() => {
+      expect(screen.getByText('林○方')).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByText('Status'));
+
+    await waitFor(() => {
+      expect(screen.getByText('審核中')).toBeInTheDocument();
+    });
+    expect(screen.queryByText('林○方')).not.toBeInTheDocument();
+    expect(
+      queryAllByAttribute(
+        'data-slot',
+        baseElement,
+        'popover-content',
+      ),
+    ).toHaveLength(1);
   });
 });

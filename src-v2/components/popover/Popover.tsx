@@ -1,3 +1,7 @@
+/* eslint-disable react-refresh/only-export-components --
+ * Popover exposes Base UI's createHandle helper next to its parts so
+ * registry consumers can use detached triggers from one installed file.
+ */
 import { cn } from '@/lib/utils';
 import { Popover as BasePopover } from '@base-ui/react/popover';
 import { forwardRef } from 'react';
@@ -15,11 +19,34 @@ export type PopoverTriggerProps = ComponentPropsWithoutRef<
 
 const PopoverTrigger = BasePopover.Trigger;
 
+export type PopoverHandle<Payload = unknown> =
+  BasePopover.Handle<Payload>;
+
+const createPopoverHandle = BasePopover.createHandle;
+
 export type PopoverPortalProps = ComponentPropsWithoutRef<
   typeof BasePopover.Portal
 >;
 
 const PopoverPortal = BasePopover.Portal;
+
+export type PopoverViewportProps = ComponentPropsWithoutRef<
+  typeof BasePopover.Viewport
+>;
+
+const PopoverViewport = forwardRef<
+  ElementRef<typeof BasePopover.Viewport>,
+  PopoverViewportProps
+>(function PopoverViewport({ className, ...props }, ref) {
+  return (
+    <BasePopover.Viewport
+      ref={ref}
+      data-slot="popover-viewport"
+      className={className}
+      {...props}
+    />
+  );
+});
 
 export type PopoverContentProps = ComponentPropsWithoutRef<
   typeof BasePopover.Popup
@@ -159,4 +186,6 @@ export {
   PopoverPortal,
   PopoverTitle,
   PopoverTrigger,
+  PopoverViewport,
+  createPopoverHandle,
 };
