@@ -58,11 +58,11 @@ const TabsList = forwardRef<
       data-bordered={bordered ? '' : undefined}
       className={cn(
         'group/tabs-list relative flex shrink-0',
-        'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:h-[27px] group-data-[variant=underline]/tabs:data-[orientation=horizontal]:items-start group-data-[variant=underline]/tabs:data-[orientation=horizontal]:gap-6',
+        'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:h-[27px] group-data-[variant=underline]/tabs:data-[orientation=horizontal]:items-stretch group-data-[variant=underline]/tabs:data-[orientation=horizontal]:gap-6',
         'group-data-[variant=underline]/tabs:data-[orientation=vertical]:w-[148px] group-data-[variant=underline]/tabs:data-[orientation=vertical]:flex-col group-data-[variant=underline]/tabs:data-[orientation=vertical]:items-stretch',
         'group-data-[variant=pill]/tabs:flex-wrap group-data-[variant=pill]/tabs:items-center group-data-[variant=pill]/tabs:gap-2',
         bordered &&
-          'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:h-[47px] group-data-[variant=underline]/tabs:data-[orientation=horizontal]:items-start group-data-[variant=underline]/tabs:data-[orientation=horizontal]:border-b group-data-[variant=underline]/tabs:data-[orientation=horizontal]:border-grayscale-opacity-200 group-data-[variant=underline]/tabs:data-[orientation=horizontal]:pl-3 group-data-[variant=underline]/tabs:data-[orientation=horizontal]:pt-4',
+          'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:h-[47px] group-data-[variant=underline]/tabs:data-[orientation=horizontal]:items-stretch group-data-[variant=underline]/tabs:data-[orientation=horizontal]:border-b group-data-[variant=underline]/tabs:data-[orientation=horizontal]:border-grayscale-opacity-200 group-data-[variant=underline]/tabs:data-[orientation=horizontal]:pl-3 group-data-[variant=underline]/tabs:data-[orientation=horizontal]:pt-4',
         bordered &&
           'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:gap-4 group-data-[variant=underline]/tabs:data-[orientation=vertical]:border-r group-data-[variant=underline]/tabs:data-[orientation=vertical]:border-grayscale-opacity-200 group-data-[variant=underline]/tabs:data-[orientation=vertical]:pt-3',
         className,
@@ -94,12 +94,21 @@ const TabsTrigger = forwardRef<
         'focus-visible:shadow-focus-primary',
         'group-data-[variant=underline]/tabs:gap-1 group-data-[variant=underline]/tabs:text-base/4 group-data-[variant=underline]/tabs:font-medium',
         'group-data-[variant=underline]/tabs:hover:not-disabled:not-data-[disabled]:text-primary-500',
-        'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:px-1 group-data-[variant=underline]/tabs:data-[orientation=horizontal]:text-center',
+        'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:items-start group-data-[variant=underline]/tabs:data-[orientation=horizontal]:px-1 group-data-[variant=underline]/tabs:data-[orientation=horizontal]:text-center',
         'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:data-[active]:text-primary-500',
         'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:not-data-[active]:text-grayscale-opacity-600',
         'group-data-[variant=underline]/tabs:data-[orientation=vertical]:w-full group-data-[variant=underline]/tabs:data-[orientation=vertical]:justify-between group-data-[variant=underline]/tabs:data-[orientation=vertical]:px-2 group-data-[variant=underline]/tabs:data-[orientation=vertical]:py-3 group-data-[variant=underline]/tabs:data-[orientation=vertical]:text-left',
         'group-data-[variant=underline]/tabs:data-[orientation=vertical]:data-[active]:text-primary-500',
         'group-data-[variant=underline]/tabs:data-[orientation=vertical]:not-data-[active]:text-grayscale-opacity-700',
+        "group-data-[variant=underline]/tabs:after:absolute group-data-[variant=underline]/tabs:after:content-[''] group-data-[variant=underline]/tabs:after:origin-center group-data-[variant=underline]/tabs:after:bg-primary-500 group-data-[variant=underline]/tabs:after:transition-transform group-data-[variant=underline]/tabs:after:duration-100 group-data-[variant=underline]/tabs:after:ease-out",
+        'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:after:inset-x-0 group-data-[variant=underline]/tabs:data-[orientation=horizontal]:after:bottom-0 group-data-[variant=underline]/tabs:data-[orientation=horizontal]:after:h-[3px] group-data-[variant=underline]/tabs:data-[orientation=horizontal]:after:scale-x-0 group-data-[variant=underline]/tabs:data-[orientation=horizontal]:after:rounded-t-[1.5px]',
+        'group-data-[variant=underline]/tabs:data-[orientation=vertical]:after:inset-y-0 group-data-[variant=underline]/tabs:data-[orientation=vertical]:after:right-0 group-data-[variant=underline]/tabs:data-[orientation=vertical]:after:w-[3px] group-data-[variant=underline]/tabs:data-[orientation=vertical]:after:scale-y-0 group-data-[variant=underline]/tabs:data-[orientation=vertical]:after:rounded-l-[1.5px]',
+        'group-data-[variant=underline]/tabs:data-[orientation=horizontal]:data-[active]:after:scale-x-100',
+        'group-data-[variant=underline]/tabs:data-[orientation=vertical]:data-[active]:after:scale-y-100',
+        'group-data-[variant=underline]/tabs:data-[active]:after:duration-200',
+        // Opt-in: when a <TabsIndicator> is rendered in the list, drop the
+        // per-tab grow bar so the shared sliding indicator is the only highlight.
+        'group-has-[[data-slot=tabs-indicator]]/tabs-list:after:hidden',
         'group-data-[bordered]/tabs-list:font-normal',
         'group-data-[bordered]/tabs-list:data-[orientation=horizontal]:gap-3',
         'group-data-[bordered]/tabs-list:data-[orientation=horizontal]:not-data-[active]:text-grayscale-opacity-700',

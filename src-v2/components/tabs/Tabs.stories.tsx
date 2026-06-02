@@ -48,7 +48,6 @@ export const Default: Story = {
             {tab.label}
           </TabsTrigger>
         ))}
-        <TabsIndicator />
       </TabsList>
       {tabs.map((tab) => (
         <TabsContent key={tab.value} value={tab.value}>
@@ -69,7 +68,6 @@ export const Bordered: Story = {
             頁籤{index + 1}
           </TabsTrigger>
         ))}
-        <TabsIndicator />
       </TabsList>
     </Tabs>
   ),
@@ -89,7 +87,6 @@ export const VerticalBordered: Story = {
             {tab.label}
           </TabsTrigger>
         ))}
-        <TabsIndicator />
       </TabsList>
       {tabs.map((tab) => (
         <TabsContent key={tab.value} value={tab.value}>
@@ -117,6 +114,23 @@ export const WithBadges: Story = {
           <span className="size-1.5 rounded-full bg-alarm-500" />
         </TabsTrigger>
         <TabsTrigger value="more">更多</TabsTrigger>
+      </TabsList>
+    </Tabs>
+  ),
+};
+
+export const SlidingIndicator: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <Tabs defaultValue="tab-1" className="w-[800px]">
+      <TabsList bordered>
+        {Array.from({ length: 10 }, (_, index) => (
+          <TabsTrigger key={index} value={`tab-${index + 1}`}>
+            頁籤{index + 1}
+          </TabsTrigger>
+        ))}
+        {/* Opt-in: rendering <TabsIndicator /> swaps the per-tab grow highlight
+            for a single bar that slides between tabs. */}
         <TabsIndicator />
       </TabsList>
     </Tabs>

@@ -28,7 +28,6 @@ export function TabsPreview() {
               {tab.label}
             </TabsTrigger>
           ))}
-          <TabsIndicator />
         </TabsList>
         {tabs.map((tab) => (
           <TabsContent key={tab.value} value={tab.value}>
@@ -45,6 +44,27 @@ export function TabsBorderedPreview() {
 
   return (
     <ComponentPreview name="TabsBorderedPreview" centered={false}>
+      <Tabs value={value} onValueChange={setValue} className="w-full">
+        <TabsList bordered>
+          {tabs.map((tab) => (
+            <TabsTrigger key={tab.value} value={tab.value}>
+              {tab.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
+    </ComponentPreview>
+  );
+}
+
+export function TabsSlidingIndicatorPreview() {
+  const [value, setValue] = useState('overview');
+
+  return (
+    <ComponentPreview
+      name="TabsSlidingIndicatorPreview"
+      centered={false}
+    >
       <Tabs value={value} onValueChange={setValue} className="w-full">
         <TabsList bordered>
           {tabs.map((tab) => (
@@ -99,7 +119,6 @@ export function TabsVerticalPreview() {
               {tab.label}
             </TabsTrigger>
           ))}
-          <TabsIndicator />
         </TabsList>
         {tabs.map((tab) => (
           <TabsContent key={tab.value} value={tab.value}>
