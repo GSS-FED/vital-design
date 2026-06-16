@@ -47,12 +47,12 @@ publish-job:
         echo "@fed:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
         echo "${CI_API_V4_URL#https?}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=\${CI_JOB_TOKEN}"
       } | tee -a .npmrc
+    - npm i -g pnpm@${PNPM_VERSION}
+    - pnpm install --frozen-lockfile
   dependencies:
     - build-job
   script:
-    - npm i --prefer-offline
-    - npm i -g pnpm@8.15.9
-    - npm run release
+    - pnpm run release
   only:
     - main
 
@@ -104,7 +104,7 @@ pages:
 deploy:bizform:
   stage: deploy
   before_script:
-    - '[Console]::OutputEncoding=[System.Text.Encoding]::UTF8'
+    - "[Console]::OutputEncoding=[System.Text.Encoding]::UTF8"
   script:
     - if (Test-Path "$DEPLOY_PATH\$DEPLOY_SUBPATH") { Remove-Item "$DEPLOY_PATH\$DEPLOY_SUBPATH\*" -Recurse -Verbose -Force }
     - if (!(Test-Path "$DEPLOY_PATH\$DEPLOY_SUBPATH")) { New-Item -Path "$DEPLOY_PATH\$DEPLOY_SUBPATH" -ItemType Directory }
@@ -124,4 +124,3 @@ deploy:bizform:
   only:
     - main
     - develop
-    - feat/v2 # TODO(revert): remove after testing
