@@ -15,6 +15,7 @@ storybook-static
 storybook-static-visual
 public/r/
 *.local
+.agents/local/
 .npmrc
 
 # Editor directories and files
