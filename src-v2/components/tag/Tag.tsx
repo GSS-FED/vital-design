@@ -232,6 +232,7 @@ export function Tag(props: TagProps) {
     <div
       role="option"
       aria-selected={isSelected}
+      data-slot="tag"
       className={cn(
         tagVariants({ color, colorVariant, selected: isSelected }),
         className,
@@ -252,7 +253,11 @@ export function Tag(props: TagProps) {
             'cursor-pointer hover:before:bg-white/20',
           )}
         >
-          {hasIcon && <div className="flex items-center">{icon}</div>}
+          {hasIcon && (
+            <div data-slot="tag-icon" className="flex items-center">
+              {icon}
+            </div>
+          )}
           <div data-slot="tag-label" className="ml-auto">
             {children}
           </div>
@@ -266,7 +271,11 @@ export function Tag(props: TagProps) {
             isRemovable ? 'pr-1 rounded-l-full' : 'rounded-full',
           )}
         >
-          {hasIcon && <div className="flex items-center">{icon}</div>}
+          {hasIcon && (
+            <div data-slot="tag-icon" className="flex items-center">
+              {icon}
+            </div>
+          )}
           <div data-slot="tag-label" className="ml-auto">
             {children}
           </div>
@@ -276,6 +285,7 @@ export function Tag(props: TagProps) {
         <button
           type="button"
           aria-label="Remove"
+          data-slot="tag-remove"
           onClick={(event) => {
             event.stopPropagation();
             onRemove?.();

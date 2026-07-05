@@ -12,6 +12,7 @@ it('renders an unselected chip', () => {
   render(<Chip {...props}>Chip</Chip>);
   const chip = screen.getByRole('button');
   expect(chip).toBeInTheDocument();
+  expect(chip).toHaveAttribute('data-slot', 'chip');
   expect(chip).toHaveAttribute('data-state', 'unselected');
 });
 

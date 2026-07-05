@@ -93,7 +93,7 @@ it('renders fieldset, legend, group, content, and title slots', () => {
   );
   expect(screen.getByText('Display name')).toHaveAttribute(
     'data-slot',
-    'field-label',
+    'field-title',
   );
   expect(screen.getByTestId('field-content')).toHaveClass('gap-1');
 });

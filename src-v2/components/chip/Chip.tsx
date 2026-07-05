@@ -49,6 +49,7 @@ export function Chip(props: ChipProps) {
   return (
     <button
       type="button"
+      data-slot="chip"
       onClick={() => {
         onChange?.(!selected);
       }}
@@ -65,7 +66,9 @@ export function Chip(props: ChipProps) {
           {icon}
         </span>
       )}
-      <span className="flex items-center">{children}</span>
+      <span data-slot="chip-label" className="flex items-center">
+        {children}
+      </span>
     </button>
   );
 }

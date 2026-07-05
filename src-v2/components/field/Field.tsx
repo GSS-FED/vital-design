@@ -163,7 +163,7 @@ export type FieldTitleProps = ComponentProps<'div'>;
 function FieldTitle({ className, ...props }: FieldTitleProps) {
   return (
     <div
-      data-slot="field-label"
+      data-slot="field-title"
       className={cn(
         'flex w-fit items-center gap-2 font-sans text-sm font-medium text-grayscale-opacity-800',
         'group-data-[disabled=true]/field:opacity-50',
