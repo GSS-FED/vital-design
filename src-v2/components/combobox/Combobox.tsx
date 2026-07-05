@@ -235,7 +235,14 @@ export type ComboboxHeaderProps = ComponentPropsWithoutRef<'div'>;
 
 const Header = forwardRef<HTMLDivElement, ComboboxHeaderProps>(
   function ComboboxHeader({ className, ...props }, ref) {
-    return <div ref={ref} className={className} {...props} />;
+    return (
+      <div
+        ref={ref}
+        data-slot="combobox-header"
+        className={className}
+        {...props}
+      />
+    );
   },
 );
 

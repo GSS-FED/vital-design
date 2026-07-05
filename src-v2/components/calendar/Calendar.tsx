@@ -248,7 +248,7 @@ function CalendarNav({
   };
 
   return (
-    <nav className={cn(className)} {...rest}>
+    <nav data-slot="calendar-nav" className={cn(className)} {...rest}>
       <div className="pointer-events-auto flex">
         <button
           type="button"
@@ -469,6 +469,7 @@ function CalendarDayButton({
     <button
       ref={ref}
       type="button"
+      data-slot="calendar-day-button"
       data-day={day.date.toLocaleDateString()}
       data-selected-single={
         modifiers.selected &&
