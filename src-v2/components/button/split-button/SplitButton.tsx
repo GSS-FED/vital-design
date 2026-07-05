@@ -167,46 +167,50 @@ export function SplitButton(props: SplitButtonProps) {
   const splitSize = size === 'lg' ? 'icon-lg' : 'icon-md';
 
   return (
-    <ButtonGroup
+    <div
+      data-slot="split-button"
       data-size={size}
       data-theme={theme}
-      className={cn(
-        splitButtonGroupVariants({ size, theme, disabled }),
-        className,
-      )}
+      className={cn('contents', className)}
       style={style}
       {...groupProps}
     >
-      <Button
-        variant="default"
-        theme={theme}
-        size={size}
-        disabled={disabled}
-        focusableWhenDisabled={focusableWhenDisabled}
-        onClick={onClick}
-        className="pr-2 has-[_[data-icon=inline-start]]:pl-3"
-      >
-        {children}
-      </Button>
-      <ButtonGroupSeparator
+      <ButtonGroup
         className={cn(
-          LIGHT_SEPARATOR_THEMES.has(theme)
-            ? 'bg-white/30'
-            : 'bg-grayscale-opacity-300',
+          splitButtonGroupVariants({ size, theme, disabled }),
         )}
-      />
-      <Button
-        variant="default"
-        theme={theme}
-        size={splitSize}
-        disabled={disabled}
-        focusableWhenDisabled={focusableWhenDisabled}
-        onClick={splitOnClick}
-        aria-label={open ? 'Collapse options' : 'Expand options'}
-        className="pl-1 pr-2"
       >
-        <ChevronIcon aria-hidden="true" data-icon="inline-end" />
-      </Button>
-    </ButtonGroup>
+        <Button
+          variant="default"
+          theme={theme}
+          size={size}
+          disabled={disabled}
+          focusableWhenDisabled={focusableWhenDisabled}
+          onClick={onClick}
+          className="pr-2 has-[_[data-icon=inline-start]]:pl-3"
+        >
+          {children}
+        </Button>
+        <ButtonGroupSeparator
+          className={cn(
+            LIGHT_SEPARATOR_THEMES.has(theme)
+              ? 'bg-white/30'
+              : 'bg-grayscale-opacity-300',
+          )}
+        />
+        <Button
+          variant="default"
+          theme={theme}
+          size={splitSize}
+          disabled={disabled}
+          focusableWhenDisabled={focusableWhenDisabled}
+          onClick={splitOnClick}
+          aria-label={open ? 'Collapse options' : 'Expand options'}
+          className="pl-1 pr-2"
+        >
+          <ChevronIcon aria-hidden="true" data-icon="inline-end" />
+        </Button>
+      </ButtonGroup>
+    </div>
   );
 }

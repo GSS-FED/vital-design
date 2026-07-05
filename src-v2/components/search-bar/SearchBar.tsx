@@ -88,6 +88,7 @@ export function SearchBar(props: SearchBarProps) {
 
   return (
     <InputGroup
+      data-slot="search-bar"
       className={cn('rounded-[20px] pl-2 pr-4', className)}
       style={{ width: width ?? '100%', ...style }}
     >

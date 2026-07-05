@@ -8,6 +8,7 @@ it('renders a loading status svg', () => {
 
   expect(spinner).toBeInTheDocument();
   expect(spinner.tagName).toBe('svg');
+  expect(spinner).toHaveAttribute('data-slot', 'spinner');
   expect(spinner).toHaveClass('size-4', 'animate-spin');
 });
 

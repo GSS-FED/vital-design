@@ -45,7 +45,11 @@ export function PasswordInput(props: PasswordInputProps) {
   const type = passwordVisible ? 'text' : 'password';
 
   return (
-    <InputGroup className={cn('w-full', className)} style={style}>
+    <InputGroup
+      data-slot="password-input"
+      className={cn('w-full', className)}
+      style={style}
+    >
       {prefix !== null && prefix !== undefined && (
         <InputGroupAddon>{prefix}</InputGroupAddon>
       )}
@@ -90,6 +94,7 @@ function VisibilityToggle({
   return (
     <button
       type="button"
+      data-slot="password-input-toggle"
       data-testid="visibility-toggle"
       disabled={disabled}
       onClick={onClick}
