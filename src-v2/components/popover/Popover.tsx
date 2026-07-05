@@ -17,7 +17,19 @@ export type PopoverTriggerProps = ComponentPropsWithoutRef<
   typeof BasePopover.Trigger
 >;
 
-const PopoverTrigger = BasePopover.Trigger;
+const PopoverTrigger = forwardRef<
+  HTMLButtonElement,
+  PopoverTriggerProps
+>(function PopoverTrigger({ className, ...props }, ref) {
+  return (
+    <BasePopover.Trigger
+      ref={ref}
+      data-slot="popover-trigger"
+      className={className}
+      {...props}
+    />
+  );
+});
 
 export type PopoverHandle<Payload = unknown> =
   BasePopover.Handle<Payload>;

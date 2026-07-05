@@ -21,7 +21,19 @@ export type DropdownMenuTriggerProps = ComponentPropsWithoutRef<
   typeof BaseMenu.Trigger
 >;
 
-const DropdownMenuTrigger = BaseMenu.Trigger;
+const DropdownMenuTrigger = forwardRef<
+  HTMLButtonElement,
+  DropdownMenuTriggerProps
+>(function DropdownMenuTrigger({ className, ...props }, ref) {
+  return (
+    <BaseMenu.Trigger
+      ref={ref}
+      data-slot="dropdown-menu-trigger"
+      className={className}
+      {...props}
+    />
+  );
+});
 
 export type DropdownMenuPortalProps = ComponentPropsWithoutRef<
   typeof BaseMenu.Portal

@@ -31,6 +31,22 @@ vi.stubGlobal('ResizeObserver', ResizeObserverMock);
 window.HTMLElement.prototype.scrollIntoView = vi.fn();
 
 describe('DropdownMenu', () => {
+  it('renders trigger with data-slot', () => {
+    render(
+      <DropdownMenu>
+        <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem>First</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>,
+    );
+
+    expect(screen.getByText('Open')).toHaveAttribute(
+      'data-slot',
+      'dropdown-menu-trigger',
+    );
+  });
+
   it('opens on trigger click and renders items', async () => {
     render(
       <DropdownMenu>

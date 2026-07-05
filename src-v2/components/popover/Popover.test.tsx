@@ -54,6 +54,10 @@ describe('Popover', () => {
   it('renders trigger and stays closed by default', () => {
     renderPopover();
 
+    expect(screen.getByText('Open')).toHaveAttribute(
+      'data-slot',
+      'popover-trigger',
+    );
     expect(screen.getByText('Open')).toBeInTheDocument();
     expect(screen.queryByText('Title')).not.toBeInTheDocument();
   });
