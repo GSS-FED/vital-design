@@ -29,7 +29,7 @@ vi.stubGlobal('ResizeObserver', ResizeObserverMock);
 window.HTMLElement.prototype.scrollIntoView = vi.fn();
 
 function renderCommand() {
-  render(
+  return render(
     <Command label="Command test" className="h-[300px] w-[194px]">
       <CommandInput placeholder="Search commands" />
       <CommandList>
@@ -48,6 +48,22 @@ function renderCommand() {
 }
 
 describe('Command', () => {
+  it('renders primitives with data-slot attributes', () => {
+    renderCommand();
+
+    expect(
+      screen.getByPlaceholderText('Search commands'),
+    ).toHaveAttribute('data-slot', 'command-input-control');
+    expect(screen.getByText('Apple')).toHaveAttribute(
+      'data-slot',
+      'command-item',
+    );
+    expect(screen.getByText('⌘S')).toHaveAttribute(
+      'data-slot',
+      'command-shortcut',
+    );
+  });
+
   it('renders the input and items', () => {
     renderCommand();
 
@@ -91,6 +107,9 @@ describe('Command', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Back' }));
 
     expect(onBack).toHaveBeenCalled();
+    expect(
+      screen.getByRole('button', { name: 'Back' }),
+    ).toHaveAttribute('data-slot', 'command-back-button');
     expect(
       screen.getByRole('progressbar', { name: /Loading/ }),
     ).toBeInTheDocument();

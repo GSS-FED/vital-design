@@ -23,6 +23,7 @@ const CommandRoot = forwardRef<
   return (
     <CommandPrimitive
       ref={ref}
+      data-slot="command"
       className={cn(
         'box-border flex w-full flex-col overflow-hidden rounded bg-white font-sans text-sm text-grayscale-opacity-800 shadow-emphasis',
         className,
@@ -48,6 +49,7 @@ const CommandInput = forwardRef<
 ) {
   return (
     <div
+      data-slot="command-input"
       className={cn(
         'mx-2 my-2 flex items-center gap-2 rounded-[4rem] border border-grayscale-opacity-300 bg-white px-3 py-1.5 text-grayscale-opacity-500 transition-colors duration-200',
         'hover:border-grayscale-opacity-500 focus-within:border-primary-500',
@@ -55,12 +57,16 @@ const CommandInput = forwardRef<
       )}
     >
       {prefix ?? (
-        <span className="flex shrink-0 items-center text-grayscale-opacity-500">
+        <span
+          data-slot="command-input-prefix"
+          className="flex shrink-0 items-center text-grayscale-opacity-500"
+        >
           <SearchIcon className="size-[13px]" />
         </span>
       )}
       <CommandPrimitive.Input
         ref={ref}
+        data-slot="command-input-control"
         className={cn(
           'flex h-5 w-full min-w-0 border-none bg-transparent p-0 text-sm font-normal leading-5 text-grayscale-opacity-800 outline-none',
           'placeholder:text-grayscale-opacity-400 disabled:cursor-not-allowed disabled:text-grayscale-opacity-500',
@@ -96,6 +102,7 @@ const CommandList = forwardRef<
   return (
     <CommandPrimitive.List
       ref={ref}
+      data-slot="command-list"
       onScroll={onScroll}
       className={cn(
         'min-h-0 overflow-auto pb-1',
@@ -119,6 +126,7 @@ const CommandEmpty = forwardRef<
   return (
     <CommandPrimitive.Empty
       ref={ref}
+      data-slot="command-empty"
       className={cn(
         'px-4 py-6 text-center text-sm text-grayscale-opacity-500',
         className,
@@ -139,6 +147,7 @@ const CommandGroup = forwardRef<
   return (
     <CommandPrimitive.Group
       ref={ref}
+      data-slot="command-group"
       className={cn(
         'overflow-hidden p-1 text-grayscale-opacity-800',
         '[&_[cmdk-group-heading]]:mb-1.5 [&_[cmdk-group-heading]]:px-2.5',
@@ -161,6 +170,7 @@ const CommandSeparator = forwardRef<
   return (
     <CommandPrimitive.Separator
       ref={ref}
+      data-slot="command-separator"
       className={cn('mx-3 h-px bg-grayscale-opacity-300', className)}
       {...props}
     />
@@ -178,6 +188,7 @@ const CommandItem = forwardRef<
   return (
     <CommandPrimitive.Item
       ref={ref}
+      data-slot="command-item"
       className={cn(
         'box-border flex cursor-default items-center gap-2 rounded px-4 py-1.5 text-sm font-normal leading-[1.43] text-grayscale-opacity-800 outline-none select-none',
         'data-[selected=true]:bg-grayscale-opacity-150',
@@ -198,6 +209,7 @@ const CommandShortcut = forwardRef<
   return (
     <span
       ref={ref}
+      data-slot="command-shortcut"
       className={cn(
         'ml-auto text-xs font-medium tracking-wide text-grayscale-opacity-500',
         className,
@@ -223,6 +235,7 @@ const CommandLoading = forwardRef<
   return (
     <CommandPrimitive.Loading
       ref={ref}
+      data-slot="command-loading"
       className={cn(
         'flex items-center justify-center px-5 py-1.5 text-grayscale-opacity-400',
         className,
@@ -243,6 +256,7 @@ const CommandHeader = forwardRef<HTMLDivElement, CommandHeaderProps>(
     return (
       <div
         ref={ref}
+        data-slot="command-header"
         className={cn('mt-1.5 px-1', className)}
         {...props}
       />
@@ -266,6 +280,7 @@ const CommandBackButton = forwardRef<
     <button
       ref={ref}
       type={type}
+      data-slot="command-back-button"
       className={cn(
         'box-border flex w-full items-center gap-1 rounded px-3 py-1.5 text-left text-xs font-medium text-grayscale-opacity-500 transition-colors duration-200',
         'hover:bg-grayscale-opacity-100',
@@ -273,10 +288,18 @@ const CommandBackButton = forwardRef<
       )}
       {...props}
     >
-      <span className="flex shrink-0 items-center">
+      <span
+        data-slot="command-back-button-icon"
+        className="flex shrink-0 items-center"
+      >
         {icon ?? <ChevronLeftIcon />}
       </span>
-      <span className="truncate">{children}</span>
+      <span
+        data-slot="command-back-button-label"
+        className="truncate"
+      >
+        {children}
+      </span>
     </button>
   );
 });
