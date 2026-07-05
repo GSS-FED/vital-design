@@ -108,6 +108,7 @@ const Slider = forwardRef(function Slider<
     >
       <BaseSlider.Root
         ref={ref}
+        data-slot="slider"
         className={mergeClassName<BaseSliderRoot.State>(
           sliderRootClasses,
           className,
@@ -129,6 +130,7 @@ const SliderControl = forwardRef<HTMLDivElement, SliderControlProps>(
     return (
       <BaseSlider.Control
         ref={ref}
+        data-slot="slider-control"
         className={mergeClassName<BaseSliderControl.State>(
           sliderControlClasses,
           className,
@@ -236,7 +238,7 @@ const SliderTrack = forwardRef<HTMLDivElement, SliderTrackProps>(
         )}
         {...props}
         render={(trackProps, state) => (
-          <div {...trackProps}>
+          <div {...trackProps} data-slot="slider-track">
             {children}
             <SliderStepDots state={state} />
           </div>
@@ -255,6 +257,7 @@ const SliderIndicator = forwardRef<
   return (
     <BaseSlider.Indicator
       ref={ref}
+      data-slot="slider-indicator"
       className={mergeClassName<BaseSliderIndicator.State>(
         sliderIndicatorClasses,
         className,
@@ -285,6 +288,7 @@ const SliderThumb = forwardRef<HTMLDivElement, SliderThumbProps>(
     return (
       <BaseSlider.Thumb
         ref={ref}
+        data-slot="slider-thumb"
         className={(state) =>
           cn(
             sliderThumbClasses,
@@ -324,6 +328,7 @@ const SliderValue = forwardRef<HTMLOutputElement, SliderValueProps>(
     return (
       <BaseSlider.Value
         ref={ref}
+        data-slot="slider-value"
         className={mergeClassName<BaseSliderValue.State>(
           sliderValueClasses,
           className,
@@ -341,6 +346,7 @@ const SliderLabel = forwardRef<HTMLDivElement, SliderLabelProps>(
     return (
       <BaseSlider.Label
         ref={ref}
+        data-slot="slider-label"
         className={mergeClassName<BaseSliderLabel.State>(
           sliderLabelClasses,
           className,
