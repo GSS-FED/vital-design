@@ -77,3 +77,70 @@ const roboto = Roboto({
   weight: ['400', '500', '700'],
 });
 ```
+
+## Style isolation with data-slot
+
+Vital Design components expose stable `data-slot` attributes on their styled DOM parts. Use these hooks to scope Tailwind utilities and custom CSS so VD styles do not leak into your app's native elements (and vice versa).
+
+This aligns with the [shadcn data-slot convention](https://ui.shadcn.com/docs/changelog): every **DOM surface** gets a predictable selector.
+
+### Naming
+
+| Part | `data-slot` value | Example element |
+| ---- | ----------------- | --------------- |
+| Root | `{component}` | `data-slot="button"` |
+| Subpart | `{component}-{part}` | `data-slot="select-trigger"` |
+
+### Scoping styles in your app
+
+**Descendant selector** — limit utilities to VD parts inside a container:
+
+```html
+<div class="[&_[data-slot=button]]:rounded-lg">
+  <Button>Save</Button>
+</div>
+```
+
+**Custom variant** (Tailwind CSS 4) — reusable scope in `globals.css`:
+
+```css
+@custom-variant vd (& [data-slot]);
+```
+
+```html
+<div class="vd:[&_[data-slot=button]]:shadow-md">
+  <Button>Save</Button>
+</div>
+```
+
+**Target a specific part**:
+
+```html
+<div class="[&_[data-slot=table-head]]:sticky [&_[data-slot=table-head]]:top-0">
+  <Table>...</Table>
+</div>
+```
+
+### Which parts get a slot?
+
+Vital Design uses a three-tier policy:
+
+| Tier | Rule | Examples |
+| ---- | ---- | -------- |
+| **Required** | Every exported part that renders a styleable DOM node | `button`, `select-trigger`, `dialog-popup` |
+| **No passthrough** | Interactive parts must be wrapped; never `const X = Base.Trigger` | `DialogTrigger` (good), `PopoverTrigger` (gap) |
+| **Exempt** | Parts with no styleable DOM output | `Provider`, state-only `Root`, bare `Portal` |
+
+`@base-ui/react` and `cmdk` do **not** ship `data-slot`. Direct re-exports have no slot until Vital Design adds a `forwardRef` wrapper. Do not expect slots on `Select` root or `ToastPortal` — scope via child parts such as `select-trigger` or `toast-content` instead.
+
+### Coverage status
+
+Last updated: 2026-07-03. Applies to `src-v2/components/` (43 folders).
+
+| Status | Components |
+| ------ | ---------- |
+| **Full** | alert, avatar, badge, breadcrumb, button, button-group, card, checkbox, chip, collapsible, combobox (incl. tags value), command, dropdown-menu, editable, field, input, number-input, item, label, password-input, popover, progress, radio-group, resizable, scroll-area, search-bar, separator, skeleton, slider, spinner, split-button, switch, table, table-of-contents, tabs, tag, textarea, time-picker, toolbar |
+| **Near-full** (root/portal passthrough only) | select, dialog, sheet, tooltip, toast, input-group, autocomplete |
+| **Partial** | calendar (month/year dropdown triggers in caption) |
+
+Tier 3 exemptions (no slot by design): `Provider`, state-only `Root`, bare `Portal` on select, dialog, dropdown-menu, popover, tooltip, toast, and autocomplete. `AutocompleteValue` / `ComboboxValue` also exempt — they render no DOM (text/children only).

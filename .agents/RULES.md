@@ -91,6 +91,52 @@ import { CheckIcon, CloseIcon } from '@/icons';
 - `Item` 是內容列 primitive（media/title/description/actions），`size="list"` 對齊 select/list row 密度。不要把資料載入、搜尋、選取狀態塞進 `Item`；picker 用 `Select` / `Combobox` / `Cascader`，action menu 用 `DropdownMenu`。
 - `Separator` 是共用分隔線 primitive。新 `src-v2` 元件不要再手寫 `div role="separator"`。
 
+## data-slot 合約
+
+對齊 shadcn 慣例，供消費端以 `data-slot` 隔離 Vital Design 元件樣式，避免 Tailwind 影響 app 既有 markup。
+
+### 命名
+
+- Root：`data-slot="{component}"`（例：`button`、`card`）
+- Subpart：`data-slot="{component}-{part}"`（例：`select-trigger`、`dialog-popup`）
+- 透過 Base UI `useRender` 的 part 使用 `state.slot`（例：`breadcrumb-link`、`item`）
+
+### Tier 1 — 必須有 slot（強制）
+
+- 每個 **exported、會 render 可樣式化 DOM** 的 part：trigger、content、item、backdrop、input、label 等
+- Compound 元件的每個 public styled part（參考 `Button`、`Select`、`Field`）
+- Preset wrapper（`SearchBar`、`PasswordInput`、`SplitButton`、`Spinner`）建議有 root slot（例：`search-bar`）；至少確保子 primitive 的 slot 可用
+
+### Tier 2 — 禁止 passthrough
+
+- **Trigger 等互動 part 不得** `const FooTrigger = Base.Trigger`；須 `forwardRef` wrapper 並加 `data-slot`（參考 `DialogTrigger`、`SelectTrigger`）
+- `@base-ui/react` 與 `cmdk` **不內建** `data-slot`；直接 re-export 不會自帶 slot
+- 待修範例：`DropdownMenuTrigger`、`PopoverTrigger`（應對齊 `DialogTrigger`）
+
+### Tier 3 — 可豁免
+
+僅當 part **不產生可樣式化 DOM** 時可省略 slot：
+
+- `Provider`（`TooltipProvider`、`ToastProvider`）
+- 純 state `Root`（`Select`、`DropdownMenu` root — context only）
+- `Portal` 僅轉發子樹、不增加包裝元素時（`ToastPortal`、`DialogPortal`）
+
+**不應豁免**：有自訂 `className`、出現在 UI 樹中、或消費端可能單獨套樣式的節點。
+
+### 命名注意
+
+- `FieldTitle` 應使用 `field-title`，不可重用 `field-label`
+- `InputGroupButton` 沿用子元件 `button` slot 可接受
+
+### 樣式撰寫
+
+- 元件內部 targeting 子元素用 `[&_[data-slot=part-name]]`，不用 `[role=…]` 或 tag selector 鎖定可變 markup
+
+### 參考
+
+- 消費端隔離用法：docs `getting-started/tailwind-setup` → Style isolation with data-slot
+- 實作 checklist：`build-shadcn-ui` skill
+
 ## Registry 規範
 
 ### 依賴宣告

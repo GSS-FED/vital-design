@@ -32,6 +32,7 @@ allowed-tools: Read, Write, Edit, Bash
 
    - Props 類型直接 inline 定義（`export type ComponentNameProps = {...}`）
    - 不新增 component-level `types.ts`；跨檔案共用型別時從元件 `.tsx` import type
+   - 每個 exported styled DOM part 加 `data-slot`（root：`badge`；subpart：`badge-icon`）。參考 `Button.tsx`、`Select.tsx`；Base UI passthrough 需 wrapper
 
 5. **建立 ComponentName.test.tsx** — 測試
 
@@ -52,6 +53,7 @@ allowed-tools: Read, Write, Edit, Bash
 - 顏色使用設計系統 token（`text-grayscale-opacity-900`, `bg-primary-500` 等）
 - 不要加 `theme` prop；主題透過 CSS variables 統一處理
 - 類型使用 `import type` 語法
+- 會 render DOM 的 exported part 需有 `data-slot`；Trigger 禁止 passthrough（見 `.agents/RULES.md` 三層合約）
 
 ## 參考範本
 

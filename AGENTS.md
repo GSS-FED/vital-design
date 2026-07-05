@@ -144,6 +144,8 @@ pnpm docs:start            # 啟動生產環境文件站
 
 詳細開發規範見 `.agents/RULES.md`
 
+本機額外規則（若存在）：`.agents/local/RULES.local.md`（gitignore，不進 repo）
+
 ## Known Gotchas
 
 - **Icon 系統**：icon 真實 source 是 `src-v2/icons/_source/*.svg`，分 `custom/` 與 `fontawesome/` 兩個 folder（FA 限 Free CC BY 4.0，附 `CREDITS.md`）。`.tsx` 由 `pnpm run icons:build`（SVGR）產生，**不要手改**——改 SVG 然後重跑。所有 icon API 統一為 `SVGProps<SVGSVGElement>`，預設 `width="1em" height="1em" fill="currentColor" aria-hidden="true"`：尺寸用 Tailwind `size-N`（或父層 `text-N` 經 `1em` 繼承），顏色用 `text-*` utility，**禁止 `color` / `opacity` / `fillOpacity` props**。需要動畫的 spinner 用 `<Spinner />` wrapper（含 `animate-spin` 與 `role="status"`），不要直接用 `SpinnerIcon`。每個 icon 各自一個檔案、各自一個 registry item（含 chevron 6 個方向），import 走精確路徑（例：`@/icons/ChevronDownIcon`），不使用 barrel。
@@ -166,6 +168,7 @@ pnpm docs:start            # 啟動生產環境文件站
 - **Primitive 選型**：`src-v2/` 新增或重構元件若需要 headless primitive，預設使用 `@base-ui/react`；目前 package build 入口仍是 `src/index.tsx`，docs 與 registry 內容則以 `src-v2/` 為主
 - **src-v2-only 套件位置**：僅供 `src-v2/`、docs、registry 或 stories 使用的套件，根目錄 `package.json` 請維持在 `devDependencies`，避免 legacy npm package 對外安裝額外 runtime dependency；registry 安裝所需套件則由 `registry/*.ts` 的 `dependencies` 個別宣告
 - **src-v2/styles 邊界**：`src-v2/styles/` 是 registry / docs 內部使用的 theme 資產，不是 npm package 的公開匯出；不要在 `package.json` exports 中暴露它
+- **data-slot**：三層合約 — (1) 會 render 可樣式化 DOM 的 exported part 必須有 slot；(2) Trigger 禁止 passthrough，須 wrapper（`DialogTrigger` 為範本）；(3) 僅 Provider / 純 state Root / bare Portal 可豁免。命名：root `button`、subpart `select-trigger`。詳見 `.agents/RULES.md` 與 docs Tailwind setup。
 
 ## Registry
 

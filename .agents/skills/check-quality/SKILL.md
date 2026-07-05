@@ -59,6 +59,7 @@ allowed-tools: Read, Write, Edit, Bash
    - `AGENTS.md` Tech Stack 是否包含文件站的 Fumadocs / Next.js / rehype-pretty-code
    - `AGENTS.md` AI Commands / AI Skills 是否與 `.agents/commands/`、`.agents/skills/` 一致
    - slash command surface 是否固定為 `/new-component`、`/add-registry`、`/add-docs`、`/create-block`、`/check-quality`
+   - `data-slot` 合約是否與 `.agents/RULES.md`、docs `tailwind-setup` Style isolation 章節一致
 
 ## 輸出報告格式
 

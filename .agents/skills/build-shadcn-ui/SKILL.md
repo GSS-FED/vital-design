@@ -26,7 +26,9 @@ Build Vital Design components as registry-ready primitives first. Prefer thin, c
 
 4. Build compound parts.
    - Export the root and each public part with named exports.
-   - Add stable `data-slot` hooks: `select-trigger`, `combobox-item`, `cascader-content`, etc.
+   - Add stable `data-slot` on every exported DOM surface: `select-trigger`, `combobox-item`, etc.
+   - Never passthrough triggers (`const X = Base.Trigger`); wrap like `DialogTrigger`.
+   - Provider / state Root / bare Portal may omit slot (see `.agents/RULES.md` Tier 3).
    - Style descendants through `data-slot`, not role selectors.
    - Keep semantic/native elements: clickable controls are buttons; layout text stays spans/divs.
 
@@ -52,7 +54,7 @@ Build Vital Design components as registry-ready primitives first. Prefer thin, c
 ## Review Checklist
 
 - API follows Base UI prop forwarding where possible.
-- Compound parts have stable `data-slot` names.
+- Exported DOM surfaces have stable `data-slot` names; triggers are wrapped, not passthrough.
 - Class selectors do not depend on roles that can change.
 - Search/open/value state has a single owner.
 - Keyboard behavior has tests for open, close, back, clear, selection, and disabled/error states.

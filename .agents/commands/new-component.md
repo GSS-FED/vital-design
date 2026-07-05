@@ -24,6 +24,7 @@
    - 遵循 import 順序規範
    - Icon 使用完整路徑（例：`@/icons/SearchIcon`），禁止 barrel import
    - 不新增 component-level `types.ts`；跨檔案共用型別時從元件 `.tsx` import type
+   - 每個 exported styled DOM part 加 `data-slot`（見 `.agents/RULES.md`）
 
 3. **建立 ComponentName.test.tsx**
 
