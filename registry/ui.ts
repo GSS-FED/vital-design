@@ -1,0 +1,917 @@
+import type { VitalRegistryItem } from './types';
+
+export const ui = [
+  {
+    name: 'alert',
+    type: 'registry:ui',
+    title: 'Alert',
+    description:
+      'Composable alert component with title, description, and action slots',
+    dependencies: ['clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/alert/Alert.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'avatar',
+    type: 'registry:ui',
+    title: 'Avatar',
+    description:
+      'Avatar component with image, fallback, and multiple color variants',
+    dependencies: [
+      '@base-ui/react',
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-disabled',
+      '@vital-design/icon-user',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/avatar/Avatar.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'button',
+    type: 'registry:ui',
+    title: 'Button',
+    description:
+      'Button component with default, text, and ghost variants, multiple themes and sizes',
+    dependencies: [
+      '@base-ui/react',
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/button/Button.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'button-group',
+    type: 'registry:ui',
+    title: 'Button Group',
+    description: 'Composable button group layout primitive',
+    dependencies: [
+      '@base-ui/react',
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/separator',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/button/button-group/ButtonGroup.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'split-button',
+    type: 'registry:ui',
+    title: 'Split Button',
+    description:
+      'Split button component with main action and dropdown trigger',
+    dependencies: ['clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/button',
+      '@vital-design/button-group',
+      '@vital-design/icon-chevron-down',
+      '@vital-design/icon-chevron-up',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/button/split-button/SplitButton.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'checkbox',
+    type: 'registry:ui',
+    title: 'Checkbox',
+    description:
+      'Checkbox component with indeterminate state support',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-check',
+      '@vital-design/icon-minus',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/checkbox/Checkbox.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'chip',
+    type: 'registry:ui',
+    title: 'Chip',
+    description: 'Chip component for selection and filtering',
+    dependencies: [
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-close',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/chip/Chip.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'radio-group',
+    type: 'registry:ui',
+    title: 'Radio Group',
+    description: 'Composable radio group component',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/radio-group/RadioGroup.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'field',
+    type: 'registry:ui',
+    title: 'Field',
+    description:
+      'Composable form field layout with labels, descriptions, errors, and groups',
+    dependencies: [
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/label',
+      '@vital-design/separator',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/field/Field.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'label',
+    type: 'registry:ui',
+    title: 'Label',
+    description: 'Accessible label associated with form controls',
+    dependencies: ['clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/label/Label.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'switch',
+    type: 'registry:ui',
+    title: 'Switch',
+    description: 'Toggle switch component with on/off labels',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/switch/Switch.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'tag',
+    type: 'registry:ui',
+    title: 'Tag',
+    description:
+      'Tag component with multiple colors, variants, and removable option',
+    dependencies: [
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/tag/Tag.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'skeleton',
+    type: 'registry:ui',
+    title: 'Skeleton',
+    description: 'Loading placeholder with pulse animation',
+    dependencies: ['clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/skeleton/Skeleton.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'spinner',
+    type: 'registry:ui',
+    title: 'Spinner',
+    description: 'Loading indicator with accessible status text',
+    dependencies: ['clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-spinner',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/spinner/Spinner.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'progress',
+    type: 'registry:ui',
+    title: 'Progress',
+    description:
+      'Progress primitives and segmented status indicators styled with VD tokens',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/progress/Progress.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'search-bar',
+    type: 'registry:ui',
+    title: 'Search Bar',
+    description: 'Search input with icon and enter key support',
+    dependencies: [
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/input-group',
+      '@vital-design/icon-search',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/search-bar/SearchBar.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'input-group',
+    type: 'registry:ui',
+    title: 'Input Group',
+    description: 'Composable input group with addons and actions',
+    dependencies: [
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/button',
+      '@vital-design/input',
+      '@vital-design/textarea',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/input/input-group/InputGroup.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'input',
+    type: 'registry:ui',
+    title: 'Input',
+    description: 'Single-line input primitive',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/input/input/Input.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'editable',
+    type: 'registry:ui',
+    title: 'Editable',
+    description:
+      'Inline editable text field with display, input, and textarea parts',
+    dependencies: ['clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/input',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/editable/Editable.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'textarea',
+    type: 'registry:ui',
+    title: 'Textarea',
+    description: 'Multiline text input component',
+    dependencies: ['clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/textarea/Textarea.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'password-input',
+    type: 'registry:ui',
+    title: 'Password Input',
+    description: 'Password input with visibility toggle',
+    dependencies: ['clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/input-group',
+      '@vital-design/icon-eye',
+      '@vital-design/icon-eye-slash',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/input/password-input/PasswordInput.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'item',
+    type: 'registry:ui',
+    title: 'Item',
+    description:
+      'Content row with media, title, description, and actions',
+    dependencies: [
+      '@base-ui/react',
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/separator',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/item/Item.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'separator',
+    type: 'registry:ui',
+    title: 'Separator',
+    description: 'Horizontal or vertical divider',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/separator/Separator.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'scroll-area',
+    type: 'registry:ui',
+    title: 'Scroll Area',
+    description:
+      'Scrollable viewport with optional edge fade and custom scrollbars',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/scroll-area/ScrollArea.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'select',
+    type: 'registry:ui',
+    title: 'Select',
+    description: 'Single and multiple dropdown for flat option lists',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-check',
+      '@vital-design/icon-chevron-down',
+      '@vital-design/icon-chevron-up',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/select/Select.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'autocomplete',
+    type: 'registry:ui',
+    title: 'Autocomplete',
+    description:
+      'Free-form text input with filtered suggestions and optional inline completion',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-chevron-down',
+      '@vital-design/icon-chevron-up',
+      '@vital-design/icon-clear',
+      '@vital-design/icon-search',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/autocomplete/Autocomplete.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'combobox',
+    type: 'registry:ui',
+    title: 'Combobox',
+    description: 'Searchable input picker with chip selection',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-check',
+      '@vital-design/icon-chevron-down',
+      '@vital-design/icon-chevron-up',
+      '@vital-design/icon-clear',
+      '@vital-design/icon-close',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/combobox/Combobox.tsx',
+        type: 'registry:ui',
+      },
+      {
+        path: 'src-v2/components/combobox/ComboboxTagsValue.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'command',
+    type: 'registry:ui',
+    title: 'Command',
+    description:
+      'Composable command palette primitive with input, list, and items',
+    dependencies: ['cmdk', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-chevron-left',
+      '@vital-design/icon-search',
+      '@vital-design/spinner',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/command/Command.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'popover',
+    type: 'registry:ui',
+    title: 'Popover',
+    description:
+      'Floating panel anchored to a trigger; for tooltips with rich content, profile cards, and contextual overlays',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/popover/Popover.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'tooltip',
+    type: 'registry:ui',
+    title: 'Tooltip',
+    description:
+      'Composable tooltip primitive with provider, trigger, content, and arrow parts',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/tooltip/Tooltip.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'toast',
+    type: 'registry:ui',
+    title: 'Toast',
+    description:
+      'Toast primitives plus a Vital-styled Toaster preset for app notifications',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-close',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/toast/Toast.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'dropdown-menu',
+    type: 'registry:ui',
+    title: 'Dropdown Menu',
+    description:
+      'Action menu with checkbox items, radio items, and submenus',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-check',
+      '@vital-design/icon-chevron-right',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/dropdown-menu/DropdownMenu.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'dialog',
+    type: 'registry:ui',
+    title: 'Dialog',
+    description:
+      'Accessible modal dialog with composed trigger, overlay, popup, header, body, and footer parts',
+    dependencies: [
+      '@base-ui/react',
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-close',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/dialog/Dialog.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'slider',
+    type: 'registry:ui',
+    title: 'Slider',
+    description:
+      'Simple slider component built on Base UI primitives',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/slider/Slider.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'table',
+    type: 'registry:ui',
+    title: 'Table',
+    description:
+      'Semantic table primitives (Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell, TableCaption) styled with VD tokens',
+    dependencies: ['clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/table/Table.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'tabs',
+    type: 'registry:ui',
+    title: 'Tabs',
+    description:
+      'Composable tabs primitive with underline and pill variants plus optional bordered underline list',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/tabs/Tabs.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'toolbar',
+    type: 'registry:ui',
+    title: 'Toolbar',
+    description:
+      'Flex layout primitive with role="toolbar" plus ToolbarGroup, ToolbarSpacer, and ToolbarSeparator parts',
+    dependencies: [
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/separator',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/toolbar/Toolbar.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'calendar',
+    type: 'registry:ui',
+    title: 'Calendar',
+    description:
+      'Date picker calendar built on react-day-picker; supports single, range, and multi-select modes plus full classNames/components overrides',
+    dependencies: [
+      'react-day-picker',
+      'date-fns',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/popover',
+      '@vital-design/icon-chevron-double-left',
+      '@vital-design/icon-chevron-double-right',
+      '@vital-design/icon-chevron-down',
+      '@vital-design/icon-chevron-left',
+      '@vital-design/icon-chevron-right',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/calendar/Calendar.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'time-picker',
+    type: 'registry:ui',
+    title: 'Time Picker',
+    description:
+      'Three-column time picker (hours, minutes, seconds) with click-to-select and CSS scroll-snap',
+    dependencies: ['clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/time-picker/TimePicker.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'collapsible',
+    type: 'registry:ui',
+    title: 'Collapsible',
+    description:
+      'Expand and collapse a panel with a trigger button; built on Base UI primitives',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/collapsible/Collapsible.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'sheet',
+    type: 'registry:ui',
+    title: 'Sheet',
+    description:
+      'Side-anchored dialog that slides in from any edge; modal by default, supports docked panel mode via `modal={false}`',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-close',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/sheet/Sheet.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'badge',
+    type: 'registry:ui',
+    title: 'Badge',
+    description:
+      'Status indicator badge with primary, success, warning, destructive, and info variants',
+    dependencies: [
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/badge/Badge.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'card',
+    type: 'registry:ui',
+    title: 'Card',
+    description:
+      'Composable card primitive with header, title, description, action, content, and footer parts',
+    dependencies: ['clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/card/Card.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'number-input',
+    type: 'registry:ui',
+    title: 'Number Input',
+    description:
+      'Numeric input with increment/decrement steppers and scrub area',
+    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-chevron-down',
+      '@vital-design/icon-chevron-up',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/input/number-input/NumberInput.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
+    name: 'resizable',
+    type: 'registry:ui',
+    title: 'Resizable',
+    description:
+      'Accessible resizable panel group backed by react-resizable-panels',
+    dependencies: [
+      'clsx',
+      'react-resizable-panels',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/resizable/Resizable.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+] satisfies VitalRegistryItem[];

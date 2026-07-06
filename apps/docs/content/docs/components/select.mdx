@@ -1,0 +1,161 @@
+---
+title: Select
+description: A dropdown for choosing one or many options from a flat list.
+---
+
+import {
+  SelectMultiplePreview,
+  SelectPreview,
+} from '~/components/previews/SelectPreview';
+
+## Preview
+
+<SelectPreview />
+
+## Usage
+
+`Select` is a thin styled wrapper around Base UI Select. The root is `BaseSelect.Root`; layout belongs to the parent wrapper.
+
+Use `Select` for flat value picking. If the trigger needs custom visuals, keep `Select` as the root and customize `SelectTrigger`; do not move the picker into `DropdownMenu`.
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectItemCheck,
+  SelectItemText,
+  SelectTrigger,
+} from '@/components/ui/Select';
+
+const items = [
+  { label: 'Option 1', value: '1' },
+  { label: 'Option 2', value: '2' },
+  { label: 'Option 3', value: '3' },
+];
+
+const [value, setValue] = useState<string | null>(null);
+
+<div className="w-50">
+  <Select items={items} value={value} onValueChange={setValue}>
+    <SelectTrigger placeholder="Select an option" />
+    <SelectContent>
+      {items.map((item) => (
+        <SelectItem key={item.value} value={item.value}>
+          <SelectItemText>{item.label}</SelectItemText>
+          <SelectItemCheck />
+        </SelectItem>
+      ))}
+    </SelectContent>
+  </Select>
+</div>;
+```
+
+## Multiple
+
+<SelectMultiplePreview />
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectItemCheckbox,
+  SelectItemText,
+  SelectTrigger,
+} from '@/components/ui/Select';
+
+const [value, setValue] = useState<string[]>([]);
+
+<div className="w-60">
+  <Select
+    multiple
+    items={items}
+    value={value}
+    onValueChange={setValue}
+  >
+    <SelectTrigger placeholder="Select options" />
+    <SelectContent>
+      {items.map((item) => (
+        <SelectItem key={item.value} value={item.value}>
+          <SelectItemCheckbox />
+          <SelectItemText>{item.label}</SelectItemText>
+        </SelectItem>
+      ))}
+    </SelectContent>
+  </Select>
+</div>;
+```
+
+Use `Combobox` for searchable pickers, autocomplete, or removable chip values.
+
+## When to Choose What
+
+| Need                                 | Use            |
+| ------------------------------------ | -------------- |
+| Flat single or multiple value picker | `Select`       |
+| Searchable picker or tag picker      | `Combobox`     |
+| Hierarchical path picker             | `Command` + `Popover` |
+| Command menu with callbacks          | `DropdownMenu` |
+
+## Exports
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectItemCheck,
+  SelectItemCheckbox,
+  SelectItemText,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/Select';
+```
+
+## With Grouped Items
+
+```tsx
+<SelectContent>
+  <SelectGroup>
+    <SelectLabel>Fruits</SelectLabel>
+    <SelectItem value="apple">
+      <SelectItemText>Apple</SelectItemText>
+      <SelectItemCheck />
+    </SelectItem>
+  </SelectGroup>
+  <SelectSeparator />
+  <SelectGroup>
+    <SelectLabel>Vegetables</SelectLabel>
+    <SelectItem value="carrot">
+      <SelectItemText>Carrot</SelectItemText>
+      <SelectItemCheck />
+    </SelectItem>
+  </SelectGroup>
+</SelectContent>
+```
+
+## Props
+
+`Select` accepts Base UI `Select.Root` props. Pass `items` when you want `SelectValue` to render labels instead of raw values.
+
+### SelectTrigger
+
+| Prop          | Type        | Default | Description                               |
+| ------------- | ----------- | ------- | ----------------------------------------- |
+| `placeholder` | `ReactNode` | `''`    | Placeholder text when nothing is selected |
+
+### SelectItem
+
+| Prop       | Type               | Default | Description        |
+| ---------- | ------------------ | ------- | ------------------ |
+| `value`    | `string \| number` | —       | Item value         |
+| `children` | `ReactNode`        | —       | Item content       |
+| `disabled` | `boolean`          | `false` | Disables this item |
+
+Use `<SelectItemText>`, `<SelectItemCheck>`, and `<SelectItemCheckbox>` inside items for the visual affordance you need.

@@ -1,0 +1,352 @@
+---
+title: Migration Guide v0 to v1
+description: Move from the legacy npm package surface to the registry-backed src-v2 components.
+---
+
+## What Changes
+
+v0 means the published `@fed/vital-design` package built from `src/`.
+v1 means registry-installed components built from `src-v2/`.
+
+The main change is ownership:
+
+- v0: import components from `@fed/vital-design`
+- v1: install components with the Vital Design registry, then import the copied files from your app
+
+```tsx
+// v0
+import { Button, Select } from '@fed/vital-design';
+
+// v1
+import { Button } from '@/components/ui/Button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectTrigger,
+} from '@/components/ui/Select';
+```
+
+Use v1 for new work. Keep v0 only while migrating existing screens.
+
+## Before You Start
+
+1. Add the registry config from [Installation](/docs/getting-started/installation).
+2. Complete [Tailwind CSS Setup](/docs/getting-started/tailwind-setup).
+3. Migrate one screen at a time.
+4. Remove `@fed/vital-design` and `styled-components` only after no v0 imports remain.
+
+## Install Pattern
+
+Install the component you need:
+
+```bash
+npx shadcn@latest add @vital-design/button
+```
+
+If the internal certificate blocks the install:
+
+```bash
+NODE_TLS_REJECT_UNAUTHORIZED=0 npx shadcn@latest add @vital-design/button
+```
+
+After install, import from the local path created by your `components.json`.
+Examples in these docs use `@/components/ui/*`.
+
+## Component Mapping
+
+The v0 package barrel exports `Avatar`, `Button`, `Checkbox`, `Chip`,
+`RadioGroup`, `SearchBar`, `Select`, `SplitButton`, `Switch`, `Tag`,
+and `TreeSelect`. `ActionList` and `ActionInfiniteList` are no longer
+exposed from v0 — see the rows below for the v1 replacements. Other
+rows cover legacy source files with v1 registry equivalents.
+
+| v0 component or source       | v0 source file                                         | v1 registry item                                  | v1 source file                                                                    | Notes                                                                                                                                                                                              |
+| ---------------------------- | ------------------------------------------------------ | ------------------------------------------------- | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Avatar`                     | `src/components/avatar/Avatar.tsx`                     | `@vital-design/avatar`                            | `src-v2/components/avatar/Avatar.tsx`                                             | Same role                                                                                                                                                                                          |
+| `Button`                     | `src/components/button/Button.tsx`                     | `@vital-design/button`                            | `src-v2/components/button/Button.tsx`                                             | Icon and loading API changed                                                                                                                                                                       |
+| `SplitButton`                | `src/components/button/split-button/SplitButton.tsx`   | `@vital-design/split-button`                      | `src-v2/components/button/split-button/SplitButton.tsx`                           | Uses `ButtonGroup` internally                                                                                                                                                                      |
+| `Checkbox`                   | `src/components/checkbox/Checkbox.tsx`                 | `@vital-design/checkbox`                          | `src-v2/components/checkbox/Checkbox.tsx`                                         | Same role                                                                                                                                                                                          |
+| `Chip`                       | `src/components/chip/Chip.tsx`                         | `@vital-design/chip`                              | `src-v2/components/chip/Chip.tsx`                                                 | Same role                                                                                                                                                                                          |
+| `RadioGroup`                 | `src/components/radio-group/RadioGroup.tsx`            | `@vital-design/radio-group`                       | `src-v2/components/radio-group/RadioGroup.tsx`                                    | Same role                                                                                                                                                                                          |
+| `SearchBar`                  | `src/components/search-bar/SearchBar.tsx`              | `@vital-design/search-bar`                        | `src-v2/components/search-bar/SearchBar.tsx`                                      | Built on `InputGroup`                                                                                                                                                                              |
+| `Select`                     | `src/components/select/Select.tsx`                     | `@vital-design/select`                            | `src-v2/components/select/Select.tsx`                                             | Flat single or multiple dropdown                                                                                                                                                                   |
+| `Switch`                     | `src/components/switch/Switch.tsx`                     | `@vital-design/switch`                            | `src-v2/components/switch/Switch.tsx`                                             | Same role                                                                                                                                                                                          |
+| `Tag`                        | `src/components/tag/Tag.tsx`                           | `@vital-design/tag`                               | `src-v2/components/tag/Tag.tsx`                                                   | Same role                                                                                                                                                                                          |
+| `TextInput`                  | `src/components/input/textInput/TextInput.tsx`         | `@vital-design/input`                             | `src-v2/components/input/input/Input.tsx`                                         | Use `Input`; use `InputGroup` for addons; prefer Base UI `onValueChange` for value-style callers                                                                                                   |
+| `TextareaInput` → `Textarea` | `src/components/input/textareaInput/TextareaInput.tsx` | `@vital-design/textarea`                          | `src-v2/components/textarea/Textarea.tsx`                                         | Native textarea primitive; use `InputGroupTextarea` only for custom input shells                                                                                                                   |
+| `PasswordInput`              | `src/components/input/passwordInput/PasswordInput.tsx` | `@vital-design/password-input`                    | `src-v2/components/input/password-input/PasswordInput.tsx`                        | Built on `InputGroup`                                                                                                                                                                              |
+| `Mask`                       | `src/components/mask/Mask.tsx`                         | `@vital-design/scroll-area`                       | `src-v2/components/scroll-area/ScrollArea.tsx`                                    | No direct wrapper replacement; compose `ScrollArea` when a viewport needs edge fade                                                                                                                |
+| `ActionList`                 | (removed)                                              | Pick by intent — see notes                        | —                                                                                 | Action menu → `@vital-design/dropdown-menu`; value picker → `@vital-design/combobox`; hierarchical picker → `@vital-design/command` + `@vital-design/popover`; display rows → `@vital-design/item` |
+| `ActionInfiniteList`         | (removed)                                              | Pick by intent — see notes                        | —                                                                                 | Same as `ActionList`; own loading and paging in app                                                                                                                                                |
+| `TreeSelect`                 | `src/components/tree-select/TreeSelect.tsx`            | `@vital-design/command` + `@vital-design/popover` | `src-v2/components/command/Command.tsx` + `src-v2/components/popover/Popover.tsx` | Build hierarchical path pickers as a recipe; the screen owns page stack, search, loading, and selected path                                                                                        |
+
+## New v1-Only Components
+
+These components do not exist in the v0 npm package:
+
+| Component     | Registry item                | Use when                            |
+| ------------- | ---------------------------- | ----------------------------------- |
+| `ButtonGroup` | `@vital-design/button-group` | Group buttons or split button parts |
+| `Input`       | `@vital-design/input`        | Single-line text fields             |
+| `InputGroup`  | `@vital-design/input-group`  | Build custom input shells           |
+| `Item`        | `@vital-design/item`         | Display rows with media and actions |
+| `Label`       | `@vital-design/label`        | Form control labels                 |
+| `Combobox`    | `@vital-design/combobox`     | Searchable picker or tag picker     |
+| `Skeleton`    | `@vital-design/skeleton`     | Loading placeholder                 |
+| `Spinner`     | `@vital-design/spinner`      | Loading indicator                   |
+
+## Picker Choice
+
+Use the new picker split:
+
+| Need                                            | v1 component                                              |
+| ----------------------------------------------- | --------------------------------------------------------- |
+| Flat single or multiple value picker            | `Select`                                                  |
+| Searchable value picker, autocomplete, or chips | `Combobox`                                                |
+| Hierarchical path picker                        | `Command` + `Popover` recipe                              |
+| Action menu where each item fires a callback    | `DropdownMenu`                                            |
+| Display row list                                | `Item` + `ItemGroup` (`size="list"` for picker-like rows) |
+| Command panel                                   | `Command`                                                 |
+
+`Command` is shipped as a public primitive (`@vital-design/command`) for command palettes, custom searchable popups, and paged hierarchical pickers.
+
+Changing the trigger appearance does not change the component choice. Keep `Select` and `Combobox` as their own roots; build hierarchical path pickers from `Popover` + `Command`.
+
+Do not wrap `Select`, `Combobox`, or custom `Command` pickers inside `DropdownMenu` to get a button trigger. Use `DropdownMenu` only when the popup rows are commands rather than a bound value.
+
+## Code Changes
+
+### Imports
+
+Replace package imports with local imports:
+
+```tsx
+// v0
+import { SearchBar } from '@fed/vital-design';
+
+// v1
+import { SearchBar } from '@/components/ui/SearchBar';
+```
+
+Compound components use named exports:
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectTrigger,
+} from '@/components/ui/Select';
+```
+
+### Button
+
+Button no longer owns icons or loading state. Move icons and spinners into `children`, and mark them with `data-icon="inline-start"` or `data-icon="inline-end"`.
+
+```tsx
+// v0
+import { Button } from '@fed/vital-design';
+import { SearchIcon } from './icons/SearchIcon';
+
+<Button icon={<SearchIcon />} iconPlacement="left">
+  Search
+</Button>;
+
+// v1
+import { Button } from '@/components/ui/Button';
+import { SearchIcon } from '@/components/icons/SearchIcon';
+
+<Button>
+  <SearchIcon data-icon="inline-start" />
+  Search
+</Button>;
+```
+
+Replace `isLoading` with an explicit disabled button plus `Spinner`.
+Install `@vital-design/spinner` if your app needs the shared spinner.
+
+```tsx
+// v0
+import { Button } from '@fed/vital-design';
+
+<Button isLoading>Saving</Button>
+
+// v1
+import { Button } from '@/components/ui/Button';
+import { Spinner } from '@/components/ui/Spinner';
+
+<Button disabled>
+  <Spinner data-icon="inline-start" />
+  Saving
+</Button>
+```
+
+Icon-only buttons now use size variants instead of empty children or icon props:
+
+```tsx
+<Button size="icon-md" aria-label="Search">
+  <SearchIcon data-icon="inline-start" />
+</Button>
+
+<Button size="icon-lg" aria-label="Search">
+  <SearchIcon data-icon="inline-start" />
+</Button>
+```
+
+Keep `size="md"` or `size="lg"` for buttons with labels. For filled label buttons, v1 keeps the v0 spacing contract: the icon side is 12px, and the non-icon side is 16px.
+If you used earlier v1 draft size names, rename `medium` to `md`, `large` to `lg`, `icon-medium` to `icon-md`, and `icon-large` to `icon-lg`.
+
+The `variant` prop renamed `filled` to `default`. The new `ghost` variant is a transparent button with hover background — use it inside popovers, toolbars, and split-button menus (it backs the Popup Button pattern).
+
+```tsx
+// v0 / earlier v1 draft
+<Button variant="filled" theme="primary">Save</Button>
+
+// v1
+<Button variant="default" theme="primary">Save</Button>
+
+// New ghost variant
+<Button variant="ghost" theme="primary">Open</Button>
+```
+
+The `theme` enum keeps `alarm` (filled red) and `dangerous` (white surface with red text) as distinct intents — `alarm` is only available on `variant="default"`. The `dangerous` theme renders bordered at `size="md"` and shadow-elevated at `size="lg"`, mirroring the Figma "Outlined" guideline.
+
+### Text input value changes
+
+`Input` is built on Base UI's input primitive. For controlled value
+updates, prefer `onValueChange`; keep native `onChange` only when the
+caller needs the DOM change event.
+
+```tsx
+// v0
+<TextInput value={name} onChange={(event) => setName(event.target.value)} />
+
+// v1
+<Input value={name} onValueChange={setName} />
+```
+
+### Invalid form controls
+
+V1-only `isError` props are removed from v2 form controls. Use `aria-invalid` on the actual control instead.
+
+```tsx
+// v0
+<Input isError />
+<InputGroup isError>
+  <InputGroupInput />
+</InputGroup>
+<PasswordInput isError value={password} onChange={setPassword} />
+
+// v1
+<Input aria-invalid />
+<InputGroup>
+  <InputGroupInput aria-invalid />
+</InputGroup>
+<PasswordInput
+  aria-invalid
+  value={password}
+  onChange={setPassword}
+/>
+```
+
+When using `Field`, set invalid state on both the field wrapper and the control: `Field data-invalid` handles label/help text styling, while `aria-invalid` on the actual control handles control semantics and the visible border.
+
+### Switch
+
+Switch now follows the Base UI callback name. Replace `onChange` with `onCheckedChange`; root props such as `defaultChecked`, `name`, `value`, `disabled`, and `aria-invalid` pass through.
+
+```tsx
+// v0
+import { Switch } from '@fed/vital-design';
+
+<Switch checked={enabled} onChange={setEnabled} />;
+
+// v1
+import { Switch } from '@/components/ui/Switch';
+
+<Switch checked={enabled} onCheckedChange={setEnabled} />;
+```
+
+### Label
+
+Install `@vital-design/label` when a migrated screen has standalone text associated with a form control.
+
+```tsx
+// v1
+import { Input } from '@/components/ui/Input';
+import { Label } from '@/components/ui/Label';
+
+<div className="flex flex-col gap-2">
+  <Label htmlFor="email">Email</Label>
+  <Input id="email" placeholder="name@example.com" />
+</div>;
+```
+
+Use `Label` for visible field labels that point at `Input`, `InputGroupInput`, `Textarea`, or `PasswordInput` with `htmlFor`.
+
+Do not hide low-level label composition inside primitives:
+
+- `Checkbox` and `RadioGroupItem` are control primitives. Pair them with `Label htmlFor` at the callsite.
+- `InputGroupAddon` is presentational. Use `Label htmlFor` outside the group when the field has visible label text.
+
+Current v2 label audit:
+
+| Location                                                                         | Migrate to `Label`? | Notes                                                     |
+| -------------------------------------------------------------------------------- | ------------------- | --------------------------------------------------------- |
+| `src-v2/components/label/Label.tsx`                                              | No                  | The primitive implementation                              |
+| `src-v2/components/checkbox/Checkbox.tsx`                                        | Yes                 | Pair with `Label htmlFor` at callsites                    |
+| `src-v2/components/radio-group/RadioGroup.tsx`                                   | Yes                 | Pair items with `Label htmlFor` at callsites              |
+| `src-v2/components/input/input-group/InputGroup.test.tsx`                        | No                  | Test-only render override for addon semantics             |
+| App/docs examples around `Input`, `InputGroupInput`, `Textarea`, `PasswordInput` | Yes                 | Add `Label htmlFor` when the field has visible label text |
+
+### Styling
+
+v0 components depend on `styled-components`.
+v1 components use Tailwind CSS 4 utilities and Vital Design CSS variables.
+
+Do not import `src-v2/styles/*` from the npm package. Use the registry install so the theme is written to your app CSS.
+
+### Lists
+
+`ActionList` and `ActionInfiniteList` are removed in v1. Pick the v1 replacement by intent:
+
+- **Action menu** (each item fires a callback, no value binding) → `DropdownMenu`.
+- **Searchable value picker** → `Combobox`. Hierarchical → `Command` + `Popover`.
+- **Display row or detail list** → `Item` + `ItemGroup`. Use `size="list"` for select-option density.
+- **Searchable command panel** (you own search, loading, paging, empty text) → `Command`.
+
+```tsx
+import {
+  Item,
+  ItemContent,
+  ItemGroup,
+  ItemTitle,
+} from '@/components/ui/Item';
+
+<ItemGroup>
+  <Item size="list">
+    <ItemContent>
+      <ItemTitle>Option</ItemTitle>
+    </ItemContent>
+  </Item>
+</ItemGroup>;
+```
+
+### TreeSelect
+
+Move `TreeSelect` screens to a `Command` + `Popover` recipe.
+The old component owned more data behavior. In v1, the screen owns the path, search value, loading state, and child loading. See the `Command` Storybook `HierarchicalPicker` story for the recommended shape.
+
+Use `Combobox` instead if the old screen only needed searchable flat options.
+
+## Migration Checklist
+
+- Install the v1 registry item.
+- Replace `@fed/vital-design` imports on the screen.
+- Update props to the v1 component API.
+- Add the Tailwind and theme setup once per app.
+- Test keyboard behavior for pickers, popups, and list rows.
+- Remove v0 dependencies after the last v0 import is gone.

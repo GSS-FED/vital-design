@@ -1,0 +1,227 @@
+---
+title: Button
+description: Trigger actions with default, text, and ghost variants, multiple themes, and icon support.
+---
+
+import { SearchIcon } from '@/icons/SearchIcon';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { Button, Spinner } from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview>
+  <Button theme="primary" size="lg">
+    Primary
+  </Button>
+  <Button theme="default" size="lg">
+    Default
+  </Button>
+  <Button theme="success" size="lg">
+    Success
+  </Button>
+  <Button theme="alarm" size="lg">
+    Alarm
+  </Button>
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Button } from '@/components/ui/Button';
+
+<Button theme="primary" size="lg">
+  Click me
+</Button>;
+```
+
+## Variants
+
+### Default
+
+The `default` variant renders a solid background button. It is the
+default rendering style.
+
+<ComponentPreview>
+  <Button variant="default" theme="primary">
+    Primary
+  </Button>
+  <Button variant="default" theme="default">
+    Default
+  </Button>
+  <Button variant="default" theme="success">
+    Success
+  </Button>
+  <Button variant="default" theme="info">
+    Info
+  </Button>
+  <Button variant="default" theme="warning">
+    Warning
+  </Button>
+  <Button variant="default" theme="alarm">
+    Alarm
+  </Button>
+  <Button variant="default" theme="dangerous">
+    Dangerous
+  </Button>
+</ComponentPreview>
+
+```tsx
+<Button variant="default" theme="primary">Primary</Button>
+<Button variant="default" theme="default">Default</Button>
+<Button variant="default" theme="success">Success</Button>
+<Button variant="default" theme="info">Info</Button>
+<Button variant="default" theme="warning">Warning</Button>
+<Button variant="default" theme="alarm">Alarm</Button>
+<Button variant="default" theme="dangerous">Dangerous</Button>
+```
+
+### Text
+
+The `text` variant renders a transparent background button. Available for all themes except `dangerous`.
+
+<ComponentPreview>
+  <Button variant="text" theme="primary">
+    Primary
+  </Button>
+  <Button variant="text" theme="default">
+    Default
+  </Button>
+  <Button variant="text" theme="success">
+    Success
+  </Button>
+  <Button variant="text" theme="info">
+    Info
+  </Button>
+  <Button variant="text" theme="warning">
+    Warning
+  </Button>
+  <Button variant="text" theme="alarm">
+    Alarm
+  </Button>
+</ComponentPreview>
+
+```tsx
+<Button variant="text" theme="primary">Primary</Button>
+<Button variant="text" theme="default">Default</Button>
+```
+
+### Ghost
+
+The `ghost` variant renders a transparent button that surfaces a
+background on hover. Use it inside popovers, toolbars, and split-button
+menus where the surrounding chrome provides the affordance.
+
+<ComponentPreview>
+  <Button variant="ghost" theme="primary">
+    Primary
+  </Button>
+  <Button variant="ghost" theme="default">
+    Default
+  </Button>
+</ComponentPreview>
+
+```tsx
+<Button variant="ghost" theme="default">Default</Button>
+```
+
+### Sizes
+
+<ComponentPreview>
+  <Button theme="primary" size="md">
+    Medium
+  </Button>
+  <Button theme="primary" size="lg">
+    Large
+  </Button>
+  <Button theme="primary" size="icon-md" aria-label="Search">
+    <SearchIcon data-icon="inline-start" />
+  </Button>
+</ComponentPreview>
+
+```tsx
+<Button size="md">Medium</Button>
+<Button size="lg">Large</Button>
+<Button size="icon-md" aria-label="Search">
+  <SearchIcon data-icon="inline-start" />
+</Button>
+```
+
+### Icons
+
+Use `data-icon="inline-start"` or `data-icon="inline-end"` on child icons. For icon-only buttons, use `size="icon-md"` or `size="icon-lg"`.
+Install or import the icon or spinner separately from the button.
+
+<ComponentPreview>
+  <Button theme="primary" size="lg">
+    <SearchIcon data-icon="inline-start" />
+    Search
+  </Button>
+  <Button theme="default" size="lg">
+    Search
+    <SearchIcon data-icon="inline-end" />
+  </Button>
+</ComponentPreview>
+
+```tsx
+<Button theme="primary">
+  <SearchIcon data-icon="inline-start" />
+  Search
+</Button>
+<Button theme="default">
+  Search
+  <SearchIcon data-icon="inline-end" />
+</Button>
+```
+
+### Loading State
+
+Render a spinner as a child icon and disable the button while work is in flight.
+
+<ComponentPreview>
+  <Button theme="primary" size="lg" disabled>
+    <Spinner data-icon="inline-start" />
+    Saving
+  </Button>
+  <Button theme="default" size="lg" disabled>
+    Loading
+    <Spinner data-icon="inline-end" />
+  </Button>
+</ComponentPreview>
+
+```tsx
+<Button theme="primary" disabled>
+  <Spinner data-icon="inline-start" />
+  Saving
+</Button>
+```
+
+### Disabled
+
+<ComponentPreview>
+  <Button theme="primary" size="lg" disabled>
+    Disabled
+  </Button>
+  <Button variant="text" theme="primary" size="lg" disabled>
+    Disabled
+  </Button>
+</ComponentPreview>
+
+```tsx
+<Button theme="primary" disabled>
+  Disabled
+</Button>
+```
+
+## Props
+
+### Button
+
+| Prop                    | Type                                                                                   | Default                                      | Description                                                      |
+| ----------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------- | ---------------------------------------------------------------- |
+| `variant`               | `'default' \| 'text' \| 'ghost'`                                                       | `'default'`                                   | Visual variant                                                   |
+| `theme`                 | `'primary' \| 'default' \| 'success' \| 'info' \| 'warning' \| 'alarm' \| 'dangerous'` | `'primary'` for default, `'default'` for text | Color theme (`'dangerous'` only available on `default`)          |
+| `size`                  | `'md' \| 'lg' \| 'icon-md' \| 'icon-lg'`                                                 | `'md'`                                       | Button size                                                      |
+| `focusableWhenDisabled` | `boolean`                                                                              | `false`                                      | Keeps the button focusable even when disabled styling is applied |
+| `disabled`              | `boolean`                                                                              | `false`                                      | Native disabled attribute                                        |
+| `className`             | `string`                                                                               | —                                            | Additional CSS classes                                           |
+| `style`                 | `CSSProperties`                                                                        | —                                            | Inline styles                                                    |

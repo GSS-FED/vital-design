@@ -1,0 +1,97 @@
+---
+title: ButtonGroup
+description: A composable layout primitive for grouped button controls.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import {
+  Button,
+  ButtonGroup,
+  ButtonGroupSeparator,
+  ButtonGroupText,
+} from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview>
+  <ButtonGroup>
+    <Button theme="default">Save</Button>
+    <Button theme="default">More</Button>
+  </ButtonGroup>
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Button } from '@/components/ui/Button';
+import { ButtonGroup } from '@/components/ui/ButtonGroup';
+
+<ButtonGroup>
+  <Button theme="default">Save</Button>
+  <Button theme="default">More</Button>
+</ButtonGroup>;
+```
+
+## With Separator
+
+<ComponentPreview>
+  <ButtonGroup>
+    <Button>Archive</Button>
+    <ButtonGroupSeparator />
+    <Button>Snooze</Button>
+  </ButtonGroup>
+</ComponentPreview>
+
+```tsx
+import { Button } from '@/components/ui/Button';
+import {
+  ButtonGroup,
+  ButtonGroupSeparator,
+} from '@/components/ui/ButtonGroup';
+
+<ButtonGroup>
+  <Button>Archive</Button>
+  <ButtonGroupSeparator />
+  <Button>Snooze</Button>
+</ButtonGroup>;
+```
+
+Use a separator when the grouped items do not already have their own border.
+
+## With Text
+
+<ComponentPreview>
+  <ButtonGroup>
+    <ButtonGroupText>Status</ButtonGroupText>
+    <Button theme="default">Publish</Button>
+  </ButtonGroup>
+</ComponentPreview>
+
+```tsx
+import {
+  ButtonGroup,
+  ButtonGroupText,
+} from '@/components/ui/ButtonGroup';
+
+<ButtonGroup>
+  <ButtonGroupText>Status</ButtonGroupText>
+  <Button>Publish</Button>
+</ButtonGroup>;
+```
+
+## Props
+
+### ButtonGroup
+
+| Prop          | Type                         | Default        | Description            |
+| ------------- | ---------------------------- | -------------- | ---------------------- |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout direction       |
+| `className`   | `string`                     | —              | Additional CSS classes |
+| `style`       | `CSSProperties`              | —              | Inline styles          |
+
+### ButtonGroupSeparator
+
+| Prop          | Type                         | Default | Description            |
+| ------------- | ---------------------------- | ------- | ---------------------- |
+| `orientation` | `'horizontal' \| 'vertical'` | auto    | Separator direction    |
+| `...props`    | `SeparatorProps`             | —       | Shared separator props |

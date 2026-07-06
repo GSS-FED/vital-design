@@ -1,0 +1,73 @@
+---
+title: Label
+description: Accessible label text associated with a form control.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { Input, Label } from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview>
+  <Label htmlFor="email">Email</Label>
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Label } from '@/components/ui/Label';
+
+<Label htmlFor="email">Email</Label>;
+```
+
+## Required
+
+`required` adds the Vital Design required dot to the label. Keep the actual required state on the control too.
+
+<ComponentPreview centered={false}>
+  <div className="flex w-80 flex-col gap-2">
+    <Label htmlFor="required-email" required>
+      Email
+    </Label>
+    <Input
+      id="required-email"
+      placeholder="name@example.com"
+      required
+    />
+  </div>
+</ComponentPreview>
+
+```tsx
+<div className="flex flex-col gap-2">
+  <Label htmlFor="email" required>
+    Email
+  </Label>
+  <Input id="email" placeholder="name@example.com" required />
+</div>
+```
+
+## With Input
+
+<ComponentPreview centered={false}>
+  <div className="flex w-80 flex-col gap-2">
+    <Label htmlFor="email-input">Email</Label>
+    <Input id="email-input" placeholder="name@example.com" />
+  </div>
+</ComponentPreview>
+
+```tsx
+<div className="flex flex-col gap-2">
+  <Label htmlFor="email">Email</Label>
+  <Input id="email" placeholder="name@example.com" />
+</div>
+```
+
+## Props
+
+| Prop        | Type                      | Default | Description                     |
+| ----------- | ------------------------- | ------- | ------------------------------- |
+| `htmlFor`   | `string`                  | —       | Associated control id           |
+| `required`  | `boolean`                 | `false` | Shows the required dot          |
+| `className` | `string`                  | —       | Additional CSS classes          |
+| `style`     | `CSSProperties`           | —       | Inline styles                   |
+| `...props`  | `ComponentProps<'label'>` | —       | Native `label` props and events |

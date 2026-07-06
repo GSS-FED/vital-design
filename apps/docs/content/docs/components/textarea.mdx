@@ -1,0 +1,58 @@
+---
+title: Textarea
+description: Multi-line text input with consistent border, focus, and disabled states.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { Textarea } from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview centered={false}>
+  <Textarea
+    className="w-80"
+    placeholder="Tell us what you think..."
+    rows={4}
+  />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Textarea } from '@/components/ui/Textarea';
+
+<Textarea placeholder="Tell us what you think..." rows={4} />;
+```
+
+## Disabled
+
+<ComponentPreview centered={false}>
+  <Textarea
+    className="w-80"
+    placeholder="Disabled"
+    rows={3}
+    disabled
+  />
+</ComponentPreview>
+
+## Invalid
+
+Set `aria-invalid` to apply the destructive border treatment.
+
+<ComponentPreview centered={false}>
+  <Textarea
+    className="w-80"
+    placeholder="Invalid"
+    rows={3}
+    aria-invalid
+  />
+</ComponentPreview>
+
+## Props
+
+| Prop           | Type                                  | Default | Description                       |
+| -------------- | ------------------------------------- | ------- | --------------------------------- |
+| `disabled`     | `boolean`                             | `false` | Disables the textarea             |
+| `aria-invalid` | `boolean`                             | —       | Applies destructive border styles |
+| `className`    | `string`                              | —       | Additional CSS classes            |
+| `...props`     | `ComponentPropsWithoutRef<'textarea'>` | —       | Native textarea props forwarded   |

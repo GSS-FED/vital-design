@@ -19,8 +19,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "baseUrl": ".",
-    "paths": {"src/*": ["src/*"]}
+    "paths": {"src/*": ["src/*"], "@/*": ["src-v2/*"]}
   },
-  "include": ["src"],
+  "include": ["src", "src-v2"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

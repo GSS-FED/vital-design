@@ -1,0 +1,83 @@
+---
+title: SplitButton
+description: A split action built from ButtonGroup with a primary action and a separate toggle trigger.
+---
+
+import { SearchIcon } from '@/icons/SearchIcon';
+import {
+  SplitButtonDefaultPreview,
+  SplitButtonPreview,
+  SplitButtonSizesPreview,
+} from '~/components/previews/SplitButtonPreview';
+
+## Preview
+
+<SplitButtonPreview />
+
+## Usage
+
+Install or import the icon separately from SplitButton.
+
+```tsx
+import { SplitButton } from '@/components/ui/SplitButton';
+import { useState } from 'react';
+
+function SaveButton() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <SplitButton
+      theme="primary"
+      open={open}
+      onClick={() => handleSave()}
+      splitOnClick={() => setOpen((v) => !v)}
+    >
+      <SearchIcon data-icon="inline-start" />
+      Save
+    </SplitButton>
+  );
+}
+```
+
+## Default Theme
+
+<SplitButtonDefaultPreview />
+
+```tsx
+<SplitButton
+  theme="default"
+  open={open}
+  onClick={handleAction}
+  splitOnClick={toggleOpen}
+>
+  Action
+</SplitButton>
+```
+
+## Sizes
+
+`size="lg"` adds the themed drop shadow and hover lift; `size="md"`
+is the compact variant without shadow.
+
+<SplitButtonSizesPreview />
+
+```tsx
+<SplitButton size="md" theme="primary" open={open} {...handlers}>
+  Medium
+</SplitButton>
+<SplitButton size="lg" theme="primary" open={open} {...handlers}>
+  Large
+</SplitButton>
+```
+
+## Props
+
+| Prop                    | Type                                                                                        | Default     | Description                                                          |
+| ----------------------- | ------------------------------------------------------------------------------------------- | ----------- | -------------------------------------------------------------------- |
+| `open`                  | `boolean`                                                                                   | —           | **Required.** Controls whether the split arrow appears in open state |
+| `theme`                 | `'primary' \| 'default' \| 'success' \| 'info' \| 'warning' \| 'alarm' \| 'dangerous'`      | `'default'` | Color theme (matches `Button`)                                       |
+| `size`                  | `'md' \| 'lg'`                                                                             | `'md'`      | Button size                                                          |
+| `onClick`               | `(e: MouseEvent) => void`                                                                   | —           | Handler for the main button area                                     |
+| `splitOnClick`          | `(e: MouseEvent) => void`                                                                   | —           | Handler for the arrow trigger                                        |
+| `focusableWhenDisabled` | `boolean`                                                                                   | `false`     | Keeps keyboard focus on the button when disabled styling is applied  |
+| `disabled`              | `boolean`                                                                                   | `false`     | Disables the entire button                                           |

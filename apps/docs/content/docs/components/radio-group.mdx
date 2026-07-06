@@ -1,0 +1,112 @@
+---
+title: RadioGroup
+description: A single-selection group of radio buttons.
+---
+
+import {
+  RadioGroupPreview,
+  RadioGroupVerticalPreview,
+} from '~/components/previews/RadioGroupPreview';
+
+## Preview
+
+<RadioGroupPreview />
+
+## Usage
+
+```tsx
+import { Label } from '@/components/ui/Label';
+import {
+  RadioGroup,
+  RadioGroupItem,
+} from '@/components/ui/RadioGroup';
+import { useState } from 'react';
+
+const options = [
+  { label: 'Option A', value: 'a' },
+  { label: 'Option B', value: 'b' },
+  { label: 'Option C', value: 'c' },
+];
+
+function Form() {
+  const [value, setValue] = useState('a');
+
+  return (
+    <RadioGroup value={value} onValueChange={setValue}>
+      {options.map((option) => (
+        <div key={option.value} className="flex items-center gap-2">
+          <RadioGroupItem id={option.value} value={option.value} />
+          <Label htmlFor={option.value}>{option.label}</Label>
+        </div>
+      ))}
+    </RadioGroup>
+  );
+}
+```
+
+## Compound Items
+
+Use `RadioGroupItem` when an option needs custom layout or extra text.
+
+```tsx
+import { Label } from '@/components/ui/Label';
+import {
+  RadioGroup,
+  RadioGroupItem,
+} from '@/components/ui/RadioGroup';
+
+<RadioGroup value={value} onValueChange={setValue}>
+  <div className="flex items-center gap-2">
+    <RadioGroupItem id="basic" value="basic" />
+    <Label htmlFor="basic">Basic</Label>
+  </div>
+  <div className="flex items-center gap-2">
+    <RadioGroupItem id="pro" value="pro" />
+    <Label htmlFor="pro">
+      <span>
+        <span className="block">Pro</span>
+        <span className="block text-grayscale-opacity-500">
+          Recommended for teams
+        </span>
+      </span>
+    </Label>
+  </div>
+</RadioGroup>;
+```
+
+## Vertical Layout
+
+<RadioGroupVerticalPreview />
+
+```tsx
+<RadioGroup
+  className="flex flex-col gap-4"
+  value={value}
+  onValueChange={setValue}
+>
+  {options.map((option) => (
+    <div key={option.value} className="flex items-center gap-2">
+      <RadioGroupItem id={option.value} value={option.value} />
+      <Label htmlFor={option.value}>{option.label}</Label>
+    </div>
+  ))}
+</RadioGroup>
+```
+
+## Props
+
+### RadioGroup
+
+| Prop            | Type             | Default | Description                          |
+| --------------- | ---------------- | ------- | ------------------------------------ |
+| `value`         | `string`         | —       | Currently selected value             |
+| `defaultValue`  | `string`         | —       | Initial value for uncontrolled usage |
+| `onValueChange` | Base UI callback | —       | Called when selection changes        |
+| `className`     | `string`         | —       | Additional CSS classes               |
+
+### RadioGroupItem
+
+| Prop       | Type      | Default | Description                 |
+| ---------- | --------- | ------- | --------------------------- |
+| `value`    | `string`  | —       | **Required.** Option value  |
+| `disabled` | `boolean` | `false` | Disables this specific item |

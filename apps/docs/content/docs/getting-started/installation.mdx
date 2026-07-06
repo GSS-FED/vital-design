@@ -1,0 +1,93 @@
+---
+title: Installation
+description: Install Vital Design in your React project.
+---
+
+## Prerequisites
+
+- Node.js 18+
+- React 18+
+- Tailwind CSS 4
+
+## Initialize shadcn
+
+Before installing components, your project needs a `components.json` configuration file. Run the initializer once:
+
+```bash
+npx shadcn@latest init
+```
+
+When prompted, configure the paths to match your project structure (CSS file, component aliases, etc.). See the [shadcn documentation](https://ui.shadcn.com/docs/installation) for framework-specific setup.
+
+Then declare the Vital Design registry in `components.json` so the CLI can resolve `@vital-design/` dependencies:
+
+```json
+{
+  "registries": {
+    "@vital-design": "https://bizform.vikosmos.com/vittal-design/r/{name}.json"
+  }
+}
+```
+
+> **Recommended path:** For new projects and newly added components, use the Vital Design registry. This is the primary delivery channel for the current `src-v2/` component layer.
+
+## Install via shadcn CLI (Recommended)
+
+Install individual components directly into your project using the shadcn CLI. Components are copied into your codebase so you have full ownership.
+
+```bash
+npx shadcn@latest add @vital-design/<component-name>
+```
+
+> **Internal registry SSL:** The registry uses an internal certificate. If you see `unable to verify the first certificate`, prefix your command with `NODE_TLS_REJECT_UNAUTHORIZED=0`:
+>
+> ```bash
+> NODE_TLS_REJECT_UNAUTHORIZED=0 npx shadcn@latest add @vital-design/<component-name>
+> ```
+
+For example, to add the Button component:
+
+```bash
+npx shadcn@latest add @vital-design/button
+```
+
+> The `@vital-design/<name>` alias is recommended because it also resolves `@vital-design/*` dependencies declared by registry items. Newly added components may be available only through the registry.
+
+See the [Registry](/docs/registry) page for the full list of available components.
+
+## Install as npm Package (Legacy Compatibility)
+
+If you are maintaining an existing project that already depends on the published package, you can continue installing the full library as a package:
+
+```bash
+# pnpm
+pnpm add @fed/vital-design
+
+# npm
+npm install @fed/vital-design
+
+# yarn
+yarn add @fed/vital-design
+```
+
+> **Legacy compatibility:** The npm package remains supported for existing consumers, but it is not the primary delivery channel for new components. If you need the latest additions, use the registry path above.
+>
+> **Boundary note:** The npm package targets the legacy `src/` distribution. It does not expose registry-only `src-v2/` files such as the Tailwind theme stylesheet.
+>
+> **Note:** The npm package is published to a private GitLab registry. Make sure your `.npmrc` is configured to authenticate with `https://git.gss.com.tw/api/v4/projects/5615/packages/npm/`.
+
+## Peer Dependencies
+
+Vital Design requires the following peer dependencies:
+
+```bash
+pnpm add react react-dom
+```
+
+If you use the legacy npm package flow, also install `styled-components` because the published `src/` distribution still depends on it:
+
+```bash
+pnpm add styled-components
+```
+
+Most frameworks already include `react` and `react-dom`, but verify they are present in your app before using Vital Design.

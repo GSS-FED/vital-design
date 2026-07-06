@@ -1,0 +1,15 @@
+{
+  "tag": {
+    "teal":   { "solid": { "$value": "#057C7F", "$type": "color" }, "tint": { "$value": "#EBFAF9", "$type": "color" } },
+    "olive":  { "solid": { "$value": "#597D10", "$type": "color" }, "tint": { "$value": "#F5FAEB", "$type": "color" } },
+    "brown":  { "solid": { "$value": "#AD5E0B", "$type": "color" }, "tint": { "$value": "#FEF7F0", "$type": "color" } },
+    "rose":   { "solid": { "$value": "#901957", "$type": "color" }, "tint": { "$value": "#FEF5F9", "$type": "color" } },
+    "indigo": { "solid": { "$value": "#5A51AE", "$type": "color" }, "tint": { "$value": "#EDF2FD", "$type": "color" } },
+    "blue":   { "solid": { "$value": "#0576BD", "$type": "color" }, "tint": { "$value": "#EBF9FF", "$type": "color" } },
+    "green":  { "solid": { "$value": "#0A8518", "$type": "color" }, "tint": { "$value": "#E7FFEA", "$type": "color" } },
+    "gold":   { "solid": { "$value": "#7B7312", "$type": "color" }, "tint": { "$value": "#F8F6EB", "$type": "color" } },
+    "red":    { "solid": { "$value": "#B93025", "$type": "color" }, "tint": { "$value": "#FFF4F3", "$type": "color" } },
+    "purple": { "solid": { "$value": "#641559", "$type": "color" }, "tint": { "$value": "#F9F3FB", "$type": "color" } },
+    "navy":   { "solid": { "$value": "#185273", "$type": "color" }, "tint": { "$value": "#F0F6FA", "$type": "color" } }
+  }
+}

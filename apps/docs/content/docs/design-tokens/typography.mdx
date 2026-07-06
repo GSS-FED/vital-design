@@ -1,0 +1,220 @@
+---
+title: Typography
+description: Font family, type scale, weights, and text style conventions used across Vital Design.
+---
+
+## Font Family
+
+Vital Design ships a single sans-serif stack via the `--font-sans`
+CSS variable, registered as the Tailwind `font-sans` token.
+
+```css
+--font-sans:
+  Roboto,
+  'Noto Sans TC',
+  'PingFang TC',
+  'Microsoft JhengHei',
+  sans-serif;
+```
+
+The stack prioritises:
+
+1. **Roboto** — Latin / UI text
+2. **Noto Sans TC** / **PingFang TC** / **Microsoft JhengHei** —
+   Traditional Chinese fallbacks
+
+```html
+<p class="font-sans">Vital Design 元件庫</p>
+```
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="font-sans text-base text-grayscale-opacity-900">
+    Vital Design 元件庫 — Roboto, 你好, 1234567890
+  </p>
+</div>
+
+## Type Scale
+
+Vital Design relies on Tailwind's default type scale — there are no
+project-specific font-size tokens. Reach for these utilities for
+content typography.
+
+### Heading 1 — `text-4xl`
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <h1 className="text-4xl font-semibold tracking-tight text-grayscale-opacity-900">
+    Build elegant interfaces faster.
+  </h1>
+</div>
+
+```html
+<h1 class="text-4xl font-semibold tracking-tight">…</h1>
+```
+
+### Heading 2 — `text-3xl`
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <h2 className="text-3xl font-semibold tracking-tight text-grayscale-opacity-900">
+    Composable, accessible primitives.
+  </h2>
+</div>
+
+```html
+<h2 class="text-3xl font-semibold tracking-tight">…</h2>
+```
+
+### Heading 3 — `text-2xl`
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <h3 className="text-2xl font-semibold text-grayscale-opacity-900">
+    Section heading
+  </h3>
+</div>
+
+```html
+<h3 class="text-2xl font-semibold">…</h3>
+```
+
+### Heading 4 — `text-xl`
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <h4 className="text-xl font-semibold text-grayscale-opacity-900">
+    Subsection heading
+  </h4>
+</div>
+
+```html
+<h4 class="text-xl font-semibold">…</h4>
+```
+
+### Lead — `text-lg`
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="text-lg text-grayscale-opacity-700">
+    A larger paragraph used to introduce a section or summarize the
+    page.
+  </p>
+</div>
+
+```html
+<p class="text-lg text-grayscale-opacity-700">…</p>
+```
+
+### Paragraph — `text-base`
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="text-base text-grayscale-opacity-800">
+    The default body size. Use this for paragraph copy in
+    long-form content.
+  </p>
+</div>
+
+```html
+<p class="text-base text-grayscale-opacity-800">…</p>
+```
+
+### Small — `text-sm`
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="text-sm text-grayscale-opacity-700">
+    Form labels, table cells, button text, and other UI copy default
+    to this size.
+  </p>
+</div>
+
+```html
+<p class="text-sm text-grayscale-opacity-700">…</p>
+```
+
+### Caption — `text-xs`
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="text-xs text-grayscale-opacity-600">
+    Helper text, captions, metadata, and small labels.
+  </p>
+</div>
+
+```html
+<p class="text-xs text-grayscale-opacity-600">…</p>
+```
+
+> See the [Tailwind type scale docs](https://tailwindcss.com/docs/font-size)
+> for the full range (`text-xs` through `text-9xl`).
+
+## Weights
+
+<div className="not-prose my-4 grid gap-3 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="text-base font-normal text-grayscale-opacity-900">
+    <span className="mr-3 font-mono text-xs text-grayscale-opacity-500">font-normal</span>
+    The quick brown fox jumps over the lazy dog.
+  </p>
+  <p className="text-base font-medium text-grayscale-opacity-900">
+    <span className="mr-3 font-mono text-xs text-grayscale-opacity-500">font-medium</span>
+    The quick brown fox jumps over the lazy dog.
+  </p>
+  <p className="text-base font-semibold text-grayscale-opacity-900">
+    <span className="mr-3 font-mono text-xs text-grayscale-opacity-500">font-semibold</span>
+    The quick brown fox jumps over the lazy dog.
+  </p>
+  <p className="text-base font-bold text-grayscale-opacity-900">
+    <span className="mr-3 font-mono text-xs text-grayscale-opacity-500">font-bold</span>
+    The quick brown fox jumps over the lazy dog.
+  </p>
+</div>
+
+```html
+<p class="font-normal">Body text</p>
+<p class="font-medium">Form labels and emphasised UI text</p>
+<p class="font-semibold">Headings and high-weight UI text</p>
+<p class="font-bold">Reserved for marketing and display text</p>
+```
+
+## Text Color
+
+Vital Design's grayscale palette uses progressive transparency, so
+the same text token reads consistently on light and tinted
+backgrounds. Use the semantic `--text-*` tokens for intent, or pick
+a grayscale step directly when you need exact contrast control.
+
+| Usage           | Semantic                     | Grayscale step       |
+| --------------- | ---------------------------- | -------------------- |
+| Primary content | `text-(--foreground)`      | `text-grayscale-opacity-900` |
+| Body / paragraph| —                            | `text-grayscale-opacity-800` |
+| Secondary text  | `text-(--muted-foreground)`    | `text-grayscale-opacity-700` |
+| Muted text      | `text-(--text-tertiary)`     | `text-grayscale-opacity-600` |
+| Placeholder     | `text-(--text-disabled)`     | `text-grayscale-opacity-400` |
+| On accent bg    | `text-(--primary-foreground)`    | —                    |
+
+<div className="not-prose my-4 grid gap-2 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="text-base text-grayscale-opacity-900">Primary — grayscale-opacity-900</p>
+  <p className="text-base text-grayscale-opacity-800">Body — grayscale-opacity-800</p>
+  <p className="text-base text-grayscale-opacity-700">Secondary — grayscale-opacity-700</p>
+  <p className="text-base text-grayscale-opacity-600">Muted — grayscale-opacity-600</p>
+  <p className="text-base text-grayscale-opacity-400">Placeholder — grayscale-opacity-400</p>
+</div>
+
+## Inline Elements
+
+### Code
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="text-base text-grayscale-opacity-800">
+    Use{' '}
+    <code className="rounded-sm bg-grayscale-opacity-150 px-1.5 py-0.5 font-mono text-[0.85em] text-grayscale-opacity-900">
+      var(--primary-500)
+    </code>{' '}
+    inside CSS or the matching Tailwind utility in markup.
+  </p>
+</div>
+
+### Link
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="text-base text-grayscale-opacity-800">
+    Read the{' '}
+    <a className="text-primary-500 underline underline-offset-4 hover:text-primary-600">
+      tailwind setup guide
+    </a>{' '}
+    before scaffolding a new app.
+  </p>
+</div>

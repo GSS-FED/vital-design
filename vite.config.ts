@@ -5,7 +5,12 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
 export default defineConfig({
-  resolve: { alias: { src: '/src' } },
+  resolve: {
+    alias: {
+      src: '/src',
+      '@': resolve(__dirname, 'src-v2'),
+    },
+  },
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.tsx'),

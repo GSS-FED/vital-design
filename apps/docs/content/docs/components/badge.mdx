@@ -1,0 +1,73 @@
+---
+title: Badge
+description: Small status indicator pill with semantic color variants and number or text content.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { Badge } from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview>
+  <Badge>3</Badge>
+  <Badge variant="success">5</Badge>
+  <Badge variant="warning">12</Badge>
+  <Badge variant="destructive">99+</Badge>
+  <Badge variant="info">1</Badge>
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Badge } from '@/components/ui/Badge';
+
+<Badge variant="destructive">99+</Badge>;
+```
+
+## Variants
+
+<ComponentPreview>
+  <Badge variant="primary">1</Badge>
+  <Badge variant="success">1</Badge>
+  <Badge variant="warning">1</Badge>
+  <Badge variant="destructive">1</Badge>
+  <Badge variant="info">1</Badge>
+</ComponentPreview>
+
+## Sizes
+
+`sm` renders an empty dot. `md` and `lg` accept content.
+
+<ComponentPreview>
+  <Badge size="sm" variant="destructive" />
+  <Badge size="md">3</Badge>
+  <Badge size="lg">12</Badge>
+</ComponentPreview>
+
+## Type: Number vs Text
+
+<ComponentPreview>
+  <Badge size="md" type="number">
+    9
+  </Badge>
+  <Badge size="md" type="text">
+    NEW
+  </Badge>
+  <Badge size="lg" type="number">
+    99+
+  </Badge>
+  <Badge size="lg" type="text">
+    BETA
+  </Badge>
+</ComponentPreview>
+
+## Props
+
+| Prop        | Type                                                            | Default     | Description                          |
+| ----------- | --------------------------------------------------------------- | ----------- | ------------------------------------ |
+| `variant`   | `'primary' \| 'success' \| 'warning' \| 'destructive' \| 'info'` | `'primary'` | Color variant                        |
+| `size`      | `'sm' \| 'md' \| 'lg'`                                          | `'lg'`      | Badge size; `sm` is an empty dot     |
+| `type`      | `'number' \| 'text'`                                            | `'number'`  | Adjusts padding/typography for label |
+| `children`  | `ReactNode`                                                     | —           | Badge content (ignored when `sm`)    |
+| `className` | `string`                                                        | —           | Additional CSS classes               |
+| `style`     | `CSSProperties`                                                 | —           | Inline styles                        |

@@ -2,27 +2,34 @@ stages:
   - test
   - build
   - publish
+  - registry-validate
+  - registry-deploy
+  - deploy
 
 default:
-  image: node:18.19.1
+  image: node:20
   interruptible: true
   artifacts:
     expire_in: 1 week
   tags:
     - docker
 
+variables:
+  PNPM_VERSION: "10.17.1"
+
 before_script:
-  - npm i --prefer-offline
+  - npm i -g pnpm@${PNPM_VERSION}
+  - pnpm install --frozen-lockfile
 
 test-job:
   stage: test
   script:
-    - npm run test
+    - pnpm run test
 
 build-job:
   stage: build
   script:
-    - npm run build
+    - pnpm run build
   artifacts:
     paths:
       - dist/
@@ -40,11 +47,80 @@ publish-job:
         echo "@fed:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
         echo "${CI_API_V4_URL#https?}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=\${CI_JOB_TOKEN}"
       } | tee -a .npmrc
+    - npm i -g pnpm@${PNPM_VERSION}
+    - pnpm install --frozen-lockfile
   dependencies:
     - build-job
   script:
-    - npm i --prefer-offline
-    - npm i -g pnpm@8.15.9
-    - npm run release
+    - pnpm run release
   only:
     - main
+
+# ── Registry Validate ─────────────────────────────────────────────────────────
+# Runs on Merge Requests when registry.json or src-v2/ files change.
+# A failing job blocks the MR from being merged.
+
+registry-validate-job:
+  stage: registry-validate
+  before_script:
+    - npm i -g pnpm@${PNPM_VERSION}
+    - pnpm install --frozen-lockfile
+  script:
+    - pnpm run registry:validate
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - registry.json
+        - src-v2/**/*
+        - .gitlab/.gitlab-ci.yml
+
+# ── Registry Deploy ───────────────────────────────────────────────────────────
+# Runs on the main branch after publish-job completes, so package.json
+# version is already bumped by semantic-release before we build the registry.
+# Builds public/r/ for downstream deploy jobs.
+
+pages:
+  stage: registry-deploy
+  before_script:
+    - npm i -g pnpm@${PNPM_VERSION}
+    - pnpm install --frozen-lockfile
+  script:
+    - pnpm run registry:build
+  artifacts:
+    paths:
+      - public/
+  needs:
+    - job: publish-job
+      optional: true
+  only:
+    - main
+    - develop
+    - feat/v2 # TODO(revert): remove after testing
+
+# ── Deploy ────────────────────────────────────────────────────────────────────
+# Deploys public/ to BizForm internal server via Windows runner.
+# URL: https://bizform.vikosmos.com/vittal-design
+
+deploy:bizform:
+  stage: deploy
+  before_script:
+    - "[Console]::OutputEncoding=[System.Text.Encoding]::UTF8"
+  script:
+    - if (Test-Path "$DEPLOY_PATH\$DEPLOY_SUBPATH") { Remove-Item "$DEPLOY_PATH\$DEPLOY_SUBPATH\*" -Recurse -Verbose -Force }
+    - if (!(Test-Path "$DEPLOY_PATH\$DEPLOY_SUBPATH")) { New-Item -Path "$DEPLOY_PATH\$DEPLOY_SUBPATH" -ItemType Directory }
+    - Copy-Item -Path .\public\* -Destination "$DEPLOY_PATH\$DEPLOY_SUBPATH" -Recurse -Verbose -Force
+  environment:
+    name: vittal-design
+    url: https://bizform.vikosmos.com/vittal-design
+  dependencies:
+    - pages
+  variables:
+    DEPLOY_SUBPATH: vittal-design
+    GIT_STRATEGY: none
+  tags:
+    - bizform
+    - deploy
+    - windows
+  only:
+    - main
+    - develop

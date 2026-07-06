@@ -1,0 +1,15 @@
+import type { SVGProps } from 'react';
+
+export const ChevronRightIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 6 11"
+    width="1em"
+    height="1em"
+    fill="currentColor"
+    aria-hidden="true"
+    {...props}
+  >
+    <path d="M5.53125 4.71094C5.74219 4.94531 5.74219 5.29688 5.53125 5.50781L1.03125 10.0078C0.796875 10.2422 0.445312 10.2422 0.234375 10.0078C0 9.79688 0 9.44531 0.234375 9.23438L4.33594 5.13281L0.234375 1.00781C0 0.796875 0 0.445312 0.234375 0.234375C0.445312 0 0.796875 0 1.00781 0.234375L5.53125 4.71094Z" />
+  </svg>
+);

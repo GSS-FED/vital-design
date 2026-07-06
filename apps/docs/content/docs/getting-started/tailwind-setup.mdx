@@ -1,0 +1,146 @@
+---
+title: Tailwind CSS Setup
+description: Configure Tailwind CSS 4 to work with Vital Design components and design tokens.
+---
+
+## Overview
+
+This page applies to **registry-installed Vital Design components**. When you install `src-v2/` components through the shadcn-compatible registry, the CLI copies them into your app and injects the Vital Design theme tokens plus small base CSS rules into the CSS file configured in `components.json`.
+
+If you are maintaining an existing project that still uses the published `@fed/vital-design` npm package, keep that legacy `src/` integration as-is. The npm package does **not** expose the registry-only `src-v2` stylesheet as a public import.
+
+## Registry-Installed Local Components
+
+In the global CSS file configured in your `components.json` (for example `app/globals.css` in Next.js), keep the Tailwind import:
+
+```css
+@import 'tailwindcss';
+@import 'tw-animate-css';
+```
+
+When you install a Vital Design component from the registry, shadcn also installs the `@vital-design/vital-theme` dependency and writes the required CSS variables, Tailwind theme tokens, and Vital Design base rules into that CSS file for you.
+
+Because the copied component files live inside your app source tree, Tailwind CSS 4 will usually detect them automatically. In the common `app/` or `src/` setup, you do not need an extra `@source` line for registry-installed components.
+
+If your `components.json` points to a custom directory outside Tailwind's automatic source detection, add an `@source` rule that matches your local component path.
+
+## Design Tokens
+
+Registry installs expose the Vital Design design tokens as CSS custom properties and Tailwind utilities. The shadcn flow writes the required theme variables and the `not-disabled` custom variant into your configured global CSS file for you.
+
+For example, the following tokens become available:
+
+```css
+/* Available after registry install */
+--primary-500: #0e86fe;
+--grayscale-opacity-900: #232332;
+--success-500: #2bcd86;
+```
+
+These are exposed as Tailwind color utilities via `@theme inline`:
+
+```html
+<!-- Use them in your markup -->
+<div class="text-primary-500 bg-primary-50">...</div>
+<p class="text-grayscale-opacity-900">...</p>
+```
+
+## PostCSS Configuration
+
+Tailwind CSS 4 requires `@tailwindcss/postcss`. Create or update `postcss.config.js` (or `postcss.config.cjs`, depending on your project) like this:
+
+```js
+export default {
+  plugins: {
+    '@tailwindcss/postcss': {},
+  },
+};
+```
+
+If your project already uses `autoprefixer`, you can keep it.
+
+## Fonts
+
+Vital Design uses the following font stack (defined in `--font-sans`):
+
+```
+'Roboto', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif
+```
+
+To load Roboto, add it to your HTML or import via a font provider. With Next.js:
+
+```tsx
+import { Roboto } from 'next/font/google';
+
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+});
+```
+
+## Style isolation with data-slot
+
+Vital Design components expose stable `data-slot` attributes on their styled DOM parts. Use these hooks to scope Tailwind utilities and custom CSS so VD styles do not leak into your app's native elements (and vice versa).
+
+This aligns with the [shadcn data-slot convention](https://ui.shadcn.com/docs/changelog): every **DOM surface** gets a predictable selector.
+
+### Naming
+
+| Part | `data-slot` value | Example element |
+| ---- | ----------------- | --------------- |
+| Root | `{component}` | `data-slot="button"` |
+| Subpart | `{component}-{part}` | `data-slot="select-trigger"` |
+
+### Scoping styles in your app
+
+**Descendant selector** — limit utilities to VD parts inside a container:
+
+```html
+<div class="[&_[data-slot=button]]:rounded-lg">
+  <Button>Save</Button>
+</div>
+```
+
+**Custom variant** (Tailwind CSS 4) — reusable scope in `globals.css`:
+
+```css
+@custom-variant vd (& [data-slot]);
+```
+
+```html
+<div class="vd:[&_[data-slot=button]]:shadow-md">
+  <Button>Save</Button>
+</div>
+```
+
+**Target a specific part**:
+
+```html
+<div class="[&_[data-slot=table-head]]:sticky [&_[data-slot=table-head]]:top-0">
+  <Table>...</Table>
+</div>
+```
+
+### Which parts get a slot?
+
+Vital Design uses a three-tier policy:
+
+| Tier | Rule | Examples |
+| ---- | ---- | -------- |
+| **Required** | Every exported part that renders a styleable DOM node | `button`, `select-trigger`, `dialog-popup` |
+| **No passthrough** | Interactive parts must be wrapped; never `const X = Base.Trigger` | `DialogTrigger` (good), `PopoverTrigger` (gap) |
+| **Exempt** | Parts with no styleable DOM output | `Provider`, state-only `Root`, bare `Portal` |
+
+`@base-ui/react` and `cmdk` do **not** ship `data-slot`. Direct re-exports have no slot until Vital Design adds a `forwardRef` wrapper. Do not expect slots on `Select` root or `ToastPortal` — scope via child parts such as `select-trigger` or `toast-content` instead.
+
+### Coverage status
+
+Last updated: 2026-07-03. Applies to `src-v2/components/` (43 folders).
+
+| Status | Components |
+| ------ | ---------- |
+| **Full** | alert, avatar, badge, breadcrumb, button, button-group, card, checkbox, chip, collapsible, combobox (incl. tags value), command, dropdown-menu, editable, field, input, number-input, item, label, password-input, popover, progress, radio-group, resizable, scroll-area, search-bar, separator, skeleton, slider, spinner, split-button, switch, table, table-of-contents, tabs, tag, textarea, time-picker, toolbar |
+| **Near-full** (root/portal passthrough only) | select, dialog, sheet, tooltip, toast, input-group, autocomplete |
+| **Partial** | calendar (month/year dropdown triggers in caption) |
+
+Tier 3 exemptions (no slot by design): `Provider`, state-only `Root`, bare `Portal` on select, dialog, dropdown-menu, popover, tooltip, toast, and autocomplete. `AutocompleteValue` / `ComboboxValue` also exempt — they render no DOM (text/children only).

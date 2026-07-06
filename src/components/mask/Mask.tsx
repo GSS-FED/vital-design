@@ -1,4 +1,6 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import { type ReactNode } from 'react';
+import type React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { masks } from 'src/constants';
 

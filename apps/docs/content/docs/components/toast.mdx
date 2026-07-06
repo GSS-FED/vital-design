@@ -1,0 +1,371 @@
+---
+title: Toast
+description: Status-coloured notifications dispatched imperatively from anywhere in the app.
+---
+
+import {
+  ToastActionPreview,
+  ToastAnchoredPreview,
+  ToastDescriptionPreview,
+  ToastIconPreview,
+  ToastLoadingPreview,
+  ToastPreview,
+  ToastPromisePreview,
+  ToastSubtlePreview,
+  ToastTopCenterPreview,
+  ToastTopRightPreview,
+  ToastTwoChannelsPreview,
+} from '~/components/previews/ToastPreview';
+
+## Preview
+
+<ToastPreview />
+
+## Usage
+
+`Toast` is built on Base UI's
+[Toast](https://base-ui.com/react/components/toast). The package
+exports a module-level singleton `toastManager` and a `ToastProvider`
+that auto-mounts the viewport — drop `<ToastProvider>` once at the app
+root and call `toastManager.add(...)` from anywhere (event handlers,
+fetch interceptors, zustand actions, …). No hook required at the call
+site.
+
+```tsx
+// app root
+import {
+  toastManager,
+  ToastProvider,
+} from '@/components/ui/Toast';
+
+function App() {
+  return (
+    <ToastProvider>
+      <Page />
+    </ToastProvider>
+  );
+}
+
+// anywhere
+import { toastManager } from '@/components/ui/Toast';
+
+function SaveButton() {
+  return (
+    <Button
+      onClick={() =>
+        toastManager.add({ type: 'success', title: '已成功儲存' })
+      }
+    >
+      Save
+    </Button>
+  );
+}
+```
+
+## Status
+
+`type` accepts `success`, `warning`, `error`, `info`, or `loading`.
+The toast applies the matching colour but does not pick an icon —
+icons are opt-in via `data.icon`. The `loading` status swaps the
+close X for a cancel button when `data.cancelProps` is supplied.
+
+## Position
+
+`ToastProvider` accepts a `position` prop with six anchors:
+`top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`,
+`bottom-right`. One provider serves one position — toasts dispatched
+through its manager render at that anchor.
+
+<ToastTopRightPreview />
+
+```tsx
+<ToastProvider position="top-right">{children}</ToastProvider>
+```
+
+### Top centre
+
+<ToastTopCenterPreview />
+
+```tsx
+<ToastProvider position="top-center">{children}</ToastProvider>
+```
+
+### Multiple positions (two channels)
+
+To send some toasts to one corner and others to a different corner,
+create a second manager with `createToastManager` and nest a second
+`ToastProvider` for it. Each provider/manager pair is a separate
+channel — pick whichever you want at the call site.
+
+<ToastTwoChannelsPreview />
+
+```tsx
+// toast-managers.ts
+import {
+  createToastManager,
+  type ToasterToastData,
+} from '@/components/ui/Toast';
+
+export const errorToast = createToastManager<ToasterToastData>();
+```
+
+```tsx
+// app root
+import {
+  toastManager,
+  ToastProvider,
+} from '@/components/ui/Toast';
+import { errorToast } from './toast-managers';
+
+<ToastProvider position="bottom-right">
+  <ToastProvider
+    toastManager={errorToast}
+    position="top-center"
+    variant="subtle"
+  >
+    {children}
+  </ToastProvider>
+</ToastProvider>;
+```
+
+```tsx
+// anywhere
+import { toastManager } from '@/components/ui/Toast';
+import { errorToast } from './toast-managers';
+
+toastManager.add({ type: 'success', title: 'Saved' });
+errorToast.add({ type: 'error', title: 'Connection lost' });
+```
+
+## Variants
+
+The `solid` variant (default) fills the toast with the status colour
+on a white-on-coloured layout. The `subtle` variant flips to a white
+surface with a tinted icon — matches the "notification" pattern in the
+design system.
+
+<ToastSubtlePreview />
+
+```tsx
+<ToastProvider position="top-right" variant="subtle">
+  {children}
+</ToastProvider>
+```
+
+## Loading
+
+For long-running operations, dispatch a toast with `type: 'loading'`
+and `timeout: 0`. Pair it with `actionProps` and a `data.cancelProps`
+button (instead of the close X) so the user can cancel the operation,
+then `update` the toast on completion.
+
+<ToastLoadingPreview />
+
+```tsx
+const id = toastManager.add({
+  type: 'loading',
+  title: '上傳中',
+  timeout: 0,
+  data: {
+    icon: <Spinner className="size-5" />,
+    cancelProps: { children: '取消', onClick: cancelUpload },
+  },
+  actionProps: { children: '動作', onClick: openLog },
+});
+
+await upload();
+toastManager.update(id, {
+  type: 'success',
+  title: '上傳完成',
+  timeout: 4000,
+  data: { icon: <CheckIcon className="size-5" /> },
+});
+```
+
+## With Icon
+
+Pass any icon node through `data.icon`; the renderer drops it into
+the icon slot before the title.
+
+<ToastIconPreview />
+
+```tsx
+toastManager.add({
+  type: 'warning',
+  title: '請注意系統公告',
+  data: {
+    icon: <FlagIcon className="size-5" />,
+  },
+});
+```
+
+## With Description
+
+Add a second line of context with `description`.
+
+<ToastDescriptionPreview />
+
+```tsx
+toastManager.add({
+  type: 'success',
+  title: '已成功儲存',
+  description: '所有變更已套用至專案。',
+});
+```
+
+## With Action
+
+`actionProps` is forwarded to the action button. Use it for an "Undo"
+or other recovery affordance.
+
+<ToastActionPreview />
+
+```tsx
+toastManager.add({
+  type: 'info',
+  title: '已封存項目',
+  actionProps: {
+    children: '復原',
+    onClick: () => undoArchive(),
+  },
+});
+```
+
+## Promise
+
+`promise` swaps a single toast through loading, success, and error
+states based on a promise.
+
+<ToastPromisePreview />
+
+```tsx
+toastManager.promise(saveDraft(), {
+  loading: { type: 'info', title: '處理中…' },
+  success: { type: 'success', title: '已儲存' },
+  error: { type: 'error', title: '失敗，請稍後再試' },
+});
+```
+
+## Anchored toasts
+
+For tooltip-style feedback anchored to a specific element (e.g.,
+"Copied!" near a button), use `anchoredToastManager` and wrap with
+`AnchoredToastProvider`. Pass `positionerProps.anchor` per call.
+
+<ToastAnchoredPreview />
+
+```tsx
+// app root
+import {
+  AnchoredToastProvider,
+  ToastProvider,
+} from '@/components/ui/Toast';
+
+<ToastProvider>
+  <AnchoredToastProvider variant="subtle">
+    {children}
+  </AnchoredToastProvider>
+</ToastProvider>;
+```
+
+```tsx
+// anywhere
+import { anchoredToastManager } from '@/components/ui/Toast';
+
+function CopyButton() {
+  const ref = useRef<HTMLButtonElement>(null);
+  return (
+    <Button
+      ref={ref}
+      onClick={() => {
+        navigator.clipboard.writeText(value);
+        anchoredToastManager.add({
+          type: 'success',
+          title: 'Copied!',
+          positionerProps: {
+            anchor: ref.current,
+            side: 'top',
+            sideOffset: 8,
+          },
+        });
+      }}
+    >
+      Copy
+    </Button>
+  );
+}
+```
+
+## Props
+
+### ToastProvider
+
+| Prop           | Type                                                                                              | Default          | Description                                                                                            |
+| -------------- | ------------------------------------------------------------------------------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------ |
+| `position`     | `'top-left' \| 'top-center' \| 'top-right' \| 'bottom-left' \| 'bottom-center' \| 'bottom-right'` | `'bottom-right'` | Anchor for the toast viewport                                                                          |
+| `variant`      | `'solid' \| 'subtle'`                                                                             | `'solid'`        | Solid status-coloured surface or subtle white bg                                                       |
+| `closable`     | `boolean`                                                                                         | `true`           | Render the close X button                                                                              |
+| `className`    | `string`                                                                                          | —                | Additional classes for the viewport                                                                    |
+| `toastManager` | `ToastManager`                                                                                    | `toastManager`   | Override the default singleton — pass a custom manager from `createToastManager` for a second channel  |
+| `timeout`      | `number`                                                                                          | `5000`           | Default auto-dismiss in ms (`0` keeps it open)                                                         |
+| `limit`        | `number`                                                                                          | `3`              | Max toasts shown at once                                                                               |
+
+### AnchoredToastProvider
+
+Same as `ToastProvider` but without `position` — anchored toasts
+position themselves against `positionerProps.anchor` on each call.
+Defaults to the `anchoredToastManager` singleton.
+
+### Manager methods
+
+`toastManager`, `anchoredToastManager`, and any manager from
+`createToastManager()` expose the same imperative API.
+
+| Method    | Signature                                                  | Description                                                 |
+| --------- | ---------------------------------------------------------- | ----------------------------------------------------------- |
+| `add`     | `(options) => string`                                      | Adds a toast and returns its id                             |
+| `update`  | `(id, options) => void`                                    | Updates an existing toast (or upserts by id via `add`)      |
+| `close`   | `(id?) => void`                                            | Closes a toast (or all toasts when no id)                   |
+| `promise` | `(promise, { loading, success, error }) => Promise<Value>` | Threads loading/success/error states through a single toast |
+
+### Add options
+
+| Option              | Type                                                       | Description                                                                  |
+| ------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `id`                | `string`                                                   | Stable id — calling `add` again with the same id updates in place            |
+| `type`              | `'success' \| 'warning' \| 'error' \| 'info' \| 'loading'` | Status colour                                                                |
+| `title`             | `ReactNode`                                                | Main message                                                                 |
+| `description`      | `ReactNode`                                                | Secondary text shown after the title                                         |
+| `timeout`           | `number`                                                   | Override provider timeout (`0` keeps it open)                                |
+| `priority`          | `'low' \| 'high'`                                          | ARIA live region politeness                                                  |
+| `actionProps`       | `ButtonHTMLAttributes`                                     | Props for the action button                                                  |
+| `positionerProps`   | `{ anchor, side, ... }`                                    | For anchored toasts — element to anchor against (passed to `Toast.Positioner`) |
+| `data.icon`         | `ReactNode`                                                | Icon rendered before the title                                               |
+| `data.cancelProps`  | `ButtonHTMLAttributes`                                     | Cancel button — replaces the close X when set or on loading toasts           |
+| `onClose`           | `() => void`                                               | Called when the toast closes                                                 |
+
+### createToastManager
+
+```tsx
+import {
+  createToastManager,
+  type ToasterToastData,
+} from '@/components/ui/Toast';
+
+const errorToast = createToastManager<ToasterToastData>();
+```
+
+Pass the returned manager to a `ToastProvider`'s `toastManager` prop
+to create a separate channel with its own state, position, and variant.
+
+### Exports
+
+| Export                  | Description                                                                            |
+| ----------------------- | -------------------------------------------------------------------------------------- |
+| `toastManager`          | Default module-level singleton manager — wired to `ToastProvider`                      |
+| `anchoredToastManager`  | Singleton for anchored/tooltip-style toasts — wired to `AnchoredToastProvider`         |
+| `createToastManager`    | Factory for additional manager channels                                                |
+| `ToastProvider`         | Mounts a viewport at a position and pre-wires `toastManager` (override via prop)       |
+| `AnchoredToastProvider` | Same idea for anchored toasts                                                          |
+| `useToast`              | Hook reading the manager from context — for advanced custom rendering inside primitives |
+| `Toast`, `ToastViewport`, `ToastPortal`, `ToastPositioner`, `ToastContent`, `ToastTitle`, `ToastDescription`, `ToastIcon`, `ToastAction`, `ToastClose`, `ToastCancel` | Lower-level parts for custom rendering   |

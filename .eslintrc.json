@@ -18,7 +18,9 @@
   "ignorePatterns": [
     "dist",
     "coverage",
-    "storybook-static"
+    "storybook-static",
+    "storybook-static-visual",
+    "apps"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -47,11 +49,26 @@
         "varsIgnorePattern": "^_",
         "argsIgnorePattern": "^_"
       }
+    ],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports",
+        "fixStyle": "inline-type-imports"
+      }
     ]
   },
   "settings": {
     "react": {
       "version": "detect"
     }
-  }
+  },
+  "overrides": [
+    {
+      "files": ["src-v2/blocks/**/*.{ts,tsx}"],
+      "rules": {
+        "react-refresh/only-export-components": "off"
+      }
+    }
+  ]
 }

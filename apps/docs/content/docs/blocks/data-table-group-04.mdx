@@ -1,0 +1,63 @@
+---
+title: Data Table — Editable Cells
+description: Editable data table with inline text cells, popover pickers, tag multi-select, and date selection.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { DataTableGroup04 } from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview
+  centered={false}
+  className="overflow-x-auto"
+  minHeight="min-h-0"
+>
+  <DataTableGroup04 />
+</ComponentPreview>
+
+## Composition
+
+This block is built on the following Vital Design primitives:
+
+- `Avatar`, `Calendar`, `Card`, `Editable`, `Popover`, `Table`, `Tag`
+- `CheckIcon`
+- [`@tanstack/react-table`](https://tanstack.com/table/v8) for table state
+
+## Performance
+
+This demo keeps the editing model simple: each editable popover cell owns its own `Popover` root. That is the easiest shape to read, test, and copy for small tables.
+
+Closed popup cost is usually not the expensive part. Popover and select content is portal-based, so the popup DOM, listbox, and positioning work are not mounted while closed. The remaining per-cell cost is still linear: root state, trigger handlers, subscriptions, hidden inputs for select-like controls, and React element creation.
+
+For small tables and demos, per-cell popup roots are fine. For large non-virtualized tables, virtualize rows first. If the table still has many interactive cells, prefer a shared overlay pattern: one popover root near the table, many triggers, and content selected from the active trigger payload.
+
+Use the shared-overlay pattern when:
+
+- the table renders many editable cells at once
+- the popup content is heavy or repeated
+- cells need a consistent floating surface
+- the table already owns a higher-level editing state
+
+Keep the per-cell pattern when:
+
+- the table is small or virtualized
+- each cell editor is lightweight
+- local state is easier to reason about than a shared active payload
+
+## Files
+
+| File                   | Description                                     |
+| ---------------------- | ----------------------------------------------- |
+| `DataTableGroup04.tsx` | Block entry — fixed-width table and row updates |
+| `columns.tsx`          | Editable text cells and popover cell renderers  |
+| `data.ts`              | Sample emission rows, people, and tag options   |
+| `popover-edit.tsx`     | Person, tags, and date popover editors          |
+
+## Installation
+
+```bash
+npx shadcn@latest add @vital-design/data-table-group-04
+```
+
+This installs the block under `src/blocks/data-table-group-04/` and pulls every required primitive automatically.

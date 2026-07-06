@@ -1,0 +1,79 @@
+---
+title: Command
+description: A composable command palette primitive built on cmdk, with input, list, items, groups, and shortcut display.
+---
+
+import { CommandPreview } from '~/components/previews/CommandPreview';
+
+## Preview
+
+<CommandPreview />
+
+## Usage
+
+`Command` is a thin styled wrapper around [cmdk](https://github.com/pacocoursey/cmdk). Use it to build command palettes, custom searchable popups, paged hierarchical pickers, or any list UI with keyboard-driven filtering.
+
+```tsx
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut,
+} from '@/components/ui/Command';
+
+<Command label="Command palette" className="h-[300px] w-[280px]">
+  <CommandInput placeholder="Type a command or search" />
+  <CommandList>
+    <CommandEmpty>No results found.</CommandEmpty>
+    <CommandGroup heading="Suggestions">
+      <CommandItem>
+        <span>New file</span>
+        <CommandShortcut>⌘N</CommandShortcut>
+      </CommandItem>
+      <CommandItem>Open file</CommandItem>
+    </CommandGroup>
+    <CommandSeparator />
+    <CommandGroup heading="Settings">
+      <CommandItem>Preferences</CommandItem>
+    </CommandGroup>
+  </CommandList>
+</Command>;
+```
+
+<Callout type="info">
+  Filtering is handled by cmdk based on the typed `CommandInput` value
+  matching each `CommandItem`'s text content. Pass `shouldFilter={false}`
+  on `Command` to opt out and run your own filter logic.
+</Callout>
+
+## When to Use
+
+| Need                                     | Component             |
+| ---------------------------------------- | --------------------- |
+| Flat value picker                        | `Select`              |
+| Searchable value picker (input + popup)  | `Combobox`            |
+| Hierarchical path picker                 | `Command` + `Popover` |
+| Action menu                              | `DropdownMenu`        |
+| Command palette / custom searchable list | `Command`             |
+
+`Command` does not include a popover or trigger — pair it with `Popover` (or your own surface) when you need a floating panel. The Storybook `HierarchicalPicker` story shows a paged tree picker built from `Command` and `Popover`.
+
+## Exports
+
+| Export              | Description                                                               |
+| ------------------- | ------------------------------------------------------------------------- |
+| `Command`           | Root container; accepts cmdk props (`shouldFilter`, `filter`, `label`, …) |
+| `CommandInput`      | Search input row with leading search icon                                 |
+| `CommandList`       | Scrollable list primitive                                                 |
+| `CommandEmpty`      | Empty state shown when no items match                                     |
+| `CommandGroup`      | Grouped items with optional `heading`                                     |
+| `CommandSeparator`  | Horizontal divider between groups                                         |
+| `CommandItem`       | Selectable row; fires `onSelect`                                          |
+| `CommandShortcut`   | Right-aligned keyboard hint inside an item                                |
+| `CommandLoading`    | Loading row with default spinner                                          |
+| `CommandHeader`     | Header slot above input (used for back button)                            |
+| `CommandBackButton` | Styled back button for paged flows                                        |

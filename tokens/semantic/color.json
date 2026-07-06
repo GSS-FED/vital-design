@@ -1,0 +1,56 @@
+{
+  "theme": {
+    "background":             { "$value": "#FFFFFF",          "$type": "color" },
+    "foreground":             { "$value": "{grayscale-opacity.900}",  "$type": "color" },
+
+    "card":                   { "$value": "#FFFFFF",          "$type": "color" },
+    "card-foreground":        { "$value": "{grayscale-opacity.900}",  "$type": "color" },
+
+    "popover":                { "$value": "#FFFFFF",          "$type": "color" },
+    "popover-foreground":     { "$value": "{grayscale-opacity.900}",  "$type": "color" },
+
+    "primary":                { "$value": "{primary.500}",    "$type": "color" },
+    "primary-foreground":     { "$value": "#FFFFFF",          "$type": "color" },
+
+    "secondary":              { "$value": "{grayscale-opacity.100}",  "$type": "color" },
+    "secondary-foreground":   { "$value": "{grayscale-opacity.900}",  "$type": "color" },
+
+    "muted":                  { "$value": "{grayscale-opacity.100}",  "$type": "color" },
+    "muted-foreground":       { "$value": "{grayscale-opacity.700}",  "$type": "color" },
+
+    "accent":                 { "$value": "{grayscale-opacity.200}",  "$type": "color" },
+    "accent-foreground":      { "$value": "{grayscale-opacity.900}",  "$type": "color" },
+
+    "destructive":            { "$value": "{destructive.500}","$type": "color" },
+    "destructive-foreground": { "$value": "#FFFFFF",          "$type": "color" },
+
+    "success":                { "$value": "{success.500}",    "$type": "color" },
+    "success-foreground":     { "$value": "#FFFFFF",          "$type": "color" },
+
+    "info":                   { "$value": "{info.500}",       "$type": "color" },
+    "info-foreground":        { "$value": "#FFFFFF",          "$type": "color" },
+
+    "warning":                { "$value": "{warning.500}",    "$type": "color" },
+    "warning-foreground":     { "$value": "{grayscale-opacity.900}",  "$type": "color" },
+
+    "input":                  { "$value": "#DEDEE2",          "$type": "color" },
+    "ring":                   { "$value": "{primary.500}",    "$type": "color" },
+
+    "chart-1": { "$value": "{primary.500}",     "$type": "color" },
+    "chart-2": { "$value": "{success.500}",     "$type": "color" },
+    "chart-3": { "$value": "{warning.500}",     "$type": "color" },
+    "chart-4": { "$value": "{info.500}",        "$type": "color" },
+    "chart-5": { "$value": "{destructive.500}", "$type": "color" }
+  },
+
+  "text": {
+    "tertiary": { "$value": "{grayscale-opacity.600}", "$type": "color" },
+    "disabled": { "$value": "{grayscale-opacity.400}", "$type": "color" }
+  },
+
+  "interactive": {
+    "hover":   { "$value": "{primary.600}", "$type": "color" },
+    "pressed": { "$value": "{primary.700}", "$type": "color" },
+    "subtle":  { "$value": "{primary.50}",  "$type": "color" }
+  }
+}

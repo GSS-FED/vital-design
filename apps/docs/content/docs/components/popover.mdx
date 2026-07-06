@@ -1,0 +1,72 @@
+---
+title: Popover
+description: A floating panel anchored to a trigger element, used for tooltips with rich content, profile cards, and contextual overlays.
+---
+
+import { PopoverPreview } from '~/components/previews/PopoverPreview';
+
+## Preview
+
+<PopoverPreview />
+
+## Usage
+
+`Popover` is a thin styled wrapper around Base UI Popover. The trigger is render-prop based — pass any element via `render` and the popover wires up open state, focus, and ARIA attributes automatically.
+
+```tsx
+import { Button } from '@/components/ui/Button';
+import {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverTitle,
+  PopoverTrigger,
+} from '@/components/ui/Popover';
+
+<Popover>
+  <PopoverTrigger
+    render={<Button>View details</Button>}
+  />
+  <PopoverContent className="w-72">
+    <PopoverTitle>Popover title</PopoverTitle>
+    <PopoverDescription className="mt-1">
+      Short text describing the panel contents.
+    </PopoverDescription>
+  </PopoverContent>
+</Popover>;
+```
+
+## Placement
+
+`PopoverContent` accepts `side` (`top` | `right` | `bottom` | `left`), `align` (`start` | `center` | `end`), and `sideOffset` props for positioning. Defaults are `align='start'`, `sideOffset=4`.
+
+```tsx
+<PopoverContent side="top" align="center" sideOffset={8}>
+  …
+</PopoverContent>
+```
+
+## When to Use
+
+| Need                                        | Component       |
+| ------------------------------------------- | --------------- |
+| Short overlay with rich content             | `Popover`       |
+| Action menu (each item fires a callback)    | `DropdownMenu`  |
+| Value picker (selection bound to a value)   | `Select` / `Combobox` |
+| Hierarchical path picker                    | `Command` + `Popover` |
+| Searchable command palette                  | `Command`       |
+
+`Popover` is the bare floating panel — pair it with your own content. For action menus, prefer `DropdownMenu`; for value pickers, prefer the matched component.
+
+## Exports
+
+| Export                | Description                                        |
+| --------------------- | -------------------------------------------------- |
+| `Popover`             | Root; manages open state                           |
+| `PopoverTrigger`      | Render-prop trigger                                |
+| `PopoverContent`      | Composite of Portal + Positioner + Popup          |
+| `PopoverPortal`       | Portal target (rarely used directly)               |
+| `PopoverArrow`        | Optional pointer arrow                             |
+| `PopoverClose`        | Close button slot                                  |
+| `PopoverTitle`        | Accessible title styled for popups                 |
+| `PopoverDescription`  | Accessible description styled for popups           |

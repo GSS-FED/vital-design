@@ -1,0 +1,67 @@
+---
+title: Table
+description: Semantic <table> primitives with VD tokens for static tables and custom compositions.
+---
+
+import { TablePreview } from '~/components/previews/TablePreview';
+
+## Preview
+
+<TablePreview />
+
+## Usage
+
+```tsx
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/Table';
+
+<Table>
+  <TableCaption>A list of your recent invoices.</TableCaption>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Invoice</TableHead>
+      <TableHead className="text-right">Amount</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell className="font-medium">INV001</TableCell>
+      <TableCell className="text-right">$250.00</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>;
+```
+
+## When to use
+
+- **Static or simple tables**: read-only layouts, summary tables, low row counts.
+- **Custom table compositions**: use the markup primitive when you need full control over column rendering.
+
+## Parts
+
+| Part           | Element     | Notes                                                                       |
+| -------------- | ----------- | --------------------------------------------------------------------------- |
+| `Table`        | `<table>`   | Wrapped in a scroll container. Use `containerClassName` to style the frame. |
+| `TableHeader`  | `<thead>`   | Adds a bottom border on each child `<tr>`.                                  |
+| `TableBody`    | `<tbody>`   | Drops the border from the last row.                                         |
+| `TableFooter`  | `<tfoot>`   | Muted background with top border.                                           |
+| `TableRow`     | `<tr>`      | Hover + `aria-expanded` + `data-state="selected"` styling.                  |
+| `TableHead`    | `<th>`      | Dense header cell with right border.                                        |
+| `TableCell`    | `<td>`      | Dense body cell with right border.                                          |
+| `TableCaption` | `<caption>` | Muted, top margin.                                                          |
+
+## Selected row state
+
+Apply `data-state="selected"` to a row to highlight it.
+
+```tsx
+<TableRow data-state="selected">…</TableRow>
+```
