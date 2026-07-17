@@ -313,4 +313,41 @@ describe('DropdownMenu', () => {
     expect(onValueChange).toHaveBeenCalled();
     expect(onValueChange.mock.calls[0]?.[0]).toBe('b');
   });
+
+  it('portals content into portalContainer when provided', async () => {
+    const portalContainer = document.createElement('div');
+    portalContainer.setAttribute('data-testid', 'custom-portal');
+    document.body.appendChild(portalContainer);
+
+    try {
+      render(
+        <DropdownMenu>
+          <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+          <DropdownMenuContent portalContainer={portalContainer}>
+            <DropdownMenuItem>Portaled item</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>,
+      );
+
+      fireEvent.click(screen.getByText('Open'));
+
+      await waitFor(() => {
+        expect(screen.getByText('Portaled item')).toBeInTheDocument();
+      });
+
+      const content = queryByAttribute(
+        'data-slot',
+        portalContainer,
+        'dropdown-menu-content',
+      );
+
+      expect(content).not.toBeNull();
+      expect(portalContainer.contains(content)).toBe(true);
+      expect(content).toContainElement(
+        screen.getByText('Portaled item'),
+      );
+    } finally {
+      portalContainer.remove();
+    }
+  });
 });
