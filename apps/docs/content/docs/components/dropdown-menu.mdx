@@ -3,7 +3,10 @@ title: DropdownMenu
 description: An action menu where each item fires a callback. Use this when items invoke actions rather than bind to a form value.
 ---
 
-import { DropdownMenuPreview } from '~/components/previews/DropdownMenuPreview';
+import {
+  DropdownMenuPreview,
+  DropdownMenuSubmenuPreview,
+} from '~/components/previews/DropdownMenuPreview';
 
 ## Preview
 
@@ -104,11 +107,15 @@ const [position, setPosition] = useState('bottom');
 
 Wrap nested items in `DropdownMenuSub` with a `DropdownMenuSubTrigger` and `DropdownMenuSubContent`. Submenus open on hover and right arrow key by default.
 
+<DropdownMenuSubmenuPreview />
+
 ```tsx
+import { Button } from '@/components/ui/Button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
@@ -119,13 +126,18 @@ import {
   <DropdownMenuTrigger render={<Button>File</Button>} />
   <DropdownMenuContent>
     <DropdownMenuItem>New file</DropdownMenuItem>
+    <DropdownMenuItem>Open…</DropdownMenuItem>
+    <DropdownMenuSeparator />
     <DropdownMenuSub>
       <DropdownMenuSubTrigger>Open recent</DropdownMenuSubTrigger>
       <DropdownMenuSubContent>
         <DropdownMenuItem>project-a.tsx</DropdownMenuItem>
         <DropdownMenuItem>project-b.tsx</DropdownMenuItem>
+        <DropdownMenuItem>notes.md</DropdownMenuItem>
       </DropdownMenuSubContent>
     </DropdownMenuSub>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem>Settings</DropdownMenuItem>
   </DropdownMenuContent>
 </DropdownMenu>;
 ```
@@ -167,13 +179,32 @@ function SplitWithMenu() {
 }
 ```
 
+## Props
+
+### DropdownMenuContent
+
+`DropdownMenuContent` (and `DropdownMenuSubContent`) is a composite of Portal + Positioner + Popup. Positioning props are forwarded to the Positioner; the popup accepts the usual Base UI Menu Popup props.
+
+| Prop                 | Type                                      | Default    | Description                                                                 |
+| -------------------- | ----------------------------------------- | ---------- | --------------------------------------------------------------------------- |
+| `align`              | `'start' \| 'center' \| 'end'`            | `'start'`  | Alignment relative to the anchor                                            |
+| `alignOffset`        | `number`                                  | -          | Offset along the alignment axis                                             |
+| `anchor`             | `RefObject \| Element \| …`               | -          | Custom positioning anchor (e.g. SplitButton wrapper)                        |
+| `side`               | `'top' \| 'right' \| 'bottom' \| 'left' \| …` | `'bottom'` (`'right'` for SubContent) | Preferred side of the anchor                                      |
+| `sideOffset`         | `number`                                  | `4`        | Distance from the anchor                                                    |
+| `positionerClassName`| `string`                                  | -          | Classes on the Positioner wrapper                                           |
+| `portalContainer`    | `HTMLElement \| null`                     | -          | Custom portal container (defaults to `document.body`)                       |
+| `className`          | `string`                                  | -          | Additional classes on the popup                                             |
+
+Use `portalContainer` when the menu opens inside a Dialog, a transformed stacking context, fullscreen element, or other environment where portaling to `document.body` is wrong.
+
 ## Exports
 
 | Export                     | Description                                               |
 | -------------------------- | --------------------------------------------------------- |
 | `DropdownMenu`             | Root; manages open state                                  |
 | `DropdownMenuTrigger`      | Render-prop trigger slot — accepts any element            |
-| `DropdownMenuContent`      | Composite of Portal + Positioner + Popup                  |
+| `DropdownMenuContent`      | Composite of Portal + Positioner + Popup; supports `portalContainer` |
 | `DropdownMenuItem`         | Action row; fires `onClick`, closes menu by default       |
 | `DropdownMenuCheckboxItem` | Toggleable item with built-in indicator                   |
 | `DropdownMenuRadioGroup`   | Radio group container                                     |
@@ -183,5 +214,5 @@ function SplitWithMenu() {
 | `DropdownMenuGroup`        | Group container for related items                         |
 | `DropdownMenuSub`          | Submenu root                                              |
 | `DropdownMenuSubTrigger`   | Submenu trigger row with built-in chevron-right indicator |
-| `DropdownMenuSubContent`   | Submenu content composite                                 |
+| `DropdownMenuSubContent`   | Submenu content composite; supports `portalContainer`     |
 | `DropdownMenuPortal`       | Portal target (rarely used directly)                      |
