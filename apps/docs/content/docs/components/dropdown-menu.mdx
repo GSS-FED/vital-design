@@ -196,7 +196,9 @@ function SplitWithMenu() {
 | `portalContainer`    | `HTMLElement \| null`                     | -          | Custom portal container (defaults to `document.body`)                       |
 | `className`          | `string`                                  | -          | Additional classes on the popup                                             |
 
-Use `portalContainer` when the menu opens inside a Dialog, a transformed stacking context, fullscreen element, or other environment where portaling to `document.body` is wrong.
+Use `portalContainer` when the menu must stay inside a CSS-scoped root — styles under a scope selector do not apply if the popup is portaled to `document.body`. It is also useful when body portaling breaks stacking or clipping (Dialog, transform, fullscreen, Shadow DOM).
+
+When using submenus, pass the **same** container to both `DropdownMenuContent` and `DropdownMenuSubContent` so main and nested menus share one portal environment.
 
 ## Exports
 
