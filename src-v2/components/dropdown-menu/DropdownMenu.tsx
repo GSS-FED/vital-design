@@ -67,6 +67,8 @@ export type DropdownMenuContentProps = ComponentPropsWithoutRef<
     'align' | 'alignOffset' | 'anchor' | 'side' | 'sideOffset'
   > & {
     positionerClassName?: string;
+    /** Custom portal container. Defaults to `document.body`. */
+    portalContainer?: DropdownMenuPortalProps['container'];
   };
 
 const DropdownMenuContent = forwardRef<
@@ -79,6 +81,7 @@ const DropdownMenuContent = forwardRef<
     anchor,
     children,
     className,
+    portalContainer,
     positionerClassName,
     side = 'bottom',
     sideOffset = 4,
@@ -87,7 +90,7 @@ const DropdownMenuContent = forwardRef<
   ref,
 ) {
   return (
-    <BaseMenu.Portal>
+    <BaseMenu.Portal container={portalContainer}>
       <BaseMenu.Positioner
         align={align}
         alignOffset={alignOffset}
@@ -123,6 +126,7 @@ const DropdownMenuSubContent = forwardRef<
     alignOffset,
     children,
     className,
+    portalContainer,
     positionerClassName,
     side = 'right',
     sideOffset = 4,
@@ -131,7 +135,7 @@ const DropdownMenuSubContent = forwardRef<
   ref,
 ) {
   return (
-    <BaseMenu.Portal>
+    <BaseMenu.Portal container={portalContainer}>
       <BaseMenu.Positioner
         align={align}
         alignOffset={alignOffset}

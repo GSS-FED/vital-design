@@ -14,6 +14,9 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from './DropdownMenu';
 
@@ -152,6 +155,29 @@ export const WithSeparatorAndLabel: Story = {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Log out</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  ),
+};
+
+export const WithSubmenu: Story = {
+  render: () => (
+    <DropdownMenu>
+      <DropdownMenuTrigger render={<Button>File</Button>} />
+      <DropdownMenuContent>
+        <DropdownMenuItem>New file</DropdownMenuItem>
+        <DropdownMenuItem>Open…</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>Open recent</DropdownMenuSubTrigger>
+          <DropdownMenuSubContent>
+            <DropdownMenuItem>project-a.tsx</DropdownMenuItem>
+            <DropdownMenuItem>project-b.tsx</DropdownMenuItem>
+            <DropdownMenuItem>notes.md</DropdownMenuItem>
+          </DropdownMenuSubContent>
+        </DropdownMenuSub>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>Settings</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   ),
