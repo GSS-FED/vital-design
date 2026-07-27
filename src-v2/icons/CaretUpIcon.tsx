@@ -1,0 +1,15 @@
+import type { SVGProps } from 'react';
+
+export const CaretUpIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 8 5"
+    width="1em"
+    height="1em"
+    fill="currentColor"
+    aria-hidden="true"
+    {...props}
+  >
+    <path d="M4.33594 0.304688L7.33594 3.30469C7.54688 3.51562 7.61719 3.84375 7.5 4.125C7.38281 4.40625 7.10156 4.59375 6.82031 4.59375H0.820312C0.515625 4.59375 0.234375 4.40625 0.117188 4.125C0 3.84375 0.0703125 3.51562 0.28125 3.30469L3.28125 0.304688C3.5625 0 4.05469 0 4.33594 0.304688Z" />
+  </svg>
+);

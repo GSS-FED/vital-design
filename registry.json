@@ -275,6 +275,32 @@
       ]
     },
     {
+      "name": "icon-caret-down",
+      "type": "registry:ui",
+      "title": "Caret Down Icon",
+      "description": "Caret Down Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CaretDownIcon.tsx",
+          "target": "src/components/icons/CaretDownIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-caret-up",
+      "type": "registry:ui",
+      "title": "Caret Up Icon",
+      "description": "Caret Up Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CaretUpIcon.tsx",
+          "target": "src/components/icons/CaretUpIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-check",
       "type": "registry:ui",
       "title": "Check Icon",
@@ -600,6 +626,16 @@
         {
           "path": "src-v2/icons/CalendarIcon.tsx",
           "target": "src/components/icons/CalendarIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CaretDownIcon.tsx",
+          "target": "src/components/icons/CaretDownIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CaretUpIcon.tsx",
+          "target": "src/components/icons/CaretUpIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -1810,8 +1846,9 @@
         "@vital-design/table",
         "@vital-design/tag",
         "@vital-design/toolbar",
+        "@vital-design/icon-caret-down",
+        "@vital-design/icon-caret-up",
         "@vital-design/icon-chevron-down",
-        "@vital-design/icon-chevron-up",
         "@vital-design/icon-ellipsis",
         "@vital-design/vital-theme"
       ],

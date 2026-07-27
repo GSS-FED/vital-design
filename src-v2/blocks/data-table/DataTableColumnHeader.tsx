@@ -1,5 +1,5 @@
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
-import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
+import { CaretDownIcon } from '@/icons/CaretDownIcon';
+import { CaretUpIcon } from '@/icons/CaretUpIcon';
 import { cn } from '@/lib/utils';
 import type { Column } from '@tanstack/react-table';
 import type { ReactNode } from 'react';
@@ -35,18 +35,24 @@ export function DataTableColumnHeader<TData, TValue>({
       <span>{title}</span>
       <span
         aria-hidden="true"
-        className="inline-flex size-4 items-center justify-center text-grayscale-opacity-500"
+        className="inline-flex size-4 shrink-0 flex-col items-center justify-center"
       >
-        {sort === 'desc' ? (
-          <ChevronDownIcon className="size-3.5" />
-        ) : sort === 'asc' ? (
-          <ChevronUpIcon className="size-3.5" />
-        ) : (
-          <span className="relative inline-flex h-3 w-3 flex-col items-center justify-between leading-none">
-            <ChevronUpIcon className="size-2" />
-            <ChevronDownIcon className="size-2" />
-          </span>
-        )}
+        <CaretUpIcon
+          className={cn(
+            'size-2',
+            sort === 'asc'
+              ? 'text-grayscale-opacity-800'
+              : 'text-grayscale-opacity-400',
+          )}
+        />
+        <CaretDownIcon
+          className={cn(
+            'size-2',
+            sort === 'desc'
+              ? 'text-grayscale-opacity-800'
+              : 'text-grayscale-opacity-400',
+          )}
+        />
       </span>
     </button>
   );

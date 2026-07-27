@@ -14,6 +14,16 @@ const iconGroups = [
     title: 'Calendar Icon',
     files: ['CalendarIcon'],
   },
+  {
+    name: 'icon-caret-down',
+    title: 'Caret Down Icon',
+    files: ['CaretDownIcon'],
+  },
+  {
+    name: 'icon-caret-up',
+    title: 'Caret Up Icon',
+    files: ['CaretUpIcon'],
+  },
   { name: 'icon-check', title: 'Check Icon', files: ['CheckIcon'] },
   {
     name: 'icon-chevron-down',
