@@ -145,7 +145,7 @@ const TableHead = forwardRef<ElementRef<'th'>, TableHeadProps>(
         ref={ref}
         data-slot="table-head"
         className={cn(
-          'h-8 border-r border-grayscale-opacity-300 bg-white px-3 py-1.5 text-left align-middle font-normal whitespace-nowrap text-grayscale-opacity-800 last:border-r-0',
+          'relative h-8 border-r border-grayscale-opacity-300 bg-white px-3 py-1.5 text-left align-middle font-normal whitespace-nowrap text-grayscale-opacity-800 last:border-r-0',
           '[&:has([role=checkbox])]:w-10 [&:has([role=checkbox])]:px-3 [&>[role=checkbox]]:mx-auto',
           className,
         )}

@@ -50,6 +50,7 @@ export const blocks: VitalRegistryItem[] = [
       groupFile('data-table-group-01', 'columns.tsx'),
       groupFile('data-table-group-01', 'data.ts'),
       groupFile('data-table-group-01', 'pinning.ts'),
+      groupFile('data-table-group-01', 'resize-handle.tsx'),
     ],
   },
   {
@@ -89,6 +90,7 @@ export const blocks: VitalRegistryItem[] = [
       ),
       groupFile('data-table-group-02', 'data.ts'),
       groupFile('data-table-group-02', 'pinning.ts'),
+      groupFile('data-table-group-02', 'resize-handle.tsx'),
       groupFile('data-table-group-02', 'table-rail.tsx'),
     ],
   },

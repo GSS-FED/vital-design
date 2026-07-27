@@ -264,6 +264,74 @@ export const Selectable: Story = {
   },
 };
 
+// Sizes add up to the 1024px card so the table fills it exactly. Anything left
+// over goes to the trailing filler column, never to the sized ones.
+const resizableColumns: ColumnDef<Task>[] = baseColumns.map(
+  (column) => {
+    const id =
+      'accessorKey' in column
+        ? String(column.accessorKey)
+        : column.id;
+    // `id` gets extra room so its header is not already truncated at the
+    // default width; `topic` absorbs the rest.
+    const size =
+      { id: 88, topic: 420 }[id ?? ''] ?? column.size ?? 150;
+    // Avatar column has nothing to reveal by widening.
+    const canResize = id !== 'owner';
+
+    return {
+      ...column,
+      size,
+      enableResizing: canResize,
+      // A fixed column must also pin its bounds: `getSize()` clamps to
+      // min/max, so `defaultColumn.minSize` would otherwise inflate it.
+      ...(canResize ? null : { minSize: size, maxSize: size }),
+    };
+  },
+);
+
+export const Resizable: Story = {
+  name: 'Resizable (onChange)',
+  render: function Render() {
+    const columns = useMemo(() => resizableColumns, []);
+    const table = useReactTable({
+      data: tasks,
+      columns,
+      defaultColumn: { minSize: 64, maxSize: 480 },
+      columnResizeMode: 'onChange',
+      getCoreRowModel: getCoreRowModel(),
+    });
+
+    return (
+      <Card className="max-w-5xl">
+        <DataTable table={table} resizable />
+      </Card>
+    );
+  },
+};
+
+export const ResizableOnEnd: Story = {
+  name: 'Resizable (onEnd)',
+  render: function Render() {
+    const columns = useMemo(() => resizableColumns, []);
+    // TanStack's default mode: columns hold still and the handle shows a ghost
+    // line until the pointer is released. Cheaper on very wide tables.
+    const table = useReactTable({
+      data: tasks,
+      columns,
+      defaultColumn: { minSize: 64, maxSize: 480 },
+      columnResizeMode: 'onEnd',
+      getCoreRowModel: getCoreRowModel(),
+    });
+
+    return (
+      <Card className="max-w-5xl">
+        <DataTable table={table} resizable />
+      </Card>
+    );
+  },
+};
+
 export const WithToolbar: Story = {
   render: function Render() {
     const [globalFilter, setGlobalFilter] = useState('');

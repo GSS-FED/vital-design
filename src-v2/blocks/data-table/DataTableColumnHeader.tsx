@@ -16,7 +16,9 @@ export function DataTableColumnHeader<TData, TValue>({
   className,
 }: DataTableColumnHeaderProps<TData, TValue>) {
   if (!column.getCanSort()) {
-    return <span className={className}>{title}</span>;
+    return (
+      <span className={cn('block truncate', className)}>{title}</span>
+    );
   }
 
   const sort = column.getIsSorted();
@@ -28,11 +30,11 @@ export function DataTableColumnHeader<TData, TValue>({
       data-sort={sort || undefined}
       onClick={column.getToggleSortingHandler()}
       className={cn(
-        'inline-flex cursor-pointer items-center gap-1 font-normal text-grayscale-opacity-800 transition-colors hover:text-grayscale-opacity-900 focus-visible:shadow-focus-primary focus-visible:outline-none',
+        'inline-flex max-w-full cursor-pointer items-center gap-1 font-normal text-grayscale-opacity-800 transition-colors hover:text-grayscale-opacity-900 focus-visible:shadow-focus-primary focus-visible:outline-none',
         className,
       )}
     >
-      <span>{title}</span>
+      <span className="truncate">{title}</span>
       <span
         aria-hidden="true"
         className="inline-flex size-4 shrink-0 flex-col items-center justify-center"

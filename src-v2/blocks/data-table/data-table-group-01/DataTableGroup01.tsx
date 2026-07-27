@@ -12,14 +12,16 @@ import { cn } from '@/lib/utils';
 import {
   type Column,
   type ColumnDef,
+  type ColumnResizeMode,
   type ExpandedState,
+  type HeaderGroup,
   type Row,
   flexRender,
   getCoreRowModel,
   getExpandedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { type CSSProperties, useMemo, useState } from 'react';
+import { type CSSProperties, memo, useMemo, useState } from 'react';
 import { ActionBar, FilterButton } from './action-bar';
 import { candidateColumns } from './columns';
 import {
@@ -29,9 +31,13 @@ import {
   candidates,
 } from './data';
 import {
+  FILLER_COLUMN_WIDTH,
+  columnSizeVar,
+  getColumnSizeVars,
   getCommonPinningStyles,
   getPinnedCellClassName,
 } from './pinning';
+import { ResizeHandle } from './resize-handle';
 
 const flatTableTargetWidth = 1040;
 const flatViewportWidth = 860;
@@ -44,12 +50,22 @@ const baseCandidateWidth = candidateColumns.reduce(
   0,
 );
 
-const flatCandidateColumns = candidateColumns.map((column) => ({
-  ...column,
-  size:
+const flatCandidateColumns = candidateColumns.map((column) => {
+  const size =
     ((column.size ?? 150) / baseCandidateWidth) *
-    flatTableTargetWidth,
-})) satisfies ColumnDef<CandidateTreeRow>[];
+    flatTableTargetWidth;
+  // Checkbox gutter and the row action button are fixed affordances, not data.
+  const canResize = column.id !== 'select' && column.id !== 'actions';
+
+  return {
+    ...column,
+    size,
+    enableResizing: canResize,
+    // A fixed column must also pin its bounds: `getSize()` clamps to min/max,
+    // so `defaultColumn.minSize` would otherwise inflate these gutters.
+    ...(canResize ? null : { minSize: size, maxSize: size }),
+  };
+}) satisfies ColumnDef<CandidateTreeRow>[];
 
 const scrollableCandidates: Candidate[] = Array.from(
   { length: 7 },
@@ -80,8 +96,14 @@ function ColumnGroup<TData>({
   return (
     <colgroup>
       {columns.map((column) => (
-        <col key={column.id} style={{ width: column.getSize() }} />
+        <col
+          key={column.id}
+          style={{ width: `var(${columnSizeVar(column.id)})` }}
+        />
       ))}
+      {/* Absorbs whatever space is left over, so narrowing the columns below
+          the card width does not end the rows mid-frame. */}
+      <col style={{ width: FILLER_COLUMN_WIDTH }} />
     </colgroup>
   );
 }
@@ -89,11 +111,9 @@ function ColumnGroup<TData>({
 function CandidateGroupRow({
   row,
   columnCount,
-  tableWidth,
 }: {
   row: Row<CandidateTreeRow>;
   columnCount: number;
-  tableWidth: number;
 }) {
   const open = row.getIsExpanded();
   const stickyTitleStyle: CSSProperties = {
@@ -105,7 +125,7 @@ function CandidateGroupRow({
       <TableCell
         colSpan={columnCount}
         className="sticky top-0 left-0 z-50 h-auto border-b border-grayscale-opacity-300 bg-[#f8f8f9] p-0 text-sm font-medium text-grayscale-opacity-800"
-        style={{ width: tableWidth }}
+        style={{ width: 'var(--table-total-size)' }}
       >
         <button
           type="button"
@@ -127,7 +147,115 @@ function CandidateGroupRow({
   );
 }
 
-export function DataTableGroup01() {
+interface CandidateGroupSectionProps {
+  row: Row<CandidateTreeRow>;
+  headerGroups: HeaderGroup<CandidateTreeRow>[];
+  columnCount: number;
+  isResizing: boolean;
+}
+
+function CandidateGroupSection({
+  row,
+  headerGroups,
+  columnCount,
+}: CandidateGroupSectionProps) {
+  return (
+    <TableBody>
+      <CandidateGroupRow row={row} columnCount={columnCount} />
+      {row.getIsExpanded() && (
+        <>
+          {headerGroups.map((hg) => (
+            <TableRow key={hg.id}>
+              {hg.headers.map((header) => (
+                <TableHead
+                  key={header.id}
+                  colSpan={header.colSpan}
+                  data-column-id={header.column.id}
+                  style={getCommonPinningStyles(
+                    header.column,
+                    30,
+                    groupTitleHeight,
+                  )}
+                  className={getPinnedCellClassName(
+                    header.column,
+                    // Clipping lives on the inner span, not the cell — the
+                    // resize guide has to escape downwards.
+                    'border-b border-grayscale-opacity-300',
+                  )}
+                >
+                  {header.isPlaceholder ? null : (
+                    <span className="block overflow-hidden text-ellipsis">
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                    </span>
+                  )}
+                  {!header.isPlaceholder && (
+                    <ResizeHandle header={header} />
+                  )}
+                </TableHead>
+              ))}
+              <td
+                aria-hidden="true"
+                className="border-b border-grayscale-opacity-300 bg-white p-0"
+              />
+            </TableRow>
+          ))}
+          {row.subRows.map((candidateRow) => (
+            <TableRow
+              key={candidateRow.id}
+              className="group transition-colors hover:bg-grayscale-opacity-100"
+            >
+              {candidateRow.getVisibleCells().map((cell) => (
+                <TableCell
+                  key={cell.id}
+                  style={getCommonPinningStyles(cell.column, 20)}
+                  className={getPinnedCellClassName(
+                    cell.column,
+                    'overflow-hidden border-b border-grayscale-opacity-300 text-ellipsis',
+                  )}
+                >
+                  {flexRender(
+                    cell.column.columnDef.cell,
+                    cell.getContext(),
+                  )}
+                </TableCell>
+              ))}
+              <td
+                aria-hidden="true"
+                className="border-b border-grayscale-opacity-300 p-0"
+              />
+            </TableRow>
+          ))}
+        </>
+      )}
+    </TableBody>
+  );
+}
+
+/**
+ * Column widths come from CSS variables on `<table>`, so a drag does not need
+ * to re-render a single row — freeze the sections until it ends. Without this
+ * every `mousemove` rebuilds the whole tree.
+ */
+const MemoCandidateGroupSection = memo(
+  CandidateGroupSection,
+  (_prev, next) => next.isResizing,
+);
+
+export interface DataTableGroup01Props {
+  /**
+   * `'onChange'` moves the columns under the pointer; `'onEnd'` holds them and
+   * commits on release, with the guide line showing where the edge will land.
+   * Prefer `'onEnd'` for wide tables — it does no layout work while dragging.
+   */
+  columnResizeMode?: ColumnResizeMode;
+}
+
+export function DataTableGroup01({
+  columnResizeMode = 'onChange',
+}: DataTableGroup01Props = {}) {
   // `true` expands every row by default (vs `{}` which collapses all).
   const [expanded, setExpanded] = useState<ExpandedState>(true);
   const data = useMemo(
@@ -144,6 +272,8 @@ export function DataTableGroup01() {
         left: ['select', 'name'],
       },
     },
+    defaultColumn: { minSize: 64, maxSize: 480 },
+    columnResizeMode,
     onExpandedChange: setExpanded,
     getSubRows: (row) =>
       row.kind === 'group' ? row.subRows : undefined,
@@ -151,8 +281,10 @@ export function DataTableGroup01() {
     getExpandedRowModel: getExpandedRowModel(),
   });
 
-  const tableWidth = table.getTotalSize();
   const visibleColumnCount = table.getVisibleLeafColumns().length;
+  const isResizing = Boolean(
+    table.getState().columnSizingInfo.isResizingColumn,
+  );
 
   return (
     <Card className="w-full max-w-[860px]">
@@ -167,78 +299,30 @@ export function DataTableGroup01() {
         right={<FilterButton>顯示欄位</FilterButton>}
       />
       <Table
-        className="table-fixed border-separate border-spacing-0"
+        className={cn(
+          'table-fixed border-separate border-spacing-0',
+          isResizing && '[&_*]:cursor-col-resize',
+        )}
         containerClassName="max-h-[560px] overflow-auto"
-        style={{ width: tableWidth }}
+        style={{
+          ...getColumnSizeVars(table),
+          width: 'var(--table-total-size)',
+          minWidth: '100%',
+        }}
       >
         <ColumnGroup columns={table.getVisibleLeafColumns()} />
         {table
           .getRowModel()
           .rows.filter((row) => row.depth === 0)
           .map((groupRow) => (
-            <TableBody key={groupRow.id}>
-              <CandidateGroupRow
-                row={groupRow}
-                columnCount={visibleColumnCount}
-                tableWidth={tableWidth}
-              />
-              {groupRow.getIsExpanded() && (
-                <>
-                  {table.getHeaderGroups().map((hg) => (
-                    <TableRow key={hg.id}>
-                      {hg.headers.map((header) => (
-                        <TableHead
-                          key={header.id}
-                          colSpan={header.colSpan}
-                          data-column-id={header.column.id}
-                          style={getCommonPinningStyles(
-                            header.column,
-                            30,
-                            groupTitleHeight,
-                          )}
-                          className={getPinnedCellClassName(
-                            header.column,
-                            'overflow-hidden border-b border-grayscale-opacity-300 text-ellipsis',
-                          )}
-                        >
-                          {header.isPlaceholder
-                            ? null
-                            : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext(),
-                              )}
-                        </TableHead>
-                      ))}
-                    </TableRow>
-                  ))}
-                  {groupRow.subRows.map((candidateRow) => (
-                    <TableRow
-                      key={candidateRow.id}
-                      className="group transition-colors hover:bg-grayscale-opacity-100"
-                    >
-                      {candidateRow.getVisibleCells().map((cell) => (
-                        <TableCell
-                          key={cell.id}
-                          style={getCommonPinningStyles(
-                            cell.column,
-                            20,
-                          )}
-                          className={getPinnedCellClassName(
-                            cell.column,
-                            'overflow-hidden border-b border-grayscale-opacity-300 text-ellipsis',
-                          )}
-                        >
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  ))}
-                </>
-              )}
-            </TableBody>
+            <MemoCandidateGroupSection
+              key={groupRow.id}
+              row={groupRow}
+              headerGroups={table.getHeaderGroups()}
+              // + 1 for the trailing filler column.
+              columnCount={visibleColumnCount + 1}
+              isResizing={isResizing}
+            />
           ))}
       </Table>
     </Card>

@@ -29,8 +29,15 @@ This block is built on the following Vittal Design primitives:
 | `columns.tsx`                  | `ColumnDef` array with custom cells                   |
 | `data-table-column-header.tsx` | Sortable column header with chevron toggle            |
 | `data.ts`                      | Sample emission dataset + tree builder                |
-| `pinning.ts`                   | Rail width constants and pinning style helpers        |
+| `pinning.ts`                   | Rail widths, column sizing vars, pinning style helpers |
+| `resize-handle.tsx`            | Draggable column resize handle with full-height guide  |
 | `table-rail.tsx`               | Sticky chevron/rail cells for grouped rows            |
+
+## Props
+
+| Prop                | Type                      | Default      | Description                                                                                          |
+| ------------------- | ------------------------- | ------------ | ---------------------------------------------------------------------------------------------------- |
+| `columnResizeMode`  | `'onChange' \| 'onEnd'`   | `'onChange'` | `'onChange'` moves the columns under the pointer. `'onEnd'` holds them and commits on release, with the guide line showing where the edge lands — it does no layout work while dragging, so it stays smooth on wide, heavily pinned tables. |
 
 ## Installation
 
