@@ -1,0 +1,6 @@
+{
+  "motion": {
+    "duration-fast": { "$value": "100ms", "$type": "string" },
+    "easing-in": { "$value": "ease-in", "$type": "string" }
+  }
+}
