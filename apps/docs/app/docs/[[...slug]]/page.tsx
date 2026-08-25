@@ -72,6 +72,17 @@ import {
   SheetPreview,
   SheetSidesPreview,
 } from '~/components/previews/SheetPreview';
+import { SidebarCloud01Preview } from '~/components/previews/SidebarCloud01Preview';
+import { SidebarCloud02Preview } from '~/components/previews/SidebarCloud02Preview';
+import { SidebarCloud03Preview } from '~/components/previews/SidebarCloud03Preview';
+import { SidebarCloud04Preview } from '~/components/previews/SidebarCloud04Preview';
+import { SidebarCloud05Preview } from '~/components/previews/SidebarCloud05Preview';
+import { SidebarCloud06Preview } from '~/components/previews/SidebarCloud06Preview';
+import {
+  SidebarFloatingPreview,
+  SidebarInsetPreview,
+  SidebarPreview,
+} from '~/components/previews/SidebarPreview';
 import {
   SliderDisabledPreview,
   SliderMinMaxPreview,
@@ -219,6 +230,15 @@ export default async function Page({
             SheetPreview,
             SheetSidesPreview,
             SheetNonModalPreview,
+            SidebarPreview,
+            SidebarInsetPreview,
+            SidebarFloatingPreview,
+            SidebarCloud01Preview,
+            SidebarCloud02Preview,
+            SidebarCloud03Preview,
+            SidebarCloud04Preview,
+            SidebarCloud05Preview,
+            SidebarCloud06Preview,
             SwitchPreview,
             SwitchDisabledPreview,
             SwitchInvalidPreview,

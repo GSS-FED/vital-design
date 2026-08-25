@@ -1,3 +1,9 @@
 {
-  "pages": ["getting-started", "components", "blocks", "design-tokens", "registry"]
+  "pages": [
+    "getting-started",
+    "components",
+    "blocks",
+    "design-tokens",
+    "registry"
+  ]
 }
