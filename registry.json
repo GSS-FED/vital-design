@@ -9,10 +9,7 @@
       "type": "registry:lib",
       "title": "Utils",
       "description": "Utility functions including cn() for class merging",
-      "dependencies": [
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["clsx", "tailwind-merge"],
       "files": [
         {
           "path": "src-v2/lib/utils.ts",
@@ -25,11 +22,11 @@
       "type": "registry:theme",
       "title": "Vital Design Theme",
       "description": "CSS variables and Tailwind v4 theme tokens for vital-design components",
-      "dependencies": [
-        "tw-animate-css"
-      ],
+      "dependencies": ["tw-animate-css"],
       "cssVars": {
         "theme": {
+          "motion-duration-fast": "100ms",
+          "motion-easing-in": "ease-in",
           "radius-none": "0px",
           "radius-sm": "4px",
           "radius-md": "8px",
@@ -212,6 +209,14 @@
           "chart-3": "#FFA700",
           "chart-4": "#00C3FF",
           "chart-5": "#EB5000",
+          "sidebar": "#F9F9FA",
+          "sidebar-foreground": "#232327",
+          "sidebar-primary": "#0E86FE",
+          "sidebar-primary-foreground": "#FFFFFF",
+          "sidebar-accent": "#EBF5FF",
+          "sidebar-accent-foreground": "#0153A5",
+          "sidebar-border": "rgba(35, 35, 50, 0.08)",
+          "sidebar-ring": "#73B9FE",
           "text-tertiary": "rgba(35, 35, 50, 0.55)",
           "text-disabled": "rgba(35, 35, 50, 0.25)",
           "interactive-hover": "#016DD8",
@@ -237,6 +242,19 @@
         "@vital-design/vital-theme",
         "@vital-design/utils",
         "@vital-design/vital-icons"
+      ]
+    },
+    {
+      "name": "icon-bell",
+      "type": "registry:ui",
+      "title": "Bell Icon",
+      "description": "Bell Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/BellIcon.tsx",
+          "target": "src/components/icons/BellIcon.tsx",
+          "type": "registry:ui"
+        }
       ]
     },
     {
@@ -448,6 +466,19 @@
       ]
     },
     {
+      "name": "icon-info",
+      "type": "registry:ui",
+      "title": "Info Icon",
+      "description": "Info Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/InfoIcon.tsx",
+          "target": "src/components/icons/InfoIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-minus",
       "type": "registry:ui",
       "title": "Minus Icon",
@@ -456,6 +487,32 @@
         {
           "path": "src-v2/icons/MinusIcon.tsx",
           "target": "src/components/icons/MinusIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-panel-left",
+      "type": "registry:ui",
+      "title": "Panel Left Icon",
+      "description": "Panel Left Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/PanelLeftIcon.tsx",
+          "target": "src/components/icons/PanelLeftIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-plus",
+      "type": "registry:ui",
+      "title": "Plus Icon",
+      "description": "Plus Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/PlusIcon.tsx",
+          "target": "src/components/icons/PlusIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -474,6 +531,19 @@
       ]
     },
     {
+      "name": "icon-shield-check",
+      "type": "registry:ui",
+      "title": "Shield Check Icon",
+      "description": "Shield Check Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ShieldCheckIcon.tsx",
+          "target": "src/components/icons/ShieldCheckIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-spinner",
       "type": "registry:ui",
       "title": "Spinner Icon",
@@ -482,6 +552,19 @@
         {
           "path": "src-v2/icons/SpinnerIcon.tsx",
           "target": "src/components/icons/SpinnerIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-square-arrow-out-up-right",
+      "type": "registry:ui",
+      "title": "Square Arrow Out Up Right Icon",
+      "description": "Square Arrow Out Up Right Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/SquareArrowOutUpRightIcon.tsx",
+          "target": "src/components/icons/SquareArrowOutUpRightIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -505,6 +588,11 @@
       "title": "Vital Icons",
       "description": "Custom SVG icon components",
       "files": [
+        {
+          "path": "src-v2/icons/BellIcon.tsx",
+          "target": "src/components/icons/BellIcon.tsx",
+          "type": "registry:ui"
+        },
         {
           "path": "src-v2/icons/CalendarIcon.tsx",
           "target": "src/components/icons/CalendarIcon.tsx",
@@ -586,8 +674,23 @@
           "type": "registry:ui"
         },
         {
+          "path": "src-v2/icons/InfoIcon.tsx",
+          "target": "src/components/icons/InfoIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src-v2/icons/MinusIcon.tsx",
           "target": "src/components/icons/MinusIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/PanelLeftIcon.tsx",
+          "target": "src/components/icons/PanelLeftIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/PlusIcon.tsx",
+          "target": "src/components/icons/PlusIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -596,8 +699,18 @@
           "type": "registry:ui"
         },
         {
+          "path": "src-v2/icons/ShieldCheckIcon.tsx",
+          "target": "src/components/icons/ShieldCheckIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src-v2/icons/SpinnerIcon.tsx",
           "target": "src/components/icons/SpinnerIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/SquareArrowOutUpRightIcon.tsx",
+          "target": "src/components/icons/SquareArrowOutUpRightIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -620,14 +733,23 @@
       ]
     },
     {
+      "name": "use-is-mobile",
+      "type": "registry:hook",
+      "title": "useIsMobile",
+      "description": "Hook that tracks whether the viewport is below the mobile breakpoint (768px)",
+      "files": [
+        {
+          "path": "src-v2/hooks/useIsMobile.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
       "name": "alert",
       "type": "registry:ui",
       "title": "Alert",
       "description": "Composable alert component with title, description, and action slots",
-      "dependencies": [
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -713,10 +835,7 @@
       "type": "registry:ui",
       "title": "Split Button",
       "description": "Split button component with main action and dropdown trigger",
-      "dependencies": [
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/button",
@@ -737,11 +856,7 @@
       "type": "registry:ui",
       "title": "Checkbox",
       "description": "Checkbox component with indeterminate state support",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-check",
@@ -782,11 +897,7 @@
       "type": "registry:ui",
       "title": "Radio Group",
       "description": "Composable radio group component",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -826,10 +937,7 @@
       "type": "registry:ui",
       "title": "Label",
       "description": "Accessible label associated with form controls",
-      "dependencies": [
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -846,11 +954,7 @@
       "type": "registry:ui",
       "title": "Switch",
       "description": "Toggle switch component with on/off labels",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -888,10 +992,7 @@
       "type": "registry:ui",
       "title": "Skeleton",
       "description": "Loading placeholder with pulse animation",
-      "dependencies": [
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -908,10 +1009,7 @@
       "type": "registry:ui",
       "title": "Spinner",
       "description": "Loading indicator with accessible status text",
-      "dependencies": [
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-spinner",
@@ -929,11 +1027,7 @@
       "type": "registry:ui",
       "title": "Progress",
       "description": "Progress primitives and segmented status indicators styled with VD tokens",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -997,11 +1091,7 @@
       "type": "registry:ui",
       "title": "Input",
       "description": "Single-line input primitive",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -1018,10 +1108,7 @@
       "type": "registry:ui",
       "title": "Editable",
       "description": "Inline editable text field with display, input, and textarea parts",
-      "dependencies": [
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/input",
@@ -1039,10 +1126,7 @@
       "type": "registry:ui",
       "title": "Textarea",
       "description": "Multiline text input component",
-      "dependencies": [
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -1059,10 +1143,7 @@
       "type": "registry:ui",
       "title": "Password Input",
       "description": "Password input with visibility toggle",
-      "dependencies": [
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/input-group",
@@ -1105,11 +1186,7 @@
       "type": "registry:ui",
       "title": "Separator",
       "description": "Horizontal or vertical divider",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -1126,11 +1203,7 @@
       "type": "registry:ui",
       "title": "Scroll Area",
       "description": "Scrollable viewport with optional edge fade and custom scrollbars",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -1147,11 +1220,7 @@
       "type": "registry:ui",
       "title": "Select",
       "description": "Single and multiple dropdown for flat option lists",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-check",
@@ -1171,11 +1240,7 @@
       "type": "registry:ui",
       "title": "Autocomplete",
       "description": "Free-form text input with filtered suggestions and optional inline completion",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-chevron-down",
@@ -1196,11 +1261,7 @@
       "type": "registry:ui",
       "title": "Combobox",
       "description": "Searchable input picker with chip selection",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-check",
@@ -1226,11 +1287,7 @@
       "type": "registry:ui",
       "title": "Command",
       "description": "Composable command palette primitive with input, list, and items",
-      "dependencies": [
-        "cmdk",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["cmdk", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-chevron-left",
@@ -1250,11 +1307,7 @@
       "type": "registry:ui",
       "title": "Popover",
       "description": "Floating panel anchored to a trigger; for tooltips with rich content, profile cards, and contextual overlays",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -1271,11 +1324,7 @@
       "type": "registry:ui",
       "title": "Tooltip",
       "description": "Composable tooltip primitive with provider, trigger, content, and arrow parts",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -1292,11 +1341,7 @@
       "type": "registry:ui",
       "title": "Toast",
       "description": "Toast primitives plus a Vital-styled Toaster preset for app notifications",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-close",
@@ -1314,11 +1359,7 @@
       "type": "registry:ui",
       "title": "Dropdown Menu",
       "description": "Action menu with checkbox items, radio items, and submenus",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-check",
@@ -1360,11 +1401,7 @@
       "type": "registry:ui",
       "title": "Slider",
       "description": "Simple slider component built on Base UI primitives",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -1381,10 +1418,7 @@
       "type": "registry:ui",
       "title": "Table",
       "description": "Semantic table primitives (Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell, TableCaption) styled with VD tokens",
-      "dependencies": [
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -1401,11 +1435,7 @@
       "type": "registry:ui",
       "title": "Tabs",
       "description": "Composable tabs primitive with underline and pill variants plus optional bordered underline list",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -1472,10 +1502,7 @@
       "type": "registry:ui",
       "title": "Time Picker",
       "description": "Three-column time picker (hours, minutes, seconds) with click-to-select and CSS scroll-snap",
-      "dependencies": [
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -1492,11 +1519,7 @@
       "type": "registry:ui",
       "title": "Collapsible",
       "description": "Expand and collapse a panel with a trigger button; built on Base UI primitives",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -1513,11 +1536,7 @@
       "type": "registry:ui",
       "title": "Sheet",
       "description": "Side-anchored dialog that slides in from any edge; modal by default, supports docked panel mode via `modal={false}`",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-close",
@@ -1526,6 +1545,35 @@
       "files": [
         {
           "path": "src-v2/components/sheet/Sheet.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "Composable app sidebar with provider state, collapsible modes, mobile sheet, and menu parts — aligned with shadcn/ui Sidebar",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme",
+        "@vital-design/input",
+        "@vital-design/separator",
+        "@vital-design/sheet",
+        "@vital-design/skeleton",
+        "@vital-design/tooltip",
+        "@vital-design/use-is-mobile",
+        "@vital-design/icon-panel-left"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/sidebar/Sidebar.tsx",
           "type": "registry:ui"
         }
       ]
@@ -1556,10 +1604,7 @@
       "type": "registry:ui",
       "title": "Card",
       "description": "Composable card primitive with header, title, description, action, content, and footer parts",
-      "dependencies": [
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/vital-theme"
@@ -1576,11 +1621,7 @@
       "type": "registry:ui",
       "title": "Number Input",
       "description": "Numeric input with increment/decrement steppers and scrub area",
-      "dependencies": [
-        "@base-ui/react",
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["@base-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-chevron-down",
@@ -1620,9 +1661,7 @@
       "type": "registry:block",
       "title": "Data Table — Candidate Tree",
       "description": "Grouped tree-style data table with selectable rows, column pinning, action bar, and filter dropdown",
-      "categories": [
-        "data-table"
-      ],
+      "categories": ["data-table"],
       "dependencies": [
         "@tanstack/react-table",
         "clsx",
@@ -1677,9 +1716,7 @@
       "type": "registry:block",
       "title": "Data Table — ESG Emission Tree",
       "description": "Expandable tree data table with sticky rail, sortable headers, selection, action bar, and inline switch toggles",
-      "categories": [
-        "data-table"
-      ],
+      "categories": ["data-table"],
       "dependencies": [
         "@tanstack/react-table",
         "clsx",
@@ -1746,9 +1783,7 @@
       "type": "registry:block",
       "title": "Data Table — Editable Cells",
       "description": "Editable data table with inline text cells, popover pickers, tag multi-select, and date selection",
-      "categories": [
-        "data-table"
-      ],
+      "categories": ["data-table"],
       "dependencies": [
         "@tanstack/react-table",
         "clsx",
@@ -1786,6 +1821,37 @@
           "path": "src-v2/blocks/data-table/data-table-group-04/popover-edit.tsx",
           "target": "src/blocks/data-table-group-04/popover-edit.tsx",
           "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-cloud-01",
+      "type": "registry:block",
+      "title": "Sidebar — Cloud Flat",
+      "description": "Base cloud sidebar: frosted glass, flat nav with no submenus, no account footer, active edge rail, bullet collapse. Installs CloudSidebar plus the frost photo. Compose SidebarProvider and SidebarInset in the app. Sample logos use /images public paths and are not shipped.",
+      "categories": ["sidebar", "layout", "navigation"],
+      "dependencies": ["clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/sidebar",
+        "@vital-design/icon-calendar",
+        "@vital-design/icon-check",
+        "@vital-design/icon-flag",
+        "@vital-design/icon-panel-left",
+        "@vital-design/icon-search",
+        "@vital-design/icon-user",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/blocks/sidebar-cloud-01/components/app-sidebar.tsx",
+          "target": "src/blocks/sidebar-cloud-01/app-sidebar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src-v2/public/images/cloud.jpg",
+          "target": "src/public/images/cloud.jpg",
+          "type": "registry:file"
         }
       ]
     }

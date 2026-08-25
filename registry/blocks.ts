@@ -105,4 +105,36 @@ export const blocks: VitalRegistryItem[] = [
       groupFile('data-table-group-04', 'popover-edit.tsx'),
     ],
   },
+  {
+    name: 'sidebar-cloud-01',
+    type: 'registry:block',
+    title: 'Sidebar — Cloud Flat',
+    description:
+      'Base cloud sidebar: frosted glass, flat nav with no submenus, no account footer, active edge rail, bullet collapse. Installs CloudSidebar plus the frost photo. Compose SidebarProvider and SidebarInset in the app. Sample logos use /images public paths and are not shipped.',
+    categories: ['sidebar', 'layout', 'navigation'],
+    dependencies: ['clsx', 'tailwind-merge'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/sidebar',
+      '@vital-design/icon-calendar',
+      '@vital-design/icon-check',
+      '@vital-design/icon-flag',
+      '@vital-design/icon-panel-left',
+      '@vital-design/icon-search',
+      '@vital-design/icon-user',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/blocks/sidebar-cloud-01/components/app-sidebar.tsx',
+        target: 'src/blocks/sidebar-cloud-01/app-sidebar.tsx',
+        type: 'registry:component',
+      },
+      {
+        path: 'src-v2/public/images/cloud.jpg',
+        target: 'src/public/images/cloud.jpg',
+        type: 'registry:file',
+      },
+    ],
+  },
 ];

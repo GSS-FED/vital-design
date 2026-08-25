@@ -13,4 +13,17 @@ export const hooks = [
       },
     ],
   },
+  {
+    name: 'use-is-mobile',
+    type: 'registry:hook',
+    title: 'useIsMobile',
+    description:
+      'Hook that tracks whether the viewport is below the mobile breakpoint (768px)',
+    files: [
+      {
+        path: 'src-v2/hooks/useIsMobile.ts',
+        type: 'registry:hook',
+      },
+    ],
+  },
 ] satisfies VitalRegistryItem[];
