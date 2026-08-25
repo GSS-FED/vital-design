@@ -20,6 +20,9 @@ const preview: Preview = {
     docs: {
       toc: true, //Enables the table of contents
     },
+    options: {
+      storySort: { method: 'alphabetical' },
+    },
   },
   //Enable auto-generated documentation for all stories
   tags: ['autodocs'],
