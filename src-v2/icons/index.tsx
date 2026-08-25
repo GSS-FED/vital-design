@@ -1,3 +1,4 @@
+export { BellIcon } from './BellIcon';
 export { CalendarIcon } from './CalendarIcon';
 export { CheckIcon } from './CheckIcon';
 export { ChevronDoubleLeftIcon } from './ChevronDoubleLeftIcon';
@@ -14,7 +15,12 @@ export { EllipsisIcon } from './EllipsisIcon';
 export { EyeIcon } from './EyeIcon';
 export { EyeSlashIcon } from './EyeSlashIcon';
 export { FlagIcon } from './FlagIcon';
+export { InfoIcon } from './InfoIcon';
 export { MinusIcon } from './MinusIcon';
+export { PanelLeftIcon } from './PanelLeftIcon';
+export { PlusIcon } from './PlusIcon';
 export { SearchIcon } from './SearchIcon';
+export { ShieldCheckIcon } from './ShieldCheckIcon';
 export { SpinnerIcon } from './SpinnerIcon';
+export { SquareArrowOutUpRightIcon } from './SquareArrowOutUpRightIcon';
 export { UserIcon } from './UserIcon';
