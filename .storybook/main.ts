@@ -17,6 +17,7 @@ const config: StorybookConfig = {
       files: '**/*.stories.@(js|jsx|mjs|ts|tsx)',
     },
   ],
+  staticDirs: [{ from: '../src-v2/public/images', to: '/images' }],
   ...sharedConfig,
 };
 

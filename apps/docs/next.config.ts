@@ -18,6 +18,14 @@ const config: NextConfig = {
     );
     // ~/ → apps/docs/ (for docs app internal imports)
     webpackConfig.resolve.alias['~'] = path.resolve(__dirname, '.');
+
+    // Demo SVGs from src-v2/public/images as URL strings (Storybook/Vite parity)
+    webpackConfig.module.rules.push({
+      test: /\.svg$/i,
+      include: path.resolve(__dirname, '../../src-v2/public/images'),
+      type: 'asset/resource',
+    });
+
     return webpackConfig;
   },
 };
