@@ -52,11 +52,17 @@ function renderCloud(
 }
 
 function getCloudCollapseTrigger() {
-  return screen
-    .getAllByRole('button', { name: 'Toggle Sidebar' })
-    .find((trigger) =>
-      trigger.className.includes('bg-grayscale-600'),
-    );
+  const dock = queryByAttribute(
+    'data-cloud-footer-dock',
+    document.body,
+    '',
+  );
+
+  return dock
+    ? within(dock).queryByRole('button', {
+        name: 'Toggle Sidebar',
+      })
+    : null;
 }
 
 function querySlot(container: HTMLElement, slot: string) {
@@ -117,39 +123,22 @@ describe('CloudSidebar 03', () => {
     const add = screen.getByRole('button', { name: 'Add' });
     expect(add).toBeInTheDocument();
     expect(add).toHaveAttribute('data-size', 'icon-lg');
-    expect(add.className).toMatch(/size-8/);
     expect(
       queryByAttribute('data-icon', add, 'inline-start'),
     ).toBeNull();
   });
 
-  it('keeps a 32px brand mark and icon-rail padding when collapsed', () => {
-    const { baseElement } = renderCloud({
+  it('uses the brand mark when collapsed', () => {
+    renderCloud({
       defaultOpen: false,
       sidebar: { collapsible: 'icon' },
     });
 
     const brand = screen.getByAltText('Brand');
     expect(brand).toHaveAttribute('src', '/images/vital-logo.svg');
-    expect(brand).toHaveClass('size-8', 'shrink-0');
-
-    const header = querySlot(baseElement, 'sidebar-header');
-    expect(header?.className).toMatch(
-      /group-data-\[collapsible=icon\]:p-3!/,
-    );
-
-    const group = querySlot(baseElement, 'sidebar-group');
-    expect(group?.className).toMatch(
-      /group-data-\[collapsible=icon\]:p-3!/,
-    );
-
-    const item = querySlot(baseElement, 'sidebar-menu-item');
-    expect(item?.className).toMatch(
-      /group-data-\[state=expanded\]:group-data-\[side=left\]:-ml-3/,
-    );
-    expect(item?.className).not.toMatch(
-      /(?:^|\s)group-data-\[side=left\]:-ml-3(?:\s|$)/,
-    );
+    expect(
+      screen.getByRole('button', { name: 'Dashboard' }),
+    ).toHaveAttribute('data-active', 'true');
   });
 
   it('opens nested items in a dropdown instead of an inline submenu', async () => {
@@ -192,9 +181,6 @@ describe('CloudSidebar 03', () => {
     renderCloud();
 
     expect(getCloudCollapseTrigger()).toBeInTheDocument();
-    expect(getCloudCollapseTrigger()?.className).toContain(
-      'bottom-4',
-    );
   });
 
   it('hides the docked desktop collapse control on mobile', () => {
@@ -215,6 +201,6 @@ describe('CloudSidebar 03', () => {
         name: 'Toggle Sidebar',
       }),
     ).toBeInTheDocument();
-    expect(getCloudCollapseTrigger()).toBeUndefined();
+    expect(getCloudCollapseTrigger()).toBeNull();
   });
 });

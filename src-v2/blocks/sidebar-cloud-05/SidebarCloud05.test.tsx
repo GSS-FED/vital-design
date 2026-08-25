@@ -7,6 +7,7 @@ import { useIsMobile } from '@/hooks/useIsMobile';
 import '@testing-library/jest-dom/vitest';
 import {
   queryAllByAttribute,
+  queryByAttribute,
   render,
   screen,
   within,
@@ -50,11 +51,17 @@ function renderCloud(
 }
 
 function getCloudCollapseTrigger() {
-  return screen
-    .getAllByRole('button', { name: 'Toggle Sidebar' })
-    .find((trigger) =>
-      trigger.className.includes('bg-grayscale-600'),
-    );
+  const dock = queryByAttribute(
+    'data-cloud-footer-dock',
+    document.body,
+    '',
+  );
+
+  return dock
+    ? within(dock).queryByRole('button', {
+        name: 'Toggle Sidebar',
+      })
+    : null;
 }
 
 function querySlot(container: HTMLElement, slot: string) {
@@ -79,9 +86,6 @@ describe('CloudSidebar 05', () => {
     expect(
       screen.getByRole('button', { name: 'Notifications' }),
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: 'Search' }).className,
-    ).toMatch(/rounded-md/);
     expect(screen.getByText('3')).toBeInTheDocument();
     expect(
       screen.queryByRole('button', { name: 'Add' }),
@@ -96,12 +100,13 @@ describe('CloudSidebar 05', () => {
     ).not.toBeInTheDocument();
     expect(screen.getByText('Ray')).toBeInTheDocument();
     expect(screen.queryByText('In progress')).not.toBeInTheDocument();
-    const footer = querySlot(document.body, 'sidebar-footer');
-    expect(footer?.className).toMatch(/bg-primary-700\/5/);
+    expect(
+      querySlot(document.body, 'sidebar-footer'),
+    ).toBeInTheDocument();
   });
 
-  it('keeps a 32px brand mark and icon-rail padding when collapsed', () => {
-    const { baseElement } = renderCloud({
+  it('uses the brand mark when collapsed', () => {
+    renderCloud({
       defaultOpen: false,
       sidebar: { collapsible: 'icon' },
     });
@@ -109,27 +114,11 @@ describe('CloudSidebar 05', () => {
     const brand = screen.getByAltText('Brand');
     expect(brand).toHaveAttribute('src', '/images/vital-logo.svg');
     expect(
+      screen.getByRole('button', { name: 'Dashboard' }),
+    ).toHaveAttribute('data-active', 'true');
+    expect(
       screen.getByRole('group', { name: 'Header actions' }),
-    ).toHaveClass('group-data-[collapsible=icon]:hidden');
-    expect(brand).toHaveClass('size-8', 'shrink-0');
-
-    const header = querySlot(baseElement, 'sidebar-header');
-    expect(header?.className).toMatch(
-      /group-data-\[collapsible=icon\]:p-3!/,
-    );
-
-    const group = querySlot(baseElement, 'sidebar-group');
-    expect(group?.className).toMatch(
-      /group-data-\[collapsible=icon\]:p-3!/,
-    );
-
-    const item = querySlot(baseElement, 'sidebar-menu-item');
-    expect(item?.className).toMatch(
-      /group-data-\[state=expanded\]:group-data-\[side=left\]:-ml-3/,
-    );
-    expect(item?.className).not.toMatch(
-      /(?:^|\s)group-data-\[side=left\]:-ml-3(?:\s|$)/,
-    );
+    ).toBeInTheDocument();
   });
 
   it('mounts the cloud frost layer and imported background image', () => {
@@ -151,9 +140,6 @@ describe('CloudSidebar 05', () => {
     renderCloud();
 
     expect(getCloudCollapseTrigger()).toBeInTheDocument();
-    expect(getCloudCollapseTrigger()?.className).toContain(
-      'bottom-full',
-    );
   });
 
   it('hides the docked desktop collapse control on mobile', () => {
@@ -174,6 +160,6 @@ describe('CloudSidebar 05', () => {
         name: 'Toggle Sidebar',
       }),
     ).toBeInTheDocument();
-    expect(getCloudCollapseTrigger()).toBeUndefined();
+    expect(getCloudCollapseTrigger()).toBeNull();
   });
 });

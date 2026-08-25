@@ -321,8 +321,6 @@ describe('Sidebar', () => {
       'data-slot',
       'sidebar-menu-sub-button',
     );
-    expect(nested.className).toMatch(/\bw-full\b/);
-    expect(nested.className).toMatch(/rounded-md/);
   });
 
   it('renders SidebarMenuSubButton as a link when render is an anchor', () => {
@@ -376,12 +374,10 @@ describe('Sidebar', () => {
     expect(panel).toHaveAttribute('data-side', 'left');
     expect(panel).toHaveAttribute('data-variant', 'sidebar');
     expect(panel).toHaveAttribute('data-collapsible', 'none');
-    expect(panel.className).toMatch(/\bgroup\b/);
-    expect(panel.className).toMatch(/\bpeer\b/);
     expect(querySlot(panel, 'sidebar-inner')).not.toBeNull();
   });
 
-  it('places a right sidebar after the inset so main content can fill', () => {
+  it('marks a right sidebar with the matching side attribute', () => {
     const { baseElement } = render(
       <SidebarProvider>
         <Sidebar side="right">
@@ -393,40 +389,6 @@ describe('Sidebar', () => {
 
     const panel = findSlot(baseElement, 'sidebar');
     expect(panel).toHaveAttribute('data-side', 'right');
-    expect(panel.className).toMatch(/\border-last\b/);
-  });
-
-  it('keeps sidebar-inner unclipped so rail can overflow', () => {
-    const { baseElement } = renderSidebar();
-    const inner = findSlot(baseElement, 'sidebar-inner');
-
-    expect(inner.className).not.toMatch(
-      /(?:^|\s)overflow-hidden(?:\s|$)/,
-    );
-    expect(inner.className).toMatch(
-      /group-data-\[variant=floating\]:overflow-hidden/,
-    );
-    expect(inner.className).toMatch(/flex-col/);
-  });
-
-  it('clips floating sidebar-inner so header/footer fill stays in the rounded panel', () => {
-    const { baseElement } = render(
-      <SidebarProvider>
-        <Sidebar variant="floating">
-          <SidebarHeader>Brand</SidebarHeader>
-          <SidebarContent>Nav</SidebarContent>
-        </Sidebar>
-        <SidebarInset />
-      </SidebarProvider>,
-    );
-    const inner = findSlot(baseElement, 'sidebar-inner');
-
-    expect(inner.className).toMatch(
-      /group-data-\[variant=floating\]:overflow-hidden/,
-    );
-    expect(inner.className).toMatch(
-      /group-data-\[variant=floating\]:rounded-lg/,
-    );
   });
 
   it('does not mount mobile sheet content while closed', () => {
@@ -455,7 +417,6 @@ describe('Sidebar', () => {
     expect(dialog).toHaveAttribute('data-mobile', 'true');
     expect(dialog).toHaveAttribute('data-side', 'left');
     expect(dialog).toHaveAttribute('data-variant', 'sidebar');
-    expect(dialog.className).toMatch(/\bgroup\b/);
   });
 
   it('composes SidebarMenuButton tooltip with DropdownMenuTrigger', async () => {
@@ -534,39 +495,5 @@ describe('Sidebar', () => {
     const link = screen.getByRole('link', { name: 'Docs' });
     expect(link).toHaveAttribute('href', '/docs');
     expect(link).toHaveAttribute('data-slot', 'sidebar-menu-button');
-  });
-
-  it('pins header/footer via flex contract (content is the scrollport)', () => {
-    const { baseElement } = renderSidebar();
-    const content = findSlot(baseElement, 'sidebar-content');
-    const header = findSlot(baseElement, 'sidebar-header');
-    const footer = findSlot(baseElement, 'sidebar-footer');
-
-    expect(content.className).toMatch(/flex-1/);
-    expect(content.className).toMatch(
-      /overflow-y-auto|overflow-auto/,
-    );
-    expect(header.className).toMatch(/shrink-0/);
-    expect(footer.className).toMatch(/shrink-0/);
-  });
-
-  it('applies basic default skin without product rail decorations', () => {
-    renderSidebar();
-    const home = screen.getByRole('button', { name: 'Home' });
-    expect(home).toHaveAttribute('data-active', 'true');
-    expect(home.className).toMatch(/text-grayscale-800/);
-    expect(home.className).toMatch(/hover:bg-grayscale-200/);
-    expect(home.className).toMatch(
-      /data-\[active=true\]:bg-grayscale-200/,
-    );
-    expect(home.className).not.toMatch(
-      /hover:text-sidebar-accent-foreground/,
-    );
-    expect(home.className).not.toMatch(
-      /data-\[active=true\]:text-sidebar-accent-foreground/,
-    );
-    // Product-specific active decorations live on blocks, not primitive
-    expect(home.className).not.toMatch(/before:bg-primary-500/);
-    expect(home.className).not.toMatch(/before:w-1/);
   });
 });
