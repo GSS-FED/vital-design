@@ -57,7 +57,6 @@ export function PasswordInput(props: PasswordInputProps) {
         data-state={passwordVisible ? 'visible' : 'invisible'}
         data-testid="password-input"
         aria-invalid={ariaInvalid}
-        defaultValue={defaultValue}
         disabled={disabled}
         onInput={(event) => onChange?.(event.currentTarget.value)}
         onKeyDown={(event) => {
@@ -67,7 +66,7 @@ export function PasswordInput(props: PasswordInputProps) {
         }}
         placeholder={placeholder}
         type={type}
-        value={value}
+        {...(value !== undefined ? { value } : { defaultValue })}
       />
       <InputGroupAddon align="inline-end">
         <VisibilityToggle
