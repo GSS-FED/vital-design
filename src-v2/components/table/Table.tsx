@@ -41,6 +41,7 @@ const TableHeader = forwardRef<ElementRef<'thead'>, TableHeaderProps>(
         data-slot="table-header"
         className={cn(
           '[&_tr]:border-b [&_tr]:border-grayscale-opacity-300',
+          '[&_tr]:hover:bg-transparent [&_tr]:has-aria-expanded:bg-transparent',
           className,
         )}
         {...props}

@@ -10,7 +10,7 @@ const toolbarVariants = cva(
     variants: {
       variant: {
         default: 'bg-transparent',
-        bar: 'bg-grayscale-50',
+        bar: 'bg-grayscale-100',
         outline: 'border-b border-grayscale-opacity-200 bg-white',
       },
       size: {

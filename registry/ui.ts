@@ -234,7 +234,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Tag',
     description:
-      'Tag component with multiple colors, variants, and removable option',
+      'Status and category label with 11 colors, solid/tint variants, and removable option',
     dependencies: [
       'class-variance-authority',
       'clsx',
@@ -837,7 +837,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Badge',
     description:
-      'Status indicator badge with primary, success, warning, destructive, and info variants',
+      'Notification count and dot indicator in solid semantic colors; use Tag for status labels',
     dependencies: [
       'class-variance-authority',
       'clsx',

@@ -47,7 +47,7 @@ export type ButtonProps = {
   BaseButtonProps;
 
 const BUTTON_BASE_CLASSES = [
-  'relative inline-flex w-fit items-center justify-center overflow-hidden font-sans box-border select-none',
+  'relative isolate inline-flex w-fit items-center justify-center overflow-hidden font-sans box-border select-none',
   'transition-all duration-150 ease-in-out',
   'disabled:pointer-events-none',
   '[&_[data-icon]]:relative [&_[data-icon]]:z-[2] [&_[data-icon]]:m-0.75 [&_[data-icon]]:pointer-events-none [&_[data-icon]]:shrink-0',

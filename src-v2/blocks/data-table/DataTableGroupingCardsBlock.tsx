@@ -77,7 +77,7 @@ function PillarCard({
         type="button"
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
-        className="sticky top-0 left-[var(--datatable-sticky-inset)] z-50 flex w-[min(1010px,calc(100vw-var(--datatable-sticky-inset)-48px))] items-center gap-10 rounded-t border-b border-grayscale-opacity-300 bg-white py-2.5 text-left transition-colors hover:bg-grayscale-50"
+        className="sticky top-0 left-[var(--datatable-sticky-inset)] z-50 flex w-[min(1010px,calc(100vw-var(--datatable-sticky-inset)-48px))] items-center gap-10 rounded-t border-b border-grayscale-opacity-300 bg-white py-2.5 text-left transition-colors hover:bg-grayscale-100"
       >
         <span className="flex flex-1 items-center">
           <span className="flex w-10 items-center justify-center py-2">
