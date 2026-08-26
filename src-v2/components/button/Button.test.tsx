@@ -285,3 +285,17 @@ describe('Button', () => {
     expect(buttonModule).not.toHaveProperty('buttonVariants');
   });
 });
+
+it('applies contentClassName to the content wrapper', () => {
+  render(
+    <Button contentClassName="w-full justify-between whitespace-normal">
+      Label
+    </Button>,
+  );
+
+  const content = screen.getByText('Label');
+  expect(content).toHaveAttribute('data-slot', 'button-content');
+  expect(content).toHaveClass('justify-between');
+  expect(content).toHaveClass('whitespace-normal');
+  expect(content).not.toHaveClass('whitespace-nowrap');
+});
