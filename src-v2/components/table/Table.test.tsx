@@ -157,3 +157,19 @@ it('applies custom className to each part', () => {
   expect(screen.getByTestId('th')).toHaveClass('my-head');
   expect(screen.getByTestId('td')).toHaveClass('my-cell');
 });
+
+it('exposes the scroll container through containerRef', () => {
+  const ref = { current: null as HTMLDivElement | null };
+  render(
+    <Table containerRef={ref}>
+      <TableBody>
+        <TableRow>
+          <TableCell>cell</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>,
+  );
+
+  expect(ref.current).toHaveAttribute('data-slot', 'table-container');
+  expect(ref.current).toHaveClass('overflow-x-auto');
+});

@@ -47,16 +47,34 @@ import {
 
 ## Parts
 
-| Part           | Element     | Notes                                                                       |
-| -------------- | ----------- | --------------------------------------------------------------------------- |
-| `Table`        | `<table>`   | Wrapped in a scroll container. Use `containerClassName` to style the frame. |
-| `TableHeader`  | `<thead>`   | Adds a bottom border on each child `<tr>`.                                  |
-| `TableBody`    | `<tbody>`   | Drops the border from the last row.                                         |
-| `TableFooter`  | `<tfoot>`   | Muted background with top border.                                           |
-| `TableRow`     | `<tr>`      | Hover + `aria-expanded` + `data-state="selected"` styling.                  |
-| `TableHead`    | `<th>`      | Dense header cell with right border.                                        |
-| `TableCell`    | `<td>`      | Dense body cell with right border.                                          |
-| `TableCaption` | `<caption>` | Muted, top margin.                                                          |
+| Part           | Element     | Notes                                                                                                      |
+| -------------- | ----------- | ---------------------------------------------------------------------------------------------------------- |
+| `Table`        | `<table>`   | Wrapped in a scroll container. Use `containerClassName` to style the frame and `containerRef` to reach it. |
+| `TableHeader`  | `<thead>`   | Adds a bottom border on each child `<tr>`.                                                                 |
+| `TableBody`    | `<tbody>`   | Drops the border from the last row.                                                                        |
+| `TableFooter`  | `<tfoot>`   | Muted background with top border.                                                                          |
+| `TableRow`     | `<tr>`      | Hover + `aria-expanded` + `data-state="selected"` styling.                                                 |
+| `TableHead`    | `<th>`      | Dense header cell with right border.                                                                       |
+| `TableCell`    | `<td>`      | Dense body cell with right border.                                                                         |
+| `TableCaption` | `<caption>` | Muted, top margin.                                                                                         |
+
+## Scroll container
+
+`Table` renders its `<table>` inside a `div[data-slot="table-container"]` that
+owns the horizontal scroll. `ref` points at the `<table>`, so anything that has
+to observe or drive scrolling — infinite scroll, virtualisation, scroll-position
+restore — needs `containerRef` instead.
+
+```tsx
+const containerRef = useRef<HTMLDivElement>(null);
+
+<Table containerRef={containerRef}>…</Table>;
+```
+
+Because the container sets `overflow-x`, the browser computes `overflow-y` as
+`auto` too. Nesting it inside another scrolling region therefore produces two
+scroll areas; pass `containerClassName="overflow-x-visible"` to opt out when the
+outer region should own the scroll.
 
 ## Selected row state
 
