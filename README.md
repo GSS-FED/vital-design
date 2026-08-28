@@ -42,8 +42,10 @@ npx shadcn@latest add @vital-design/button
 
 ### 環境要求
 
-- Node.js 18+
+- Node.js >=20.18.1（開發 / registry build）
 - pnpm 10+
+
+> `>=20.18.1` 是本 repo 開發與 registry build 的工具鏈需求；已發布套件的使用端需求仍以套件的 peer dependencies 與實際 runtime 為準。
 
 ### 常用指令
 
