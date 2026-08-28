@@ -121,7 +121,9 @@ menus where the surrounding chrome provides the affordance.
 </ComponentPreview>
 
 ```tsx
-<Button variant="ghost" theme="default">Default</Button>
+<Button variant="ghost" theme="default">
+  Default
+</Button>
 ```
 
 ### Sizes
@@ -216,12 +218,36 @@ Render a spinner as a child icon and disable the button while work is in flight.
 
 ### Button
 
-| Prop                    | Type                                                                                   | Default                                      | Description                                                      |
-| ----------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------- | ---------------------------------------------------------------- |
+| Prop                    | Type                                                                                   | Default                                       | Description                                                      |
+| ----------------------- | -------------------------------------------------------------------------------------- | --------------------------------------------- | ---------------------------------------------------------------- |
 | `variant`               | `'default' \| 'text' \| 'ghost'`                                                       | `'default'`                                   | Visual variant                                                   |
 | `theme`                 | `'primary' \| 'default' \| 'success' \| 'info' \| 'warning' \| 'alarm' \| 'dangerous'` | `'primary'` for default, `'default'` for text | Color theme (`'dangerous'` only available on `default`)          |
-| `size`                  | `'md' \| 'lg' \| 'icon-md' \| 'icon-lg'`                                                 | `'md'`                                       | Button size                                                      |
-| `focusableWhenDisabled` | `boolean`                                                                              | `false`                                      | Keeps the button focusable even when disabled styling is applied |
-| `disabled`              | `boolean`                                                                              | `false`                                      | Native disabled attribute                                        |
-| `className`             | `string`                                                                               | —                                            | Additional CSS classes                                           |
-| `style`                 | `CSSProperties`                                                                        | —                                            | Inline styles                                                    |
+| `size`                  | `'md' \| 'lg' \| 'icon-md' \| 'icon-lg'`                                               | `'md'`                                        | Button size                                                      |
+| `focusableWhenDisabled` | `boolean`                                                                              | `false`                                       | Keeps the button focusable even when disabled styling is applied |
+| `disabled`              | `boolean`                                                                              | `false`                                       | Native disabled attribute                                        |
+| `className`             | `string`                                                                               | —                                             | Classes for the `<button>` itself                                |
+| `contentClassName`      | `string`                                                                               | —                                             | Classes for the inner content wrapper (see below)                |
+| `style`                 | `CSSProperties`                                                                        | —                                             | Inline styles                                                    |
+
+### Laying out the content
+
+`Button` wraps its children in a `span[data-slot="button-content"]` that centres
+the icon and label and keeps them on one line. Since that span is the button's
+only child, flex utilities written on the button itself have nothing to
+distribute — use `contentClassName` to reach the wrapper instead of selecting
+into it with `[&>span]:*`.
+
+```tsx
+// Icon on the left, count pushed to the right, label allowed to wrap
+<Button contentClassName="w-full justify-between whitespace-normal">
+  <FlagIcon data-icon="inline-start" />
+  Reported issues
+  <span>12</span>
+</Button>
+```
+
+Colour, size, radius, and hover states stay owned by the theme — passing those
+through `className` will not override the variant. The button also sets
+`overflow-hidden` for its hover overlay, so a child positioned outside the
+button box (a notification badge at `-top-1 -right-1`) needs
+`className="overflow-visible"` on the button.

@@ -1,16 +1,30 @@
 import { cn } from '@/lib/utils';
 import { forwardRef } from 'react';
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  Ref,
+} from 'react';
 
 export interface TableProps
   extends ComponentPropsWithoutRef<'table'> {
   containerClassName?: string;
+  /**
+   * Ref to the scroll container that wraps the table. The container owns the
+   * horizontal scroll, so scroll listeners, IntersectionObserver roots, and
+   * scroll-position restore need this rather than the `<table>` ref.
+   */
+  containerRef?: Ref<HTMLDivElement>;
 }
 
 const Table = forwardRef<ElementRef<'table'>, TableProps>(
-  function Table({ className, containerClassName, ...props }, ref) {
+  function Table(
+    { className, containerClassName, containerRef, ...props },
+    ref,
+  ) {
     return (
       <div
+        ref={containerRef}
         data-slot="table-container"
         className={cn(
           'relative w-full overflow-x-auto',
@@ -41,6 +55,7 @@ const TableHeader = forwardRef<ElementRef<'thead'>, TableHeaderProps>(
         data-slot="table-header"
         className={cn(
           '[&_tr]:border-b [&_tr]:border-grayscale-opacity-300',
+          '[&_tr]:hover:bg-transparent [&_tr]:has-aria-expanded:bg-transparent',
           className,
         )}
         {...props}

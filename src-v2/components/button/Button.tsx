@@ -42,12 +42,19 @@ type BaseButtonProps = Omit<
 export type ButtonProps = {
   children?: ReactNode;
   className?: string;
+  /**
+   * Applied to the inner `data-slot="button-content"` wrapper, which owns how
+   * the icon and label are laid out inside the button. Use this instead of
+   * reaching into the DOM with `[&>span]:*`; theme-owned properties (colour,
+   * geometry, radius) still belong on the button itself.
+   */
+  contentClassName?: string;
   size?: ButtonSize;
 } & (DefaultButtonProps | TextButtonProps | GhostButtonProps) &
   BaseButtonProps;
 
 const BUTTON_BASE_CLASSES = [
-  'relative inline-flex w-fit items-center justify-center overflow-hidden font-sans box-border select-none',
+  'relative isolate inline-flex w-fit items-center justify-center overflow-hidden font-sans box-border select-none',
   'transition-all duration-150 ease-in-out',
   'disabled:pointer-events-none',
   '[&_[data-icon]]:relative [&_[data-icon]]:z-[2] [&_[data-icon]]:m-0.75 [&_[data-icon]]:pointer-events-none [&_[data-icon]]:shrink-0',
@@ -340,6 +347,7 @@ const Button = forwardRef<ElementRef<typeof BaseButton>, ButtonProps>(
     const {
       children,
       className,
+      contentClassName,
       disabled = false,
       focusableWhenDisabled,
       onClick,
@@ -380,7 +388,10 @@ const Button = forwardRef<ElementRef<typeof BaseButton>, ButtonProps>(
       >
         <span
           data-slot="button-content"
-          className="relative z-[2] inline-flex items-center justify-center gap-1 whitespace-nowrap leading-5"
+          className={cn(
+            'relative z-[2] inline-flex items-center justify-center gap-1 whitespace-nowrap leading-5',
+            contentClassName,
+          )}
         >
           {children}
         </span>

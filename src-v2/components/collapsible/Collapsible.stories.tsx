@@ -43,7 +43,7 @@ export const Default: Story = {
             </Button>
           }
         />
-        <CollapsibleContent className="rounded-sm bg-grayscale-50 p-4 text-grayscale-opacity-700">
+        <CollapsibleContent className="rounded-sm bg-grayscale-100 p-4 text-grayscale-opacity-700">
           Yes. Free to use for personal and commercial projects. No
           attribution required.
         </CollapsibleContent>
