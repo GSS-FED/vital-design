@@ -11,12 +11,11 @@ import { useIsMobile } from './useIsMobile';
 
 describe('useIsMobile', () => {
   const originalMatchMedia = window.matchMedia;
-  let changeHandler: ((event: MediaQueryListEvent) => void) | null =
-    null;
+  const listeners = new Set<() => void>();
   let matches = false;
 
   beforeEach(() => {
-    changeHandler = null;
+    listeners.clear();
     matches = false;
     window.matchMedia = vi
       .fn()
@@ -25,13 +24,15 @@ describe('useIsMobile', () => {
           matches,
           media: query,
           onchange: null,
-          addEventListener: (
-            _type: string,
-            listener: (event: MediaQueryListEvent) => void,
-          ) => {
-            changeHandler = listener;
+          addEventListener: (_type: string, listener: () => void) => {
+            listeners.add(listener);
           },
-          removeEventListener: vi.fn(),
+          removeEventListener: (
+            _type: string,
+            listener: () => void,
+          ) => {
+            listeners.delete(listener);
+          },
           addListener: vi.fn(),
           removeListener: vi.fn(),
           dispatchEvent: vi.fn(),
@@ -45,37 +46,25 @@ describe('useIsMobile', () => {
   });
 
   it('returns false on desktop widths', () => {
-    Object.defineProperty(window, 'innerWidth', {
-      configurable: true,
-      value: 1024,
-    });
+    matches = false;
     const { result } = renderHook(() => useIsMobile());
     expect(result.current).toBe(false);
   });
 
   it('returns true on mobile widths', () => {
-    Object.defineProperty(window, 'innerWidth', {
-      configurable: true,
-      value: 500,
-    });
+    matches = true;
     const { result } = renderHook(() => useIsMobile());
     expect(result.current).toBe(true);
   });
 
   it('updates when the media query changes', () => {
-    Object.defineProperty(window, 'innerWidth', {
-      configurable: true,
-      value: 1024,
-    });
+    matches = false;
     const { result } = renderHook(() => useIsMobile());
     expect(result.current).toBe(false);
 
-    Object.defineProperty(window, 'innerWidth', {
-      configurable: true,
-      value: 400,
-    });
+    matches = true;
     act(() => {
-      changeHandler?.({} as MediaQueryListEvent);
+      listeners.forEach((listener) => listener());
     });
     expect(result.current).toBe(true);
   });
