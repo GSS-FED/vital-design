@@ -30,7 +30,7 @@ export function CollapsiblePreview() {
             </Button>
           }
         />
-        <CollapsibleContent className="rounded-(--radius-sm) bg-grayscale-50 p-4 text-grayscale-opacity-700">
+        <CollapsibleContent className="rounded-(--radius-sm) bg-grayscale-opacity-100 p-4 text-grayscale-opacity-700">
           Yes. Free to use for personal and commercial projects. No
           attribution required.
         </CollapsibleContent>
