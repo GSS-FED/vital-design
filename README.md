@@ -17,7 +17,7 @@ npx shadcn@latest init
 ```json
 {
   "registries": {
-    "@vital-design": "https://bizform.vikosmos.com/vittal-design/r/{name}.json"
+    "@vital-design": "https://vittal.design/r/{name}.json"
   }
 }
 ```
@@ -31,12 +31,6 @@ npx shadcn@latest add @vital-design/button
 依賴（utils、icons、theme CSS 變數）會由 shadcn CLI 自動下載，無需手動安裝。
 
 > 如需直接使用 JSON URL 也可以，但建議優先使用 `@vital-design/<name>` alias，讓 CLI 能正確解析 `@vital-design/*` 相依項目。
-
-> **SSL 憑證錯誤**：此 registry 使用內部 SSL 憑證，若安裝時出現憑證錯誤，請暫時設定環境變數繞過：
->
-> ```sh
-> NODE_TLS_REJECT_UNAUTHORIZED=0 npx shadcn@latest add @vital-design/button
-> ```
 
 ## 開發說明
 

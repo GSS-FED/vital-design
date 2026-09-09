@@ -132,8 +132,7 @@ interface CompiledPageData {
   full?: boolean;
 }
 
-const REGISTRY_BASE_URL =
-  'https://bizform.vikosmos.com/vittal-design/r';
+const REGISTRY_BASE_URL = 'https://vittal.design/r';
 
 async function loadRawMarkdown(
   slug: string[] | undefined,

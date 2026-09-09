@@ -4,8 +4,12 @@ import path from 'path';
 
 const withMDX = createMDX();
 
+const isGithubPages = process.env.GITHUB_PAGES === 'true';
+
 const config: NextConfig = {
   output: 'export',
+  ...(isGithubPages ? { trailingSlash: true } : {}),
+  images: { unoptimized: true },
   transpilePackages: ['@fed/vital-design'],
   reactStrictMode: true,
   outputFileTracingRoot: path.resolve(__dirname, '../../'),
