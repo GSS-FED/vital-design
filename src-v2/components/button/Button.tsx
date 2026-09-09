@@ -127,45 +127,49 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
       class: 'disabled:opacity-60 data-[disabled]:opacity-60',
     },
     {
+      variant: ['text', 'ghost'],
+      class:
+        'disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300',
+    },
+    {
       variant: 'text',
       theme: 'primary',
       class:
-        'text-primary-500 hover:not-disabled:not-data-[disabled]:text-primary-400 active:not-disabled:not-data-[disabled]:text-primary-600 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-primary',
+        'text-primary-500 hover:not-disabled:not-data-[disabled]:text-primary-400 active:not-disabled:not-data-[disabled]:text-primary-600 focus-visible:shadow-focus-primary',
     },
     {
       variant: 'text',
       theme: 'default',
       class:
-        'text-grayscale-opacity-800 hover:not-disabled:not-data-[disabled]:text-grayscale-opacity-700 active:not-disabled:not-data-[disabled]:text-grayscale-opacity-800 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-primary',
+        'text-grayscale-opacity-800 hover:not-disabled:not-data-[disabled]:text-grayscale-opacity-700 active:not-disabled:not-data-[disabled]:text-grayscale-opacity-800 focus-visible:shadow-focus-primary',
     },
     {
       variant: 'text',
       theme: 'success',
       class:
-        'text-success-500 hover:not-disabled:not-data-[disabled]:text-success-400 active:not-disabled:not-data-[disabled]:text-success-600 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-success',
+        'text-success-500 hover:not-disabled:not-data-[disabled]:text-success-400 active:not-disabled:not-data-[disabled]:text-success-600 focus-visible:shadow-focus-success',
     },
     {
       variant: 'text',
       theme: 'info',
       class:
-        'text-info-500 hover:not-disabled:not-data-[disabled]:text-info-400 active:not-disabled:not-data-[disabled]:text-info-600 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-info',
+        'text-info-500 hover:not-disabled:not-data-[disabled]:text-info-400 active:not-disabled:not-data-[disabled]:text-info-600 focus-visible:shadow-focus-info',
     },
     {
       variant: 'text',
       theme: 'warning',
       class:
-        'text-warning-500 hover:not-disabled:not-data-[disabled]:text-warning-400 active:not-disabled:not-data-[disabled]:text-warning-600 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-warning',
+        'text-warning-500 hover:not-disabled:not-data-[disabled]:text-warning-400 active:not-disabled:not-data-[disabled]:text-warning-600 focus-visible:shadow-focus-warning',
     },
     {
       variant: 'text',
       theme: 'alarm',
       class:
-        'text-destructive-500 hover:not-disabled:not-data-[disabled]:text-destructive-400 active:not-disabled:not-data-[disabled]:text-destructive-600 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-destructive',
+        'text-destructive-500 hover:not-disabled:not-data-[disabled]:text-destructive-400 active:not-disabled:not-data-[disabled]:text-destructive-600 focus-visible:shadow-focus-destructive',
     },
     {
       variant: 'ghost',
-      class:
-        'bg-transparent disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300',
+      class: 'bg-transparent',
     },
     {
       variant: 'ghost',
@@ -202,42 +206,6 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
     {
       variant: 'default',
       size: ['lg', 'icon-lg'],
-      theme: 'primary',
-      class: 'shadow-button-primary',
-    },
-    {
-      variant: 'default',
-      size: ['lg', 'icon-lg'],
-      theme: 'success',
-      class: 'shadow-button-success',
-    },
-    {
-      variant: 'default',
-      size: ['lg', 'icon-lg'],
-      theme: 'info',
-      class: 'shadow-button-info',
-    },
-    {
-      variant: 'default',
-      size: ['lg', 'icon-lg'],
-      theme: 'warning',
-      class: 'shadow-button-warning',
-    },
-    {
-      variant: 'default',
-      size: ['lg', 'icon-lg'],
-      theme: 'alarm',
-      class: 'shadow-button-destructive',
-    },
-    {
-      variant: 'default',
-      size: ['lg', 'icon-lg'],
-      theme: ['default', 'dangerous'],
-      class: 'shadow-base',
-    },
-    {
-      variant: 'default',
-      size: ['lg', 'icon-lg'],
       class:
         'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0',
     },
@@ -246,42 +214,42 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
       size: ['lg', 'icon-lg'],
       theme: 'primary',
       class:
-        'active:not-disabled:not-data-[disabled]:shadow-button-primary-active',
+        'shadow-button-primary active:not-disabled:not-data-[disabled]:shadow-button-primary-active',
     },
     {
       variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'success',
       class:
-        'active:not-disabled:not-data-[disabled]:shadow-button-success-active',
+        'shadow-button-success active:not-disabled:not-data-[disabled]:shadow-button-success-active',
     },
     {
       variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'info',
       class:
-        'active:not-disabled:not-data-[disabled]:shadow-button-info-active',
+        'shadow-button-info active:not-disabled:not-data-[disabled]:shadow-button-info-active',
     },
     {
       variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'warning',
       class:
-        'active:not-disabled:not-data-[disabled]:shadow-button-warning-active',
+        'shadow-button-warning active:not-disabled:not-data-[disabled]:shadow-button-warning-active',
     },
     {
       variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'alarm',
       class:
-        'active:not-disabled:not-data-[disabled]:shadow-button-destructive-active',
+        'shadow-button-destructive active:not-disabled:not-data-[disabled]:shadow-button-destructive-active',
     },
     {
       variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: ['default', 'dangerous'],
       class:
-        'active:not-disabled:not-data-[disabled]:shadow-[0_2px_4px_rgba(35,35,50,0.08)]',
+        'shadow-base active:not-disabled:not-data-[disabled]:shadow-[0_2px_4px_rgba(35,35,50,0.08)]',
     },
   ],
   defaultVariants: {
