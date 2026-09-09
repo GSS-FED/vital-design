@@ -89,9 +89,3 @@ Common shared dependencies:
 
 1. Complete the [Tailwind Setup](/docs/getting-started/tailwind-setup) for registry-installed components. If you stay on the legacy npm package, keep its existing `src/` integration and install `styled-components` as needed.
 2. Import the generated component from the local path configured by your project's `components.json`
-
-> **SSL note:** The registry uses an internal certificate. If you see a TLS error (`unable to verify the first certificate`), prefix the command with `NODE_TLS_REJECT_UNAUTHORIZED=0`:
->
-> ```bash
-> NODE_TLS_REJECT_UNAUTHORIZED=0 npx shadcn@latest add @vital-design/button
-> ```
