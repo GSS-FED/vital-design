@@ -9,7 +9,7 @@ Vital Design publishes a **shadcn-compatible registry** that lets you install in
 
 The registry is the canonical delivery channel for net-new `src-v2/` components. Existing projects can keep using the published `@fed/vital-design` npm package for compatibility, but newer components and theme assets are expected to come from the registry path.
 
-Registry URL: `https://bizform.vikosmos.com/vittal-design/r`
+Registry URL: `https://vittal.design/r`
 
 ## Installation
 
@@ -24,7 +24,7 @@ npx shadcn@latest init
 ```json
 {
   "registries": {
-    "@vital-design": "https://bizform.vikosmos.com/vittal-design/r/{name}.json"
+    "@vital-design": "https://vittal.design/r/{name}.json"
   }
 }
 ```
@@ -89,9 +89,3 @@ Common shared dependencies:
 
 1. Complete the [Tailwind Setup](/docs/getting-started/tailwind-setup) for registry-installed components. If you stay on the legacy npm package, keep its existing `src/` integration and install `styled-components` as needed.
 2. Import the generated component from the local path configured by your project's `components.json`
-
-> **SSL note:** The registry uses an internal certificate. If you see a TLS error (`unable to verify the first certificate`), prefix the command with `NODE_TLS_REJECT_UNAUTHORIZED=0`:
->
-> ```bash
-> NODE_TLS_REJECT_UNAUTHORIZED=0 npx shadcn@latest add @vital-design/button
-> ```

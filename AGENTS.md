@@ -27,7 +27,7 @@ pnpm run registry:validate # 驗證 registry 完整性（CI 用）
 # 文件站（apps/docs/）
 pnpm docs:dev              # Fumadocs dev server (port 3000)
 pnpm docs:lint             # 檢查 docs app 的 ESLint 與 Next.js 規則
-pnpm docs:build            # 建置文件站靜態頁面
+pnpm docs:build            # 建置文件站靜態頁面（含 registry JSON → /r）
 pnpm docs:start            # 啟動生產環境文件站
 ```
 
@@ -172,6 +172,6 @@ pnpm docs:start            # 啟動生產環境文件站
 
 ## Registry
 
-- URL：`https://bizform.vikosmos.com/vittal-design/r`
+- URL：`https://vittal.design/r`
 - 構建：`pnpm run registry:build`
 - 詳見：`/add-registry` skill
