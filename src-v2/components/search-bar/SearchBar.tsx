@@ -5,7 +5,7 @@ import {
 } from '@/components/input/input-group/InputGroup';
 import { SearchIcon } from '@/icons/SearchIcon';
 import { cn } from '@/lib/utils';
-import { type VariantProps, cva } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 import { forwardRef, useRef } from 'react';
 import type {
   CSSProperties,
@@ -34,10 +34,6 @@ const searchIconVariants = cva(
     defaultVariants: { disabled: false, clickable: false },
   },
 );
-
-export type SearchIconVariants = VariantProps<
-  typeof searchIconVariants
->;
 
 export type SearchBarProps = Omit<
   ComponentPropsWithoutRef<'input'>,

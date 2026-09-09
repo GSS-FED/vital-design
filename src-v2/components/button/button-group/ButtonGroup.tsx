@@ -1,5 +1,5 @@
 import { Separator } from '@/components/separator/Separator';
-import { cn } from '@/lib/utils';
+import { type CvaProps, cn } from '@/lib/utils';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
 import { type VariantProps, cva } from 'class-variance-authority';
@@ -32,12 +32,11 @@ export type ButtonGroupVariants = VariantProps<
   typeof buttonGroupVariants
 >;
 
-export type ButtonGroupProps = ComponentPropsWithoutRef<'div'> & {
-  orientation?: 'horizontal' | 'vertical';
-};
+export type ButtonGroupProps = ComponentPropsWithoutRef<'div'> &
+  CvaProps<ButtonGroupVariants>;
 
 const ButtonGroupContext = createContext<{
-  orientation: 'horizontal' | 'vertical';
+  orientation: NonNullable<ButtonGroupVariants['orientation']>;
 } | null>(null);
 
 const ButtonGroup = forwardRef<ElementRef<'div'>, ButtonGroupProps>(

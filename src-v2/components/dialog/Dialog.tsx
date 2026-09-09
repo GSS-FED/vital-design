@@ -1,5 +1,5 @@
 import { CloseIcon } from '@/icons/CloseIcon';
-import { cn } from '@/lib/utils';
+import { type CvaProps, cn } from '@/lib/utils';
 import { Dialog as BaseDialog } from '@base-ui/react/dialog';
 import type {
   DialogBackdrop as BaseDialogBackdrop,
@@ -124,7 +124,7 @@ export type DialogPopupVariants = VariantProps<
 >;
 
 export type DialogPopupProps = BaseDialogPopup.Props &
-  DialogPopupVariants;
+  CvaProps<DialogPopupVariants>;
 
 const DialogPopup = forwardRef<HTMLDivElement, DialogPopupProps>(
   function DialogPopup(

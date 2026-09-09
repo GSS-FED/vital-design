@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
 import { EllipsisIcon } from '@/icons/EllipsisIcon';
-import { cn } from '@/lib/utils';
+import { type CvaProps, cn } from '@/lib/utils';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
 import { type VariantProps, cva } from 'class-variance-authority';
@@ -38,8 +38,12 @@ const breadcrumbListVariants = cva(
   },
 );
 
+export type BreadcrumbListVariants = VariantProps<
+  typeof breadcrumbListVariants
+>;
+
 export type BreadcrumbListProps = ComponentPropsWithoutRef<'ol'> &
-  VariantProps<typeof breadcrumbListVariants>;
+  CvaProps<BreadcrumbListVariants>;
 
 const BreadcrumbList = forwardRef<
   ElementRef<'ol'>,

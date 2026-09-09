@@ -1,5 +1,5 @@
 import { Separator } from '@/components/separator/Separator';
-import { cn } from '@/lib/utils';
+import { type CvaProps, cn } from '@/lib/utils';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
 import { type VariantProps, cva } from 'class-variance-authority';
@@ -50,7 +50,7 @@ const itemVariants = cva(
 export type ItemVariants = VariantProps<typeof itemVariants>;
 
 export type ItemProps = useRender.ComponentProps<'div'> &
-  ItemVariants;
+  CvaProps<ItemVariants>;
 
 const Item = forwardRef<ElementRef<'div'>, ItemProps>(
   function Item(props, ref) {
@@ -153,7 +153,7 @@ export type ItemMediaVariants = VariantProps<
 >;
 
 export type ItemMediaProps = ComponentPropsWithoutRef<'div'> &
-  ItemMediaVariants;
+  CvaProps<ItemMediaVariants>;
 
 const ItemMedia = forwardRef<ElementRef<'div'>, ItemMediaProps>(
   function ItemMedia(

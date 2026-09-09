@@ -2,7 +2,7 @@
 // 替換所有 ComponentName 為實際元件名稱
 import { type Meta, type StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import ComponentName from './ComponentName';
+import { ComponentName } from './ComponentName';
 
 type Story = StoryObj<typeof ComponentName>;
 

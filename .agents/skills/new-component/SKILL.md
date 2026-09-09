@@ -33,6 +33,7 @@ allowed-tools: Read, Write, Edit, Bash
    - Props 類型直接 inline 定義（`export type ComponentNameProps = {...}`）
    - 不新增 component-level `types.ts`；跨檔案共用型別時從元件 `.tsx` import type
    - 每個 exported styled DOM part 加 `data-slot`（root：`badge`；subpart：`badge-icon`）。參考 `Button.tsx`、`Select.tsx`；Base UI passthrough 需 wrapper
+   - 有 CVA 時：先 `cva()`，再 `export type XVariants = VariantProps<typeof xVariants>`，公開 props 用 `CvaProps<XVariants>`（`@/lib/utils`）。必填軸再 `& { selected: NonNullable<XVariants['selected']> }`；內部軸 `Omit`。不要手寫重複 union，不要直接 intersect 原始 `VariantProps`。參考 `Tag.tsx`、`Chip.tsx`、`Button.tsx`
 
 5. **建立 ComponentName.test.tsx** — 測試
 
@@ -47,8 +48,9 @@ allowed-tools: Read, Write, Edit, Bash
 ## 結構規則
 
 - 使用 `forwardRef` 包裝（如適用）
-- 使用 CVA 管理 variants（參考 component-template.tsx）
-- 使用 `cn()` 合併類名
+- 使用 named export，不要 default export
+- 使用 CVA 管理 variants（參考 component-template.tsx）；公開 props 用 `CvaProps`，不要 export `xVariants` helper
+- 使用 `cn()` 合併類名（`@/lib/utils`）
 - 所有 import 使用完整路徑（禁止 barrel import）
 - 顏色使用設計系統 token（`text-grayscale-opacity-900`, `bg-primary-500` 等）
 - 不要加 `theme` prop；主題透過 CSS variables 統一處理
