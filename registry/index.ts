@@ -5,7 +5,7 @@ import { ui } from './ui';
 
 export const registry = {
   $schema: 'https://ui.shadcn.com/schema/registry.json',
-  $registry: 'https://bizform.vikosmos.com/vittal-design/r',
+  $registry: 'https://vittal.design/r',
   name: 'vital-design',
   homepage: 'https://github.com/gss-fed/vital-design',
   items: [...base, ...hooks, ...ui, ...blocks],
