@@ -18,6 +18,7 @@ import {
   semanticActionTokens,
   semanticChartTokens,
   semanticFormTokens,
+  semanticSidebarTokens,
   semanticStatusTokens,
   semanticSurfaceTokens,
   semanticVitalTokens,
@@ -29,9 +30,10 @@ import {
 ## Overview
 
 Vital Design follows the [shadcn/ui](https://ui.shadcn.com/docs/theming)
-naming convention for its semantic layer. Colors are defined as CSS
-custom properties on `:root` and exposed to Tailwind via `@theme inline`
-in `src-v2/styles/globals.css`.
+naming convention for its semantic layer. Colors are defined under
+`tokens/` (Style Dictionary), built into `src-v2/styles/tokens/generated.css`
+as CSS custom properties on `:root`, and exposed to Tailwind via
+`@theme inline` (`--color-*`).
 
 ```ts
 // 3 layers, generated from tokens/*.json by Style Dictionary
@@ -145,6 +147,27 @@ Five-step palette for data visualization. Defaults rotate through
 inherit brand color regardless of theme overrides.
 
 <ColorPalette tokens={semanticChartTokens} columns={5} />
+
+### Sidebar
+
+Application sidebar shell slots (shadcn-compatible). Used by the
+[Sidebar](/docs/components/sidebar) primitive utilities such as
+`bg-sidebar`, `text-sidebar-foreground`, and `border-sidebar-border`.
+Product blocks may override individual slots (for example
+`[--sidebar:transparent]` on the cloud shell).
+
+| Slot                           | Default alias           |
+| ------------------------------ | ----------------------- |
+| `--sidebar`                    | `grayscale.100`         |
+| `--sidebar-foreground`         | `grayscale.900`         |
+| `--sidebar-primary`            | `primary.500`           |
+| `--sidebar-primary-foreground` | white                   |
+| `--sidebar-accent`             | `primary.50`            |
+| `--sidebar-accent-foreground`  | `primary.700`           |
+| `--sidebar-border`             | `grayscale-opacity.200` |
+| `--sidebar-ring`               | `primary.300`           |
+
+<ColorPalette tokens={semanticSidebarTokens} columns={2} />
 
 ### Vital Extensions
 

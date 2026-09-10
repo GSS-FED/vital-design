@@ -101,9 +101,25 @@ async function listSources(): Promise<Entry[]> {
   return entries;
 }
 
+function isStrokeSource(svg: string): boolean {
+  const openTag = svg.match(/<svg\b[^>]*>/i)?.[0] ?? '';
+  return (
+    /\bfill="none"/i.test(openTag) &&
+    /\bstroke(?:-width)?=/i.test(openTag)
+  );
+}
+
 async function generateIcon(entry: Entry): Promise<string> {
   const svg = await readFile(entry.svgPath, 'utf8');
-  const tsx = await transform(svg, svgrConfig, {
+  const stroke = isStrokeSource(svg);
+  const config: Config = {
+    ...svgrConfig,
+    svgProps: {
+      ...svgrConfig.svgProps,
+      fill: stroke ? 'none' : 'currentColor',
+    },
+  };
+  const tsx = await transform(svg, config, {
     componentName: entry.component,
   });
   const outPath = join(OUT_DIR, `${entry.component}.tsx`);

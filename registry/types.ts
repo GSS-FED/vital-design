@@ -5,6 +5,7 @@ export type RegistryItemName =
   | 'vital-theme'
   | 'vital-design-base'
   | 'vital-icons'
+  | 'icon-bell'
   | 'icon-calendar'
   | 'icon-check'
   | 'icon-chevron-down'
@@ -21,11 +22,17 @@ export type RegistryItemName =
   | 'icon-eye'
   | 'icon-eye-slash'
   | 'icon-flag'
+  | 'icon-info'
   | 'icon-minus'
+  | 'icon-panel-left'
+  | 'icon-plus'
   | 'icon-search'
+  | 'icon-shield-check'
   | 'icon-spinner'
+  | 'icon-square-arrow-out-up-right'
   | 'icon-user'
   | 'use-debounce-value'
+  | 'use-is-mobile'
   | 'alert'
   | 'avatar'
   | 'badge'
@@ -71,9 +78,11 @@ export type RegistryItemName =
   | 'time-picker'
   | 'collapsible'
   | 'sheet'
+  | 'sidebar'
   | 'data-table-group-01'
   | 'data-table-group-02'
-  | 'data-table-group-04';
+  | 'data-table-group-04'
+  | 'sidebar-cloud-01';
 
 /**
  * Extends the official shadcn RegistryItem with:

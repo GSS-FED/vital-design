@@ -1,0 +1,177 @@
+---
+title: Sidebar
+description: Application sidebar with structure, behavior, and a basic neutral default skin. Product-specific looks live on blocks.
+---
+
+import {
+  SidebarFloatingPreview,
+  SidebarInsetPreview,
+  SidebarPreview,
+} from '~/components/previews/SidebarPreview';
+
+## Preview
+
+> **Boundary**
+>
+> - **Primitive:** structure + behavior (collapse, cookie, ⌘B, mobile sheet) and shadcn-aligned `data-slot` / `data-side` / `data-variant` / `data-state` on every panel branch, **plus a basic default skin** (grayscale text and hover/active fill — not shadcn `sidebar-accent`). No product-only decorations such as the rail left bar.
+> - **Product styles / full shells:** [Cloud](/docs/blocks/sidebar/cloud/flat) — [Flat](/docs/blocks/sidebar/cloud/flat), [Inline Submenus](/docs/blocks/sidebar/cloud/inline-submenus), [Collapsible Submenus](/docs/blocks/sidebar/cloud/collapsible-submenus), [Dropdown Submenus](/docs/blocks/sidebar/cloud/dropdown-submenus), [Secondary Nav](/docs/blocks/sidebar/cloud/secondary-nav), [Header Actions](/docs/blocks/sidebar/cloud/header-actions).
+> - **Colors:** semantic slots `--sidebar*` (from `tokens/semantic/color.json` → `generated.css`) color the chrome. Menu item default skin stays `grayscale-*`. See [Colors → Sidebar](/docs/design-tokens/colors#sidebar).
+> - **`SidebarProvider`** wraps children in `TooltipProvider delay={0}` (same as shadcn), so tooltips under `SidebarInset` also open immediately.
+>
+> Header / Footer “sticky” is **flex pin**: siblings of `SidebarContent`, not inside it. Only `SidebarContent` scrolls.
+
+<SidebarPreview />
+
+## Installation
+
+```bash
+npx shadcn@latest add @vital-design/sidebar
+```
+
+## Usage
+
+Wrap your layout with `SidebarProvider`, compose the shell with `Sidebar` + `SidebarInset`, and build navigation with the menu parts. Basic styles come free; use a **block** or `className` for product-specific skins.
+
+```tsx
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@/components/ui/Sidebar';
+
+export function AppLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <SidebarProvider>
+      <Sidebar collapsible="icon">
+        <SidebarHeader>Brand</SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>Platform</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton isActive tooltip="Home">
+                    Home
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>
+      <SidebarInset>
+        <header>
+          <SidebarTrigger />
+        </header>
+        {children}
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}
+```
+
+## Structure
+
+| Part                                                 | Role                                                                                                                |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `SidebarProvider`                                    | Collapsible state, cookie persistence, keyboard shortcut (`enableKeyboardShortcut`, default true), tooltip provider |
+| `Sidebar`                                            | Main panel (`side`, `variant`, `collapsible`)                                                                       |
+| `SidebarTrigger` / `SidebarRail`                     | Toggle controls                                                                                                     |
+| `SidebarInset`                                       | Primary content region                                                                                              |
+| `SidebarHeader` / `SidebarFooter` / `SidebarContent` | Sticky header/footer and scrollable body                                                                            |
+| `SidebarGroup*`                                      | Labeled sections inside content                                                                                     |
+| `SidebarMenu*`                                       | Navigation rows, actions, badges, skeletons, nested submenus                                                        |
+
+## Collapsible modes
+
+- `offcanvas` (default) — hides off-screen when collapsed
+- `icon` — collapses to an icon rail; menu labels hide; `tooltip` shows on hover
+- `none` — fixed width, not collapsible
+
+## Variants
+
+### Inset
+
+<SidebarInsetPreview />
+
+### Floating
+
+<SidebarFloatingPreview />
+
+## Controlled state
+
+Use `open` + `onOpenChange` on `SidebarProvider` when the parent owns collapse state.
+
+```tsx
+const [open, setOpen] = useState(true);
+
+<SidebarProvider open={open} onOpenChange={setOpen}>
+  ...
+</SidebarProvider>;
+```
+
+## Polymorphism (`render` vs shadcn `asChild`)
+
+Vital Design uses Base UI’s `render` prop instead of Radix `asChild`:
+
+```tsx
+// shadcn
+<SidebarMenuButton asChild>
+  <a href="/docs">Docs</a>
+</SidebarMenuButton>
+
+// Vital Design
+<SidebarMenuButton render={<a href="/docs" />}>
+  Docs
+</SidebarMenuButton>
+```
+
+Applies to: `SidebarGroupLabel`, `SidebarGroupAction`, `SidebarMenuButton`, `SidebarMenuAction`, `SidebarMenuSubButton`.
+
+## Keyboard
+
+`⌘B` / `Ctrl+B` toggles the sidebar (desktop open state or mobile sheet).
+
+## Cookie / open state
+
+`SidebarProvider` **writes** a `sidebar_state` cookie when open state changes (for optional cross-page sync). It does **not** read the cookie on mount — initial state comes from `defaultOpen` or a controlled `open` prop. This keeps SSR and first paint predictable; read the cookie yourself only if your app needs restore-on-load.
+
+## Theme CSS variables
+
+Sidebar colors use shadcn-compatible semantic slots. Defaults are defined in `tokens/semantic/color.json` and emitted to `src-v2/styles/tokens/generated.css` (imported via `globals.css`). See [Colors → Sidebar](/docs/design-tokens/colors#sidebar).
+
+| Variable                       | Default                        |
+| ------------------------------ | ------------------------------ |
+| `--sidebar`                    | `var(--grayscale-100)`         |
+| `--sidebar-foreground`         | `var(--grayscale-900)`         |
+| `--sidebar-primary`            | `var(--primary-500)`           |
+| `--sidebar-primary-foreground` | `#fff`                         |
+| `--sidebar-accent`             | `var(--primary-50)`            |
+| `--sidebar-accent-foreground`  | `var(--primary-700)`           |
+| `--sidebar-border`             | `var(--grayscale-opacity-200)` |
+| `--sidebar-ring`               | `var(--primary-300)`           |
+
+Layout widths are set on the provider wrapper:
+
+- `--sidebar-width`: `16rem`
+- `--sidebar-width-icon`: `3rem`
+- Mobile sheet width: `18rem`
+
+## Mobile
+
+Below `768px`, `Sidebar` renders as a `Sheet` controlled by `openMobile`. Place a `SidebarTrigger` outside the panel (typically in `SidebarInset` header chrome) — or call `useSidebar().toggleSidebar` — to open it. `SidebarTrigger` sets `aria-expanded` from mobile/desktop open state.
+
+Menu actions default to **buttons**. Use the `render` prop for links (`render={<a href="…" />}`) on `SidebarMenuButton` / `SidebarMenuSubButton`.

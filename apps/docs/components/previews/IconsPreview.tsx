@@ -1,5 +1,6 @@
 'use client';
 
+import { BellIcon } from '@/icons/BellIcon';
 import { CalendarIcon } from '@/icons/CalendarIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { ChevronDoubleLeftIcon } from '@/icons/ChevronDoubleLeftIcon';
@@ -16,9 +17,14 @@ import { EllipsisIcon } from '@/icons/EllipsisIcon';
 import { EyeIcon } from '@/icons/EyeIcon';
 import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
+import { InfoIcon } from '@/icons/InfoIcon';
 import { MinusIcon } from '@/icons/MinusIcon';
+import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
+import { PlusIcon } from '@/icons/PlusIcon';
 import { SearchIcon } from '@/icons/SearchIcon';
+import { ShieldCheckIcon } from '@/icons/ShieldCheckIcon';
 import { SpinnerIcon } from '@/icons/SpinnerIcon';
+import { SquareArrowOutUpRightIcon } from '@/icons/SquareArrowOutUpRightIcon';
 import { UserIcon } from '@/icons/UserIcon';
 import type { ComponentType, SVGProps } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
@@ -29,6 +35,7 @@ type IconEntry = {
 };
 
 const icons: IconEntry[] = [
+  { name: 'BellIcon', Icon: BellIcon },
   { name: 'CalendarIcon', Icon: CalendarIcon },
   { name: 'CheckIcon', Icon: CheckIcon },
   { name: 'ChevronDownIcon', Icon: ChevronDownIcon },
@@ -45,9 +52,17 @@ const icons: IconEntry[] = [
   { name: 'EyeIcon', Icon: EyeIcon },
   { name: 'EyeSlashIcon', Icon: EyeSlashIcon },
   { name: 'FlagIcon', Icon: FlagIcon },
+  { name: 'InfoIcon', Icon: InfoIcon },
   { name: 'MinusIcon', Icon: MinusIcon },
+  { name: 'PanelLeftIcon', Icon: PanelLeftIcon },
+  { name: 'PlusIcon', Icon: PlusIcon },
   { name: 'SearchIcon', Icon: SearchIcon },
+  { name: 'ShieldCheckIcon', Icon: ShieldCheckIcon },
   { name: 'SpinnerIcon', Icon: SpinnerIcon },
+  {
+    name: 'SquareArrowOutUpRightIcon',
+    Icon: SquareArrowOutUpRightIcon,
+  },
   { name: 'UserIcon', Icon: UserIcon },
 ];
 

@@ -3,6 +3,8 @@
 
 export const vitalThemeCssVars = {
   theme: {
+    'motion-duration-fast': '100ms',
+    'motion-easing-in': 'ease-in',
     'radius-none': '0px',
     'radius-sm': '4px',
     'radius-md': '8px',
@@ -193,6 +195,14 @@ export const vitalThemeCssVars = {
     'chart-3': '#FFA700',
     'chart-4': '#00C3FF',
     'chart-5': '#EB5000',
+    sidebar: '#F9F9FA',
+    'sidebar-foreground': '#232327',
+    'sidebar-primary': '#0E86FE',
+    'sidebar-primary-foreground': '#FFFFFF',
+    'sidebar-accent': '#EBF5FF',
+    'sidebar-accent-foreground': '#0153A5',
+    'sidebar-border': 'rgba(35, 35, 50, 0.08)',
+    'sidebar-ring': '#73B9FE',
     'text-tertiary': 'rgba(35, 35, 50, 0.55)',
     'text-disabled': 'rgba(35, 35, 50, 0.25)',
     'interactive-hover': '#016DD8',

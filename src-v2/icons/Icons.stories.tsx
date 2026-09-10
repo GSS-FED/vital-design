@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentType, SVGProps } from 'react';
+import { BellIcon } from './BellIcon';
 import { CheckIcon } from './CheckIcon';
 import { ChevronDownIcon } from './ChevronDownIcon';
 import { ChevronLeftIcon } from './ChevronLeftIcon';
@@ -11,9 +12,14 @@ import { DisabledIcon } from './DisabledIcon';
 import { EyeIcon } from './EyeIcon';
 import { EyeSlashIcon } from './EyeSlashIcon';
 import { FlagIcon } from './FlagIcon';
+import { InfoIcon } from './InfoIcon';
 import { MinusIcon } from './MinusIcon';
+import { PanelLeftIcon } from './PanelLeftIcon';
+import { PlusIcon } from './PlusIcon';
 import { SearchIcon } from './SearchIcon';
+import { ShieldCheckIcon } from './ShieldCheckIcon';
 import { SpinnerIcon } from './SpinnerIcon';
+import { SquareArrowOutUpRightIcon } from './SquareArrowOutUpRightIcon';
 import { UserIcon } from './UserIcon';
 
 type IconEntry = {
@@ -22,6 +28,7 @@ type IconEntry = {
 };
 
 const icons: IconEntry[] = [
+  { name: 'BellIcon', Icon: BellIcon },
   { name: 'CheckIcon', Icon: CheckIcon },
   { name: 'ChevronDownIcon', Icon: ChevronDownIcon },
   { name: 'ChevronUpIcon', Icon: ChevronUpIcon },
@@ -33,9 +40,17 @@ const icons: IconEntry[] = [
   { name: 'EyeIcon', Icon: EyeIcon },
   { name: 'EyeSlashIcon', Icon: EyeSlashIcon },
   { name: 'FlagIcon', Icon: FlagIcon },
+  { name: 'InfoIcon', Icon: InfoIcon },
   { name: 'MinusIcon', Icon: MinusIcon },
+  { name: 'PanelLeftIcon', Icon: PanelLeftIcon },
+  { name: 'PlusIcon', Icon: PlusIcon },
   { name: 'SearchIcon', Icon: SearchIcon },
+  { name: 'ShieldCheckIcon', Icon: ShieldCheckIcon },
   { name: 'SpinnerIcon', Icon: SpinnerIcon },
+  {
+    name: 'SquareArrowOutUpRightIcon',
+    Icon: SquareArrowOutUpRightIcon,
+  },
   { name: 'UserIcon', Icon: UserIcon },
 ];
 

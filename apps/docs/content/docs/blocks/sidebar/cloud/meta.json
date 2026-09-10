@@ -1,0 +1,11 @@
+{
+  "title": "Cloud",
+  "pages": [
+    "flat",
+    "inline-submenus",
+    "collapsible-submenus",
+    "dropdown-submenus",
+    "secondary-nav",
+    "header-actions"
+  ]
+}

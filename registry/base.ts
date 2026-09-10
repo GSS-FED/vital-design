@@ -8,6 +8,7 @@ const iconFile = (name: string): IconFile => ({
 });
 
 const iconGroups = [
+  { name: 'icon-bell', title: 'Bell Icon', files: ['BellIcon'] },
   {
     name: 'icon-calendar',
     title: 'Calendar Icon',
@@ -64,16 +65,33 @@ const iconGroups = [
     files: ['EyeSlashIcon'],
   },
   { name: 'icon-flag', title: 'Flag Icon', files: ['FlagIcon'] },
+  { name: 'icon-info', title: 'Info Icon', files: ['InfoIcon'] },
   { name: 'icon-minus', title: 'Minus Icon', files: ['MinusIcon'] },
+  {
+    name: 'icon-panel-left',
+    title: 'Panel Left Icon',
+    files: ['PanelLeftIcon'],
+  },
+  { name: 'icon-plus', title: 'Plus Icon', files: ['PlusIcon'] },
   {
     name: 'icon-search',
     title: 'Search Icon',
     files: ['SearchIcon'],
   },
   {
+    name: 'icon-shield-check',
+    title: 'Shield Check Icon',
+    files: ['ShieldCheckIcon'],
+  },
+  {
     name: 'icon-spinner',
     title: 'Spinner Icon',
     files: ['SpinnerIcon'],
+  },
+  {
+    name: 'icon-square-arrow-out-up-right',
+    title: 'Square Arrow Out Up Right Icon',
+    files: ['SquareArrowOutUpRightIcon'],
   },
   { name: 'icon-user', title: 'User Icon', files: ['UserIcon'] },
 ] as const;

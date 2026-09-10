@@ -105,6 +105,50 @@ export const destructiveTokens = palette('destructive', [
   { step: 100, value: '#FFD0B8' },
 ]);
 
+// Sidebar shell slots — shadcn-compatible app chrome (see theme.sidebar* in tokens).
+export const semanticSidebarTokens: ColorEntry[] = [
+  {
+    name: '--sidebar',
+    value: '#F9F9FA',
+    utility: 'bg-sidebar',
+  },
+  {
+    name: '--sidebar-foreground',
+    value: '#232327',
+    utility: 'text-sidebar-foreground',
+  },
+  {
+    name: '--sidebar-primary',
+    value: '#0E86FE',
+    utility: 'bg-sidebar-primary',
+  },
+  {
+    name: '--sidebar-primary-foreground',
+    value: '#FFFFFF',
+    utility: 'text-sidebar-primary-foreground',
+  },
+  {
+    name: '--sidebar-accent',
+    value: '#EBF5FF',
+    utility: 'bg-sidebar-accent',
+  },
+  {
+    name: '--sidebar-accent-foreground',
+    value: '#0153A5',
+    utility: 'text-sidebar-accent-foreground',
+  },
+  {
+    name: '--sidebar-border',
+    value: 'rgba(35,35,50,0.08)',
+    utility: 'border-sidebar-border',
+  },
+  {
+    name: '--sidebar-ring',
+    value: '#73B9FE',
+    utility: 'ring-sidebar-ring',
+  },
+];
+
 // Surface/foreground pairs — page chrome, cards, popovers, muted/accent regions.
 export const semanticSurfaceTokens: ColorEntry[] = [
   {

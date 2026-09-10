@@ -1,0 +1,67 @@
+---
+title: Secondary Nav
+description: Cloud sidebar with secondary navigation and account footer. Frosted glass skin, flat main nav.
+---
+
+import { SidebarCloud04Preview } from '~/components/previews/SidebarCloud04Preview';
+
+## Preview
+
+<SidebarCloud04Preview />
+
+## Installation
+
+Source lives at `src-v2/blocks/sidebar-cloud-04/components/app-sidebar.tsx`. Registry install is not published yet — run `/add-registry sidebar-cloud-04` when you want `npx shadcn@latest add @vital-design/sidebar-cloud-04`.
+
+It depends on `@vital-design/sidebar` plus avatar, dropdown-menu, and the icons used in the sample tree. Compose `SidebarProvider` and `SidebarInset` in the app.
+
+> **Assets:** The frost photo is imported and shipped. Sample logos / avatar use public paths (`/images/vital-logo-text-h.svg`, `/images/vital-logo.svg`, `/images/ray.jpg`) that Storybook and Fumadocs provide for previews only; they are not installed by the registry.
+
+## When to use
+
+- Same **frosted glass** Cloud skin as [Flat](/docs/blocks/sidebar/cloud/flat)
+- **Secondary navigation** pinned to the bottom of `SidebarContent` (`mt-auto`), above the account footer — Support and Privacy Policy, each with an external-link icon. Extra bottom padding clears the collapse control.
+- **Account footer** with avatar dropdown (same as [Inline Submenus](/docs/blocks/sidebar/cloud/inline-submenus)); collapse control docks to `bottom-full`
+- **No submenus** — main nav stays flat, like [Flat](/docs/blocks/sidebar/cloud/flat)
+- Use `variant="sidebar"` or `floating`. Skip `inset` — the frost photo does not fit inset padding and unrounded corners.
+
+## Composition
+
+`CloudSidebar` is a skinned `Sidebar` (`ComponentProps<typeof Sidebar>`). Sample header, nav, secondary nav, and account footer are composed **inside** that file, so `<CloudSidebar />` matches this preview.
+
+```tsx
+import { CloudSidebar } from '@/blocks/sidebar-cloud-04/app-sidebar';
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@/components/sidebar/Sidebar';
+
+export function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <SidebarProvider
+      defaultOpen
+      style={
+        {
+          '--sidebar-width': '180px',
+          '--sidebar-width-icon': '56px',
+        } as React.CSSProperties
+      }
+    >
+      <CloudSidebar collapsible="icon" />
+      <SidebarInset className="bg-white">
+        <header className="flex h-12 items-center gap-2 border-b px-3 md:hidden">
+          <SidebarTrigger />
+        </header>
+        {children}
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}
+```
+
+- Recommended widths on the provider: **`--sidebar-width: 180px`**, **`--sidebar-width-icon: 56px`**
+- **Mobile:** the desktop bullet is hidden. Place a `SidebarTrigger` in `SidebarInset` (`md:hidden` header)
+- After install, edit the `data` / `workspaces` objects. Replace the preview-only `/images/…` paths or provide matching public files in your app.
+
+For a blank shell without the product skin, compose [Sidebar](/docs/components/sidebar) yourself.

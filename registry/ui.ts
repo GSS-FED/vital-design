@@ -833,6 +833,36 @@ export const ui = [
     ],
   },
   {
+    name: 'sidebar',
+    type: 'registry:ui',
+    title: 'Sidebar',
+    description:
+      'Composable app sidebar with provider state, collapsible modes, mobile sheet, and menu parts — aligned with shadcn/ui Sidebar',
+    dependencies: [
+      '@base-ui/react',
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+      '@vital-design/input',
+      '@vital-design/separator',
+      '@vital-design/sheet',
+      '@vital-design/skeleton',
+      '@vital-design/tooltip',
+      '@vital-design/use-is-mobile',
+      '@vital-design/icon-panel-left',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/sidebar/Sidebar.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
     name: 'badge',
     type: 'registry:ui',
     title: 'Badge',
