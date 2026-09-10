@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox",
+  "title": "Checkbox",
+  "description": "Checkbox component with indeterminate state support",
+  "dependencies": [
+    "@base-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "@vital-design/utils",
+    "@vital-design/icon-check",
+    "@vital-design/icon-minus",
+    "@vital-design/vital-theme"
+  ],
+  "files": [
+    {
+      "path": "src-v2/components/checkbox/Checkbox.tsx",
+      "content": "import { CheckIcon } from '@/icons/CheckIcon';\nimport { MinusIcon } from '@/icons/MinusIcon';\nimport { cn } from '@/lib/utils';\nimport { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';\nimport { forwardRef } from 'react';\nimport type { ElementRef } from 'react';\n\nexport type CheckboxProps = BaseCheckbox.Root.Props;\n\nconst Checkbox = forwardRef<\n  ElementRef<typeof BaseCheckbox.Root>,\n  CheckboxProps\n>(function Checkbox({ className, ...props }, ref) {\n  return (\n    <BaseCheckbox.Root\n      ref={ref}\n      data-slot=\"checkbox\"\n      className={cn(\n        'peer flex size-4 shrink-0 items-center justify-center rounded-sm border border-grayscale-opacity-400 bg-white outline-none transition-colors duration-100',\n        'hover:border-primary-500 hover:shadow-(--shadow-focus-ring-primary)',\n        'focus-visible:border-primary-500 focus-visible:shadow-(--shadow-focus-ring-primary)',\n        'data-disabled:cursor-not-allowed data-disabled:border-grayscale-opacity-300 data-disabled:bg-grayscale-opacity-200 data-disabled:opacity-50',\n        'data-disabled:hover:border-grayscale-opacity-300 data-disabled:hover:shadow-none',\n        'aria-invalid:border-destructive-500 aria-invalid:shadow-(--shadow-focus-ring-destructive) aria-invalid:hover:border-destructive-500 aria-invalid:hover:shadow-(--shadow-focus-ring-destructive)',\n        'data-checked:border-primary-500 data-checked:bg-primary-500',\n        'data-indeterminate:border-primary-500 data-indeterminate:bg-primary-500',\n        'data-disabled:data-checked:border-primary-500 data-disabled:data-checked:bg-primary-500 data-disabled:data-checked:opacity-40',\n        'data-disabled:data-indeterminate:border-primary-500 data-disabled:data-indeterminate:bg-primary-500 data-disabled:data-indeterminate:opacity-40',\n        className,\n      )}\n      {...props}\n    >\n      <BaseCheckbox.Indicator\n        data-slot=\"checkbox-indicator\"\n        className=\"inline-flex size-full items-center justify-center text-white data-checked:[&_[data-slot=checkbox-check]]:block data-indeterminate:[&_[data-slot=checkbox-minus]]:block\"\n      >\n        <CheckIcon\n          data-slot=\"checkbox-check\"\n          className=\"hidden h-2.25 w-3\"\n        />\n        <MinusIcon\n          data-slot=\"checkbox-minus\"\n          className=\"hidden h-0.75 w-2.5\"\n        />\n      </BaseCheckbox.Indicator>\n    </BaseCheckbox.Root>\n  );\n});\n\nexport { Checkbox };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

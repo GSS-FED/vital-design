@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "switch",
+  "title": "Switch",
+  "description": "Toggle switch for boolean on/off settings",
+  "dependencies": [
+    "@base-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "@vital-design/utils",
+    "@vital-design/vital-theme"
+  ],
+  "files": [
+    {
+      "path": "src-v2/components/switch/Switch.tsx",
+      "content": "import { cn } from '@/lib/utils';\nimport { Switch as BaseSwitch } from '@base-ui/react/switch';\nimport { forwardRef } from 'react';\nimport type { ElementRef } from 'react';\n\nexport type SwitchProps = BaseSwitch.Root.Props & {\n  children?: React.ReactNode;\n};\n\nconst Switch = forwardRef<\n  ElementRef<typeof BaseSwitch.Root>,\n  SwitchProps\n>(function Switch({ className, children, ...props }, ref) {\n  return (\n    <BaseSwitch.Root\n      ref={ref}\n      data-slot=\"switch\"\n      className={cn(\n        'peer group/switch box-border inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border border-grayscale-opacity-300 bg-grayscale-opacity-200 px-0.75 outline-none transition-colors duration-100',\n        'focus-visible:border-primary-500 focus-visible:shadow-(--shadow-focus-ring-primary)',\n        'aria-invalid:border-destructive-500 aria-invalid:shadow-(--shadow-focus-ring-destructive)',\n        'data-invalid:border-destructive-500 data-invalid:shadow-(--shadow-focus-ring-destructive)',\n        'data-disabled:cursor-not-allowed data-disabled:opacity-40',\n        'data-checked:border-transparent data-checked:bg-primary-500',\n        className,\n      )}\n      {...props}\n    >\n      {children}\n      <BaseSwitch.Thumb\n        data-slot=\"switch-thumb\"\n        className={cn(\n          'pointer-events-none size-4.5 rounded-full border border-grayscale-opacity-300 bg-white transition-transform duration-100',\n          'data-checked:translate-x-full data-checked:border-transparent',\n          'data-disabled:opacity-80',\n          'not-data-disabled:group-hover/switch:shadow-[0_0_0_1px_var(--grayscale-opacity-200)]',\n          'not-data-disabled:group-hover/switch:data-checked:shadow-[0_0_0_5px_color-mix(in_srgb,var(--primary-500)_20%,transparent)]',\n        )}\n      />\n    </BaseSwitch.Root>\n  );\n});\n\nexport { Switch };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

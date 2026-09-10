@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radio-group",
+  "title": "Radio Group",
+  "description": "Composable radio group component",
+  "dependencies": [
+    "@base-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "@vital-design/utils",
+    "@vital-design/vital-theme"
+  ],
+  "files": [
+    {
+      "path": "src-v2/components/radio-group/RadioGroup.tsx",
+      "content": "import { cn } from '@/lib/utils';\nimport { Radio as BaseRadio } from '@base-ui/react/radio';\nimport { RadioGroup as BaseRadioGroup } from '@base-ui/react/radio-group';\n\nexport type RadioGroupProps = BaseRadioGroup.Props<string>;\n\nfunction RadioGroup({ className, ...props }: RadioGroupProps) {\n  return (\n    <BaseRadioGroup\n      data-slot=\"radio-group\"\n      className={cn('grid w-full gap-2', className)}\n      {...props}\n    />\n  );\n}\n\nexport type RadioGroupItemProps = BaseRadio.Root.Props<string>;\n\nfunction RadioGroupItem({\n  className,\n  ...props\n}: RadioGroupItemProps) {\n  return (\n    <BaseRadio.Root\n      data-slot=\"radio-group-item\"\n      className={cn(\n        'group/radio-group-item relative flex size-4 shrink-0 items-center justify-center rounded-full border border-grayscale-opacity-400 bg-white outline-none transition-colors duration-100',\n        'after:absolute after:-inset-x-3 after:-inset-y-2',\n        'focus-visible:border-primary-500 focus-visible:shadow-(--shadow-focus-ring-primary)',\n        'data-disabled:cursor-not-allowed data-disabled:border-grayscale-opacity-300 data-disabled:bg-grayscale-opacity-200 data-disabled:opacity-50',\n        'aria-invalid:border-destructive-500 aria-invalid:shadow-(--shadow-focus-ring-destructive)',\n        'data-checked:border-transparent data-checked:bg-primary-500',\n        className,\n      )}\n      {...props}\n    >\n      <BaseRadio.Indicator\n        data-slot=\"radio-group-indicator\"\n        className=\"flex size-4 items-center justify-center\"\n      >\n        <span className=\"size-1.5 rounded-full bg-white\" />\n      </BaseRadio.Indicator>\n    </BaseRadio.Root>\n  );\n}\n\nexport { RadioGroup, RadioGroupItem };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

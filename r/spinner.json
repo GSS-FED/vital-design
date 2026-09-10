@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "spinner",
+  "title": "Spinner",
+  "description": "Loading indicator with accessible status text",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "@vital-design/utils",
+    "@vital-design/icon-spinner",
+    "@vital-design/vital-theme"
+  ],
+  "files": [
+    {
+      "path": "src-v2/components/spinner/Spinner.tsx",
+      "content": "import { SpinnerIcon } from '@/icons/SpinnerIcon';\nimport { cn } from '@/lib/utils';\nimport type { ComponentProps } from 'react';\n\nexport type SpinnerProps = ComponentProps<'svg'>;\n\nfunction Spinner({ className, ...props }: SpinnerProps) {\n  return (\n    <SpinnerIcon\n      role=\"status\"\n      aria-label=\"Loading\"\n      aria-hidden={false}\n      data-slot=\"spinner\"\n      className={cn('size-4 animate-spin', className)}\n      {...props}\n    />\n  );\n}\n\nexport { Spinner };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

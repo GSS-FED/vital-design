@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "separator",
+  "title": "Separator",
+  "description": "Horizontal or vertical divider",
+  "dependencies": [
+    "@base-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "@vital-design/utils",
+    "@vital-design/vital-theme"
+  ],
+  "files": [
+    {
+      "path": "src-v2/components/separator/Separator.tsx",
+      "content": "import { cn } from '@/lib/utils';\nimport { Separator as BaseSeparator } from '@base-ui/react/separator';\nimport { forwardRef } from 'react';\nimport type { ComponentPropsWithoutRef, ElementRef } from 'react';\n\nexport type SeparatorProps = ComponentPropsWithoutRef<\n  typeof BaseSeparator\n>;\n\nconst Separator = forwardRef<\n  ElementRef<typeof BaseSeparator>,\n  SeparatorProps\n>(function Separator(\n  { className, orientation = 'horizontal', ...props },\n  ref,\n) {\n  return (\n    <BaseSeparator\n      ref={ref}\n      orientation={orientation}\n      data-slot=\"separator\"\n      className={cn(\n        'shrink-0 bg-grayscale-opacity-200',\n        orientation === 'horizontal'\n          ? 'h-px w-full'\n          : 'h-full min-h-4 w-px',\n        className,\n      )}\n      {...props}\n    />\n  );\n});\n\nexport { Separator };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

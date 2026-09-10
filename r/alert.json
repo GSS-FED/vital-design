@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert",
+  "title": "Alert",
+  "description": "Composable alert component with title, description, and action slots",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "@vital-design/utils",
+    "@vital-design/vital-theme"
+  ],
+  "files": [
+    {
+      "path": "src-v2/components/alert/Alert.tsx",
+      "content": "import { cn } from '@/lib/utils';\nimport { forwardRef } from 'react';\nimport type { ComponentPropsWithoutRef, ElementRef } from 'react';\n\nconst alertBaseClasses = [\n  'group/alert',\n  'grid w-full gap-x-3 gap-y-2',\n  'rounded bg-white px-6 py-4 shadow-emphasis',\n  'font-sans text-grayscale-opacity-800',\n  'has-[>svg]:grid-cols-[auto_1fr]',\n  '*:[svg]:row-span-2 *:[svg]:size-6',\n];\n\nconst alertTitleClasses = [\n  'font-medium text-base',\n  'group-has-[>svg]/alert:col-start-2',\n];\nconst alertDescriptionClasses = [\n  'text-base text-grayscale-opacity-700',\n  'group-has-[>svg]/alert:col-start-2',\n];\nconst alertActionClasses = ['col-span-full flex justify-end gap-6'];\n\nexport type AlertProps = ComponentPropsWithoutRef<'div'>;\n\nconst Alert = forwardRef<ElementRef<'div'>, AlertProps>(\n  function Alert({ className, role = 'alert', ...alertProps }, ref) {\n    return (\n      <div\n        ref={ref}\n        role={role}\n        data-slot=\"alert\"\n        className={cn(alertBaseClasses, className)}\n        {...alertProps}\n      />\n    );\n  },\n);\n\nexport type AlertTitleProps = ComponentPropsWithoutRef<'div'>;\n\nconst AlertTitle = forwardRef<ElementRef<'div'>, AlertTitleProps>(\n  function AlertTitle({ className, ...titleProps }, ref) {\n    return (\n      <div\n        ref={ref}\n        data-slot=\"alert-title\"\n        className={cn(alertTitleClasses, className)}\n        {...titleProps}\n      />\n    );\n  },\n);\n\nexport type AlertDescriptionProps = ComponentPropsWithoutRef<'div'>;\n\nconst AlertDescription = forwardRef<\n  ElementRef<'div'>,\n  AlertDescriptionProps\n>(function AlertDescription({ className, ...descriptionProps }, ref) {\n  return (\n    <div\n      ref={ref}\n      data-slot=\"alert-description\"\n      className={cn(alertDescriptionClasses, className)}\n      {...descriptionProps}\n    />\n  );\n});\n\nexport type AlertActionProps = ComponentPropsWithoutRef<'div'>;\n\nconst AlertAction = forwardRef<ElementRef<'div'>, AlertActionProps>(\n  function AlertAction({ className, ...actionProps }, ref) {\n    return (\n      <div\n        ref={ref}\n        data-slot=\"alert-action\"\n        className={cn(alertActionClasses, className)}\n        {...actionProps}\n      />\n    );\n  },\n);\n\nexport { Alert, AlertAction, AlertDescription, AlertTitle };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

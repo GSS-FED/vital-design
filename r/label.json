@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "label",
+  "title": "Label",
+  "description": "Accessible label associated with form controls",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "@vital-design/utils",
+    "@vital-design/vital-theme"
+  ],
+  "files": [
+    {
+      "path": "src-v2/components/label/Label.tsx",
+      "content": "import { cn } from '@/lib/utils';\nimport { forwardRef } from 'react';\nimport type { ComponentPropsWithoutRef, ElementRef } from 'react';\n\nexport type LabelProps = ComponentPropsWithoutRef<'label'> & {\n  required?: boolean;\n};\n\nconst Label = forwardRef<ElementRef<'label'>, LabelProps>(\n  function Label({ className, required, ...props }, ref) {\n    return (\n      <label\n        ref={ref}\n        data-slot=\"label\"\n        data-required={required ? 'true' : undefined}\n        className={cn(\n          'relative flex items-center gap-2 font-sans text-sm leading-none font-medium text-grayscale-opacity-800 select-none',\n          'data-[required=true]:before:absolute data-[required=true]:before:top-[3px] data-[required=true]:before:-left-2 data-[required=true]:before:size-1 data-[required=true]:before:rounded-full data-[required=true]:before:bg-destructive-500 data-[required=true]:before:content-[\"\"]',\n          'peer-disabled:cursor-not-allowed peer-disabled:opacity-50',\n          'group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50',\n          className,\n        )}\n        {...props}\n      />\n    );\n  },\n);\n\nexport { Label };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

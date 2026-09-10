@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chip",
+  "title": "Chip",
+  "description": "Chip component for selection and filtering",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "@vital-design/utils",
+    "@vital-design/icon-close",
+    "@vital-design/vital-theme"
+  ],
+  "files": [
+    {
+      "path": "src-v2/components/chip/Chip.tsx",
+      "content": "import { cn } from '@/lib/utils';\nimport { type VariantProps, cva } from 'class-variance-authority';\nimport type { CSSProperties, ReactNode } from 'react';\n\nexport type ChipProps = {\n  children: ReactNode;\n  selected: boolean;\n  onChange?: (selected: boolean) => void;\n  icon?: ReactNode;\n  className?: string;\n  style?: CSSProperties;\n};\n\nconst chipVariants = cva(\n  // Base classes\n  [\n    'relative inline-flex gap-1 text-sm leading-[18px]',\n    'py-1.5 px-4 rounded-full cursor-pointer',\n    'font-sans box-border',\n    'transition-colors duration-100',\n    'before:content-[\"\"] before:absolute before:inset-0',\n    'before:rounded-[inherit] before:transition-colors before:duration-100',\n  ],\n  {\n    variants: {\n      selected: {\n        true: [\n          'text-primary-500 bg-primary-100',\n          'hover:before:bg-primary-500/20',\n        ],\n        false: [\n          'text-grayscale-opacity-800 bg-grayscale-opacity-200',\n          'hover:before:bg-grayscale-opacity-800/20',\n        ],\n      },\n    },\n    defaultVariants: {\n      selected: false,\n    },\n  },\n);\n\nexport type ChipVariants = VariantProps<typeof chipVariants>;\n\nexport function Chip(props: ChipProps) {\n  const { children, selected, onChange, icon, className, style } =\n    props;\n\n  return (\n    <button\n      type=\"button\"\n      data-slot=\"chip\"\n      onClick={() => {\n        onChange?.(!selected);\n      }}\n      data-state={selected ? 'selected' : 'unselected'}\n      className={cn(\n        chipVariants({ selected }),\n        '[&:has(>[data-slot=chip-icon])]:pl-3.5',\n        className,\n      )}\n      style={style}\n    >\n      {icon && (\n        <span data-slot=\"chip-icon\" className=\"flex items-center\">\n          {icon}\n        </span>\n      )}\n      <span data-slot=\"chip-label\" className=\"flex items-center\">\n        {children}\n      </span>\n    </button>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

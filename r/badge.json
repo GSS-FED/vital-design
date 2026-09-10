@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "title": "Badge",
+  "description": "Notification count and dot indicator in solid semantic colors; use Tag for status labels",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "@vital-design/utils",
+    "@vital-design/vital-theme"
+  ],
+  "files": [
+    {
+      "path": "src-v2/components/badge/Badge.tsx",
+      "content": "import { cn } from '@/lib/utils';\nimport { type VariantProps, cva } from 'class-variance-authority';\nimport type { CSSProperties, ReactNode } from 'react';\n\nexport type BadgeProps = {\n  variant?:\n    | 'primary'\n    | 'success'\n    | 'warning'\n    | 'destructive'\n    | 'info';\n  size?: 'sm' | 'md' | 'lg';\n  type?: 'number' | 'text';\n  children?: ReactNode;\n  className?: string;\n  style?: CSSProperties;\n};\n\nconst badgeVariants = cva(\n  [\n    'inline-flex items-center justify-center rounded-full font-sans font-medium text-white box-border whitespace-nowrap',\n  ],\n  {\n    variants: {\n      variant: {\n        primary: 'bg-primary-500',\n        success: 'bg-success-500',\n        warning: 'bg-warning-500',\n        destructive: 'bg-destructive-500',\n        info: 'bg-info-500',\n      },\n      size: {\n        sm: 'size-1.5',\n        md: 'h-4 px-1.5 leading-4',\n        lg: 'h-5',\n      },\n      type: {\n        number: '',\n        text: '',\n      },\n    },\n    compoundVariants: [\n      { size: 'md', type: 'number', class: 'text-xs' },\n      { size: 'md', type: 'text', class: 'text-[10px]' },\n      {\n        size: 'lg',\n        type: 'number',\n        class: 'px-1.5 text-sm leading-5',\n      },\n      {\n        size: 'lg',\n        type: 'text',\n        class: 'px-2 py-0.5 text-xs leading-4',\n      },\n    ],\n    defaultVariants: {\n      variant: 'primary',\n      size: 'lg',\n      type: 'number',\n    },\n  },\n);\n\nexport type BadgeVariants = VariantProps<typeof badgeVariants>;\n\nexport function Badge(props: BadgeProps) {\n  const {\n    variant = 'primary',\n    size = 'lg',\n    type = 'number',\n    children,\n    className,\n    style,\n  } = props;\n\n  if (size === 'sm') {\n    return (\n      <span\n        role=\"status\"\n        data-slot=\"badge\"\n        data-size=\"sm\"\n        data-variant={variant}\n        className={cn(badgeVariants({ variant, size }), className)}\n        style={style}\n      />\n    );\n  }\n\n  return (\n    <span\n      role=\"status\"\n      data-slot=\"badge\"\n      data-size={size}\n      data-variant={variant}\n      data-type={type}\n      className={cn(\n        badgeVariants({ variant, size, type }),\n        className,\n      )}\n      style={style}\n    >\n      {children}\n    </span>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

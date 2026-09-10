@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton",
+  "title": "Skeleton",
+  "description": "Loading placeholder with pulse animation",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "@vital-design/utils",
+    "@vital-design/vital-theme"
+  ],
+  "files": [
+    {
+      "path": "src-v2/components/skeleton/Skeleton.tsx",
+      "content": "import { cn } from '@/lib/utils';\nimport type { ComponentPropsWithoutRef } from 'react';\n\nexport type SkeletonProps = ComponentPropsWithoutRef<'div'>;\n\nexport function Skeleton({ className, ...props }: SkeletonProps) {\n  return (\n    <div\n      data-slot=\"skeleton\"\n      className={cn('animate-pulse rounded-md bg-accent', className)}\n      {...props}\n    />\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

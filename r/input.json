@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input",
+  "title": "Input",
+  "description": "Single-line input primitive",
+  "dependencies": [
+    "@base-ui/react",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "@vital-design/utils",
+    "@vital-design/vital-theme"
+  ],
+  "files": [
+    {
+      "path": "src-v2/components/input/input/Input.tsx",
+      "content": "import { cn } from '@/lib/utils';\nimport { Input as InputPrimitive } from '@base-ui/react/input';\nimport { type VariantProps, cva } from 'class-variance-authority';\nimport { forwardRef } from 'react';\nimport type { ComponentPropsWithoutRef, ElementRef } from 'react';\n\nconst inputVariants = cva(\n  cn(\n    'box-border flex h-8 w-full min-w-0 rounded border bg-transparent px-2 py-1.5 font-sans text-sm leading-5 font-normal text-grayscale-opacity-800 transition-colors duration-200 outline-none',\n    'placeholder:text-grayscale-opacity-400 hover:border-grayscale-opacity-500 focus-visible:border-primary-500',\n    'file:mr-2 file:border-0 file:bg-transparent file:p-0 file:text-sm file:font-medium file:text-grayscale-opacity-800',\n    'disabled:cursor-not-allowed disabled:border-grayscale-opacity-300 disabled:bg-grayscale-opacity-200 disabled:text-grayscale-opacity-500 disabled:hover:border-grayscale-opacity-300',\n    'aria-invalid:border-destructive-500 aria-invalid:hover:border-destructive-500 aria-invalid:focus-visible:border-destructive-500',\n  ),\n  {\n    variants: {\n      appearance: {\n        solid: 'border-grayscale-opacity-300 bg-white',\n        ghost:\n          'border-transparent bg-transparent hover:border-grayscale-opacity-300',\n      },\n    },\n    defaultVariants: {\n      appearance: 'solid',\n    },\n  },\n);\n\nexport type InputProps = ComponentPropsWithoutRef<\n  typeof InputPrimitive\n> &\n  VariantProps<typeof inputVariants>;\n\nconst Input = forwardRef<\n  ElementRef<typeof InputPrimitive>,\n  InputProps\n>(function Input(props, ref) {\n  const {\n    className,\n    disabled = false,\n    type = 'text',\n    appearance = 'solid',\n    ...inputProps\n  } = props;\n\n  return (\n    <InputPrimitive\n      ref={ref}\n      type={type}\n      data-slot=\"input\"\n      data-appearance={appearance}\n      disabled={disabled}\n      className={cn(inputVariants({ appearance }), className)}\n      {...inputProps}\n    />\n  );\n});\n\nexport { Input };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

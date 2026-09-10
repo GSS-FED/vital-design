@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "search-bar",
+  "title": "Search Bar",
+  "description": "Search input with icon and enter key support",
+  "dependencies": [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "@vital-design/utils",
+    "@vital-design/input-group",
+    "@vital-design/icon-search",
+    "@vital-design/vital-theme"
+  ],
+  "files": [
+    {
+      "path": "src-v2/components/search-bar/SearchBar.tsx",
+      "content": "import {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupInput,\n} from '@/components/input/input-group/InputGroup';\nimport { SearchIcon } from '@/icons/SearchIcon';\nimport { cn } from '@/lib/utils';\nimport { type VariantProps, cva } from 'class-variance-authority';\nimport { forwardRef, useRef } from 'react';\nimport type {\n  CSSProperties,\n  ComponentPropsWithoutRef,\n  ElementRef,\n  KeyboardEvent,\n} from 'react';\n\nconst searchIconVariants = cva(\n  [\n    'flex items-center transition-all duration-200',\n    '[&_svg]:transition-all [&_svg]:duration-200',\n    'group-focus-within:[&_svg]:fill-primary-500',\n  ],\n  {\n    variants: {\n      disabled: {\n        true: '[&_svg]:fill-grayscale-opacity-300',\n        false: '[&_svg]:fill-grayscale-opacity-500',\n      },\n      clickable: {\n        true: 'cursor-pointer',\n        false: '',\n      },\n    },\n    defaultVariants: { disabled: false, clickable: false },\n  },\n);\n\nexport type SearchIconVariants = VariantProps<\n  typeof searchIconVariants\n>;\n\nexport type SearchBarProps = Omit<\n  ComponentPropsWithoutRef<'input'>,\n  | 'className'\n  | 'defaultValue'\n  | 'onChange'\n  | 'style'\n  | 'type'\n  | 'value'\n> & {\n  /** Controlled value. Use `defaultValue` instead for uncontrolled usage. */\n  value?: string;\n  /** Initial value for uncontrolled usage. Ignored when `value` is set. */\n  defaultValue?: string;\n  onChange?: (value: string) => void;\n  onSearch?: (value: string) => void;\n  isSearchIconClickable?: boolean;\n  width?: string;\n  /** Applied to the InputGroup shell, not the inner `<input>`. */\n  className?: string;\n  style?: CSSProperties;\n};\n\nconst SearchBar = forwardRef<ElementRef<'input'>, SearchBarProps>(\n  function SearchBar(props, ref) {\n    const {\n      className,\n      defaultValue,\n      disabled = false,\n      isSearchIconClickable,\n      onChange,\n      onKeyUp,\n      onSearch,\n      placeholder,\n      style,\n      value,\n      width,\n      ...inputProps\n    } = props;\n\n    const inputRef = useRef<HTMLInputElement | null>(null);\n\n    const setInputRef = (node: HTMLInputElement | null) => {\n      inputRef.current = node;\n      if (typeof ref === 'function') {\n        ref(node);\n      } else if (ref) {\n        ref.current = node;\n      }\n    };\n\n    const handleSearch = () => {\n      if (!disabled && inputRef.current) {\n        onSearch?.(inputRef.current.value);\n      }\n    };\n\n    const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {\n      onKeyUp?.(event);\n      if (event.key === 'Enter') {\n        handleSearch();\n      }\n    };\n\n    const handleChange = (\n      event: React.ChangeEvent<HTMLInputElement>,\n    ) => {\n      onChange?.(event.target.value);\n    };\n\n    const handleSearchIconClick = () => {\n      if (isSearchIconClickable) {\n        handleSearch();\n      }\n    };\n\n    return (\n      <InputGroup\n        data-slot=\"search-bar\"\n        className={cn('rounded-[20px] pl-2 pr-4', className)}\n        style={{ width: width ?? '100%', ...style }}\n      >\n        <InputGroupAddon\n          data-testid=\"search-icon\"\n          onClick={handleSearchIconClick}\n          className={searchIconVariants({\n            disabled,\n            clickable: isSearchIconClickable && !disabled,\n          })}\n        >\n          <SearchIcon className=\"size-4.5\" />\n        </InputGroupAddon>\n\n        <InputGroupInput\n          {...inputProps}\n          {...(value !== undefined ? { value } : { defaultValue })}\n          type=\"text\"\n          placeholder={placeholder}\n          onKeyUp={handleKeyUp}\n          onChange={handleChange}\n          disabled={disabled}\n          ref={setInputRef}\n          className={cn(\n            'ml-0 mr-4 max-w-[calc(100%-18px)]',\n            'whitespace-nowrap text-ellipsis overflow-hidden',\n          )}\n        />\n      </InputGroup>\n    );\n  },\n);\n\nexport { SearchBar };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
