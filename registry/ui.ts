@@ -216,7 +216,7 @@ export const ui = [
     name: 'switch',
     type: 'registry:ui',
     title: 'Switch',
-    description: 'Toggle switch component with on/off labels',
+    description: 'Toggle switch for boolean on/off settings',
     dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
     registryDependencies: [
       '@vital-design/utils',
