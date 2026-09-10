@@ -79,7 +79,7 @@ When you install a component, the CLI also installs any declared dependencies. C
 
 Common shared dependencies:
 
-- `clsx` + `tailwind-merge` — class merging utilities (`cn()`)
+- `cn` — class merging + Tailwind conflict resolution (`cn()`), replaces `clsx` + `tailwind-merge`
 - Base UI primitives for migrated `src-v2/` components (e.g., `@base-ui/react` for Switch, Checkbox, Avatar, and Radio Group)
 - Vital Design icons are installed as exact `@vital-design/icon-*` registry dependencies and copied to `src/components/icons/*`
 

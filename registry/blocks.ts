@@ -14,7 +14,7 @@ export const blocks: VitalRegistryItem[] = [
     description:
       'Grouped tree-style data table with selectable rows, column pinning, action bar, and filter dropdown',
     categories: ['data-table'],
-    dependencies: ['@tanstack/react-table', 'clsx', 'tailwind-merge'],
+    dependencies: ['@tanstack/react-table', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/avatar',
@@ -46,7 +46,7 @@ export const blocks: VitalRegistryItem[] = [
     description:
       'Expandable tree data table with sticky rail, sortable headers, selection, action bar, and inline switch toggles',
     categories: ['data-table'],
-    dependencies: ['@tanstack/react-table', 'clsx', 'tailwind-merge'],
+    dependencies: ['@tanstack/react-table', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/avatar',
@@ -85,7 +85,7 @@ export const blocks: VitalRegistryItem[] = [
     description:
       'Editable data table with inline text cells, popover pickers, tag multi-select, and date selection',
     categories: ['data-table'],
-    dependencies: ['@tanstack/react-table', 'clsx', 'tailwind-merge'],
+    dependencies: ['@tanstack/react-table', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/avatar',
@@ -112,7 +112,7 @@ export const blocks: VitalRegistryItem[] = [
     description:
       'Base cloud sidebar: frosted glass, flat nav with no submenus, no account footer, active edge rail, bullet collapse. Installs CloudSidebar plus the frost photo. Compose SidebarProvider and SidebarInset in the app. Sample logos use /images public paths and are not shipped.',
     categories: ['sidebar', 'layout', 'navigation'],
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/sidebar',

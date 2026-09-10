@@ -44,7 +44,7 @@
      type: 'registry:ui',
      title: '<ComponentName>',
      description: '元件描述',
-     dependencies: ['clsx', 'tailwind-merge'],
+     dependencies: ['cn'],
      registryDependencies: [
        '@vital-design/utils',
        '@vital-design/vital-theme',
@@ -91,11 +91,11 @@ registryDependencies: ['button'];
 
 ### 常見依賴
 
-| 功能      | dependencies         | registryDependencies           |
-| --------- | -------------------- | ------------------------------ |
-| 使用 cn() | clsx, tailwind-merge | @vital-design/utils            |
-| 使用主題  | -                    | @vital-design/vital-theme      |
-| 使用 Icon | -                    | 精確列出 @vital-design/icon-\* |
+| 功能      | dependencies | registryDependencies           |
+| --------- | ------------ | ------------------------------ |
+| 使用 cn() | cn           | @vital-design/utils            |
+| 使用主題  | -            | @vital-design/vital-theme      |
+| 使用 Icon | -            | 精確列出 @vital-design/icon-\* |
 
 ### 類型分類
 

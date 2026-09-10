@@ -7,7 +7,7 @@ export const ui = [
     title: 'Alert',
     description:
       'Composable alert component with title, description, and action slots',
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -28,8 +28,7 @@ export const ui = [
     dependencies: [
       '@base-ui/react',
       'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
+      'cn',
     ],
     registryDependencies: [
       '@vital-design/utils',
@@ -53,8 +52,7 @@ export const ui = [
     dependencies: [
       '@base-ui/react',
       'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
+      'cn',
     ],
     registryDependencies: [
       '@vital-design/utils',
@@ -75,8 +73,7 @@ export const ui = [
     dependencies: [
       '@base-ui/react',
       'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
+      'cn',
     ],
     registryDependencies: [
       '@vital-design/utils',
@@ -96,7 +93,7 @@ export const ui = [
     title: 'Split Button',
     description:
       'Split button component with main action and dropdown trigger',
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/button',
@@ -118,7 +115,7 @@ export const ui = [
     title: 'Checkbox',
     description:
       'Checkbox component with indeterminate state support',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-check',
@@ -137,11 +134,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Chip',
     description: 'Chip component for selection and filtering',
-    dependencies: [
-      'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
-    ],
+    dependencies: ['class-variance-authority', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-close',
@@ -159,7 +152,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Radio Group',
     description: 'Composable radio group component',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -177,11 +170,7 @@ export const ui = [
     title: 'Field',
     description:
       'Composable form field layout with labels, descriptions, errors, and groups',
-    dependencies: [
-      'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
-    ],
+    dependencies: ['class-variance-authority', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/label',
@@ -200,7 +189,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Label',
     description: 'Accessible label associated with form controls',
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -217,7 +206,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Switch',
     description: 'Toggle switch for boolean on/off settings',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -235,11 +224,7 @@ export const ui = [
     title: 'Tag',
     description:
       'Status and category label with 11 colors, solid/tint variants, and removable option',
-    dependencies: [
-      'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
-    ],
+    dependencies: ['class-variance-authority', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -256,7 +241,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Skeleton',
     description: 'Loading placeholder with pulse animation',
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -273,7 +258,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Spinner',
     description: 'Loading indicator with accessible status text',
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-spinner',
@@ -292,7 +277,7 @@ export const ui = [
     title: 'Progress',
     description:
       'Progress primitives and segmented status indicators styled with VD tokens',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -309,11 +294,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Search Bar',
     description: 'Search input with icon and enter key support',
-    dependencies: [
-      'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
-    ],
+    dependencies: ['class-variance-authority', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/input-group',
@@ -332,11 +313,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Input Group',
     description: 'Composable input group with addons and actions',
-    dependencies: [
-      'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
-    ],
+    dependencies: ['class-variance-authority', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/button',
@@ -356,7 +333,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Input',
     description: 'Single-line input primitive',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -374,7 +351,7 @@ export const ui = [
     title: 'Editable',
     description:
       'Inline editable text field with display, input, and textarea parts',
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/input',
@@ -392,7 +369,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Textarea',
     description: 'Multiline text input component',
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -409,7 +386,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Password Input',
     description: 'Password input with visibility toggle',
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/input-group',
@@ -433,8 +410,7 @@ export const ui = [
     dependencies: [
       '@base-ui/react',
       'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
+      'cn',
     ],
     registryDependencies: [
       '@vital-design/utils',
@@ -453,7 +429,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Separator',
     description: 'Horizontal or vertical divider',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -471,7 +447,7 @@ export const ui = [
     title: 'Scroll Area',
     description:
       'Scrollable viewport with optional edge fade and custom scrollbars',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -488,7 +464,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Select',
     description: 'Single and multiple dropdown for flat option lists',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-check',
@@ -509,7 +485,7 @@ export const ui = [
     title: 'Autocomplete',
     description:
       'Free-form text input with filtered suggestions and optional inline completion',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-chevron-down',
@@ -530,7 +506,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Combobox',
     description: 'Searchable input picker with chip selection',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-check',
@@ -557,7 +533,7 @@ export const ui = [
     title: 'Command',
     description:
       'Composable command palette primitive with input, list, and items',
-    dependencies: ['cmdk', 'clsx', 'tailwind-merge'],
+    dependencies: ['cmdk', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-chevron-left',
@@ -578,7 +554,7 @@ export const ui = [
     title: 'Popover',
     description:
       'Floating panel anchored to a trigger; for tooltips with rich content, profile cards, and contextual overlays',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -596,7 +572,7 @@ export const ui = [
     title: 'Tooltip',
     description:
       'Composable tooltip primitive with provider, trigger, content, and arrow parts',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -614,7 +590,7 @@ export const ui = [
     title: 'Toast',
     description:
       'Toast primitives plus a Vital-styled Toaster preset for app notifications',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-close',
@@ -633,7 +609,7 @@ export const ui = [
     title: 'Dropdown Menu',
     description:
       'Action menu with checkbox items, radio items, and submenus',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-check',
@@ -656,8 +632,7 @@ export const ui = [
     dependencies: [
       '@base-ui/react',
       'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
+      'cn',
     ],
     registryDependencies: [
       '@vital-design/utils',
@@ -677,7 +652,7 @@ export const ui = [
     title: 'Slider',
     description:
       'Simple slider component built on Base UI primitives',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -695,7 +670,7 @@ export const ui = [
     title: 'Table',
     description:
       'Semantic table primitives (Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell, TableCaption) styled with VD tokens',
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -713,7 +688,7 @@ export const ui = [
     title: 'Tabs',
     description:
       'Composable tabs primitive with underline and pill variants plus optional bordered underline list',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -731,11 +706,7 @@ export const ui = [
     title: 'Toolbar',
     description:
       'Flex layout primitive with role="toolbar" plus ToolbarGroup, ToolbarSpacer, and ToolbarSeparator parts',
-    dependencies: [
-      'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
-    ],
+    dependencies: ['class-variance-authority', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/separator',
@@ -754,12 +725,7 @@ export const ui = [
     title: 'Calendar',
     description:
       'Date picker calendar built on react-day-picker; supports single, range, and multi-select modes plus full classNames/components overrides',
-    dependencies: [
-      'react-day-picker',
-      'date-fns',
-      'clsx',
-      'tailwind-merge',
-    ],
+    dependencies: ['react-day-picker', 'date-fns', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/popover',
@@ -783,7 +749,7 @@ export const ui = [
     title: 'Time Picker',
     description:
       'Three-column time picker (hours, minutes, seconds) with click-to-select and CSS scroll-snap',
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -801,7 +767,7 @@ export const ui = [
     title: 'Collapsible',
     description:
       'Expand and collapse a panel with a trigger button; built on Base UI primitives',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -819,7 +785,7 @@ export const ui = [
     title: 'Sheet',
     description:
       'Side-anchored dialog that slides in from any edge; modal by default, supports docked panel mode via `modal={false}`',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-close',
@@ -841,8 +807,7 @@ export const ui = [
     dependencies: [
       '@base-ui/react',
       'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
+      'cn',
     ],
     registryDependencies: [
       '@vital-design/utils',
@@ -868,11 +833,7 @@ export const ui = [
     title: 'Badge',
     description:
       'Notification count and dot indicator in solid semantic colors; use Tag for status labels',
-    dependencies: [
-      'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
-    ],
+    dependencies: ['class-variance-authority', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -890,7 +851,7 @@ export const ui = [
     title: 'Card',
     description:
       'Composable card primitive with header, title, description, action, content, and footer parts',
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
@@ -908,7 +869,7 @@ export const ui = [
     title: 'Number Input',
     description:
       'Numeric input with increment/decrement steppers and scrub area',
-    dependencies: ['@base-ui/react', 'clsx', 'tailwind-merge'],
+    dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-chevron-down',
@@ -928,11 +889,7 @@ export const ui = [
     title: 'Resizable',
     description:
       'Accessible resizable panel group backed by react-resizable-panels',
-    dependencies: [
-      'clsx',
-      'react-resizable-panels',
-      'tailwind-merge',
-    ],
+    dependencies: ['cn', 'react-resizable-panels'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',

@@ -14,8 +14,7 @@
 |------|------|
 | Tailwind CSS v4 | 原子化 CSS 框架 |
 | CVA (class-variance-authority) | 元件變體管理 |
-| tailwind-merge | 類別衝突處理 |
-| clsx | 條件式類別組合 |
+| cn | 類別衝突處理 + 條件式類別組合（取代 tailwind-merge + clsx）|
 
 ### 遷移背景
 
@@ -302,28 +301,25 @@ type Props = {
 
 ### 位置
 
-`src/utils/cn.ts`
+`src-v2/lib/utils.ts`
 
 ### 實作
 
 ```typescript
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+export { cn } from 'cn';
 ```
 
 ### 組合用途
 
-- **clsx**：處理條件式類別、陣列、物件
-- **tailwind-merge**：處理 Tailwind 類別衝突
+`cn` 單一套件同時提供：
+
+- **條件式組合**（clsx 語意）：處理條件式類別、陣列、物件
+- **衝突解析**（tailwind-merge 語意）：處理 Tailwind 類別衝突
 
 ### 使用範例
 
 ```typescript
-import { cn } from 'src/utils/cn';
+import { cn } from '@/lib/utils';
 
 // 基本使用
 cn('text-sm', 'font-bold')
@@ -344,7 +340,7 @@ cn(buttonVariants({ size, theme }), className)
 
 // 處理衝突
 cn('px-4', 'px-6')
-// => 'px-6' (tailwind-merge 會保留後者)
+// => 'px-6' (cn 會保留後者)
 ```
 
 ---

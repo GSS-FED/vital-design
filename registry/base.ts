@@ -120,7 +120,7 @@ export const base = [
     type: 'registry:lib',
     title: 'Utils',
     description: 'Utility functions including cn() for class merging',
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     files: [{ path: 'src-v2/lib/utils.ts', type: 'registry:lib' }],
   },
   {

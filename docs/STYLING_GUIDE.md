@@ -14,7 +14,7 @@
 技術棧：
 ├── Tailwind CSS v4    → 原子化 CSS 工具類
 ├── CVA                → 型別安全的元件變體
-├── cn() utility       → 類別合併 (clsx + tailwind-merge)
+├── cn() utility       → 類別合併 (cn 套件)
 └── CSS Variables      → 設計 tokens
 ```
 
@@ -78,20 +78,15 @@ rounded-xl    /* 16px - large button */
 
 ## 2. 核心工具：cn()
 
-**檔案位置：** `src/utils/cn.ts`
+**檔案位置：** `src-v2/lib/utils.ts`
 
 ```typescript
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+export { cn } from 'cn';
 ```
 
 **功能：**
-- `clsx`: 處理條件式類別合併
-- `twMerge`: 解決 Tailwind 類別衝突 (如 `w-full w-80` → `w-80`)
+- 條件式類別合併（clsx 語意）
+- 解決 Tailwind 類別衝突 (如 `w-full w-80` → `w-80`)
 
 **使用範例：**
 ```tsx

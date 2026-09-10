@@ -279,7 +279,7 @@ describe('Registry Validation', () => {
       ).toHaveLength(0);
     });
 
-    it('components using cn() should have clsx and tailwind-merge', () => {
+    it('components using cn() should have the cn dependency', () => {
       const missingDeps: string[] = [];
 
       for (const item of registry.items) {
@@ -313,16 +313,9 @@ describe('Registry Validation', () => {
 
         if (usesCn) {
           const deps = item.dependencies || [];
-          const hasClsx = deps.includes('clsx');
-          const hasTwMerge = deps.includes('tailwind-merge');
 
-          if (!hasClsx || !hasTwMerge) {
-            const missing = [];
-            if (!hasClsx) missing.push('clsx');
-            if (!hasTwMerge) missing.push('tailwind-merge');
-            missingDeps.push(
-              `${item.name}: missing [${missing.join(', ')}]`,
-            );
+          if (!deps.includes('cn')) {
+            missingDeps.push(`${item.name}: missing [cn]`);
           }
         }
       }

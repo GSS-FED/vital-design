@@ -103,4 +103,4 @@
 | Command       | `@vital-design/command`        |
 | cn()          | `@vital-design/utils`          |
 
-所有 block 都需要 `dependencies: ["clsx", "tailwind-merge"]`。
+所有 block 都需要 `dependencies: ["cn"]`。
