@@ -89,6 +89,7 @@ pnpm docs:start            # 啟動生產環境文件站
 ### 文件站（apps/docs/）
 
 - `apps/docs/app/` - Next.js App Router（含 `[[...slug]]/page.tsx`）
+- `apps/docs/app/llms.txt/route.ts` - 靜態 `/llms.txt`（llmstxt.org 目錄，由 `apps/docs/lib/llms.ts` 從 page tree 產生；sidebar 連結在 `content/docs/meta.json`）
 - `apps/docs/components/previews/` - 互動 preview 元件（`'use client'`，含 useState）
 - `apps/docs/components/vital-components.ts` - `'use client'` barrel，MDX 頁面可直接 import 元件做靜態 preview（無需 state 時使用）
 - `apps/docs/content/docs/` - MDX 文件內容（components/、blocks/、getting-started/、design-tokens/、registry/）
@@ -163,6 +164,7 @@ pnpm docs:start            # 啟動生產環境文件站
 - **cn() 依賴**：registry 需列出 clsx + tailwind-merge
 - **文件站 Preview 元件**：`apps/docs/components/previews/` 的元件必須有 `'use client'`，因為 MDX 頁面是 RSC，不能直接傳 inline function prop（如 `onChange={() => {}}`）
 - **文件站 .next 快取**：修改 `apps/docs/source.config.ts` 後，須執行 `rm -rf apps/docs/.next` 再重建，否則 source config hash 不符導致新頁面 404
+- **文件站 `/llms.txt`**：`output: 'export'` 下必須用 `dynamic = 'force-static'` 的 Route Handler（`apps/docs/app/llms.txt/route.ts`），build 後輸出 `apps/docs/out/llms.txt`。Sidebar 用 `content/docs/meta.json` 的 `[llms.txt](/llms.txt)`（Fumadocs 15.7 無 `external:` 前綴，same-origin 連結要在 layout 把該 node 標 `external: true` 才會整頁開檔）。產生器須跳過 `/llms.txt`，避免 index 自連。不要加 `.md` rewrite／middleware（靜態 export 不支援）
 - **文件站路徑別名**：`@/` 指向 `src-v2/`（元件庫），`~/` 指向 `apps/docs/`（文件站），兩個 alias 並存於 `apps/docs/next.config.ts`
 - **src/ vs src-v2/**：根目錄同時存在 `src/`（legacy npm 分發面，供既有專案相容維護）和 `src-v2/`（新元件與 registry 分發主路徑）；所有新元件開發均在 `src-v2/`，不得新增到 `src/`
 - **Primitive 選型**：`src-v2/` 新增或重構元件若需要 headless primitive，預設使用 `@base-ui/react`；目前 package build 入口仍是 `src/index.tsx`，docs 與 registry 內容則以 `src-v2/` 為主

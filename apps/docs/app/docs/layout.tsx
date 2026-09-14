@@ -1,6 +1,7 @@
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import type { ReactNode } from 'react';
 import { baseOptions } from '~/app/layout.config';
+import { withExternalLlmsLink } from '~/lib/llms';
 import { source } from '~/lib/source';
 
 export default function Layout({
@@ -9,7 +10,10 @@ export default function Layout({
   children: ReactNode;
 }) {
   return (
-    <DocsLayout tree={source.pageTree} {...baseOptions}>
+    <DocsLayout
+      tree={withExternalLlmsLink(source.pageTree)}
+      {...baseOptions}
+    >
       {children}
     </DocsLayout>
   );

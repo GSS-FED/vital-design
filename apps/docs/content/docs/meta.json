@@ -4,6 +4,7 @@
     "components",
     "blocks",
     "design-tokens",
-    "registry"
+    "registry",
+    "[llms.txt](/llms.txt)"
   ]
 }
