@@ -1934,6 +1934,216 @@
           "type": "registry:file"
         }
       ]
+    },
+    {
+      "name": "sidebar-cloud-02",
+      "type": "registry:block",
+      "title": "Sidebar — Cloud Inline Submenus",
+      "description": "Cloud sidebar with inline nested nav, account footer, frosted glass, active edge rail, and bullet collapse. Installs CloudSidebar plus the frost photo. Compose SidebarProvider and SidebarInset in the app. Sample logos and avatar use /images public paths and are not shipped.",
+      "categories": [
+        "sidebar",
+        "layout",
+        "navigation"
+      ],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/sidebar",
+        "@vital-design/avatar",
+        "@vital-design/dropdown-menu",
+        "@vital-design/icon-calendar",
+        "@vital-design/icon-check",
+        "@vital-design/icon-flag",
+        "@vital-design/icon-panel-left",
+        "@vital-design/icon-search",
+        "@vital-design/icon-user",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/blocks/sidebar-cloud-02/components/app-sidebar.tsx",
+          "target": "src/blocks/sidebar-cloud-02/app-sidebar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src-v2/public/images/cloud.jpg",
+          "target": "src/public/images/cloud.jpg",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-cloud-03",
+      "type": "registry:block",
+      "title": "Sidebar — Cloud Dropdown Submenus",
+      "description": "Cloud sidebar that opens nested items as a side dropdown, with a header Add action, frosted glass, and no account footer. Installs CloudSidebar plus the frost photo. Compose SidebarProvider and SidebarInset in the app. Sample logos use /images public paths and are not shipped.",
+      "categories": [
+        "sidebar",
+        "layout",
+        "navigation"
+      ],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/sidebar",
+        "@vital-design/button",
+        "@vital-design/dropdown-menu",
+        "@vital-design/icon-calendar",
+        "@vital-design/icon-check",
+        "@vital-design/icon-ellipsis",
+        "@vital-design/icon-flag",
+        "@vital-design/icon-panel-left",
+        "@vital-design/icon-plus",
+        "@vital-design/icon-search",
+        "@vital-design/icon-user",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/blocks/sidebar-cloud-03/components/app-sidebar.tsx",
+          "target": "src/blocks/sidebar-cloud-03/app-sidebar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src-v2/public/images/cloud.jpg",
+          "target": "src/public/images/cloud.jpg",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-cloud-04",
+      "type": "registry:block",
+      "title": "Sidebar — Cloud Secondary Nav",
+      "description": "Cloud sidebar with flat main nav, secondary links pinned above an account footer, frosted glass, and bullet collapse. Installs CloudSidebar plus the frost photo. Compose SidebarProvider and SidebarInset in the app. Sample logos and avatar use /images public paths and are not shipped.",
+      "categories": [
+        "sidebar",
+        "layout",
+        "navigation"
+      ],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/sidebar",
+        "@vital-design/avatar",
+        "@vital-design/dropdown-menu",
+        "@vital-design/icon-calendar",
+        "@vital-design/icon-check",
+        "@vital-design/icon-flag",
+        "@vital-design/icon-info",
+        "@vital-design/icon-panel-left",
+        "@vital-design/icon-search",
+        "@vital-design/icon-shield-check",
+        "@vital-design/icon-square-arrow-out-up-right",
+        "@vital-design/icon-user",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/blocks/sidebar-cloud-04/components/app-sidebar.tsx",
+          "target": "src/blocks/sidebar-cloud-04/app-sidebar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src-v2/public/images/cloud.jpg",
+          "target": "src/public/images/cloud.jpg",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-cloud-05",
+      "type": "registry:block",
+      "title": "Sidebar — Cloud Header Actions",
+      "description": "Cloud sidebar with a mark-only logo, header search and notifications, flat nav, account footer, and frosted glass. Installs CloudSidebar plus the frost photo. Compose SidebarProvider and SidebarInset in the app. Sample logo and avatar use /images public paths and are not shipped.",
+      "categories": [
+        "sidebar",
+        "layout",
+        "navigation"
+      ],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/sidebar",
+        "@vital-design/avatar",
+        "@vital-design/badge",
+        "@vital-design/button",
+        "@vital-design/dropdown-menu",
+        "@vital-design/icon-bell",
+        "@vital-design/icon-calendar",
+        "@vital-design/icon-check",
+        "@vital-design/icon-flag",
+        "@vital-design/icon-panel-left",
+        "@vital-design/icon-search",
+        "@vital-design/icon-user",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/blocks/sidebar-cloud-05/components/app-sidebar.tsx",
+          "target": "src/blocks/sidebar-cloud-05/app-sidebar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src-v2/public/images/cloud.jpg",
+          "target": "src/public/images/cloud.jpg",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-cloud-06",
+      "type": "registry:block",
+      "title": "Sidebar — Cloud Collapsible Submenus",
+      "description": "Cloud sidebar with collapsible inline nested nav, account footer, frosted glass, and bullet collapse. Installs CloudSidebar plus the frost photo. Compose SidebarProvider and SidebarInset in the app. Sample logos and avatar use /images public paths and are not shipped.",
+      "categories": [
+        "sidebar",
+        "layout",
+        "navigation"
+      ],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/sidebar",
+        "@vital-design/avatar",
+        "@vital-design/collapsible",
+        "@vital-design/dropdown-menu",
+        "@vital-design/icon-calendar",
+        "@vital-design/icon-check",
+        "@vital-design/icon-chevron-right",
+        "@vital-design/icon-flag",
+        "@vital-design/icon-panel-left",
+        "@vital-design/icon-search",
+        "@vital-design/icon-user",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/blocks/sidebar-cloud-06/components/app-sidebar.tsx",
+          "target": "src/blocks/sidebar-cloud-06/app-sidebar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src-v2/public/images/cloud.jpg",
+          "target": "src/public/images/cloud.jpg",
+          "type": "registry:file"
+        }
+      ]
     }
   ]
 }
