@@ -82,7 +82,12 @@ export type RegistryItemName =
   | 'data-table-group-01'
   | 'data-table-group-02'
   | 'data-table-group-04'
-  | 'sidebar-cloud-01';
+  | 'sidebar-cloud-01'
+  | 'sidebar-cloud-02'
+  | 'sidebar-cloud-03'
+  | 'sidebar-cloud-04'
+  | 'sidebar-cloud-05'
+  | 'sidebar-cloud-06';
 
 /**
  * Extends the official shadcn RegistryItem with:
