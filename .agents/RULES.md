@@ -142,7 +142,7 @@ import { CheckIcon, CloseIcon } from '@/icons';
 ### 依賴宣告
 
 - `registryDependencies` 必須使用 `@vital-design/` 前綴
-- 使用 `cn()` 的元件必須列出 `clsx` 和 `tailwind-merge` 為 dependencies
+- 使用 `cn()` 的元件必須列出 `cn` 為 dependencies
 
 ### 元件類型
 

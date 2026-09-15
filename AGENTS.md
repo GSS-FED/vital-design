@@ -161,7 +161,7 @@ pnpm docs:start            # 啟動生產環境文件站
 - **Select family**：v2 public selection components are split by interaction: `Select` = flat dropdown for single or multiple values, `Combobox` = searchable input picker, `Command` + `Popover` = hierarchical path picker recipe, `DropdownMenu` = action menu (no value binding). `Command` is also public — a primitive for command palettes, custom searchable popups, and paged hierarchical pickers.
 - **Item**：display row primitive for media/title/description/actions. Use `size="list"` for select/list row density. Do not add search, loading, paging, or selection state to `Item`; use picker/menu/command primitives for those.
 - **Separator**：shared divider primitive. Prefer it over hand-rolled `div role="separator"` in new `src-v2` components.
-- **cn() 依賴**：registry 需列出 clsx + tailwind-merge
+- **cn() 依賴**：registry 需列出 `cn`（取代舊的 clsx + tailwind-merge）
 - **文件站 Preview 元件**：`apps/docs/components/previews/` 的元件必須有 `'use client'`，因為 MDX 頁面是 RSC，不能直接傳 inline function prop（如 `onChange={() => {}}`）
 - **文件站 .next 快取**：修改 `apps/docs/source.config.ts` 後，須執行 `rm -rf apps/docs/.next` 再重建，否則 source config hash 不符導致新頁面 404
 - **文件站 `/llms.txt`**：`output: 'export'` 下必須用 `dynamic = 'force-static'` 的 Route Handler（`apps/docs/app/llms.txt/route.ts`），build 後輸出 `apps/docs/out/llms.txt`。Sidebar 用 `content/docs/meta.json` 的 `[llms.txt](/llms.txt)`（Fumadocs 15.7 無 `external:` 前綴，same-origin 連結要在 layout 把該 node 標 `external: true` 才會整頁開檔）。產生器須跳過 `/llms.txt`，避免 index 自連。不要加 `.md` rewrite／middleware（靜態 export 不支援）

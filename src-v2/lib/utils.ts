@@ -1,9 +1,5 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
 /**
- * Combines clsx and tailwind-merge for conditional class merging
+ * Class merging utility: conditional joining (clsx) + Tailwind conflict
+ * resolution (tailwind-merge), both provided by the `cn` engine.
  */
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+export { cn } from 'cn';

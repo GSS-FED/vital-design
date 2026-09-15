@@ -50,7 +50,7 @@ export function BlockName({
 //   title: 'Block Name',
 //   description: '區塊描述',
 //   categories: ['category1', 'category2'],
-//   dependencies: ['clsx', 'tailwind-merge'],
+//   dependencies: ['cn'],
 //   registryDependencies: [
 //     '@vital-design/utils',
 //     '@vital-design/component-a',

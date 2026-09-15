@@ -5,7 +5,7 @@
     "type": "registry:ui",
     "title": "<ComponentName>",
     "description": "元件描述",
-    "dependencies": ["clsx", "tailwind-merge"],
+    "dependencies": ["cn"],
     "registryDependencies": [
       "@vital-design/utils",
       "@vital-design/vital-theme"
@@ -25,7 +25,7 @@
     "title": "<Block Name>",
     "description": "區塊描述",
     "categories": ["category1", "category2"],
-    "dependencies": ["clsx", "tailwind-merge"],
+    "dependencies": ["cn"],
     "registryDependencies": [
       "@vital-design/utils",
       "@vital-design/button"
