@@ -4,6 +4,16 @@ stages:
   - publish
   - registry-validate
 
+# Prefer the MR pipeline so test-job actually runs in the MR widget.
+# Without this, jobs that only use `only:`/`except:` (or have no `rules`)
+# are omitted from merge_request_event pipelines.
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
+
 default:
   image: node:20
   interruptible: true
@@ -23,6 +33,9 @@ test-job:
   stage: test
   script:
     - pnpm run test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH'
 
 build-job:
   stage: build
@@ -31,8 +44,8 @@ build-job:
   artifacts:
     paths:
       - dist/
-  only:
-    - main
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
 
 publish-job:
   stage: publish
@@ -51,8 +64,8 @@ publish-job:
     - build-job
   script:
     - pnpm run release
-  only:
-    - main
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
 
 # ── Registry Validate ─────────────────────────────────────────────────────────
 # Runs on Merge Requests when registry.json or src-v2/ files change.
