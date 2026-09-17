@@ -85,6 +85,7 @@ pnpm docs:start            # 啟動生產環境文件站
 - `src-v2/utils/` - 工具函數（`cn.ts` 等）
 - `src-v2/styles/` - 全域 CSS（`globals.css`）
 - 路徑別名：`@/` → `src-v2/`
+- `skills/` - 對外發佈給 consumer 專案 agent 的 skill（如 `use-vital-design`），與 `.agents/skills/` 的 repo 內部維護 skill 分開
 - `tokens/` - Design token 定義（Style Dictionary v5，三層結構）
   - `tokens/primitive/` - raw values（colors, typography, radius）
   - `tokens/semantic/` - intent-based（shadows, gradients, color aliases）
