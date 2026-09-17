@@ -365,6 +365,64 @@ describe('Registry Validation', () => {
         `Barrel import violations:\n${violations.join('\n')}`,
       ).toHaveLength(0);
     });
+
+    it('components importing @/icons/XIcon should declare @vital-design/icon-*', () => {
+      const missingDeps: string[] = [];
+      const iconImportPattern =
+        /from ['"]@\/icons\/([A-Za-z0-9]+)['"]/g;
+
+      const toRegistryIconName = (exportName: string) => {
+        const withoutSuffix = exportName.replace(/Icon$/, '');
+        const kebab = withoutSuffix
+          .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+          .toLowerCase();
+        return `@vital-design/icon-${kebab}`;
+      };
+
+      for (const item of registry.items) {
+        if (item.name.startsWith('icon-')) continue;
+        if (!item.files) continue;
+
+        const requiredIcons = new Set<string>();
+
+        for (const file of item.files) {
+          if (
+            !file.path.endsWith('.ts') &&
+            !file.path.endsWith('.tsx')
+          ) {
+            continue;
+          }
+
+          const filePath = path.join(ROOT_DIR, file.path);
+          if (!fs.existsSync(filePath)) continue;
+
+          const content = fs.readFileSync(filePath, 'utf-8');
+          for (const match of content.matchAll(iconImportPattern)) {
+            const exportName = match[1];
+            if (!exportName) continue;
+            requiredIcons.add(toRegistryIconName(exportName));
+          }
+        }
+
+        if (requiredIcons.size === 0) continue;
+
+        const declared = new Set(item.registryDependencies ?? []);
+        const missing = [...requiredIcons].filter(
+          (dep) => !declared.has(dep),
+        );
+
+        if (missing.length > 0) {
+          missingDeps.push(
+            `${item.name}: missing [${missing.join(', ')}]`,
+          );
+        }
+      }
+
+      expect(
+        missingDeps,
+        `Components missing icon registryDependencies:\n${missingDeps.join('\n')}`,
+      ).toHaveLength(0);
+    });
   });
 
   describe('Registry Structure', () => {

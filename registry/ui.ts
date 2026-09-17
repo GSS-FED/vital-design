@@ -227,6 +227,7 @@ export const ui = [
     dependencies: ['class-variance-authority', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
+      '@vital-design/icon-close',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -514,6 +515,7 @@ export const ui = [
       '@vital-design/icon-chevron-up',
       '@vital-design/icon-clear',
       '@vital-design/icon-close',
+      '@vital-design/icon-search',
       '@vital-design/vital-theme',
     ],
     files: [
