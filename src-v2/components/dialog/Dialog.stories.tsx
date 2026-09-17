@@ -38,24 +38,24 @@ export const Default: Story = {
   render: function Render(args) {
     return (
       <Dialog {...args}>
-        <DialogTrigger render={<Button>Open Dialog</Button>} />
+        <DialogTrigger render={<Button>Open dialog</Button>} />
         <DialogPortal>
           <DialogBackdrop />
           <DialogViewport>
             <DialogPopup>
               <DialogHeader>
                 <div className="space-y-1">
-                  <DialogTitle>Delete project?</DialogTitle>
+                  <DialogTitle>Submit request?</DialogTitle>
                   <DialogDescription>
-                    This action cannot be undone. The project and all
-                    related records will be permanently removed.
+                    Review the details before sending this request for
+                    approval.
                   </DialogDescription>
                 </div>
                 <DialogClose />
               </DialogHeader>
               <DialogBody>
-                Make sure every teammate has exported anything they
-                need before continuing.
+                This action will notify approvers and lock the current
+                draft while it is being reviewed.
               </DialogBody>
               <DialogFooter>
                 <DialogClose
@@ -66,7 +66,7 @@ export const Default: Story = {
                   }
                 />
                 <DialogClose
-                  render={<Button theme="alarm">Delete</Button>}
+                  render={<Button theme="primary">Submit</Button>}
                 />
               </DialogFooter>
             </DialogPopup>
