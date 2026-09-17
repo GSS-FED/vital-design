@@ -151,7 +151,7 @@ export function buildLlmsIndex(): string {
     'Important notes:',
     '',
     '- Install components with `npx shadcn@latest add @vital-design/<name>`.',
-    '  Registry: `https://bizform.vikosmos.com/vittal-design/r/{name}.json`',
+    '  Registry: `https://vittal.design/r/{name}.json`',
     '- `@fed/vital-design` on npm is the legacy `src/` surface. Do not use it for new components.',
     '- Import icons from exact paths (`@/icons/SearchIcon`), not a barrel.',
     '- `Button` / `SplitButton` take icons as children with `data-icon="inline-start"` or `data-icon="inline-end"`. There is no `icon` prop.',
