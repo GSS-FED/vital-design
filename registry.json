@@ -991,6 +991,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
+        "@vital-design/icon-close",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1310,6 +1311,7 @@
         "@vital-design/icon-chevron-up",
         "@vital-design/icon-clear",
         "@vital-design/icon-close",
+        "@vital-design/icon-search",
         "@vital-design/vital-theme"
       ],
       "files": [
