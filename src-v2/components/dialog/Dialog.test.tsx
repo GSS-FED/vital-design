@@ -1,3 +1,4 @@
+import { Button } from '@/components/button/Button';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { expect, it, vi } from 'vitest';
@@ -217,4 +218,16 @@ it('supports the named export surface', () => {
   expect(
     screen.getByText('Named exports compose the same dialog parts.'),
   ).toBeInTheDocument();
+});
+
+it('does not paint default trigger styles onto a composed Button', () => {
+  render(
+    <Dialog>
+      <DialogTrigger render={<Button theme="alarm">Open</Button>} />
+    </Dialog>,
+  );
+
+  const trigger = screen.getByRole('button', { name: 'Open' });
+  expect(trigger).toHaveClass('bg-destructive-500');
+  expect(trigger).not.toHaveClass('bg-primary-500');
 });
