@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-info",
+  "title": "Info Icon",
+  "description": "Info Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/InfoIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const InfoIcon = (props: SVGProps<SVGSVGElement>) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n    strokeWidth={2}\n    viewBox=\"0 0 24 24\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <circle cx={12} cy={12} r={10} />\n    <path d=\"M12 16v-4\" />\n    <path d=\"M12 8h.01\" />\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/InfoIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

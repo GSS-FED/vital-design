@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "utils",
+  "title": "Utils",
+  "description": "Utility functions including cn() for class merging",
+  "dependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "src-v2/lib/utils.ts",
+      "content": "/**\n * Class merging utility: conditional joining (clsx) + Tailwind conflict\n * resolution (tailwind-merge), both provided by the `cn` engine.\n */\nexport { cn } from 'cn';\n",
+      "type": "registry:lib"
+    }
+  ],
+  "type": "registry:lib"
+}

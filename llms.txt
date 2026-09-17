@@ -1,0 +1,94 @@
+# Vital Design
+
+> React 18 component library with TypeScript and Tailwind CSS 4.
+> New work lives in `src-v2/` and is installed from the shadcn-compatible registry.
+
+Important notes:
+
+- Install components with `npx shadcn@latest add @vital-design/<name>`.
+  Registry: `https://vittal.design/r/{name}.json`
+- `@fed/vital-design` on npm is the legacy `src/` surface. Do not use it for new components.
+- Import icons from exact paths (`@/icons/SearchIcon`), not a barrel.
+- `Button` / `SplitButton` take icons as children with `data-icon="inline-start"` or `data-icon="inline-end"`. There is no `icon` prop.
+
+## Getting Started
+
+- [Introduction](/docs/getting-started): Vital Design is a React 18 component library built with TypeScript and Tailwind CSS 4.
+- [Installation](/docs/getting-started/installation): Install Vital Design in your React project.
+- [Tailwind CSS Setup](/docs/getting-started/tailwind-setup): Configure Tailwind CSS 4 to work with Vital Design components and design tokens.
+- [Your First Component](/docs/getting-started/first-component): Add your first Vital Design component to a React app.
+
+## Components
+
+- [Alert](/docs/components/alert): A composable message surface for confirmations, warnings, and contextual notices.
+- [Autocomplete](/docs/components/autocomplete): Free-form text input with filtered suggestions and optional inline completion.
+- [Avatar](/docs/components/avatar): Display a user's profile picture with fallback to initials or a default icon, available in 12 color variants.
+- [Badge](/docs/components/badge): Small status indicator pill with semantic color variants and number or text content.
+- [Button](/docs/components/button): Trigger actions with default, text, and ghost variants, multiple themes, and icon support.
+- [ButtonGroup](/docs/components/button-group): A composable layout primitive for grouped button controls.
+- [Calendar](/docs/components/calendar): Date picker calendar built on react-day-picker. Single, range, and multi-select modes with full classNames and components overrides.
+- [Card](/docs/components/card): Composable card surface with header, title, description, action, content, and footer slots.
+- [Checkbox](/docs/components/checkbox): A checkbox input supporting checked, unchecked, and indeterminate states. Built on Base UI for accessibility.
+- [Chip](/docs/components/chip): A toggleable pill component for filters, tags, and multi-select options.
+- [Collapsible](/docs/components/collapsible): An interactive panel that expands and collapses to reveal additional content.
+- [Combobox](/docs/components/combobox): An input picker for searching and selecting one or many options.
+- [Command](/docs/components/command): A composable command palette primitive built on cmdk, with input, list, items, groups, and shortcut display.
+- [Dialog](/docs/components/dialog): A modal surface for focused confirmations, decisions, and short forms.
+- [DropdownMenu](/docs/components/dropdown-menu): An action menu where each item fires a callback. Use this when items invoke actions rather than bind to a form value.
+- [Editable](/docs/components/editable): Inline editable text field with display, input, and textarea parts.
+- [Field](/docs/components/field): Composable form field layout with labels, descriptions, errors, and groups.
+- [Icons](/docs/components/icons): Built-in SVG icon set used across Vital Design components.
+- [Input](/docs/components/input): Text input components including Input, PasswordInput, and Textarea.
+- [Item](/docs/components/item): Content rows with media, title, description, and actions.
+- [Label](/docs/components/label): Accessible label text associated with a form control.
+- [NumberInput](/docs/components/number-input): A numeric input with stepper buttons, locale-aware formatting, and clamped step interactions.
+- [Popover](/docs/components/popover): A floating panel anchored to a trigger element, used for tooltips with rich content, profile cards, and contextual overlays.
+- [Progress](/docs/components/progress): Progress primitives and segmented status indicators.
+- [RadioGroup](/docs/components/radio-group): A single-selection group of radio buttons.
+- [Resizable](/docs/components/resizable): Accessible resizable panels backed by react-resizable-panels.
+- [Scroll Area](/docs/components/scroll-area): Scrollable viewport with optional edge fade.
+- [SearchBar](/docs/components/search-bar): A search input with an icon. Supports instant onChange and explicit onSearch (Enter / icon click).
+- [Select](/docs/components/select): A dropdown for choosing one or many options from a flat list.
+- [Separator](/docs/components/separator): Horizontal or vertical divider.
+- [Sheet](/docs/components/sheet): A side-anchored dialog that slides in from any edge — for navigation, filters, forms, and inspectors.
+- [Sidebar](/docs/components/sidebar): Application sidebar with structure, behavior, and a basic neutral default skin. Product-specific looks live on blocks.
+- [Skeleton](/docs/components/skeleton): Placeholder blocks for content that is still loading.
+- [Slider](/docs/components/slider): Select a numeric value or range from a bounded scale.
+- [Spinner](/docs/components/spinner): Loading indicator for pending actions and async content.
+- [SplitButton](/docs/components/split-button): A split action built from ButtonGroup with a primary action and a separate toggle trigger.
+- [Switch](/docs/components/switch): A toggle control for boolean on/off settings.
+- [Table](/docs/components/table): Semantic <table> primitives with VD tokens for static tables and custom compositions.
+- [Tabs](/docs/components/tabs): Switch between related panels with underline or pill tab styles.
+- [Tag](/docs/components/tag): A label component for categorization, status, and filtering. Supports 12 colors, two variants, and optional remove action.
+- [Textarea](/docs/components/textarea): Multi-line text input with consistent border, focus, and disabled states.
+- [Time Picker](/docs/components/time-picker): Three-column time picker (hours, minutes, seconds) with click-to-select and CSS scroll-snap.
+- [Toast](/docs/components/toast): Status-coloured notifications dispatched imperatively from anywhere in the app.
+- [Toolbar](/docs/components/toolbar): Flex layout primitive with role="toolbar". Lays out actions, separators, and spacers above tables, editors, or panels.
+- [Tooltip](/docs/components/tooltip): A short, transient hint anchored to a trigger element with arrow and side controls.
+
+## Blocks
+
+- [Sidebar / Cloud / Flat](/docs/blocks/sidebar/cloud/flat): Base cloud sidebar. Frosted glass skin, flat nav with no submenus, no account footer.
+- [Sidebar / Cloud / Inline Submenus](/docs/blocks/sidebar/cloud/inline-submenus): A sidebar with submenus. Cloud product sidebar panel with frosted glass, inline nested nav, primary text states, active edge rail, and a bullet collapse control.
+- [Sidebar / Cloud / Collapsible Submenus](/docs/blocks/sidebar/cloud/collapsible-submenus): A sidebar with collapsible inline submenus. Same Cloud frost skin and account footer as Inline Submenus; nested items fold with Collapsible.
+- [Sidebar / Cloud / Dropdown Submenus](/docs/blocks/sidebar/cloud/dropdown-submenus): A cloud sidebar that shows submenus as a dropdown-menu. Header Add action, frosted glass skin, no account footer.
+- [Sidebar / Cloud / Secondary Nav](/docs/blocks/sidebar/cloud/secondary-nav): Cloud sidebar with secondary navigation and account footer. Frosted glass skin, flat main nav.
+- [Sidebar / Cloud / Header Actions](/docs/blocks/sidebar/cloud/header-actions): Cloud sidebar with a mark-only logo, header search and notifications, and account footer.
+- [Data Table — Candidate Tree](/docs/blocks/data-table-group-01): Tree-style data table with grouped candidate rows, action bar, filter dropdown, and column pinning.
+- [Data Table — ESG Emission Tree](/docs/blocks/data-table-group-02): Expandable tree data table with sticky pinned rail, sortable headers, inline switch toggles, and an action bar.
+- [Data Table — Editable Cells](/docs/blocks/data-table-group-04): Editable data table with inline text cells, popover pickers, tag multi-select, and date selection.
+
+## Design Tokens
+
+- [Colors](/docs/design-tokens/colors): Vital Design color system — primitive palettes, semantic aliases, and named component tokens.
+- [Typography](/docs/design-tokens/typography): Font family, type scale, weights, and text style conventions used across Vital Design.
+- [Border Radius](/docs/design-tokens/radius): Corner radius tokens shared by inputs, buttons, cards, and dialogs.
+- [Effects](/docs/design-tokens/effects): Elevation shadows, focus rings, button shadows, and gradient tokens.
+
+## Registry
+
+- [Registry](/docs/registry): Install Vital Design components individually using the shadcn CLI.
+
+## Optional
+
+- [Migration Guide v0 to v1](/docs/getting-started/migration-guide): Move from the legacy npm package surface to the registry-backed src-v2 components.

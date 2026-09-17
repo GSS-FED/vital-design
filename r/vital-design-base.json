@@ -1,0 +1,12 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "vital-design-base",
+  "title": "Vital Design Base",
+  "description": "One-command setup for Vital Design: installs theme, utils, and icons",
+  "registryDependencies": [
+    "@vital-design/vital-theme",
+    "@vital-design/utils",
+    "@vital-design/vital-icons"
+  ],
+  "type": "registry:base"
+}

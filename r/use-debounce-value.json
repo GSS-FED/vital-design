@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-debounce-value",
+  "title": "useDebounceValue",
+  "description": "Hook for debouncing values with customizable delay",
+  "files": [
+    {
+      "path": "src-v2/hooks/useDebounceValue.ts",
+      "content": "import { useEffect, useRef, useState } from 'react';\n\nexport const useDebounceValue = <T>(\n  value: T,\n  delay: number = 500,\n): T => {\n  const [debouncedValue, setDebouncedValue] = useState<T>(value);\n  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(\n    null,\n  );\n\n  useEffect(() => {\n    if (timeoutRef.current) {\n      clearTimeout(timeoutRef.current);\n    }\n\n    timeoutRef.current = setTimeout(() => {\n      setDebouncedValue(value);\n    }, delay);\n\n    return () => {\n      if (timeoutRef.current) {\n        clearTimeout(timeoutRef.current);\n      }\n    };\n  }, [value, delay]);\n\n  return debouncedValue;\n};\n",
+      "type": "registry:hook"
+    }
+  ],
+  "type": "registry:hook"
+}

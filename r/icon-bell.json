@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-bell",
+  "title": "Bell Icon",
+  "description": "Bell Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/BellIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const BellIcon = (props: SVGProps<SVGSVGElement>) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    stroke=\"currentColor\"\n    strokeLinecap=\"round\"\n    strokeLinejoin=\"round\"\n    strokeWidth={2}\n    viewBox=\"0 0 24 24\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <path d=\"M10.268 21a2 2 0 0 0 3.464 0\" />\n    <path d=\"M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326\" />\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/BellIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}
