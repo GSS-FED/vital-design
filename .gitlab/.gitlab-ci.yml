@@ -3,8 +3,16 @@ stages:
   - build
   - publish
   - registry-validate
-  - registry-deploy
-  - deploy
+
+# Prefer the MR pipeline so test-job actually runs in the MR widget.
+# Without this, jobs that only use `only:`/`except:` (or have no `rules`)
+# are omitted from merge_request_event pipelines.
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
 
 default:
   image: node:20
@@ -25,6 +33,9 @@ test-job:
   stage: test
   script:
     - pnpm run test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH'
 
 build-job:
   stage: build
@@ -33,8 +44,8 @@ build-job:
   artifacts:
     paths:
       - dist/
-  only:
-    - main
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
 
 publish-job:
   stage: publish
@@ -53,8 +64,8 @@ publish-job:
     - build-job
   script:
     - pnpm run release
-  only:
-    - main
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
 
 # ── Registry Validate ─────────────────────────────────────────────────────────
 # Runs on Merge Requests when registry.json or src-v2/ files change.
@@ -73,54 +84,3 @@ registry-validate-job:
         - registry.json
         - src-v2/**/*
         - .gitlab/.gitlab-ci.yml
-
-# ── Registry Deploy ───────────────────────────────────────────────────────────
-# Runs on the main branch after publish-job completes, so package.json
-# version is already bumped by semantic-release before we build the registry.
-# Builds public/r/ for downstream deploy jobs.
-
-pages:
-  stage: registry-deploy
-  before_script:
-    - npm i -g pnpm@${PNPM_VERSION}
-    - pnpm install --frozen-lockfile
-  script:
-    - pnpm run registry:build
-  artifacts:
-    paths:
-      - public/
-  needs:
-    - job: publish-job
-      optional: true
-  only:
-    - main
-    - develop
-    - feat/v2 # TODO(revert): remove after testing
-
-# ── Deploy ────────────────────────────────────────────────────────────────────
-# Deploys public/ to BizForm internal server via Windows runner.
-# URL: https://bizform.vikosmos.com/vittal-design
-
-deploy:bizform:
-  stage: deploy
-  before_script:
-    - "[Console]::OutputEncoding=[System.Text.Encoding]::UTF8"
-  script:
-    - if (Test-Path "$DEPLOY_PATH\$DEPLOY_SUBPATH") { Remove-Item "$DEPLOY_PATH\$DEPLOY_SUBPATH\*" -Recurse -Verbose -Force }
-    - if (!(Test-Path "$DEPLOY_PATH\$DEPLOY_SUBPATH")) { New-Item -Path "$DEPLOY_PATH\$DEPLOY_SUBPATH" -ItemType Directory }
-    - Copy-Item -Path .\public\* -Destination "$DEPLOY_PATH\$DEPLOY_SUBPATH" -Recurse -Verbose -Force
-  environment:
-    name: vittal-design
-    url: https://bizform.vikosmos.com/vittal-design
-  dependencies:
-    - pages
-  variables:
-    DEPLOY_SUBPATH: vittal-design
-    GIT_STRATEGY: none
-  tags:
-    - bizform
-    - deploy
-    - windows
-  only:
-    - main
-    - develop
