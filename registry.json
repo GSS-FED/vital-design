@@ -1946,8 +1946,7 @@
         "navigation"
       ],
       "dependencies": [
-        "clsx",
-        "tailwind-merge"
+        "cn"
       ],
       "registryDependencies": [
         "@vital-design/utils",
@@ -1986,8 +1985,7 @@
         "navigation"
       ],
       "dependencies": [
-        "clsx",
-        "tailwind-merge"
+        "cn"
       ],
       "registryDependencies": [
         "@vital-design/utils",
@@ -2028,8 +2026,7 @@
         "navigation"
       ],
       "dependencies": [
-        "clsx",
-        "tailwind-merge"
+        "cn"
       ],
       "registryDependencies": [
         "@vital-design/utils",
@@ -2071,8 +2068,7 @@
         "navigation"
       ],
       "dependencies": [
-        "clsx",
-        "tailwind-merge"
+        "cn"
       ],
       "registryDependencies": [
         "@vital-design/utils",
@@ -2114,8 +2110,7 @@
         "navigation"
       ],
       "dependencies": [
-        "clsx",
-        "tailwind-merge"
+        "cn"
       ],
       "registryDependencies": [
         "@vital-design/utils",

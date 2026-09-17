@@ -146,7 +146,7 @@ export const blocks: VitalRegistryItem[] = [
     description:
       'Cloud sidebar with inline nested nav, account footer, frosted glass, active edge rail, and bullet collapse. Installs CloudSidebar plus the frost photo. Compose SidebarProvider and SidebarInset in the app. Sample logos and avatar use /images public paths and are not shipped.',
     categories: ['sidebar', 'layout', 'navigation'],
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/sidebar',
@@ -169,7 +169,7 @@ export const blocks: VitalRegistryItem[] = [
     description:
       'Cloud sidebar that opens nested items as a side dropdown, with a header Add action, frosted glass, and no account footer. Installs CloudSidebar plus the frost photo. Compose SidebarProvider and SidebarInset in the app. Sample logos use /images public paths and are not shipped.',
     categories: ['sidebar', 'layout', 'navigation'],
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/sidebar',
@@ -194,7 +194,7 @@ export const blocks: VitalRegistryItem[] = [
     description:
       'Cloud sidebar with flat main nav, secondary links pinned above an account footer, frosted glass, and bullet collapse. Installs CloudSidebar plus the frost photo. Compose SidebarProvider and SidebarInset in the app. Sample logos and avatar use /images public paths and are not shipped.',
     categories: ['sidebar', 'layout', 'navigation'],
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/sidebar',
@@ -220,7 +220,7 @@ export const blocks: VitalRegistryItem[] = [
     description:
       'Cloud sidebar with a mark-only logo, header search and notifications, flat nav, account footer, and frosted glass. Installs CloudSidebar plus the frost photo. Compose SidebarProvider and SidebarInset in the app. Sample logo and avatar use /images public paths and are not shipped.',
     categories: ['sidebar', 'layout', 'navigation'],
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/sidebar',
@@ -246,7 +246,7 @@ export const blocks: VitalRegistryItem[] = [
     description:
       'Cloud sidebar with collapsible inline nested nav, account footer, frosted glass, and bullet collapse. Installs CloudSidebar plus the frost photo. Compose SidebarProvider and SidebarInset in the app. Sample logos and avatar use /images public paths and are not shipped.',
     categories: ['sidebar', 'layout', 'navigation'],
-    dependencies: ['clsx', 'tailwind-merge'],
+    dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/sidebar',
