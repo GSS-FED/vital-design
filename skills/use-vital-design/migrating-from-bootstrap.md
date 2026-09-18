@@ -10,11 +10,13 @@ Formik `<Field type="checkbox">` binds to a native input. Drive every Vital inpu
 
 Tests written against Bootstrap markup move to Vital's ARIA contracts:
 
-| Old contract (Bootstrap)                    | New contract (Vital)                            |
-| ------------------------------------------- | ----------------------------------------------- |
-| `input.checked` (HTMLInputElement)          | `checkbox.getAttribute('aria-checked')`         |
-| CSS class `text-decoration-line-through`    | CSS class `line-through` (Tailwind)             |
-| `role="menu"` + Bootstrap `show` class      | your own `aria-expanded` / conditional render   |
-| `getByRole('button', …)` for dropdown items | `getByRole('menuitem', …)`                      |
+| Old contract (Bootstrap)                                               | New contract (Vital)                                                        |
+| ---------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `input.checked` (HTMLInputElement)                                     | `checkbox.getAttribute('aria-checked')`                                     |
+| CSS class `text-decoration-line-through`                               | CSS class `line-through` (Tailwind)                                         |
+| `role="menu"` + Bootstrap `show` class                                 | your own `aria-expanded` / conditional render                               |
+| `getByRole('button', …)` for dropdown items                            | `getByRole('menuitem', …)`                                                  |
+| `fireEvent.change(select, { target: { value } })` on native `<select>` | click `getByRole('combobox', …)`, then `getByRole('option', { name })`      |
+| Toast with `role="status"`                                             | Vital `Toast` renders `role="dialog"`, like `Dialog`; query dialogs by name |
 
 **Done when**: every Bootstrap class, `bootstrap-icons` glyph, and Bootstrap JS behaviour in the app has a Vital or Tailwind replacement, and no test asserts on Bootstrap markup.

@@ -11,11 +11,13 @@ Guide for assembling Vital Design in a **consumer** app (copied registry compone
 ## Invariants
 
 1. **Consumer imports.** Import each primitive and icon from the exact file the CLI wrote (typically `@/components/ui/Button`, `@/components/icons/SearchIcon`).
+
    ```typescript
    import { SearchIcon } from '@/components/icons/SearchIcon';
    ```
 
 2. **Icon slots.** Icons are Button/SplitButton children marked with `data-icon`.
+
    ```tsx
    <Button>
      <SearchIcon data-icon="inline-start" />
@@ -39,21 +41,25 @@ If any are missing, establish the host in this order:
 
 1. Install Tailwind with the package manager matching the lockfile:
 
-   | Lockfile                  | Install Tailwind                     | shadcn runner          |
-   | ------------------------- | ------------------------------------ | ---------------------- |
-   | `bun.lock` or `bun.lockb` | `bun add @tailwindcss/vite`          | `bunx --bun shadcn@latest` |
-   | `pnpm-lock.yaml`          | `pnpm add -D @tailwindcss/vite`      | `pnpm dlx shadcn@latest`   |
-   | `yarn.lock`               | `yarn add -D @tailwindcss/vite`      | `yarn dlx shadcn@latest`   |
-   | `package-lock.json`       | `npm install -D @tailwindcss/vite`   | `npx shadcn@latest`        |
+   | Lockfile                  | Install Tailwind                   | shadcn runner              |
+   | ------------------------- | ---------------------------------- | -------------------------- |
+   | `bun.lock` or `bun.lockb` | `bun add -D @tailwindcss/vite`     | `bunx --bun shadcn@latest` |
+   | `pnpm-lock.yaml`          | `pnpm add -D @tailwindcss/vite`    | `pnpm dlx shadcn@latest`   |
+   | `yarn.lock`               | `yarn add -D @tailwindcss/vite`    | `yarn dlx shadcn@latest`   |
+   | `package-lock.json`       | `npm install -D @tailwindcss/vite` | `npx shadcn@latest`        |
 
    For Vite, add the plugin and an OS-independent `@/` alias (`fileURLToPath` avoids POSIX path assumptions in Node and Bun ESM configs):
+
    ```ts
    import tailwindcss from '@tailwindcss/vite';
-   import { fileURLToPath, URL } from 'node:url';
+   import { URL, fileURLToPath } from 'node:url';
+
    // plugins: [tailwindcss(), react()]
    // resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } }
    ```
+
    Add `paths` to `tsconfig.json` without `baseUrl` (deprecated since TS 6):
+
    ```json
    { "compilerOptions": { "paths": { "@/*": ["./src/*"] } } }
    ```
@@ -61,17 +67,31 @@ If any are missing, establish the host in this order:
 2. Replace any competing CSS framework import with `@import 'tailwindcss';` at the beginning of the global CSS file, then remove its package (e.g. `bun remove bootstrap bootstrap-icons`).
 
 3. Write `components.json` by hand, which keeps the run non-interactive:
+
    ```json
    {
      "$schema": "https://ui.shadcn.com/schema.json",
-     "style": "default", "rsc": false, "tsx": true,
-     "tailwind": { "config": "", "css": "src/index.css", "baseColor": "slate", "cssVariables": true },
+     "style": "default",
+     "rsc": false,
+     "tsx": true,
+     "tailwind": {
+       "config": "",
+       "css": "src/index.css",
+       "baseColor": "slate",
+       "cssVariables": true
+     },
      "aliases": {
-       "components": "@/components", "utils": "@/lib/utils",
-       "ui": "@/components/ui", "lib": "@/lib", "hooks": "@/hooks"
+       "components": "@/components",
+       "utils": "@/lib/utils",
+       "ui": "@/components/ui",
+       "lib": "@/lib",
+       "hooks": "@/hooks"
      },
      "registries": {
-       "@vital-design": { "url": "https://vittal.design/r/{name}.json", "style": "default" }
+       "@vital-design": {
+         "url": "https://vittal.design/r/{name}.json",
+         "style": "default"
+       }
      }
    }
    ```
@@ -84,11 +104,13 @@ If any are missing, establish the host in this order:
 
 Match the request to [composition-guide.md](./composition-guide.md). For props, slots, or variants the guide does not list, fetch `https://vittal.design/r/{name}.json` (source of truth). The HTML doc page is client-rendered and often empty over plain HTTP; use a browser only for rendered examples.
 
-Confirm every icon in one pass (`https://vittal.design/r/icon-{name}.json`: 200 = exists, 404 = missing):
+The icon set is small (a few dozen glyphs), so list what is published before mapping any icon, instead of guessing names from another icon library:
+
 ```bash
-for n in plus search close check; do curl -s -o /dev/null -w "$n %{http_code}\n" "https://vittal.design/r/icon-$n.json"; done
+curl -s https://vittal.design/r/registry.json | python3 -c "import json,sys; print(' '.join(i['name'] for i in json.load(sys.stdin)['items']))"
 ```
-A missing glyph becomes a text label or CSS shape inside the Vital component. The dismiss glyph is published as `icon-close` (not `icon-x`).
+
+Map each old glyph to a listed name (dismiss is `icon-close`, reveal is `icon-eye` / `icon-eye-slash`). A glyph with no match becomes a text label or CSS shape inside the Vital component.
 
 When restyling an app built on Bootstrap, also read [migrating-from-bootstrap.md](./migrating-from-bootstrap.md).
 
@@ -117,22 +139,54 @@ A registry add can append Vital's `@theme inline` token definitions after existi
 - Callbacks optional (`onSearch?: (query: string) => void`)
 - Layout classes from the recipe
 
-**Nav/link Button**: use `nativeButton={false} render={<Link href="…" />}` (Base UI warns when a non-`<button>` element renders with `nativeButton` still true).
+**Navigation links** stay router `<Link>` elements styled with token utilities, keeping the `link` role that navigation and tests rely on. `Button` with `nativeButton={false} render={<Link href="…" />}` renders the element with `role="button"`; reserve it for an action that happens to navigate.
 
-**DropdownMenuTrigger** already renders a `<button>`: style it directly via `className` and put the icon or text inline.
+**DropdownMenuTrigger** takes its visible control through `render`:
+
 ```tsx
-<DropdownMenuTrigger aria-label="Language" className="…token classes…">
-  EN
-</DropdownMenuTrigger>
+<DropdownMenuTrigger
+  render={
+    <Button variant="ghost" theme="default">
+      EN
+    </Button>
+  }
+/>
 ```
+
+**Action with a menu** (split button): `SplitButton` has no built-in menu, so compose `ButtonGroup` + `Button` + `DropdownMenu`:
+
+```tsx
+<ButtonGroup>
+  <Button onClick={markAllDone}>Mark all done</Button>
+  <DropdownMenu>
+    <DropdownMenuTrigger
+      render={
+        <Button size="icon-md" aria-label="More actions">
+          <ChevronDownIcon data-icon="inline-end" />
+        </Button>
+      }
+    />
+    <DropdownMenuContent>
+      <DropdownMenuItem onClick={clearCompleted}>
+        Clear completed
+      </DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenu>
+</ButtonGroup>
+```
+
+**`Select`** takes `items` (`{ label, value }[]`) so the closed trigger shows the selected label rather than the raw value.
 
 **`DropdownMenuItem`** closes on pick (use for commands). `DropdownMenuRadioItem` / `CheckboxItem` stay open; for bound values use `Select` / `Combobox`.
 
 **Vital `Checkbox`** is controlled via `checked` + `onCheckedChange` (`boolean | 'indeterminate'`) and reports state through `aria-checked`.
+
 ```tsx
 <Checkbox
   checked={values.done}
-  onCheckedChange={(checked) => setFieldValue('done', checked === true)}
+  onCheckedChange={(checked) =>
+    setFieldValue('done', checked === true)
+  }
 />
 ```
 
