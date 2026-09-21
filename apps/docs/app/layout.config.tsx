@@ -8,5 +8,5 @@ export const baseOptions: BaseLayoutProps = {
       </span>
     ),
   },
-  githubUrl: 'https://git.gss.com.tw/FED/vital-design',
+  githubUrl: 'https://github.com/GSS-FED/vital-design',
 };
