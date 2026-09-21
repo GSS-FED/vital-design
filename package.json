@@ -1,7 +1,7 @@
 {
   "name": "@fed/vital-design",
   "private": false,
-  "version": "0.5.0",
+  "version": "0.13.1",
   "author": "dover_shen <dover_shen@gss.com.tw>",
   "type": "module",
   "main": "dist/vital-design.js",

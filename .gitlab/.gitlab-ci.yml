@@ -37,6 +37,9 @@ test-job:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - if: '$CI_COMMIT_BRANCH'
 
+# Legacy npm (@fed/vital-design from src/). Manual on main — merging to
+# main deploys docs, it does not publish. Run build-job then publish-job
+# in the GitLab UI if a v1 package release is actually needed.
 build-job:
   stage: build
   script:
@@ -44,8 +47,10 @@ build-job:
   artifacts:
     paths:
       - dist/
+  allow_failure: true
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
+      when: manual
 
 publish-job:
   stage: publish
@@ -60,12 +65,16 @@ publish-job:
       } | tee -a .npmrc
     - npm i -g pnpm@${PNPM_VERSION}
     - pnpm install --frozen-lockfile
+  needs:
+    - build-job
   dependencies:
     - build-job
   script:
     - pnpm run release
+  allow_failure: true
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
+      when: manual
 
 # ── Registry Validate ─────────────────────────────────────────────────────────
 # Runs on Merge Requests when registry.json or src-v2/ files change.

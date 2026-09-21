@@ -108,15 +108,16 @@ pnpm docs:start            # 啟動生產環境文件站
 
 - **Commit 規範**：Conventional Commits（Angular convention，commitlint 強制）
 - **Pre-commit**：Husky + lint-staged
-- **發布**：main 分支 semantic-release
+- **文件站**：合進 `main` 後由 GitHub Actions 部署 GitHub Pages（`vittal.design`）
+- **legacy npm**：`@fed/vital-design`（`src/`）不隨合 `main` 自動發布；若仍需發 v1，在 GitLab `main` pipeline 手動跑 `build-job` 再跑 `publish-job`（semantic-release）
 
 ### 分支策略
 
-| 分支      | 說明           | 合併規則                                      |
-| --------- | -------------- | --------------------------------------------- |
-| `main`    | 發佈用，受保護 | 只接受來自 `develop` 的 MR，合併後不刪除      |
-| `develop` | 整合用，受保護 | 接受來自支援分支的 MR，合併後不刪除           |
-| 支援分支  | 功能/修復開發  | 從 `develop` 建立，MR 合併回 `develop` 後刪除 |
+| 分支      | 說明                                      | 合併規則                                      |
+| --------- | ----------------------------------------- | --------------------------------------------- |
+| `main`    | 文件站生產，受保護                        | 只接受來自 `develop` 的 MR，合併後不刪除      |
+| `develop` | 整合用，受保護；不部署 vittal.design      | 接受來自支援分支的 MR，合併後不刪除           |
+| 支援分支  | 功能/修復開發                             | 從 `develop` 建立，MR 合併回 `develop` 後刪除 |
 
 ### 支援分支命名規則
 
