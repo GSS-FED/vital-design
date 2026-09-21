@@ -1,6 +1,7 @@
 {
   "pages": [
     "getting-started",
+    "changelog",
     "components",
     "blocks",
     "design-tokens",

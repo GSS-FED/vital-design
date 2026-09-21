@@ -60,6 +60,10 @@ allowed-tools: Read, Write, Edit, Bash
    - `apps/docs/content/docs/components/meta.json`
    - `apps/docs/content/docs/blocks/meta.json`
 
+7. **Changelog**（使用者可見的變更才寫）
+   - 新元件、breaking 用法、token、安裝方式：在 `apps/docs/content/docs/changelog.mdx` 最上方補一則（當月 `## Month YYYY` 標題下）
+   - 不要寫內部 refactor / CI；不要用 npm 版號或 semantic-release 輸出
+
 ## 關鍵規則
 
 - **`'use client'` 必填**：Preview 元件所在的 MDX 頁面是 RSC，不能傳 inline function（如 `onChange={() => {}}`），Preview 元件一定要加 `'use client'`

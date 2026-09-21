@@ -1,0 +1,51 @@
+---
+title: Changelog
+description: User-facing changes to the Vital Design registry, components, and docs.
+---
+
+This page tracks the **registry-backed** design system on vittal.design: components, blocks, tokens, and documentation. It does not track the legacy `@fed/vital-design` npm package.
+
+That package is built from `src/` and stays available for existing apps. New work ships through the registry. If you still import from the package, see the [Migration Guide](/docs/getting-started/migration-guide).
+
+Newest entries are at the top. Headings use the month the change shipped. We only record changes that affect how you install or use the registry — new components, breaking usage, tokens, and install steps.
+
+## September 2026 — Registry on vittal.design
+
+The documentation site and the shadcn-compatible registry now publish together at [vittal.design](https://vittal.design). This entry is a snapshot of what is available today. Later entries will list only what changed.
+
+### Install
+
+Add the registry, then install items with the shadcn CLI. See [Installation](/docs/getting-started/installation).
+
+```bash
+npx shadcn@latest add @vital-design/button
+```
+
+Registry URL: `https://vittal.design/r/{name}.json`
+
+### Components
+
+**Foundation:** [Alert](/docs/components/alert), [Avatar](/docs/components/avatar), [Badge](/docs/components/badge), [Button](/docs/components/button), [Button Group](/docs/components/button-group), [Chip](/docs/components/chip), [Icons](/docs/components/icons), [Item](/docs/components/item), [Label](/docs/components/label), [Separator](/docs/components/separator), [Skeleton](/docs/components/skeleton), [Spinner](/docs/components/spinner), [Split Button](/docs/components/split-button), [Tag](/docs/components/tag)
+
+**Inputs:** [Checkbox](/docs/components/checkbox), [Editable](/docs/components/editable), [Field](/docs/components/field), [Input](/docs/components/input), [Number Input](/docs/components/number-input), [Radio Group](/docs/components/radio-group), [Search Bar](/docs/components/search-bar), [Slider](/docs/components/slider), [Switch](/docs/components/switch), [Textarea](/docs/components/textarea)
+
+**Pickers and menus:** [Autocomplete](/docs/components/autocomplete), [Calendar](/docs/components/calendar), [Combobox](/docs/components/combobox), [Command](/docs/components/command), [Dropdown Menu](/docs/components/dropdown-menu), [Popover](/docs/components/popover), [Select](/docs/components/select), [Time Picker](/docs/components/time-picker)
+
+**Overlays and feedback:** [Dialog](/docs/components/dialog), [Sheet](/docs/components/sheet), [Toast](/docs/components/toast), [Tooltip](/docs/components/tooltip)
+
+**Layout and data:** [Card](/docs/components/card), [Collapsible](/docs/components/collapsible), [Progress](/docs/components/progress), [Resizable](/docs/components/resizable), [Scroll Area](/docs/components/scroll-area), [Sidebar](/docs/components/sidebar), [Table](/docs/components/table), [Tabs](/docs/components/tabs), [Toolbar](/docs/components/toolbar)
+
+### Blocks
+
+- Cloud Sidebar: [flat](/docs/blocks/sidebar/cloud/flat), [inline submenus](/docs/blocks/sidebar/cloud/inline-submenus), [collapsible submenus](/docs/blocks/sidebar/cloud/collapsible-submenus), [dropdown submenus](/docs/blocks/sidebar/cloud/dropdown-submenus), [secondary nav](/docs/blocks/sidebar/cloud/secondary-nav), [header actions](/docs/blocks/sidebar/cloud/header-actions)
+- Data Table: [group 01](/docs/blocks/data-table-group-01), [group 02](/docs/blocks/data-table-group-02), [group 04](/docs/blocks/data-table-group-04)
+
+### Tokens
+
+[Colors](/docs/design-tokens/colors), [typography](/docs/design-tokens/typography), [radius](/docs/design-tokens/radius), and [effects](/docs/design-tokens/effects) ship as CSS variables with the registry theme.
+
+### Platform
+
+- Components use **Base UI** primitives and **Tailwind CSS 4**
+- Style isolation follows the `data-slot` convention in [Tailwind CSS Setup](/docs/getting-started/tailwind-setup)
+- Agent index: [llms.txt](/llms.txt)

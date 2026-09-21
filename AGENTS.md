@@ -92,7 +92,8 @@ pnpm docs:start            # 啟動生產環境文件站
 - `apps/docs/app/llms.txt/route.ts` - 靜態 `/llms.txt`（llmstxt.org 目錄，由 `apps/docs/lib/llms.ts` 從 page tree 產生；sidebar 連結在 `content/docs/meta.json`）
 - `apps/docs/components/previews/` - 互動 preview 元件（`'use client'`，含 useState）
 - `apps/docs/components/vital-components.ts` - `'use client'` barrel，MDX 頁面可直接 import 元件做靜態 preview（無需 state 時使用）
-- `apps/docs/content/docs/` - MDX 文件內容（components/、blocks/、getting-started/、design-tokens/、registry/）
+- `apps/docs/content/docs/` - MDX 文件內容（changelog.mdx、components/、blocks/、getting-started/、design-tokens/、registry/）
+- `apps/docs/content/docs/changelog.mdx` - 文件站 changelog（registry / docs 的使用者可見變更；日期標題、新的在上。不要接 semantic-release 或 npm 版號）
 - `apps/docs/source.config.ts` - Fumadocs MDX 設定（rehype-pretty-code）
 - `apps/docs/app/api/search/route.ts` - Orama 全文搜尋 API
 - 路徑別名：`@/` → `src-v2/`（元件庫），`~/` → `apps/docs/`（文件站）
