@@ -41,6 +41,8 @@
 
 ### Fixed
 
+- 觸控拖曳結束會清掉 resize guide。TanStack 在 `document` 對 `touchend` 做 `stopPropagation`，handle 改在 `window` capture 階段監聽並用 `changedTouches` 取座標。
+- `columnResizeMode: 'onEnd'` 的觸控放開會寫入欄寬（不再因空的 `touches` 彈回）。
 - `data-table-group-02` 排序表頭截斷與共用 `DataTableColumnHeader` 一致，欄變窄時 caret 不再先被裁掉。
 
 ### Removed

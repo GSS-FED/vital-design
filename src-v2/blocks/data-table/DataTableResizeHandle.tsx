@@ -5,6 +5,38 @@ import type { MouseEvent, TouchEvent } from 'react';
 const NUDGE_STEP = 8;
 const NUDGE_STEP_LARGE = 40;
 const RAISED_Z = '60';
+const TOUCH_MOVE_OPTS: AddEventListenerOptions = {
+  capture: true,
+  passive: false,
+};
+const TOUCH_END_OPTS: AddEventListenerOptions = { capture: true };
+
+type Ghost = {
+  startX: number;
+  size: number;
+  minSize: number;
+  maxSize: number;
+};
+
+function pointerClientX(
+  event: globalThis.MouseEvent | globalThis.TouchEvent,
+) {
+  if ('touches' in event) {
+    // `touchend` has an empty `touches` list; the lifted finger is only in
+    // `changedTouches`. TanStack's `onEnd(e.touches[0]?.clientX)` hits this.
+    return (
+      event.touches[0]?.clientX ?? event.changedTouches[0]?.clientX
+    );
+  }
+  return event.clientX;
+}
+
+function clampedGhostWidth(ghost: Ghost, clientX: number) {
+  return Math.min(
+    Math.max(ghost.size + clientX - ghost.startX, ghost.minSize),
+    ghost.maxSize,
+  );
+}
 
 /**
  * The drag guide runs from the header down through the body, so its height
@@ -28,12 +60,8 @@ const RAISED_Z = '60';
  */
 function startResizeGuide(
   handle: HTMLElement,
-  ghost: {
-    startX: number;
-    size: number;
-    minSize: number;
-    maxSize: number;
-  } | null,
+  ghost: Ghost | null,
+  onCommit?: (width: number) => void,
 ) {
   const container = handle.closest<HTMLElement>(
     '[data-slot="table-container"]',
@@ -77,15 +105,9 @@ function startResizeGuide(
     event: globalThis.MouseEvent | globalThis.TouchEvent,
   ) => {
     if (!ghost) return;
-    const clientX =
-      'touches' in event ? event.touches[0]?.clientX : event.clientX;
+    const clientX = pointerClientX(event);
     if (clientX === undefined) return;
-    // Clamp against the column's bounds so the guide never promises a width
-    // the column cannot take.
-    const next = Math.min(
-      Math.max(ghost.size + clientX - ghost.startX, ghost.minSize),
-      ghost.maxSize,
-    );
+    const next = clampedGhostWidth(ghost, clientX);
     for (const guide of guides) {
       guide.style.transform = `translateX(${next - ghost.size}px)`;
     }
@@ -101,17 +123,31 @@ function startResizeGuide(
       el.style.zIndex = zIndex;
     }
     window.removeEventListener('mousemove', track);
-    window.removeEventListener('touchmove', track);
     window.removeEventListener('mouseup', clear);
-    window.removeEventListener('touchend', clear);
+    window.removeEventListener('touchmove', track, TOUCH_MOVE_OPTS);
+    window.removeEventListener(
+      'touchend',
+      onTouchEnd,
+      TOUCH_END_OPTS,
+    );
+  };
+
+  const onTouchEnd = (event: globalThis.TouchEvent) => {
+    const clientX = pointerClientX(event);
+    if (ghost && onCommit && clientX !== undefined) {
+      onCommit(clampedGhostWidth(ghost, clientX));
+    }
+    clear();
   };
 
   if (ghost) {
     window.addEventListener('mousemove', track);
-    window.addEventListener('touchmove', track);
+    // TanStack stopPropagates touchmove/touchend on `document`, so window
+    // bubble never runs; capture on window sees the event first.
+    window.addEventListener('touchmove', track, TOUCH_MOVE_OPTS);
   }
   window.addEventListener('mouseup', clear);
-  window.addEventListener('touchend', clear);
+  window.addEventListener('touchend', onTouchEnd, TOUCH_END_OPTS);
 }
 
 export interface DataTableResizeHandleProps<TData, TValue> {
@@ -181,7 +217,12 @@ export function DataTableResizeHandle<TData, TValue>({
             maxSize: maxSize ?? Number.MAX_SAFE_INTEGER,
           }
         : null;
-    startResizeGuide(event.currentTarget, ghost);
+    startResizeGuide(event.currentTarget, ghost, (width) => {
+      table.setColumnSizing((sizing) => ({
+        ...sizing,
+        [column.id]: width,
+      }));
+    });
     header.getResizeHandler()(event);
   };
 

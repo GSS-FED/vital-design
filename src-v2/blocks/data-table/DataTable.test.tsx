@@ -52,18 +52,38 @@ const resizableColumns: ColumnDef<Row>[] = [
   },
 ];
 
-function ResizableHarness() {
+function ResizableHarness({
+  columnResizeMode = 'onChange',
+}: {
+  columnResizeMode?: 'onChange' | 'onEnd';
+} = {}) {
   const [columnSizing, setColumnSizing] = useState({});
   const table = useReactTable({
     data,
     columns: resizableColumns,
     state: { columnSizing },
     defaultColumn: { minSize: 64, maxSize: 400 },
-    columnResizeMode: 'onChange',
+    columnResizeMode,
     onColumnSizingChange: setColumnSizing,
     getCoreRowModel: getCoreRowModel(),
   });
   return <DataTable table={table} resizable />;
+}
+
+function fireTouch(
+  target: EventTarget,
+  type: 'touchstart' | 'touchmove' | 'touchend',
+  clientX: number,
+) {
+  const touch = { clientX, clientY: 0, identifier: 0, target };
+  const event = new Event(type, { bubbles: true, cancelable: true });
+  const touches = type === 'touchend' ? [] : [touch];
+  Object.defineProperties(event, {
+    touches: { value: touches },
+    targetTouches: { value: touches },
+    changedTouches: { value: [touch] },
+  });
+  fireEvent(target, event);
 }
 
 function Harness({ initialData = data }: { initialData?: Row[] }) {
@@ -164,6 +184,30 @@ describe('DataTable', () => {
     expect(handle).toHaveAttribute('data-guide');
 
     fireEvent.mouseUp(window);
+    expect(handle).not.toHaveAttribute('data-guide');
+  });
+
+  it('clears the drag guide on touchend even when touches is empty', () => {
+    render(<ResizableHarness />);
+    const handle = screen.getByRole('separator');
+
+    fireTouch(handle, 'touchstart', 300);
+    expect(handle).toHaveAttribute('data-guide');
+
+    fireTouch(handle, 'touchend', 340);
+    expect(handle).not.toHaveAttribute('data-guide');
+  });
+
+  it('commits onEnd column size from changedTouches on touchend', () => {
+    render(<ResizableHarness columnResizeMode="onEnd" />);
+    const handle = screen.getByRole('separator');
+    const table = screen.getByRole('table');
+
+    fireTouch(handle, 'touchstart', 300);
+    fireTouch(handle, 'touchend', 340);
+
+    expect(handle).toHaveAttribute('aria-valuenow', '240');
+    expect(table).toHaveStyle({ '--col-name-size': '240px' });
     expect(handle).not.toHaveAttribute('data-guide');
   });
 
