@@ -31,6 +31,7 @@
 - **`DataTableColumnHeader` 排序 icon**：改用 `CaretUpIcon`／`CaretDownIcon`，且三種狀態（未排序／asc／desc）維持相同的上下雙箭頭字形，只切換顏色——未選 `text-grayscale-opacity-400`、選中方向 `text-grayscale-opacity-800`。同步套用於 `blocks/data-table/DataTableColumnHeader.tsx` 與 `blocks/data-table/data-table-group-02/data-table-column-header.tsx`。
 - **`TableRow` 底色改為 CSS variable 驅動**：`bg-[var(--table-row-bg,transparent)]`，hover／selected 則讀 `--table-row-hover`。這是為了讓斑馬紋不會蓋掉 hover 與 selected——斑馬紋規則只設定變數不設 `background-color`，因此 (0,1,0) 的 base 永遠輸給 (0,2,0) 的 hover／selected。
 - `data-table-group-02` 的 `registryDependencies` 加入 `@vital-design/icon-caret-down`、`@vital-design/icon-caret-up`。
+- Storybook Icons gallery 與 Fumadocs Icons 頁列入 `CaretUpIcon`／`CaretDownIcon`。
 - **`TableHead` 加上 `relative`**：作為貼齊儲存格邊緣的 overlay（欄寬拖曳把手）定位基準。若既有程式碼依賴 `th` 內 `absolute` 元素相對於更外層祖先定位，需要改寫。
 - **`DataTableColumnHeader` 支援截斷**：標題改用 `truncate`（排序箭頭永遠保留可見），欄寬被拉窄時不再撐開欄位。
 - **`data-table-group-01`／`data-table-group-02` 支援欄寬調整**（兩者都有 pinned 欄位）：各自新增 `resize-handle.tsx`（block 需自給自足，已加入 registry `files`）；`pinning.ts` 的 `left`／`width` 與 `<colgroup>`／`<table>` 寬度改讀 CSS variables，pinned offset 才會跟著拖曳更新；群組區塊改為 memo 並在拖曳期間凍結（frame time：group-01 26 → 14ms、group-02 51 → 25ms，idle ≈ 14ms）。
