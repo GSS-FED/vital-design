@@ -34,9 +34,9 @@ export const WithSeparator: Story = {
   render: function Render() {
     return (
       <ButtonGroup>
-        <Button>Archive</Button>
+        <Button theme="default">Archive</Button>
         <ButtonGroupSeparator />
-        <Button>Snooze</Button>
+        <Button theme="default">Snooze</Button>
       </ButtonGroup>
     );
   },
