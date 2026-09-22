@@ -15,6 +15,17 @@ export function columnSizeVar(columnId: string) {
   return `--col-${slug(columnId)}-size`;
 }
 
+/** Same order as `getHeaderGroups()`: left pins, unpinned, right pins. */
+export function getLeafColumnsInDisplayOrder<TData>(
+  table: Table<TData>,
+) {
+  return [
+    ...table.getLeftVisibleLeafColumns(),
+    ...table.getCenterVisibleLeafColumns(),
+    ...table.getRightVisibleLeafColumns(),
+  ];
+}
+
 /** Left offset of a `left`-pinned column (sum of the pinned columns before it). */
 function columnStartVar(columnId: string) {
   return `--col-${slug(columnId)}-start`;

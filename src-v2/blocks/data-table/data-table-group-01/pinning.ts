@@ -17,13 +17,28 @@ function columnStartVar(columnId: string) {
   return `--col-${slug(columnId)}-start`;
 }
 
+function columnEndVar(columnId: string) {
+  return `--col-${slug(columnId)}-end`;
+}
+
+/** Same order as `getHeaderGroups()`: left pins, unpinned, right pins. */
+export function getLeafColumnsInDisplayOrder<TData>(
+  table: Table<TData>,
+) {
+  return [
+    ...table.getLeftVisibleLeafColumns(),
+    ...table.getCenterVisibleLeafColumns(),
+    ...table.getRightVisibleLeafColumns(),
+  ];
+}
+
 /**
  * Widths and pinned offsets as CSS variables, set once on `<table>`.
  *
  * Column resizing then only rewrites that one `style` attribute: the colgroup
- * widths and every pinned `left` offset read from these variables, so the rows
- * do not have to re-render mid-drag. Pinned offsets have to be included because
- * widening a pinned column pushes the pinned columns after it to the right.
+ * widths and every pinned `left` / `right` offset read from these variables, so
+ * the rows do not have to re-render mid-drag. Pinned offsets have to be
+ * included because widening a pinned column pushes the others along it.
  */
 export function getColumnSizeVars<TData>(
   table: Table<TData>,
@@ -35,6 +50,7 @@ export function getColumnSizeVars<TData>(
   for (const column of table.getVisibleLeafColumns()) {
     vars[columnSizeVar(column.id)] = `${column.getSize()}px`;
     vars[columnStartVar(column.id)] = `${column.getStart('left')}px`;
+    vars[columnEndVar(column.id)] = `${column.getAfter('right')}px`;
   }
 
   return vars as CSSProperties;
@@ -89,7 +105,7 @@ export function getCommonPinningStyles<TData>(
         : undefined,
     right:
       isPinned === 'right'
-        ? `${column.getAfter('right')}px`
+        ? `var(${columnEndVar(column.id)})`
         : undefined,
     top: stickyTop,
     opacity: 1,

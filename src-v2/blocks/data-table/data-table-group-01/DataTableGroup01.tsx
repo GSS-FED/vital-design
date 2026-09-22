@@ -35,6 +35,7 @@ import {
   columnSizeVar,
   getColumnSizeVars,
   getCommonPinningStyles,
+  getLeafColumnsInDisplayOrder,
   getPinnedCellClassName,
 } from './pinning';
 import { ResizeHandle } from './resize-handle';
@@ -310,7 +311,7 @@ export function DataTableGroup01({
           minWidth: '100%',
         }}
       >
-        <ColumnGroup columns={table.getVisibleLeafColumns()} />
+        <ColumnGroup columns={getLeafColumnsInDisplayOrder(table)} />
         {table
           .getRowModel()
           .rows.filter((row) => row.depth === 0)

@@ -43,6 +43,7 @@ import {
   SUBCATEGORY_TITLE_LEFT,
   columnSizeVar,
   getColumnSizeVars,
+  getLeafColumnsInDisplayOrder,
   getPinnedClassName,
   getPinningStyles,
   titleStickyStyle,
@@ -378,7 +379,7 @@ export function DataTableGroup02({
     getExpandedRowModel: getExpandedRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
-  const visibleColumns = table.getVisibleLeafColumns();
+  const visibleColumns = getLeafColumnsInDisplayOrder(table);
   const isResizing = Boolean(
     table.getState().columnSizingInfo.isResizingColumn,
   );

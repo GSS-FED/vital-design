@@ -24,6 +24,17 @@ function columnStartVar(columnId: string) {
   return `--col-${slug(columnId)}-start`;
 }
 
+/** Same order as `getHeaderGroups()`: left pins, unpinned, right pins. */
+export function getLeafColumnsInDisplayOrder<TData>(
+  table: Table<TData>,
+) {
+  return [
+    ...table.getLeftVisibleLeafColumns(),
+    ...table.getCenterVisibleLeafColumns(),
+    ...table.getRightVisibleLeafColumns(),
+  ];
+}
+
 /**
  * Widths and pinned offsets as CSS variables, set once on `<table>`.
  *

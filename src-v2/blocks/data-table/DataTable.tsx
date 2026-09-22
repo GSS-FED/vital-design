@@ -17,6 +17,7 @@ import {
   FILLER_COLUMN_WIDTH,
   columnSizeVar,
   getColumnSizeVars,
+  getLeafColumnsInDisplayOrder,
 } from './column-sizing';
 
 export interface DataTableColumnClassNames {
@@ -127,7 +128,7 @@ export function DataTable<TData>({
   resizable = false,
 }: DataTableProps<TData>) {
   const headerGroups = table.getHeaderGroups();
-  const leafColumns = table.getVisibleLeafColumns();
+  const leafColumns = getLeafColumnsInDisplayOrder(table);
   const isResizing = Boolean(
     table.getState().columnSizingInfo.isResizingColumn,
   );
