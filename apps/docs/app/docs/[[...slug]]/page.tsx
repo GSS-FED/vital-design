@@ -134,6 +134,16 @@ interface CompiledPageData {
 
 const REGISTRY_BASE_URL = 'https://vittal.design/r';
 
+// Docs slug is not the registry item name for these nested block pages.
+const REGISTRY_ITEM_BY_SLUG: Record<string, string> = {
+  'blocks/sidebar/cloud/flat': 'sidebar-cloud-01',
+  'blocks/sidebar/cloud/inline-submenus': 'sidebar-cloud-02',
+  'blocks/sidebar/cloud/dropdown-submenus': 'sidebar-cloud-03',
+  'blocks/sidebar/cloud/secondary-nav': 'sidebar-cloud-04',
+  'blocks/sidebar/cloud/header-actions': 'sidebar-cloud-05',
+  'blocks/sidebar/cloud/collapsible-submenus': 'sidebar-cloud-06',
+};
+
 async function loadRawMarkdown(
   slug: string[] | undefined,
 ): Promise<string | undefined> {
@@ -159,11 +169,16 @@ async function loadRawMarkdown(
 function registryUrlFor(
   slug: string[] | undefined,
 ): string | undefined {
-  if (!slug || slug.length !== 2) return undefined;
-  const [section, name] = slug;
+  if (!slug || slug.length === 0) return undefined;
+  const [section] = slug;
   if (section !== 'components' && section !== 'blocks')
     return undefined;
-  return `${REGISTRY_BASE_URL}/${name}.json`;
+
+  const item =
+    REGISTRY_ITEM_BY_SLUG[slug.join('/')] ??
+    (slug.length === 2 ? slug[1] : undefined);
+  if (!item) return undefined;
+  return `${REGISTRY_BASE_URL}/${item}.json`;
 }
 
 export default async function Page({
