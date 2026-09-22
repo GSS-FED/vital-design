@@ -39,6 +39,10 @@
   - 凍結期間 header 也不重繪，把手的 `aria-valuenow` 要放開才更新。
 - **`columnResizeMode` 開放為 block prop**：`DataTableGroup01`／`DataTableGroup02`／`DataTableGroupingResizableBlock` 接受 `columnResizeMode?: ColumnResizeMode`（預設 `'onChange'`），Storybook 有 control 可切換。寬表、pinned 欄多的情境建議 `'onEnd'`（不動欄寬就沒有 relayout；group-02 實測 24.7 → 11.6ms）。
 
+### Fixed
+
+- `data-table-group-02` 排序表頭截斷與共用 `DataTableColumnHeader` 一致，欄變窄時 caret 不再先被裁掉。
+
 ### Removed
 
 - `data-table-group-02` 的 `registryDependencies` 移除 `@vital-design/icon-chevron-up`（改用 caret 後已無使用；`icon-chevron-down` 仍保留給 `table-rail.tsx` 與 block root）。
