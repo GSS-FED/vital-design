@@ -59,7 +59,7 @@ export const ProductDetails: Story = {
       <div className="w-96 space-y-4 rounded-sm border border-grayscale-opacity-200 p-4">
         <div>
           <div className="font-medium text-grayscale-opacity-900">
-            Vital Design Hoodie
+            Vittal Design Hoodie
           </div>
           <div className="text-sm text-grayscale-opacity-600">
             $48

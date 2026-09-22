@@ -126,7 +126,7 @@ export const base = [
   {
     name: 'vital-theme',
     type: 'registry:theme',
-    title: 'Vital Design Theme',
+    title: 'Vittal Design Theme',
     description:
       'CSS variables and Tailwind v4 theme tokens for vital-design components',
     dependencies: ['tw-animate-css'],
@@ -143,9 +143,9 @@ export const base = [
   {
     name: 'vital-design-base',
     type: 'registry:base',
-    title: 'Vital Design Base',
+    title: 'Vittal Design Base',
     description:
-      'One-command setup for Vital Design: installs theme, utils, and icons',
+      'One-command setup for Vittal Design: installs theme, utils, and icons',
     registryDependencies: [
       '@vital-design/vital-theme',
       '@vital-design/utils',
@@ -156,7 +156,7 @@ export const base = [
   {
     name: 'vital-icons',
     type: 'registry:ui',
-    title: 'Vital Icons',
+    title: 'Vittal Icons',
     description: 'Custom SVG icon components',
     files: allIconFiles,
   },

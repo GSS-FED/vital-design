@@ -82,7 +82,7 @@ function SidebarBrandHeader() {
               {collapsed ? (
                 <Image
                   src={logoMarkImage}
-                  alt="Vital"
+                  alt="Vittal"
                   width={32}
                   height={32}
                   unoptimized
@@ -91,7 +91,7 @@ function SidebarBrandHeader() {
               ) : (
                 <Image
                   src={logoHorizontalImage}
-                  alt="Vital"
+                  alt="Vittal"
                   width={124}
                   height={28}
                   unoptimized
@@ -106,8 +106,8 @@ function SidebarBrandHeader() {
             >
               <DropdownMenuGroup>
                 <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
-                <DropdownMenuItem>Vital Design</DropdownMenuItem>
-                <DropdownMenuItem>Vital Finance</DropdownMenuItem>
+                <DropdownMenuItem>Vittal Design</DropdownMenuItem>
+                <DropdownMenuItem>Vittal Finance</DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Create workspace</DropdownMenuItem>

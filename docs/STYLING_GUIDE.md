@@ -1,4 +1,4 @@
-# Vital Design 樣式架構指南
+# Vittal Design 樣式架構指南
 
 > 此文件協助新開發人員快速了解專案的樣式系統
 

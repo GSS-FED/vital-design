@@ -143,7 +143,7 @@ export function buildLlmsIndex(): string {
   }
 
   const parts = [
-    '# Vital Design',
+    '# Vittal Design',
     '',
     '> React 18 component library with TypeScript and Tailwind CSS 4.',
     '> New work lives in `src-v2/` and is installed from the shadcn-compatible registry.',
