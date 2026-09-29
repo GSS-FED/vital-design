@@ -45,6 +45,17 @@
           {
             "pattern": "^Label$",
             "allow": ["layout", "typography"]
+          },
+          {
+            "pattern": "^Table$",
+            "allow": [
+              "layout",
+              "rounded",
+              "border-w",
+              "border-color",
+              "bg-color",
+              "shadow"
+            ]
           }
         ]
       }
@@ -78,6 +89,17 @@
               {
                 "pattern": "^Label$",
                 "allow": ["layout", "typography"]
+              },
+              {
+                "pattern": "^Table$",
+                "allow": [
+                  "layout",
+                  "rounded",
+                  "border-w",
+                  "border-color",
+                  "bg-color",
+                  "shadow"
+                ]
               }
             ]
           }
