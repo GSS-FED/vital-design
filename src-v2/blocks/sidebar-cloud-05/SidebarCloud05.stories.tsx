@@ -39,7 +39,7 @@ const providerStyle = {
 
 function DemoInset() {
   return (
-    <SidebarInset className="bg-white">
+    <SidebarInset>
       <header className="flex h-12 shrink-0 items-center gap-2 border-b border-sidebar-border px-3 md:hidden">
         <SidebarTrigger />
       </header>

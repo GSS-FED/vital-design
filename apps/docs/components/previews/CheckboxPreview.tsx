@@ -29,11 +29,6 @@ function CheckboxField({
       <div className="flex h-5 flex-none items-center">
         <Checkbox
           checked={checked}
-          className={
-            disabled
-              ? 'data-checked:opacity-40 data-indeterminate:opacity-40'
-              : undefined
-          }
           disabled={disabled}
           id={id}
           indeterminate={indeterminate}
@@ -44,7 +39,7 @@ function CheckboxField({
         className={
           disabled
             ? 'cursor-not-allowed font-normal leading-5 text-grayscale-opacity-500'
-            : 'cursor-pointer font-normal leading-5 text-grayscale-opacity-800'
+            : 'cursor-pointer font-normal leading-5'
         }
         htmlFor={id}
       >
