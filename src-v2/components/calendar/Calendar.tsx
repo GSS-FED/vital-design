@@ -21,11 +21,6 @@ import {
   useDayPicker,
 } from 'react-day-picker';
 
-/* eslint-disable react/prop-types --
- * Calendar's parts are typed through react-day-picker's prop interfaces;
- * the react/prop-types rule can't follow the destructured props.
- */
-
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
 function Calendar({

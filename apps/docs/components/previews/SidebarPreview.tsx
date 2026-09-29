@@ -52,7 +52,7 @@ function getImageSrc(image: ImportedImage) {
   return typeof image === 'string' ? image : image.src;
 }
 
-const rayAvatar = getImageSrc(rayAvatarImage as ImportedImage);
+const rayAvatar = getImageSrc(rayAvatarImage);
 
 const DEMO_FRAME =
   'relative h-[420px] w-full overflow-hidden rounded-lg border border-sidebar-border ' +

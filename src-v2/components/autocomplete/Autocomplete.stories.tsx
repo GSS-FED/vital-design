@@ -264,7 +264,8 @@ export const SubmitSearch: Story = {
       onSubmit={(event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        window.alert(String(data.get('query') ?? ''));
+        const query = data.get('query');
+        window.alert(typeof query === 'string' ? query : '');
       }}
     >
       <Autocomplete<Tag> items={tags} name="query" submitOnItemClick>
