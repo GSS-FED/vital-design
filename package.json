@@ -27,7 +27,7 @@
     "test:visual": "playwright test",
     "test:visual:update": "playwright test --update-snapshots=all",
     "storybook:dev": "storybook dev -p ${PORT:-6006}",
-    "tokens:build": "node --import tsx ./scripts/build-tokens.ts",
+    "tokens:build": "node --import tsx ./scripts/build-tokens.ts && prettier --write registry/vital-theme-vars.ts",
     "tokens:build:css": "node --import tsx ./scripts/build-tokens.ts css",
     "icons:build": "tsx scripts/build-icons.ts && prettier --write \"src-v2/icons/*.tsx\" --log-level warn",
     "registry:generate": "tsx scripts/build-registry-json.ts",
