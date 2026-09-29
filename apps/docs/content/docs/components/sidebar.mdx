@@ -111,6 +111,22 @@ export function AppLayout({
 
 <SidebarFloatingPreview />
 
+### Cloud skin
+
+`SidebarTrigger`, `SidebarMenuButton`, and `SidebarMenuSubButton` accept `variant="cloud"`: menu rows get a subtle opacity hover and mark the active item with primary text instead of a fill; the trigger becomes a dark tab docked to the sidebar edge. Position the cloud trigger from the caller (layout classes only). The [Sidebar Cloud](/docs/blocks/sidebar/cloud/flat) blocks use it.
+
+```tsx
+<SidebarMenuButton variant="cloud" isActive={isActive}>
+  <SearchIcon />
+  <span>Inbox</span>
+</SidebarMenuButton>
+
+<SidebarTrigger
+  variant="cloud"
+  className="absolute bottom-4 z-20 group-data-[side=left]:right-0 group-data-[side=right]:left-0"
+/>
+```
+
 ## Controlled state
 
 Use `open` + `onOpenChange` on `SidebarProvider` when the parent owns collapse state.
