@@ -337,19 +337,12 @@ const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
   },
 );
 
-export type SidebarTriggerProps =
-  ComponentPropsWithoutRef<'button'> & {
-    /** `cloud`: dark tab docked to the sidebar edge (position it from the caller). */
-    variant?: 'default' | 'cloud';
-  };
+export type SidebarTriggerProps = ComponentPropsWithoutRef<'button'>;
 
 const SidebarTrigger = forwardRef<
   HTMLButtonElement,
   SidebarTriggerProps
->(function SidebarTrigger(
-  { className, onClick, variant = 'default', ...props },
-  ref,
-) {
+>(function SidebarTrigger({ className, onClick, ...props }, ref) {
   const { toggleSidebar, isMobile, open, openMobile } = useSidebar();
 
   return (
@@ -358,19 +351,11 @@ const SidebarTrigger = forwardRef<
       type="button"
       data-sidebar="trigger"
       data-slot="sidebar-trigger"
-      data-variant={variant}
       aria-expanded={isMobile ? openMobile : open}
       className={cn(
         'inline-flex size-7 shrink-0 items-center justify-center rounded-md text-sidebar-foreground outline-hidden ring-sidebar-ring transition-colors',
         'hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
         'focus-visible:ring-2',
-        variant === 'cloud' && [
-          'size-7.5 border-0 bg-grayscale-600 text-white shadow-[0_2px_10px_0_rgba(67,67,75,0.30)]',
-          'transition-[color,background-color,fill,stroke,box-shadow] [transition-duration:var(--motion-duration-fast)] ease-(--motion-easing-in)',
-          'hover:bg-grayscale-500 hover:text-white',
-          'group-data-[side=left]:rounded-l-lg group-data-[side=left]:rounded-r-none group-data-[side=left]:[&>svg]:translate-x-0.5',
-          'group-data-[side=right]:rounded-l-none group-data-[side=right]:rounded-r-lg group-data-[side=right]:[&>svg]:-translate-x-0.5',
-        ],
         className,
       )}
       onClick={(event: MouseEvent<HTMLButtonElement>) => {
@@ -668,16 +653,6 @@ const SidebarMenuItem = forwardRef<
   );
 });
 
-// Shared by SidebarMenuButton and SidebarMenuSubButton `variant="cloud"`:
-// subtle opacity hover, active item marked by primary text instead of a fill.
-const cloudMenuButtonClassName = [
-  'text-grayscale-700',
-  'transition-[color,background-color,fill,stroke,box-shadow] [transition-duration:var(--motion-duration-fast)] ease-(--motion-easing-in)',
-  'hover:bg-grayscale-opacity-200 hover:text-grayscale-700 active:bg-grayscale-opacity-200',
-  'data-[active=true]:bg-transparent data-[active=true]:font-medium data-[active=true]:text-primary-500',
-  'data-[active=true]:hover:bg-transparent data-[active=true]:hover:text-primary-500 data-[active=true]:active:bg-transparent',
-].join(' ');
-
 const sidebarMenuButtonVariants = cva(
   // Icon-collapse: hide label spans only — not Avatar (Base UI root is often <span data-slot=avatar>)
   'peer/menu-button relative flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm text-grayscale-800 ring-sidebar-ring outline-hidden transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:p-2! hover:bg-grayscale-200 focus-visible:ring-2 active:bg-grayscale-200 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-grayscale-200 data-[active=true]:font-medium data-[state=open]:hover:bg-grayscale-200 [&>span:last-child]:truncate group-data-[collapsible=icon]:[&>span:not([data-slot=avatar])]:hidden [&>svg]:size-4 [&>svg]:shrink-0',
@@ -687,7 +662,6 @@ const sidebarMenuButtonVariants = cva(
         default: 'hover:bg-grayscale-200',
         outline:
           'bg-background shadow-[0_0_0_1px_var(--sidebar-border)] hover:bg-grayscale-200 hover:shadow-[0_0_0_1px_var(--sidebar-accent)]',
-        cloud: cloudMenuButtonClassName,
       },
       size: {
         default: 'h-8 text-sm',
@@ -734,7 +708,6 @@ const SidebarMenuButton = forwardRef<
   const dataAttrs = {
     'data-sidebar': 'menu-button',
     'data-size': size,
-    'data-variant': variant,
     'data-active': isActive,
   } as HTMLAttributes<HTMLButtonElement>;
 
@@ -926,7 +899,6 @@ const SidebarMenuSubItem = forwardRef<
 export type SidebarMenuSubButtonProps =
   useRender.ComponentProps<'button'> & {
     size?: 'sm' | 'md';
-    variant?: 'default' | 'cloud';
     isActive?: boolean;
   };
 
@@ -938,7 +910,6 @@ const SidebarMenuSubButton = forwardRef<
     className,
     render,
     size = 'md',
-    variant = 'default',
     isActive = false,
     children,
     ...props
@@ -965,7 +936,6 @@ const SidebarMenuSubButton = forwardRef<
           'data-[active=true]:bg-grayscale-200 data-[active=true]:font-medium',
           size === 'sm' && 'text-xs',
           size === 'md' && 'text-sm',
-          variant === 'cloud' && cloudMenuButtonClassName,
           'group-data-[collapsible=icon]:hidden',
           className,
         ),
@@ -973,7 +943,6 @@ const SidebarMenuSubButton = forwardRef<
         ...({
           'data-sidebar': 'menu-sub-button',
           'data-size': size,
-          'data-variant': variant,
           'data-active': isActive,
         } as HTMLAttributes<HTMLButtonElement>),
       },
