@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "jsPlugins": ["@shadcn/lint"],
+  "extends": ["./vital-design.lint.json"],
   "categories": {
     "correctness": "off"
   },
@@ -28,7 +29,6 @@
         "allow": ["not-prose"]
       }
     ],
-    "shadcn/no-raw-colors": "error",
     "shadcn/no-restyle": [
       "warn",
       {

@@ -1,0 +1,7 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "rules": {
+    "shadcn/no-unknown-classes": "error",
+    "shadcn/no-raw-colors": "error"
+  }
+}
