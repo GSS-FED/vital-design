@@ -5,6 +5,7 @@
     "installation",
     "migration-guide",
     "tailwind-setup",
+    "design-lint",
     "first-component"
   ]
 }

@@ -4,6 +4,7 @@ export type RegistryItemName =
   | 'utils'
   | 'vital-theme'
   | 'vital-design-base'
+  | 'vital-design-lint'
   | 'vital-icons'
   | 'icon-bell'
   | 'icon-calendar'
