@@ -141,11 +141,18 @@ function CollapseControl({
 
   return (
     <SidebarTrigger
-      variant="cloud"
       className={cn(
-        'z-20',
-        'group-data-[side=left]:right-0',
-        'group-data-[side=right]:left-0',
+        'z-20 size-7.5 border-0',
+        'group-data-[side=left]:right-0 group-data-[side=left]:rounded-l-lg group-data-[side=left]:rounded-r-none',
+        'group-data-[side=right]:left-0 group-data-[side=right]:rounded-r-lg group-data-[side=right]:rounded-l-none',
+        'bg-grayscale-600 text-white',
+        'shadow-[0_2px_10px_0_rgba(67,67,75,0.30)]',
+        'transition-[color,background-color,fill,stroke,box-shadow]',
+        '[transition-duration:var(--motion-duration-fast)]',
+        'ease-(--motion-easing-in)',
+        'hover:bg-grayscale-500 hover:text-white',
+        'group-data-[side=left]:[&>svg]:translate-x-0.5',
+        'group-data-[side=right]:[&>svg]:-translate-x-0.5',
         className,
       )}
       {...props}
@@ -244,8 +251,7 @@ function NavMain() {
                     <DropdownMenu>
                       <DropdownMenuTrigger
                         render={
-                          <SidebarMenuButton
-                            variant="cloud"
+                          <MenuButton
                             isActive={item.isActive}
                             tooltip={item.title}
                           />
@@ -270,14 +276,13 @@ function NavMain() {
                       </DropdownMenuContent>
                     </DropdownMenu>
                   ) : (
-                    <SidebarMenuButton
-                      variant="cloud"
+                    <MenuButton
                       isActive={item.isActive}
                       tooltip={item.title}
                     >
                       {item.icon}
                       <span>{item.title}</span>
-                    </SidebarMenuButton>
+                    </MenuButton>
                   )}
                 </MenuItem>
               ))}
@@ -288,6 +293,32 @@ function NavMain() {
     </>
   );
 }
+
+const MenuButton = forwardRef<
+  HTMLButtonElement,
+  ComponentProps<typeof SidebarMenuButton>
+>(function MenuButton({ className, ...props }, ref) {
+  return (
+    <SidebarMenuButton
+      ref={ref}
+      className={cn(
+        'text-grayscale-700',
+        'transition-[color,background-color,fill,stroke,box-shadow]',
+        '[transition-duration:var(--motion-duration-fast)]',
+        'ease-(--motion-easing-in)',
+        'hover:bg-grayscale-opacity-200 hover:text-grayscale-700',
+        'active:bg-grayscale-opacity-200',
+        'data-[active=true]:bg-transparent data-[active=true]:font-medium',
+        'data-[active=true]:text-primary-500',
+        'data-[active=true]:hover:bg-transparent',
+        'data-[active=true]:hover:text-primary-500',
+        'data-[active=true]:active:bg-transparent',
+        className,
+      )}
+      {...props}
+    />
+  );
+});
 
 function MenuItem({
   className,
