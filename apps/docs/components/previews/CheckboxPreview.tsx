@@ -1,7 +1,7 @@
 'use client';
 
 import { Checkbox } from '@/components/checkbox/Checkbox';
-import { Label } from '@/components/label/Label';
+import { Field, FieldLabel } from '@/components/field/Field';
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
@@ -22,30 +22,20 @@ function CheckboxField({
   onCheckedChange?: (checked: boolean) => void;
 }) {
   return (
-    <div
-      className="group flex items-start gap-2 font-sans text-sm leading-5 text-grayscale-opacity-800"
+    <Field
+      className="w-auto"
       data-disabled={disabled ? true : undefined}
+      orientation="horizontal"
     >
-      <div className="flex h-5 flex-none items-center">
-        <Checkbox
-          checked={checked}
-          disabled={disabled}
-          id={id}
-          indeterminate={indeterminate}
-          onCheckedChange={onCheckedChange}
-        />
-      </div>
-      <Label
-        className={
-          disabled
-            ? 'cursor-not-allowed font-normal leading-5 text-grayscale-opacity-500'
-            : 'cursor-pointer font-normal leading-5'
-        }
-        htmlFor={id}
-      >
-        {children}
-      </Label>
-    </div>
+      <Checkbox
+        checked={checked}
+        disabled={disabled}
+        id={id}
+        indeterminate={indeterminate}
+        onCheckedChange={onCheckedChange}
+      />
+      <FieldLabel htmlFor={id}>{children}</FieldLabel>
+    </Field>
   );
 }
 
