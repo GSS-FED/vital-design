@@ -324,7 +324,7 @@ const Item = forwardRef<
       data-slot="combobox-item"
       className={cn(
         'relative flex cursor-pointer items-center gap-2 px-5 py-1.5 pr-8 text-sm leading-5 font-normal text-grayscale-opacity-800 outline-none select-none',
-        'break-anywhere transition-colors duration-200',
+        'wrap-anywhere transition-colors duration-200',
         'data-[highlighted]:bg-grayscale-opacity-100 data-[active]:bg-grayscale-opacity-200',
         'data-[disabled]:pointer-events-none data-[disabled]:text-grayscale-opacity-500',
         'data-[selected]:[&_[data-slot=combobox-item-check]]:text-primary-500',
