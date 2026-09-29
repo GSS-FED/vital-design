@@ -110,8 +110,10 @@ AGENTS.md forbids changing Oxlint config unprompted, so get the user's OK first.
   `layout`. When several contracts match, **only the last applies**, so order
   specific after general.
 - **Contracts must be repeated in each override.** Setting only a severity
-  (`"warn"`) resets the options. The `*.stories.tsx` override repeats the full
-  `no-restyle` options, so update both places.
+  (`"warn"`) resets the options. The full `no-restyle` options live in three
+  places: `.oxlintrc.shadcn.json` rules, its `*.stories.tsx` override, and
+  `.oxlintrc.shadcn-audit.json`. Update all three, then check they match:
+  `node -e 'const a=require("./.oxlintrc.shadcn.json"),b=require("./.oxlintrc.shadcn-audit.json"),o=x=>JSON.stringify(x);console.log(o(a.rules["shadcn/no-restyle"])===o(a.overrides[1].rules["shadcn/no-restyle"]),o(a.rules["shadcn/no-restyle"])===o(b.overrides[0].rules["shadcn/no-restyle"]))'`
 - **`deny`** removes entries from an allow list, e.g.
   `allow: ["layout","typography"], deny: ["font-*"]`.
 - **Recognition settings** (`ignoreImports`, `componentImports`) go under
@@ -153,10 +155,10 @@ the rule for that file. Check that no such error appears.
 | `RadioGroupItem group-hover:border/ring`                                                          | Kit parity gap → fixed in RadioGroup                                                                                                                                                        | 2    |
 | `SidebarInset bg-white`, Checkbox disabled opacity, Label default color, TimePicker shadow        | Duplicate → deleted                                                                                                                                                                         | 3    |
 | Toolbar hand-written bottom border                                                                | `variant="outline"`                                                                                                                                                                         | 4    |
-| `CollapsibleContent` styling                                                                      | Headless → `ignoreImports` (proposed)                                                                                                                                                       | 5    |
-| `ProgressSegment bg-success-500…`                                                                 | Caller owns tone → contract `bg-color` (proposed)                                                                                                                                           | 6    |
-| `ProgressSegments gap-*`                                                                          | Caller owns density → contract `gap` (proposed)                                                                                                                                             | 6    |
-| `capitalize` on Button / DialogTitle / SheetTitle                                                 | Content casing → contract `text-transform` (proposed)                                                                                                                                       | 6    |
+| `CollapsibleContent` styling                                                                      | Headless → `ignoreImports`                                                                                                                                                                  | 5    |
+| `ProgressSegment bg-success-500…`                                                                 | Caller owns tone → contract `bg-color`                                                                                                                                                      | 6    |
+| `ProgressSegments gap-*`                                                                          | Caller owns density → contract `gap`                                                                                                                                                        | 6    |
+| `capitalize` on Button / DialogTitle / SheetTitle                                                 | Content casing → contract `text-transform`                                                                                                                                                  | 6    |
 | 32 identical overrides across sidebar-cloud blocks                                                | Preset look → stays in blocks; the cloud variant was reverted                                                                                                                               | 7    |
 | Shipping `no-restyle` to consumers (425 findings on our own blocks; proposed contracts cleared 6) | Not yet. Tier 1 ships token rules only; `no-restyle` stays in repo wiring                                                                                                                   | —    |
 | Table container frame (`rounded`/`border`/`bg`/`shadow` via `containerClassName`)                 | Page owns the frame → `^Table$` contract with exact groups (repo wiring). **Policy candidate**: the model for tier-2 contracts. Note: lint can't tell `containerClassName` from `className` | 6    |
