@@ -19,6 +19,7 @@
     "build": "tsc && vite build",
     "lint": "oxlint --disable-nested-config --report-unused-disable-directives --max-warnings 0",
     "lint:design": "pnpm run tokens:build:css && oxlint -c .oxlintrc.shadcn.json --disable-nested-config src-v2 apps/docs/components",
+    "lint:design:audit": "pnpm run tokens:build:css && oxlint -c .oxlintrc.shadcn-audit.json --disable-nested-config src-v2/blocks",
     "format": "prettier --write \"**/**.{cjs,js,jsx,mjs,ts,tsx}\" --ignore-path .gitignore",
     "test": "vitest run && node --test .gitlab/scripts/pages-preview.test.mjs",
     "test:coverage": "vitest run --coverage",

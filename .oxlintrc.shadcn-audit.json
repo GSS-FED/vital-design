@@ -1,0 +1,36 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "extends": ["./.oxlintrc.shadcn.json"],
+  "settings": {
+    "shadcn": {
+      "ui": "@/components"
+    }
+  },
+  "overrides": [
+    {
+      "files": ["src-v2/blocks/**"],
+      "rules": {
+        "shadcn/no-restyle": [
+          "warn",
+          {
+            "allow": ["layout"],
+            "contracts": [
+              {
+                "pattern": "(Group|Header|Footer|Content|MenuItem)$|^(Toolbar|Collapsible)$",
+                "allow": ["layout", "spacing"]
+              },
+              {
+                "pattern": "^Skeleton$",
+                "allow": ["layout", "shape"]
+              },
+              {
+                "pattern": "^Label$",
+                "allow": ["layout", "typography"]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

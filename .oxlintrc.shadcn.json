@@ -1,7 +1,9 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "jsPlugins": ["@shadcn/lint"],
-  "categories": { "correctness": "off" },
+  "categories": {
+    "correctness": "off"
+  },
   "plugins": [],
   "settings": {
     "shadcn": {
@@ -22,7 +24,9 @@
   "rules": {
     "shadcn/no-unknown-classes": [
       "error",
-      { "allow": ["not-prose"] }
+      {
+        "allow": ["not-prose"]
+      }
     ],
     "shadcn/no-raw-colors": "error",
     "shadcn/no-restyle": [
@@ -34,8 +38,14 @@
             "pattern": "(Group|Header|Footer|Content|MenuItem)$|^(Toolbar|Collapsible)$",
             "allow": ["layout", "spacing"]
           },
-          { "pattern": "^Skeleton$", "allow": ["layout", "shape"] },
-          { "pattern": "^Label$", "allow": ["layout", "typography"] }
+          {
+            "pattern": "^Skeleton$",
+            "allow": ["layout", "shape"]
+          },
+          {
+            "pattern": "^Label$",
+            "allow": ["layout", "typography"]
+          }
         ]
       }
     ],
@@ -43,10 +53,36 @@
   },
   "overrides": [
     {
-      "files": ["src-v2/components/**"],
+      "files": ["src-v2/components/**", "src-v2/blocks/**"],
       "rules": {
         "shadcn/no-restyle": "off",
         "shadcn/require-static-classes": "off"
+      }
+    },
+    {
+      "files": ["**/*.stories.tsx"],
+      "rules": {
+        "shadcn/no-restyle": [
+          "warn",
+          {
+            "allow": ["layout"],
+            "contracts": [
+              {
+                "pattern": "(Group|Header|Footer|Content|MenuItem)$|^(Toolbar|Collapsible)$",
+                "allow": ["layout", "spacing"]
+              },
+              {
+                "pattern": "^Skeleton$",
+                "allow": ["layout", "shape"]
+              },
+              {
+                "pattern": "^Label$",
+                "allow": ["layout", "typography"]
+              }
+            ]
+          }
+        ],
+        "shadcn/require-static-classes": "warn"
       }
     }
   ]

@@ -19,6 +19,7 @@ pnpm run test:visual       # Playwright 視覺回歸（需先 storybook:build；
 pnpm run test:visual:update # 重新產生視覺 baseline
 pnpm run lint              # Oxlint 檢查（.oxlintrc.json，含 type-aware 規則）
 pnpm run lint:design       # @shadcn/lint 設計系統規則（.oxlintrc.shadcn.json；先重建 CSS tokens）
+pnpm run lint:design:audit # 對 blocks 跑 no-restyle，定期找跨 block 重複的覆寫（非 gate）
 pnpm run format            # Prettier 格式化
 pnpm run storybook:build   # 把 Storybook 打包成靜態網頁
 pnpm run tokens:build      # 重建所有 token 平台（generated.css + vital-theme-vars.ts）
