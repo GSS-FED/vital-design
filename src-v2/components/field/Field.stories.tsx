@@ -68,7 +68,7 @@ export const Horizontal: Story = {
     <Field orientation="horizontal" className="w-80">
       <FieldLabel
         htmlFor="field-horizontal-email"
-        className="!w-[100px] !flex-none py-1.5"
+        className="w-[100px]"
       >
         Email
       </FieldLabel>

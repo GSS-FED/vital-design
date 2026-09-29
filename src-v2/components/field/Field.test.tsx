@@ -56,6 +56,9 @@ it('supports horizontal and responsive orientations', () => {
     'flex-row',
     'items-start',
     'gap-2',
+    // Label-column rows (FieldLabel + FieldContent): fixed label, aligned to the control height.
+    'has-[>[data-slot=field-content]]:[&>[data-slot=field-label]]:flex-none',
+    'has-[>[data-slot=field-content]]:[&>[data-slot=field-label]]:min-h-8',
   );
 
   rerender(<Field orientation="responsive" data-testid="field" />);
