@@ -122,7 +122,7 @@ function CandidateGroupRow({
   };
 
   return (
-    <TableRow className="group cursor-pointer bg-[rgba(35,35,50,0.03)] transition-colors hover:bg-[rgba(35,35,50,0.06)]">
+    <TableRow className="group cursor-pointer bg-grayscale-opacity-100 transition-colors hover:bg-[rgba(35,35,50,0.06)]">
       <TableCell
         colSpan={columnCount}
         className="sticky top-0 left-0 z-50 h-auto border-b border-grayscale-opacity-300 bg-[#f8f8f9] p-0 text-sm font-medium text-grayscale-opacity-800"

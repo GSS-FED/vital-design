@@ -144,7 +144,7 @@ function EmissionCategoryRow({
           row.toggleExpanded();
         }
       }}
-      className="sticky top-0 z-30 cursor-pointer bg-[#f8f8f9] hover:bg-[#f0f0f2]"
+      className="sticky top-0 z-30 cursor-pointer bg-[#f8f8f9] hover:bg-grayscale-200"
     >
       <td
         className="sticky z-10 bg-[#f8f8f9] p-0"
