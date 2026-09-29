@@ -40,4 +40,22 @@ describe('ScrollArea', () => {
       '--vital-scroll-area-fade-size': '24px',
     });
   });
+
+  it('keeps a state-function style when fading edges', () => {
+    render(
+      <ScrollArea>
+        <ScrollAreaViewport
+          data-testid="viewport"
+          fadeEdges
+          fadeSize={24}
+          style={() => ({ maxHeight: '120px' })}
+        />
+      </ScrollArea>,
+    );
+
+    expect(screen.getByTestId('viewport')).toHaveStyle({
+      '--vital-scroll-area-fade-size': '24px',
+      maxHeight: '120px',
+    });
+  });
 });
