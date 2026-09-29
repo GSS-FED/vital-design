@@ -31,9 +31,11 @@
         "allow": ["layout"],
         "contracts": [
           {
-            "pattern": "(Group|Header|Footer|Content|MenuItem)$",
+            "pattern": "(Group|Header|Footer|Content|MenuItem)$|^(Toolbar|Collapsible)$",
             "allow": ["layout", "spacing"]
-          }
+          },
+          { "pattern": "^Skeleton$", "allow": ["layout", "shape"] },
+          { "pattern": "^Label$", "allow": ["layout", "typography"] }
         ]
       }
     ],
@@ -42,7 +44,10 @@
   "overrides": [
     {
       "files": ["src-v2/components/**"],
-      "rules": { "shadcn/no-restyle": "off" }
+      "rules": {
+        "shadcn/no-restyle": "off",
+        "shadcn/require-static-classes": "off"
+      }
     }
   ]
 }
