@@ -87,6 +87,20 @@ it('renders a disabled radio button which is also checked', () => {
   );
 });
 
+it('matches Checkbox hover ring and suppresses it when disabled', () => {
+  render(
+    <RadioGroup value="">
+      <RadioOption label="Option 1" value="option-1" />
+    </RadioGroup>,
+  );
+
+  expect(screen.getByRole('radio', { name: 'Option 1' })).toHaveClass(
+    'hover:border-primary-500',
+    'hover:shadow-(--shadow-focus-ring-primary)',
+    'data-disabled:hover:shadow-none',
+  );
+});
+
 it('renders multiple radio buttons', () => {
   render(
     <RadioGroup value="option-1">

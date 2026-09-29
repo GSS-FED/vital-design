@@ -26,9 +26,11 @@ function RadioGroupItem({
       className={cn(
         'group/radio-group-item relative flex size-4 shrink-0 items-center justify-center rounded-full border border-grayscale-opacity-400 bg-white outline-none transition-colors duration-100',
         'after:absolute after:-inset-x-3 after:-inset-y-2',
+        'hover:border-primary-500 hover:shadow-(--shadow-focus-ring-primary)',
         'focus-visible:border-primary-500 focus-visible:shadow-(--shadow-focus-ring-primary)',
         'data-disabled:cursor-not-allowed data-disabled:border-grayscale-opacity-300 data-disabled:bg-grayscale-opacity-200 data-disabled:opacity-50',
-        'aria-invalid:border-destructive-500 aria-invalid:shadow-(--shadow-focus-ring-destructive)',
+        'data-disabled:hover:border-grayscale-opacity-300 data-disabled:hover:shadow-none',
+        'aria-invalid:border-destructive-500 aria-invalid:shadow-(--shadow-focus-ring-destructive) aria-invalid:hover:border-destructive-500 aria-invalid:hover:shadow-(--shadow-focus-ring-destructive)',
         'data-checked:border-transparent data-checked:bg-primary-500',
         className,
       )}
