@@ -72,11 +72,7 @@ function SidebarBrandHeader() {
           <DropdownMenu>
             <DropdownMenuTrigger
               render={
-                <SidebarMenuButton
-                  size="lg"
-                  tooltip="Workspace"
-                  className="data-popup-open:bg-grayscale-200"
-                />
+                <SidebarMenuButton size="lg" tooltip="Workspace" />
               }
             >
               {collapsed ? (
@@ -127,13 +123,7 @@ function SidebarUserFooter() {
         <SidebarMenuItem>
           <DropdownMenu>
             <DropdownMenuTrigger
-              render={
-                <SidebarMenuButton
-                  size="lg"
-                  tooltip="Ray"
-                  className="data-popup-open:bg-grayscale-200"
-                />
-              }
+              render={<SidebarMenuButton size="lg" tooltip="Ray" />}
             >
               <Avatar
                 name="Ray"
