@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
-    "previews:sources": "node scripts/generate-preview-sources.mjs",
+    "previews:sources": "node --import tsx scripts/generate-preview-sources.mts",
     "predev": "pnpm previews:sources",
     "prebuild": "pnpm previews:sources",
     "dev": "next dev",
