@@ -3,7 +3,8 @@
   "extends": ["./.oxlintrc.shadcn.json"],
   "settings": {
     "shadcn": {
-      "ui": "@/components"
+      "ui": "@/components",
+      "ignoreImports": ["^@/components/collapsible(/|$)"]
     }
   },
   "overrides": [
@@ -16,7 +17,7 @@
             "allow": ["layout"],
             "contracts": [
               {
-                "pattern": "(Group|Header|Footer|Content|MenuItem)$|^(Toolbar|Collapsible)$",
+                "pattern": "(Group|Header|Footer|Content|MenuItem)$|^Toolbar$",
                 "allow": ["layout", "spacing"]
               },
               {
@@ -26,6 +27,29 @@
               {
                 "pattern": "^Label$",
                 "allow": ["layout", "typography"]
+              },
+              {
+                "pattern": "^Table$",
+                "allow": [
+                  "layout",
+                  "rounded",
+                  "border-w",
+                  "border-color",
+                  "bg-color",
+                  "shadow"
+                ]
+              },
+              {
+                "pattern": "^ProgressSegment$",
+                "allow": ["layout", "bg-color"]
+              },
+              {
+                "pattern": "^ProgressSegments$",
+                "allow": ["layout", "gap"]
+              },
+              {
+                "pattern": "^(Button|DialogTitle|SheetTitle)$",
+                "allow": ["layout", "text-transform"]
               }
             ]
           }

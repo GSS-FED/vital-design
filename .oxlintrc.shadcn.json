@@ -8,7 +8,8 @@
   "plugins": [],
   "settings": {
     "shadcn": {
-      "ui": "@/components"
+      "ui": "@/components",
+      "ignoreImports": ["^@/components/collapsible(/|$)"]
     }
   },
   "ignorePatterns": [
@@ -35,7 +36,7 @@
         "allow": ["layout"],
         "contracts": [
           {
-            "pattern": "(Group|Header|Footer|Content|MenuItem)$|^(Toolbar|Collapsible)$",
+            "pattern": "(Group|Header|Footer|Content|MenuItem)$|^Toolbar$",
             "allow": ["layout", "spacing"]
           },
           {
@@ -56,6 +57,18 @@
               "bg-color",
               "shadow"
             ]
+          },
+          {
+            "pattern": "^ProgressSegment$",
+            "allow": ["layout", "bg-color"]
+          },
+          {
+            "pattern": "^ProgressSegments$",
+            "allow": ["layout", "gap"]
+          },
+          {
+            "pattern": "^(Button|DialogTitle|SheetTitle)$",
+            "allow": ["layout", "text-transform"]
           }
         ]
       }
@@ -79,7 +92,7 @@
             "allow": ["layout"],
             "contracts": [
               {
-                "pattern": "(Group|Header|Footer|Content|MenuItem)$|^(Toolbar|Collapsible)$",
+                "pattern": "(Group|Header|Footer|Content|MenuItem)$|^Toolbar$",
                 "allow": ["layout", "spacing"]
               },
               {
@@ -100,6 +113,18 @@
                   "bg-color",
                   "shadow"
                 ]
+              },
+              {
+                "pattern": "^ProgressSegment$",
+                "allow": ["layout", "bg-color"]
+              },
+              {
+                "pattern": "^ProgressSegments$",
+                "allow": ["layout", "gap"]
+              },
+              {
+                "pattern": "^(Button|DialogTitle|SheetTitle)$",
+                "allow": ["layout", "text-transform"]
               }
             ]
           }
