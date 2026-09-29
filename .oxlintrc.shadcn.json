@@ -1,0 +1,48 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "jsPlugins": ["@shadcn/lint"],
+  "categories": { "correctness": "off" },
+  "plugins": [],
+  "settings": {
+    "shadcn": {
+      "ui": "@/components"
+    }
+  },
+  "ignorePatterns": [
+    "**/dist",
+    "**/coverage",
+    "**/storybook-static*",
+    "**/*.test.{ts,tsx}",
+    "src",
+    "src-v2/icons",
+    "apps/docs/.next",
+    "apps/docs/out",
+    "apps/docs/components/previews/__sources__.ts"
+  ],
+  "rules": {
+    "shadcn/no-unknown-classes": [
+      "error",
+      { "allow": ["not-prose"] }
+    ],
+    "shadcn/no-raw-colors": "error",
+    "shadcn/no-restyle": [
+      "warn",
+      {
+        "allow": ["layout"],
+        "contracts": [
+          {
+            "pattern": "(Group|Header|Footer|Content|MenuItem)$",
+            "allow": ["layout", "spacing"]
+          }
+        ]
+      }
+    ],
+    "shadcn/require-static-classes": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["src-v2/components/**"],
+      "rules": { "shadcn/no-restyle": "off" }
+    }
+  ]
+}

@@ -18,6 +18,7 @@ pnpm run test:watch        # 監測檔案變更時重新執行測試
 pnpm run test:visual       # Playwright 視覺回歸（需先 storybook:build；baseline 在 visual/__baseline__，不進 git）
 pnpm run test:visual:update # 重新產生視覺 baseline
 pnpm run lint              # Oxlint 檢查（.oxlintrc.json，含 type-aware 規則）
+pnpm run lint:design       # @shadcn/lint 設計系統規則（.oxlintrc.shadcn.json；先重建 CSS tokens）
 pnpm run format            # Prettier 格式化
 pnpm run storybook:build   # 把 Storybook 打包成靜態網頁
 pnpm run tokens:build      # 重建所有 token 平台（generated.css + vital-theme-vars.ts）
