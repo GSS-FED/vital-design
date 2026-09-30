@@ -87,13 +87,13 @@ function SidebarBrandHeader() {
               {collapsed ? (
                 <img
                   src={logoMark}
-                  alt="Vital"
+                  alt="Vittal"
                   className="size-8 object-contain"
                 />
               ) : (
                 <img
                   src={logoHorizontal}
-                  alt="Vital"
+                  alt="Vittal"
                   className="h-7 max-h-7 w-auto object-contain object-left"
                 />
               )}
@@ -105,8 +105,8 @@ function SidebarBrandHeader() {
             >
               <DropdownMenuGroup>
                 <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
-                <DropdownMenuItem>Vital Design</DropdownMenuItem>
-                <DropdownMenuItem>Vital Finance</DropdownMenuItem>
+                <DropdownMenuItem>Vittal Design</DropdownMenuItem>
+                <DropdownMenuItem>Vittal Finance</DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Create workspace</DropdownMenuItem>

@@ -1,4 +1,4 @@
-# Vital Design
+# Vittal Design
 
 基於 React 18 + Tailwind CSS 4 的元件庫，透過 shadcn registry 分發。
 

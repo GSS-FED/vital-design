@@ -4,7 +4,7 @@ export const baseOptions: BaseLayoutProps = {
   nav: {
     title: (
       <span className="font-semibold tracking-tight">
-        Vital Design
+        Vittal Design
       </span>
     ),
   },

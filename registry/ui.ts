@@ -589,7 +589,7 @@ export const ui = [
     type: 'registry:ui',
     title: 'Toast',
     description:
-      'Toast primitives plus a Vital-styled Toaster preset for app notifications',
+      'Toast primitives plus a Vittal-styled Toaster preset for app notifications',
     dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
