@@ -5,6 +5,7 @@
     "blocks",
     "design-tokens",
     "registry",
+    "changelog",
     "[llms.txt](/llms.txt)"
   ]
 }
