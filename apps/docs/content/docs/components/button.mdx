@@ -5,7 +5,11 @@ description: Trigger actions with default, text, and ghost variants, multiple th
 
 import { SearchIcon } from '@/icons/SearchIcon';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import { Button, Spinner } from '~/components/vital-components';
+import {
+  Button,
+  LinkButton,
+  Spinner,
+} from '~/components/vital-components';
 
 ## Preview
 
@@ -214,6 +218,37 @@ Render a spinner as a child icon and disable the button while work is in flight.
 </Button>
 ```
 
+### Link
+
+Use `LinkButton` for navigation that should look like a button. It renders an
+`<a>` with the same variants, themes, and sizes, and keeps link semantics, so
+screen readers announce it as a link and `getByRole('link')` finds it.
+
+Do not use `<Button nativeButton={false} render={<a />}>` for links: Base UI
+adds `role="button"` to every non-`<button>` element.
+
+<ComponentPreview>
+  <LinkButton href="#link" size="lg">
+    Log in
+  </LinkButton>
+  <LinkButton href="#link" theme="default" size="lg">
+    Docs
+  </LinkButton>
+  <LinkButton href="#link" variant="text" theme="primary" size="lg">
+    Learn more
+  </LinkButton>
+</ComponentPreview>
+
+```tsx
+import { LinkButton } from '@/components/ui/Button';
+import Link from 'next/link';
+
+<LinkButton href="/login">Log in</LinkButton>
+
+// Router links: pass the link element through `render`
+<LinkButton render={<Link href="/login" />}>Log in</LinkButton>
+```
+
 ## Props
 
 ### Button
@@ -228,6 +263,14 @@ Render a spinner as a child icon and disable the button while work is in flight.
 | `className`             | `string`                                                                               | —                                             | Classes for the `<button>` itself                                |
 | `contentClassName`      | `string`                                                                               | —                                             | Classes for the inner content wrapper (see below)                |
 | `style`                 | `CSSProperties`                                                                        | —                                             | Inline styles                                                    |
+
+### LinkButton
+
+Accepts `variant`, `theme`, `size`, `className`, and `contentClassName` like
+`Button`, plus every `<a>` attribute and `render`. It has no `disabled` prop,
+because links cannot be disabled. Render plain text or a `Button` instead. The
+root uses `data-slot="link-button"` and the content wrapper uses
+`data-slot="link-button-content"`.
 
 ### Laying out the content
 

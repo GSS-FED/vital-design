@@ -1,5 +1,7 @@
 import { type CvaProps, cn } from '@/lib/utils';
 import { Button as BaseButton } from '@base-ui/react/button';
+import { mergeProps } from '@base-ui/react/merge-props';
+import { useRender } from '@base-ui/react/use-render';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { forwardRef } from 'react';
 import type {
@@ -23,6 +25,9 @@ const OVERLAY_CLASSES = [
   'hover:not-disabled:not-data-[disabled]:before:bg-grayscale-opacity-100 hover:not-disabled:not-data-[disabled]:before:opacity-100',
   'active:not-disabled:not-data-[disabled]:before:bg-grayscale-opacity-200 active:not-disabled:not-data-[disabled]:before:opacity-100',
 ] as const;
+
+const CONTENT_CLASSES =
+  'relative z-[2] inline-flex items-center justify-center gap-1 whitespace-nowrap leading-5';
 
 const buttonVariants = cva(BUTTON_BASE_CLASSES, {
   variants: {
@@ -299,6 +304,15 @@ export type ButtonProps = {
   (DefaultButtonProps | TextButtonProps | GhostButtonProps) &
   BaseButtonProps;
 
+export type LinkButtonProps = {
+  children?: ReactNode;
+  className?: string;
+  /** Same as `Button`'s `contentClassName`. */
+  contentClassName?: string;
+} & Omit<CvaProps<ButtonVariants>, 'variant' | 'theme'> &
+  (DefaultButtonProps | TextButtonProps | GhostButtonProps) &
+  Omit<useRender.ComponentProps<'a'>, 'className' | 'children'>;
+
 const Button = forwardRef<ElementRef<typeof BaseButton>, ButtonProps>(
   function Button(props, ref) {
     const {
@@ -344,10 +358,7 @@ const Button = forwardRef<ElementRef<typeof BaseButton>, ButtonProps>(
       >
         <span
           data-slot="button-content"
-          className={cn(
-            'relative z-[2] inline-flex items-center justify-center gap-1 whitespace-nowrap leading-5',
-            contentClassName,
-          )}
+          className={cn(CONTENT_CLASSES, contentClassName)}
         >
           {children}
         </span>
@@ -356,4 +367,53 @@ const Button = forwardRef<ElementRef<typeof BaseButton>, ButtonProps>(
   },
 );
 
-export { Button };
+/**
+ * A link styled as a `Button`. Renders `<a>` by default; pass a router link
+ * via `render` (e.g. `render={<Link href="/login" />}`). Unlike
+ * `<Button nativeButton={false} render={<a />}>`, it keeps link semantics
+ * instead of adding `role="button"`.
+ */
+const LinkButton = forwardRef<ElementRef<'a'>, LinkButtonProps>(
+  function LinkButton(props, ref) {
+    const {
+      children,
+      className,
+      contentClassName,
+      render,
+      size = 'md',
+      theme: themeProp,
+      variant: variantProp,
+      ...linkProps
+    } = props;
+    const variant = variantProp ?? 'default';
+    const theme =
+      themeProp ?? (variant === 'text' ? 'default' : 'primary');
+
+    return useRender({
+      ref,
+      render,
+      defaultTagName: 'a',
+      state: { slot: 'link-button', variant, size },
+      props: mergeProps<'a'>(
+        {
+          className: cn(
+            buttonVariants({ variant, size, theme }),
+            variant !== 'text' && OVERLAY_CLASSES,
+            className,
+          ),
+          children: (
+            <span
+              data-slot="link-button-content"
+              className={cn(CONTENT_CLASSES, contentClassName)}
+            >
+              {children}
+            </span>
+          ),
+        },
+        linkProps,
+      ),
+    });
+  },
+);
+
+export { Button, LinkButton };

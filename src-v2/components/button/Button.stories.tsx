@@ -2,6 +2,7 @@ import {
   Button,
   type DefaultButtonProps,
   type GhostButtonProps,
+  LinkButton,
   type TextButtonProps,
 } from '@/components/button/Button';
 import { Spinner } from '@/components/spinner/Spinner';
@@ -265,4 +266,23 @@ export const GhostButton: Story = {
       </Grid>
     );
   },
+};
+
+export const LinkButtonStory: Story = {
+  name: 'LinkButton',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <Row>
+      <LinkButton href="#login" size="lg">
+        登入
+      </LinkButton>
+      <LinkButton href="#docs" theme="default">
+        文件
+      </LinkButton>
+      <LinkButton href="#more" variant="text" theme="primary">
+        了解更多
+        <ChevronDownIcon data-icon="inline-end" />
+      </LinkButton>
+    </Row>
+  ),
 };

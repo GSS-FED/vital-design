@@ -2,9 +2,10 @@ import { Spinner } from '@/components/spinner/Spinner';
 import { FlagIcon } from '@/icons/FlagIcon';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { createRef } from 'react';
+import { createRef, forwardRef } from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { Button } from './Button';
+import { Button, LinkButton } from './Button';
 
 const defaultThemeCases = [
   ['primary', 'bg-[image:var(--gradient-primary-button)]'],
@@ -298,4 +299,66 @@ it('applies contentClassName to the content wrapper', () => {
   expect(content).toHaveClass('justify-between');
   expect(content).toHaveClass('whitespace-normal');
   expect(content).not.toHaveClass('whitespace-nowrap');
+});
+
+describe('LinkButton', () => {
+  it('renders an anchor with link semantics and button styles', () => {
+    render(<LinkButton href="/login">Log in</LinkButton>);
+    const link = screen.getByRole('link', { name: 'Log in' });
+
+    expect(link.tagName).toBe('A');
+    expect(link).toHaveAttribute('href', '/login');
+    expect(link).not.toHaveAttribute('role');
+    expect(link).not.toHaveAttribute('type');
+    expect(link).toHaveAttribute('data-slot', 'link-button');
+    expect(link).toHaveAttribute('data-variant', 'default');
+    expect(link).toHaveAttribute('data-size', 'md');
+    expect(link).toHaveClass(
+      'bg-[image:var(--gradient-primary-button)]',
+    );
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+  });
+
+  it('keeps link semantics when rendering a router link', () => {
+    const RouterLink = forwardRef<
+      HTMLAnchorElement,
+      ComponentPropsWithoutRef<'a'>
+    >(function RouterLink(props, ref) {
+      return <a ref={ref} data-router-link="" {...props} />;
+    });
+    const ref = createRef<HTMLAnchorElement>();
+
+    render(
+      <LinkButton
+        ref={ref}
+        variant="text"
+        theme="primary"
+        render={<RouterLink href="/docs" />}
+      >
+        Docs
+      </LinkButton>,
+    );
+    const link = screen.getByRole('link', { name: 'Docs' });
+
+    expect(ref.current).toBe(link);
+    expect(link).toHaveAttribute('data-router-link');
+    expect(link).toHaveAttribute('href', '/docs');
+    expect(link).toHaveClass('text-primary-500');
+  });
+
+  it('wraps children in the content slot', () => {
+    render(
+      <LinkButton href="#" contentClassName="justify-between">
+        <FlagIcon data-icon="inline-start" />
+        Label
+      </LinkButton>,
+    );
+    const content = screen.getByText('Label');
+
+    expect(content).toHaveAttribute(
+      'data-slot',
+      'link-button-content',
+    );
+    expect(content).toHaveClass('justify-between');
+  });
 });

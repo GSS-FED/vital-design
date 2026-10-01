@@ -10,7 +10,10 @@ export {
   AlertDescription,
   AlertTitle,
 } from '../../../src-v2/components/alert/Alert';
-export { Button } from '../../../src-v2/components/button/Button';
+export {
+  Button,
+  LinkButton,
+} from '../../../src-v2/components/button/Button';
 export {
   ButtonGroup,
   ButtonGroupSeparator,
