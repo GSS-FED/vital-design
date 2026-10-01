@@ -62,19 +62,12 @@ export type DialogTriggerProps<Payload = unknown> =
 const DialogTrigger = forwardRef<
   HTMLButtonElement,
   DialogTriggerProps
->(function DialogTrigger(
-  { className, type = 'button', ...props },
-  ref,
-) {
+>(function DialogTrigger({ type = 'button', ...props }, ref) {
   return (
     <BaseDialog.Trigger
       ref={ref}
       type={type}
       data-slot="dialog-trigger"
-      className={mergeClassName<BaseDialogTrigger.State>(
-        'inline-flex h-8 cursor-pointer items-center justify-center rounded-[var(--radius-xl)] bg-primary-500 px-4 font-sans text-sm leading-5 text-white transition-colors duration-150 hover:bg-primary-400 active:bg-primary-600 focus-visible:shadow-focus-primary focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60 data-disabled:cursor-not-allowed data-disabled:opacity-60',
-        className,
-      )}
       {...props}
     />
   );
