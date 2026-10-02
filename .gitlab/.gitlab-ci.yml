@@ -10,6 +10,9 @@ stages:
 workflow:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    # Keep develop/main branch pipelines even while a release MR is open,
+    # so visual-baseline stays current.
+    - if: '$CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "main"'
     - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
       when: never
     - if: '$CI_COMMIT_BRANCH'
@@ -24,6 +27,8 @@ default:
 
 variables:
   PNPM_VERSION: "10.17.1"
+  # Must match the exact @playwright/test version in package.json.
+  PLAYWRIGHT_IMAGE: mcr.microsoft.com/playwright:v1.63.0-noble
 
 before_script:
   - npm i -g pnpm@${PNPM_VERSION}
@@ -36,6 +41,56 @@ test-job:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - if: '$CI_COMMIT_BRANCH'
+
+# ── Visual regression ─────────────────────────────────────────────────────────
+# Baselines are not committed. Each push to develop/main screenshots every
+# src-v2 story and keeps the images as an artifact; MR pipelines download the
+# target branch's baseline and attach the Playwright diff report.
+
+visual-baseline:
+  stage: test
+  image: ${PLAYWRIGHT_IMAGE}
+  script:
+    - pnpm run storybook:build
+    - pnpm run test:visual:update
+    - tar -czf visual-baseline.tgz -C visual __baseline__
+  artifacts:
+    paths:
+      - visual-baseline.tgz
+    expire_in: 30 days
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "main"'
+
+visual-diff:
+  stage: test
+  image: ${PLAYWRIGHT_IMAGE}
+  script:
+    - |
+      if curl --fail --silent --show-error --location \
+        --header "JOB-TOKEN: ${CI_JOB_TOKEN}" \
+        --output visual-baseline.tgz \
+        "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/jobs/artifacts/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}/raw/visual-baseline.tgz?job=visual-baseline"; then
+        tar -xzf visual-baseline.tgz -C visual
+      else
+        echo "No visual-baseline artifact on ${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}; skipping."
+        exit 0
+      fi
+    - pnpm run storybook:build
+    - pnpm run test:visual
+  artifacts:
+    when: always
+    expose_as: Visual diff report
+    paths:
+      - playwright-report/
+  allow_failure: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && ($CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main")'
+      changes:
+        - src-v2/**/*
+        - tokens/**/*
+        - .storybook/**/*
+        - visual/**/*
+        - playwright.config.ts
 
 # Legacy npm (@fed/vital-design from src/). Manual on main — merging to
 # main deploys docs, it does not publish. Run build-job then publish-job

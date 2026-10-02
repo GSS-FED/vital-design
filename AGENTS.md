@@ -15,6 +15,8 @@ pnpm run build             # 建置元件庫
 pnpm run test              # 執行測試
 pnpm run test:coverage     # 計算測試覆蓋率
 pnpm run test:watch        # 監測檔案變更時重新執行測試
+pnpm run test:visual       # Playwright 視覺回歸（需先 storybook:build；baseline 在 visual/__baseline__，不進 git）
+pnpm run test:visual:update # 重新產生視覺 baseline
 pnpm run lint              # ESLint 檢查
 pnpm run format            # Prettier 格式化
 pnpm run storybook:build   # 把 Storybook 打包成靜態網頁

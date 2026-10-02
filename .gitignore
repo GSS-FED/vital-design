@@ -13,6 +13,9 @@ dist
 dist-ssr
 storybook-static
 storybook-static-visual
+playwright-report
+test-results
+visual/__baseline__
 public/r/
 *.local
 .agents/local/
