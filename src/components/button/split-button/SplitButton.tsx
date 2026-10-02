@@ -10,9 +10,9 @@ import {
   overlayStyles,
 } from 'src/components/button/styles';
 import {
-  ButtonSize,
-  SplitButtonProps,
-  SplitButtonTheme,
+  type ButtonSize,
+  type SplitButtonProps,
+  type SplitButtonTheme,
 } from 'src/components/button/types';
 import { colors } from 'src/constants';
 import { ChevronDownIcon, ChevronUpIcon } from 'src/icons';

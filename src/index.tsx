@@ -1,44 +1,44 @@
 import {
-  ButtonProps,
-  SplitButtonProps,
+  type ButtonProps,
+  type SplitButtonProps,
 } from 'src/components/button/types';
-import Avatar, { AvatarProps } from './components/avatar/Avatar';
+import Avatar, { type AvatarProps } from './components/avatar/Avatar';
 import Button from './components/button/Button';
 import SplitButton from './components/button/split-button/SplitButton';
 import Checkbox, {
-  CheckboxProps,
+  type CheckboxProps,
 } from './components/checkbox/Checkbox';
-import Chip, { ChipProps } from './components/chip/Chip';
+import Chip, { type ChipProps } from './components/chip/Chip';
 import ActionInfiniteList, {
-  ActionInfiniteListProps,
+  type ActionInfiniteListProps,
 } from './components/list/action-infinite-list/ActionInfiniteList';
 import ActionList, {
-  ActionListProps,
+  type ActionListProps,
 } from './components/list/action-list/ActionList';
 import RadioGroup, {
-  RadioGroupProps,
-  RadioOption,
+  type RadioGroupProps,
+  type RadioOption,
 } from './components/radio-group/RadioGroup';
 import SearchBar, {
-  SearchBarProps,
+  type SearchBarProps,
 } from './components/search-bar/SearchBar';
 import Select, {
-  ContentProps as SelectContentProps,
-  EmptyTextProps as SelectEmptyTextProps,
-  ItemProps as SelectItemProps,
-  ItemType as SelectItemType,
-  MenuProps as SelectMenuProps,
-  SelectProps,
-  SearchInputProps as SelectSearchInputProps,
-  TitleProps as SelectTitleProps,
-  TriggerProps as SelectTriggerProps,
+  type ContentProps as SelectContentProps,
+  type EmptyTextProps as SelectEmptyTextProps,
+  type ItemProps as SelectItemProps,
+  type ItemType as SelectItemType,
+  type MenuProps as SelectMenuProps,
+  type SelectProps,
+  type SearchInputProps as SelectSearchInputProps,
+  type TitleProps as SelectTitleProps,
+  type TriggerProps as SelectTriggerProps,
 } from './components/select/Select';
-import Switch, { SwitchProps } from './components/switch/Switch';
-import Tag, { TagProps } from './components/tag/Tag';
+import Switch, { type SwitchProps } from './components/switch/Switch';
+import Tag, { type TagProps } from './components/tag/Tag';
 import TreeSelect, {
-  TreeSelectData,
-  TreeSelectProps,
-  TreeSelectRoot,
+  type TreeSelectData,
+  type TreeSelectProps,
+  type TreeSelectRoot,
 } from './components/tree-select/TreeSelect';
 
 export {

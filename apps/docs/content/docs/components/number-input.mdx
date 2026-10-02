@@ -1,0 +1,199 @@
+---
+title: NumberInput
+description: A numeric input with stepper buttons, locale-aware formatting, and clamped step interactions.
+---
+
+import {
+  NumberInputControlledPreview,
+  NumberInputCurrencyPreview,
+  NumberInputDecimalsPreview,
+  NumberInputDisabledPreview,
+  NumberInputErrorPreview,
+  NumberInputPreview,
+  NumberInputRangePreview,
+} from '~/components/previews/NumberInputPreview';
+
+## Preview
+
+<NumberInputPreview />
+
+## Usage
+
+```tsx
+import {
+  NumberInput,
+  NumberInputControl,
+  NumberInputGroup,
+  NumberInputSteppers,
+} from '@/components/ui/NumberInput';
+
+<NumberInput defaultValue={0}>
+  <NumberInputGroup>
+    <NumberInputControl placeholder="0" />
+    <NumberInputSteppers />
+  </NumberInputGroup>
+</NumberInput>;
+```
+
+`NumberInput` is built on Base UI's
+[Number Field](https://base-ui.com/react/components/number-field).
+The root manages the numeric value, clamping, formatting, and the
+disabled state of every part. Compose `NumberInputGroup`,
+`NumberInputControl`, and `NumberInputSteppers` to render the field.
+
+## Min, Max, And Step
+
+`min` and `max` clamp values from the steppers, keyboard, and wheel.
+`step` controls the increment per arrow press; `smallStep` and
+`largeStep` are used when the meta or shift key is held.
+
+<NumberInputRangePreview />
+
+```tsx
+<NumberInput defaultValue={5} min={0} max={10} step={1}>
+  <NumberInputGroup>
+    <NumberInputControl placeholder="0" />
+    <NumberInputSteppers />
+  </NumberInputGroup>
+</NumberInput>
+```
+
+## Disabled
+
+<NumberInputDisabledPreview />
+
+```tsx
+<NumberInput defaultValue={12} disabled>
+  <NumberInputGroup>
+    <NumberInputControl placeholder="0" />
+    <NumberInputSteppers />
+  </NumberInputGroup>
+</NumberInput>
+```
+
+## Error
+
+Set `aria-invalid` on the control to apply the error border style.
+
+<NumberInputErrorPreview />
+
+```tsx
+<NumberInput defaultValue={99}>
+  <NumberInputGroup>
+    <NumberInputControl aria-invalid placeholder="0" />
+    <NumberInputSteppers />
+  </NumberInputGroup>
+</NumberInput>
+```
+
+## Decimals
+
+<NumberInputDecimalsPreview />
+
+```tsx
+<NumberInput
+  defaultValue={1.5}
+  step={0.1}
+  smallStep={0.01}
+  largeStep={1}
+>
+  <NumberInputGroup>
+    <NumberInputControl placeholder="0.0" />
+    <NumberInputSteppers />
+  </NumberInputGroup>
+</NumberInput>
+```
+
+## Currency Formatting
+
+Pass `Intl.NumberFormatOptions` via `format` to render the value in any
+locale-aware shape.
+
+<NumberInputCurrencyPreview />
+
+```tsx
+<NumberInput
+  defaultValue={1234}
+  format={{
+    style: 'currency',
+    currency: 'TWD',
+    maximumFractionDigits: 0,
+  }}
+>
+  <NumberInputGroup>
+    <NumberInputControl placeholder="NT$0" />
+    <NumberInputSteppers />
+  </NumberInputGroup>
+</NumberInput>
+```
+
+## Controlled
+
+Use `value` and `onValueChange` to drive the field from state. The
+callback emits `null` when the input is empty.
+
+<NumberInputControlledPreview />
+
+```tsx
+const [value, setValue] = useState<number | null>(0);
+
+<NumberInput
+  value={value}
+  onValueChange={(next) => setValue(next)}
+  min={-50}
+  max={50}
+  step={5}
+>
+  <NumberInputGroup>
+    <NumberInputControl placeholder="0" />
+    <NumberInputSteppers />
+  </NumberInputGroup>
+</NumberInput>;
+```
+
+## Props
+
+### NumberInput
+
+`NumberInput` is the root component and accepts every Base UI
+[`NumberField.Root`](https://base-ui.com/react/components/number-field#api-reference-numberfieldroot)
+prop.
+
+| Prop               | Type                                      | Default | Description                              |
+| ------------------ | ----------------------------------------- | ------- | ---------------------------------------- |
+| `value`            | `number \| null`                          | —       | Controlled numeric value                 |
+| `defaultValue`     | `number`                                  | —       | Uncontrolled initial value               |
+| `onValueChange`    | `(value, eventDetails) => void`           | —       | Called when the value changes            |
+| `onValueCommitted` | `(value, eventDetails) => void`           | —       | Called when the value is committed       |
+| `min`              | `number`                                  | —       | Minimum allowed value                    |
+| `max`              | `number`                                  | —       | Maximum allowed value                    |
+| `step`             | `number \| 'any'`                         | `1`     | Step for buttons, arrow keys, and wheel  |
+| `smallStep`        | `number`                                  | `0.1`   | Step when the meta key is held           |
+| `largeStep`        | `number`                                  | `10`    | Step when the shift key is held          |
+| `snapOnStep`       | `boolean`                                 | `false` | Snap to the nearest step when stepping   |
+| `allowOutOfRange`  | `boolean`                                 | `false` | Allow typed values outside the min/max   |
+| `allowWheelScrub`  | `boolean`                                 | `false` | Increment with the mouse wheel on focus  |
+| `format`           | `Intl.NumberFormatOptions`                | —       | Locale-aware formatting options          |
+| `locale`           | `Intl.LocalesArgument`                    | —       | Locale to format the value with          |
+| `disabled`         | `boolean`                                 | `false` | Disables every part                      |
+| `readOnly`         | `boolean`                                 | `false` | Prevents user-driven value changes       |
+| `required`         | `boolean`                                 | `false` | Requires a value before form submit      |
+| `name`             | `string`                                  | —       | Form field name                          |
+| `id`               | `string`                                  | —       | Hidden input id                          |
+| `inputRef`         | `Ref<HTMLInputElement>`                   | —       | Ref forwarded to the hidden input        |
+| `className`        | `string \| (state) => string \| undefined`| —       | Additional classes for the root element  |
+
+### NumberInput Parts
+
+| Part                        | Description                                                                          |
+| --------------------------- | ------------------------------------------------------------------------------------ |
+| `NumberInputGroup`          | Visual shell with focus, disabled, and `aria-invalid` states                         |
+| `NumberInputControl`        | The native input that displays and parses the formatted value                        |
+| `NumberInputSteppers`       | Convenience layout that stacks the increment and decrement buttons on the right     |
+| `NumberInputIncrement`      | Stepper button that adds `step` to the value                                         |
+| `NumberInputDecrement`      | Stepper button that subtracts `step` from the value                                  |
+| `NumberInputScrubArea`      | Optional region that scrubs the value with pointer drags                             |
+| `NumberInputScrubAreaCursor`| Cursor element rendered while scrubbing                                              |
+
+All parts forward refs to their underlying DOM elements and accept Base
+UI `className` state functions.

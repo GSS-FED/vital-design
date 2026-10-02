@@ -1,8 +1,8 @@
 import {
   FloatingPortal,
-  Placement,
-  UseFloatingReturn,
-  UseInteractionsReturn,
+  type Placement,
+  type UseFloatingReturn,
+  type UseInteractionsReturn,
   autoUpdate,
   flip,
   offset,
@@ -12,8 +12,8 @@ import {
   useInteractions,
 } from '@floating-ui/react';
 import {
-  CSSProperties,
-  ReactNode,
+  type CSSProperties,
+  type ReactNode,
   createContext,
   useContext,
   useEffect,

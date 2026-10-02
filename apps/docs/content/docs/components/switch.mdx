@@ -1,0 +1,49 @@
+---
+title: Switch
+description: A toggle control for boolean on/off settings.
+---
+
+import {
+  SwitchDisabledPreview,
+  SwitchInvalidPreview,
+  SwitchPreview,
+} from '~/components/previews/SwitchPreview';
+
+## Preview
+
+<SwitchPreview />
+
+## Usage
+
+```tsx
+import { Switch } from '@/components/ui/Switch';
+import { useState } from 'react';
+
+function NotificationSetting() {
+  const [enabled, setEnabled] = useState(false);
+
+  return <Switch checked={enabled} onCheckedChange={setEnabled} />;
+}
+```
+
+## States
+
+<SwitchDisabledPreview />
+
+The disabled state accepts both `checked={false}` and `checked={true}`.
+
+<SwitchInvalidPreview />
+
+Use `aria-invalid` for invalid styling.
+
+## Props
+
+| Prop              | Type                         | Default | Description                         |
+| ----------------- | ---------------------------- | ------- | ----------------------------------- |
+| `checked`         | `boolean`                    | —       | Controls the toggle state           |
+| `defaultChecked`  | `boolean`                    | `false` | Sets the uncontrolled initial state |
+| `onCheckedChange` | `(checked: boolean) => void` | —       | Called when toggled                 |
+| `disabled`        | `boolean`                    | `false` | Disables interaction                |
+| `aria-invalid`    | `boolean`                    | —       | Applies invalid styling             |
+| `className`       | `string`                     | —       | Additional CSS classes              |
+| `...props`        | `BaseSwitch.Root.Props`      | —       | Passed to the Base UI root          |

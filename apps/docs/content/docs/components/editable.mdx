@@ -1,0 +1,167 @@
+---
+title: Editable
+description: Inline editable text field with display, input, and textarea parts.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import {
+  Editable,
+  EditableDisplay,
+  EditableInput,
+  EditableTextarea,
+} from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview centered={false}>
+  <Editable
+    defaultValue="點擊以編輯"
+    placeholder="未填寫"
+    className="w-80"
+  >
+    <EditableDisplay />
+    <EditableInput />
+  </Editable>
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import {
+  Editable,
+  EditableDisplay,
+  EditableInput,
+} from '@/components/ui/Editable';
+
+<Editable defaultValue="點擊以編輯" placeholder="未填寫">
+  <EditableDisplay />
+  <EditableInput />
+</Editable>;
+```
+
+`Editable` is a compound component for inline text editing. The
+display surface looks like static text; clicking it swaps in an
+`Input` (or `Textarea`) focused with the caret at the end. Pressing
+`Enter` (or blurring) commits the value through `onCommit`; `Escape`
+discards the staged edit.
+
+## Empty State
+
+When the value is empty, `EditableDisplay` renders the
+`placeholder` text and applies a dashed-looking border so the
+affordance stays visible.
+
+<ComponentPreview centered={false}>
+  <Editable
+    defaultValue=""
+    placeholder="點擊以新增備註"
+    className="w-80"
+  >
+    <EditableDisplay />
+    <EditableInput />
+  </Editable>
+</ComponentPreview>
+
+```tsx
+<Editable defaultValue="" placeholder="點擊以新增備註">
+  <EditableDisplay />
+  <EditableInput />
+</Editable>
+```
+
+## Textarea Variant
+
+Swap `EditableInput` for `EditableTextarea` when the field should
+accept multi-line content. `Enter` inserts a newline; click outside
+to commit.
+
+<ComponentPreview centered={false}>
+  <Editable
+    defaultValue="這是一段較長的備註，點擊以編輯。"
+    placeholder="點擊以新增備註"
+    className="w-80"
+  >
+    <EditableDisplay />
+    <EditableTextarea rows={3} />
+  </Editable>
+</ComponentPreview>
+
+```tsx
+<Editable defaultValue="這是一段較長的備註">
+  <EditableDisplay />
+  <EditableTextarea rows={3} />
+</Editable>
+```
+
+## Disabled & Read-only
+
+Pass `disabled` to block editing entirely, or `readOnly` to keep the
+display interactive-looking but ignore enter-edit clicks.
+
+<ComponentPreview centered={false} className="grid gap-3">
+  <Editable defaultValue="無法編輯" disabled className="w-80">
+    <EditableDisplay />
+    <EditableInput />
+  </Editable>
+  <Editable defaultValue="唯讀內容" readOnly className="w-80">
+    <EditableDisplay />
+    <EditableInput />
+  </Editable>
+</ComponentPreview>
+
+```tsx
+<Editable defaultValue="無法編輯" disabled>
+  <EditableDisplay />
+  <EditableInput />
+</Editable>
+
+<Editable defaultValue="唯讀內容" readOnly>
+  <EditableDisplay />
+  <EditableInput />
+</Editable>
+```
+
+## Controlled
+
+Provide `value` together with `onCommit` to drive the field from
+outside. The component still manages its own staged edit buffer
+internally, so the parent only receives the committed value.
+
+```tsx
+const [name, setName] = useState('Alice');
+
+<Editable value={name} onCommit={setName} placeholder="輸入姓名">
+  <EditableDisplay />
+  <EditableInput />
+</Editable>;
+```
+
+## Parts
+
+| Part               | Description                                                    |
+| ------------------ | -------------------------------------------------------------- |
+| `Editable`         | Context provider that owns the value and editing state         |
+| `EditableDisplay`  | Static-looking button shown when not editing                   |
+| `EditableInput`    | Single-line `Input` shown while editing                        |
+| `EditableTextarea` | Multi-line `textarea` shown while editing                      |
+
+## Editable Props
+
+| Prop           | Type                       | Default | Description                                        |
+| -------------- | -------------------------- | ------- | -------------------------------------------------- |
+| `value`        | `string`                   | —       | Controlled value                                   |
+| `defaultValue` | `string`                   | `''`    | Uncontrolled initial value                         |
+| `onCommit`     | `(value: string) => void`  | —       | Called when the staged value is committed          |
+| `placeholder`  | `string`                   | —       | Shown in display when empty and used by the input  |
+| `disabled`     | `boolean`                  | `false` | Blocks entering edit mode                          |
+| `readOnly`     | `boolean`                  | `false` | Display stays focusable but cannot enter edit mode |
+| `className`    | `string`                   | —       | Additional CSS classes on the wrapper              |
+| `...props`     | `ComponentProps<'div'>`    | —       | Native `div` props on the wrapper                  |
+
+## Keyboard
+
+| Key      | Behavior                                                    |
+| -------- | ----------------------------------------------------------- |
+| `Enter`  | (Input) commits the staged value and exits edit mode        |
+| `Escape` | Discards the staged value and exits edit mode               |
+| Blur     | Commits the staged value (both `Input` and `Textarea`)      |

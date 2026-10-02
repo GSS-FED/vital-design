@@ -1,0 +1,57 @@
+---
+title: Toolbar
+description: Flex layout primitive with role="toolbar". Lays out actions, separators, and spacers above tables, editors, or panels.
+---
+
+import { ToolbarPreview } from '~/components/previews/ToolbarPreview';
+
+## Preview
+
+<ToolbarPreview />
+
+## Usage
+
+```tsx
+import {
+  Toolbar,
+  ToolbarGroup,
+  ToolbarSeparator,
+  ToolbarSpacer,
+} from '@/components/ui/Toolbar';
+import { Button } from '@/components/ui/Button';
+
+<Toolbar variant="outline">
+  <ToolbarGroup>
+    <Button variant="text">File</Button>
+    <Button variant="text">Edit</Button>
+  </ToolbarGroup>
+  <ToolbarSeparator />
+  <ToolbarSpacer />
+  <Button variant="text" theme="primary">Save</Button>
+</Toolbar>
+```
+
+## Variants
+
+| Variant   | Use                                                          |
+| --------- | ------------------------------------------------------------ |
+| `default` | Transparent background. Drop into existing surfaces.         |
+| `bar`     | Subtle gray-50 background. Standalone toolbar above panels.  |
+| `outline` | White background with bottom border. Sits above tables.      |
+
+## Sizes
+
+| Size      | Padding         | Use                                            |
+| --------- | --------------- | ---------------------------------------------- |
+| `default` | `px-4 py-3`     | Top-of-page toolbars.                          |
+| `sm`      | `px-3 py-2`     | Compact toolbars above data tables.            |
+| `none`    | `p-0`           | When wrapping content with own layout.         |
+
+## Parts
+
+| Part               | Notes                                                          |
+| ------------------ | -------------------------------------------------------------- |
+| `Toolbar`          | `role="toolbar"`, `aria-orientation="horizontal"` by default.  |
+| `ToolbarGroup`     | `role="group"`, flex with gap for clustered actions.           |
+| `ToolbarSeparator` | Vertical separator (uses `Separator` primitive).               |
+| `ToolbarSpacer`    | `flex-1` to push subsequent items to the trailing edge.        |

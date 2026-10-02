@@ -1,0 +1,97 @@
+---
+title: Card
+description: Composable card surface with header, title, description, action, content, and footer slots.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview centered={false}>
+  <Card className="w-80">
+    <CardHeader>
+      <CardTitle>Project Alpha</CardTitle>
+      <CardDescription>Last updated 2 days ago.</CardDescription>
+    </CardHeader>
+    <CardContent>
+      Track progress, owners, and review status in one place.
+    </CardContent>
+  </Card>
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/Card';
+
+<Card>
+  <CardHeader>
+    <CardTitle>Project Alpha</CardTitle>
+    <CardDescription>Last updated 2 days ago.</CardDescription>
+  </CardHeader>
+  <CardContent>Body content goes here.</CardContent>
+</Card>;
+```
+
+## With Action
+
+`CardAction` is automatically placed in the header's trailing slot.
+
+<ComponentPreview centered={false}>
+  <Card className="w-80">
+    <CardHeader>
+      <CardTitle>Quarterly review</CardTitle>
+      <CardDescription>Owners must submit by Friday.</CardDescription>
+      <CardAction>
+        <span className="text-sm text-primary-500">Edit</span>
+      </CardAction>
+    </CardHeader>
+    <CardContent>Three pending submissions.</CardContent>
+  </Card>
+</ComponentPreview>
+
+## With Footer
+
+Add a separator class (`border-t`) on the footer or content to surface dividers.
+
+<ComponentPreview centered={false}>
+  <Card className="w-80">
+    <CardHeader className="border-b">
+      <CardTitle>Sprint 24</CardTitle>
+      <CardDescription>2 weeks remaining</CardDescription>
+    </CardHeader>
+    <CardContent>8 of 12 tasks complete.</CardContent>
+    <CardFooter className="border-t">
+      <span className="text-sm text-grayscale-opacity-600">Updated 1h ago</span>
+    </CardFooter>
+  </Card>
+</ComponentPreview>
+
+## Compound Parts
+
+| Part              | Description                                                                                          |
+| ----------------- | ---------------------------------------------------------------------------------------------------- |
+| `Card`            | Root surface — rounded white background with emphasis shadow                                         |
+| `CardHeader`      | Grid header that auto-lays out title, description, and action                                        |
+| `CardTitle`       | Primary heading slot (`text-base`, `font-medium`)                                                    |
+| `CardDescription` | Secondary text slot (`text-sm`, grayscale-opacity-600)                                                       |
+| `CardAction`      | Trailing slot in the header (e.g., menu button); only shown when present, header switches to 2-col   |
+| `CardContent`     | Body region with default padding                                                                     |
+| `CardFooter`      | Footer region with flex layout                                                                       |
+
+All parts accept native `div` props (`className`, `style`, `...rest`) and forward `ref`.

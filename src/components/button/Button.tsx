@@ -1,4 +1,4 @@
-import { Children, ReactNode } from 'react';
+import { Children, type ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import { overlayStyles } from 'src/components/button/styles';
 import {
@@ -13,11 +13,11 @@ import {
   IconWrapper,
 } from 'src/components/button/styles';
 import {
-  ButtonProps,
-  ButtonSize,
-  FilledButtonProps,
-  IconPlacement,
-  TextButtonProps,
+  type ButtonProps,
+  type ButtonSize,
+  type FilledButtonProps,
+  type IconPlacement,
+  type TextButtonProps,
 } from 'src/components/button/types';
 import { colors } from 'src/constants';
 import { SpinnerIcon } from 'src/icons';

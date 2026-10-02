@@ -1,7 +1,7 @@
 import {
-  CSSProperties,
-  ForwardedRef,
-  ReactNode,
+  type CSSProperties,
+  type ForwardedRef,
+  type ReactNode,
   forwardRef,
 } from 'react';
 import styled, { css } from 'styled-components';

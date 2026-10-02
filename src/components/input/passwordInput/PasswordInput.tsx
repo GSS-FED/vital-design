@@ -1,5 +1,5 @@
-import { ReactNode, useState } from 'react';
-import styled, { CSSProperties } from 'styled-components';
+import { type ReactNode, useState } from 'react';
+import styled, { type CSSProperties } from 'styled-components';
 import TextInput from 'src/components/input/textInput/TextInput';
 import { colors, styles } from 'src/constants';
 

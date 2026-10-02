@@ -1,6 +1,6 @@
 import * as RadixSwitch from '@radix-ui/react-switch';
 import { rgba } from 'polished';
-import { CSSProperties } from 'react';
+import { type CSSProperties } from 'react';
 import styled from 'styled-components';
 import { colors, styles } from 'src/constants';
 

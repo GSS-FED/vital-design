@@ -1,0 +1,94 @@
+---
+title: Scroll Area
+description: Scrollable viewport with optional edge fade.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import {
+  ScrollAreaFadePreview,
+  ScrollAreaPreview,
+} from '~/components/previews/ScrollAreaPreview';
+
+## Preview
+
+<ComponentPreview centered={false}>
+  <ScrollAreaPreview />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import {
+  ScrollArea,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '@/components/ui/ScrollArea';
+
+<ScrollArea className="h-64 w-80">
+  <ScrollAreaViewport className="h-full">
+    <div>Scrollable content</div>
+  </ScrollAreaViewport>
+  <ScrollAreaScrollbar>
+    <ScrollAreaThumb />
+  </ScrollAreaScrollbar>
+</ScrollArea>;
+```
+
+## Edge Fade
+
+Use `fadeEdges` on the viewport when the edge fade should be CSS-driven.
+Set `overflowEdgeThreshold` on `ScrollArea` to tune when Base UI exposes
+the overflow CSS variables.
+
+<ComponentPreview centered={false}>
+  <ScrollAreaFadePreview />
+</ComponentPreview>
+
+## Select Composition
+
+`ScrollArea` is not built into picker primitives. Compose it when a
+specific surface needs fade edges or custom scrollbars.
+
+```tsx
+<SelectContent
+  className="h-75 py-0"
+  listRender={
+    <ScrollAreaViewport className="h-full py-2" fadeEdges />
+  }
+  listWrapper={(list) => (
+    <ScrollArea className="h-full min-h-0" overflowEdgeThreshold={1}>
+      {list}
+    </ScrollArea>
+  )}
+  showScrollButtons={false}
+>
+  {items.map((item) => (
+    <SelectItem key={item.value} value={item.value}>
+      <SelectItemText>{item.label}</SelectItemText>
+      <SelectItemCheck />
+    </SelectItem>
+  ))}
+</SelectContent>
+```
+
+## Exports
+
+| Export                | Description                         |
+| --------------------- | ----------------------------------- |
+| `ScrollArea`          | Root scroll area container          |
+| `ScrollAreaViewport`  | Scrollable viewport; supports fade  |
+| `ScrollAreaContent`   | Optional content wrapper            |
+| `ScrollAreaScrollbar` | Custom scrollbar track              |
+| `ScrollAreaThumb`     | Custom scrollbar thumb              |
+| `ScrollAreaCorner`    | Corner slot for two-axis scrollbars |
+
+## Props
+
+| Prop        | Type                          | Default | Description                |
+| ----------- | ----------------------------- | ------- | -------------------------- |
+| `fadeEdges` | `boolean`                     | `false` | Applies CSS edge fade mask |
+| `fadeSize`  | `number \| string`            | `40`    | Fade size for each edge    |
+| `className` | `string`                      | —       | Additional CSS classes     |
+| `style`     | `CSSProperties`               | —       | Inline styles              |
+| `...props`  | `ComponentProps<typeof Base>` | —       | Base UI scroll area props  |

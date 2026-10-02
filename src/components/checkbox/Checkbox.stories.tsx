@@ -1,7 +1,7 @@
 import { useArgs } from '@storybook/preview-api';
-import { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import Checkbox, { CheckboxProps } from './Checkbox';
+import Checkbox, { type CheckboxProps } from './Checkbox';
 
 type Story = StoryObj<typeof Checkbox>;
 

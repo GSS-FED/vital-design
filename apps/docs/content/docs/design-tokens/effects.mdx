@@ -1,0 +1,83 @@
+---
+title: Effects
+description: Elevation shadows, focus rings, button shadows, and gradient tokens.
+---
+
+import {
+  GradientPalette,
+  ShadowPalette,
+} from '~/components/tokens/Swatch';
+import {
+  buttonShadowTokens,
+  elevationShadowTokens,
+  focusShadowTokens,
+  gradientTokens,
+} from '~/components/tokens/data';
+
+## Elevation
+
+Four elevation shadows for layering content. `accent` is the
+softest; `top-level` is reserved for modal-class surfaces.
+
+<ShadowPalette tokens={elevationShadowTokens} />
+
+```css
+.card {
+  box-shadow: var(--shadow-base);
+}
+```
+
+```html
+<div class="shadow-base">…</div>
+```
+
+## Focus Rings
+
+Outer rings rendered as `box-shadow` so they don't shift layout.
+Match the colour to the control's intent:
+
+- `--shadow-focus-*` — solid 2px ring tinted with the matching `200`
+  step
+- `--shadow-focus-ring-*` — softer translucent ring used for
+  inline-edited controls (inputs, search bars)
+
+<ShadowPalette tokens={focusShadowTokens} />
+
+```css
+input:focus-visible {
+  box-shadow: var(--shadow-focus-ring-primary);
+}
+```
+
+## Button Shadows
+
+Pre-baked drop shadows that match the five button themes. The
+`-active` variants are the pressed-state counterparts.
+
+<ShadowPalette tokens={buttonShadowTokens} />
+
+```css
+.button-primary {
+  box-shadow: var(--shadow-button-primary);
+}
+.button-primary:active {
+  box-shadow: var(--shadow-button-primary-active);
+}
+```
+
+## Gradients
+
+A single gradient family used for primary buttons and accent
+surfaces.
+
+<GradientPalette tokens={gradientTokens} />
+
+```css
+.cta {
+  background-image: var(--gradient-primary);
+}
+```
+
+`--gradient-primary-button` is an alias of `--gradient-primary`
+provided for forward compatibility — both currently resolve to the
+same `linear-gradient(45deg, #33CFFF 0%, #0E86FE 100%)`.

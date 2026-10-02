@@ -1,0 +1,68 @@
+---
+title: Chip
+description: A toggleable pill component for filters, tags, and multi-select options.
+---
+
+import {
+  ChipPreview,
+  ChipStatesPreview,
+} from '~/components/previews/ChipPreview';
+
+## Preview
+
+<ChipPreview />
+
+## Usage
+
+```tsx
+import { Chip } from '@/components/ui/Chip';
+import { useState } from 'react';
+
+function FilterChips() {
+  const [active, setActive] = useState(false);
+
+  return (
+    <Chip selected={active} onChange={setActive}>
+      Filter
+    </Chip>
+  );
+}
+```
+
+## States
+
+<ChipStatesPreview />
+
+When `selected` is `true`, the chip renders with a primary blue background and text. When `false`, it renders with a grayscale style.
+
+## Multiple Chips (Filter Group)
+
+A common pattern is a group of chips acting as mutually exclusive filters:
+
+```tsx
+const filters = ['All', 'Active', 'Inactive', 'Pending'];
+const [selected, setSelected] = useState('All');
+
+{
+  filters.map((filter) => (
+    <Chip
+      key={filter}
+      selected={selected === filter}
+      onChange={() => setSelected(filter)}
+    >
+      {filter}
+    </Chip>
+  ));
+}
+```
+
+## Props
+
+| Prop        | Type                          | Default | Description                                     |
+| ----------- | ----------------------------- | ------- | ----------------------------------------------- |
+| `children`  | `ReactNode`                   | —       | Chip label content                              |
+| `selected`  | `boolean`                     | —       | **Required.** Controls the selected state       |
+| `onChange`  | `(selected: boolean) => void` | —       | **Required.** Called when the chip is clicked   |
+| `icon`      | `ReactNode`                   | —       | Optional icon rendered to the left of the label |
+| `className` | `string`                      | —       | Additional CSS classes                          |
+| `style`     | `CSSProperties`               | —       | Inline styles                                   |

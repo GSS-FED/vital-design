@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import SplitButton from 'src/components/button/split-button/SplitButton';
 import { SearchIcon } from 'src/icons';
 

@@ -12,7 +12,10 @@ coverage
 dist
 dist-ssr
 storybook-static
+storybook-static-visual
+public/r/
 *.local
+.agents/local/
 .npmrc
 
 # Editor directories and files
@@ -25,3 +28,9 @@ storybook-static
 *.njsproj
 *.sln
 *.sw?
+
+# TypeScript build cache
+*.tsbuildinfo
+
+# Style Dictionary generated output
+src-v2/styles/tokens/

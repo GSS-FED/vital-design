@@ -1,0 +1,66 @@
+---
+title: Tag
+description: A label component for categorization, status, and filtering. Supports 12 colors, two variants, and optional remove action.
+---
+
+import {
+  TagColorsPreview,
+  TagPreview,
+  TagRemovablePreview,
+  TagSolidPreview,
+} from '~/components/previews/TagPreview';
+
+## Preview
+
+<TagPreview />
+
+## Usage
+
+```tsx
+import { Tag } from '@/components/ui/Tag';
+
+<Tag color="blue" colorVariant="tint">Design</Tag>
+<Tag color="green" colorVariant="solid">Active</Tag>
+```
+
+## Colors
+
+All 12 available colors in `tint` variant:
+
+<TagColorsPreview />
+
+All 12 colors are also available in `solid` variant:
+
+<TagSolidPreview />
+
+## Removable
+
+Tags can include a remove button via `removable` + `onRemove`:
+
+<TagRemovablePreview />
+
+```tsx
+<Tag
+  color="blue"
+  colorVariant="tint"
+  removable
+  onRemove={() => removeTag(id)}
+>
+  React
+</Tag>
+```
+
+## Props
+
+| Prop           | Type                                                                                                                            | Default     | Description                              |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------- | ----------- | ---------------------------------------- |
+| `children`     | `ReactNode`                                                                                                                     | —           | **Required.** Tag content                |
+| `color`        | `'default' \| 'teal' \| 'olive' \| 'brown' \| 'rose' \| 'indigo' \| 'blue' \| 'green' \| 'gold' \| 'red' \| 'purple' \| 'navy'` | `'default'` | Tag color                                |
+| `colorVariant` | `'solid' \| 'tint'`                                                                                                             | `'tint'`    | Color style variant                      |
+| `icon`         | `ReactNode`                                                                                                                     | —           | Icon rendered before the label           |
+| `removable`    | `boolean`                                                                                                                       | `false`     | Shows a remove (×) button                |
+| `selected`     | `boolean`                                                                                                                       | `false`     | Applies selected styling                 |
+| `onClick`      | `() => void`                                                                                                                    | —           | Click handler                            |
+| `onRemove`     | `() => void`                                                                                                                    | —           | Called when the remove button is clicked |
+| `className`    | `string`                                                                                                                        | —           | Additional CSS classes                   |
+| `style`        | `CSSProperties`                                                                                                                 | —           | Inline styles                            |

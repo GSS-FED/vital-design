@@ -1,0 +1,120 @@
+---
+title: Tabs
+description: Switch between related panels with underline or pill tab styles.
+---
+
+import {
+  TabsBorderedPreview,
+  TabsPillPreview,
+  TabsPreview,
+  TabsSlidingIndicatorPreview,
+  TabsVerticalPreview,
+} from '~/components/previews/TabsPreview';
+
+## Preview
+
+<TabsPreview />
+
+## Usage
+
+The active underline renders per trigger and grows from width 0, so no
+extra element is needed.
+
+```tsx
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui/Tabs';
+
+<Tabs defaultValue="overview">
+  <TabsList>
+    <TabsTrigger value="overview">Overview</TabsTrigger>
+    <TabsTrigger value="activity">Activity</TabsTrigger>
+    <TabsTrigger value="settings">Settings</TabsTrigger>
+  </TabsList>
+  <TabsContent value="overview">Overview content</TabsContent>
+  <TabsContent value="activity">Activity content</TabsContent>
+  <TabsContent value="settings">Settings content</TabsContent>
+</Tabs>;
+```
+
+## Bordered
+
+<TabsBorderedPreview />
+
+Use `bordered` on `TabsList` when the underline tabs need a rail border.
+
+```tsx
+<Tabs defaultValue="overview">
+  <TabsList bordered>
+    <TabsTrigger value="overview">Overview</TabsTrigger>
+    <TabsTrigger value="activity">Activity</TabsTrigger>
+  </TabsList>
+</Tabs>
+```
+
+## Sliding indicator
+
+<TabsSlidingIndicatorPreview />
+
+By default the active underline grows from width 0 under each tab. Render
+`TabsIndicator` inside `TabsList` to opt into a single bar that slides between
+tabs instead — adding it disables the per-tab grow highlight.
+
+```tsx
+import {
+  Tabs,
+  TabsIndicator,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui/Tabs';
+
+<Tabs defaultValue="overview">
+  <TabsList bordered>
+    <TabsTrigger value="overview">Overview</TabsTrigger>
+    <TabsTrigger value="activity">Activity</TabsTrigger>
+    <TabsIndicator />
+  </TabsList>
+</Tabs>;
+```
+
+## Pill
+
+<TabsPillPreview />
+
+```tsx
+<Tabs defaultValue="overview" variant="pill">
+  <TabsList>
+    <TabsTrigger value="overview">Overview</TabsTrigger>
+    <TabsTrigger value="activity">Activity</TabsTrigger>
+  </TabsList>
+</Tabs>
+```
+
+## Vertical
+
+<TabsVerticalPreview />
+
+```tsx
+<Tabs defaultValue="overview" orientation="vertical">
+  <TabsList bordered>
+    <TabsTrigger value="overview">Overview</TabsTrigger>
+    <TabsTrigger value="activity">Activity</TabsTrigger>
+  </TabsList>
+  <TabsContent value="overview">Overview content</TabsContent>
+  <TabsContent value="activity">Activity content</TabsContent>
+</Tabs>
+```
+
+## Props
+
+| Part            | Prop          | Type                         | Default        | Description                                                     |
+| --------------- | ------------- | ---------------------------- | -------------- | --------------------------------------------------------------- |
+| `Tabs`          | `variant`     | `'underline' \| 'pill'`      | `'underline'`  | Visual style for the tab triggers                               |
+| `Tabs`          | `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout direction from Base UI Tabs                              |
+| `TabsList`      | `bordered`    | `boolean`                    | `false`        | Adds the underline rail border                                  |
+| `TabsTrigger`   | `value`       | `string`                     | —              | Value connected to a tab panel                                  |
+| `TabsContent`   | `value`       | `string`                     | —              | Panel value connected to a tab trigger                          |
+| `TabsIndicator` | —             | —                            | —              | Optional sliding underline; disables the per-tab grow highlight |

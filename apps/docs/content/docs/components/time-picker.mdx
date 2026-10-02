@@ -1,0 +1,155 @@
+---
+title: Time Picker
+description: Three-column time picker (hours, minutes, seconds) with click-to-select and CSS scroll-snap.
+---
+
+import {
+  TimePickerCustomHeightPreview,
+  TimePickerHoursMinutesPreview,
+  TimePickerInPopoverPreview,
+  TimePickerPreview,
+  TimePickerStepsPreview,
+} from '~/components/previews/TimePickerPreview';
+
+## Preview
+
+<TimePickerPreview />
+
+## Usage
+
+`TimePicker` accepts a `Date` and emits a `Date`. Only the hours, minutes, and seconds portion is mutated — the date portion of `value` is preserved.
+
+```tsx
+import { TimePicker } from '@/components/ui/TimePicker';
+import { useState } from 'react';
+
+function Demo() {
+  const [value, setValue] = useState<Date>(new Date());
+  return <TimePicker value={value} onValueChange={setValue} />;
+}
+```
+
+## Hours and Minutes Only
+
+<TimePickerHoursMinutesPreview />
+
+```tsx
+<TimePicker value={value} onValueChange={setValue} showSeconds={false} />
+```
+
+Hidden seconds don't disappear from the underlying `Date` — they keep whatever was on `value` (or `0` if `value` was undefined). Toggle `showSeconds` freely without losing data.
+
+## Custom Steps
+
+<TimePickerStepsPreview />
+
+Use `hourStep`, `minuteStep`, `secondStep` to render fewer rows per column.
+
+```tsx
+<TimePicker
+  value={value}
+  onValueChange={setValue}
+  hourStep={1}
+  minuteStep={15}
+  showSeconds={false}
+/>
+```
+
+## Custom Height
+
+<TimePickerCustomHeightPreview />
+
+The default column height is 300px. Override via `className`:
+
+```tsx
+<TimePicker className="h-60" value={value} onValueChange={setValue} />
+```
+
+## Time Picker (Popover + TimePicker)
+
+There is no separate root component — compose `Popover`, `TimePicker`, and an input-style trigger:
+
+<TimePickerInPopoverPreview />
+
+```tsx
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@/components/ui/InputGroup';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/Popover';
+import { TimePicker } from '@/components/ui/TimePicker';
+import { ClockIcon } from '@/components/icons/ClockIcon';
+import { format } from 'date-fns';
+import { useState } from 'react';
+
+function TimeInput() {
+  const [value, setValue] = useState<Date>();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger
+        render={
+          <InputGroup className="cursor-pointer">
+            <InputGroupInput
+              readOnly
+              value={value ? format(value, 'HH:mm') : ''}
+              placeholder="Pick a time"
+              className="cursor-pointer"
+            />
+            <InputGroupAddon align="inline-end">
+              <ClockIcon className="size-4" />
+            </InputGroupAddon>
+          </InputGroup>
+        }
+      />
+      <PopoverContent className="p-0" sideOffset={8}>
+        <TimePicker
+          value={value}
+          onValueChange={setValue}
+          showSeconds={false}
+        />
+      </PopoverContent>
+    </Popover>
+  );
+}
+```
+
+## Behavior
+
+- **Click selects.** Clicking an item calls `onValueChange` and smooth-scrolls that item to the top of its column.
+- **Scrolling does not select.** Drag or wheel scrolls the column freely; the selection only changes when the user explicitly clicks.
+- **`scroll-snap-type: y proximity`.** When motion settles, the column snaps so an item sits flush at the top — no per-frame snap fighting during fast scroll.
+- **Initial position.** On mount, the selected item is placed at the top instantly (no animation). Subsequent value changes animate.
+- **Date portion preserved.** If `value` is provided, its year/month/day are preserved in the emitted `Date`. If `undefined`, the emit anchors to today.
+
+## Pairing with Calendar
+
+Because both `Calendar` and `TimePicker` work with `Date`, composing a date-time input is straightforward — pass the same `Date` through both:
+
+```tsx
+const [value, setValue] = useState<Date>();
+
+<Calendar mode="single" selected={value} onSelect={setValue} />
+<TimePicker value={value} onValueChange={setValue} />
+```
+
+`Calendar.onSelect` updates the year/month/day; `TimePicker.onValueChange` updates the hours/minutes/seconds. Both write back to the same `Date`.
+
+## Props
+
+| Prop            | Type                  | Default | Description                                                                                                  |
+| --------------- | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
+| `value`         | `Date`                | —       | Current time. Only the hours/minutes/seconds portion is rendered; date portion is preserved on emit.         |
+| `onValueChange` | `(value: Date) => void` | —     | Called with a new `Date` carrying the chosen time. Date portion is preserved from `value`, or set to today. |
+| `showSeconds`   | `boolean`             | `true`  | When `false`, hides the seconds column.                                                                      |
+| `hourStep`      | `number`              | `1`     | Step between hour values (e.g. `2` → `0, 2, 4, …, 22`).                                                      |
+| `minuteStep`    | `number`              | `1`     | Step between minute values.                                                                                  |
+| `secondStep`    | `number`              | `1`     | Step between second values.                                                                                  |
+| `disabled`      | `boolean`             | `false` | Disables all interaction.                                                                                    |
+| `className`     | `string`              | —       | Additional classes on root. Use to override height (e.g. `h-60`).                                            |

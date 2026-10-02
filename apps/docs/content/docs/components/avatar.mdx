@@ -1,0 +1,188 @@
+---
+title: Avatar
+description: Display a user's profile picture with fallback to initials or a default icon, available in 12 color variants.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarGroup,
+  AvatarGroupCount,
+  AvatarImage,
+  AvatarRoot,
+} from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview>
+  <Avatar name="Arthur Lu" color="blue" size="lg" />
+  <Avatar name="Sean Chen" color="tiffany" size="lg" />
+  <Avatar name="Jane Doe" color="pink" size="lg" />
+  <Avatar color="purple" size="lg" />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Avatar } from '@/components/ui/Avatar';
+
+<Avatar name="Arthur Lu" color="blue" size="md" />;
+```
+
+## Sizes
+
+<ComponentPreview>
+  <Avatar name="A" size="xs" color="blue" />
+  <Avatar name="A" size="sm" color="blue" />
+  <Avatar name="A" size="md" color="blue" />
+  <Avatar name="A" size="lg" color="blue" />
+  <Avatar name="A" size="xl" color="blue" />
+</ComponentPreview>
+
+| Size | Dimensions           |
+| ---- | -------------------- |
+| `xs` | 24 × 24 px           |
+| `sm` | 32 × 32 px           |
+| `md` | 40 × 40 px (default) |
+| `lg` | 48 × 48 px           |
+| `xl` | 60 × 60 px           |
+
+## Color Variants
+
+<ComponentPreview>
+  <Avatar fallback="TI" color="tiffany" size="md" />
+  <Avatar fallback="GR" color="green" size="md" />
+  <Avatar fallback="OR" color="orange" size="md" />
+  <Avatar fallback="PK" color="pink" size="md" />
+  <Avatar fallback="BL" color="blue" size="md" />
+  <Avatar fallback="SK" color="sky" size="md" />
+  <Avatar fallback="PU" color="purple" size="md" />
+  <Avatar fallback="LG" color="light-gold" size="md" />
+  <Avatar fallback="SA" color="salmon" size="md" />
+  <Avatar fallback="IC" color="ice" size="md" />
+  <Avatar fallback="LV" color="lavender" size="md" />
+</ComponentPreview>
+
+## Group
+
+Use `AvatarGroup` to stack multiple avatars. Add `AvatarGroupCount` at the end when the list is truncated.
+
+<ComponentPreview>
+  <AvatarGroup>
+    <Avatar name="Arthur Lu" color="green" />
+    <Avatar name="Dover Shen" color="blue" />
+    <Avatar name="Luka Jung" color="ice" />
+    <AvatarGroupCount>+3</AvatarGroupCount>
+  </AvatarGroup>
+</ComponentPreview>
+
+```tsx
+<AvatarGroup>
+  <Avatar name="Arthur Lu" color="green" />
+  <Avatar name="Dover Shen" color="blue" />
+  <Avatar name="Luka Jung" color="ice" />
+  <AvatarGroupCount>+3</AvatarGroupCount>
+</AvatarGroup>
+```
+
+## Compound Parts
+
+<ComponentPreview>
+  <AvatarRoot color="blue" size="lg">
+    <AvatarImage
+      src="https://i.pravatar.cc/150?img=1"
+      alt="Arthur Lu"
+    />
+    <AvatarFallback color="blue">AL</AvatarFallback>
+  </AvatarRoot>
+  <AvatarRoot color="tiffany" size="lg">
+    <AvatarImage src="broken-url" alt="Sean Chen" />
+    <AvatarFallback color="tiffany">SC</AvatarFallback>
+  </AvatarRoot>
+</ComponentPreview>
+
+```tsx
+<AvatarRoot color="blue" size="lg">
+  <AvatarImage src="https://example.com/photo.jpg" alt="Arthur Lu" />
+  <AvatarFallback color="blue">AL</AvatarFallback>
+</AvatarRoot>
+```
+
+## With Image
+
+When `src` is provided, the image is displayed. Falls back to initials from `name` if the image fails to load.
+
+<ComponentPreview>
+  <Avatar
+    src="https://i.pravatar.cc/150?img=1"
+    name="Arthur Lu"
+    size="lg"
+  />
+  <Avatar src="broken-url" name="Fallback" color="blue" size="lg" />
+</ComponentPreview>
+
+```tsx
+<Avatar
+  src="https://example.com/photo.jpg"
+  name="Arthur Lu"
+  size="lg"
+/>
+```
+
+## Bordered
+
+<ComponentPreview>
+  <Avatar name="Bo" color="tiffany" size="lg" bordered />
+  <Avatar name="Bo" color="blue" size="lg" bordered />
+  <Avatar name="Bo" color="pink" size="lg" bordered />
+</ComponentPreview>
+
+```tsx
+<Avatar name="Arthur Lu" color="blue" bordered />
+```
+
+## Disabled
+
+<ComponentPreview>
+  <Avatar name="DI" color="blue" size="lg" disabled />
+</ComponentPreview>
+
+```tsx
+<Avatar name="Arthur Lu" color="blue" disabled />
+```
+
+## Props
+
+| Prop                    | Type                                                                                                                                        | Default     | Description                                     |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ----------------------------------------------- |
+| `name`                  | `string`                                                                                                                                    | —           | Used to generate initials fallback              |
+| `src`                   | `string`                                                                                                                                    | —           | Image URL; falls back to initials if load fails |
+| `alt`                   | `string`                                                                                                                                    | —           | Alt text for the image                          |
+| `size`                  | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                                                                                                      | `'md'`      | Avatar dimensions                               |
+| `color`                 | `'default' \| 'tiffany' \| 'green' \| 'orange' \| 'pink' \| 'blue' \| 'sky' \| 'purple' \| 'light-gold' \| 'salmon' \| 'ice' \| 'lavender'` | `'default'` | Background and text color variant               |
+| `bordered`              | `boolean`                                                                                                                                   | `true`      | Adds a colored border ring                      |
+| `disabled`              | `boolean`                                                                                                                                   | `false`     | Applies disabled overlay                        |
+| `fallback`              | `ReactNode`                                                                                                                                 | —           | Custom fallback element                         |
+| `onClick`               | `(event: MouseEvent) => void`                                                                                                               | —           | Click handler                                   |
+| `onLoadingStatusChange` | `(status: 'idle' \| 'loading' \| 'loaded' \| 'error') => void`                                                                              | —           | Image load status callback                      |
+| `style`                 | `CSSProperties`                                                                                                                             | —           | Inline styles                                   |
+| `className`             | `string`                                                                                                                                    | —           | Root element class name                         |
+
+## AvatarGroup Props
+
+| Prop        | Type            | Default | Description                |
+| ----------- | --------------- | ------- | -------------------------- |
+| `children`  | `ReactNode`     | —       | Avatar items and count     |
+| `className` | `string`        | —       | Additional CSS classes     |
+| `style`     | `CSSProperties` | —       | Inline styles              |
+| `...props`  | `div` props     | —       | Native div props forwarded |
+
+## AvatarGroupCount Props
+
+| Prop        | Type            | Default | Description                |
+| ----------- | --------------- | ------- | -------------------------- |
+| `children`  | `ReactNode`     | —       | Count label or icon        |
+| `className` | `string`        | —       | Additional CSS classes     |
+| `style`     | `CSSProperties` | —       | Inline styles              |
+| `...props`  | `div` props     | —       | Native div props forwarded |

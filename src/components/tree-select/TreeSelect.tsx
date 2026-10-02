@@ -5,7 +5,7 @@ import {
 } from '@radix-ui/react-icons';
 import {
   Fragment,
-  ReactNode,
+  type ReactNode,
   useCallback,
   useEffect,
   useMemo,

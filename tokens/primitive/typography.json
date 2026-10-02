@@ -1,0 +1,8 @@
+{
+  "font": {
+    "sans": {
+      "$value": "Roboto, 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif",
+      "$type": "fontFamily"
+    }
+  }
+}

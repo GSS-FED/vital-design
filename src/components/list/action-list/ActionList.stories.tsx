@@ -1,7 +1,7 @@
 import { useArgs } from '@storybook/preview-api';
-import { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import ActionList, { ActionListProps } from './ActionList';
+import ActionList, { type ActionListProps } from './ActionList';
 import { list } from './ActionList.data';
 
 type Story = StoryObj<typeof ActionList>;

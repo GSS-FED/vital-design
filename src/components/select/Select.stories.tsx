@@ -1,9 +1,9 @@
 import { BellIcon, ExternalLinkIcon } from '@radix-ui/react-icons';
-import { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import { useMemo, useState } from 'react';
 import styled from 'styled-components';
-import Select, { ItemType } from './Select';
+import Select, { type ItemType } from './Select';
 
 const Container = styled.div`
   display: flex;

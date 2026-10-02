@@ -11,13 +11,13 @@ import {
 } from '@floating-ui/react';
 import { Theme } from '@radix-ui/themes';
 import '@radix-ui/themes/styles.css';
-import { Meta, StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { testData, treeSelectValueData } from './TestData';
 import TreeSelect, {
-  TreeSelectData,
-  TreeSelectRoot,
+  type TreeSelectData,
+  type TreeSelectRoot,
 } from './TreeSelect';
 
 type Story = StoryObj<typeof TreeSelect>;

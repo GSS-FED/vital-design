@@ -2,32 +2,55 @@ stages:
   - test
   - build
   - publish
+  - registry-validate
+
+# Prefer the MR pipeline so test-job actually runs in the MR widget.
+# Without this, jobs that only use `only:`/`except:` (or have no `rules`)
+# are omitted from merge_request_event pipelines.
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
 
 default:
-  image: node:18.19.1
+  image: node:20
   interruptible: true
   artifacts:
     expire_in: 1 week
   tags:
     - docker
 
+variables:
+  PNPM_VERSION: "10.17.1"
+
 before_script:
-  - npm i --prefer-offline
+  - npm i -g pnpm@${PNPM_VERSION}
+  - pnpm install --frozen-lockfile
 
 test-job:
   stage: test
   script:
-    - npm run test
+    - pnpm run test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH'
 
+# Legacy npm (@fed/vital-design from src/). Manual on main — merging to
+# main deploys docs, it does not publish. Run build-job then publish-job
+# in the GitLab UI if a v1 package release is actually needed.
 build-job:
   stage: build
   script:
-    - npm run build
+    - pnpm run build
   artifacts:
     paths:
       - dist/
-  only:
-    - main
+  allow_failure: true
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: manual
 
 publish-job:
   stage: publish
@@ -40,11 +63,33 @@ publish-job:
         echo "@fed:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
         echo "${CI_API_V4_URL#https?}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=\${CI_JOB_TOKEN}"
       } | tee -a .npmrc
+    - npm i -g pnpm@${PNPM_VERSION}
+    - pnpm install --frozen-lockfile
+  needs:
+    - build-job
   dependencies:
     - build-job
   script:
-    - npm i --prefer-offline
-    - npm i -g pnpm@8.15.9
-    - npm run release
-  only:
-    - main
+    - pnpm run release
+  allow_failure: true
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: manual
+
+# ── Registry Validate ─────────────────────────────────────────────────────────
+# Runs on Merge Requests when registry.json or src-v2/ files change.
+# A failing job blocks the MR from being merged.
+
+registry-validate-job:
+  stage: registry-validate
+  before_script:
+    - npm i -g pnpm@${PNPM_VERSION}
+    - pnpm install --frozen-lockfile
+  script:
+    - pnpm run registry:validate
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - registry.json
+        - src-v2/**/*
+        - .gitlab/.gitlab-ci.yml
