@@ -79,6 +79,7 @@ pnpm docs:start            # 啟動生產環境文件站
 - `src-v2/icons/` - SVG 圖示
 - `src-v2/utils/` - 工具函數（`cn.ts` 等）
 - `src-v2/styles/` - 全域 CSS（`globals.css`）
+- `src-v2/CHANGELOG.md` - `src-v2` 變更紀錄（手動維護，日期為版本標題）；改動元件／blocks／icons／registry 時請一併補上
 - 路徑別名：`@/` → `src-v2/`
 - `tokens/` - Design token 定義（Style Dictionary v5，三層結構）
   - `tokens/primitive/` - raw values（colors, typography, radius）

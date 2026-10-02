@@ -1,5 +1,7 @@
 export { BellIcon } from './BellIcon';
 export { CalendarIcon } from './CalendarIcon';
+export { CaretDownIcon } from './CaretDownIcon';
+export { CaretUpIcon } from './CaretUpIcon';
 export { CheckIcon } from './CheckIcon';
 export { ChevronDoubleLeftIcon } from './ChevronDoubleLeftIcon';
 export { ChevronDoubleRightIcon } from './ChevronDoubleRightIcon';

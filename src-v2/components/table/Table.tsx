@@ -15,13 +15,26 @@ export interface TableProps
    * scroll-position restore need this rather than the `<table>` ref.
    */
   containerRef?: Ref<HTMLDivElement>;
+  /**
+   * 斑馬紋：為 `tbody` 的隔行加上底色。`true` 等同 `'even'`（第 2、4… 列上色）。
+   * 底色以 `--table-stripe` 覆寫，hover / selected 底色以 `--table-row-hover` 覆寫，
+   * 例：`<Table striped className="[--table-stripe:var(--primary-50)]" />`
+   */
+  striped?: boolean | 'odd' | 'even';
 }
 
 const Table = forwardRef<ElementRef<'table'>, TableProps>(
   function Table(
-    { className, containerClassName, containerRef, ...props },
+    { className, containerClassName, containerRef, striped, ...props },
     ref,
   ) {
+    const stripe =
+      striped === true
+        ? 'even'
+        : striped === false
+          ? undefined
+          : striped;
+
     return (
       <div
         ref={containerRef}
@@ -34,8 +47,15 @@ const Table = forwardRef<ElementRef<'table'>, TableProps>(
         <table
           ref={ref}
           data-slot="table"
+          data-striped={stripe}
           className={cn(
             'w-full caption-bottom border-collapse font-sans text-sm leading-5 text-grayscale-opacity-800',
+            stripe &&
+              '[--table-row-hover:var(--grayscale-opacity-200)]',
+            stripe === 'odd' &&
+              '[&>tbody>tr:nth-child(odd)]:[--table-row-bg:var(--table-stripe,var(--grayscale-opacity-100))]',
+            stripe === 'even' &&
+              '[&>tbody>tr:nth-child(even)]:[--table-row-bg:var(--table-stripe,var(--grayscale-opacity-100))]',
             className,
           )}
           {...props}
@@ -106,8 +126,8 @@ const TableRow = forwardRef<ElementRef<'tr'>, TableRowProps>(
         ref={ref}
         data-slot="table-row"
         className={cn(
-          'border-b border-grayscale-opacity-300 transition-colors',
-          'hover:bg-grayscale-opacity-100 has-aria-expanded:bg-grayscale-opacity-100 data-[state=selected]:bg-grayscale-opacity-100',
+          'border-b border-grayscale-opacity-300 bg-[var(--table-row-bg,transparent)] transition-colors',
+          'hover:bg-[var(--table-row-hover,var(--grayscale-opacity-100))] has-aria-expanded:bg-[var(--table-row-hover,var(--grayscale-opacity-100))] data-[state=selected]:bg-[var(--table-row-hover,var(--grayscale-opacity-100))]',
           className,
         )}
         {...props}
@@ -125,7 +145,7 @@ const TableHead = forwardRef<ElementRef<'th'>, TableHeadProps>(
         ref={ref}
         data-slot="table-head"
         className={cn(
-          'h-8 border-r border-grayscale-opacity-300 bg-white px-3 py-1.5 text-left align-middle font-normal whitespace-nowrap text-grayscale-opacity-800 last:border-r-0',
+          'relative h-8 border-r border-grayscale-opacity-300 bg-white px-3 py-1.5 text-left align-middle font-normal whitespace-nowrap text-grayscale-opacity-800 last:border-r-0',
           '[&:has([role=checkbox])]:w-10 [&:has([role=checkbox])]:px-3 [&>[role=checkbox]]:mx-auto',
           className,
         )}

@@ -14,6 +14,8 @@ export type RegistryItemName =
   | 'icon-chevron-right'
   | 'icon-chevron-double-left'
   | 'icon-chevron-double-right'
+  | 'icon-caret-down'
+  | 'icon-caret-up'
   | 'icon-clear'
   | 'icon-clock'
   | 'icon-close'

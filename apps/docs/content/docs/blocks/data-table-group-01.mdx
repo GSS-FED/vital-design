@@ -28,7 +28,14 @@ This block is built on the following Vittal Design primitives:
 | `action-bar.tsx`       | Search bar, filter buttons, more-actions dropdown   |
 | `columns.tsx`          | `ColumnDef` array with custom cells                 |
 | `data.ts`              | Sample candidate dataset + tree builder             |
-| `pinning.ts`           | Left/right column pinning style helpers             |
+| `pinning.ts`           | Column sizing vars + left/right pinning style helpers |
+| `resize-handle.tsx`    | Draggable column resize handle with full-height guide |
+
+## Props
+
+| Prop                | Type                      | Default      | Description                                                                                          |
+| ------------------- | ------------------------- | ------------ | ---------------------------------------------------------------------------------------------------- |
+| `columnResizeMode`  | `'onChange' \| 'onEnd'`   | `'onChange'` | `'onChange'` moves the columns under the pointer. `'onEnd'` holds them and commits on release, with the guide line showing where the edge lands — it does no layout work while dragging, so it stays smooth on wide, heavily pinned tables. |
 
 ## Installation
 

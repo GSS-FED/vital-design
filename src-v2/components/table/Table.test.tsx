@@ -82,7 +82,49 @@ it('marks selected rows with data-state="selected"', () => {
   const row = screen.getByTestId('row');
   expect(row).toHaveAttribute('data-state', 'selected');
   expect(row).toHaveClass(
-    'data-[state=selected]:bg-grayscale-opacity-100',
+    'data-[state=selected]:bg-[var(--table-row-hover,var(--grayscale-opacity-100))]',
+  );
+});
+
+it('does not stripe rows by default', () => {
+  render(
+    <Table data-testid="table">
+      <TableBody>
+        <TableRow>
+          <TableCell>Cell</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>,
+  );
+
+  const table = screen.getByTestId('table');
+  expect(table).not.toHaveAttribute('data-striped');
+  expect(table).not.toHaveClass(
+    '[&>tbody>tr:nth-child(even)]:[--table-row-bg:var(--table-stripe,var(--grayscale-opacity-100))]',
+    '[&>tbody>tr:nth-child(odd)]:[--table-row-bg:var(--table-stripe,var(--grayscale-opacity-100))]',
+  );
+});
+
+it.each([
+  [true, 'even'],
+  ['even' as const, 'even'],
+  ['odd' as const, 'odd'],
+])('stripes %s rows when striped=%s', (striped, expected) => {
+  render(
+    <Table striped={striped} data-testid="table">
+      <TableBody>
+        <TableRow>
+          <TableCell>Cell</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>,
+  );
+
+  const table = screen.getByTestId('table');
+  expect(table).toHaveAttribute('data-striped', expected);
+  expect(table).toHaveClass(
+    `[&>tbody>tr:nth-child(${expected})]:[--table-row-bg:var(--table-stripe,var(--grayscale-opacity-100))]`,
+    '[--table-row-hover:var(--grayscale-opacity-200)]',
   );
 });
 
@@ -112,7 +154,7 @@ it('uses the dense framed table defaults from the Vital work table', () => {
   );
   expect(screen.getByTestId('row')).toHaveClass(
     'border-grayscale-opacity-300',
-    'hover:bg-grayscale-opacity-100',
+    'hover:bg-[var(--table-row-hover,var(--grayscale-opacity-100))]',
   );
   expect(screen.getByTestId('th')).toHaveClass(
     'h-8',

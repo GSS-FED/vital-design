@@ -30,7 +30,10 @@ export const emissionColumns: ColumnDef<EmissionTreeRow>[] = [
       />
     ),
     size: 40,
+    minSize: 40,
+    maxSize: 40,
     enableSorting: false,
+    enableResizing: false,
   },
   {
     accessorKey: 'id',
@@ -40,6 +43,7 @@ export const emissionColumns: ColumnDef<EmissionTreeRow>[] = [
     cell: ({ row }) =>
       row.original.kind === 'source' ? row.original.id : null,
     size: 38,
+    minSize: 38,
     enableSorting: false,
   },
   {
@@ -169,6 +173,9 @@ export const emissionColumns: ColumnDef<EmissionTreeRow>[] = [
     header: '',
     cell: () => <MoreButton />,
     size: 36,
+    minSize: 36,
+    maxSize: 36,
     enableSorting: false,
+    enableResizing: false,
   },
 ];

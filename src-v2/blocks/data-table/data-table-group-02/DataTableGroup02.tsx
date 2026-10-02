@@ -14,6 +14,7 @@ import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
 import { cn } from '@/lib/utils';
 import {
   type Column,
+  type ColumnResizeMode,
   type ExpandedState,
   type HeaderGroup,
   type Row,
@@ -25,7 +26,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { Fragment, useMemo, useState } from 'react';
+import { Fragment, memo, useMemo, useState } from 'react';
 import { ActionBar, FilterButton } from './action-bar';
 import { emissionColumns } from './columns';
 import {
@@ -36,13 +37,18 @@ import {
 } from './data';
 import {
   CATEGORY_TITLE_LEFT,
+  FILLER_COLUMN_WIDTH,
   RAIL_STARTS,
   RAIL_WIDTHS,
   SUBCATEGORY_TITLE_LEFT,
+  columnSizeVar,
+  getColumnSizeVars,
+  getLeafColumnsInDisplayOrder,
   getPinnedClassName,
   getPinningStyles,
   titleStickyStyle,
 } from './pinning';
+import { ResizeHandle } from './resize-handle';
 import { ChevronCell, RailCells } from './table-rail';
 
 function EmissionColGroup({
@@ -56,9 +62,14 @@ function EmissionColGroup({
         <col key={`rail-${index}`} style={{ width }} />
       ))}
       {columns.map((column) => (
-        <col key={column.id} style={{ width: column.getSize() }} />
+        <col
+          key={column.id}
+          style={{ width: `var(${columnSizeVar(column.id)})` }}
+        />
       ))}
-      <col />
+      {/* Absorbs whatever space is left over, so narrowing the columns below
+          the card width does not end the rows mid-frame. */}
+      <col style={{ width: FILLER_COLUMN_WIDTH }} />
     </colgroup>
   );
 }
@@ -90,12 +101,17 @@ function EmissionHeaderRows({
                 getPinnedClassName(header.column),
               )}
             >
-              {header.isPlaceholder
-                ? null
-                : flexRender(
+              {header.isPlaceholder ? null : (
+                <span className="block overflow-hidden text-ellipsis">
+                  {flexRender(
                     header.column.columnDef.header,
                     header.getContext(),
                   )}
+                </span>
+              )}
+              {!header.isPlaceholder && (
+                <ResizeHandle header={header} />
+              )}
             </TableHead>
           ))}
           <td className="border-b border-grayscale-opacity-300 bg-white p-0" />
@@ -269,7 +285,74 @@ function EmissionSourceRow({ row }: { row: Row<EmissionTreeRow> }) {
   );
 }
 
-export function DataTableGroup02() {
+interface EmissionCategorySectionProps {
+  row: Row<EmissionTreeRow>;
+  headerGroups: HeaderGroup<EmissionTreeRow>[];
+  categoryTitleColSpan: number;
+  subcategoryTitleColSpan: number;
+  isResizing: boolean;
+}
+
+function EmissionCategorySection({
+  row,
+  headerGroups,
+  categoryTitleColSpan,
+  subcategoryTitleColSpan,
+}: EmissionCategorySectionProps) {
+  return (
+    <TableBody>
+      <EmissionCategoryRow
+        row={row}
+        titleColSpan={categoryTitleColSpan}
+      />
+      {row.getIsExpanded() &&
+        row.subRows.map((subcategoryRow) => (
+          <Fragment key={subcategoryRow.id}>
+            <EmissionSubcategoryRow
+              row={subcategoryRow}
+              titleColSpan={subcategoryTitleColSpan}
+            />
+            {subcategoryRow.getIsExpanded() && (
+              <>
+                <EmissionHeaderRows headerGroups={headerGroups} />
+                {subcategoryRow.subRows.map((sourceRow) => (
+                  <EmissionSourceRow
+                    key={sourceRow.id}
+                    row={sourceRow}
+                  />
+                ))}
+              </>
+            )}
+          </Fragment>
+        ))}
+    </TableBody>
+  );
+}
+
+/**
+ * Column widths come from CSS variables on `<table>`, so a drag does not need
+ * to re-render a single row — freeze the sections until it ends. Without this
+ * every `mousemove` rebuilds the whole tree (measured ~50ms/frame here, vs the
+ * ~14ms idle frame).
+ */
+const MemoEmissionCategorySection = memo(
+  EmissionCategorySection,
+  (_prev, next) => next.isResizing,
+);
+
+export interface DataTableGroup02Props {
+  /**
+   * `'onChange'` moves the columns under the pointer; `'onEnd'` holds them and
+   * commits on release, with the guide line showing where the edge will land.
+   * This table is wide and heavily pinned, so `'onEnd'` is noticeably smoother
+   * — it does no layout work while dragging.
+   */
+  columnResizeMode?: ColumnResizeMode;
+}
+
+export function DataTableGroup02({
+  columnResizeMode = 'onChange',
+}: DataTableGroup02Props = {}) {
   const [sorting, setSorting] = useState<SortingState>([]);
   // `true` expands every row by default (vs `{}` which collapses all).
   const [expanded, setExpanded] = useState<ExpandedState>(true);
@@ -284,6 +367,8 @@ export function DataTableGroup02() {
     initialState: {
       columnPinning: { left: ['select', 'id'] },
     },
+    defaultColumn: { minSize: 48, maxSize: 480 },
+    columnResizeMode,
     enableRowSelection: true,
     onExpandedChange: setExpanded,
     onRowSelectionChange: setRowSelection,
@@ -294,7 +379,10 @@ export function DataTableGroup02() {
     getExpandedRowModel: getExpandedRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
-  const visibleColumns = table.getVisibleLeafColumns();
+  const visibleColumns = getLeafColumnsInDisplayOrder(table);
+  const isResizing = Boolean(
+    table.getState().columnSizingInfo.isResizingColumn,
+  );
   // Total cols = 4 rail tracks + data cols + 1 trailing fill col.
   // Category title spans everything to the right of the chevron (col 3).
   // Subcategory title spans everything to the right of its chevron (col 4).
@@ -327,43 +415,29 @@ export function DataTableGroup02() {
         }
       />
       <Table
-        className="table-fixed border-separate border-spacing-0"
+        className={cn(
+          'table-fixed border-separate border-spacing-0',
+          isResizing && '[&_*]:cursor-col-resize',
+        )}
         containerClassName="max-h-[560px] overflow-auto"
-        style={{ minWidth: 1408 }}
+        style={{
+          ...getColumnSizeVars(table),
+          minWidth: 'max(1408px, var(--table-total-size))',
+        }}
       >
         <EmissionColGroup columns={visibleColumns} />
         {table
           .getRowModel()
           .rows.filter((row) => row.depth === 0)
           .map((categoryRow) => (
-            <TableBody key={categoryRow.id}>
-              <EmissionCategoryRow
-                row={categoryRow}
-                titleColSpan={categoryTitleColSpan}
-              />
-              {categoryRow.getIsExpanded() &&
-                categoryRow.subRows.map((subcategoryRow) => (
-                  <Fragment key={subcategoryRow.id}>
-                    <EmissionSubcategoryRow
-                      row={subcategoryRow}
-                      titleColSpan={subcategoryTitleColSpan}
-                    />
-                    {subcategoryRow.getIsExpanded() && (
-                      <>
-                        <EmissionHeaderRows
-                          headerGroups={table.getHeaderGroups()}
-                        />
-                        {subcategoryRow.subRows.map((sourceRow) => (
-                          <EmissionSourceRow
-                            key={sourceRow.id}
-                            row={sourceRow}
-                          />
-                        ))}
-                      </>
-                    )}
-                  </Fragment>
-                ))}
-            </TableBody>
+            <MemoEmissionCategorySection
+              key={categoryRow.id}
+              row={categoryRow}
+              headerGroups={table.getHeaderGroups()}
+              categoryTitleColSpan={categoryTitleColSpan}
+              subcategoryTitleColSpan={subcategoryTitleColSpan}
+              isResizing={isResizing}
+            />
           ))}
       </Table>
     </Card>
