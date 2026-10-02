@@ -9,6 +9,45 @@ That package is built from `src/` and stays available for existing apps. New wor
 
 Newest entries are at the top. Headings use the month the change shipped. We only record changes that affect how you install or use the registry — new components, breaking usage, tokens, and install steps.
 
+## October 2026 — Table stripes and column resize
+
+### Table
+
+[Table](/docs/components/table) can stripe body rows. `striped` paints even rows. `striped="odd"` paints the other rows. Set `--table-stripe` and `--table-row-hover` on the table to change the colors.
+
+Reinstall the table to pick this up:
+
+```bash
+npx shadcn@latest add @vital-design/table
+```
+
+**Breaking:** hover, expanded, and selected row backgrounds no longer use `bg-grayscale-opacity-100`. They read `--table-row-hover`. With `striped` left off, that variable still falls back to `--grayscale-opacity-100`, so the default look stays the same.
+
+- `hover:bg-grayscale-opacity-100` → `hover:bg-[var(--table-row-hover,var(--grayscale-opacity-100))]`
+- `data-[state=selected]:bg-grayscale-opacity-100` → `data-[state=selected]:bg-[var(--table-row-hover,var(--grayscale-opacity-100))]`
+
+`TableHead` is now `position: relative`. An absolutely positioned child lines up with the header cell. If one of yours was lined up with an ancestor outside the cell, point it at the cell instead.
+
+### Icons
+
+Caret up and caret down are new registry icons. See [Icons](/docs/components/icons).
+
+```bash
+npx shadcn@latest add @vital-design/icon-caret-up
+npx shadcn@latest add @vital-design/icon-caret-down
+```
+
+### Data tables
+
+[Data Table group 01](/docs/blocks/data-table-group-01) and [group 02](/docs/blocks/data-table-group-02) can resize columns. Drag the header edge. `columnResizeMode` defaults to `onChange`. Use `onEnd` on a wide table with many pinned columns so the columns stay put until you release.
+
+Reinstall both blocks. Group 02 also swaps its sort icon from chevron up to the caret pair, and drops `@vital-design/icon-chevron-up`. `@vital-design/icon-chevron-down` stays for the row rail. The sort label truncates so the caret stays visible when a column gets narrow.
+
+```bash
+npx shadcn@latest add @vital-design/data-table-group-01
+npx shadcn@latest add @vital-design/data-table-group-02
+```
+
 ## September 2026 — Registry on vittal.design
 
 The documentation site and the shadcn-compatible registry now publish together at [vittal.design](https://vittal.design). This entry is a snapshot of what is available today. Later entries will list only what changed.
