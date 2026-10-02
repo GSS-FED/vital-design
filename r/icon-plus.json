@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-plus",
+  "title": "Plus Icon",
+  "description": "Plus Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/PlusIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const PlusIcon = (props: SVGProps<SVGSVGElement>) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    viewBox=\"0 0 12 12\"\n    width=\"1em\"\n    height=\"1em\"\n    fill=\"currentColor\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <path d=\"M6.75 1.125c.422 0 .75.328.75.75v3.375h3.375c.422 0 .75.328.75.75s-.328.75-.75.75H7.5v3.375c0 .422-.328.75-.75.75s-.75-.328-.75-.75V6.75H2.625a.74.74 0 0 1-.75-.75c0-.422.328-.75.75-.75H6V1.875c0-.422.328-.75.75-.75z\" />\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/PlusIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}
