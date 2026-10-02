@@ -86,6 +86,7 @@ import { CheckIcon, CloseIcon } from '@/icons';
 - 單行文字輸入使用 `Input` primitive；自訂輸入組合優先使用 `InputGroup` parts；按鈕群組優先使用 `ButtonGroup`。preset wrapper（如 `PasswordInput`、`SearchBar`、`SplitButton`）需維持既有 props。
 - `src-v2` component 只使用 named exports；不要新增 component default export。
 - `Button` / `SplitButton` icon 使用 shadcn child-icon 形式：把 icon 或 spinner 放在 children，並在 icon 上加 `data-icon="inline-start"` 或 `data-icon="inline-end"`；不要新增 `icon` / `iconPlacement` props。Button label size 使用 `medium` / `large`；icon-only Button 使用 `icon-medium` / `icon-large`。
+- 看起來像按鈕的連結使用 `LinkButton`（`Button.tsx` 同檔 export）；不要用 `<Button nativeButton={false} render={<a />}>`，Base UI 對非 `<button>` 元素一律加 `role="button"`，會破壞連結語意。
 - `src-v2` 元件可以內部使用 `cva()`，但不要 export 原始 variants helper（例如 `buttonVariants`）。元件 default 應只由 component API 控制，避免 helper default 和 component default 漂移。公開 variant props 用 `CvaProps<VariantProps<typeof xVariants>>`（`@/lib/utils`）從 CVA 推導，不要手寫一份重複的 union。`CvaProps` 的 key 維持 optional；必填軸用 intersection 覆寫，內部軸 `Omit`，CVA 無法表達的限制（如 Button `text`/`ghost` 不能用 `dangerous`）再疊 discriminated union。
 - v2 選擇類元件依互動方式拆分：`Select` 平面單選或多選下拉、`Combobox` 可搜尋輸入選擇、`Cascader` 階層路徑選擇。`Command` 是公開 primitive，用於命令面板與自訂 searchable popup。
 - `Item` 是內容列 primitive（media/title/description/actions），`size="list"` 對齊 select/list row 密度。不要把資料載入、搜尋、選取狀態塞進 `Item`；picker 用 `Select` / `Combobox` / `Cascader`，action menu 用 `DropdownMenu`。
