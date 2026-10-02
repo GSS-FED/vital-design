@@ -59,6 +59,7 @@ Build Vital Design components as registry-ready primitives first. Prefer thin, c
 - Search/open/value state has a single owner.
 - Keyboard behavior has tests for open, close, back, clear, selection, and disabled/error states.
 - Docs examples match the actual exported props.
+- Public variant props use `CvaProps<VariantProps<typeof xVariants>>`; do not export raw helpers such as `buttonVariants`.
 - Focused tests pass, then `pnpm run build` when types or exports changed.
 
 ## Commands

@@ -1,27 +1,13 @@
 import { Button } from '@/components/button/Button';
-import type { ButtonTheme } from '@/components/button/Button';
 import {
   ButtonGroup,
   ButtonGroupSeparator,
 } from '@/components/button/button-group/ButtonGroup';
 import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
 import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
-import { cn } from '@/lib/utils';
-import { cva } from 'class-variance-authority';
+import { type CvaProps, cn } from '@/lib/utils';
+import { type VariantProps, cva } from 'class-variance-authority';
 import type { ComponentPropsWithoutRef, MouseEvent } from 'react';
-
-export type SplitButtonSize = 'md' | 'lg';
-export type SplitButtonTheme = ButtonTheme;
-
-export type SplitButtonProps = {
-  disabled?: boolean;
-  focusableWhenDisabled?: boolean;
-  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
-  open: boolean;
-  size?: SplitButtonSize;
-  splitOnClick?: (event: MouseEvent<HTMLButtonElement>) => void;
-  theme?: SplitButtonTheme;
-} & Omit<ComponentPropsWithoutRef<'div'>, 'onClick'>;
 
 const SPLIT_BUTTON_SEGMENT_CLASSES = [
   '[&>[data-slot=button]]:bg-transparent!',
@@ -139,6 +125,27 @@ const splitButtonGroupVariants = cva(
     },
   },
 );
+
+export type SplitButtonVariants = Omit<
+  VariantProps<typeof splitButtonGroupVariants>,
+  'disabled'
+>;
+
+export type SplitButtonSize = NonNullable<
+  SplitButtonVariants['size']
+>;
+export type SplitButtonTheme = NonNullable<
+  SplitButtonVariants['theme']
+>;
+
+export type SplitButtonProps = {
+  disabled?: boolean;
+  focusableWhenDisabled?: boolean;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  open: boolean;
+  splitOnClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+} & CvaProps<SplitButtonVariants> &
+  Omit<ComponentPropsWithoutRef<'div'>, 'onClick'>;
 
 const LIGHT_SEPARATOR_THEMES = new Set<SplitButtonTheme>([
   'primary',

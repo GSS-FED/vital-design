@@ -1,6 +1,6 @@
-import { cn } from '@/lib/utils';
+import { type CvaProps, cn } from '@/lib/utils';
 import { Button as BaseButton } from '@base-ui/react/button';
-import { cva } from 'class-variance-authority';
+import { type VariantProps, cva } from 'class-variance-authority';
 import { forwardRef } from 'react';
 import type {
   ComponentPropsWithoutRef,
@@ -8,55 +8,10 @@ import type {
   ReactNode,
 } from 'react';
 
-export type ButtonSize = 'md' | 'lg' | 'icon-md' | 'icon-lg';
-
-export type ButtonTheme =
-  | 'primary'
-  | 'default'
-  | 'success'
-  | 'info'
-  | 'warning'
-  | 'alarm'
-  | 'dangerous';
-
-export type DefaultButtonProps = {
-  variant?: 'default';
-  theme?: ButtonTheme;
-};
-
-export type TextButtonProps = {
-  variant: 'text';
-  theme?: Exclude<ButtonTheme, 'dangerous'>;
-};
-
-export type GhostButtonProps = {
-  variant: 'ghost';
-  theme?: Exclude<ButtonTheme, 'dangerous'>;
-};
-
-type BaseButtonProps = Omit<
-  ComponentPropsWithoutRef<typeof BaseButton>,
-  'className' | 'children'
->;
-
-export type ButtonProps = {
-  children?: ReactNode;
-  className?: string;
-  /**
-   * Applied to the inner `data-slot="button-content"` wrapper, which owns how
-   * the icon and label are laid out inside the button. Use this instead of
-   * reaching into the DOM with `[&>span]:*`; theme-owned properties (colour,
-   * geometry, radius) still belong on the button itself.
-   */
-  contentClassName?: string;
-  size?: ButtonSize;
-} & (DefaultButtonProps | TextButtonProps | GhostButtonProps) &
-  BaseButtonProps;
-
 const BUTTON_BASE_CLASSES = [
   'relative isolate inline-flex w-fit items-center justify-center overflow-hidden font-sans box-border select-none',
   'transition-all duration-150 ease-in-out',
-  'disabled:pointer-events-none',
+  'cursor-pointer disabled:pointer-events-none disabled:cursor-not-allowed data-[disabled]:cursor-not-allowed',
   '[&_[data-icon]]:relative [&_[data-icon]]:z-[2] [&_[data-icon]]:m-0.75 [&_[data-icon]]:pointer-events-none [&_[data-icon]]:shrink-0',
   '[&_[data-icon]]:size-3 data-[size=lg]:[&_[data-icon]]:size-3.5 data-[size=icon-lg]:[&_[data-icon]]:size-3.5',
 ] as const;
@@ -90,10 +45,6 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
       warning: '',
       alarm: '',
       dangerous: '',
-    },
-    disabled: {
-      true: 'cursor-not-allowed',
-      false: 'cursor-pointer',
     },
   },
   compoundVariants: [
@@ -173,49 +124,52 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
     {
       variant: 'default',
       theme: ['primary', 'success', 'info', 'warning', 'alarm'],
-      disabled: true,
-      class: 'opacity-60',
+      class: 'disabled:opacity-60 data-[disabled]:opacity-60',
+    },
+    {
+      variant: ['text', 'ghost'],
+      class:
+        'disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300',
     },
     {
       variant: 'text',
       theme: 'primary',
       class:
-        'text-primary-500 hover:not-disabled:not-data-[disabled]:text-primary-400 active:not-disabled:not-data-[disabled]:text-primary-600 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-primary',
+        'text-primary-500 hover:not-disabled:not-data-[disabled]:text-primary-400 active:not-disabled:not-data-[disabled]:text-primary-600 focus-visible:shadow-focus-primary',
     },
     {
       variant: 'text',
       theme: 'default',
       class:
-        'text-grayscale-opacity-800 hover:not-disabled:not-data-[disabled]:text-grayscale-opacity-700 active:not-disabled:not-data-[disabled]:text-grayscale-opacity-800 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-primary',
+        'text-grayscale-opacity-800 hover:not-disabled:not-data-[disabled]:text-grayscale-opacity-700 active:not-disabled:not-data-[disabled]:text-grayscale-opacity-800 focus-visible:shadow-focus-primary',
     },
     {
       variant: 'text',
       theme: 'success',
       class:
-        'text-success-500 hover:not-disabled:not-data-[disabled]:text-success-400 active:not-disabled:not-data-[disabled]:text-success-600 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-success',
+        'text-success-500 hover:not-disabled:not-data-[disabled]:text-success-400 active:not-disabled:not-data-[disabled]:text-success-600 focus-visible:shadow-focus-success',
     },
     {
       variant: 'text',
       theme: 'info',
       class:
-        'text-info-500 hover:not-disabled:not-data-[disabled]:text-info-400 active:not-disabled:not-data-[disabled]:text-info-600 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-info',
+        'text-info-500 hover:not-disabled:not-data-[disabled]:text-info-400 active:not-disabled:not-data-[disabled]:text-info-600 focus-visible:shadow-focus-info',
     },
     {
       variant: 'text',
       theme: 'warning',
       class:
-        'text-warning-500 hover:not-disabled:not-data-[disabled]:text-warning-400 active:not-disabled:not-data-[disabled]:text-warning-600 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-warning',
+        'text-warning-500 hover:not-disabled:not-data-[disabled]:text-warning-400 active:not-disabled:not-data-[disabled]:text-warning-600 focus-visible:shadow-focus-warning',
     },
     {
       variant: 'text',
       theme: 'alarm',
       class:
-        'text-destructive-500 hover:not-disabled:not-data-[disabled]:text-destructive-400 active:not-disabled:not-data-[disabled]:text-destructive-600 disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300 focus-visible:shadow-focus-destructive',
+        'text-destructive-500 hover:not-disabled:not-data-[disabled]:text-destructive-400 active:not-disabled:not-data-[disabled]:text-destructive-600 focus-visible:shadow-focus-destructive',
     },
     {
       variant: 'ghost',
-      class:
-        'bg-transparent disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300',
+      class: 'bg-transparent',
     },
     {
       variant: 'ghost',
@@ -252,95 +206,98 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
     {
       variant: 'default',
       size: ['lg', 'icon-lg'],
-      theme: 'primary',
-      class: 'shadow-button-primary',
-    },
-    {
-      variant: 'default',
-      size: ['lg', 'icon-lg'],
-      theme: 'success',
-      class: 'shadow-button-success',
-    },
-    {
-      variant: 'default',
-      size: ['lg', 'icon-lg'],
-      theme: 'info',
-      class: 'shadow-button-info',
-    },
-    {
-      variant: 'default',
-      size: ['lg', 'icon-lg'],
-      theme: 'warning',
-      class: 'shadow-button-warning',
-    },
-    {
-      variant: 'default',
-      size: ['lg', 'icon-lg'],
-      theme: 'alarm',
-      class: 'shadow-button-destructive',
-    },
-    {
-      variant: 'default',
-      size: ['lg', 'icon-lg'],
-      theme: ['default', 'dangerous'],
-      class: 'shadow-base',
+      class:
+        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0',
     },
     {
       variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'primary',
-      disabled: false,
       class:
-        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-primary-active',
+        'shadow-button-primary active:not-disabled:not-data-[disabled]:shadow-button-primary-active',
     },
     {
       variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'success',
-      disabled: false,
       class:
-        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-success-active',
+        'shadow-button-success active:not-disabled:not-data-[disabled]:shadow-button-success-active',
     },
     {
       variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'info',
-      disabled: false,
       class:
-        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-info-active',
+        'shadow-button-info active:not-disabled:not-data-[disabled]:shadow-button-info-active',
     },
     {
       variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'warning',
-      disabled: false,
       class:
-        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-warning-active',
+        'shadow-button-warning active:not-disabled:not-data-[disabled]:shadow-button-warning-active',
     },
     {
       variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: 'alarm',
-      disabled: false,
       class:
-        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-button-destructive-active',
+        'shadow-button-destructive active:not-disabled:not-data-[disabled]:shadow-button-destructive-active',
     },
     {
       variant: 'default',
       size: ['lg', 'icon-lg'],
       theme: ['default', 'dangerous'],
-      disabled: false,
       class:
-        'hover:not-disabled:not-data-[disabled]:-translate-y-px active:not-disabled:not-data-[disabled]:translate-y-0 active:not-disabled:not-data-[disabled]:shadow-[0_2px_4px_rgba(35,35,50,0.08)]',
+        'shadow-base active:not-disabled:not-data-[disabled]:shadow-[0_2px_4px_rgba(35,35,50,0.08)]',
     },
   ],
   defaultVariants: {
     variant: 'default',
     size: 'md',
     theme: 'primary',
-    disabled: false,
   },
 });
+
+export type ButtonVariants = VariantProps<typeof buttonVariants>;
+
+export type ButtonSize = NonNullable<ButtonVariants['size']>;
+export type ButtonTheme = NonNullable<ButtonVariants['theme']>;
+
+/** CVA treats variants as independent; `text`/`ghost` cannot use `dangerous`. */
+export type DefaultButtonProps = {
+  variant?: 'default';
+  theme?: ButtonTheme;
+};
+
+export type TextButtonProps = {
+  variant: 'text';
+  theme?: Exclude<ButtonTheme, 'dangerous'>;
+};
+
+export type GhostButtonProps = {
+  variant: 'ghost';
+  theme?: Exclude<ButtonTheme, 'dangerous'>;
+};
+
+type BaseButtonProps = Omit<
+  ComponentPropsWithoutRef<typeof BaseButton>,
+  'className' | 'children'
+>;
+
+export type ButtonProps = {
+  children?: ReactNode;
+  className?: string;
+  /**
+   * Applied to the inner `data-slot="button-content"` wrapper, which owns how
+   * the icon and label are laid out inside the button. Use this instead of
+   * reaching into the DOM with `[&>span]:*`; theme-owned properties (colour,
+   * geometry, radius) still belong on the button itself.
+   */
+  contentClassName?: string;
+} & Omit<CvaProps<ButtonVariants>, 'variant' | 'theme'> &
+  (DefaultButtonProps | TextButtonProps | GhostButtonProps) &
+  BaseButtonProps;
 
 const Button = forwardRef<ElementRef<typeof BaseButton>, ButtonProps>(
   function Button(props, ref) {
@@ -379,7 +336,6 @@ const Button = forwardRef<ElementRef<typeof BaseButton>, ButtonProps>(
             variant,
             size,
             theme,
-            disabled: isDisabled,
           }),
           useOverlay && OVERLAY_CLASSES,
           className,

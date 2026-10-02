@@ -5,7 +5,7 @@ import type {
 } from '@/components/button/Button';
 import { Input } from '@/components/input/input/Input';
 import { Textarea } from '@/components/textarea/Textarea';
-import { cn } from '@/lib/utils';
+import { type CvaProps, cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { forwardRef } from 'react';
 import type { ComponentPropsWithoutRef, ElementRef } from 'react';
@@ -60,12 +60,16 @@ const inputGroupAddonVariants = cva(
   },
 );
 
+export type InputGroupAddonVariants = VariantProps<
+  typeof inputGroupAddonVariants
+>;
+
 export type InputGroupAddonAlign = NonNullable<
-  VariantProps<typeof inputGroupAddonVariants>['align']
+  InputGroupAddonVariants['align']
 >;
 
 export type InputGroupAddonProps = ComponentPropsWithoutRef<'div'> &
-  VariantProps<typeof inputGroupAddonVariants>;
+  CvaProps<InputGroupAddonVariants>;
 
 const InputGroupAddon = forwardRef<
   ElementRef<'div'>,
@@ -121,12 +125,16 @@ const inputGroupButtonVariants = cva(
   },
 );
 
+export type InputGroupButtonVariants = VariantProps<
+  typeof inputGroupButtonVariants
+>;
+
 export type InputGroupButtonProps = Omit<
   ButtonProps,
   'size' | 'variant' | 'theme'
 > & {
   theme?: Exclude<ButtonTheme, 'dangerous'>;
-} & VariantProps<typeof inputGroupButtonVariants>;
+} & CvaProps<InputGroupButtonVariants>;
 
 const InputGroupButton = forwardRef<
   ElementRef<typeof Button>,

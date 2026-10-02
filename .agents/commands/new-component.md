@@ -20,7 +20,9 @@
 
    - Props 類型直接 inline 定義（`export type ComponentNameProps = {...}`）
    - 使用 `forwardRef` 包裝（如適用）
-   - 使用 `cn()` 合併類名
+   - 使用 named export，不要 default export
+   - 使用 `cn()` 合併類名（`@/lib/utils`）
+   - 有 CVA 時用 `CvaProps<VariantProps<typeof xVariants>>`，不要手寫重複 union、不要直接 intersect 原始 `VariantProps`；不要 export `xVariants` helper。CVA 講不了的限制（必填、內部軸、互斥）再疊上去
    - 遵循 import 順序規範
    - Icon 使用完整路徑（例：`@/icons/SearchIcon`），禁止 barrel import
    - 不新增 component-level `types.ts`；跨檔案共用型別時從元件 `.tsx` import type

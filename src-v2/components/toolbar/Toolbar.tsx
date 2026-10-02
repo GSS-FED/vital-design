@@ -1,5 +1,5 @@
 import { Separator } from '@/components/separator/Separator';
-import { cn } from '@/lib/utils';
+import { type CvaProps, cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { forwardRef } from 'react';
 import type { ComponentPropsWithoutRef, ElementRef } from 'react';
@@ -29,7 +29,7 @@ const toolbarVariants = cva(
 export type ToolbarVariants = VariantProps<typeof toolbarVariants>;
 
 export type ToolbarProps = ComponentPropsWithoutRef<'div'> &
-  ToolbarVariants;
+  CvaProps<ToolbarVariants>;
 
 const Toolbar = forwardRef<ElementRef<'div'>, ToolbarProps>(
   function Toolbar(

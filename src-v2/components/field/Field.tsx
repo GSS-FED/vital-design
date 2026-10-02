@@ -2,7 +2,7 @@
 
 import { Label } from '@/components/label/Label';
 import { Separator } from '@/components/separator/Separator';
-import { cn } from '@/lib/utils';
+import { type CvaProps, cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { useMemo } from 'react';
 import type { ComponentProps, ReactNode } from 'react';
@@ -104,8 +104,10 @@ const fieldVariants = cva(
   },
 );
 
+export type FieldVariants = VariantProps<typeof fieldVariants>;
+
 export type FieldProps = ComponentProps<'div'> &
-  VariantProps<typeof fieldVariants>;
+  CvaProps<FieldVariants>;
 
 function Field({
   className,
