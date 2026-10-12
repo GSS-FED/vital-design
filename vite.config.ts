@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
+import { configDefaults } from 'vitest/config';
 
 export default defineConfig({
   resolve: {
@@ -42,6 +43,8 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: 'src/vitest-setup.ts',
+    // pages-preview.test.mjs uses node:test, not Vitest.
+    exclude: [...configDefaults.exclude, '.gitlab/**'],
     coverage: {
       provider: 'v8',
     },

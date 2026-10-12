@@ -19,7 +19,7 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext cjs,js,jsx,mjs,ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write \"**/**.{cjs,js,jsx,mjs,ts,tsx}\" --ignore-path .gitignore",
-    "test": "vitest run",
+    "test": "vitest run && node --test .gitlab/scripts/pages-preview.test.mjs",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
     "test:visual": "playwright test",
