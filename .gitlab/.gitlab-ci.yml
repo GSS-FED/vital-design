@@ -126,6 +126,7 @@ preview-storybook:
   allow_failure: true
   rules:
     - <<: *cloudflare-mr
+      when: always
 
 stop-preview-storybook:
   stage: preview
