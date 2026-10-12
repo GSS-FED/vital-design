@@ -1,5 +1,6 @@
 stages:
   - test
+  - preview
   - build
   - publish
   - registry-validate
@@ -29,6 +30,19 @@ variables:
   PNPM_VERSION: "10.17.1"
   # Must match the exact @playwright/test version in package.json.
   PLAYWRIGHT_IMAGE: mcr.microsoft.com/playwright:v1.63.0-noble
+  # Direct-upload Pages project. Override if the name is already taken.
+  CLOUDFLARE_PAGES_PROJECT: "vital-design-preview"
+
+# MR pipelines for unprotected branches do not receive protected variables.
+.cloudflare-mr: &cloudflare-mr
+  if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CLOUDFLARE_API_TOKEN && $CLOUDFLARE_ACCOUNT_ID && ($CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main")'
+
+.visual-changes: &visual-changes
+  - src-v2/**/*
+  - tokens/**/*
+  - .storybook/**/*
+  - visual/**/*
+  - playwright.config.ts
 
 before_script:
   - npm i -g pnpm@${PNPM_VERSION}
@@ -85,12 +99,88 @@ visual-diff:
   allow_failure: true
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && ($CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main")'
-      changes:
-        - src-v2/**/*
-        - tokens/**/*
-        - .storybook/**/*
-        - visual/**/*
-        - playwright.config.ts
+      changes: *visual-changes
+
+# ── Cloudflare Pages previews ─────────────────────────────────────────────────
+# Public Storybook and visual-diff URLs for an MR. GitLab shows them as
+# environments. Jobs stay out of the pipeline until both Cloudflare variables
+# exist. Do not mark those variables Protected: feature-branch MR pipelines
+# would not receive them. Closing the MR runs the matching stop job.
+
+preview-storybook:
+  stage: preview
+  needs: []
+  resource_group: preview-mr-$CI_MERGE_REQUEST_IID-storybook
+  script:
+    - pnpm run storybook:build
+    - node .gitlab/scripts/pages-preview.mjs deploy storybook-static "mr-${CI_MERGE_REQUEST_IID}" preview.env STORYBOOK_PREVIEW_URL
+  artifacts:
+    reports:
+      dotenv: preview.env
+  environment:
+    name: preview/mr-$CI_MERGE_REQUEST_IID
+    url: $STORYBOOK_PREVIEW_URL
+    on_stop: stop-preview-storybook
+  allow_failure: true
+  rules:
+    - <<: *cloudflare-mr
+
+stop-preview-storybook:
+  stage: preview
+  needs: []
+  interruptible: false
+  before_script: []
+  script:
+    - node .gitlab/scripts/pages-preview.mjs delete-branch "mr-${CI_MERGE_REQUEST_IID}"
+  environment:
+    name: preview/mr-$CI_MERGE_REQUEST_IID
+    action: stop
+  allow_failure: true
+  rules:
+    - <<: *cloudflare-mr
+      when: manual
+
+preview-visual-diff:
+  stage: preview
+  dependencies:
+    - visual-diff
+  resource_group: preview-mr-$CI_MERGE_REQUEST_IID-visual
+  before_script: []
+  script:
+    - touch preview.env
+    - |
+      if [ ! -f playwright-report/index.html ]; then
+        echo "No playwright-report/index.html; nothing to publish."
+        exit 0
+      fi
+      node .gitlab/scripts/pages-preview.mjs deploy playwright-report "mr-${CI_MERGE_REQUEST_IID}-diff" preview.env VISUAL_DIFF_PREVIEW_URL
+  artifacts:
+    reports:
+      dotenv: preview.env
+  environment:
+    name: preview/mr-$CI_MERGE_REQUEST_IID/visual-diff
+    url: $VISUAL_DIFF_PREVIEW_URL
+    on_stop: stop-preview-visual-diff
+  allow_failure: true
+  rules:
+    - <<: *cloudflare-mr
+      changes: *visual-changes
+      when: always
+
+stop-preview-visual-diff:
+  stage: preview
+  needs: []
+  interruptible: false
+  before_script: []
+  script:
+    - node .gitlab/scripts/pages-preview.mjs delete-branch "mr-${CI_MERGE_REQUEST_IID}-diff"
+  environment:
+    name: preview/mr-$CI_MERGE_REQUEST_IID/visual-diff
+    action: stop
+  allow_failure: true
+  rules:
+    - <<: *cloudflare-mr
+      when: manual
 
 # Legacy npm (@fed/vital-design from src/). Manual on main — merging to
 # main deploys docs, it does not publish. Run build-job then publish-job

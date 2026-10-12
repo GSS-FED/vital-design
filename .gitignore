@@ -16,6 +16,8 @@ storybook-static-visual
 playwright-report
 test-results
 visual/__baseline__
+wrangler-pages.ndjson
+preview.env
 public/r/
 *.local
 .agents/local/

@@ -175,6 +175,7 @@ pnpm docs:start            # 啟動生產環境文件站
 - **src-v2-only 套件位置**：僅供 `src-v2/`、docs、registry 或 stories 使用的套件，根目錄 `package.json` 請維持在 `devDependencies`，避免 legacy npm package 對外安裝額外 runtime dependency；registry 安裝所需套件則由 `registry/*.ts` 的 `dependencies` 個別宣告
 - **src-v2/styles 邊界**：`src-v2/styles/` 是 registry / docs 內部使用的 theme 資產，不是 npm package 的公開匯出；不要在 `package.json` exports 中暴露它
 - **data-slot**：三層合約 — (1) 會 render 可樣式化 DOM 的 exported part 必須有 slot；(2) Trigger 禁止 passthrough，須 wrapper（`DialogTrigger` 為範本）；(3) 僅 Provider / 純 state Root / bare Portal 可豁免。命名：root `button`、subpart `select-trigger`。詳見 `.agents/RULES.md` 與 docs Tailwind setup。
+- **MR preview**：目標為 `develop` 或 `main` 的 MR，在 GitLab 有 `CLOUDFLARE_API_TOKEN` 與 `CLOUDFLARE_ACCOUNT_ID` 時，會把 Storybook 靜態檔上傳到 Cloudflare Pages，並在視覺比對有報告時另傳一份。網址掛在 MR environment。這兩個變數不要設成 Protected，否則未受保護的支援分支拿不到。預覽網址是公開的。
 
 ## Registry
 
