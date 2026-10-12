@@ -110,9 +110,6 @@ visual-diff:
 preview-storybook:
   stage: preview
   resource_group: preview-mr-$CI_MERGE_REQUEST_IID-storybook
-  # The Docker runner OOMs if this Storybook build overlaps the Playwright job.
-  variables:
-    NODE_OPTIONS: "--max-old-space-size=4096"
   script:
     - pnpm run storybook:build
     - node .gitlab/scripts/pages-preview.mjs deploy storybook-static "mr-${CI_MERGE_REQUEST_IID}" preview.env STORYBOOK_PREVIEW_URL
