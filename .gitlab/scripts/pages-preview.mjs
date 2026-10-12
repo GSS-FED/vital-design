@@ -3,7 +3,8 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const WRANGLER_VERSION = '4.147.0';
+// 4.87+ requires Node 22. GitLab CI images are Node 20.
+const WRANGLER_VERSION = '4.86.0';
 
 export function previewUrlFromWranglerNdjson(text) {
   let alias;
@@ -141,8 +142,6 @@ async function deploy(directory, branch, dotenvPath, variableName) {
     '--branch',
     branch,
     '--commit-dirty=true',
-    // Stay on Pages. Wrangler can otherwise send a new static project to Workers.
-    '--force',
   ];
   if (process.env.CI_COMMIT_SHA) {
     args.push('--commit-hash', process.env.CI_COMMIT_SHA);
