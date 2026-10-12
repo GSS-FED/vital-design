@@ -127,7 +127,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
       variant: 'default',
       theme: 'primary',
       class:
-        'text-white bg-[image:var(--gradient-primary-button)] focus-visible:shadow-focus-primary',
+        'text-white bg-red-500 focus-visible:shadow-focus-primary',
     },
     {
       variant: 'default',

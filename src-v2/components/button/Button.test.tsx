@@ -7,7 +7,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { Button } from './Button';
 
 const defaultThemeCases = [
-  ['primary', 'bg-[image:var(--gradient-primary-button)]'],
+  ['primary', 'bg-red-500'],
   ['default', 'bg-white'],
   ['success', 'bg-success-500'],
   ['info', 'bg-info-500'],
@@ -33,9 +33,7 @@ describe('Button', () => {
     expect(button).toHaveAttribute('data-slot', 'button');
     expect(button).toHaveAttribute('data-variant', 'default');
     expect(button).toHaveAttribute('data-size', 'md');
-    expect(button).toHaveClass(
-      'bg-[image:var(--gradient-primary-button)]',
-    );
+    expect(button).toHaveClass('bg-red-500');
   });
 
   it('forwards ref to the underlying button element', () => {
