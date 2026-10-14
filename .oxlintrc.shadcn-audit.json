@@ -1,60 +1,24 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "extends": ["./.oxlintrc.shadcn.json"],
+  "extends": ["./.oxlintrc.shadcn.base.json"],
+  "ignorePatterns": [
+    "**/dist",
+    "**/coverage",
+    "**/storybook-static*",
+    "**/*.test.{ts,tsx}",
+    "src",
+    "src-v2/icons",
+    "apps/docs/.next",
+    "apps/docs/out",
+    "apps/docs/components/previews/__sources__.ts"
+  ],
   "settings": {
     "shadcn": {
       "ui": "@/components",
       "ignoreImports": ["^@/components/collapsible(/|$)"]
     }
   },
-  "overrides": [
-    {
-      "files": ["src-v2/blocks/**"],
-      "rules": {
-        "shadcn/no-restyle": [
-          "warn",
-          {
-            "allow": ["layout"],
-            "contracts": [
-              {
-                "pattern": "(Group|Header|Footer|Content|MenuItem)$|^Toolbar$",
-                "allow": ["layout", "spacing"]
-              },
-              {
-                "pattern": "^Skeleton$",
-                "allow": ["layout", "shape"]
-              },
-              {
-                "pattern": "^Label$",
-                "allow": ["layout", "typography"]
-              },
-              {
-                "pattern": "^Table$",
-                "allow": [
-                  "layout",
-                  "rounded",
-                  "border-w",
-                  "border-color",
-                  "bg-color",
-                  "shadow"
-                ]
-              },
-              {
-                "pattern": "^ProgressSegment$",
-                "allow": ["layout", "bg-color"]
-              },
-              {
-                "pattern": "^ProgressSegments$",
-                "allow": ["layout", "gap"]
-              },
-              {
-                "pattern": "^(Button|DialogTitle|SheetTitle)$",
-                "allow": ["layout", "text-transform"]
-              }
-            ]
-          }
-        ]
-      }
-    }
-  ]
+  "rules": {
+    "shadcn/require-static-classes": "off"
+  }
 }

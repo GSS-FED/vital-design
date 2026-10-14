@@ -23,7 +23,7 @@ enforces the policy. People decide it.
 | ------------------------ | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | Code quality             | `.oxlintrc.json`                     | Rules migrated from ESLint, type-aware checks                                                                                                      | No                                                                               |
 | **Design system policy** | `vital-design.lint.json`             | Rules + options only. No paths, no `settings`, no repo-only classes                                                                                | **Yes**, registry item `vital-design-lint` (docs: Getting Started → Design Lint) |
-| Repo wiring              | `.oxlintrc.shadcn.json` (+ `-audit`) | `jsPlugins`, `extends` the policy, `settings.shadcn.ui`, ignore patterns, area overrides, repo-only extras (`not-prose`, calibration `no-restyle`) | No                                                                               |
+| Repo wiring              | `.oxlintrc.shadcn.base.json`, applied by `.oxlintrc.shadcn.json` and `-audit` | The single `no-restyle` contract list, `settings.shadcn`, ignore patterns. The gate file only turns those rules off for kit and block implementation files | No                                                                               |
 
 Where a decision goes:
 
@@ -109,16 +109,17 @@ AGENTS.md forbids changing Oxlint config unprompted, so get the user's OK first.
 - **A contract replaces `allow` instead of adding to it.** Always restate
   `layout`. When several contracts match, **only the last applies**, so order
   specific after general.
-- **Contracts must be repeated in each override.** Setting only a severity
-  (`"warn"`) resets the options. The full `no-restyle` options live in three
-  places: `.oxlintrc.shadcn.json` rules, its `*.stories.tsx` override, and
-  `.oxlintrc.shadcn-audit.json`. Update all three, then check they match:
-  `node -e 'const a=require("./.oxlintrc.shadcn.json"),b=require("./.oxlintrc.shadcn-audit.json"),o=x=>JSON.stringify(x);console.log(o(a.rules["shadcn/no-restyle"])===o(a.overrides[1].rules["shadcn/no-restyle"]),o(a.rules["shadcn/no-restyle"])===o(b.overrides[0].rules["shadcn/no-restyle"]))'`
+- **The `no-restyle` contract list lives only in `.oxlintrc.shadcn.base.json`.**
+  Do not copy it into an override. Redeclaring the rule with only a severity
+  (`"warn"`) resets its options. `.oxlintrc.shadcn.json` turns the rule off
+  for `src-v2/components/**` and `src-v2/blocks/**`, and `excludeFiles` keeps
+  `*.stories.tsx` on the base rule. Audit extends the base, not the gate, so
+  it keeps the same contracts without pasting them.
 - **`deny`** removes entries from an allow list, e.g.
   `allow: ["layout","typography"], deny: ["font-*"]`.
 - **Recognition settings** (`ignoreImports`, `componentImports`) go under
-  `settings.shadcn`. Oxlint does not inherit `settings` through `extends`, so
-  the audit config repeats them.
+  `settings.shadcn`. Oxlint does not inherit `settings` or `ignorePatterns`
+  through `extends`, so `.oxlintrc.shadcn.json` and `-audit` repeat both.
 - **Agent-facing text:** `message` works per contract and per category, with
   placeholders `{{variants}}`, `{{sizes}}`, `{{around}}`, `{{file}}`.
   `settings.shadcn.note` appends to every finding.
@@ -135,13 +136,15 @@ AGENTS.md forbids changing Oxlint config unprompted, so get the user's OK first.
 
 ```bash
 node -e '
-const c=require("./.oxlintrc.shadcn.json");
-const r=c.rules["shadcn/no-restyle"][1];
-r.contracts.push({pattern:"^ProgressSegment$",allow:["layout","bg-color"]});
-c.overrides[1].rules["shadcn/no-restyle"][1]=r;   // stories override
-require("fs").writeFileSync(".oxlintrc.tmp.json",JSON.stringify(c));' \
+const fs=require("fs");
+const base=require("./.oxlintrc.shadcn.base.json");
+base.rules["shadcn/no-restyle"][1].contracts.push({pattern:"^ProgressSegment$",allow:["layout","bg-color"]});
+fs.writeFileSync(".oxlintrc.tmp.base.json",JSON.stringify(base));
+const gate=require("./.oxlintrc.shadcn.json");
+gate.extends=["./.oxlintrc.tmp.base.json"];
+fs.writeFileSync(".oxlintrc.tmp.json",JSON.stringify(gate));' \
 && pnpm exec oxlint -c .oxlintrc.tmp.json --disable-nested-config src-v2 apps/docs/components \
- | grep -E "warning shadcn|error shadcn" ; rm .oxlintrc.tmp.json
+ | grep -E "warning shadcn|error shadcn" ; rm -f .oxlintrc.tmp.json .oxlintrc.tmp.base.json
 ```
 
 A misspelled category or group produces a config error on line 1 and pauses
