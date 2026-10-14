@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  svgo@3: 3.3.5
+
 importers:
 
   .:
@@ -38,7 +41,7 @@ importers:
     devDependencies:
       '@base-ui/react':
         specifier: ^1.9.0
-        version: 1.9.0(@date-fns/tz@1.4.1)(@types/react@18.3.12)(date-fns@4.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 1.9.0(@date-fns/tz@1.4.1)(@types/react@18.3.12)(date-fns@4.4.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@commitlint/cli':
         specifier: ^19.6.0
         version: 19.6.0(@types/node@20.17.9)(typescript@5.7.2)
@@ -163,8 +166,8 @@ importers:
         specifier: ^0.4.0
         version: 0.4.0
       date-fns:
-        specifier: ^4.1.0
-        version: 4.1.0
+        specifier: ^4.4.0
+        version: 4.4.0
       eslint:
         specifier: ^8.56.0
         version: 8.57.1
@@ -214,8 +217,8 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
       react-resizable-panels:
-        specifier: ^4.10.0
-        version: 4.10.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^4.14.5
+        version: 4.14.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       semantic-release:
         specifier: ^22.0.12
         version: 22.0.12(typescript@5.7.2)
@@ -226,14 +229,14 @@ importers:
         specifier: ^8.4.5
         version: 8.4.6(prettier@3.4.1)
       style-dictionary:
-        specifier: ^5.4.0
-        version: 5.4.0(tslib@2.8.1)
+        specifier: ^5.6.1
+        version: 5.6.1(tslib@2.8.1)
       styled-components:
         specifier: ^5.3.11
         version: 5.3.11(@babel/core@7.29.0)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
       svgo:
-        specifier: ^4.0.1
-        version: 4.0.1
+        specifier: ^4.1.0
+        version: 4.1.0
       tailwindcss:
         specifier: ^4.3.3
         version: 4.3.3
@@ -616,8 +619,8 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@bundled-es-modules/deepmerge@4.3.1':
-    resolution: {integrity: sha512-Rk453EklPUPC3NRWc3VUNI/SSUjdBaFoaQvFRmNBNtMHVtOFD5AntiWg5kEE1hqcPqedYFDzxE3ZcMYPcA195w==}
+  '@bundled-es-modules/deepmerge@4.3.2':
+    resolution: {integrity: sha512-q8doe7ndrY2IolUOFIn0A0++JBX38pMhN7kFhTF4cnjIcILf6X6H2yWczInyv8ZFdR0lrE8088X8XS5efxXz8A==}
 
   '@bundled-es-modules/glob@13.0.6':
     resolution: {integrity: sha512-x9nR2e1pt8LF0yLPC6yz/aUoiN7qJJwZ1znLxIXCxGyH+8BI+yO/sklBdn1+QbUyWXQBM+CjfZz3IhqtgIoDVg==}
@@ -4482,6 +4485,9 @@ packages:
   css-select@5.2.2:
     resolution: {integrity: sha512-TizTzUddG/xYLA3NXodFM0fSbNizXjOKhqiQQwvhlspadZokn1KDy0NZFS0wuEubIYAV5/c1/lAr0TaaFXEXzw==}
 
+  css-select@6.0.0:
+    resolution: {integrity: sha512-rZZVSLle8v0+EY8QAkDWrKhpgt6SA5OtHsgBnsj6ZaLb5dmDVOWUDtQitd9ydxxvEjhewNudS6eTVU7uOyzvXw==}
+
   css-to-react-native@3.2.0:
     resolution: {integrity: sha512-e8RKaLXMOFii+02mOlqwjbD00KSEKqblnpO9e++1aXS1fPQOpS1YoqdVHBqPjHNoxeF2mimzVqawm2KCbEdtHQ==}
 
@@ -4499,6 +4505,10 @@ packages:
 
   css-what@6.2.2:
     resolution: {integrity: sha512-u/O3vwbptzhMs3L1fQE82ZSLHQQfto5gyZzwteVIEyeaY5Fc7R4dapF/BvRoSYFeqfBk4m0V1Vafq5Pjv25wvA==}
+    engines: {node: '>= 6'}
+
+  css-what@7.0.0:
+    resolution: {integrity: sha512-wD5oz5xibMOPHzy13CyGmogB3phdvcDaB5t0W/Nr5Z2O/agcB8YwOz6e2Lsp10pNDzBoDO9nVa3RGs/2BttpHQ==}
     engines: {node: '>= 6'}
 
   css.escape@1.5.1:
@@ -4558,8 +4568,8 @@ packages:
   date-fns-jalali@4.1.0-0:
     resolution: {integrity: sha512-hTIP/z+t+qKwBDcmmsnmjWTduxCg+5KfdqWQvb2X/8C9+knYY6epN/pfxdDuyVlSVeFz0sM5eEfwIUQ70U4ckg==}
 
-  date-fns@4.1.0:
-    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
+  date-fns@4.4.0:
+    resolution: {integrity: sha512-+1UMbeh68lH1SegH83CGWwpb6OHHbpSgr3+s5Eww5M4CAgswBpoWS0AjTOfEJ33HiYKz1hdj/KTFprzXHmq/6w==}
 
   de-indent@1.0.2:
     resolution: {integrity: sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==}
@@ -7346,8 +7356,8 @@ packages:
       '@types/react':
         optional: true
 
-  react-resizable-panels@4.10.0:
-    resolution: {integrity: sha512-frjewRQt7TCv/vCH1pJfjZ7RxAhr5pKuqVQtVgzFq/vherxBFOWyC3xMbryx5Ti2wylViGUFc93Etg4rB3E0UA==}
+  react-resizable-panels@4.14.5:
+    resolution: {integrity: sha512-AoHgoq3sGOfciPn2ahddFrBCqsitZLse8cJIYWblvE3kQ9z39IrhdlHCjnVRrDL8XcWqvA0u/t9nLZTfWePJ5A==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
@@ -7618,6 +7628,10 @@ packages:
 
   sax@1.6.0:
     resolution: {integrity: sha512-6R3J5M4AcbtLUdZmRv2SygeVaM7IhrLXu9BmnOGmmACak8fiUtOsYNWUS4uK7upbmHIBbLBeFeI//477BKLBzA==}
+    engines: {node: '>=11.0.0'}
+
+  sax@1.6.1:
+    resolution: {integrity: sha512-42tBVwLWnaQvW5zc4HbZrTuWccECCZfBi92FDuwtqxasH+JbPB3/FOKb1m222K42R4WxuxzzMsTswfzgtSu64Q==}
     engines: {node: '>=11.0.0'}
 
   saxes@6.0.0:
@@ -7958,8 +7972,8 @@ packages:
   strip-literal@2.1.1:
     resolution: {integrity: sha512-631UJ6O00eNGfMiWG78ck80dfBab8X6IVFB51jZK5Icd7XAs60Z5y7QdSd/wGIklnWvRbUNloVzhOKKmutxQ6Q==}
 
-  style-dictionary@5.4.0:
-    resolution: {integrity: sha512-6BzO0DV19t6KUEXYfvHJ73d3y8bBDcd0wNLfoZRX817obJ8YX5Vev8Xh3+k9601tHE8qRJ/586iLt0byuY2THw==}
+  style-dictionary@5.6.1:
+    resolution: {integrity: sha512-aDYbNr38jKIGTWHAJl5yZLWLftEopmR7RNT035Wjenshr3VnPfXO2ns/E1kPdNDi7Akl1h1iXSeQ+o8IN60+ew==}
     engines: {node: '>=22.0.0'}
     hasBin: true
 
@@ -8013,13 +8027,13 @@ packages:
   svg-parser@2.0.4:
     resolution: {integrity: sha512-e4hG1hRwoOdRb37cIMSgzNsxyzKfayW6VOflrwvR+/bzrkyxY/31WkbgnQpgtrNp1SdpJvpUAGTa/ZoiPNDuRQ==}
 
-  svgo@3.3.3:
-    resolution: {integrity: sha512-+wn7I4p7YgJhHs38k2TNjy1vCfPIfLIJWR5MnCStsN8WuuTcBnRKcMHQLMM2ijxGZmDoZwNv8ipl5aTTen62ng==}
+  svgo@3.3.5:
+    resolution: {integrity: sha512-8SQMzdrvWaD8deUmrnYB+ASyxBVgWUOilg+A75nE/76WdLpj6LopCwiAVvkzkcqy/9b7t2Mg7faFLjg0ZRcZ3w==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
-  svgo@4.0.1:
-    resolution: {integrity: sha512-XDpWUOPC6FEibaLzjfe0ucaV0YrOjYotGJO1WpF0Zd+n6ZGEQUsSugaoLq9QkEZtAfQIxT42UChcssDVPP3+/w==}
+  svgo@4.1.0:
+    resolution: {integrity: sha512-bkxnTg1kSU0guhIBmibA6UUhrQmPVA1XsQLN+ylCd+UWzbnLkySOcXpyk1mrl05f+pcaCx2eHb+sp6BgMZWX+Q==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -9063,7 +9077,7 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
-  '@base-ui/react@1.9.0(@date-fns/tz@1.4.1)(@types/react@18.3.12)(date-fns@4.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@base-ui/react@1.9.0(@date-fns/tz@1.4.1)(@types/react@18.3.12)(date-fns@4.4.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 8.0.7
       '@base-ui/utils': 0.5.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -9075,7 +9089,7 @@ snapshots:
     optionalDependencies:
       '@date-fns/tz': 1.4.1
       '@types/react': 18.3.12
-      date-fns: 4.1.0
+      date-fns: 4.4.0
 
   '@base-ui/utils@0.5.0(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -9090,7 +9104,7 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@bundled-es-modules/deepmerge@4.3.1':
+  '@bundled-es-modules/deepmerge@4.3.2':
     dependencies:
       deepmerge: 4.3.1
 
@@ -11783,7 +11797,7 @@ snapshots:
       '@svgr/core': 8.1.0(typescript@5.7.2)
       cosmiconfig: 8.3.6(typescript@5.7.2)
       deepmerge: 4.3.1
-      svgo: 3.3.3
+      svgo: 3.3.5
     transitivePeerDependencies:
       - typescript
 
@@ -12364,7 +12378,7 @@ snapshots:
       '@vue/shared': 3.5.13
       entities: 4.5.0
       estree-walker: 2.0.2
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
   '@vue/compiler-dom@3.5.13':
     dependencies:
@@ -12606,10 +12620,10 @@ snapshots:
 
   assert@2.1.0:
     dependencies:
-      call-bind: 1.0.7
+      call-bind: 1.0.9
       is-nan: 1.3.2
       object-is: 1.1.6
-      object.assign: 4.1.5
+      object.assign: 4.1.7
       util: 0.12.5
 
   assertion-error@1.1.0: {}
@@ -13041,6 +13055,14 @@ snapshots:
       domutils: 3.2.2
       nth-check: 2.1.1
 
+  css-select@6.0.0:
+    dependencies:
+      boolbase: 1.0.0
+      css-what: 7.0.0
+      domhandler: 5.0.3
+      domutils: 3.2.2
+      nth-check: 2.1.1
+
   css-to-react-native@3.2.0:
     dependencies:
       camelize: 1.0.1
@@ -13050,19 +13072,21 @@ snapshots:
   css-tree@2.2.1:
     dependencies:
       mdn-data: 2.0.28
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
   css-tree@2.3.1:
     dependencies:
       mdn-data: 2.0.30
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
   css-tree@3.2.1:
     dependencies:
       mdn-data: 2.27.1
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
   css-what@6.2.2: {}
+
+  css-what@7.0.0: {}
 
   css.escape@1.5.1: {}
 
@@ -13125,7 +13149,7 @@ snapshots:
 
   date-fns-jalali@4.1.0-0: {}
 
-  date-fns@4.1.0: {}
+  date-fns@4.4.0: {}
 
   de-indent@1.0.2: {}
 
@@ -13445,7 +13469,7 @@ snapshots:
 
   es-get-iterator@1.1.3:
     dependencies:
-      call-bind: 1.0.7
+      call-bind: 1.0.9
       get-intrinsic: 1.2.4
       has-symbols: 1.0.3
       is-arguments: 1.1.1
@@ -14764,7 +14788,7 @@ snapshots:
 
   is-boolean-object@1.2.0:
     dependencies:
-      call-bind: 1.0.7
+      call-bind: 1.0.9
       has-tostringtag: 1.0.2
 
   is-boolean-object@1.2.2:
@@ -14815,7 +14839,7 @@ snapshots:
 
   is-finalizationregistry@1.1.0:
     dependencies:
-      call-bind: 1.0.7
+      call-bind: 1.0.9
 
   is-fullwidth-code-point@3.0.0: {}
 
@@ -14847,14 +14871,14 @@ snapshots:
 
   is-nan@1.3.2:
     dependencies:
-      call-bind: 1.0.7
+      call-bind: 1.0.9
       define-properties: 1.2.1
 
   is-negative-zero@2.0.3: {}
 
   is-number-object@1.1.0:
     dependencies:
-      call-bind: 1.0.7
+      call-bind: 1.0.9
       has-tostringtag: 1.0.2
 
   is-number-object@1.1.1:
@@ -14956,7 +14980,7 @@ snapshots:
 
   is-weakset@2.0.3:
     dependencies:
-      call-bind: 1.0.7
+      call-bind: 1.0.9
       get-intrinsic: 1.2.4
 
   is-wsl@2.2.0:
@@ -15984,7 +16008,7 @@ snapshots:
 
   object-is@1.1.6:
     dependencies:
-      call-bind: 1.0.7
+      call-bind: 1.0.9
       define-properties: 1.2.1
 
   object-keys@1.1.1: {}
@@ -16300,7 +16324,7 @@ snapshots:
     dependencies:
       nanoid: 3.3.11
       picocolors: 1.1.1
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
   postcss@8.5.30:
     dependencies:
@@ -16394,7 +16418,7 @@ snapshots:
     dependencies:
       '@date-fns/tz': 1.4.1
       '@tabby_ai/hijri-converter': 1.0.5
-      date-fns: 4.1.0
+      date-fns: 4.4.0
       date-fns-jalali: 4.1.0-0
       react: 18.3.1
 
@@ -16474,7 +16498,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.12
 
-  react-resizable-panels@4.10.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-resizable-panels@4.14.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -16863,6 +16887,8 @@ snapshots:
   safer-buffer@2.1.2: {}
 
   sax@1.6.0: {}
+
+  sax@1.6.1: {}
 
   saxes@6.0.0:
     dependencies:
@@ -17351,9 +17377,9 @@ snapshots:
     dependencies:
       js-tokens: 9.0.1
 
-  style-dictionary@5.4.0(tslib@2.8.1):
+  style-dictionary@5.6.1(tslib@2.8.1):
     dependencies:
-      '@bundled-es-modules/deepmerge': 4.3.1
+      '@bundled-es-modules/deepmerge': 4.3.2
       '@bundled-es-modules/glob': 13.0.6
       '@bundled-es-modules/memfs': 4.17.0(tslib@2.8.1)
       '@zip.js/zip.js': 2.8.26
@@ -17423,7 +17449,7 @@ snapshots:
 
   svg-parser@2.0.4: {}
 
-  svgo@3.3.3:
+  svgo@3.3.5:
     dependencies:
       commander: 7.2.0
       css-select: 5.2.2
@@ -17433,15 +17459,15 @@ snapshots:
       picocolors: 1.1.1
       sax: 1.6.0
 
-  svgo@4.0.1:
+  svgo@4.1.0:
     dependencies:
       commander: 11.1.0
-      css-select: 5.2.2
+      css-select: 6.0.0
       css-tree: 3.2.1
-      css-what: 6.2.2
+      css-what: 7.0.0
       csso: 5.0.5
       picocolors: 1.1.1
-      sax: 1.6.0
+      sax: 1.6.1
 
   symbol-tree@3.2.4: {}
 
@@ -18002,7 +18028,7 @@ snapshots:
 
   which-builtin-type@1.2.0:
     dependencies:
-      call-bind: 1.0.7
+      call-bind: 1.0.9
       function.prototype.name: 1.1.6
       has-tostringtag: 1.0.2
       is-async-function: 2.0.0
