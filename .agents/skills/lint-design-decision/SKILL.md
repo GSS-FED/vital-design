@@ -166,6 +166,8 @@ the rule for that file. Check that no such error appears.
 | Caption-styled `Label` in NumberInput scrub area                                                  | Plain `Label`; a secondary label size would be a Label variant, not a caller override                                                                                                       | 3    |
 | FieldLabel `py-1.5` + `!w-* !flex-none` in horizontal Field                                       | Kit gap: label-column rows (direct FieldLabel + FieldContent) now fixed-width and aligned to `min-h-8`; caller sets only width                                                              | 2    |
 | `#f8f8f9`, `rgba(35,35,50,0.06)`, motion arbitrary values                                         | Open token questions (no exact token)                                                                                                                                                       | 1    |
+| Grouping resizable header `hover:bg-grayscale-50`                                                 | No `grayscale-50` step. Same header in the other grouping blocks uses `hover:bg-grayscale-100`                                                                                              | 1    |
+| Story `data-[popup-open]:bg-grayscale-200` on `SidebarMenuButton`                                 | Duplicate of the kit `data-popup-open:bg-grayscale-200`. Deleted the story override                                                                                                         | 3    |
 
 Add a row whenever a new decision is made, so the next triage reuses it.
 
