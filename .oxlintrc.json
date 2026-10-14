@@ -28,7 +28,8 @@
     "**/storybook-static-visual",
     "**/apps",
     ".agents",
-    ".claude"
+    ".claude",
+    ".gitlab"
   ],
   "rules": {
     "no-case-declarations": "error",
