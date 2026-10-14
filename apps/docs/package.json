@@ -33,7 +33,7 @@
     "oxlint": "^1.86.0",
     "oxlint-tsgolint": "^7.0.2003",
     "tailwindcss": "^4.3.3",
-    "typescript": "^5.3"
+    "typescript": "^5.9.3"
   },
   "portless": "docs.vital-design"
 }
