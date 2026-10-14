@@ -71,7 +71,7 @@ function ResizableHarness({
 }
 
 function fireTouch(
-  target: EventTarget,
+  target: Element,
   type: 'touchstart' | 'touchmove' | 'touchend',
   clientX: number,
 ) {
