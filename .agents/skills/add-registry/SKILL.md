@@ -36,6 +36,7 @@ allowed-tools: Read, Write, Edit, Bash
 4. **編輯對應的 TypeScript 檔**（勿直接編輯 `registry.json`，它是自動產生的）
 
    - UI 元件 → `registry/ui.ts`
+   - 新增被元件使用的 icon 時，同步加入 `registry/base.ts` 的 `iconGroups` 與 `RegistryItemName`；文件 Icons gallery 也要同步
    - Block → `registry/blocks.ts`
    - Hook → `registry/hooks.ts`
    - 參考同檔案中現有項目的結構

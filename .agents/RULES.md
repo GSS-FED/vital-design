@@ -91,6 +91,7 @@ import { CheckIcon, CloseIcon } from '@/icons';
 - v2 選擇類元件依互動方式拆分：`Select` 平面單選或多選下拉、`Combobox` 可搜尋輸入選擇、`Cascader` 階層路徑選擇。`Command` 是公開 primitive，用於命令面板與自訂 searchable popup。
 - `Item` 是內容列 primitive（media/title/description/actions），`size="list"` 對齊 select/list row 密度。不要把資料載入、搜尋、選取狀態塞進 `Item`；picker 用 `Select` / `Combobox` / `Cascader`，action menu 用 `DropdownMenu`。
 - `Separator` 是共用分隔線 primitive。新 `src-v2` 元件不要再手寫 `div role="separator"`。
+- `Pagination` 是無狀態的 navigation parts，預設使用 anchor；client-side 換頁以 `render={<button type="button" />}` 保留原生鍵盤行為。頁碼計算、跳頁、每頁筆數由使用端組合，不加入 primitive。
 
 ## data-slot 合約
 

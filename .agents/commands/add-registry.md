@@ -35,6 +35,7 @@
 4. **在對應的 registry 檔案中新增條目**（勿直接編輯 `registry.json`）
 
    - UI 元件 → `registry/ui.ts`
+   - 新增被元件使用的 icon 時，同步加入 `registry/base.ts` 的 `iconGroups` 與 `RegistryItemName`，並更新文件 Icons gallery
    - Block → `registry/blocks.ts`
    - Hook → `registry/hooks.ts`
 

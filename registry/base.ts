@@ -78,6 +78,16 @@ const iconGroups = [
   { name: 'icon-info', title: 'Info Icon', files: ['InfoIcon'] },
   { name: 'icon-minus', title: 'Minus Icon', files: ['MinusIcon'] },
   {
+    name: 'icon-page-first',
+    title: 'Page First Icon',
+    files: ['PageFirstIcon'],
+  },
+  {
+    name: 'icon-page-last',
+    title: 'Page Last Icon',
+    files: ['PageLastIcon'],
+  },
+  {
     name: 'icon-panel-left',
     title: 'Panel Left Icon',
     files: ['PanelLeftIcon'],

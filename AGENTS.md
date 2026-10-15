@@ -94,7 +94,7 @@ pnpm docs:start            # 啟動生產環境文件站
 
 ### 文件站（apps/docs/）
 
-- `apps/docs/app/` - Next.js App Router（含 `[[...slug]]/page.tsx`）
+- `apps/docs/app/` - Next.js App Router（文件頁在 `docs/[[...slug]]/page.tsx`）
 - `apps/docs/app/llms.txt/route.ts` - 靜態 `/llms.txt`（llmstxt.org 目錄，由 `apps/docs/lib/llms.ts` 從 page tree 產生；sidebar 連結在 `content/docs/meta.json`）
 - `apps/docs/components/previews/` - 互動 preview 元件（`'use client'`，含 useState）
 - `apps/docs/components/vital-components.ts` - `'use client'` barrel，MDX 頁面可直接 import 元件做靜態 preview（無需 state 時使用）
@@ -170,6 +170,7 @@ pnpm docs:start            # 啟動生產環境文件站
 - **Select family**：v2 public selection components are split by interaction: `Select` = flat dropdown for single or multiple values, `Combobox` = searchable input picker, `Command` + `Popover` = hierarchical path picker recipe, `DropdownMenu` = action menu (no value binding). `Command` is also public — a primitive for command palettes, custom searchable popups, and paged hierarchical pickers.
 - **Item**：display row primitive for media/title/description/actions. Use `size="list"` for select/list row density. Do not add search, loading, paging, or selection state to `Item`; use picker/menu/command primitives for those.
 - **Separator**：shared divider primitive. Prefer it over hand-rolled `div role="separator"` in new `src-v2` components.
+- **Pagination**：`Pagination` + `PaginationContent` / `PaginationItem` / `PaginationLink` 與方向 parts 組合；預設保留 anchor 語意，client-side 換頁用 `render={<button type="button" />}`。頁碼、總頁數、跳頁與每頁筆數由使用端管理，表格組合見 Storybook。Registry 安裝 `@vital-design/pagination`；文件 `/docs/components/pagination` 含互動 preview。
 - **cn() 依賴**：registry 需列出 `cn`（取代舊的 clsx + tailwind-merge）
 - **文件站 Preview 元件**：`apps/docs/components/previews/` 的元件必須有 `'use client'`，因為 MDX 頁面是 RSC，不能直接傳 inline function prop（如 `onChange={() => {}}`）
 - **文件站 .next 快取**：修改 `apps/docs/source.config.ts` 後，須執行 `rm -rf apps/docs/.next` 再重建，否則 source config hash 不符導致新頁面 404

@@ -64,4 +64,5 @@
 - 元件名稱使用 PascalCase
 - 目錄名稱使用 kebab-case
 - 確保包含無障礙支援（aria attributes）
+- Navigation parts 參考 `Breadcrumb` / `Pagination`：保留 anchor 語意，client-side action 用 `render` 組合原生 button，頁面資料與頁碼計算留在使用端。
 - 樣式使用 CSS variables（`var(--primary-500)`）或 Tailwind utility class，禁止引入 JS 常數
