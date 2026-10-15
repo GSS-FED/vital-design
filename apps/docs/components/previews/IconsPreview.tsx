@@ -39,6 +39,8 @@ import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { MinusIcon } from '@/icons/MinusIcon';
 import { MinusSolidIcon } from '@/icons/MinusSolidIcon';
 import { NoteIcon } from '@/icons/NoteIcon';
+import { PageFirstIcon } from '@/icons/PageFirstIcon';
+import { PageLastIcon } from '@/icons/PageLastIcon';
 import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
 import { PlaceholderIcon } from '@/icons/PlaceholderIcon';
 import { PlaceholderSolidIcon } from '@/icons/PlaceholderSolidIcon';
@@ -100,6 +102,8 @@ const icons: IconEntry[] = [
   { name: 'MinusIcon', Icon: MinusIcon },
   { name: 'MinusSolidIcon', Icon: MinusSolidIcon },
   { name: 'NoteIcon', Icon: NoteIcon },
+  { name: 'PageFirstIcon', Icon: PageFirstIcon },
+  { name: 'PageLastIcon', Icon: PageLastIcon },
   { name: 'PanelLeftIcon', Icon: PanelLeftIcon },
   { name: 'PlaceholderIcon', Icon: PlaceholderIcon },
   { name: 'PlaceholderSolidIcon', Icon: PlaceholderSolidIcon },

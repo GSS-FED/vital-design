@@ -160,6 +160,16 @@ const iconGroups = [
     files: ['MinusSolidIcon'],
   },
   {
+    name: 'icon-page-first',
+    title: 'Page First Icon',
+    files: ['PageFirstIcon'],
+  },
+  {
+    name: 'icon-page-last',
+    title: 'Page Last Icon',
+    files: ['PageLastIcon'],
+  },
+  {
     name: 'icon-panel-left',
     title: 'Panel Left Icon',
     files: ['PanelLeftIcon'],

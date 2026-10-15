@@ -39,6 +39,8 @@ export { MagnifyingGlassIcon } from './MagnifyingGlassIcon';
 export { MinusIcon } from './MinusIcon';
 export { MinusSolidIcon } from './MinusSolidIcon';
 export { NoteIcon } from './NoteIcon';
+export { PageFirstIcon } from './PageFirstIcon';
+export { PageLastIcon } from './PageLastIcon';
 export { PanelLeftIcon } from './PanelLeftIcon';
 export { PlaceholderIcon } from './PlaceholderIcon';
 export { PlaceholderSolidIcon } from './PlaceholderSolidIcon';
