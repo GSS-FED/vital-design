@@ -32,6 +32,7 @@
    - 加上 `'use client'`
    - 在 `page.tsx` 同步新增 import 與 `components` 物件註冊
    - 若有多種主要狀態，可提供多個 named export preview
+   - Code tab 的 imports 由 `previews:sources` 轉成 registry 安裝路徑；範例需可獨立複製，避免使用未被擷取的 private helper
 
 5. **建立或更新 MDX 文件**
 

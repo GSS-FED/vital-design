@@ -539,6 +539,32 @@
       ]
     },
     {
+      "name": "icon-page-first",
+      "type": "registry:ui",
+      "title": "Page First Icon",
+      "description": "Page First Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/PageFirstIcon.tsx",
+          "target": "src/components/icons/PageFirstIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-page-last",
+      "type": "registry:ui",
+      "title": "Page Last Icon",
+      "description": "Page Last Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/PageLastIcon.tsx",
+          "target": "src/components/icons/PageLastIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-panel-left",
       "type": "registry:ui",
       "title": "Panel Left Icon",
@@ -741,6 +767,16 @@
           "type": "registry:ui"
         },
         {
+          "path": "src-v2/icons/PageFirstIcon.tsx",
+          "target": "src/components/icons/PageFirstIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/PageLastIcon.tsx",
+          "target": "src/components/icons/PageLastIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src-v2/icons/PanelLeftIcon.tsx",
           "target": "src/components/icons/PanelLeftIcon.tsx",
           "type": "registry:ui"
@@ -798,6 +834,31 @@
         {
           "path": "src-v2/hooks/useIsMobile.ts",
           "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Composable pagination with page links, first/last navigation, and ellipsis",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme",
+        "@vital-design/icon-chevron-left",
+        "@vital-design/icon-chevron-right",
+        "@vital-design/icon-ellipsis",
+        "@vital-design/icon-page-first",
+        "@vital-design/icon-page-last"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/pagination/Pagination.tsx",
+          "type": "registry:ui"
         }
       ]
     },

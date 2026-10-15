@@ -69,6 +69,7 @@ allowed-tools: Read, Write, Edit, Bash
 - **`'use client'` 必填**：Preview 元件所在的 MDX 頁面是 RSC，不能傳 inline function（如 `onChange={() => {}}`），Preview 元件一定要加 `'use client'`
 - **page.tsx 兩處都要改**：import 區 + components 物件。只改一個會導致 MDX build error（`ComponentNamePreview is not defined`）
 - **Preview 要有互動性**：用 `useState` 展示元件的狀態變化，不要只渲染靜態版本
+- **Code tab**：`previews:sources` 會將 component/icon imports 轉成 registry 安裝路徑。範例應能獨立複製，避免依賴檔案內未被擷取的 private helper；需要不同 imports 的範例可分檔
 - **Import 順序**：`'use client'` 置頂，其餘 `@/`、`react`、`~/` 同一組按字母排序（`@` → `r` → `~`）；`pnpm run format` 自動套用
 - **MDX import 用 `~/`**：`import { XPreview } from '~/components/previews/XPreview'`
 

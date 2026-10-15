@@ -1,0 +1,185 @@
+---
+title: Pagination
+description: Composable page navigation with page links, first and last controls, and ellipsis.
+---
+
+import { PaginationMorePagesPreview } from '~/components/previews/PaginationMorePagesPreview';
+import { PaginationPreview } from '~/components/previews/PaginationPreview';
+
+## Preview
+
+<PaginationPreview />
+
+## Installation
+
+After [configuring the registry](/docs/getting-started/installation), install Pagination:
+
+```bash
+npx shadcn@latest add @vital-design/pagination
+```
+
+The registry also installs the theme, utilities, and the five icons used by Pagination. You do not need to install the full icon set.
+
+## Usage
+
+Compose a navigation landmark, a list, and a list item for each control. `PaginationLink` renders an anchor by default. Set `isActive` on the current page to add `aria-current="page"`.
+
+```tsx
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/Pagination';
+
+<Pagination>
+  <PaginationContent>
+    <PaginationItem>
+      <PaginationPrevious href="?page=1" />
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="?page=1">1</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="?page=2" isActive>
+        2
+      </PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="?page=3">3</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationNext href="?page=3" />
+    </PaginationItem>
+  </PaginationContent>
+</Pagination>;
+```
+
+## Client-side Pagination
+
+For in-place updates, use `render` to compose a native button and keep the current page in your own state. Buttons retain their native Enter and Space behaviour. The basic preview above uses this pattern.
+
+```tsx
+'use client';
+
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+} from '@/components/ui/Pagination';
+import { useState } from 'react';
+
+function Example() {
+  const [page, setPage] = useState(1);
+
+  return (
+    <Pagination>
+      <PaginationContent>
+        {[1, 2, 3].map((value) => (
+          <PaginationItem key={value}>
+            <PaginationLink
+              render={<button type="button" />}
+              isActive={page === value}
+              onClick={() => setPage(value)}
+            >
+              {value}
+            </PaginationLink>
+          </PaginationItem>
+        ))}
+      </PaginationContent>
+    </Pagination>
+  );
+}
+```
+
+Pagination does not calculate page ranges, load data, or own a current-page state. Keep the page count, visible page numbers, and data updates together in the consuming screen.
+
+## More Pages
+
+Use `PaginationEllipsis` for gaps in the visible range. It is descriptive text, not a button. This example keeps the first, last, and nearby pages visible. Three-digit page numbers expand to fit.
+
+<PaginationMorePagesPreview />
+
+The preview's Code tab includes its page-range calculation. The calculation stays outside the Pagination primitive.
+
+## First, Last, and Disabled Controls
+
+`PaginationFirst` and `PaginationLast` follow the same API as `PaginationPrevious` and `PaginationNext`. Place each in a `PaginationItem`.
+
+```tsx
+<PaginationItem>
+  <PaginationFirst
+    render={<button type="button" />}
+    disabled={page === 1}
+    onClick={() => setPage(1)}
+  />
+</PaginationItem>
+<PaginationItem>
+  <PaginationLast
+    render={<button type="button" />}
+    disabled={page === totalPages}
+    onClick={() => setPage(totalPages)}
+  />
+</PaginationItem>
+```
+
+Use `disabled` to block click and middle-click activation and remove a control from the tab order. A disabled default anchor also loses its `href` and retains its link semantics with `aria-disabled`. Setting only `aria-disabled` forwards that attribute without blocking activation.
+
+## Labels and Router Links
+
+Directional controls show icons by default. Supply children for a visible label and `aria-label` to localise the accessible name.
+
+```tsx
+<PaginationPrevious href="?page=1" aria-label="上一頁">
+  上一頁
+</PaginationPrevious>
+<PaginationNext href="?page=3" aria-label="下一頁">
+  下一頁
+</PaginationNext>
+```
+
+Compose a router link through `render`; Pagination keeps link semantics. For example, with Next.js:
+
+```tsx
+import { PaginationLink } from '@/components/ui/Pagination';
+import Link from 'next/link';
+
+<PaginationLink render={<Link href="/products?page=2" />} isActive>
+  2
+</PaginationLink>;
+```
+
+For table pagination, combine these parts with [Input](/docs/components/input) for page jumps and [Select](/docs/components/select) for rows per page. Validate page bounds and update the page when the page size or result count changes in your screen's state.
+
+## Props
+
+### Pagination, PaginationContent, and PaginationItem
+
+These render `nav`, `ul`, and `li` respectively, forward native props and refs, and accept `className`. `Pagination` defaults to `aria-label="pagination"`; give each navigation landmark a distinct label when a page contains multiple paginators.
+
+### PaginationLink
+
+| Prop        | Type                              | Default | Description                                                                              |
+| ----------- | --------------------------------- | ------- | ---------------------------------------------------------------------------------------- |
+| `href`      | `string`                          | —       | Destination for the default anchor                                                       |
+| `isActive`  | `boolean`                         | `false` | Highlights the page and sets `aria-current="page"`                                       |
+| `disabled`  | `boolean`                         | `false` | Blocks clicks, removes the control from tab order, and omits the default anchor's `href` |
+| `render`    | `ReactElement \| render function` | —       | Composes a router link or native button                                                  |
+| `children`  | `ReactNode`                       | —       | Page number or custom content                                                            |
+| `className` | `string`                          | —       | Additional CSS classes                                                                   |
+| `...props`  | Anchor props                      | —       | Native attributes, events, and ref                                                       |
+
+### Directional Controls
+
+`PaginationFirst`, `PaginationPrevious`, `PaginationNext`, and `PaginationLast` accept `PaginationLink` props. Each provides an icon and a default accessible name such as “Go to next page”. Use `children` for an optional visible label and `aria-label` to override the accessible name. Directional icons mirror in RTL layouts.
+
+### PaginationEllipsis
+
+Accepts native `span` props and a ref. `children` overrides its screen-reader text, which defaults to “More pages”; the visible ellipsis stays decorative.
+
+### Data Slots
+
+Each public part has a stable slot: `pagination`, `pagination-content`, `pagination-item`, `pagination-link`, `pagination-first`, `pagination-previous`, `pagination-next`, `pagination-last`, and `pagination-ellipsis`.

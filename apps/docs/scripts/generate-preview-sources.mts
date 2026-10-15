@@ -30,7 +30,18 @@ for (const file of files) {
     .filter(
       (line) => !/components\/preview\/ComponentPreview/.test(line),
     )
-    .map((line) => line.trim());
+    .map((line) =>
+      line
+        .trim()
+        .replace(
+          /(['"])@\/components\/(?:[^/'"]+\/)*([^/'"]+)\1/g,
+          '$1@/components/ui/$2$1',
+        )
+        .replace(
+          /(['"])@\/icons\/([^'"]+)\1/g,
+          '$1@/components/icons/$2$1',
+        ),
+    );
 
   // Each exported function block: `export function Name(...) { ... }`
   const fnRegex =
@@ -48,6 +59,8 @@ for (const file of files) {
 
     // Reassemble import block + the function shorn of its preview wrapper.
     const code = [
+      "'use client';",
+      '',
       importLines.join('\n'),
       '',
       `export function ${fnName}() {${body}\n}`,

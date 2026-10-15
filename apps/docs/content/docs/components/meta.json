@@ -23,6 +23,7 @@
     "item",
     "label",
     "number-input",
+    "pagination",
     "popover",
     "progress",
     "radio-group",

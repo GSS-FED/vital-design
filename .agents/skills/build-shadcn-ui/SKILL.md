@@ -13,6 +13,7 @@ Build Vital Design components as registry-ready primitives first. Prefer thin, c
 1. Read the closest existing component before editing.
    - Base UI wrappers: `src-v2/components/select/Select.tsx`, `src-v2/components/combobox/Combobox.tsx`.
    - Compound layout: `src-v2/components/button/button-group/ButtonGroup.tsx`, `src-v2/components/input/input-group/InputGroup.tsx`.
+   - Native navigation with `render` composition: `src-v2/components/breadcrumb/Breadcrumb.tsx`, `src-v2/components/pagination/Pagination.tsx`.
    - Command/list internals: `src-v2/components/command/Command.tsx`, `src-v2/components/cascader/Cascader.tsx`.
 
 2. Pick the primitive boundary.

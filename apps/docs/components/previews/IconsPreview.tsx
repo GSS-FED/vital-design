@@ -21,6 +21,8 @@ import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
 import { InfoIcon } from '@/icons/InfoIcon';
 import { MinusIcon } from '@/icons/MinusIcon';
+import { PageFirstIcon } from '@/icons/PageFirstIcon';
+import { PageLastIcon } from '@/icons/PageLastIcon';
 import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
 import { PlusIcon } from '@/icons/PlusIcon';
 import { SearchIcon } from '@/icons/SearchIcon';
@@ -58,6 +60,8 @@ const icons: IconEntry[] = [
   { name: 'FlagIcon', Icon: FlagIcon },
   { name: 'InfoIcon', Icon: InfoIcon },
   { name: 'MinusIcon', Icon: MinusIcon },
+  { name: 'PageFirstIcon', Icon: PageFirstIcon },
+  { name: 'PageLastIcon', Icon: PageLastIcon },
   { name: 'PanelLeftIcon', Icon: PanelLeftIcon },
   { name: 'PlusIcon', Icon: PlusIcon },
   { name: 'SearchIcon', Icon: SearchIcon },

@@ -19,6 +19,8 @@ export { EyeSlashIcon } from './EyeSlashIcon';
 export { FlagIcon } from './FlagIcon';
 export { InfoIcon } from './InfoIcon';
 export { MinusIcon } from './MinusIcon';
+export { PageFirstIcon } from './PageFirstIcon';
+export { PageLastIcon } from './PageLastIcon';
 export { PanelLeftIcon } from './PanelLeftIcon';
 export { PlusIcon } from './PlusIcon';
 export { SearchIcon } from './SearchIcon';

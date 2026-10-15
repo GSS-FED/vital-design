@@ -51,6 +51,8 @@ import {
   DialogPreview,
   DialogSizesPreview,
 } from '~/components/previews/DialogPreview';
+import { PaginationMorePagesPreview } from '~/components/previews/PaginationMorePagesPreview';
+import { PaginationPreview } from '~/components/previews/PaginationPreview';
 import {
   RadioGroupPreview,
   RadioGroupVerticalPreview,
@@ -239,6 +241,8 @@ export default async function Page({
             ComboboxMultiplePreview,
             DialogPreview,
             DialogSizesPreview,
+            PaginationPreview,
+            PaginationMorePagesPreview,
             SelectPreview,
             SelectMultiplePreview,
             SheetPreview,
