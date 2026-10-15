@@ -1,6 +1,6 @@
 ---
 name: use-vital-design
-description: Use when composing UI from Vital Design v2: installing registry components, building app UI with them, or restyling an existing app onto Vital Design.
+description: "Use when composing UI from Vital Design v2: installing registry components, building app UI with them, or restyling an existing app onto Vital Design."
 allowed-tools: Read, Write, Edit, Bash
 ---
 
