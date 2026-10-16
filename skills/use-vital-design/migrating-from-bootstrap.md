@@ -4,7 +4,19 @@ Branch of the `use-vital-design` workflow for apps currently styled with Bootstr
 
 ## Forms
 
-Formik `<Field type="checkbox">` binds to a native input. Drive every Vital input from Formik render props (`values` / `handleChange` / `setFieldValue`), as in the Checkbox example in `SKILL.md`.
+Formik `<Field type="checkbox">` binds to a native input. Vital controls do not. Wire each one from its own callback:
+
+- `Input` forwards the DOM change event and accepts `name`, so `value={values.email}` with `onChange={handleChange}` works.
+- `PasswordInput` and `SearchBar` call `onChange` with a `string` and have no `name`. `handleChange` then reads `event.target` on that string and the field stays empty. Write the value back yourself:
+
+  ```tsx
+  <PasswordInput
+    value={values.password}
+    onChange={(value) => setFieldValue('password', value)}
+  />
+  ```
+
+- `Checkbox` uses `checked` (`boolean`) and `onCheckedChange`. Mixed state is `indeterminate`, not `checked="'indeterminate'"`. See the Checkbox example in `SKILL.md`.
 
 ## Test contracts
 
