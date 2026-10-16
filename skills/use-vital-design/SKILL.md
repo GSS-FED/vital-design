@@ -85,11 +85,13 @@ If any are missing, establish the host in this order. Match the bundler and CSS 
    };
    ```
 
-   If `@/` does not already resolve, add `paths` to `tsconfig.json` without `baseUrl` (deprecated since TS 6). Point the target at the source root (`./src/*`, `./app/*`, or `./*`):
+   If `@/` does not already resolve for the typechecker, add `paths` to the tsconfig that includes the source. Do not set `baseUrl` (deprecated since TS 6). Point the target at the source root (`./src/*`, `./app/*`, or `./*`):
 
    ```json
    { "compilerOptions": { "paths": { "@/*": ["./src/*"] } } }
    ```
+
+   The current Vite template's root `tsconfig.json` is a solution file (`"files": []` and `references` only). `tsc -b` typechecks `src` with `tsconfig.app.json`, and `paths` on the solution file are not applied. Put the block in `tsconfig.app.json`. A project whose single tsconfig already includes the source (typical Next.js) puts the block in that file. The Vite `resolve.alias` above stays either way: it is what the dev server and the production bundle use.
 
 2. In the global CSS file the app entry already imports, replace any competing framework import with the two lines below, then remove that framework's package (e.g. `bun remove bootstrap bootstrap-icons`). Do not add a second stylesheet. Overlay components (`Dialog`, `DropdownMenu`, `Select`, `Popover`, `Combobox`, `Tooltip`) use `animate-in` / `fade-in` / `zoom-in` from `tw-animate-css`.
 
