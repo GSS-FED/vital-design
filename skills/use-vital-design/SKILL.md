@@ -225,14 +225,13 @@ A registry add can append Vital's `@theme inline` token definitions after existi
 
 **`DropdownMenuItem`** closes on pick (use for commands). `DropdownMenuRadioItem` / `CheckboxItem` stay open; for bound values use `Select` / `Combobox`.
 
-**Vital `Checkbox`** is controlled via `checked` + `onCheckedChange` (`boolean | 'indeterminate'`) and reports state through `aria-checked`.
+**Vital `Checkbox`** is controlled with `checked` (`boolean`) and `onCheckedChange` (`(checked: boolean) => void`). Mixed state is a separate prop, `indeterminate` (`boolean`); `aria-checked` is then `"mixed"`. Do not pass `'indeterminate'` as `checked`.
 
 ```tsx
 <Checkbox
-  checked={values.done}
-  onCheckedChange={(checked) =>
-    setFieldValue('done', checked === true)
-  }
+  checked={allSelected}
+  indeterminate={someSelected && !allSelected}
+  onCheckedChange={(checked) => setFieldValue('done', checked)}
 />
 ```
 
