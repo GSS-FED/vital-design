@@ -130,7 +130,7 @@ If any are missing, establish the host in this order. Match the bundler and CSS 
 
    Replace `"css"` before saving. The value above is for a Vite app that imports `src/index.css`. Next.js App Router uses `app/globals.css`.
 
-4. Let the first registry `add` create `src/lib/utils.ts` and its dependency. Treat that file as registry-owned: re-read it afterwards, since it can replace an existing helper and differ from a hand-written `clsx` / `tailwind-merge` one.
+4. Let the first registry `add` create `src/lib/utils.ts` when it is missing. Re-read it: the registry copy exports `cn` and can differ from a hand-written `clsx` / `tailwind-merge` helper. Leave an existing `utils.ts` in place unless you mean to replace it (see Provision).
 
 **Done when**: `components.json` has the `@vital-design` registry, `tailwind.css` is the stylesheet the app loads and that file begins with both imports, the bundler plugin matches Vite or PostCSS, `@/` resolves from the source root, and `@/lib/utils` resolves after the first add.
 
@@ -155,10 +155,14 @@ When restyling an app built on Bootstrap, also read [migrating-from-bootstrap.md
 Install missing primitives with the shadcn runner from the Host table:
 
 ```bash
-<runner> add --overwrite --yes @vital-design/<name> [@vital-design/<name> …]
+<runner> add --yes @vital-design/<name> [@vital-design/<name> …]
 ```
 
-`--overwrite` keeps the run non-interactive when `utils.ts` already exists. The `@vital-design/` prefix is required so `registryDependencies` resolve.
+`--yes` skips the confirmation prompt and leaves existing files unchanged. The `@vital-design/` prefix is required so `registryDependencies` resolve.
+
+Do not pass `--overwrite` on a normal add. It rewrites every differing file in the install set, including dependencies (a customized `Button.tsx` is replaced when a later add pulls `button` in). On a case-insensitive volume, `components/ui/Button.tsx` is the same file as an existing shadcn `button.tsx`.
+
+If a registry-owned `src/lib/utils.ts` is what blocks a non-interactive add, rerun that one command with `--overwrite`, then restore every other previously existing file from version control before continuing.
 
 After `add`, re-read every generated import. If generated code names a missing icon path, provision that icon from the registry, correct the import to its consumer path, and report the registry mismatch upstream.
 
