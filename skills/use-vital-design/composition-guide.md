@@ -6,7 +6,7 @@ Recipes and registry ids for consumer assembly.
 
 | Primitive       | Registry id      | Role                                      | Typical Use                                              |
 | :-------------- | :--------------- | :---------------------------------------- | :------------------------------------------------------- |
-| `Button`        | `button`         | Primary/secondary action, icon action     | All CTAs                                                 |
+| `Button`        | `button`         | Action. `LinkButton` is the styled link   | CTAs. Nav links use `LinkButton`                         |
 | `ButtonGroup`   | `button-group`   | Grouped button container                  | Toolbars, segmented actions                              |
 | `SplitButton`   | `split-button`   | Action + toggle segment, no built-in menu | Primary action with a caller-owned popup                 |
 | `Avatar`        | `avatar`         | User identity display                     | Navbars, user cards                                      |
@@ -46,7 +46,7 @@ The registry has no pagination or breadcrumb item: build pagination from `Button
 ### Navigation Bar (`Navbar`)
 
 - **Structure**: `flex items-center justify-between h-14 px-6 border-b border-grayscale-opacity-200 bg-white`
-- **Left**: Logo slot + navigation links via `Button` (`variant="text"`). A link is `nativeButton={false} render={<Link href="…" />}`.
+- **Left**: Logo slot + navigation links. A button-styled link is `LinkButton` from `@/components/ui/Button` (`variant="text"`, `render={<Link href="…" />}`). A text link is the router `<Link>` with token utilities. Do not pass `nativeButton={false}` to `Button`.
 - **Right**: `Avatar` for current user + action `Button`
 - **Optional**: Inline `SearchBar`. Language/account overflow is `DropdownMenu` + `DropdownMenuItem` (commands).
 

@@ -177,7 +177,15 @@ A registry add can append Vital's `@theme inline` token definitions after existi
 - Callbacks optional (`onSearch?: (query: string) => void`)
 - Layout classes from the recipe
 
-**Navigation links** stay router `<Link>` elements styled with token utilities, keeping the `link` role that navigation and tests rely on. `Button` with `nativeButton={false} render={<Link href="…" />}` renders the element with `role="button"`; reserve it for an action that happens to navigate.
+**Navigation links** stay links. A text link is the router `<Link>` with token utilities. A button-styled link is `LinkButton` from `@/components/ui/Button`:
+
+```tsx
+<LinkButton variant="text" render={<Link href="/settings" />}>
+  Settings
+</LinkButton>
+```
+
+`Button` with `nativeButton={false} render={<Link href="…" />}` adds `role="button"` and drops the link role. Do not use it for navigation.
 
 **DropdownMenuTrigger** takes its visible control through `render`:
 
