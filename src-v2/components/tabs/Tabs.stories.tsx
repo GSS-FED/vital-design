@@ -111,7 +111,7 @@ export const WithBadges: Story = {
         </TabsTrigger>
         <TabsTrigger value="error">
           頁籤
-          <span className="size-1.5 rounded-full bg-alarm-500" />
+          <span className="size-1.5 rounded-full bg-destructive" />
         </TabsTrigger>
         <TabsTrigger value="more">更多</TabsTrigger>
       </TabsList>

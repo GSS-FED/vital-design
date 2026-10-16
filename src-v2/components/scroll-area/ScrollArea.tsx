@@ -50,13 +50,18 @@ const ScrollAreaViewport = forwardRef<
   { className, fadeEdges = false, fadeSize = 40, style, ...props },
   ref,
 ) {
-  const fadeStyle: ScrollAreaViewportStyle = {
+  const fadeVars: ScrollAreaViewportStyle = {
     '--vital-scroll-area-fade-size':
       typeof fadeSize === 'number'
         ? `${Math.max(0, fadeSize)}px`
         : fadeSize,
-    ...style,
   };
+  // Base UI `style` may be a state function; compose instead of spreading it.
+  const viewportStyle: ScrollAreaViewportProps['style'] = !fadeEdges
+    ? style
+    : typeof style === 'function'
+      ? (state) => ({ ...fadeVars, ...style(state) })
+      : { ...fadeVars, ...style };
 
   return (
     <BaseScrollArea.Viewport
@@ -68,7 +73,7 @@ const ScrollAreaViewport = forwardRef<
         fadeEdges && scrollAreaFadeClassName,
         className,
       )}
-      style={fadeEdges ? fadeStyle : style}
+      style={viewportStyle}
       {...props}
     />
   );

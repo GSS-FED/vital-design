@@ -162,6 +162,21 @@ export const base = [
       '@vital-design/vital-icons',
     ],
   },
+  {
+    name: 'vital-design-lint',
+    type: 'registry:file',
+    title: 'Vital Design Lint',
+    description:
+      'Design system lint policy for @shadcn/lint (Oxlint): theme tokens only, no unknown Tailwind classes',
+    devDependencies: ['@shadcn/lint', 'oxlint'],
+    files: [
+      {
+        path: 'vital-design.lint.json',
+        target: '~/vital-design.lint.json',
+        type: 'registry:file',
+      },
+    ],
+  },
   ...iconItems,
   {
     name: 'vital-icons',

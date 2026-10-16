@@ -3,11 +3,11 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
-    "previews:sources": "node scripts/generate-preview-sources.mjs",
+    "previews:sources": "node --import tsx scripts/generate-preview-sources.mts",
     "predev": "pnpm previews:sources",
     "prebuild": "pnpm previews:sources",
     "dev": "next dev",
-    "lint": "eslint . --ext js,jsx,ts,tsx --max-warnings 0",
+    "lint": "oxlint --type-aware --max-warnings 0",
     "build": "next build",
     "start": "next start"
   },
@@ -30,7 +30,8 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "eslint-config-next": "^15",
+    "oxlint": "^1.86.0",
+    "oxlint-tsgolint": "^7.0.2003",
     "tailwindcss": "^4",
     "typescript": "^5.3"
   },

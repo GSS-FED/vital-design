@@ -109,12 +109,7 @@ export const Controlled: Story = {
           <NumberInputSteppers />
         </NumberInputGroup>
         <NumberInputScrubArea>
-          <Label
-            htmlFor={id}
-            className="font-sans text-xs text-grayscale-opacity-600"
-          >
-            目前值：{value ?? '空'}
-          </Label>
+          <Label htmlFor={id}>目前值：{value ?? '空'}</Label>
           <NumberInputScrubAreaCursor />
         </NumberInputScrubArea>
       </NumberInput>

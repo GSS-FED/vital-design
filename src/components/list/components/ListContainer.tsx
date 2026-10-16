@@ -32,14 +32,7 @@ type MaskProps = {
 };
 
 export default function ListContainer(props: ListContainerProps) {
-  const {
-    items = [],
-    style,
-    className,
-    width,
-    height,
-    children,
-  } = props;
+  const { items, style, className, width, height, children } = props;
   const [scrollInfo, setScrollInfo] = useState({
     scrollTop: 0,
     scrollHeight: 0,

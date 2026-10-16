@@ -22,7 +22,13 @@ for (const file of files) {
   // Per export function block, inject name= into the first <ComponentPreview ...> opening tag.
   raw = raw.replace(
     /(export\s+function\s+(\w+Preview)\s*\([^)]*\)\s*\{[\s\S]*?)(<ComponentPreview\b)([^>]*)>/g,
-    (_match, head, fnName, tagOpen, tagAttrs) => {
+    (
+      _match: string,
+      head: string,
+      fnName: string,
+      tagOpen: string,
+      tagAttrs: string,
+    ) => {
       if (/\bname=/.test(tagAttrs)) {
         return `${head}${tagOpen}${tagAttrs}>`;
       }

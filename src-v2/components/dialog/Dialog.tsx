@@ -282,7 +282,7 @@ const DialogFooter = forwardRef<HTMLDivElement, DialogFooterProps>(
         ref={ref}
         data-slot="dialog-footer"
         className={cn(
-          'flex items-center justify-end gap-2.5 border-t border-t-gray-200 bg-grayscale-opacity-100 px-5 py-2',
+          'flex items-center justify-end gap-2.5 border-t border-t-border bg-grayscale-opacity-100 px-5 py-2',
           className,
         )}
         {...props}

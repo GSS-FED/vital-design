@@ -1,0 +1,31 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "extends": ["./.oxlintrc.shadcn.base.json"],
+  "ignorePatterns": [
+    "**/dist",
+    "**/coverage",
+    "**/storybook-static*",
+    "**/*.test.{ts,tsx}",
+    "src",
+    "src-v2/icons",
+    "apps/docs/.next",
+    "apps/docs/out",
+    "apps/docs/components/previews/__sources__.ts"
+  ],
+  "settings": {
+    "shadcn": {
+      "ui": "@/components",
+      "ignoreImports": ["^@/components/collapsible(/|$)"]
+    }
+  },
+  "overrides": [
+    {
+      "files": ["src-v2/components/**", "src-v2/blocks/**"],
+      "excludeFiles": ["**/*.stories.tsx"],
+      "rules": {
+        "shadcn/no-restyle": "off",
+        "shadcn/require-static-classes": "off"
+      }
+    }
+  ]
+}

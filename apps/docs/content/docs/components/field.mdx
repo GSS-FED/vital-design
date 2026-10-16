@@ -64,7 +64,7 @@ the `@md` container breakpoint defined on the parent `FieldGroup`.
   <Field orientation="horizontal" className="w-80">
     <FieldLabel
       htmlFor="field-horizontal-email"
-      className="!w-[100px] !flex-none py-1.5"
+      className="w-[100px]"
     >
       Email
     </FieldLabel>
@@ -80,7 +80,7 @@ the `@md` container breakpoint defined on the parent `FieldGroup`.
 
 ```tsx
 <Field orientation="horizontal">
-  <FieldLabel htmlFor="email">Email</FieldLabel>
+  <FieldLabel htmlFor="email" className="w-[100px]">Email</FieldLabel>
   <FieldContent>
     <Input id="email" placeholder="name@example.com" />
     <FieldDescription>Used for account alerts.</FieldDescription>

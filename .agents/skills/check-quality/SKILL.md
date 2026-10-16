@@ -19,7 +19,7 @@ allowed-tools: Read, Write, Edit, Bash
    pnpm exec tsc --noEmit
    ```
 
-2. **ESLint 檢查**（max-warnings: 0，任何警告都失敗）
+2. **Oxlint 檢查**（max-warnings: 0，任何警告都失敗）
    ```bash
    pnpm run lint
    pnpm docs:lint
@@ -53,7 +53,7 @@ allowed-tools: Read, Write, Edit, Bash
    - Registry 操作是否指向 `registry/*.ts` 而非直接編輯 `registry.json`
    - 依賴名稱是否包含 `@vital-design/` 前綴
    - `AGENTS.md` Commands 是否列出所有 root `package.json` 中的主要 scripts（含 `docs:*`、`registry:*`、`tokens:*`）
-   - `pnpm docs:lint` 是否能獨立檢查 `apps/docs`，且 Fumadocs app 套用了 Next.js ESLint 規則
+   - `pnpm docs:lint` 是否能獨立檢查 `apps/docs`，且 Fumadocs app 套用了 Oxlint `nextjs` 規則
    - `pnpm docs:build` 是否能成功建置文件站，確認路由、MDX 與 docs shell 整合仍正常
    - `AGENTS.md` Project Structure 是否反映 monorepo 結構（含 `apps/docs/`）
    - `AGENTS.md` Tech Stack 是否包含文件站的 Fumadocs / Next.js / rehype-pretty-code
@@ -65,7 +65,7 @@ allowed-tools: Read, Write, Edit, Bash
 
 完成後回報：
 - TypeScript 類型檢查：通過 / 失敗（附錯誤）
-- ESLint：通過 / 失敗（附警告/錯誤數）
+- Oxlint：通過 / 失敗（附警告/錯誤數）
 - 測試：通過 N 個 / 失敗 N 個（附失敗測試名稱）
 - Registry 驗證：通過 / 失敗（含依賴前綴、路徑、類型）
 - 建置：成功 / 失敗（附錯誤）

@@ -220,7 +220,7 @@ const ItemDescription = forwardRef<
       ref={ref}
       data-slot="item-description"
       className={cn(
-        'm-0 line-clamp-2 break-anywhere text-sm leading-5 font-normal text-grayscale-opacity-500',
+        'm-0 line-clamp-2 wrap-anywhere text-sm leading-5 font-normal text-grayscale-opacity-500',
         'group-data-[current]/item:text-primary-500',
         '[&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary-500',
         className,

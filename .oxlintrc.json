@@ -1,0 +1,182 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "react", "unicorn"],
+  "jsPlugins": [
+    "eslint-plugin-testing-library",
+    "eslint-plugin-jest-dom"
+  ],
+  "categories": {
+    "correctness": "error"
+  },
+  "options": {
+    "typeAware": true
+  },
+  "env": {
+    "builtin": true,
+    "es2026": true,
+    "browser": true
+  },
+  "settings": {
+    "react": {
+      "version": "18.3.1"
+    }
+  },
+  "ignorePatterns": [
+    "**/dist",
+    "**/coverage",
+    "**/storybook-static",
+    "**/storybook-static-visual",
+    "**/apps",
+    ".agents",
+    ".claude",
+    ".gitlab"
+  ],
+  "rules": {
+    "no-case-declarations": "error",
+    "no-empty": "error",
+    "no-fallthrough": "error",
+    "no-inner-declarations": "error",
+    "no-prototype-builtins": "error",
+    "no-redeclare": "error",
+    "no-regex-spaces": "error",
+    "no-unused-vars": [
+      "error",
+      {
+        "ignoreRestSiblings": true,
+        "varsIgnorePattern": "^_",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "no-array-constructor": "error",
+    "react/display-name": "error",
+    "react/jsx-no-comment-textnodes": "error",
+    "react/jsx-no-target-blank": "error",
+    "react/no-unescaped-entities": "error",
+    "react/no-unknown-property": "error",
+    "testing-library/await-async-events": [
+      "error",
+      {
+        "eventModule": "userEvent"
+      }
+    ],
+    "testing-library/await-async-queries": "error",
+    "testing-library/await-async-utils": "error",
+    "testing-library/no-await-sync-events": [
+      "error",
+      {
+        "eventModules": ["fire-event"]
+      }
+    ],
+    "testing-library/no-await-sync-queries": "error",
+    "testing-library/no-container": "error",
+    "testing-library/no-debugging-utils": "warn",
+    "testing-library/no-dom-import": ["error", "react"],
+    "testing-library/no-global-regexp-flag-in-query": "error",
+    "testing-library/no-manual-cleanup": "error",
+    "testing-library/no-node-access": "error",
+    "testing-library/no-promise-in-fire-event": "error",
+    "testing-library/no-render-in-lifecycle": "error",
+    "testing-library/no-unnecessary-act": "error",
+    "testing-library/no-wait-for-multiple-assertions": "error",
+    "testing-library/no-wait-for-side-effects": "error",
+    "testing-library/no-wait-for-snapshot": "error",
+    "testing-library/prefer-find-by": "error",
+    "testing-library/prefer-presence-queries": "error",
+    "testing-library/prefer-query-by-disappearance": "error",
+    "testing-library/prefer-screen-queries": "error",
+    "testing-library/render-result-naming-convention": "error",
+    "jest-dom/prefer-checked": "error",
+    "jest-dom/prefer-empty": "error",
+    "jest-dom/prefer-enabled-disabled": "error",
+    "jest-dom/prefer-focus": "error",
+    "jest-dom/prefer-in-document": "error",
+    "jest-dom/prefer-required": "error",
+    "jest-dom/prefer-to-have-attribute": "error",
+    "jest-dom/prefer-to-have-class": "error",
+    "jest-dom/prefer-to-have-style": "error",
+    "jest-dom/prefer-to-have-text-content": "error",
+    "jest-dom/prefer-to-have-value": "error",
+    "react/rules-of-hooks": "error",
+    "react/exhaustive-deps": "warn",
+    "react/only-export-components": [
+      "warn",
+      {
+        "allowConstantExport": true,
+        "allowExportNames": ["useSidebar", "useToast"]
+      }
+    ],
+    "typescript/ban-ts-comment": "error",
+    "typescript/ban-types": "error",
+    "typescript/no-explicit-any": "error",
+    "typescript/no-misused-promises": "error",
+    "typescript/no-namespace": "error",
+    "typescript/no-unnecessary-type-assertion": "error",
+    "typescript/no-unnecessary-type-constraint": "error",
+    "typescript/no-unsafe-argument": "error",
+    "typescript/no-unsafe-assignment": "error",
+    "typescript/no-unsafe-call": "error",
+    "typescript/no-unsafe-enum-comparison": "error",
+    "typescript/no-unsafe-member-access": "error",
+    "typescript/no-unsafe-return": "error",
+    "typescript/no-var-requires": "error",
+    "typescript/require-await": "error",
+    "typescript/restrict-plus-operands": "error",
+    "typescript/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports",
+        "fixStyle": "inline-type-imports"
+      }
+    ],
+    "react/incompatible-library": "off",
+    "react/refs": "off",
+    "react/purity": "off",
+    "react/set-state-in-effect": "off"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
+      "rules": {
+        "no-redeclare": "off",
+        "no-var": "error",
+        "prefer-const": "error",
+        "prefer-rest-params": "error",
+        "prefer-spread": "error"
+      }
+    },
+    {
+      "files": [
+        "**/*.stories.{ts,tsx,js,jsx,mjs,cjs}",
+        "**/*.story.{ts,tsx,js,jsx,mjs,cjs}"
+      ],
+      "rules": {
+        "import/no-anonymous-default-export": "off",
+        "storybook/await-interactions": "error",
+        "storybook/context-in-play-function": "error",
+        "storybook/default-exports": "error",
+        "storybook/hierarchy-separator": "warn",
+        "storybook/no-redundant-story-name": "warn",
+        "storybook/prefer-pascal-case": "warn",
+        "storybook/story-exports": "error",
+        "storybook/use-storybook-expect": "error",
+        "storybook/use-storybook-testing-library": "error"
+      },
+      "jsPlugins": ["eslint-plugin-storybook"],
+      "plugins": ["import"]
+    },
+    {
+      "files": [".storybook/main.{js,cjs,mjs,ts}"],
+      "rules": {
+        "storybook/no-uninstalled-addons": "error"
+      },
+      "jsPlugins": ["eslint-plugin-storybook"]
+    },
+    {
+      "files": ["src-v2/blocks/**/*.{ts,tsx}"],
+      "rules": {
+        "react/only-export-components": "off",
+        "typescript/no-unnecessary-type-assertion": "off"
+      }
+    }
+  ]
+}
