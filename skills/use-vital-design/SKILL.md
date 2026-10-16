@@ -85,15 +85,21 @@ If any are missing, establish the host in this order. Match the bundler and CSS 
    };
    ```
 
-   If `@/` does not already resolve for the typechecker, add `paths` to the tsconfig that includes the source. Do not set `baseUrl` (deprecated since TS 6). Point the target at the source root (`./src/*`, `./app/*`, or `./*`):
+   If `@/` does not already resolve, add `paths` without `baseUrl` (deprecated since TS 6). Point the target at the source root (`./src/*`, `./app/*`, or `./*`):
 
    ```json
    { "compilerOptions": { "paths": { "@/*": ["./src/*"] } } }
    ```
 
-   The current Vite template's root `tsconfig.json` is a solution file (`"files": []` and `references` only). `tsc -b` typechecks `src` with `tsconfig.app.json`, and `paths` on the solution file are not applied. Put the block in `tsconfig.app.json`. A project whose single tsconfig already includes the source (typical Next.js) puts the block in that file. The Vite `resolve.alias` above stays either way: it is what the dev server and the production bundle use.
+   Put that block in every tsconfig the tools actually read:
 
-2. In the global CSS file the app entry already imports, replace any competing framework import with the two lines below, then remove that framework's package (e.g. `bun remove bootstrap bootstrap-icons`). Do not add a second stylesheet. Overlay components (`Dialog`, `DropdownMenu`, `Select`, `Popover`, `Combobox`, `Tooltip`) use `animate-in` / `fade-in` / `zoom-in` from `tw-animate-css`.
+   - The config that includes the source. On the current Vite template that is `tsconfig.app.json`. `tsc -b` typechecks `src` from there, and `paths` on a solution file are not applied to it.
+   - The root `tsconfig.json` as well when it is only a solution file (`"files": []` and `references`). The shadcn CLI resolves `@/` from that file. Paths only in `tsconfig.app.json` make it write `Button.tsx` into a literal `@/components/ui/` directory instead of `src/components/ui/`.
+   - A project whose single tsconfig already includes the source (typical Next.js) needs the block only in that file.
+
+   The Vite `resolve.alias` above stays either way: it is what the dev server and the production bundle use.
+
+2. In the global CSS file the app entry already imports, replace any competing framework import with the two lines below, then remove that framework's package (e.g. `bun remove bootstrap bootstrap-icons`). Do not add a second stylesheet. Also delete layout rules the starter left in that same file, such as a Vite template's `#root` width, centered text, and large `h1`. Those are not a framework import, and leaving them fights the recipe. Overlay components (`Dialog`, `DropdownMenu`, `Select`, `Popover`, `Combobox`, `Tooltip`) use `animate-in` / `fade-in` / `zoom-in` from `tw-animate-css`.
 
    ```css
    @import 'tailwindcss';
@@ -134,7 +140,7 @@ If any are missing, establish the host in this order. Match the bundler and CSS 
 
 4. Let the first registry `add` create `src/lib/utils.ts` when it is missing. Re-read it: the registry copy exports `cn` and can differ from a hand-written `clsx` / `tailwind-merge` helper. Leave an existing `utils.ts` in place unless you mean to replace it (see Provision).
 
-**Done when**: `components.json` has the `@vital-design` registry, `tailwind.css` is the stylesheet the app loads and that file begins with both imports, the bundler plugin matches Vite or PostCSS, `@/` resolves from the source root, and `@/lib/utils` resolves after the first add.
+**Done when**: `components.json` has the `@vital-design` registry, `tailwind.css` is the stylesheet the app loads and that file begins with both imports and no longer has the starter layout rules, the bundler plugin matches Vite or PostCSS, `@/` resolves from the source root for both the typechecker and the shadcn CLI, and the first add writes `@/lib/utils` under the source root rather than a literal `@/` directory.
 
 ### 2. Recipe
 
