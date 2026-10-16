@@ -34,21 +34,30 @@ Guide for assembling Vital Design in a **consumer** app (copied registry compone
 The app must be a shadcn consumer of this registry:
 
 - `components.json` has `"@vital-design": "https://vittal.design/r/{name}.json"`
-- Global CSS starts with `@import 'tailwindcss'`
+- The global CSS file the app loads starts with `@import 'tailwindcss';` and `@import 'tw-animate-css';`
 - Bundler resolves `@/` to the source root
 
-If any are missing, establish the host in this order:
+If any are missing, establish the host in this order. Match the bundler and CSS path the app already uses. A Vite plugin plus `src/index.css` is only the Vite shape.
 
-1. Install Tailwind with the package manager matching the lockfile:
+1. Install Tailwind with the package manager matching the lockfile. `tw-animate-css` must be installed here so the CSS import resolves before the first registry add (`vital-theme` depends on it too).
 
-   | Lockfile                  | Install Tailwind                   | shadcn runner              |
-   | ------------------------- | ---------------------------------- | -------------------------- |
-   | `bun.lock` or `bun.lockb` | `bun add -D @tailwindcss/vite`     | `bunx --bun shadcn@latest` |
-   | `pnpm-lock.yaml`          | `pnpm add -D @tailwindcss/vite`    | `pnpm dlx shadcn@latest`   |
-   | `yarn.lock`               | `yarn add -D @tailwindcss/vite`    | `yarn dlx shadcn@latest`   |
-   | `package-lock.json`       | `npm install -D @tailwindcss/vite` | `npx shadcn@latest`        |
+   | Lockfile                  | shadcn runner              |
+   | ------------------------- | -------------------------- |
+   | `bun.lock` or `bun.lockb` | `bunx --bun shadcn@latest` |
+   | `pnpm-lock.yaml`          | `pnpm dlx shadcn@latest`   |
+   | `yarn.lock`               | `yarn dlx shadcn@latest`   |
+   | `package-lock.json`       | `npx shadcn@latest`        |
 
-   For Vite, add the plugin and an OS-independent `@/` alias (`fileURLToPath` avoids POSIX path assumptions in Node and Bun ESM configs):
+   Vite (`vite.config.ts`):
+
+   | Lockfile                  | Install                                                            |
+   | ------------------------- | ------------------------------------------------------------------ |
+   | `bun.lock` or `bun.lockb` | `bun add -D tailwindcss @tailwindcss/vite tw-animate-css`          |
+   | `pnpm-lock.yaml`          | `pnpm add -D tailwindcss @tailwindcss/vite tw-animate-css`         |
+   | `yarn.lock`               | `yarn add -D tailwindcss @tailwindcss/vite tw-animate-css`         |
+   | `package-lock.json`       | `npm install -D tailwindcss @tailwindcss/vite tw-animate-css`      |
+
+   Add the plugin and an OS-independent `@/` alias (`fileURLToPath` avoids POSIX path assumptions in Node and Bun ESM configs):
 
    ```ts
    import tailwindcss from '@tailwindcss/vite';
@@ -58,15 +67,38 @@ If any are missing, establish the host in this order:
    // resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } }
    ```
 
-   Add `paths` to `tsconfig.json` without `baseUrl` (deprecated since TS 6):
+   PostCSS (Next.js and other PostCSS apps) — do not install `@tailwindcss/vite`:
+
+   | Lockfile                  | Install                                                               |
+   | ------------------------- | --------------------------------------------------------------------- |
+   | `bun.lock` or `bun.lockb` | `bun add -D tailwindcss @tailwindcss/postcss tw-animate-css`          |
+   | `pnpm-lock.yaml`          | `pnpm add -D tailwindcss @tailwindcss/postcss tw-animate-css`         |
+   | `yarn.lock`               | `yarn add -D tailwindcss @tailwindcss/postcss tw-animate-css`         |
+   | `package-lock.json`       | `npm install -D tailwindcss @tailwindcss/postcss tw-animate-css`      |
+
+   ```js
+   // postcss.config.js (or .cjs / .mjs, matching the project)
+   export default {
+     plugins: {
+       '@tailwindcss/postcss': {},
+     },
+   };
+   ```
+
+   If `@/` does not already resolve, add `paths` to `tsconfig.json` without `baseUrl` (deprecated since TS 6). Point the target at the source root (`./src/*`, `./app/*`, or `./*`):
 
    ```json
    { "compilerOptions": { "paths": { "@/*": ["./src/*"] } } }
    ```
 
-2. Replace any competing CSS framework import with `@import 'tailwindcss';` at the beginning of the global CSS file, then remove its package (e.g. `bun remove bootstrap bootstrap-icons`).
+2. In the global CSS file the app entry already imports, replace any competing framework import with the two lines below, then remove that framework's package (e.g. `bun remove bootstrap bootstrap-icons`). Do not add a second stylesheet. Overlay components (`Dialog`, `DropdownMenu`, `Select`, `Popover`, `Combobox`, `Tooltip`) use `animate-in` / `fade-in` / `zoom-in` from `tw-animate-css`.
 
-3. Write `components.json` by hand, which keeps the run non-interactive:
+   ```css
+   @import 'tailwindcss';
+   @import 'tw-animate-css';
+   ```
+
+3. Write `components.json` by hand, which keeps the run non-interactive. Set `tailwind.css` to the file from step 2. shadcn writes theme tokens into that path; a file the app never loads leaves every token utility unset. Vite apps that import `src/index.css` use that path. Next.js App Router uses `app/globals.css`.
 
    ```json
    {
@@ -96,9 +128,11 @@ If any are missing, establish the host in this order:
    }
    ```
 
+   Replace `"css"` before saving. The value above is for a Vite app that imports `src/index.css`. Next.js App Router uses `app/globals.css`.
+
 4. Let the first registry `add` create `src/lib/utils.ts` and its dependency. Treat that file as registry-owned: re-read it afterwards, since it can replace an existing helper and differ from a hand-written `clsx` / `tailwind-merge` one.
 
-**Done when**: `components.json` has the `@vital-design` registry, the CSS file begins with `@import 'tailwindcss'`, the Vite alias is independent of the working directory and slash style, and `@/lib/utils` resolves after the first add.
+**Done when**: `components.json` has the `@vital-design` registry, `tailwind.css` is the stylesheet the app loads and that file begins with both imports, the bundler plugin matches Vite or PostCSS, `@/` resolves from the source root, and `@/lib/utils` resolves after the first add.
 
 ### 2. Recipe
 
