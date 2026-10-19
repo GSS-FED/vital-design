@@ -60,7 +60,7 @@ pnpm docs:start            # 啟動生產環境文件站
 
 ### 元件庫（根目錄）
 
-- **React 18** + **TypeScript 5** - 核心框架
+- **React 19** + **TypeScript 5** - 核心框架
 - **Tailwind CSS 4** - 樣式框架
 - **Vite 5** - 建置工具
 - **Vitest** + **Testing Library** - 測試

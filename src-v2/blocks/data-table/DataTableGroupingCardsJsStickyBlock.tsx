@@ -88,9 +88,9 @@ function useStickyHeaderStyle({
   scrollRef,
   tableWrapRef,
 }: {
-  cardRef: RefObject<HTMLDivElement>;
-  scrollRef: RefObject<HTMLDivElement>;
-  tableWrapRef: RefObject<HTMLDivElement>;
+  cardRef: RefObject<HTMLDivElement | null>;
+  scrollRef: RefObject<HTMLDivElement | null>;
+  tableWrapRef: RefObject<HTMLDivElement | null>;
 }) {
   const [style, setStyle] = useState<CSSProperties | undefined>();
   const [headStyle, setHeadStyle] = useState<
@@ -213,7 +213,7 @@ function StickyHeaderOverlay({
 }: {
   headerMeasures: HeaderMeasure[];
   table: ReturnType<typeof useReactTable<EsgTopic>>;
-  scrollRef: RefObject<HTMLDivElement>;
+  scrollRef: RefObject<HTMLDivElement | null>;
   style: CSSProperties;
 }) {
   const scrollLeft = scrollRef.current?.scrollLeft ?? 0;
@@ -299,7 +299,7 @@ function PillarCard({
 }: {
   pillar: EsgTopic['pillar'];
   rows: EsgTopic[];
-  scrollRef: RefObject<HTMLDivElement>;
+  scrollRef: RefObject<HTMLDivElement | null>;
 }) {
   const [open, setOpen] = useState(true);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>(
