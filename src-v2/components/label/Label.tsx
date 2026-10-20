@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -14,7 +14,7 @@ const Label = function Label({
   required,
   ref,
   ...props
-}: Omit<LabelProps, 'ref'> & { ref?: Ref<ElementRef<'label'>> }) {
+}: Omit<LabelProps, 'ref'> & { ref?: Ref<ComponentRef<'label'>> }) {
   return (
     <label
       ref={ref}

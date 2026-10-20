@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -29,7 +29,7 @@ const Table = function Table({
   striped,
   ref,
   ...props
-}: Omit<TableProps, 'ref'> & { ref?: Ref<ElementRef<'table'>> }) {
+}: Omit<TableProps, 'ref'> & { ref?: Ref<ComponentRef<'table'>> }) {
   const stripe =
     striped === true
       ? 'even'
@@ -73,7 +73,7 @@ const TableHeader = function TableHeader({
   ref,
   ...props
 }: Omit<TableHeaderProps, 'ref'> & {
-  ref?: Ref<ElementRef<'thead'>>;
+  ref?: Ref<ComponentRef<'thead'>>;
 }) {
   return (
     <thead
@@ -95,7 +95,9 @@ const TableBody = function TableBody({
   className,
   ref,
   ...props
-}: Omit<TableBodyProps, 'ref'> & { ref?: Ref<ElementRef<'tbody'>> }) {
+}: Omit<TableBodyProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'tbody'>>;
+}) {
   return (
     <tbody
       ref={ref}
@@ -113,7 +115,7 @@ const TableFooter = function TableFooter({
   ref,
   ...props
 }: Omit<TableFooterProps, 'ref'> & {
-  ref?: Ref<ElementRef<'tfoot'>>;
+  ref?: Ref<ComponentRef<'tfoot'>>;
 }) {
   return (
     <tfoot
@@ -134,7 +136,7 @@ const TableRow = function TableRow({
   className,
   ref,
   ...props
-}: Omit<TableRowProps, 'ref'> & { ref?: Ref<ElementRef<'tr'>> }) {
+}: Omit<TableRowProps, 'ref'> & { ref?: Ref<ComponentRef<'tr'>> }) {
   return (
     <tr
       ref={ref}
@@ -155,7 +157,7 @@ const TableHead = function TableHead({
   className,
   ref,
   ...props
-}: Omit<TableHeadProps, 'ref'> & { ref?: Ref<ElementRef<'th'>> }) {
+}: Omit<TableHeadProps, 'ref'> & { ref?: Ref<ComponentRef<'th'>> }) {
   return (
     <th
       ref={ref}
@@ -176,7 +178,7 @@ const TableCell = function TableCell({
   className,
   ref,
   ...props
-}: Omit<TableCellProps, 'ref'> & { ref?: Ref<ElementRef<'td'>> }) {
+}: Omit<TableCellProps, 'ref'> & { ref?: Ref<ComponentRef<'td'>> }) {
   return (
     <td
       ref={ref}
@@ -198,7 +200,7 @@ const TableCaption = function TableCaption({
   ref,
   ...props
 }: Omit<TableCaptionProps, 'ref'> & {
-  ref?: Ref<ElementRef<'caption'>>;
+  ref?: Ref<ComponentRef<'caption'>>;
 }) {
   return (
     <caption

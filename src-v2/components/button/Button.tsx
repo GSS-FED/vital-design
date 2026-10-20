@@ -5,7 +5,7 @@ import { useRender } from '@base-ui/react/use-render';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   ReactNode,
   Ref,
 } from 'react';
@@ -317,7 +317,7 @@ const Button = function Button({
   ref,
   ...props
 }: Omit<ButtonProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseButton>>;
+  ref?: Ref<ComponentRef<typeof BaseButton>>;
 }) {
   const {
     children,
@@ -379,7 +379,7 @@ const Button = function Button({
 const LinkButton = function LinkButton({
   ref,
   ...props
-}: Omit<LinkButtonProps, 'ref'> & { ref?: Ref<ElementRef<'a'>> }) {
+}: Omit<LinkButtonProps, 'ref'> & { ref?: Ref<ComponentRef<'a'>> }) {
   const {
     children,
     className,

@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { NumberField as BaseNumberField } from '@base-ui/react/number-field';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -17,7 +17,7 @@ const NumberInput = function NumberInput({
   ref,
   ...props
 }: Omit<NumberInputProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseNumberField.Root>>;
+  ref?: Ref<ComponentRef<typeof BaseNumberField.Root>>;
 }) {
   return (
     <BaseNumberField.Root
@@ -38,7 +38,7 @@ const NumberInputGroup = function NumberInputGroup({
   ref,
   ...props
 }: Omit<NumberInputGroupProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseNumberField.Group>>;
+  ref?: Ref<ComponentRef<typeof BaseNumberField.Group>>;
 }) {
   return (
     <BaseNumberField.Group
@@ -65,7 +65,7 @@ const NumberInputControl = function NumberInputControl({
   ref,
   ...props
 }: Omit<NumberInputControlProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseNumberField.Input>>;
+  ref?: Ref<ComponentRef<typeof BaseNumberField.Input>>;
 }) {
   return (
     <BaseNumberField.Input
@@ -98,7 +98,7 @@ const NumberInputIncrement = function NumberInputIncrement({
   ref,
   ...props
 }: Omit<NumberInputIncrementProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseNumberField.Increment>>;
+  ref?: Ref<ComponentRef<typeof BaseNumberField.Increment>>;
 }) {
   return (
     <BaseNumberField.Increment
@@ -126,7 +126,7 @@ const NumberInputDecrement = function NumberInputDecrement({
   ref,
   ...props
 }: Omit<NumberInputDecrementProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseNumberField.Decrement>>;
+  ref?: Ref<ComponentRef<typeof BaseNumberField.Decrement>>;
 }) {
   return (
     <BaseNumberField.Decrement
@@ -149,7 +149,7 @@ const NumberInputSteppers = function NumberInputSteppers({
   ref,
   ...props
 }: Omit<NumberInputSteppersProps, 'ref'> & {
-  ref?: Ref<ElementRef<'div'>>;
+  ref?: Ref<ComponentRef<'div'>>;
 }) {
   return (
     <div
@@ -180,7 +180,7 @@ const NumberInputScrubArea = function NumberInputScrubArea({
   ref,
   ...props
 }: Omit<NumberInputScrubAreaProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseNumberField.ScrubArea>>;
+  ref?: Ref<ComponentRef<typeof BaseNumberField.ScrubArea>>;
 }) {
   return (
     <BaseNumberField.ScrubArea
@@ -201,7 +201,7 @@ const NumberInputScrubAreaCursor =
     ref,
     ...props
   }: Omit<NumberInputScrubAreaCursorProps, 'ref'> & {
-    ref?: Ref<ElementRef<typeof BaseNumberField.ScrubAreaCursor>>;
+    ref?: Ref<ComponentRef<typeof BaseNumberField.ScrubAreaCursor>>;
   }) {
     return (
       <BaseNumberField.ScrubAreaCursor

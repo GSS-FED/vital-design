@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   ReactNode,
   Ref,
 } from 'react';
@@ -56,7 +56,7 @@ const Chips = function ComboboxChips({
   ref,
   ...props
 }: Omit<ComboboxChipsProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseCombobox.Chips>>;
+  ref?: Ref<ComponentRef<typeof BaseCombobox.Chips>>;
 }) {
   return (
     <BaseCombobox.Chips
@@ -80,7 +80,7 @@ const Chip = function ComboboxChip({
   ref,
   ...props
 }: Omit<ComboboxChipProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseCombobox.Chip>>;
+  ref?: Ref<ComponentRef<typeof BaseCombobox.Chip>>;
 }) {
   return (
     <BaseCombobox.Chip
@@ -106,7 +106,7 @@ const ChipRemove = function ComboboxChipRemove({
   ref,
   ...props
 }: Omit<ComboboxChipRemoveProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseCombobox.ChipRemove>>;
+  ref?: Ref<ComponentRef<typeof BaseCombobox.ChipRemove>>;
 }) {
   return (
     <BaseCombobox.ChipRemove

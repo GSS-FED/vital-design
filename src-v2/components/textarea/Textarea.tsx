@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -12,7 +12,7 @@ const Textarea = function Textarea({
   ref,
   ...props
 }: Omit<TextareaProps, 'ref'> & {
-  ref?: Ref<ElementRef<'textarea'>>;
+  ref?: Ref<ComponentRef<'textarea'>>;
 }) {
   return (
     <textarea

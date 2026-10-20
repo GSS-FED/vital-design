@@ -9,7 +9,7 @@ import { type CvaProps, cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -19,7 +19,9 @@ const InputGroup = function InputGroup({
   className,
   ref,
   ...props
-}: Omit<InputGroupProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<InputGroupProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
   return (
     <div
       ref={ref}
@@ -83,7 +85,7 @@ const InputGroupAddon = function InputGroupAddon({
   ref,
   ...props
 }: Omit<InputGroupAddonProps, 'ref'> & {
-  ref?: Ref<ElementRef<'div'>>;
+  ref?: Ref<ComponentRef<'div'>>;
 }) {
   return (
     <div
@@ -150,7 +152,7 @@ const InputGroupButton = function InputGroupButton({
   ref,
   ...props
 }: Omit<InputGroupButtonProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof Button>>;
+  ref?: Ref<ComponentRef<typeof Button>>;
 }) {
   return (
     <Button
@@ -172,7 +174,7 @@ const InputGroupText = function InputGroupText({
   ref,
   ...props
 }: Omit<InputGroupTextProps, 'ref'> & {
-  ref?: Ref<ElementRef<'span'>>;
+  ref?: Ref<ComponentRef<'span'>>;
 }) {
   return (
     <span
@@ -196,7 +198,7 @@ const InputGroupInput = function InputGroupInput({
   ref,
   ...props
 }: Omit<InputGroupInputProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof Input>>;
+  ref?: Ref<ComponentRef<typeof Input>>;
 }) {
   return (
     <Input
@@ -221,7 +223,7 @@ const InputGroupTextarea = function InputGroupTextarea({
   ref,
   ...props
 }: Omit<InputGroupTextareaProps, 'ref'> & {
-  ref?: Ref<ElementRef<'textarea'>>;
+  ref?: Ref<ComponentRef<'textarea'>>;
 }) {
   return (
     <Textarea

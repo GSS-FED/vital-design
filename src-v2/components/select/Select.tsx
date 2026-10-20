@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { Select as BaseSelect } from '@base-ui/react/select';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   ReactNode,
   Ref,
 } from 'react';
@@ -25,7 +25,7 @@ const SelectGroup = function SelectGroup({
   ref,
   ...props
 }: Omit<SelectGroupProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseSelect.Group>>;
+  ref?: Ref<ComponentRef<typeof BaseSelect.Group>>;
 }) {
   return (
     <BaseSelect.Group
@@ -46,7 +46,7 @@ const SelectValue = function SelectValue({
   ref,
   ...props
 }: Omit<SelectValueProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseSelect.Value>>;
+  ref?: Ref<ComponentRef<typeof BaseSelect.Value>>;
 }) {
   return (
     <BaseSelect.Value
@@ -75,7 +75,7 @@ const SelectTrigger = function SelectTrigger({
   ref,
   ...props
 }: Omit<SelectTriggerProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseSelect.Trigger>>;
+  ref?: Ref<ComponentRef<typeof BaseSelect.Trigger>>;
 }) {
   return (
     <BaseSelect.Trigger
@@ -140,7 +140,7 @@ const SelectContent = function SelectContent({
   ref,
   ...props
 }: Omit<SelectContentProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseSelect.Popup>>;
+  ref?: Ref<ComponentRef<typeof BaseSelect.Popup>>;
 }) {
   return (
     <BaseSelect.Portal>
@@ -188,7 +188,7 @@ const SelectList = function SelectList({
   ref,
   ...props
 }: Omit<SelectListProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseSelect.List>>;
+  ref?: Ref<ComponentRef<typeof BaseSelect.List>>;
 }) {
   return (
     <BaseSelect.List
@@ -212,7 +212,7 @@ const SelectLabel = function SelectLabel({
   ref,
   ...props
 }: Omit<SelectLabelProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseSelect.GroupLabel>>;
+  ref?: Ref<ComponentRef<typeof BaseSelect.GroupLabel>>;
 }) {
   return (
     <BaseSelect.GroupLabel
@@ -236,7 +236,7 @@ const SelectItem = function SelectItem({
   ref,
   ...props
 }: Omit<SelectItemProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseSelect.Item>>;
+  ref?: Ref<ComponentRef<typeof BaseSelect.Item>>;
 }) {
   return (
     <BaseSelect.Item
@@ -265,7 +265,7 @@ const SelectItemText = function SelectItemText({
   ref,
   ...props
 }: Omit<SelectItemTextProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseSelect.ItemText>>;
+  ref?: Ref<ComponentRef<typeof BaseSelect.ItemText>>;
 }) {
   return (
     <BaseSelect.ItemText
@@ -287,7 +287,7 @@ const SelectItemCheck = function SelectItemCheck({
   ref,
   ...props
 }: Omit<SelectItemCheckProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseSelect.ItemIndicator>>;
+  ref?: Ref<ComponentRef<typeof BaseSelect.ItemIndicator>>;
 }) {
   return (
     <BaseSelect.ItemIndicator
@@ -344,7 +344,7 @@ const SelectSeparator = function SelectSeparator({
   ref,
   ...props
 }: Omit<SelectSeparatorProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseSelect.Separator>>;
+  ref?: Ref<ComponentRef<typeof BaseSelect.Separator>>;
 }) {
   return (
     <BaseSelect.Separator
@@ -368,7 +368,7 @@ const SelectScrollUpButton = function SelectScrollUpButton({
   ref,
   ...props
 }: Omit<SelectScrollUpButtonProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseSelect.ScrollUpArrow>>;
+  ref?: Ref<ComponentRef<typeof BaseSelect.ScrollUpArrow>>;
 }) {
   return (
     <BaseSelect.ScrollUpArrow
@@ -394,7 +394,7 @@ const SelectScrollDownButton = function SelectScrollDownButton({
   ref,
   ...props
 }: Omit<SelectScrollDownButtonProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseSelect.ScrollDownArrow>>;
+  ref?: Ref<ComponentRef<typeof BaseSelect.ScrollDownArrow>>;
 }) {
   return (
     <BaseSelect.ScrollDownArrow

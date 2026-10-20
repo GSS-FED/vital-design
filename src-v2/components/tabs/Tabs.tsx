@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import { Tabs as BaseTabs } from '@base-ui/react/tabs';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -21,7 +21,7 @@ const Tabs = function Tabs({
   ref,
   ...props
 }: Omit<TabsProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseTabs.Root>>;
+  ref?: Ref<ComponentRef<typeof BaseTabs.Root>>;
 }) {
   return (
     <BaseTabs.Root
@@ -54,7 +54,7 @@ const TabsList = function TabsList({
   ref,
   ...props
 }: Omit<TabsListProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseTabs.List>>;
+  ref?: Ref<ComponentRef<typeof BaseTabs.List>>;
 }) {
   return (
     <BaseTabs.List
@@ -87,7 +87,7 @@ const TabsTrigger = function TabsTrigger({
   ref,
   ...props
 }: Omit<TabsTriggerProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseTabs.Tab>>;
+  ref?: Ref<ComponentRef<typeof BaseTabs.Tab>>;
 }) {
   return (
     <BaseTabs.Tab
@@ -137,7 +137,7 @@ const TabsIndicator = function TabsIndicator({
   ref,
   ...props
 }: Omit<TabsIndicatorProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseTabs.Indicator>>;
+  ref?: Ref<ComponentRef<typeof BaseTabs.Indicator>>;
 }) {
   return (
     <BaseTabs.Indicator
@@ -164,7 +164,7 @@ const TabsContent = function TabsContent({
   ref,
   ...props
 }: Omit<TabsContentProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseTabs.Panel>>;
+  ref?: Ref<ComponentRef<typeof BaseTabs.Panel>>;
 }) {
   return (
     <BaseTabs.Panel

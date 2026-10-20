@@ -6,7 +6,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { createContext, useContext } from 'react';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -46,7 +46,9 @@ const ButtonGroupContext = createContext<{
 const ButtonGroup = function ButtonGroup({
   ref,
   ...props
-}: Omit<ButtonGroupProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<ButtonGroupProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
   const {
     className,
     orientation = 'horizontal',
@@ -79,7 +81,7 @@ const ButtonGroupSeparator = function ButtonGroupSeparator({
   ref,
   ...props
 }: Omit<ButtonGroupSeparatorProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof Separator>>;
+  ref?: Ref<ComponentRef<typeof Separator>>;
 }) {
   const {
     className,
@@ -116,7 +118,7 @@ const ButtonGroupText = function ButtonGroupText({
   ref,
   ...props
 }: Omit<ButtonGroupTextProps, 'ref'> & {
-  ref?: Ref<ElementRef<'span'>>;
+  ref?: Ref<ComponentRef<'span'>>;
 }) {
   const { className, render, ...textProps } = props;
 

@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import { Autocomplete as BaseAutocomplete } from '@base-ui/react/autocomplete';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   ReactElement,
   ReactNode,
   Ref,
@@ -36,7 +36,7 @@ const InputGroup = function AutocompleteInputGroup({
   ref,
   ...props
 }: Omit<AutocompleteInputGroupProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.InputGroup>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.InputGroup>>;
 }) {
   return (
     <BaseAutocomplete.InputGroup
@@ -63,7 +63,7 @@ const Input = function AutocompleteInput({
   ref,
   ...props
 }: Omit<AutocompleteInputProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.Input>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Input>>;
 }) {
   return (
     <BaseAutocomplete.Input
@@ -89,7 +89,7 @@ const Trigger = function AutocompleteTrigger({
   ref,
   ...props
 }: Omit<AutocompleteTriggerProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.Trigger>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Trigger>>;
 }) {
   return (
     <BaseAutocomplete.Trigger
@@ -129,7 +129,7 @@ const Icon = function AutocompleteIcon({
   ref,
   ...props
 }: Omit<AutocompleteIconProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.Icon>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Icon>>;
 }) {
   return (
     <BaseAutocomplete.Icon
@@ -156,7 +156,7 @@ const Clear = function AutocompleteClear({
   ref,
   ...props
 }: Omit<AutocompleteClearProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.Clear>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Clear>>;
 }) {
   return (
     <BaseAutocomplete.Clear
@@ -190,7 +190,7 @@ const Backdrop = function AutocompleteBackdrop({
   ref,
   ...props
 }: Omit<AutocompleteBackdropProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.Backdrop>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Backdrop>>;
 }) {
   return (
     <BaseAutocomplete.Backdrop
@@ -211,7 +211,7 @@ const Positioner = function AutocompletePositioner({
   ref,
   ...props
 }: Omit<AutocompletePositionerProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.Positioner>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Positioner>>;
 }) {
   return (
     <BaseAutocomplete.Positioner
@@ -232,7 +232,7 @@ const Popup = function AutocompletePopup({
   ref,
   ...props
 }: Omit<AutocompletePopupProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.Popup>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Popup>>;
 }) {
   return (
     <BaseAutocomplete.Popup
@@ -278,7 +278,7 @@ const Content = function AutocompleteContent({
   ref,
   ...props
 }: Omit<AutocompleteContentProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.Popup>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Popup>>;
 }) {
   return (
     <Portal>
@@ -321,7 +321,7 @@ const List = function AutocompleteList({
   ref,
   ...props
 }: Omit<AutocompleteListProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.List>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.List>>;
 }) {
   return (
     <BaseAutocomplete.List
@@ -347,7 +347,7 @@ const Item = function AutocompleteItem({
   ref,
   ...props
 }: Omit<AutocompleteItemProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.Item>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Item>>;
 }) {
   return (
     <BaseAutocomplete.Item
@@ -393,7 +393,7 @@ const Status = function AutocompleteStatus({
   ref,
   ...props
 }: Omit<AutocompleteStatusProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.Status>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Status>>;
 }) {
   return (
     <BaseAutocomplete.Status
@@ -418,7 +418,7 @@ const Empty = function AutocompleteEmpty({
   ref,
   ...props
 }: Omit<AutocompleteEmptyProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.Empty>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Empty>>;
 }) {
   return (
     <BaseAutocomplete.Empty
@@ -446,7 +446,7 @@ const Group = function AutocompleteGroup({
   ref,
   ...props
 }: Omit<AutocompleteGroupProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.Group>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Group>>;
 }) {
   return (
     <BaseAutocomplete.Group
@@ -467,7 +467,7 @@ const GroupLabel = function AutocompleteGroupLabel({
   ref,
   ...props
 }: Omit<AutocompleteGroupLabelProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.GroupLabel>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.GroupLabel>>;
 }) {
   return (
     <BaseAutocomplete.GroupLabel
@@ -491,7 +491,7 @@ const Row = function AutocompleteRow({
   ref,
   ...props
 }: Omit<AutocompleteRowProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.Row>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Row>>;
 }) {
   return (
     <BaseAutocomplete.Row
@@ -518,7 +518,7 @@ const Separator = function AutocompleteSeparator({
   ref,
   ...props
 }: Omit<AutocompleteSeparatorProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.Separator>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Separator>>;
 }) {
   return (
     <BaseAutocomplete.Separator
@@ -542,7 +542,7 @@ const Arrow = function AutocompleteArrow({
   ref,
   ...props
 }: Omit<AutocompleteArrowProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseAutocomplete.Arrow>>;
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Arrow>>;
 }) {
   return (
     <BaseAutocomplete.Arrow

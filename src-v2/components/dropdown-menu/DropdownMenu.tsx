@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { Menu as BaseMenu } from '@base-ui/react/menu';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -90,7 +90,7 @@ const DropdownMenuContent = function DropdownMenuContent({
   ref,
   ...props
 }: Omit<DropdownMenuContentProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseMenu.Popup>>;
+  ref?: Ref<ComponentRef<typeof BaseMenu.Popup>>;
 }) {
   return (
     <BaseMenu.Portal container={portalContainer}>
@@ -132,7 +132,7 @@ const DropdownMenuSubContent = function DropdownMenuSubContent({
   ref,
   ...props
 }: Omit<DropdownMenuSubContentProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseMenu.Popup>>;
+  ref?: Ref<ComponentRef<typeof BaseMenu.Popup>>;
 }) {
   return (
     <BaseMenu.Portal container={portalContainer}>
@@ -168,7 +168,7 @@ const DropdownMenuItem = function DropdownMenuItem({
   ref,
   ...props
 }: Omit<DropdownMenuItemProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseMenu.Item>>;
+  ref?: Ref<ComponentRef<typeof BaseMenu.Item>>;
 }) {
   return (
     <BaseMenu.Item
@@ -190,7 +190,7 @@ const DropdownMenuSubTrigger = function DropdownMenuSubTrigger({
   ref,
   ...props
 }: Omit<DropdownMenuSubTriggerProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseMenu.SubmenuTrigger>>;
+  ref?: Ref<ComponentRef<typeof BaseMenu.SubmenuTrigger>>;
 }) {
   return (
     <BaseMenu.SubmenuTrigger
@@ -223,7 +223,7 @@ const DropdownMenuCheckboxItem = function DropdownMenuCheckboxItem({
   ref,
   ...props
 }: Omit<DropdownMenuCheckboxItemProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseMenu.CheckboxItem>>;
+  ref?: Ref<ComponentRef<typeof BaseMenu.CheckboxItem>>;
 }) {
   return (
     <BaseMenu.CheckboxItem
@@ -260,7 +260,7 @@ const DropdownMenuRadioItem = function DropdownMenuRadioItem({
   ref,
   ...props
 }: Omit<DropdownMenuRadioItemProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseMenu.RadioItem>>;
+  ref?: Ref<ComponentRef<typeof BaseMenu.RadioItem>>;
 }) {
   return (
     <BaseMenu.RadioItem
@@ -296,7 +296,7 @@ const DropdownMenuLabel = function DropdownMenuLabel({
   ref,
   ...props
 }: Omit<DropdownMenuLabelProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseMenu.GroupLabel>>;
+  ref?: Ref<ComponentRef<typeof BaseMenu.GroupLabel>>;
 }) {
   return (
     <BaseMenu.GroupLabel
@@ -320,7 +320,7 @@ const DropdownMenuSeparator = function DropdownMenuSeparator({
   ref,
   ...props
 }: Omit<DropdownMenuSeparatorProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseMenu.Separator>>;
+  ref?: Ref<ComponentRef<typeof BaseMenu.Separator>>;
 }) {
   return (
     <BaseMenu.Separator

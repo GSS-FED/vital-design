@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import { Tooltip as BaseTooltip } from '@base-ui/react/tooltip';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -72,7 +72,7 @@ const TooltipPositioner = function TooltipPositioner({
   ref,
   ...props
 }: Omit<TooltipPositionerProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseTooltip.Positioner>>;
+  ref?: Ref<ComponentRef<typeof BaseTooltip.Positioner>>;
 }) {
   return (
     <BaseTooltip.Positioner
@@ -93,7 +93,7 @@ const TooltipArrow = function TooltipArrow({
   ref,
   ...props
 }: Omit<TooltipArrowProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseTooltip.Arrow>>;
+  ref?: Ref<ComponentRef<typeof BaseTooltip.Arrow>>;
 }) {
   return (
     <BaseTooltip.Arrow
@@ -128,7 +128,7 @@ const TooltipContent = function TooltipContent({
   ref,
   ...props
 }: Omit<TooltipContentProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseTooltip.Popup>>;
+  ref?: Ref<ComponentRef<typeof BaseTooltip.Popup>>;
 }) {
   return (
     <BaseTooltip.Portal>

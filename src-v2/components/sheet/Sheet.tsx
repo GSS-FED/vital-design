@@ -4,7 +4,7 @@ import { Dialog as BaseDialog } from '@base-ui/react/dialog';
 import { createContext, useContext } from 'react';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   HTMLAttributes,
   Ref,
 } from 'react';
@@ -86,7 +86,7 @@ const SheetOverlay = function SheetOverlay({
   ref,
   ...props
 }: Omit<SheetOverlayProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseDialog.Backdrop>>;
+  ref?: Ref<ComponentRef<typeof BaseDialog.Backdrop>>;
 }) {
   return (
     <BaseDialog.Backdrop
@@ -122,7 +122,7 @@ const SheetContent = function SheetContent({
   ref,
   ...props
 }: Omit<SheetContentProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseDialog.Popup>>;
+  ref?: Ref<ComponentRef<typeof BaseDialog.Popup>>;
 }) {
   const { modal } = useContext(SheetContext);
   const renderOverlay = modal !== false;
@@ -228,7 +228,7 @@ const SheetTitle = function SheetTitle({
   ref,
   ...props
 }: Omit<SheetTitleProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseDialog.Title>>;
+  ref?: Ref<ComponentRef<typeof BaseDialog.Title>>;
 }) {
   return (
     <BaseDialog.Title
@@ -252,7 +252,7 @@ const SheetDescription = function SheetDescription({
   ref,
   ...props
 }: Omit<SheetDescriptionProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseDialog.Description>>;
+  ref?: Ref<ComponentRef<typeof BaseDialog.Description>>;
 }) {
   return (
     <BaseDialog.Description

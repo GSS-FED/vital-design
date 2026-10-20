@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import { Popover as BasePopover } from '@base-ui/react/popover';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -57,7 +57,7 @@ const PopoverViewport = function PopoverViewport({
   ref,
   ...props
 }: Omit<PopoverViewportProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BasePopover.Viewport>>;
+  ref?: Ref<ComponentRef<typeof BasePopover.Viewport>>;
 }) {
   return (
     <BasePopover.Viewport
@@ -90,7 +90,7 @@ const PopoverContent = function PopoverContent({
   ref,
   ...props
 }: Omit<PopoverContentProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BasePopover.Popup>>;
+  ref?: Ref<ComponentRef<typeof BasePopover.Popup>>;
 }) {
   return (
     <BasePopover.Portal>
@@ -126,7 +126,7 @@ const PopoverArrow = function PopoverArrow({
   ref,
   ...props
 }: Omit<PopoverArrowProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BasePopover.Arrow>>;
+  ref?: Ref<ComponentRef<typeof BasePopover.Arrow>>;
 }) {
   return (
     <BasePopover.Arrow
@@ -147,7 +147,7 @@ const PopoverClose = function PopoverClose({
   ref,
   ...props
 }: Omit<PopoverCloseProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BasePopover.Close>>;
+  ref?: Ref<ComponentRef<typeof BasePopover.Close>>;
 }) {
   return (
     <BasePopover.Close
@@ -168,7 +168,7 @@ const PopoverTitle = function PopoverTitle({
   ref,
   ...props
 }: Omit<PopoverTitleProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BasePopover.Title>>;
+  ref?: Ref<ComponentRef<typeof BasePopover.Title>>;
 }) {
   return (
     <BasePopover.Title
@@ -192,7 +192,7 @@ const PopoverDescription = function PopoverDescription({
   ref,
   ...props
 }: Omit<PopoverDescriptionProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BasePopover.Description>>;
+  ref?: Ref<ComponentRef<typeof BasePopover.Description>>;
 }) {
   return (
     <BasePopover.Description

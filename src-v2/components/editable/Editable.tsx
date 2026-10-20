@@ -13,7 +13,7 @@ import {
 } from 'react';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   ReactNode,
   Ref,
 } from 'react';
@@ -220,7 +220,7 @@ export type EditableInputProps = Omit<
   'value' | 'defaultValue' | 'onChange' | 'appearance'
 >;
 
-type InputElement = ElementRef<typeof Input>;
+type InputElement = ComponentRef<typeof Input>;
 
 const EditableInput = function EditableInput({
   className,

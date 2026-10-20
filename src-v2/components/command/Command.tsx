@@ -6,7 +6,7 @@ import { Command as CommandPrimitive } from 'cmdk';
 import type {
   ButtonHTMLAttributes,
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   HTMLAttributes,
   ReactNode,
   Ref,
@@ -21,7 +21,7 @@ const CommandRoot = function Command({
   ref,
   ...props
 }: Omit<CommandProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof CommandPrimitive>>;
+  ref?: Ref<ComponentRef<typeof CommandPrimitive>>;
 }) {
   return (
     <CommandPrimitive
@@ -50,7 +50,7 @@ const CommandInput = function CommandInput({
   ref,
   ...props
 }: Omit<CommandInputProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof CommandPrimitive.Input>>;
+  ref?: Ref<ComponentRef<typeof CommandPrimitive.Input>>;
 }) {
   return (
     <div
@@ -97,7 +97,7 @@ const CommandList = function CommandList({
   ref,
   ...props
 }: Omit<CommandListProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof CommandPrimitive.List>>;
+  ref?: Ref<ComponentRef<typeof CommandPrimitive.List>>;
 }) {
   const listStyle =
     height === undefined
@@ -132,7 +132,7 @@ const CommandEmpty = function CommandEmpty({
   ref,
   ...props
 }: Omit<CommandEmptyProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof CommandPrimitive.Empty>>;
+  ref?: Ref<ComponentRef<typeof CommandPrimitive.Empty>>;
 }) {
   return (
     <CommandPrimitive.Empty
@@ -156,7 +156,7 @@ const CommandGroup = function CommandGroup({
   ref,
   ...props
 }: Omit<CommandGroupProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof CommandPrimitive.Group>>;
+  ref?: Ref<ComponentRef<typeof CommandPrimitive.Group>>;
 }) {
   return (
     <CommandPrimitive.Group
@@ -182,7 +182,7 @@ const CommandSeparator = function CommandSeparator({
   ref,
   ...props
 }: Omit<CommandSeparatorProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof CommandPrimitive.Separator>>;
+  ref?: Ref<ComponentRef<typeof CommandPrimitive.Separator>>;
 }) {
   return (
     <CommandPrimitive.Separator
@@ -203,7 +203,7 @@ const CommandItem = function CommandItem({
   ref,
   ...props
 }: Omit<CommandItemProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof CommandPrimitive.Item>>;
+  ref?: Ref<ComponentRef<typeof CommandPrimitive.Item>>;
 }) {
   return (
     <CommandPrimitive.Item
@@ -255,7 +255,7 @@ const CommandLoading = function CommandLoading({
   ref,
   ...props
 }: Omit<CommandLoadingProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof CommandPrimitive.Loading>>;
+  ref?: Ref<ComponentRef<typeof CommandPrimitive.Loading>>;
 }) {
   return (
     <CommandPrimitive.Loading

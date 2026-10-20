@@ -3,7 +3,7 @@ import { type CvaProps, cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -42,7 +42,7 @@ const Toolbar = function Toolbar({
   variant = 'default',
   ref,
   ...props
-}: Omit<ToolbarProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<ToolbarProps, 'ref'> & { ref?: Ref<ComponentRef<'div'>> }) {
   return (
     <div
       ref={ref}
@@ -63,7 +63,7 @@ const ToolbarGroup = function ToolbarGroup({
   ref,
   ...props
 }: Omit<ToolbarGroupProps, 'ref'> & {
-  ref?: Ref<ElementRef<'div'>>;
+  ref?: Ref<ComponentRef<'div'>>;
 }) {
   return (
     <div
@@ -83,7 +83,7 @@ const ToolbarSpacer = function ToolbarSpacer({
   ref,
   ...props
 }: Omit<ToolbarSpacerProps, 'ref'> & {
-  ref?: Ref<ElementRef<'div'>>;
+  ref?: Ref<ComponentRef<'div'>>;
 }) {
   return (
     <div
@@ -105,7 +105,7 @@ const ToolbarSeparator = function ToolbarSeparator({
   ref,
   ...props
 }: Omit<ToolbarSeparatorProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof Separator>>;
+  ref?: Ref<ComponentRef<typeof Separator>>;
 }) {
   return (
     <Separator

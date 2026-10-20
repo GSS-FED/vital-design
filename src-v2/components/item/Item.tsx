@@ -6,7 +6,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { createContext, useContext } from 'react';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -59,7 +59,7 @@ export type ItemProps = useRender.ComponentProps<'div'> &
 const Item = function Item({
   ref,
   ...props
-}: Omit<ItemProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<ItemProps, 'ref'> & { ref?: Ref<ComponentRef<'div'>> }) {
   const {
     className,
     render,
@@ -97,7 +97,7 @@ const ItemGroup = function ItemGroup({
   role = 'list',
   ref,
   ...props
-}: Omit<ItemGroupProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<ItemGroupProps, 'ref'> & { ref?: Ref<ComponentRef<'div'>> }) {
   return (
     <ItemGroupContext.Provider
       value={{ itemRole: role === 'list' ? 'listitem' : undefined }}
@@ -122,7 +122,7 @@ const ItemSeparator = function ItemSeparator({
   ref,
   ...props
 }: Omit<ItemSeparatorProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof Separator>>;
+  ref?: Ref<ComponentRef<typeof Separator>>;
 }) {
   return (
     <Separator
@@ -171,7 +171,7 @@ const ItemMedia = function ItemMedia({
   variant = 'default',
   ref,
   ...props
-}: Omit<ItemMediaProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<ItemMediaProps, 'ref'> & { ref?: Ref<ComponentRef<'div'>> }) {
   return (
     <div
       ref={ref}
@@ -189,7 +189,9 @@ const ItemContent = function ItemContent({
   className,
   ref,
   ...props
-}: Omit<ItemContentProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<ItemContentProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
   return (
     <div
       ref={ref}
@@ -210,7 +212,7 @@ const ItemTitle = function ItemTitle({
   className,
   ref,
   ...props
-}: Omit<ItemTitleProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<ItemTitleProps, 'ref'> & { ref?: Ref<ComponentRef<'div'>> }) {
   return (
     <div
       ref={ref}
@@ -231,7 +233,7 @@ const ItemDescription = function ItemDescription({
   ref,
   ...props
 }: Omit<ItemDescriptionProps, 'ref'> & {
-  ref?: Ref<ElementRef<'p'>>;
+  ref?: Ref<ComponentRef<'p'>>;
 }) {
   return (
     <p
@@ -254,7 +256,9 @@ const ItemActions = function ItemActions({
   className,
   ref,
   ...props
-}: Omit<ItemActionsProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<ItemActionsProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
   return (
     <div
       ref={ref}
@@ -271,7 +275,9 @@ const ItemHeader = function ItemHeader({
   className,
   ref,
   ...props
-}: Omit<ItemHeaderProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<ItemHeaderProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
   return (
     <div
       ref={ref}
@@ -291,7 +297,9 @@ const ItemFooter = function ItemFooter({
   className,
   ref,
   ...props
-}: Omit<ItemFooterProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<ItemFooterProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
   return (
     <div
       ref={ref}

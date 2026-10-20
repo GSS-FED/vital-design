@@ -3,7 +3,7 @@ import { ScrollArea as BaseScrollArea } from '@base-ui/react/scroll-area';
 import type {
   CSSProperties,
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -27,7 +27,7 @@ const ScrollArea = function ScrollArea({
   ref,
   ...props
 }: Omit<ScrollAreaProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseScrollArea.Root>>;
+  ref?: Ref<ComponentRef<typeof BaseScrollArea.Root>>;
 }) {
   return (
     <BaseScrollArea.Root
@@ -54,7 +54,7 @@ const ScrollAreaViewport = function ScrollAreaViewport({
   ref,
   ...props
 }: Omit<ScrollAreaViewportProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseScrollArea.Viewport>>;
+  ref?: Ref<ComponentRef<typeof BaseScrollArea.Viewport>>;
 }) {
   const fadeVars: ScrollAreaViewportStyle = {
     '--vital-scroll-area-fade-size':
@@ -94,7 +94,7 @@ const ScrollAreaContent = function ScrollAreaContent({
   ref,
   ...props
 }: Omit<ScrollAreaContentProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseScrollArea.Content>>;
+  ref?: Ref<ComponentRef<typeof BaseScrollArea.Content>>;
 }) {
   return (
     <BaseScrollArea.Content
@@ -115,7 +115,7 @@ const ScrollAreaScrollbar = function ScrollAreaScrollbar({
   ref,
   ...props
 }: Omit<ScrollAreaScrollbarProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseScrollArea.Scrollbar>>;
+  ref?: Ref<ComponentRef<typeof BaseScrollArea.Scrollbar>>;
 }) {
   return (
     <BaseScrollArea.Scrollbar
@@ -141,7 +141,7 @@ const ScrollAreaThumb = function ScrollAreaThumb({
   ref,
   ...props
 }: Omit<ScrollAreaThumbProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseScrollArea.Thumb>>;
+  ref?: Ref<ComponentRef<typeof BaseScrollArea.Thumb>>;
 }) {
   return (
     <BaseScrollArea.Thumb
@@ -167,7 +167,7 @@ const ScrollAreaCorner = function ScrollAreaCorner({
   ref,
   ...props
 }: Omit<ScrollAreaCornerProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseScrollArea.Corner>>;
+  ref?: Ref<ComponentRef<typeof BaseScrollArea.Corner>>;
 }) {
   return (
     <BaseScrollArea.Corner

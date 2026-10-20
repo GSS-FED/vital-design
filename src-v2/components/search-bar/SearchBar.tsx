@@ -10,7 +10,7 @@ import { useRef } from 'react';
 import type {
   CSSProperties,
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   KeyboardEvent,
   Ref,
 } from 'react';
@@ -61,7 +61,9 @@ export type SearchBarProps = Omit<
 const SearchBar = function SearchBar({
   ref,
   ...props
-}: Omit<SearchBarProps, 'ref'> & { ref?: Ref<ElementRef<'input'>> }) {
+}: Omit<SearchBarProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'input'>>;
+}) {
   const {
     className,
     defaultValue,

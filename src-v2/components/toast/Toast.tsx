@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import { Toast as BaseToast } from '@base-ui/react/toast';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   ReactNode,
   Ref,
 } from 'react';
@@ -145,7 +145,7 @@ const ToastViewport = function ToastViewport({
   ref,
   ...props
 }: Omit<ToastViewportProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseToast.Viewport>>;
+  ref?: Ref<ComponentRef<typeof BaseToast.Viewport>>;
 }) {
   return (
     <BaseToast.Viewport
@@ -201,7 +201,7 @@ const Toast = function Toast({
   ref,
   ...props
 }: Omit<ToastProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseToast.Root>>;
+  ref?: Ref<ComponentRef<typeof BaseToast.Root>>;
 }) {
   const resolvedStatus =
     status ?? (toast.type as ToastStatus | undefined);
@@ -253,7 +253,7 @@ const ToastContent = function ToastContent({
   ref,
   ...props
 }: Omit<ToastContentProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseToast.Content>>;
+  ref?: Ref<ComponentRef<typeof BaseToast.Content>>;
 }) {
   return (
     <BaseToast.Content
@@ -274,7 +274,7 @@ const ToastTitle = function ToastTitle({
   ref,
   ...props
 }: Omit<ToastTitleProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseToast.Title>>;
+  ref?: Ref<ComponentRef<typeof BaseToast.Title>>;
 }) {
   return (
     <BaseToast.Title
@@ -295,7 +295,7 @@ const ToastDescription = function ToastDescription({
   ref,
   ...props
 }: Omit<ToastDescriptionProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseToast.Description>>;
+  ref?: Ref<ComponentRef<typeof BaseToast.Description>>;
 }) {
   return (
     <BaseToast.Description
@@ -316,7 +316,7 @@ const ToastAction = function ToastAction({
   ref,
   ...props
 }: Omit<ToastActionProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseToast.Action>>;
+  ref?: Ref<ComponentRef<typeof BaseToast.Action>>;
 }) {
   return (
     <BaseToast.Action
@@ -342,7 +342,7 @@ const ToastClose = function ToastClose({
   ref,
   ...props
 }: Omit<ToastCloseProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseToast.Close>>;
+  ref?: Ref<ComponentRef<typeof BaseToast.Close>>;
 }) {
   return (
     <BaseToast.Close
@@ -389,7 +389,7 @@ const ToastPositioner = function ToastPositioner({
   ref,
   ...props
 }: Omit<ToastPositionerProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseToast.Positioner>>;
+  ref?: Ref<ComponentRef<typeof BaseToast.Positioner>>;
 }) {
   return (
     <BaseToast.Positioner

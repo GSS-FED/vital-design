@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   FocusEvent,
   MouseEvent,
   Ref,
@@ -55,7 +55,7 @@ const TableOfContents = function TableOfContents({
   ref,
   ...navProps
 }: Omit<TableOfContentsProps, 'ref'> & {
-  ref?: Ref<ElementRef<'nav'>>;
+  ref?: Ref<ComponentRef<'nav'>>;
 }) {
   const isControlled = controlledValue !== undefined;
   const [internalValue, setInternalValue] = useState(defaultValue);

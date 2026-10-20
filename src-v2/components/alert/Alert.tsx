@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -31,7 +31,7 @@ const Alert = function Alert({
   role = 'alert',
   ref,
   ...alertProps
-}: Omit<AlertProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<AlertProps, 'ref'> & { ref?: Ref<ComponentRef<'div'>> }) {
   return (
     <div
       ref={ref}
@@ -49,7 +49,9 @@ const AlertTitle = function AlertTitle({
   className,
   ref,
   ...titleProps
-}: Omit<AlertTitleProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<AlertTitleProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
   return (
     <div
       ref={ref}
@@ -67,7 +69,7 @@ const AlertDescription = function AlertDescription({
   ref,
   ...descriptionProps
 }: Omit<AlertDescriptionProps, 'ref'> & {
-  ref?: Ref<ElementRef<'div'>>;
+  ref?: Ref<ComponentRef<'div'>>;
 }) {
   return (
     <div
@@ -85,7 +87,9 @@ const AlertAction = function AlertAction({
   className,
   ref,
   ...actionProps
-}: Omit<AlertActionProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<AlertActionProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
   return (
     <div
       ref={ref}

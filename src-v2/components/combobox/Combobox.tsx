@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   ReactElement,
   ReactNode,
   Ref,
@@ -54,7 +54,7 @@ const InputGroup = function ComboboxInputGroup({
   ref,
   ...props
 }: Omit<ComboboxInputGroupProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseCombobox.InputGroup>>;
+  ref?: Ref<ComponentRef<typeof BaseCombobox.InputGroup>>;
 }) {
   return (
     <BaseCombobox.InputGroup
@@ -89,7 +89,7 @@ const Input = function ComboboxInput({
   ref,
   ...props
 }: Omit<ComboboxInputProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseCombobox.Input>>;
+  ref?: Ref<ComponentRef<typeof BaseCombobox.Input>>;
 }) {
   return (
     <BaseCombobox.Input
@@ -115,7 +115,7 @@ const Trigger = function ComboboxTrigger({
   ref,
   ...props
 }: Omit<ComboboxTriggerProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseCombobox.Trigger>>;
+  ref?: Ref<ComponentRef<typeof BaseCombobox.Trigger>>;
 }) {
   return (
     <BaseCombobox.Trigger
@@ -153,7 +153,7 @@ const Clear = function ComboboxClear({
   ref,
   ...props
 }: Omit<ComboboxClearProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseCombobox.Clear>>;
+  ref?: Ref<ComponentRef<typeof BaseCombobox.Clear>>;
 }) {
   return (
     <BaseCombobox.Clear
@@ -201,7 +201,7 @@ const Content = function ComboboxContent({
   ref,
   ...props
 }: Omit<ComboboxContentProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseCombobox.Popup>>;
+  ref?: Ref<ComponentRef<typeof BaseCombobox.Popup>>;
 }) {
   return (
     <BaseCombobox.Portal>
@@ -269,7 +269,7 @@ const List = function ComboboxList({
   ref,
   ...props
 }: Omit<ComboboxListProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseCombobox.List>>;
+  ref?: Ref<ComponentRef<typeof BaseCombobox.List>>;
 }) {
   return (
     <BaseCombobox.List
@@ -296,7 +296,7 @@ const SearchBar = function ComboboxSearchBar({
   ref,
   ...props
 }: Omit<ComboboxSearchBarProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseCombobox.Input>>;
+  ref?: Ref<ComponentRef<typeof BaseCombobox.Input>>;
 }) {
   return (
     <div className={cn('px-4 py-2', className)}>
@@ -337,7 +337,7 @@ const Item = function ComboboxItem({
   ref,
   ...props
 }: Omit<ComboboxItemProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseCombobox.Item>>;
+  ref?: Ref<ComponentRef<typeof BaseCombobox.Item>>;
 }) {
   return (
     <BaseCombobox.Item
@@ -386,7 +386,7 @@ const ItemCheck = function ComboboxItemCheck({
   ref,
   ...props
 }: Omit<ComboboxItemCheckProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseCombobox.ItemIndicator>>;
+  ref?: Ref<ComponentRef<typeof BaseCombobox.ItemIndicator>>;
 }) {
   return (
     <BaseCombobox.ItemIndicator
@@ -442,7 +442,7 @@ const Group = function ComboboxGroup({
   ref,
   ...props
 }: Omit<ComboboxGroupProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseCombobox.Group>>;
+  ref?: Ref<ComponentRef<typeof BaseCombobox.Group>>;
 }) {
   return (
     <BaseCombobox.Group
@@ -463,7 +463,7 @@ const Label = function ComboboxLabel({
   ref,
   ...props
 }: Omit<ComboboxLabelProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseCombobox.GroupLabel>>;
+  ref?: Ref<ComponentRef<typeof BaseCombobox.GroupLabel>>;
 }) {
   return (
     <BaseCombobox.GroupLabel
@@ -487,7 +487,7 @@ const Separator = function ComboboxSeparator({
   ref,
   ...props
 }: Omit<ComboboxSeparatorProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseCombobox.Separator>>;
+  ref?: Ref<ComponentRef<typeof BaseCombobox.Separator>>;
 }) {
   return (
     <BaseCombobox.Separator
@@ -512,7 +512,7 @@ const Empty = function ComboboxEmpty({
   ref,
   ...props
 }: Omit<ComboboxEmptyProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseCombobox.Empty>>;
+  ref?: Ref<ComponentRef<typeof BaseCombobox.Empty>>;
 }) {
   return (
     <BaseCombobox.Empty

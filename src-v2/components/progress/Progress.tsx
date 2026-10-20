@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import { Progress as BaseProgress } from '@base-ui/react/progress';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -145,7 +145,7 @@ const ProgressSegment = function ProgressSegment({
   ref,
   ...props
 }: Omit<ProgressSegmentProps, 'ref'> & {
-  ref?: Ref<ElementRef<'span'>>;
+  ref?: Ref<ComponentRef<'span'>>;
 }) {
   return (
     <span

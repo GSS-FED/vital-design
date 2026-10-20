@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -11,7 +11,7 @@ const Card = function Card({
   className,
   ref,
   ...props
-}: Omit<CardProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<CardProps, 'ref'> & { ref?: Ref<ComponentRef<'div'>> }) {
   return (
     <div
       ref={ref}
@@ -31,7 +31,9 @@ const CardHeader = function CardHeader({
   className,
   ref,
   ...props
-}: Omit<CardHeaderProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<CardHeaderProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
   return (
     <div
       ref={ref}
@@ -52,7 +54,7 @@ const CardTitle = function CardTitle({
   className,
   ref,
   ...props
-}: Omit<CardTitleProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<CardTitleProps, 'ref'> & { ref?: Ref<ComponentRef<'div'>> }) {
   return (
     <div
       ref={ref}
@@ -73,7 +75,7 @@ const CardDescription = function CardDescription({
   ref,
   ...props
 }: Omit<CardDescriptionProps, 'ref'> & {
-  ref?: Ref<ElementRef<'div'>>;
+  ref?: Ref<ComponentRef<'div'>>;
 }) {
   return (
     <div
@@ -94,7 +96,9 @@ const CardAction = function CardAction({
   className,
   ref,
   ...props
-}: Omit<CardActionProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<CardActionProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
   return (
     <div
       ref={ref}
@@ -114,7 +118,9 @@ const CardContent = function CardContent({
   className,
   ref,
   ...props
-}: Omit<CardContentProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<CardContentProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
   return (
     <div
       ref={ref}
@@ -131,7 +137,9 @@ const CardFooter = function CardFooter({
   className,
   ref,
   ...props
-}: Omit<CardFooterProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<CardFooterProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
   return (
     <div
       ref={ref}

@@ -33,7 +33,7 @@ import {
 import type {
   CSSProperties,
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   HTMLAttributes,
   MouseEvent,
   ReactElement,
@@ -433,7 +433,7 @@ const SidebarInput = function SidebarInput({
   ref,
   ...props
 }: Omit<SidebarInputProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof Input>>;
+  ref?: Ref<ComponentRef<typeof Input>>;
 }) {
   return (
     <Input
@@ -501,7 +501,7 @@ const SidebarSeparator = function SidebarSeparator({
   ref,
   ...props
 }: Omit<SidebarSeparatorProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof Separator>>;
+  ref?: Ref<ComponentRef<typeof Separator>>;
 }) {
   return (
     <Separator

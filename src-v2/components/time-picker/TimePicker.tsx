@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { useLayoutEffect, useMemo, useRef } from 'react';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   ReactNode,
   Ref,
 } from 'react';
@@ -133,7 +133,9 @@ const TimePicker = function TimePicker({
   className,
   ref,
   ...props
-}: Omit<TimePickerProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+}: Omit<TimePickerProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
   const currentHours = value?.getHours() ?? 0;
   const currentMinutes = value?.getMinutes() ?? 0;
   const currentSeconds = value?.getSeconds() ?? 0;

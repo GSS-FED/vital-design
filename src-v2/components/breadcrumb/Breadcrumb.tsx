@@ -6,7 +6,7 @@ import { useRender } from '@base-ui/react/use-render';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -16,7 +16,9 @@ const Breadcrumb = function Breadcrumb({
   className,
   ref,
   ...props
-}: Omit<BreadcrumbProps, 'ref'> & { ref?: Ref<ElementRef<'nav'>> }) {
+}: Omit<BreadcrumbProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'nav'>>;
+}) {
   return (
     <nav
       ref={ref}
@@ -56,7 +58,7 @@ const BreadcrumbList = function BreadcrumbList({
   ref,
   ...props
 }: Omit<BreadcrumbListProps, 'ref'> & {
-  ref?: Ref<ElementRef<'ol'>>;
+  ref?: Ref<ComponentRef<'ol'>>;
 }) {
   return (
     <ol
@@ -75,7 +77,7 @@ const BreadcrumbItem = function BreadcrumbItem({
   ref,
   ...props
 }: Omit<BreadcrumbItemProps, 'ref'> & {
-  ref?: Ref<ElementRef<'li'>>;
+  ref?: Ref<ComponentRef<'li'>>;
 }) {
   return (
     <li
@@ -95,7 +97,7 @@ const BreadcrumbLink = function BreadcrumbLink({
   ref,
   ...linkProps
 }: Omit<BreadcrumbLinkProps, 'ref'> & {
-  ref?: Ref<ElementRef<'a'>>;
+  ref?: Ref<ComponentRef<'a'>>;
 }) {
   return useRender({
     ref,
@@ -123,7 +125,7 @@ const BreadcrumbPage = function BreadcrumbPage({
   ref,
   ...props
 }: Omit<BreadcrumbPageProps, 'ref'> & {
-  ref?: Ref<ElementRef<'span'>>;
+  ref?: Ref<ComponentRef<'span'>>;
 }) {
   return (
     <span
@@ -146,7 +148,7 @@ const BreadcrumbSeparator = function BreadcrumbSeparator({
   ref,
   ...props
 }: Omit<BreadcrumbSeparatorProps, 'ref'> & {
-  ref?: Ref<ElementRef<'li'>>;
+  ref?: Ref<ComponentRef<'li'>>;
 }) {
   return (
     <li
@@ -174,7 +176,7 @@ const BreadcrumbEllipsis = function BreadcrumbEllipsis({
   ref,
   ...props
 }: Omit<BreadcrumbEllipsisProps, 'ref'> & {
-  ref?: Ref<ElementRef<'span'>>;
+  ref?: Ref<ComponentRef<'span'>>;
 }) {
   return (
     <span

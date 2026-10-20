@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import { Collapsible as BaseCollapsible } from '@base-ui/react/collapsible';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -60,7 +60,7 @@ const CollapsibleContent = function CollapsibleContent({
   ref,
   ...props
 }: Omit<CollapsibleContentProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseCollapsible.Panel>>;
+  ref?: Ref<ComponentRef<typeof BaseCollapsible.Panel>>;
 }) {
   return (
     <BaseCollapsible.Panel

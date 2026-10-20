@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import { Separator as BaseSeparator } from '@base-ui/react/separator';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -16,7 +16,7 @@ const Separator = function Separator({
   ref,
   ...props
 }: Omit<SeparatorProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseSeparator>>;
+  ref?: Ref<ComponentRef<typeof BaseSeparator>>;
 }) {
   return (
     <BaseSeparator

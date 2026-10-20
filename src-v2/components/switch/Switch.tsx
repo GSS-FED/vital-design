@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
 import { Switch as BaseSwitch } from '@base-ui/react/switch';
-import type { ElementRef, Ref } from 'react';
+import type { ComponentRef, Ref } from 'react';
 
 export type SwitchProps = BaseSwitch.Root.Props & {
   children?: React.ReactNode;
@@ -12,7 +12,7 @@ const Switch = function Switch({
   ref,
   ...props
 }: Omit<SwitchProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof BaseSwitch.Root>>;
+  ref?: Ref<ComponentRef<typeof BaseSwitch.Root>>;
 }) {
   return (
     <BaseSwitch.Root

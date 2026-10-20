@@ -44,7 +44,7 @@ import cloudImage from '@/public/images/cloud.jpg';
 import {
   type CSSProperties,
   type ComponentProps,
-  type ElementRef,
+  type ComponentRef,
   type ReactNode,
   type Ref,
 } from 'react';
@@ -357,7 +357,7 @@ const MenuButton = function MenuButton({
   ref,
   ...props
 }: Omit<ComponentProps<typeof SidebarMenuButton>, 'ref'> & {
-  ref?: Ref<ElementRef<typeof SidebarMenuButton>>;
+  ref?: Ref<ComponentRef<typeof SidebarMenuButton>>;
 }) {
   return (
     <SidebarMenuButton

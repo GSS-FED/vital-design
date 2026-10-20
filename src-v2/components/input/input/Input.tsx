@@ -3,7 +3,7 @@ import { Input as InputPrimitive } from '@base-ui/react/input';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   Ref,
 } from 'react';
 
@@ -40,7 +40,7 @@ const Input = function Input({
   ref,
   ...props
 }: Omit<InputProps, 'ref'> & {
-  ref?: Ref<ElementRef<typeof InputPrimitive>>;
+  ref?: Ref<ComponentRef<typeof InputPrimitive>>;
 }) {
   const {
     className,
