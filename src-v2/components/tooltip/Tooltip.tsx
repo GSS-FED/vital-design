@@ -1,7 +1,10 @@
 import { cn } from '@/lib/utils';
 import { Tooltip as BaseTooltip } from '@base-ui/react/tooltip';
-import { forwardRef } from 'react';
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  Ref,
+} from 'react';
 
 const TOOLTIP_CONTENT_CLASSES =
   'box-border inline-flex max-w-[400px] origin-(--transform-origin) items-center gap-1 rounded bg-grayscale-700 px-3 py-1.5 font-sans text-sm leading-5 font-normal text-white shadow-emphasis outline-none duration-100 data-[side=bottom]:slide-in-from-top-1 data-[side=inline-end]:slide-in-from-left-1 data-[side=inline-start]:slide-in-from-right-1 data-[side=left]:slide-in-from-right-1 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-1 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95';
@@ -37,10 +40,13 @@ export type TooltipTriggerProps = ComponentPropsWithoutRef<
   typeof BaseTooltip.Trigger
 >;
 
-const TooltipTrigger = forwardRef<
-  HTMLButtonElement,
-  TooltipTriggerProps
->(function TooltipTrigger({ className, ...props }, ref) {
+const TooltipTrigger = function TooltipTrigger({
+  className,
+  ref,
+  ...props
+}: Omit<TooltipTriggerProps, 'ref'> & {
+  ref?: Ref<HTMLButtonElement>;
+}) {
   return (
     <BaseTooltip.Trigger
       ref={ref}
@@ -49,7 +55,7 @@ const TooltipTrigger = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type TooltipPortalProps = ComponentPropsWithoutRef<
   typeof BaseTooltip.Portal
@@ -61,10 +67,13 @@ export type TooltipPositionerProps = ComponentPropsWithoutRef<
   typeof BaseTooltip.Positioner
 >;
 
-const TooltipPositioner = forwardRef<
-  ElementRef<typeof BaseTooltip.Positioner>,
-  TooltipPositionerProps
->(function TooltipPositioner({ className, ...props }, ref) {
+const TooltipPositioner = function TooltipPositioner({
+  className,
+  ref,
+  ...props
+}: Omit<TooltipPositionerProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseTooltip.Positioner>>;
+}) {
   return (
     <BaseTooltip.Positioner
       ref={ref}
@@ -73,16 +82,19 @@ const TooltipPositioner = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type TooltipArrowProps = ComponentPropsWithoutRef<
   typeof BaseTooltip.Arrow
 >;
 
-const TooltipArrow = forwardRef<
-  ElementRef<typeof BaseTooltip.Arrow>,
-  TooltipArrowProps
->(function TooltipArrow({ className, ...props }, ref) {
+const TooltipArrow = function TooltipArrow({
+  className,
+  ref,
+  ...props
+}: Omit<TooltipArrowProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseTooltip.Arrow>>;
+}) {
   return (
     <BaseTooltip.Arrow
       ref={ref}
@@ -91,7 +103,7 @@ const TooltipArrow = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type TooltipContentProps = ComponentPropsWithoutRef<
   typeof BaseTooltip.Popup
@@ -104,23 +116,20 @@ export type TooltipContentProps = ComponentPropsWithoutRef<
     positionerClassName?: string;
   };
 
-const TooltipContent = forwardRef<
-  ElementRef<typeof BaseTooltip.Popup>,
-  TooltipContentProps
->(function TooltipContent(
-  {
-    align = 'center',
-    alignOffset,
-    arrow = true,
-    children,
-    className,
-    positionerClassName,
-    side = 'top',
-    sideOffset = 8,
-    ...props
-  },
+const TooltipContent = function TooltipContent({
+  align = 'center',
+  alignOffset,
+  arrow = true,
+  children,
+  className,
+  positionerClassName,
+  side = 'top',
+  sideOffset = 8,
   ref,
-) {
+  ...props
+}: Omit<TooltipContentProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseTooltip.Popup>>;
+}) {
   return (
     <BaseTooltip.Portal>
       <TooltipPositioner
@@ -142,7 +151,7 @@ const TooltipContent = forwardRef<
       </TooltipPositioner>
     </BaseTooltip.Portal>
   );
-});
+};
 
 export {
   Tooltip,

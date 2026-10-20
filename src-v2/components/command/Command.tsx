@@ -3,23 +3,26 @@ import { ChevronLeftIcon } from '@/icons/ChevronLeftIcon';
 import { SearchIcon } from '@/icons/SearchIcon';
 import { cn } from '@/lib/utils';
 import { Command as CommandPrimitive } from 'cmdk';
-import { forwardRef } from 'react';
 import type {
   ButtonHTMLAttributes,
   ComponentPropsWithoutRef,
   ElementRef,
   HTMLAttributes,
   ReactNode,
+  Ref,
 } from 'react';
 
 export type CommandProps = ComponentPropsWithoutRef<
   typeof CommandPrimitive
 >;
 
-const CommandRoot = forwardRef<
-  ElementRef<typeof CommandPrimitive>,
-  CommandProps
->(function Command({ className, ...props }, ref) {
+const CommandRoot = function Command({
+  className,
+  ref,
+  ...props
+}: Omit<CommandProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof CommandPrimitive>>;
+}) {
   return (
     <CommandPrimitive
       ref={ref}
@@ -31,7 +34,7 @@ const CommandRoot = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type CommandInputProps = ComponentPropsWithoutRef<
   typeof CommandPrimitive.Input
@@ -40,13 +43,15 @@ export type CommandInputProps = ComponentPropsWithoutRef<
   prefix?: ReactNode;
 };
 
-const CommandInput = forwardRef<
-  ElementRef<typeof CommandPrimitive.Input>,
-  CommandInputProps
->(function CommandInput(
-  { className, containerClassName, prefix, ...props },
+const CommandInput = function CommandInput({
+  className,
+  containerClassName,
+  prefix,
   ref,
-) {
+  ...props
+}: Omit<CommandInputProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof CommandPrimitive.Input>>;
+}) {
   return (
     <div
       data-slot="command-input"
@@ -76,7 +81,7 @@ const CommandInput = forwardRef<
       />
     </div>
   );
-});
+};
 
 export type CommandListProps = ComponentPropsWithoutRef<
   typeof CommandPrimitive.List
@@ -84,13 +89,16 @@ export type CommandListProps = ComponentPropsWithoutRef<
   height?: number;
 };
 
-const CommandList = forwardRef<
-  ElementRef<typeof CommandPrimitive.List>,
-  CommandListProps
->(function CommandList(
-  { className, height, onScroll, style, ...props },
+const CommandList = function CommandList({
+  className,
+  height,
+  onScroll,
+  style,
   ref,
-) {
+  ...props
+}: Omit<CommandListProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof CommandPrimitive.List>>;
+}) {
   const listStyle =
     height === undefined
       ? style
@@ -113,16 +121,19 @@ const CommandList = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type CommandEmptyProps = ComponentPropsWithoutRef<
   typeof CommandPrimitive.Empty
 >;
 
-const CommandEmpty = forwardRef<
-  ElementRef<typeof CommandPrimitive.Empty>,
-  CommandEmptyProps
->(function CommandEmpty({ className, ...props }, ref) {
+const CommandEmpty = function CommandEmpty({
+  className,
+  ref,
+  ...props
+}: Omit<CommandEmptyProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof CommandPrimitive.Empty>>;
+}) {
   return (
     <CommandPrimitive.Empty
       ref={ref}
@@ -134,16 +145,19 @@ const CommandEmpty = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type CommandGroupProps = ComponentPropsWithoutRef<
   typeof CommandPrimitive.Group
 >;
 
-const CommandGroup = forwardRef<
-  ElementRef<typeof CommandPrimitive.Group>,
-  CommandGroupProps
->(function CommandGroup({ className, ...props }, ref) {
+const CommandGroup = function CommandGroup({
+  className,
+  ref,
+  ...props
+}: Omit<CommandGroupProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof CommandPrimitive.Group>>;
+}) {
   return (
     <CommandPrimitive.Group
       ref={ref}
@@ -157,16 +171,19 @@ const CommandGroup = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type CommandSeparatorProps = ComponentPropsWithoutRef<
   typeof CommandPrimitive.Separator
 >;
 
-const CommandSeparator = forwardRef<
-  ElementRef<typeof CommandPrimitive.Separator>,
-  CommandSeparatorProps
->(function CommandSeparator({ className, ...props }, ref) {
+const CommandSeparator = function CommandSeparator({
+  className,
+  ref,
+  ...props
+}: Omit<CommandSeparatorProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof CommandPrimitive.Separator>>;
+}) {
   return (
     <CommandPrimitive.Separator
       ref={ref}
@@ -175,16 +192,19 @@ const CommandSeparator = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type CommandItemProps = ComponentPropsWithoutRef<
   typeof CommandPrimitive.Item
 >;
 
-const CommandItem = forwardRef<
-  ElementRef<typeof CommandPrimitive.Item>,
-  CommandItemProps
->(function CommandItem({ className, ...props }, ref) {
+const CommandItem = function CommandItem({
+  className,
+  ref,
+  ...props
+}: Omit<CommandItemProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof CommandPrimitive.Item>>;
+}) {
   return (
     <CommandPrimitive.Item
       ref={ref}
@@ -198,14 +218,17 @@ const CommandItem = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type CommandShortcutProps = HTMLAttributes<HTMLSpanElement>;
 
-const CommandShortcut = forwardRef<
-  HTMLSpanElement,
-  CommandShortcutProps
->(function CommandShortcut({ className, ...props }, ref) {
+const CommandShortcut = function CommandShortcut({
+  className,
+  ref,
+  ...props
+}: Omit<CommandShortcutProps, 'ref'> & {
+  ref?: Ref<HTMLSpanElement>;
+}) {
   return (
     <span
       ref={ref}
@@ -217,7 +240,7 @@ const CommandShortcut = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type CommandLoadingProps = ComponentPropsWithoutRef<
   typeof CommandPrimitive.Loading
@@ -225,13 +248,15 @@ export type CommandLoadingProps = ComponentPropsWithoutRef<
   indicator?: ReactNode;
 };
 
-const CommandLoading = forwardRef<
-  ElementRef<typeof CommandPrimitive.Loading>,
-  CommandLoadingProps
->(function CommandLoading(
-  { className, children, indicator, ...props },
+const CommandLoading = function CommandLoading({
+  className,
+  children,
+  indicator,
   ref,
-) {
+  ...props
+}: Omit<CommandLoadingProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof CommandPrimitive.Loading>>;
+}) {
   return (
     <CommandPrimitive.Loading
       ref={ref}
@@ -247,35 +272,40 @@ const CommandLoading = forwardRef<
       )}
     </CommandPrimitive.Loading>
   );
-});
+};
 
 export type CommandHeaderProps = HTMLAttributes<HTMLDivElement>;
 
-const CommandHeader = forwardRef<HTMLDivElement, CommandHeaderProps>(
-  function CommandHeader({ className, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        data-slot="command-header"
-        className={cn('mt-1.5 px-1', className)}
-        {...props}
-      />
-    );
-  },
-);
+const CommandHeader = function CommandHeader({
+  className,
+  ref,
+  ...props
+}: Omit<CommandHeaderProps, 'ref'> & { ref?: Ref<HTMLDivElement> }) {
+  return (
+    <div
+      ref={ref}
+      data-slot="command-header"
+      className={cn('mt-1.5 px-1', className)}
+      {...props}
+    />
+  );
+};
 
 export type CommandBackButtonProps =
   ButtonHTMLAttributes<HTMLButtonElement> & {
     icon?: ReactNode;
   };
 
-const CommandBackButton = forwardRef<
-  HTMLButtonElement,
-  CommandBackButtonProps
->(function CommandBackButton(
-  { className, children, icon, type = 'button', ...props },
+const CommandBackButton = function CommandBackButton({
+  className,
+  children,
+  icon,
+  type = 'button',
   ref,
-) {
+  ...props
+}: Omit<CommandBackButtonProps, 'ref'> & {
+  ref?: Ref<HTMLButtonElement>;
+}) {
   return (
     <button
       ref={ref}
@@ -302,7 +332,7 @@ const CommandBackButton = forwardRef<
       </span>
     </button>
   );
-});
+};
 
 export {
   CommandBackButton,

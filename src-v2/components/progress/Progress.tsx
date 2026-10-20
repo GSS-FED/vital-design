@@ -1,7 +1,10 @@
 import { cn } from '@/lib/utils';
 import { Progress as BaseProgress } from '@base-ui/react/progress';
-import { forwardRef } from 'react';
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  Ref,
+} from 'react';
 
 export type ProgressRootProps = BaseProgress.Root.Props;
 
@@ -109,13 +112,14 @@ export type ProgressSegmentsProps = Omit<
 const progressSegmentsClasses =
   'flex items-center [&>[data-slot=progress-segment]]:h-1.5 [&>[data-slot=progress-segment]]:rounded-(--radius-full) [&>[data-slot=progress-segment][data-state=inactive]]:h-0.5 [&>[data-slot=progress-segment][data-state=inactive]]:bg-grayscale-opacity-300 data-[joint=connected]:[&>[data-slot=progress-segment]:not(:first-child)]:rounded-l-none data-[joint=connected]:[&>[data-slot=progress-segment]:not(:last-child)]:rounded-r-none';
 
-const ProgressSegments = forwardRef<
-  HTMLDivElement,
-  ProgressSegmentsProps
->(function ProgressSegments(
-  { className, joint = 'separate', ...props },
+const ProgressSegments = function ProgressSegments({
+  className,
+  joint = 'separate',
   ref,
-) {
+  ...props
+}: Omit<ProgressSegmentsProps, 'ref'> & {
+  ref?: Ref<HTMLDivElement>;
+}) {
   const ariaLabel = props['aria-label'];
   const ariaLabelledBy = props['aria-labelledby'];
   const hasAccessibleName =
@@ -132,14 +136,17 @@ const ProgressSegments = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ProgressSegmentProps = ComponentPropsWithoutRef<'span'>;
 
-const ProgressSegment = forwardRef<
-  ElementRef<'span'>,
-  ProgressSegmentProps
->(function ProgressSegment({ className, ...props }, ref) {
+const ProgressSegment = function ProgressSegment({
+  className,
+  ref,
+  ...props
+}: Omit<ProgressSegmentProps, 'ref'> & {
+  ref?: Ref<ElementRef<'span'>>;
+}) {
   return (
     <span
       ref={ref}
@@ -148,7 +155,7 @@ const ProgressSegment = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export {
   Progress,

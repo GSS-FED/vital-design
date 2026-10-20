@@ -1,36 +1,42 @@
 import { cn } from '@/lib/utils';
 import { Collapsible as BaseCollapsible } from '@base-ui/react/collapsible';
-import { forwardRef } from 'react';
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  Ref,
+} from 'react';
 
 export type CollapsibleProps = ComponentPropsWithoutRef<
   typeof BaseCollapsible.Root
 >;
 
-const Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(
-  function Collapsible({ className, ...props }, ref) {
-    return (
-      <BaseCollapsible.Root
-        ref={ref}
-        data-slot="collapsible"
-        className={cn(className)}
-        {...props}
-      />
-    );
-  },
-);
+const Collapsible = function Collapsible({
+  className,
+  ref,
+  ...props
+}: Omit<CollapsibleProps, 'ref'> & { ref?: Ref<HTMLDivElement> }) {
+  return (
+    <BaseCollapsible.Root
+      ref={ref}
+      data-slot="collapsible"
+      className={cn(className)}
+      {...props}
+    />
+  );
+};
 
 export type CollapsibleTriggerProps = ComponentPropsWithoutRef<
   typeof BaseCollapsible.Trigger
 >;
 
-const CollapsibleTrigger = forwardRef<
-  HTMLButtonElement,
-  CollapsibleTriggerProps
->(function CollapsibleTrigger(
-  { className, type = 'button', ...props },
+const CollapsibleTrigger = function CollapsibleTrigger({
+  className,
+  type = 'button',
   ref,
-) {
+  ...props
+}: Omit<CollapsibleTriggerProps, 'ref'> & {
+  ref?: Ref<HTMLButtonElement>;
+}) {
   return (
     <BaseCollapsible.Trigger
       ref={ref}
@@ -43,16 +49,19 @@ const CollapsibleTrigger = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type CollapsibleContentProps = ComponentPropsWithoutRef<
   typeof BaseCollapsible.Panel
 >;
 
-const CollapsibleContent = forwardRef<
-  ElementRef<typeof BaseCollapsible.Panel>,
-  CollapsibleContentProps
->(function CollapsibleContent({ className, ...props }, ref) {
+const CollapsibleContent = function CollapsibleContent({
+  className,
+  ref,
+  ...props
+}: Omit<CollapsibleContentProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCollapsible.Panel>>;
+}) {
   return (
     <BaseCollapsible.Panel
       ref={ref}
@@ -64,6 +73,6 @@ const CollapsibleContent = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export { Collapsible, CollapsibleContent, CollapsibleTrigger };

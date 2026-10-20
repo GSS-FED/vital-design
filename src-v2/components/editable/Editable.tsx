@@ -4,7 +4,6 @@ import { Input } from '@/components/input/input/Input';
 import { cn } from '@/lib/utils';
 import {
   createContext,
-  forwardRef,
   useCallback,
   useContext,
   useEffect,
@@ -16,6 +15,7 @@ import type {
   ComponentPropsWithoutRef,
   ElementRef,
   ReactNode,
+  Ref,
 } from 'react';
 
 const textSelectionInputTypes = new Set([
@@ -81,101 +81,101 @@ export type EditableProps = Omit<
   children: ReactNode;
 };
 
-const Editable = forwardRef<HTMLDivElement, EditableProps>(
-  function Editable(
-    {
-      value: controlledValue,
-      defaultValue,
-      onCommit,
-      disabled = false,
-      readOnly = false,
+const Editable = function Editable({
+  value: controlledValue,
+  defaultValue,
+  onCommit,
+  disabled = false,
+  readOnly = false,
+  placeholder,
+  className,
+  children,
+  ref,
+  ...divProps
+}: Omit<EditableProps, 'ref'> & { ref?: Ref<HTMLDivElement> }) {
+  const isControlled = controlledValue !== undefined;
+  const [internalValue, setInternalValue] = useState(
+    defaultValue ?? '',
+  );
+  const value = isControlled
+    ? (controlledValue ?? '')
+    : internalValue;
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [stagedValue, setStagedValue] = useState(value);
+
+  const enterEdit = useCallback(() => {
+    if (disabled || readOnly) return;
+    setStagedValue(value);
+    setIsEditing(true);
+  }, [disabled, readOnly, value]);
+
+  const commitAndExit = useCallback(() => {
+    setIsEditing(false);
+    if (stagedValue !== value) {
+      if (!isControlled) setInternalValue(stagedValue);
+      onCommit?.(stagedValue);
+    }
+  }, [stagedValue, value, isControlled, onCommit]);
+
+  const cancelAndExit = useCallback(() => {
+    setStagedValue(value);
+    setIsEditing(false);
+  }, [value]);
+
+  const ctx = useMemo<EditableContextValue>(
+    () => ({
+      value,
+      stagedValue,
+      setStagedValue,
+      isEditing,
+      enterEdit,
+      commitAndExit,
+      cancelAndExit,
+      disabled,
+      readOnly,
       placeholder,
-      className,
-      children,
-      ...divProps
-    },
-    ref,
-  ) {
-    const isControlled = controlledValue !== undefined;
-    const [internalValue, setInternalValue] = useState(
-      defaultValue ?? '',
-    );
-    const value = isControlled
-      ? (controlledValue ?? '')
-      : internalValue;
+    }),
+    [
+      value,
+      stagedValue,
+      isEditing,
+      enterEdit,
+      commitAndExit,
+      cancelAndExit,
+      disabled,
+      readOnly,
+      placeholder,
+    ],
+  );
 
-    const [isEditing, setIsEditing] = useState(false);
-    const [stagedValue, setStagedValue] = useState(value);
-
-    const enterEdit = useCallback(() => {
-      if (disabled || readOnly) return;
-      setStagedValue(value);
-      setIsEditing(true);
-    }, [disabled, readOnly, value]);
-
-    const commitAndExit = useCallback(() => {
-      setIsEditing(false);
-      if (stagedValue !== value) {
-        if (!isControlled) setInternalValue(stagedValue);
-        onCommit?.(stagedValue);
-      }
-    }, [stagedValue, value, isControlled, onCommit]);
-
-    const cancelAndExit = useCallback(() => {
-      setStagedValue(value);
-      setIsEditing(false);
-    }, [value]);
-
-    const ctx = useMemo<EditableContextValue>(
-      () => ({
-        value,
-        stagedValue,
-        setStagedValue,
-        isEditing,
-        enterEdit,
-        commitAndExit,
-        cancelAndExit,
-        disabled,
-        readOnly,
-        placeholder,
-      }),
-      [
-        value,
-        stagedValue,
-        isEditing,
-        enterEdit,
-        commitAndExit,
-        cancelAndExit,
-        disabled,
-        readOnly,
-        placeholder,
-      ],
-    );
-
-    return (
-      <EditableContext.Provider value={ctx}>
-        <div
-          ref={ref}
-          data-slot="editable"
-          data-editing={isEditing || undefined}
-          data-disabled={disabled || undefined}
-          data-readonly={readOnly || undefined}
-          className={cn('relative inline-flex w-full', className)}
-          {...divProps}
-        >
-          {children}
-        </div>
-      </EditableContext.Provider>
-    );
-  },
-);
+  return (
+    <EditableContext.Provider value={ctx}>
+      <div
+        ref={ref}
+        data-slot="editable"
+        data-editing={isEditing || undefined}
+        data-disabled={disabled || undefined}
+        data-readonly={readOnly || undefined}
+        className={cn('relative inline-flex w-full', className)}
+        {...divProps}
+      >
+        {children}
+      </div>
+    </EditableContext.Provider>
+  );
+};
 
 export type EditableDisplayProps = ComponentPropsWithoutRef<'button'>;
 
-const EditableDisplay = forwardRef<
-  HTMLButtonElement,
-  EditableDisplayProps
->(function EditableDisplay({ className, children, ...props }, ref) {
+const EditableDisplay = function EditableDisplay({
+  className,
+  children,
+  ref,
+  ...props
+}: Omit<EditableDisplayProps, 'ref'> & {
+  ref?: Ref<HTMLButtonElement>;
+}) {
   const {
     value,
     isEditing,
@@ -213,7 +213,7 @@ const EditableDisplay = forwardRef<
       )}
     </button>
   );
-});
+};
 
 export type EditableInputProps = Omit<
   ComponentPropsWithoutRef<typeof Input>,
@@ -222,68 +222,75 @@ export type EditableInputProps = Omit<
 
 type InputElement = ElementRef<typeof Input>;
 
-const EditableInput = forwardRef<InputElement, EditableInputProps>(
-  function EditableInput({ className, onKeyDown, ...props }, ref) {
-    const {
-      stagedValue,
-      setStagedValue,
-      isEditing,
-      commitAndExit,
-      cancelAndExit,
-    } = useEditableContext();
-    const innerRef = useRef<InputElement | null>(null);
+const EditableInput = function EditableInput({
+  className,
+  onKeyDown,
+  ref,
+  ...props
+}: Omit<EditableInputProps, 'ref'> & { ref?: Ref<InputElement> }) {
+  const {
+    stagedValue,
+    setStagedValue,
+    isEditing,
+    commitAndExit,
+    cancelAndExit,
+  } = useEditableContext();
+  const innerRef = useRef<InputElement | null>(null);
 
-    useEffect(() => {
-      if (!isEditing) return;
-      const node = innerRef.current;
-      if (!node) return;
-      node.focus();
-      if (node instanceof HTMLInputElement) moveCaretToEnd(node);
-    }, [isEditing]);
+  useEffect(() => {
+    if (!isEditing) return;
+    const node = innerRef.current;
+    if (!node) return;
+    node.focus();
+    if (node instanceof HTMLInputElement) moveCaretToEnd(node);
+  }, [isEditing]);
 
-    if (!isEditing) return null;
+  if (!isEditing) return null;
 
-    return (
-      <Input
-        ref={(node) => {
-          innerRef.current = node;
-          if (typeof ref === 'function') ref(node);
-          else if (ref) ref.current = node;
-        }}
-        data-slot="editable-input"
-        appearance="ghost"
-        value={stagedValue}
-        onChange={(event) => setStagedValue(event.target.value)}
-        onBlur={commitAndExit}
-        onKeyDown={(event) => {
-          if (event.key === 'Escape') {
-            event.preventDefault();
-            cancelAndExit();
-          } else if (event.key === 'Enter') {
-            event.preventDefault();
-            commitAndExit();
-          }
-          onKeyDown?.(event);
-        }}
-        className={cn(
-          'border-grayscale-opacity-300 transition-[border-color,background-color,color] duration-200',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+  return (
+    <Input
+      ref={(node) => {
+        innerRef.current = node;
+        if (typeof ref === 'function') ref(node);
+        else if (ref) ref.current = node;
+      }}
+      data-slot="editable-input"
+      appearance="ghost"
+      value={stagedValue}
+      onChange={(event) => setStagedValue(event.target.value)}
+      onBlur={commitAndExit}
+      onKeyDown={(event) => {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          cancelAndExit();
+        } else if (event.key === 'Enter') {
+          event.preventDefault();
+          commitAndExit();
+        }
+        onKeyDown?.(event);
+      }}
+      className={cn(
+        'border-grayscale-opacity-300 transition-[border-color,background-color,color] duration-200',
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 export type EditableTextareaProps = Omit<
   ComponentPropsWithoutRef<'textarea'>,
   'value' | 'defaultValue' | 'onChange'
 >;
 
-const EditableTextarea = forwardRef<
-  HTMLTextAreaElement,
-  EditableTextareaProps
->(function EditableTextarea({ className, onKeyDown, ...props }, ref) {
+const EditableTextarea = function EditableTextarea({
+  className,
+  onKeyDown,
+  ref,
+  ...props
+}: Omit<EditableTextareaProps, 'ref'> & {
+  ref?: Ref<HTMLTextAreaElement>;
+}) {
   const {
     stagedValue,
     setStagedValue,
@@ -330,6 +337,6 @@ const EditableTextarea = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export { Editable, EditableDisplay, EditableInput, EditableTextarea };

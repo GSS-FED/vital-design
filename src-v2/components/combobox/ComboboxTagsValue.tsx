@@ -1,11 +1,11 @@
 import { CloseIcon } from '@/icons/CloseIcon';
 import { cn } from '@/lib/utils';
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox';
-import { forwardRef } from 'react';
 import type {
   ComponentPropsWithoutRef,
   ElementRef,
   ReactNode,
+  Ref,
 } from 'react';
 
 function getSelectedItemLabel(item: unknown): ReactNode {
@@ -51,10 +51,13 @@ export type ComboboxChipsProps = ComponentPropsWithoutRef<
   typeof BaseCombobox.Chips
 >;
 
-const Chips = forwardRef<
-  ElementRef<typeof BaseCombobox.Chips>,
-  ComboboxChipsProps
->(function ComboboxChips({ className, ...props }, ref) {
+const Chips = function ComboboxChips({
+  className,
+  ref,
+  ...props
+}: Omit<ComboboxChipsProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCombobox.Chips>>;
+}) {
   return (
     <BaseCombobox.Chips
       ref={ref}
@@ -66,16 +69,19 @@ const Chips = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ComboboxChipProps = ComponentPropsWithoutRef<
   typeof BaseCombobox.Chip
 >;
 
-const Chip = forwardRef<
-  ElementRef<typeof BaseCombobox.Chip>,
-  ComboboxChipProps
->(function ComboboxChip({ className, ...props }, ref) {
+const Chip = function ComboboxChip({
+  className,
+  ref,
+  ...props
+}: Omit<ComboboxChipProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCombobox.Chip>>;
+}) {
   return (
     <BaseCombobox.Chip
       ref={ref}
@@ -88,19 +94,20 @@ const Chip = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ComboboxChipRemoveProps = ComponentPropsWithoutRef<
   typeof BaseCombobox.ChipRemove
 >;
 
-const ChipRemove = forwardRef<
-  ElementRef<typeof BaseCombobox.ChipRemove>,
-  ComboboxChipRemoveProps
->(function ComboboxChipRemove(
-  { children, className, ...props },
+const ChipRemove = function ComboboxChipRemove({
+  children,
+  className,
   ref,
-) {
+  ...props
+}: Omit<ComboboxChipRemoveProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCombobox.ChipRemove>>;
+}) {
   return (
     <BaseCombobox.ChipRemove
       ref={ref}
@@ -116,15 +123,18 @@ const ChipRemove = forwardRef<
       {children ?? <CloseIcon />}
     </BaseCombobox.ChipRemove>
   );
-});
+};
 
 export type ComboboxOverflowChipProps =
   ComponentPropsWithoutRef<'span'>;
 
-const OverflowChip = forwardRef<
-  HTMLSpanElement,
-  ComboboxOverflowChipProps
->(function ComboboxOverflowChip({ className, ...props }, ref) {
+const OverflowChip = function ComboboxOverflowChip({
+  className,
+  ref,
+  ...props
+}: Omit<ComboboxOverflowChipProps, 'ref'> & {
+  ref?: Ref<HTMLSpanElement>;
+}) {
   return (
     <span
       ref={ref}
@@ -136,7 +146,7 @@ const OverflowChip = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ComboboxTagsValueProps = Omit<
   ComponentPropsWithoutRef<typeof BaseCombobox.Value>,

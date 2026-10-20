@@ -1,11 +1,12 @@
 import { CloseIcon } from '@/icons/CloseIcon';
 import { cn } from '@/lib/utils';
 import { Dialog as BaseDialog } from '@base-ui/react/dialog';
-import { createContext, forwardRef, useContext } from 'react';
+import { createContext, useContext } from 'react';
 import type {
   ComponentPropsWithoutRef,
   ElementRef,
   HTMLAttributes,
+  Ref,
 } from 'react';
 
 export type SheetSide = 'top' | 'right' | 'bottom' | 'left';
@@ -32,35 +33,41 @@ export type SheetTriggerProps = ComponentPropsWithoutRef<
   typeof BaseDialog.Trigger
 >;
 
-const SheetTrigger = forwardRef<HTMLButtonElement, SheetTriggerProps>(
-  function SheetTrigger({ type = 'button', ...props }, ref) {
-    return (
-      <BaseDialog.Trigger
-        ref={ref}
-        type={type}
-        data-slot="sheet-trigger"
-        {...props}
-      />
-    );
-  },
-);
+const SheetTrigger = function SheetTrigger({
+  type = 'button',
+  ref,
+  ...props
+}: Omit<SheetTriggerProps, 'ref'> & {
+  ref?: Ref<HTMLButtonElement>;
+}) {
+  return (
+    <BaseDialog.Trigger
+      ref={ref}
+      type={type}
+      data-slot="sheet-trigger"
+      {...props}
+    />
+  );
+};
 
 export type SheetCloseProps = ComponentPropsWithoutRef<
   typeof BaseDialog.Close
 >;
 
-const SheetClose = forwardRef<HTMLButtonElement, SheetCloseProps>(
-  function SheetClose({ type = 'button', ...props }, ref) {
-    return (
-      <BaseDialog.Close
-        ref={ref}
-        type={type}
-        data-slot="sheet-close"
-        {...props}
-      />
-    );
-  },
-);
+const SheetClose = function SheetClose({
+  type = 'button',
+  ref,
+  ...props
+}: Omit<SheetCloseProps, 'ref'> & { ref?: Ref<HTMLButtonElement> }) {
+  return (
+    <BaseDialog.Close
+      ref={ref}
+      type={type}
+      data-slot="sheet-close"
+      {...props}
+    />
+  );
+};
 
 export type SheetPortalProps = ComponentPropsWithoutRef<
   typeof BaseDialog.Portal
@@ -74,10 +81,13 @@ export type SheetOverlayProps = ComponentPropsWithoutRef<
   typeof BaseDialog.Backdrop
 >;
 
-const SheetOverlay = forwardRef<
-  ElementRef<typeof BaseDialog.Backdrop>,
-  SheetOverlayProps
->(function SheetOverlay({ className, ...props }, ref) {
+const SheetOverlay = function SheetOverlay({
+  className,
+  ref,
+  ...props
+}: Omit<SheetOverlayProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseDialog.Backdrop>>;
+}) {
   return (
     <BaseDialog.Backdrop
       ref={ref}
@@ -89,7 +99,7 @@ const SheetOverlay = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type SheetContentProps = ComponentPropsWithoutRef<
   typeof BaseDialog.Popup
@@ -101,22 +111,19 @@ export type SheetContentProps = ComponentPropsWithoutRef<
   portalContainer?: SheetPortalProps['container'];
 };
 
-const SheetContent = forwardRef<
-  ElementRef<typeof BaseDialog.Popup>,
-  SheetContentProps
->(function SheetContent(
-  {
-    children,
-    className,
-    closeLabel = 'Close',
-    overlayClassName,
-    portalContainer,
-    showCloseButton = true,
-    side = 'right',
-    ...props
-  },
+const SheetContent = function SheetContent({
+  children,
+  className,
+  closeLabel = 'Close',
+  overlayClassName,
+  portalContainer,
+  showCloseButton = true,
+  side = 'right',
   ref,
-) {
+  ...props
+}: Omit<SheetContentProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseDialog.Popup>>;
+}) {
   const { modal } = useContext(SheetContext);
   const renderOverlay = modal !== false;
 
@@ -153,67 +160,76 @@ const SheetContent = forwardRef<
       </BaseDialog.Popup>
     </BaseDialog.Portal>
   );
-});
+};
 
 export type SheetHeaderProps = HTMLAttributes<HTMLDivElement>;
 
-const SheetHeader = forwardRef<HTMLDivElement, SheetHeaderProps>(
-  function SheetHeader({ className, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        data-slot="sheet-header"
-        className={cn('flex flex-col gap-1.5 pr-8', className)}
-        {...props}
-      />
-    );
-  },
-);
+const SheetHeader = function SheetHeader({
+  className,
+  ref,
+  ...props
+}: Omit<SheetHeaderProps, 'ref'> & { ref?: Ref<HTMLDivElement> }) {
+  return (
+    <div
+      ref={ref}
+      data-slot="sheet-header"
+      className={cn('flex flex-col gap-1.5 pr-8', className)}
+      {...props}
+    />
+  );
+};
 
 export type SheetBodyProps = HTMLAttributes<HTMLDivElement>;
 
-const SheetBody = forwardRef<HTMLDivElement, SheetBodyProps>(
-  function SheetBody({ className, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        data-slot="sheet-body"
-        className={cn(
-          'min-h-0 flex-1 overflow-auto text-sm text-grayscale-opacity-700',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const SheetBody = function SheetBody({
+  className,
+  ref,
+  ...props
+}: Omit<SheetBodyProps, 'ref'> & { ref?: Ref<HTMLDivElement> }) {
+  return (
+    <div
+      ref={ref}
+      data-slot="sheet-body"
+      className={cn(
+        'min-h-0 flex-1 overflow-auto text-sm text-grayscale-opacity-700',
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 export type SheetFooterProps = HTMLAttributes<HTMLDivElement>;
 
-const SheetFooter = forwardRef<HTMLDivElement, SheetFooterProps>(
-  function SheetFooter({ className, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        data-slot="sheet-footer"
-        className={cn(
-          'mt-auto flex flex-col-reverse gap-2 sm:flex-row sm:justify-end',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const SheetFooter = function SheetFooter({
+  className,
+  ref,
+  ...props
+}: Omit<SheetFooterProps, 'ref'> & { ref?: Ref<HTMLDivElement> }) {
+  return (
+    <div
+      ref={ref}
+      data-slot="sheet-footer"
+      className={cn(
+        'mt-auto flex flex-col-reverse gap-2 sm:flex-row sm:justify-end',
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 export type SheetTitleProps = ComponentPropsWithoutRef<
   typeof BaseDialog.Title
 >;
 
-const SheetTitle = forwardRef<
-  ElementRef<typeof BaseDialog.Title>,
-  SheetTitleProps
->(function SheetTitle({ className, ...props }, ref) {
+const SheetTitle = function SheetTitle({
+  className,
+  ref,
+  ...props
+}: Omit<SheetTitleProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseDialog.Title>>;
+}) {
   return (
     <BaseDialog.Title
       ref={ref}
@@ -225,16 +241,19 @@ const SheetTitle = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type SheetDescriptionProps = ComponentPropsWithoutRef<
   typeof BaseDialog.Description
 >;
 
-const SheetDescription = forwardRef<
-  ElementRef<typeof BaseDialog.Description>,
-  SheetDescriptionProps
->(function SheetDescription({ className, ...props }, ref) {
+const SheetDescription = function SheetDescription({
+  className,
+  ref,
+  ...props
+}: Omit<SheetDescriptionProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseDialog.Description>>;
+}) {
   return (
     <BaseDialog.Description
       ref={ref}
@@ -246,7 +265,7 @@ const SheetDescription = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export {
   Sheet,

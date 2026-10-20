@@ -1,11 +1,12 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { forwardRef, useLayoutEffect, useMemo, useRef } from 'react';
+import { useLayoutEffect, useMemo, useRef } from 'react';
 import type {
   ComponentPropsWithoutRef,
   ElementRef,
   ReactNode,
+  Ref,
 } from 'react';
 
 const padTime = (n: number) => n.toString().padStart(2, '0');
@@ -121,74 +122,70 @@ export type TimePickerProps = Omit<
   disabled?: boolean;
 };
 
-const TimePicker = forwardRef<ElementRef<'div'>, TimePickerProps>(
-  function TimePicker(
-    {
-      value,
-      onValueChange,
-      showSeconds = true,
-      hourStep = 1,
-      minuteStep = 1,
-      secondStep = 1,
-      disabled,
-      className,
-      ...props
-    },
-    ref,
-  ) {
-    const currentHours = value?.getHours() ?? 0;
-    const currentMinutes = value?.getMinutes() ?? 0;
-    const currentSeconds = value?.getSeconds() ?? 0;
+const TimePicker = function TimePicker({
+  value,
+  onValueChange,
+  showSeconds = true,
+  hourStep = 1,
+  minuteStep = 1,
+  secondStep = 1,
+  disabled,
+  className,
+  ref,
+  ...props
+}: Omit<TimePickerProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+  const currentHours = value?.getHours() ?? 0;
+  const currentMinutes = value?.getMinutes() ?? 0;
+  const currentSeconds = value?.getSeconds() ?? 0;
 
-    const hours = useMemo(() => rangeStep(24, hourStep), [hourStep]);
-    const minutes = useMemo(
-      () => rangeStep(60, minuteStep),
-      [minuteStep],
-    );
-    const seconds = useMemo(
-      () => rangeStep(60, secondStep),
-      [secondStep],
-    );
+  const hours = useMemo(() => rangeStep(24, hourStep), [hourStep]);
+  const minutes = useMemo(
+    () => rangeStep(60, minuteStep),
+    [minuteStep],
+  );
+  const seconds = useMemo(
+    () => rangeStep(60, secondStep),
+    [secondStep],
+  );
 
-    const emit = (h: number, m: number, s: number) => {
-      const out = value ? new Date(value) : new Date();
-      out.setHours(h, m, s, 0);
-      onValueChange?.(out);
-    };
+  const emit = (h: number, m: number, s: number) => {
+    const out = value ? new Date(value) : new Date();
+    out.setHours(h, m, s, 0);
+    onValueChange?.(out);
+  };
 
-    return (
-      <div
-        ref={ref}
-        data-slot="time-picker"
-        className={cn(
-          'box-border inline-flex h-75 divide-x divide-grayscale-opacity-200 overflow-hidden rounded bg-white',
-          className,
-        )}
-        {...props}
-      >
+  return (
+    <div
+      ref={ref}
+      data-slot="time-picker"
+      className={cn(
+        'box-border inline-flex h-75 divide-x divide-grayscale-opacity-200 overflow-hidden rounded bg-white',
+        className,
+      )}
+      {...props}
+    >
+      <TimeColumn
+        values={hours}
+        selected={currentHours}
+        disabled={disabled}
+        onSelect={(h) => emit(h, currentMinutes, currentSeconds)}
+      />
+      <TimeColumn
+        values={minutes}
+        selected={currentMinutes}
+        disabled={disabled}
+        onSelect={(m) => emit(currentHours, m, currentSeconds)}
+      />
+      {showSeconds ? (
         <TimeColumn
-          values={hours}
-          selected={currentHours}
+          values={seconds}
+          selected={currentSeconds}
           disabled={disabled}
-          onSelect={(h) => emit(h, currentMinutes, currentSeconds)}
+          onSelect={(s) => emit(currentHours, currentMinutes, s)}
         />
-        <TimeColumn
-          values={minutes}
-          selected={currentMinutes}
-          disabled={disabled}
-          onSelect={(m) => emit(currentHours, m, currentSeconds)}
-        />
-        {showSeconds ? (
-          <TimeColumn
-            values={seconds}
-            selected={currentSeconds}
-            disabled={disabled}
-            onSelect={(s) => emit(currentHours, currentMinutes, s)}
-          />
-        ) : null}
-      </div>
-    );
-  },
-);
+      ) : null}
+    </div>
+  );
+};
 
 export { TimePicker };

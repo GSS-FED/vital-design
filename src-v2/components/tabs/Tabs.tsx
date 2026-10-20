@@ -1,7 +1,10 @@
 import { cn } from '@/lib/utils';
 import { Tabs as BaseTabs } from '@base-ui/react/tabs';
-import { forwardRef } from 'react';
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  Ref,
+} from 'react';
 
 export type TabsVariant = 'underline' | 'pill';
 
@@ -11,35 +14,33 @@ export type TabsProps = ComponentPropsWithoutRef<
   variant?: TabsVariant;
 };
 
-const Tabs = forwardRef<ElementRef<typeof BaseTabs.Root>, TabsProps>(
-  function Tabs(
-    {
-      className,
-      orientation = 'horizontal',
-      variant = 'underline',
-      ...props
-    },
-    ref,
-  ) {
-    return (
-      <BaseTabs.Root
-        ref={ref}
-        orientation={orientation}
-        data-slot="tabs"
-        data-variant={variant}
-        className={cn(
-          'group/tabs font-sans',
-          variant === 'underline' &&
-            'text-base leading-4 text-grayscale-opacity-700',
-          variant === 'pill' && 'text-sm leading-5',
-          orientation === 'vertical' && 'flex items-start',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const Tabs = function Tabs({
+  className,
+  orientation = 'horizontal',
+  variant = 'underline',
+  ref,
+  ...props
+}: Omit<TabsProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseTabs.Root>>;
+}) {
+  return (
+    <BaseTabs.Root
+      ref={ref}
+      orientation={orientation}
+      data-slot="tabs"
+      data-variant={variant}
+      className={cn(
+        'group/tabs font-sans',
+        variant === 'underline' &&
+          'text-base leading-4 text-grayscale-opacity-700',
+        variant === 'pill' && 'text-sm leading-5',
+        orientation === 'vertical' && 'flex items-start',
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 export type TabsListProps = ComponentPropsWithoutRef<
   typeof BaseTabs.List
@@ -47,10 +48,14 @@ export type TabsListProps = ComponentPropsWithoutRef<
   bordered?: boolean;
 };
 
-const TabsList = forwardRef<
-  ElementRef<typeof BaseTabs.List>,
-  TabsListProps
->(function TabsList({ bordered = false, className, ...props }, ref) {
+const TabsList = function TabsList({
+  bordered = false,
+  className,
+  ref,
+  ...props
+}: Omit<TabsListProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseTabs.List>>;
+}) {
   return (
     <BaseTabs.List
       ref={ref}
@@ -70,19 +75,20 @@ const TabsList = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type TabsTriggerProps = ComponentPropsWithoutRef<
   typeof BaseTabs.Tab
 >;
 
-const TabsTrigger = forwardRef<
-  ElementRef<typeof BaseTabs.Tab>,
-  TabsTriggerProps
->(function TabsTrigger(
-  { className, type = 'button', ...props },
+const TabsTrigger = function TabsTrigger({
+  className,
+  type = 'button',
   ref,
-) {
+  ...props
+}: Omit<TabsTriggerProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseTabs.Tab>>;
+}) {
   return (
     <BaseTabs.Tab
       ref={ref}
@@ -120,16 +126,19 @@ const TabsTrigger = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type TabsIndicatorProps = ComponentPropsWithoutRef<
   typeof BaseTabs.Indicator
 >;
 
-const TabsIndicator = forwardRef<
-  ElementRef<typeof BaseTabs.Indicator>,
-  TabsIndicatorProps
->(function TabsIndicator({ className, ...props }, ref) {
+const TabsIndicator = function TabsIndicator({
+  className,
+  ref,
+  ...props
+}: Omit<TabsIndicatorProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseTabs.Indicator>>;
+}) {
   return (
     <BaseTabs.Indicator
       ref={ref}
@@ -144,16 +153,19 @@ const TabsIndicator = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type TabsContentProps = ComponentPropsWithoutRef<
   typeof BaseTabs.Panel
 >;
 
-const TabsContent = forwardRef<
-  ElementRef<typeof BaseTabs.Panel>,
-  TabsContentProps
->(function TabsContent({ className, ...props }, ref) {
+const TabsContent = function TabsContent({
+  className,
+  ref,
+  ...props
+}: Omit<TabsContentProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseTabs.Panel>>;
+}) {
   return (
     <BaseTabs.Panel
       ref={ref}
@@ -166,6 +178,6 @@ const TabsContent = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger };

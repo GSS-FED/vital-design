@@ -110,7 +110,7 @@ import { CheckIcon, CloseIcon } from '@/icons';
 
 ### Tier 2 — 禁止 passthrough
 
-- **Trigger 等互動 part 不得** `const FooTrigger = Base.Trigger`；須 `forwardRef` wrapper 並加 `data-slot`（參考 `DialogTrigger`、`SelectTrigger`）
+- **Trigger 等互動 part 不得** `const FooTrigger = Base.Trigger`；須包一層 component，從 props 接 `ref` 並加 `data-slot`（參考 `DialogTrigger`、`SelectTrigger`）
 - `@base-ui/react` 與 `cmdk` **不內建** `data-slot`；直接 re-export 不會自帶 slot
 - 待修範例：`DropdownMenuTrigger`、`PopoverTrigger`（應對齊 `DialogTrigger`）
 

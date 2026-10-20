@@ -3,8 +3,12 @@ import { type CvaProps, cn } from '@/lib/utils';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
 import { type VariantProps, cva } from 'class-variance-authority';
-import { createContext, forwardRef, useContext } from 'react';
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
+import { createContext, useContext } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  Ref,
+} from 'react';
 
 type ItemGroupContextValue = {
   itemRole?: string;
@@ -52,67 +56,74 @@ export type ItemVariants = VariantProps<typeof itemVariants>;
 export type ItemProps = useRender.ComponentProps<'div'> &
   CvaProps<ItemVariants>;
 
-const Item = forwardRef<ElementRef<'div'>, ItemProps>(
-  function Item(props, ref) {
-    const {
-      className,
-      render,
-      role: roleProp,
-      size = 'default',
-      variant = 'default',
-      ...itemProps
-    } = props;
-    const context = useContext(ItemGroupContext);
-    const role = roleProp ?? (render ? undefined : context?.itemRole);
+const Item = function Item({
+  ref,
+  ...props
+}: Omit<ItemProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+  const {
+    className,
+    render,
+    role: roleProp,
+    size = 'default',
+    variant = 'default',
+    ...itemProps
+  } = props;
+  const context = useContext(ItemGroupContext);
+  const role = roleProp ?? (render ? undefined : context?.itemRole);
 
-    return useRender({
-      ref,
-      render,
-      defaultTagName: 'div',
-      state: {
-        size,
-        slot: 'item',
-        variant,
+  return useRender({
+    ref,
+    render,
+    defaultTagName: 'div',
+    state: {
+      size,
+      slot: 'item',
+      variant,
+    },
+    props: mergeProps<'div'>(
+      {
+        className: cn(itemVariants({ size, variant }), className),
+        role,
       },
-      props: mergeProps<'div'>(
-        {
-          className: cn(itemVariants({ size, variant }), className),
-          role,
-        },
-        itemProps,
-      ),
-    });
-  },
-);
+      itemProps,
+    ),
+  });
+};
 
 export type ItemGroupProps = ComponentPropsWithoutRef<'div'>;
 
-const ItemGroup = forwardRef<ElementRef<'div'>, ItemGroupProps>(
-  function ItemGroup({ className, role = 'list', ...props }, ref) {
-    return (
-      <ItemGroupContext.Provider
-        value={{ itemRole: role === 'list' ? 'listitem' : undefined }}
-      >
-        <div
-          ref={ref}
-          role={role}
-          data-slot="item-group"
-          className={cn('group/item-group flex flex-col', className)}
-          {...props}
-        />
-      </ItemGroupContext.Provider>
-    );
-  },
-);
+const ItemGroup = function ItemGroup({
+  className,
+  role = 'list',
+  ref,
+  ...props
+}: Omit<ItemGroupProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+  return (
+    <ItemGroupContext.Provider
+      value={{ itemRole: role === 'list' ? 'listitem' : undefined }}
+    >
+      <div
+        ref={ref}
+        role={role}
+        data-slot="item-group"
+        className={cn('group/item-group flex flex-col', className)}
+        {...props}
+      />
+    </ItemGroupContext.Provider>
+  );
+};
 
 export type ItemSeparatorProps = ComponentPropsWithoutRef<
   typeof Separator
 >;
 
-const ItemSeparator = forwardRef<
-  ElementRef<typeof Separator>,
-  ItemSeparatorProps
->(function ItemSeparator({ className, ...props }, ref) {
+const ItemSeparator = function ItemSeparator({
+  className,
+  ref,
+  ...props
+}: Omit<ItemSeparatorProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof Separator>>;
+}) {
   return (
     <Separator
       ref={ref}
@@ -121,7 +132,7 @@ const ItemSeparator = forwardRef<
       {...props}
     />
   );
-});
+};
 
 const itemMediaVariants = cva(
   [
@@ -155,66 +166,73 @@ export type ItemMediaVariants = VariantProps<
 export type ItemMediaProps = ComponentPropsWithoutRef<'div'> &
   CvaProps<ItemMediaVariants>;
 
-const ItemMedia = forwardRef<ElementRef<'div'>, ItemMediaProps>(
-  function ItemMedia(
-    { className, variant = 'default', ...props },
-    ref,
-  ) {
-    return (
-      <div
-        ref={ref}
-        data-slot="item-media"
-        data-variant={variant}
-        className={cn(itemMediaVariants({ variant }), className)}
-        {...props}
-      />
-    );
-  },
-);
+const ItemMedia = function ItemMedia({
+  className,
+  variant = 'default',
+  ref,
+  ...props
+}: Omit<ItemMediaProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+  return (
+    <div
+      ref={ref}
+      data-slot="item-media"
+      data-variant={variant}
+      className={cn(itemMediaVariants({ variant }), className)}
+      {...props}
+    />
+  );
+};
 
 export type ItemContentProps = ComponentPropsWithoutRef<'div'>;
 
-const ItemContent = forwardRef<ElementRef<'div'>, ItemContentProps>(
-  function ItemContent({ className, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        data-slot="item-content"
-        className={cn(
-          'flex min-w-0 flex-1 flex-col gap-1',
-          '[&+[data-slot=item-content]]:flex-none',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const ItemContent = function ItemContent({
+  className,
+  ref,
+  ...props
+}: Omit<ItemContentProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+  return (
+    <div
+      ref={ref}
+      data-slot="item-content"
+      className={cn(
+        'flex min-w-0 flex-1 flex-col gap-1',
+        '[&+[data-slot=item-content]]:flex-none',
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 export type ItemTitleProps = ComponentPropsWithoutRef<'div'>;
 
-const ItemTitle = forwardRef<ElementRef<'div'>, ItemTitleProps>(
-  function ItemTitle({ className, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        data-slot="item-title"
-        className={cn(
-          'flex min-w-0 items-center gap-2 text-sm leading-5 font-normal text-inherit',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const ItemTitle = function ItemTitle({
+  className,
+  ref,
+  ...props
+}: Omit<ItemTitleProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+  return (
+    <div
+      ref={ref}
+      data-slot="item-title"
+      className={cn(
+        'flex min-w-0 items-center gap-2 text-sm leading-5 font-normal text-inherit',
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 export type ItemDescriptionProps = ComponentPropsWithoutRef<'p'>;
 
-const ItemDescription = forwardRef<
-  ElementRef<'p'>,
-  ItemDescriptionProps
->(function ItemDescription({ className, ...props }, ref) {
+const ItemDescription = function ItemDescription({
+  className,
+  ref,
+  ...props
+}: Omit<ItemDescriptionProps, 'ref'> & {
+  ref?: Ref<ElementRef<'p'>>;
+}) {
   return (
     <p
       ref={ref}
@@ -228,58 +246,64 @@ const ItemDescription = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ItemActionsProps = ComponentPropsWithoutRef<'div'>;
 
-const ItemActions = forwardRef<ElementRef<'div'>, ItemActionsProps>(
-  function ItemActions({ className, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        data-slot="item-actions"
-        className={cn('ml-auto flex items-center gap-2', className)}
-        {...props}
-      />
-    );
-  },
-);
+const ItemActions = function ItemActions({
+  className,
+  ref,
+  ...props
+}: Omit<ItemActionsProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+  return (
+    <div
+      ref={ref}
+      data-slot="item-actions"
+      className={cn('ml-auto flex items-center gap-2', className)}
+      {...props}
+    />
+  );
+};
 
 export type ItemHeaderProps = ComponentPropsWithoutRef<'div'>;
 
-const ItemHeader = forwardRef<ElementRef<'div'>, ItemHeaderProps>(
-  function ItemHeader({ className, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        data-slot="item-header"
-        className={cn(
-          'flex basis-full items-center justify-between gap-2',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const ItemHeader = function ItemHeader({
+  className,
+  ref,
+  ...props
+}: Omit<ItemHeaderProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+  return (
+    <div
+      ref={ref}
+      data-slot="item-header"
+      className={cn(
+        'flex basis-full items-center justify-between gap-2',
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 export type ItemFooterProps = ComponentPropsWithoutRef<'div'>;
 
-const ItemFooter = forwardRef<ElementRef<'div'>, ItemFooterProps>(
-  function ItemFooter({ className, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        data-slot="item-footer"
-        className={cn(
-          'flex basis-full items-center justify-between gap-2',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const ItemFooter = function ItemFooter({
+  className,
+  ref,
+  ...props
+}: Omit<ItemFooterProps, 'ref'> & { ref?: Ref<ElementRef<'div'>> }) {
+  return (
+    <div
+      ref={ref}
+      data-slot="item-footer"
+      className={cn(
+        'flex basis-full items-center justify-between gap-2',
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 export {
   Item,

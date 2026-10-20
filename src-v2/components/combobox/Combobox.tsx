@@ -5,12 +5,12 @@ import { ClearIcon } from '@/icons/ClearIcon';
 import { SearchIcon } from '@/icons/SearchIcon';
 import { cn } from '@/lib/utils';
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox';
-import { forwardRef } from 'react';
 import type {
   ComponentPropsWithoutRef,
   ElementRef,
   ReactElement,
   ReactNode,
+  Ref,
 } from 'react';
 import {
   Chip,
@@ -49,10 +49,13 @@ export type ComboboxInputGroupProps = ComponentPropsWithoutRef<
   typeof BaseCombobox.InputGroup
 >;
 
-const InputGroup = forwardRef<
-  ElementRef<typeof BaseCombobox.InputGroup>,
-  ComboboxInputGroupProps
->(function ComboboxInputGroup({ className, ...props }, ref) {
+const InputGroup = function ComboboxInputGroup({
+  className,
+  ref,
+  ...props
+}: Omit<ComboboxInputGroupProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCombobox.InputGroup>>;
+}) {
   return (
     <BaseCombobox.InputGroup
       ref={ref}
@@ -67,7 +70,7 @@ const InputGroup = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ComboboxValueProps = ComponentPropsWithoutRef<
   typeof BaseCombobox.Value
@@ -81,10 +84,13 @@ export type ComboboxInputProps = ComponentPropsWithoutRef<
   typeof BaseCombobox.Input
 >;
 
-const Input = forwardRef<
-  ElementRef<typeof BaseCombobox.Input>,
-  ComboboxInputProps
->(function ComboboxInput({ className, ...props }, ref) {
+const Input = function ComboboxInput({
+  className,
+  ref,
+  ...props
+}: Omit<ComboboxInputProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCombobox.Input>>;
+}) {
   return (
     <BaseCombobox.Input
       ref={ref}
@@ -97,16 +103,20 @@ const Input = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ComboboxTriggerProps = ComponentPropsWithoutRef<
   typeof BaseCombobox.Trigger
 >;
 
-const Trigger = forwardRef<
-  ElementRef<typeof BaseCombobox.Trigger>,
-  ComboboxTriggerProps
->(function ComboboxTrigger({ children, className, ...props }, ref) {
+const Trigger = function ComboboxTrigger({
+  children,
+  className,
+  ref,
+  ...props
+}: Omit<ComboboxTriggerProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCombobox.Trigger>>;
+}) {
   return (
     <BaseCombobox.Trigger
       ref={ref}
@@ -131,16 +141,20 @@ const Trigger = forwardRef<
       </span>
     </BaseCombobox.Trigger>
   );
-});
+};
 
 export type ComboboxClearProps = ComponentPropsWithoutRef<
   typeof BaseCombobox.Clear
 >;
 
-const Clear = forwardRef<
-  ElementRef<typeof BaseCombobox.Clear>,
-  ComboboxClearProps
->(function ComboboxClear({ children, className, ...props }, ref) {
+const Clear = function ComboboxClear({
+  children,
+  className,
+  ref,
+  ...props
+}: Omit<ComboboxClearProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCombobox.Clear>>;
+}) {
   return (
     <BaseCombobox.Clear
       ref={ref}
@@ -156,7 +170,7 @@ const Clear = forwardRef<
       {children ?? <ClearIcon className="size-5" />}
     </BaseCombobox.Clear>
   );
-});
+};
 
 export type ComboboxContentProps = Omit<
   ComponentPropsWithoutRef<typeof BaseCombobox.Popup>,
@@ -175,23 +189,20 @@ export type ComboboxContentProps = Omit<
     listClassName?: string;
   };
 
-const Content = forwardRef<
-  ElementRef<typeof BaseCombobox.Popup>,
-  ComboboxContentProps
->(function ComboboxContent(
-  {
-    align = 'start',
-    alignOffset,
-    children,
-    className,
-    emptyText,
-    listClassName,
-    side,
-    sideOffset = 4,
-    ...props
-  },
+const Content = function ComboboxContent({
+  align = 'start',
+  alignOffset,
+  children,
+  className,
+  emptyText,
+  listClassName,
+  side,
+  sideOffset = 4,
   ref,
-) {
+  ...props
+}: Omit<ComboboxContentProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCombobox.Popup>>;
+}) {
   return (
     <BaseCombobox.Portal>
       <BaseCombobox.Positioner
@@ -229,31 +240,37 @@ const Content = forwardRef<
       </BaseCombobox.Positioner>
     </BaseCombobox.Portal>
   );
-});
+};
 
 export type ComboboxHeaderProps = ComponentPropsWithoutRef<'div'>;
 
-const Header = forwardRef<HTMLDivElement, ComboboxHeaderProps>(
-  function ComboboxHeader({ className, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        data-slot="combobox-header"
-        className={className}
-        {...props}
-      />
-    );
-  },
-);
+const Header = function ComboboxHeader({
+  className,
+  ref,
+  ...props
+}: Omit<ComboboxHeaderProps, 'ref'> & { ref?: Ref<HTMLDivElement> }) {
+  return (
+    <div
+      ref={ref}
+      data-slot="combobox-header"
+      className={className}
+      {...props}
+    />
+  );
+};
 
 export type ComboboxListProps = ComponentPropsWithoutRef<
   typeof BaseCombobox.List
 >;
 
-const List = forwardRef<
-  ElementRef<typeof BaseCombobox.List>,
-  ComboboxListProps
->(function ComboboxList({ className, onScroll, ...props }, ref) {
+const List = function ComboboxList({
+  className,
+  onScroll,
+  ref,
+  ...props
+}: Omit<ComboboxListProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCombobox.List>>;
+}) {
   return (
     <BaseCombobox.List
       ref={ref}
@@ -267,19 +284,20 @@ const List = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ComboboxSearchBarProps = ComboboxInputProps & {
   inputClassName?: string;
 };
 
-const SearchBar = forwardRef<
-  ElementRef<typeof BaseCombobox.Input>,
-  ComboboxSearchBarProps
->(function ComboboxSearchBar(
-  { className, inputClassName, ...props },
+const SearchBar = function ComboboxSearchBar({
+  className,
+  inputClassName,
   ref,
-) {
+  ...props
+}: Omit<ComboboxSearchBarProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCombobox.Input>>;
+}) {
   return (
     <div className={cn('px-4 py-2', className)}>
       <div
@@ -308,16 +326,19 @@ const SearchBar = forwardRef<
       </div>
     </div>
   );
-});
+};
 
 export type ComboboxItemProps = ComponentPropsWithoutRef<
   typeof BaseCombobox.Item
 >;
 
-const Item = forwardRef<
-  ElementRef<typeof BaseCombobox.Item>,
-  ComboboxItemProps
->(function ComboboxItem({ className, ...props }, ref) {
+const Item = function ComboboxItem({
+  className,
+  ref,
+  ...props
+}: Omit<ComboboxItemProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCombobox.Item>>;
+}) {
   return (
     <BaseCombobox.Item
       ref={ref}
@@ -334,31 +355,39 @@ const Item = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ComboboxItemTextProps = ComponentPropsWithoutRef<'span'>;
 
-const ItemText = forwardRef<HTMLSpanElement, ComboboxItemTextProps>(
-  function ComboboxItemText({ className, ...props }, ref) {
-    return (
-      <span
-        ref={ref}
-        data-slot="combobox-item-text"
-        className={cn('min-w-0 flex-1', className)}
-        {...props}
-      />
-    );
-  },
-);
+const ItemText = function ComboboxItemText({
+  className,
+  ref,
+  ...props
+}: Omit<ComboboxItemTextProps, 'ref'> & {
+  ref?: Ref<HTMLSpanElement>;
+}) {
+  return (
+    <span
+      ref={ref}
+      data-slot="combobox-item-text"
+      className={cn('min-w-0 flex-1', className)}
+      {...props}
+    />
+  );
+};
 
 export type ComboboxItemCheckProps = ComponentPropsWithoutRef<
   typeof BaseCombobox.ItemIndicator
 >;
 
-const ItemCheck = forwardRef<
-  ElementRef<typeof BaseCombobox.ItemIndicator>,
-  ComboboxItemCheckProps
->(function ComboboxItemCheck({ children, className, ...props }, ref) {
+const ItemCheck = function ComboboxItemCheck({
+  children,
+  className,
+  ref,
+  ...props
+}: Omit<ComboboxItemCheckProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCombobox.ItemIndicator>>;
+}) {
   return (
     <BaseCombobox.ItemIndicator
       ref={ref}
@@ -372,18 +401,19 @@ const ItemCheck = forwardRef<
       {children ?? <CheckIcon className="size-3" />}
     </BaseCombobox.ItemIndicator>
   );
-});
+};
 
 export type ComboboxItemCheckboxProps =
   ComponentPropsWithoutRef<'span'>;
 
-const ItemCheckbox = forwardRef<
-  HTMLSpanElement,
-  ComboboxItemCheckboxProps
->(function ComboboxItemCheckbox(
-  { children, className, ...props },
+const ItemCheckbox = function ComboboxItemCheckbox({
+  children,
+  className,
   ref,
-) {
+  ...props
+}: Omit<ComboboxItemCheckboxProps, 'ref'> & {
+  ref?: Ref<HTMLSpanElement>;
+}) {
   return (
     <span
       ref={ref}
@@ -401,16 +431,19 @@ const ItemCheckbox = forwardRef<
       </BaseCombobox.ItemIndicator>
     </span>
   );
-});
+};
 
 export type ComboboxGroupProps = ComponentPropsWithoutRef<
   typeof BaseCombobox.Group
 >;
 
-const Group = forwardRef<
-  ElementRef<typeof BaseCombobox.Group>,
-  ComboboxGroupProps
->(function ComboboxGroup({ className, ...props }, ref) {
+const Group = function ComboboxGroup({
+  className,
+  ref,
+  ...props
+}: Omit<ComboboxGroupProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCombobox.Group>>;
+}) {
   return (
     <BaseCombobox.Group
       ref={ref}
@@ -419,16 +452,19 @@ const Group = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ComboboxLabelProps = ComponentPropsWithoutRef<
   typeof BaseCombobox.GroupLabel
 >;
 
-const Label = forwardRef<
-  ElementRef<typeof BaseCombobox.GroupLabel>,
-  ComboboxLabelProps
->(function ComboboxLabel({ className, ...props }, ref) {
+const Label = function ComboboxLabel({
+  className,
+  ref,
+  ...props
+}: Omit<ComboboxLabelProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCombobox.GroupLabel>>;
+}) {
   return (
     <BaseCombobox.GroupLabel
       ref={ref}
@@ -440,16 +476,19 @@ const Label = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ComboboxSeparatorProps = ComponentPropsWithoutRef<
   typeof BaseCombobox.Separator
 >;
 
-const Separator = forwardRef<
-  ElementRef<typeof BaseCombobox.Separator>,
-  ComboboxSeparatorProps
->(function ComboboxSeparator({ className, ...props }, ref) {
+const Separator = function ComboboxSeparator({
+  className,
+  ref,
+  ...props
+}: Omit<ComboboxSeparatorProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCombobox.Separator>>;
+}) {
   return (
     <BaseCombobox.Separator
       ref={ref}
@@ -461,16 +500,20 @@ const Separator = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ComboboxEmptyProps = ComponentPropsWithoutRef<
   typeof BaseCombobox.Empty
 >;
 
-const Empty = forwardRef<
-  ElementRef<typeof BaseCombobox.Empty>,
-  ComboboxEmptyProps
->(function ComboboxEmpty({ children, className, ...props }, ref) {
+const Empty = function ComboboxEmpty({
+  children,
+  className,
+  ref,
+  ...props
+}: Omit<ComboboxEmptyProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCombobox.Empty>>;
+}) {
   return (
     <BaseCombobox.Empty
       ref={ref}
@@ -486,7 +529,7 @@ const Empty = forwardRef<
       </span>
     </BaseCombobox.Empty>
   );
-});
+};
 
 export {
   Combobox,

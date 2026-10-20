@@ -1,19 +1,23 @@
 import { cn } from '@/lib/utils';
 import { Separator as BaseSeparator } from '@base-ui/react/separator';
-import { forwardRef } from 'react';
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  Ref,
+} from 'react';
 
 export type SeparatorProps = ComponentPropsWithoutRef<
   typeof BaseSeparator
 >;
 
-const Separator = forwardRef<
-  ElementRef<typeof BaseSeparator>,
-  SeparatorProps
->(function Separator(
-  { className, orientation = 'horizontal', ...props },
+const Separator = function Separator({
+  className,
+  orientation = 'horizontal',
   ref,
-) {
+  ...props
+}: Omit<SeparatorProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseSeparator>>;
+}) {
   return (
     <BaseSeparator
       ref={ref}
@@ -29,6 +33,6 @@ const Separator = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export { Separator };

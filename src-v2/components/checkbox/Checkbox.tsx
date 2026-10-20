@@ -2,15 +2,17 @@ import { CheckIcon } from '@/icons/CheckIcon';
 import { MinusIcon } from '@/icons/MinusIcon';
 import { cn } from '@/lib/utils';
 import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
-import { forwardRef } from 'react';
-import type { ElementRef } from 'react';
+import type { ElementRef, Ref } from 'react';
 
 export type CheckboxProps = BaseCheckbox.Root.Props;
 
-const Checkbox = forwardRef<
-  ElementRef<typeof BaseCheckbox.Root>,
-  CheckboxProps
->(function Checkbox({ className, ...props }, ref) {
+const Checkbox = function Checkbox({
+  className,
+  ref,
+  ...props
+}: Omit<CheckboxProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseCheckbox.Root>>;
+}) {
   return (
     <BaseCheckbox.Root
       ref={ref}
@@ -45,6 +47,6 @@ const Checkbox = forwardRef<
       </BaseCheckbox.Indicator>
     </BaseCheckbox.Root>
   );
-});
+};
 
 export { Checkbox };

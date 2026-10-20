@@ -6,11 +6,11 @@
 import { CloseIcon } from '@/icons/CloseIcon';
 import { cn } from '@/lib/utils';
 import { Toast as BaseToast } from '@base-ui/react/toast';
-import { forwardRef } from 'react';
 import type {
   ComponentPropsWithoutRef,
   ElementRef,
   ReactNode,
+  Ref,
 } from 'react';
 
 export const useToast = BaseToast.useToastManager;
@@ -139,13 +139,14 @@ export type ToastViewportProps = ComponentPropsWithoutRef<
   position?: ToastPosition;
 };
 
-const ToastViewport = forwardRef<
-  ElementRef<typeof BaseToast.Viewport>,
-  ToastViewportProps
->(function ToastViewport(
-  { className, position = 'bottom-right', ...props },
+const ToastViewport = function ToastViewport({
+  className,
+  position = 'bottom-right',
   ref,
-) {
+  ...props
+}: Omit<ToastViewportProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseToast.Viewport>>;
+}) {
   return (
     <BaseToast.Viewport
       ref={ref}
@@ -159,7 +160,7 @@ const ToastViewport = forwardRef<
       {...props}
     />
   );
-});
+};
 
 const TOAST_ROOT_CLASSES = [
   'group/toast pointer-events-auto absolute box-border flex max-w-[min(400px,calc(100vw-2rem))] items-center gap-4 rounded font-sans text-sm leading-5 font-medium shadow-emphasis outline-none',
@@ -192,13 +193,16 @@ export type ToastProps = Omit<
   status?: ToastStatus;
 };
 
-const Toast = forwardRef<
-  ElementRef<typeof BaseToast.Root>,
-  ToastProps
->(function Toast(
-  { className, position = 'bottom-right', status, toast, ...props },
+const Toast = function Toast({
+  className,
+  position = 'bottom-right',
+  status,
+  toast,
   ref,
-) {
+  ...props
+}: Omit<ToastProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseToast.Root>>;
+}) {
   const resolvedStatus =
     status ?? (toast.type as ToastStatus | undefined);
 
@@ -217,35 +221,40 @@ const Toast = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ToastIconProps = ComponentPropsWithoutRef<'span'>;
 
-const ToastIcon = forwardRef<HTMLSpanElement, ToastIconProps>(
-  function ToastIcon({ className, ...props }, ref) {
-    return (
-      <span
-        ref={ref}
-        aria-hidden="true"
-        data-slot="toast-icon"
-        className={cn(
-          'flex size-5 shrink-0 items-center justify-center',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const ToastIcon = function ToastIcon({
+  className,
+  ref,
+  ...props
+}: Omit<ToastIconProps, 'ref'> & { ref?: Ref<HTMLSpanElement> }) {
+  return (
+    <span
+      ref={ref}
+      aria-hidden="true"
+      data-slot="toast-icon"
+      className={cn(
+        'flex size-5 shrink-0 items-center justify-center',
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 export type ToastContentProps = ComponentPropsWithoutRef<
   typeof BaseToast.Content
 >;
 
-const ToastContent = forwardRef<
-  ElementRef<typeof BaseToast.Content>,
-  ToastContentProps
->(function ToastContent({ className, ...props }, ref) {
+const ToastContent = function ToastContent({
+  className,
+  ref,
+  ...props
+}: Omit<ToastContentProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseToast.Content>>;
+}) {
   return (
     <BaseToast.Content
       ref={ref}
@@ -254,16 +263,19 @@ const ToastContent = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ToastTitleProps = ComponentPropsWithoutRef<
   typeof BaseToast.Title
 >;
 
-const ToastTitle = forwardRef<
-  ElementRef<typeof BaseToast.Title>,
-  ToastTitleProps
->(function ToastTitle({ className, ...props }, ref) {
+const ToastTitle = function ToastTitle({
+  className,
+  ref,
+  ...props
+}: Omit<ToastTitleProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseToast.Title>>;
+}) {
   return (
     <BaseToast.Title
       ref={ref}
@@ -272,16 +284,19 @@ const ToastTitle = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ToastDescriptionProps = ComponentPropsWithoutRef<
   typeof BaseToast.Description
 >;
 
-const ToastDescription = forwardRef<
-  ElementRef<typeof BaseToast.Description>,
-  ToastDescriptionProps
->(function ToastDescription({ className, ...props }, ref) {
+const ToastDescription = function ToastDescription({
+  className,
+  ref,
+  ...props
+}: Omit<ToastDescriptionProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseToast.Description>>;
+}) {
   return (
     <BaseToast.Description
       ref={ref}
@@ -290,16 +305,19 @@ const ToastDescription = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ToastActionProps = ComponentPropsWithoutRef<
   typeof BaseToast.Action
 >;
 
-const ToastAction = forwardRef<
-  ElementRef<typeof BaseToast.Action>,
-  ToastActionProps
->(function ToastAction({ className, ...props }, ref) {
+const ToastAction = function ToastAction({
+  className,
+  ref,
+  ...props
+}: Omit<ToastActionProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseToast.Action>>;
+}) {
   return (
     <BaseToast.Action
       ref={ref}
@@ -311,24 +329,21 @@ const ToastAction = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ToastCloseProps = ComponentPropsWithoutRef<
   typeof BaseToast.Close
 >;
 
-const ToastClose = forwardRef<
-  ElementRef<typeof BaseToast.Close>,
-  ToastCloseProps
->(function ToastClose(
-  {
-    'aria-label': ariaLabel = 'Close',
-    children,
-    className,
-    ...props
-  },
+const ToastClose = function ToastClose({
+  'aria-label': ariaLabel = 'Close',
+  children,
+  className,
   ref,
-) {
+  ...props
+}: Omit<ToastCloseProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseToast.Close>>;
+}) {
   return (
     <BaseToast.Close
       ref={ref}
@@ -343,36 +358,39 @@ const ToastClose = forwardRef<
       {children ?? <CloseIcon />}
     </BaseToast.Close>
   );
-});
+};
 
-const ToastCancel = forwardRef<HTMLButtonElement, ToastCancelProps>(
-  function ToastCancel(
-    { className, type = 'button', ...props },
-    ref,
-  ) {
-    return (
-      <button
-        ref={ref}
-        type={type}
-        data-slot="toast-cancel"
-        className={cn(
-          'shrink-0 cursor-pointer text-sm leading-5 font-medium outline-none transition-colors duration-150',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const ToastCancel = function ToastCancel({
+  className,
+  type = 'button',
+  ref,
+  ...props
+}: Omit<ToastCancelProps, 'ref'> & { ref?: Ref<HTMLButtonElement> }) {
+  return (
+    <button
+      ref={ref}
+      type={type}
+      data-slot="toast-cancel"
+      className={cn(
+        'shrink-0 cursor-pointer text-sm leading-5 font-medium outline-none transition-colors duration-150',
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 export type ToastPositionerProps = ComponentPropsWithoutRef<
   typeof BaseToast.Positioner
 >;
 
-const ToastPositioner = forwardRef<
-  ElementRef<typeof BaseToast.Positioner>,
-  ToastPositionerProps
->(function ToastPositioner({ className, ...props }, ref) {
+const ToastPositioner = function ToastPositioner({
+  className,
+  ref,
+  ...props
+}: Omit<ToastPositionerProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseToast.Positioner>>;
+}) {
   return (
     <BaseToast.Positioner
       ref={ref}
@@ -381,7 +399,7 @@ const ToastPositioner = forwardRef<
       {...props}
     />
   );
-});
+};
 
 const SOLID_BG: Record<ToastStatus, string> = {
   success: 'bg-success-500',

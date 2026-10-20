@@ -47,7 +47,7 @@ allowed-tools: Read, Write, Edit, Bash
 
 ## 結構規則
 
-- 使用 `forwardRef` 包裝（如適用）
+- 會轉發 DOM `ref` 的元件從 props 接收 `ref`，不要用 `forwardRef`
 - 使用 named export，不要 default export
 - 使用 CVA 管理 variants（參考 component-template.tsx）；公開 props 用 `CvaProps`，不要 export `xVariants` helper
 - 使用 `cn()` 合併類名（`@/lib/utils`）

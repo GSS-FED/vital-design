@@ -19,7 +19,7 @@
 2. **建立 ComponentName.tsx**
 
    - Props 類型直接 inline 定義（`export type ComponentNameProps = {...}`）
-   - 使用 `forwardRef` 包裝（如適用）
+   - 會轉發 DOM `ref` 的元件從 props 接收 `ref`，不要用 `forwardRef`
    - 使用 named export，不要 default export
    - 使用 `cn()` 合併類名（`@/lib/utils`）
    - 有 CVA 時用 `CvaProps<VariantProps<typeof xVariants>>`，不要手寫重複 union、不要直接 intersect 原始 `VariantProps`；不要 export `xVariants` helper。CVA 講不了的限制（必填、內部軸、互斥）再疊上去

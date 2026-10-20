@@ -1,10 +1,10 @@
 import { cn } from '@/lib/utils';
 import { ScrollArea as BaseScrollArea } from '@base-ui/react/scroll-area';
-import { forwardRef } from 'react';
 import type {
   CSSProperties,
   ComponentPropsWithoutRef,
   ElementRef,
+  Ref,
 } from 'react';
 
 type ScrollAreaViewportStyle = CSSProperties & {
@@ -22,10 +22,13 @@ export type ScrollAreaProps = ComponentPropsWithoutRef<
   typeof BaseScrollArea.Root
 >;
 
-const ScrollArea = forwardRef<
-  ElementRef<typeof BaseScrollArea.Root>,
-  ScrollAreaProps
->(function ScrollArea({ className, ...props }, ref) {
+const ScrollArea = function ScrollArea({
+  className,
+  ref,
+  ...props
+}: Omit<ScrollAreaProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseScrollArea.Root>>;
+}) {
   return (
     <BaseScrollArea.Root
       ref={ref}
@@ -34,7 +37,7 @@ const ScrollArea = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ScrollAreaViewportProps = ComponentPropsWithoutRef<
   typeof BaseScrollArea.Viewport
@@ -43,13 +46,16 @@ export type ScrollAreaViewportProps = ComponentPropsWithoutRef<
   fadeSize?: number | string;
 };
 
-const ScrollAreaViewport = forwardRef<
-  ElementRef<typeof BaseScrollArea.Viewport>,
-  ScrollAreaViewportProps
->(function ScrollAreaViewport(
-  { className, fadeEdges = false, fadeSize = 40, style, ...props },
+const ScrollAreaViewport = function ScrollAreaViewport({
+  className,
+  fadeEdges = false,
+  fadeSize = 40,
+  style,
   ref,
-) {
+  ...props
+}: Omit<ScrollAreaViewportProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseScrollArea.Viewport>>;
+}) {
   const fadeVars: ScrollAreaViewportStyle = {
     '--vital-scroll-area-fade-size':
       typeof fadeSize === 'number'
@@ -77,16 +83,19 @@ const ScrollAreaViewport = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ScrollAreaContentProps = ComponentPropsWithoutRef<
   typeof BaseScrollArea.Content
 >;
 
-const ScrollAreaContent = forwardRef<
-  ElementRef<typeof BaseScrollArea.Content>,
-  ScrollAreaContentProps
->(function ScrollAreaContent({ className, ...props }, ref) {
+const ScrollAreaContent = function ScrollAreaContent({
+  className,
+  ref,
+  ...props
+}: Omit<ScrollAreaContentProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseScrollArea.Content>>;
+}) {
   return (
     <BaseScrollArea.Content
       ref={ref}
@@ -95,16 +104,19 @@ const ScrollAreaContent = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ScrollAreaScrollbarProps = ComponentPropsWithoutRef<
   typeof BaseScrollArea.Scrollbar
 >;
 
-const ScrollAreaScrollbar = forwardRef<
-  ElementRef<typeof BaseScrollArea.Scrollbar>,
-  ScrollAreaScrollbarProps
->(function ScrollAreaScrollbar({ className, ...props }, ref) {
+const ScrollAreaScrollbar = function ScrollAreaScrollbar({
+  className,
+  ref,
+  ...props
+}: Omit<ScrollAreaScrollbarProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseScrollArea.Scrollbar>>;
+}) {
   return (
     <BaseScrollArea.Scrollbar
       ref={ref}
@@ -118,16 +130,19 @@ const ScrollAreaScrollbar = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ScrollAreaThumbProps = ComponentPropsWithoutRef<
   typeof BaseScrollArea.Thumb
 >;
 
-const ScrollAreaThumb = forwardRef<
-  ElementRef<typeof BaseScrollArea.Thumb>,
-  ScrollAreaThumbProps
->(function ScrollAreaThumb({ className, ...props }, ref) {
+const ScrollAreaThumb = function ScrollAreaThumb({
+  className,
+  ref,
+  ...props
+}: Omit<ScrollAreaThumbProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseScrollArea.Thumb>>;
+}) {
   return (
     <BaseScrollArea.Thumb
       ref={ref}
@@ -141,16 +156,19 @@ const ScrollAreaThumb = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ScrollAreaCornerProps = ComponentPropsWithoutRef<
   typeof BaseScrollArea.Corner
 >;
 
-const ScrollAreaCorner = forwardRef<
-  ElementRef<typeof BaseScrollArea.Corner>,
-  ScrollAreaCornerProps
->(function ScrollAreaCorner({ className, ...props }, ref) {
+const ScrollAreaCorner = function ScrollAreaCorner({
+  className,
+  ref,
+  ...props
+}: Omit<ScrollAreaCornerProps, 'ref'> & {
+  ref?: Ref<ElementRef<typeof BaseScrollArea.Corner>>;
+}) {
   return (
     <BaseScrollArea.Corner
       ref={ref}
@@ -159,7 +177,7 @@ const ScrollAreaCorner = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export {
   ScrollArea,
