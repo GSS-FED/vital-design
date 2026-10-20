@@ -1,8 +1,11 @@
 import { Separator } from '@/components/separator/Separator';
 import { type CvaProps, cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
-import { forwardRef } from 'react';
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ComponentRef,
+  Ref,
+} from 'react';
 
 const toolbarVariants = cva(
   'flex w-full flex-wrap items-center gap-2 font-sans text-sm leading-5 text-grayscale-opacity-800',
@@ -31,54 +34,57 @@ export type ToolbarVariants = VariantProps<typeof toolbarVariants>;
 export type ToolbarProps = ComponentPropsWithoutRef<'div'> &
   CvaProps<ToolbarVariants>;
 
-const Toolbar = forwardRef<ElementRef<'div'>, ToolbarProps>(
-  function Toolbar(
-    {
-      'aria-orientation': ariaOrientation = 'horizontal',
-      className,
-      role = 'toolbar',
-      size = 'default',
-      variant = 'default',
-      ...props
-    },
-    ref,
-  ) {
-    return (
-      <div
-        ref={ref}
-        role={role}
-        aria-orientation={ariaOrientation}
-        data-slot="toolbar"
-        data-variant={variant}
-        className={cn(toolbarVariants({ size, variant }), className)}
-        {...props}
-      />
-    );
-  },
-);
+const Toolbar = function Toolbar({
+  'aria-orientation': ariaOrientation = 'horizontal',
+  className,
+  role = 'toolbar',
+  size = 'default',
+  variant = 'default',
+  ref,
+  ...props
+}: Omit<ToolbarProps, 'ref'> & { ref?: Ref<ComponentRef<'div'>> }) {
+  return (
+    <div
+      ref={ref}
+      role={role}
+      aria-orientation={ariaOrientation}
+      data-slot="toolbar"
+      data-variant={variant}
+      className={cn(toolbarVariants({ size, variant }), className)}
+      {...props}
+    />
+  );
+};
 
 export type ToolbarGroupProps = ComponentPropsWithoutRef<'div'>;
 
-const ToolbarGroup = forwardRef<ElementRef<'div'>, ToolbarGroupProps>(
-  function ToolbarGroup({ className, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        role="group"
-        data-slot="toolbar-group"
-        className={cn('flex items-center gap-2', className)}
-        {...props}
-      />
-    );
-  },
-);
+const ToolbarGroup = function ToolbarGroup({
+  className,
+  ref,
+  ...props
+}: Omit<ToolbarGroupProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
+  return (
+    <div
+      ref={ref}
+      role="group"
+      data-slot="toolbar-group"
+      className={cn('flex items-center gap-2', className)}
+      {...props}
+    />
+  );
+};
 
 export type ToolbarSpacerProps = ComponentPropsWithoutRef<'div'>;
 
-const ToolbarSpacer = forwardRef<
-  ElementRef<'div'>,
-  ToolbarSpacerProps
->(function ToolbarSpacer({ className, ...props }, ref) {
+const ToolbarSpacer = function ToolbarSpacer({
+  className,
+  ref,
+  ...props
+}: Omit<ToolbarSpacerProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
   return (
     <div
       ref={ref}
@@ -88,16 +94,19 @@ const ToolbarSpacer = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type ToolbarSeparatorProps = ComponentPropsWithoutRef<
   typeof Separator
 >;
 
-const ToolbarSeparator = forwardRef<
-  ElementRef<typeof Separator>,
-  ToolbarSeparatorProps
->(function ToolbarSeparator({ className, ...props }, ref) {
+const ToolbarSeparator = function ToolbarSeparator({
+  className,
+  ref,
+  ...props
+}: Omit<ToolbarSeparatorProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof Separator>>;
+}) {
   return (
     <Separator
       ref={ref}
@@ -107,6 +116,6 @@ const ToolbarSeparator = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarSpacer };

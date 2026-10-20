@@ -7,39 +7,46 @@ import { Input } from '@/components/input/input/Input';
 import { Textarea } from '@/components/textarea/Textarea';
 import { type CvaProps, cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
-import { forwardRef } from 'react';
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ComponentRef,
+  Ref,
+} from 'react';
 
 export type InputGroupProps = ComponentPropsWithoutRef<'div'>;
 
-const InputGroup = forwardRef<ElementRef<'div'>, InputGroupProps>(
-  function InputGroup({ className, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        role="group"
-        data-slot="input-group"
-        className={cn(
-          'group/input-group relative box-border flex h-8 w-full min-w-0 items-center rounded border border-grayscale-opacity-300 bg-white font-sans text-grayscale-opacity-500 transition-colors duration-200 outline-none',
-          'hover:border-grayscale-opacity-500',
-          'has-[:disabled]:border-grayscale-opacity-300 has-[:disabled]:bg-grayscale-opacity-200 has-[:disabled]:text-grayscale-opacity-500 has-[:disabled]:opacity-100 has-[:disabled]:hover:border-grayscale-opacity-300',
-          'has-[[data-slot=input-group-control]:focus-visible]:border-primary-500',
-          'has-[[data-slot][aria-invalid=true]]:border-destructive-500 has-[[data-slot][aria-invalid=true]]:hover:border-destructive-500 has-[[data-slot][aria-invalid=true]]:focus-within:border-destructive-500',
-          'aria-invalid:border-destructive-500 aria-invalid:hover:border-destructive-500 aria-invalid:focus-within:border-destructive-500',
-          'has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col',
-          'has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col',
-          'has-[>textarea]:h-auto',
-          'has-[>[data-align=block-end]]:[&>input]:pt-3',
-          'has-[>[data-align=block-start]]:[&>input]:pb-3',
-          'has-[>[data-align=inline-end]]:[&>input]:pr-1.5',
-          'has-[>[data-align=inline-start]]:[&>input]:pl-1.5',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const InputGroup = function InputGroup({
+  className,
+  ref,
+  ...props
+}: Omit<InputGroupProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
+  return (
+    <div
+      ref={ref}
+      role="group"
+      data-slot="input-group"
+      className={cn(
+        'group/input-group relative box-border flex h-8 w-full min-w-0 items-center rounded border border-grayscale-opacity-300 bg-white font-sans text-grayscale-opacity-500 transition-colors duration-200 outline-none',
+        'hover:border-grayscale-opacity-500',
+        'has-[:disabled]:border-grayscale-opacity-300 has-[:disabled]:bg-grayscale-opacity-200 has-[:disabled]:text-grayscale-opacity-500 has-[:disabled]:opacity-100 has-[:disabled]:hover:border-grayscale-opacity-300',
+        'has-[[data-slot=input-group-control]:focus-visible]:border-primary-500',
+        'has-[[data-slot][aria-invalid=true]]:border-destructive-500 has-[[data-slot][aria-invalid=true]]:hover:border-destructive-500 has-[[data-slot][aria-invalid=true]]:focus-within:border-destructive-500',
+        'aria-invalid:border-destructive-500 aria-invalid:hover:border-destructive-500 aria-invalid:focus-within:border-destructive-500',
+        'has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col',
+        'has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col',
+        'has-[>textarea]:h-auto',
+        'has-[>[data-align=block-end]]:[&>input]:pt-3',
+        'has-[>[data-align=block-start]]:[&>input]:pb-3',
+        'has-[>[data-align=inline-end]]:[&>input]:pr-1.5',
+        'has-[>[data-align=inline-start]]:[&>input]:pl-1.5',
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 const inputGroupAddonVariants = cva(
   'flex h-auto cursor-text items-center justify-center gap-2 py-1.5 text-sm leading-5 font-medium text-grayscale-opacity-500 select-none group-has-[:disabled]/input-group:opacity-50 [&>svg:not([class*=size-])]:size-4',
@@ -71,13 +78,15 @@ export type InputGroupAddonAlign = NonNullable<
 export type InputGroupAddonProps = ComponentPropsWithoutRef<'div'> &
   CvaProps<InputGroupAddonVariants>;
 
-const InputGroupAddon = forwardRef<
-  ElementRef<'div'>,
-  InputGroupAddonProps
->(function InputGroupAddon(
-  { align = 'inline-start', className, onClick, ...props },
+const InputGroupAddon = function InputGroupAddon({
+  align = 'inline-start',
+  className,
+  onClick,
   ref,
-) {
+  ...props
+}: Omit<InputGroupAddonProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
   return (
     <div
       ref={ref}
@@ -104,7 +113,7 @@ const InputGroupAddon = forwardRef<
       {...props}
     />
   );
-});
+};
 
 const inputGroupButtonVariants = cva(
   'flex items-center gap-2 text-sm shadow-none',
@@ -136,13 +145,15 @@ export type InputGroupButtonProps = Omit<
   theme?: Exclude<ButtonTheme, 'dangerous'>;
 } & CvaProps<InputGroupButtonVariants>;
 
-const InputGroupButton = forwardRef<
-  ElementRef<typeof Button>,
-  InputGroupButtonProps
->(function InputGroupButton(
-  { className, size = 'xs', type = 'button', ...props },
+const InputGroupButton = function InputGroupButton({
+  className,
+  size = 'xs',
+  type = 'button',
   ref,
-) {
+  ...props
+}: Omit<InputGroupButtonProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof Button>>;
+}) {
   return (
     <Button
       ref={ref}
@@ -154,14 +165,17 @@ const InputGroupButton = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type InputGroupTextProps = ComponentPropsWithoutRef<'span'>;
 
-const InputGroupText = forwardRef<
-  ElementRef<'span'>,
-  InputGroupTextProps
->(function InputGroupText({ className, ...props }, ref) {
+const InputGroupText = function InputGroupText({
+  className,
+  ref,
+  ...props
+}: Omit<InputGroupTextProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'span'>>;
+}) {
   return (
     <span
       ref={ref}
@@ -173,16 +187,19 @@ const InputGroupText = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type InputGroupInputProps = ComponentPropsWithoutRef<
   typeof Input
 >;
 
-const InputGroupInput = forwardRef<
-  ElementRef<typeof Input>,
-  InputGroupInputProps
->(function InputGroupInput({ className, ...props }, ref) {
+const InputGroupInput = function InputGroupInput({
+  className,
+  ref,
+  ...props
+}: Omit<InputGroupInputProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof Input>>;
+}) {
   return (
     <Input
       ref={ref}
@@ -196,15 +213,18 @@ const InputGroupInput = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type InputGroupTextareaProps =
   ComponentPropsWithoutRef<'textarea'>;
 
-const InputGroupTextarea = forwardRef<
-  ElementRef<'textarea'>,
-  InputGroupTextareaProps
->(function InputGroupTextarea({ className, ...props }, ref) {
+const InputGroupTextarea = function InputGroupTextarea({
+  className,
+  ref,
+  ...props
+}: Omit<InputGroupTextareaProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'textarea'>>;
+}) {
   return (
     <Textarea
       ref={ref}
@@ -218,7 +238,7 @@ const InputGroupTextarea = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export {
   InputGroup,

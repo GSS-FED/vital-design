@@ -4,24 +4,31 @@ import { type CvaProps, cn } from '@/lib/utils';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
 import { type VariantProps, cva } from 'class-variance-authority';
-import { forwardRef } from 'react';
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ComponentRef,
+  Ref,
+} from 'react';
 
 export type BreadcrumbProps = ComponentPropsWithoutRef<'nav'>;
 
-const Breadcrumb = forwardRef<ElementRef<'nav'>, BreadcrumbProps>(
-  function Breadcrumb({ className, ...props }, ref) {
-    return (
-      <nav
-        ref={ref}
-        aria-label="breadcrumb"
-        data-slot="breadcrumb"
-        className={className}
-        {...props}
-      />
-    );
-  },
-);
+const Breadcrumb = function Breadcrumb({
+  className,
+  ref,
+  ...props
+}: Omit<BreadcrumbProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'nav'>>;
+}) {
+  return (
+    <nav
+      ref={ref}
+      aria-label="breadcrumb"
+      data-slot="breadcrumb"
+      className={className}
+      {...props}
+    />
+  );
+};
 
 const breadcrumbListVariants = cva(
   'flex flex-wrap items-center gap-2 break-words font-sans text-grayscale-500',
@@ -45,10 +52,14 @@ export type BreadcrumbListVariants = VariantProps<
 export type BreadcrumbListProps = ComponentPropsWithoutRef<'ol'> &
   CvaProps<BreadcrumbListVariants>;
 
-const BreadcrumbList = forwardRef<
-  ElementRef<'ol'>,
-  BreadcrumbListProps
->(function BreadcrumbList({ className, size, ...props }, ref) {
+const BreadcrumbList = function BreadcrumbList({
+  className,
+  size,
+  ref,
+  ...props
+}: Omit<BreadcrumbListProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'ol'>>;
+}) {
   return (
     <ol
       ref={ref}
@@ -57,14 +68,17 @@ const BreadcrumbList = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type BreadcrumbItemProps = ComponentPropsWithoutRef<'li'>;
 
-const BreadcrumbItem = forwardRef<
-  ElementRef<'li'>,
-  BreadcrumbItemProps
->(function BreadcrumbItem({ className, ...props }, ref) {
+const BreadcrumbItem = function BreadcrumbItem({
+  className,
+  ref,
+  ...props
+}: Omit<BreadcrumbItemProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'li'>>;
+}) {
   return (
     <li
       ref={ref}
@@ -73,14 +87,18 @@ const BreadcrumbItem = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type BreadcrumbLinkProps = useRender.ComponentProps<'a'>;
 
-const BreadcrumbLink = forwardRef<
-  ElementRef<'a'>,
-  BreadcrumbLinkProps
->(function BreadcrumbLink({ className, render, ...linkProps }, ref) {
+const BreadcrumbLink = function BreadcrumbLink({
+  className,
+  render,
+  ref,
+  ...linkProps
+}: Omit<BreadcrumbLinkProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'a'>>;
+}) {
   return useRender({
     ref,
     render,
@@ -98,14 +116,17 @@ const BreadcrumbLink = forwardRef<
       linkProps,
     ),
   });
-});
+};
 
 export type BreadcrumbPageProps = ComponentPropsWithoutRef<'span'>;
 
-const BreadcrumbPage = forwardRef<
-  ElementRef<'span'>,
-  BreadcrumbPageProps
->(function BreadcrumbPage({ className, ...props }, ref) {
+const BreadcrumbPage = function BreadcrumbPage({
+  className,
+  ref,
+  ...props
+}: Omit<BreadcrumbPageProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'span'>>;
+}) {
   return (
     <span
       ref={ref}
@@ -117,17 +138,18 @@ const BreadcrumbPage = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type BreadcrumbSeparatorProps = ComponentPropsWithoutRef<'li'>;
 
-const BreadcrumbSeparator = forwardRef<
-  ElementRef<'li'>,
-  BreadcrumbSeparatorProps
->(function BreadcrumbSeparator(
-  { className, children, ...props },
+const BreadcrumbSeparator = function BreadcrumbSeparator({
+  className,
+  children,
   ref,
-) {
+  ...props
+}: Omit<BreadcrumbSeparatorProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'li'>>;
+}) {
   return (
     <li
       ref={ref}
@@ -143,18 +165,19 @@ const BreadcrumbSeparator = forwardRef<
       {children ?? <ChevronRightIcon />}
     </li>
   );
-});
+};
 
 export type BreadcrumbEllipsisProps =
   ComponentPropsWithoutRef<'span'>;
 
-const BreadcrumbEllipsis = forwardRef<
-  ElementRef<'span'>,
-  BreadcrumbEllipsisProps
->(function BreadcrumbEllipsis(
-  { className, children, ...props },
+const BreadcrumbEllipsis = function BreadcrumbEllipsis({
+  className,
+  children,
   ref,
-) {
+  ...props
+}: Omit<BreadcrumbEllipsisProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'span'>>;
+}) {
   return (
     <span
       ref={ref}
@@ -171,7 +194,7 @@ const BreadcrumbEllipsis = forwardRef<
       <span className="sr-only">More</span>
     </span>
   );
-});
+};
 
 export {
   Breadcrumb,

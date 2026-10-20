@@ -77,7 +77,7 @@ it('disables interaction when disabled is true', async () => {
   await user.click(trigger);
 
   expect(onOpenChange).not.toHaveBeenCalled();
-  expect(trigger).toHaveAttribute('aria-disabled', 'true');
+  expect(trigger).toBeDisabled();
   expect(trigger).toHaveAttribute('data-disabled');
 });
 

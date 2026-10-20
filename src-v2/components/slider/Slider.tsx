@@ -9,13 +9,8 @@ import type {
   SliderTrack as BaseSliderTrack,
   SliderValue as BaseSliderValue,
 } from '@base-ui/react/slider';
-import {
-  createContext,
-  forwardRef,
-  useContext,
-  useState,
-} from 'react';
-import type { ForwardedRef, ReactElement, Ref } from 'react';
+import { createContext, useContext, useState } from 'react';
+import type { ReactElement, Ref } from 'react';
 
 export type SliderRootValue = number | readonly number[];
 
@@ -83,9 +78,14 @@ type SliderRootComponent = <
   props: SliderRootProps<Value> & { ref?: Ref<HTMLDivElement> },
 ) => ReactElement | null;
 
-const Slider = forwardRef(function Slider<
+const Slider = function Slider<
   Value extends SliderRootValue = SliderRootValue,
->(props: SliderRootProps<Value>, ref: ForwardedRef<HTMLDivElement>) {
+>({
+  ref,
+  ...props
+}: Omit<SliderRootProps<Value>, 'ref'> & {
+  ref?: Ref<HTMLDivElement>;
+}) {
   const [draggingThumbIndex, setDraggingThumbIndex] = useState<
     number | null
   >(null);
@@ -121,25 +121,27 @@ const Slider = forwardRef(function Slider<
       />
     </SliderStepContext.Provider>
   );
-}) as SliderRootComponent;
+} as SliderRootComponent;
 
 export type SliderControlProps = BaseSliderControl.Props;
 
-const SliderControl = forwardRef<HTMLDivElement, SliderControlProps>(
-  function SliderControl({ className, ...props }, ref) {
-    return (
-      <BaseSlider.Control
-        ref={ref}
-        data-slot="slider-control"
-        className={mergeClassName<BaseSliderControl.State>(
-          sliderControlClasses,
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const SliderControl = function SliderControl({
+  className,
+  ref,
+  ...props
+}: Omit<SliderControlProps, 'ref'> & { ref?: Ref<HTMLDivElement> }) {
+  return (
+    <BaseSlider.Control
+      ref={ref}
+      data-slot="slider-control"
+      className={mergeClassName<BaseSliderControl.State>(
+        sliderControlClasses,
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 export type SliderTrackProps = BaseSliderTrack.Props;
 
@@ -227,33 +229,39 @@ function SliderStepDots({ state }: { state: BaseSliderTrack.State }) {
   );
 }
 
-const SliderTrack = forwardRef<HTMLDivElement, SliderTrackProps>(
-  function SliderTrack({ children, className, ...props }, ref) {
-    return (
-      <BaseSlider.Track
-        ref={ref}
-        className={mergeClassName<BaseSliderTrack.State>(
-          sliderTrackClasses,
-          className,
-        )}
-        {...props}
-        render={(trackProps, state) => (
-          <div {...trackProps} data-slot="slider-track">
-            {children}
-            <SliderStepDots state={state} />
-          </div>
-        )}
-      />
-    );
-  },
-);
+const SliderTrack = function SliderTrack({
+  children,
+  className,
+  ref,
+  ...props
+}: Omit<SliderTrackProps, 'ref'> & { ref?: Ref<HTMLDivElement> }) {
+  return (
+    <BaseSlider.Track
+      ref={ref}
+      className={mergeClassName<BaseSliderTrack.State>(
+        sliderTrackClasses,
+        className,
+      )}
+      {...props}
+      render={(trackProps, state) => (
+        <div {...trackProps} data-slot="slider-track">
+          {children}
+          <SliderStepDots state={state} />
+        </div>
+      )}
+    />
+  );
+};
 
 export type SliderIndicatorProps = BaseSliderIndicator.Props;
 
-const SliderIndicator = forwardRef<
-  HTMLDivElement,
-  SliderIndicatorProps
->(function SliderIndicator({ className, ...props }, ref) {
+const SliderIndicator = function SliderIndicator({
+  className,
+  ref,
+  ...props
+}: Omit<SliderIndicatorProps, 'ref'> & {
+  ref?: Ref<HTMLDivElement>;
+}) {
   return (
     <BaseSlider.Indicator
       ref={ref}
@@ -265,97 +273,97 @@ const SliderIndicator = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type SliderThumbProps = BaseSliderThumb.Props;
 
-const SliderThumb = forwardRef<HTMLDivElement, SliderThumbProps>(
-  function SliderThumb(
-    {
-      className,
-      index,
-      onPointerCancel,
-      onPointerDown,
-      onPointerUp,
-      ...props
-    },
-    ref,
-  ) {
-    const { draggingThumbIndex, setDraggingThumbIndex } =
-      useContext(SliderStepContext);
-    const thumbIndex = index ?? 0;
+const SliderThumb = function SliderThumb({
+  className,
+  index,
+  onPointerCancel,
+  onPointerDown,
+  onPointerUp,
+  ref,
+  ...props
+}: Omit<SliderThumbProps, 'ref'> & { ref?: Ref<HTMLDivElement> }) {
+  const { draggingThumbIndex, setDraggingThumbIndex } =
+    useContext(SliderStepContext);
+  const thumbIndex = index ?? 0;
 
-    return (
-      <BaseSlider.Thumb
-        ref={ref}
-        data-slot="slider-thumb"
-        className={(state) =>
-          cn(
-            sliderThumbClasses,
-            state.dragging &&
-              (draggingThumbIndex === thumbIndex ||
-                (draggingThumbIndex === null &&
-                  state.activeThumbIndex === thumbIndex)) &&
-              'ring-[3px] ring-primary-200',
-            typeof className === 'function'
-              ? className(state)
-              : className,
-          )
-        }
-        index={index}
-        onPointerCancel={(event) => {
-          setDraggingThumbIndex(null);
-          onPointerCancel?.(event);
-        }}
-        onPointerDown={(event) => {
-          setDraggingThumbIndex(thumbIndex);
-          onPointerDown?.(event);
-        }}
-        onPointerUp={(event) => {
-          setDraggingThumbIndex(null);
-          onPointerUp?.(event);
-        }}
-        {...props}
-      />
-    );
-  },
-);
+  return (
+    <BaseSlider.Thumb
+      ref={ref}
+      data-slot="slider-thumb"
+      className={(state) =>
+        cn(
+          sliderThumbClasses,
+          state.dragging &&
+            (draggingThumbIndex === thumbIndex ||
+              (draggingThumbIndex === null &&
+                state.activeThumbIndex === thumbIndex)) &&
+            'ring-[3px] ring-primary-200',
+          typeof className === 'function'
+            ? className(state)
+            : className,
+        )
+      }
+      index={index}
+      onPointerCancel={(event) => {
+        setDraggingThumbIndex(null);
+        onPointerCancel?.(event);
+      }}
+      onPointerDown={(event) => {
+        setDraggingThumbIndex(thumbIndex);
+        onPointerDown?.(event);
+      }}
+      onPointerUp={(event) => {
+        setDraggingThumbIndex(null);
+        onPointerUp?.(event);
+      }}
+      {...props}
+    />
+  );
+};
 
 export type SliderValueProps = BaseSliderValue.Props;
 
-const SliderValue = forwardRef<HTMLOutputElement, SliderValueProps>(
-  function SliderValue({ className, ...props }, ref) {
-    return (
-      <BaseSlider.Value
-        ref={ref}
-        data-slot="slider-value"
-        className={mergeClassName<BaseSliderValue.State>(
-          sliderValueClasses,
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const SliderValue = function SliderValue({
+  className,
+  ref,
+  ...props
+}: Omit<SliderValueProps, 'ref'> & { ref?: Ref<HTMLOutputElement> }) {
+  return (
+    <BaseSlider.Value
+      ref={ref}
+      data-slot="slider-value"
+      className={mergeClassName<BaseSliderValue.State>(
+        sliderValueClasses,
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 export type SliderLabelProps = BaseSliderLabel.Props;
 
-const SliderLabel = forwardRef<HTMLDivElement, SliderLabelProps>(
-  function SliderLabel({ className, ...props }, ref) {
-    return (
-      <BaseSlider.Label
-        ref={ref}
-        data-slot="slider-label"
-        className={mergeClassName<BaseSliderLabel.State>(
-          sliderLabelClasses,
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const SliderLabel = function SliderLabel({
+  className,
+  ref,
+  ...props
+}: Omit<SliderLabelProps, 'ref'> & { ref?: Ref<HTMLDivElement> }) {
+  return (
+    <BaseSlider.Label
+      ref={ref}
+      data-slot="slider-label"
+      className={mergeClassName<BaseSliderLabel.State>(
+        sliderLabelClasses,
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 export {
   Slider,

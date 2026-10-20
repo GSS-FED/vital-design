@@ -1,6 +1,6 @@
 # Vittal Design
 
-基於 React 18 + Tailwind CSS 4 的元件庫，透過 shadcn registry 分發。
+基於 React 19 + Tailwind CSS 4 的元件庫，透過 shadcn registry 分發。
 
 ## 使用 shadcn CLI 安裝元件
 

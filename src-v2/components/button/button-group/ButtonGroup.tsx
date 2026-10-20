@@ -3,8 +3,12 @@ import { type CvaProps, cn } from '@/lib/utils';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
 import { type VariantProps, cva } from 'class-variance-authority';
-import { createContext, forwardRef, useContext } from 'react';
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
+import { createContext, useContext } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ComponentRef,
+  Ref,
+} from 'react';
 
 const buttonGroupVariants = cva(
   [
@@ -39,41 +43,46 @@ const ButtonGroupContext = createContext<{
   orientation: NonNullable<ButtonGroupVariants['orientation']>;
 } | null>(null);
 
-const ButtonGroup = forwardRef<ElementRef<'div'>, ButtonGroupProps>(
-  function ButtonGroup(props, ref) {
-    const {
-      className,
-      orientation = 'horizontal',
-      role = 'group',
-      ...groupProps
-    } = props;
+const ButtonGroup = function ButtonGroup({
+  ref,
+  ...props
+}: Omit<ButtonGroupProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
+  const {
+    className,
+    orientation = 'horizontal',
+    role = 'group',
+    ...groupProps
+  } = props;
 
-    return (
-      <ButtonGroupContext.Provider value={{ orientation }}>
-        <div
-          ref={ref}
-          role={role}
-          data-orientation={orientation}
-          data-slot="button-group"
-          className={cn(
-            buttonGroupVariants({ orientation }),
-            className,
-          )}
-          {...groupProps}
-        />
-      </ButtonGroupContext.Provider>
-    );
-  },
-);
+  return (
+    <ButtonGroupContext.Provider value={{ orientation }}>
+      <div
+        ref={ref}
+        role={role}
+        data-orientation={orientation}
+        data-slot="button-group"
+        className={cn(
+          buttonGroupVariants({ orientation }),
+          className,
+        )}
+        {...groupProps}
+      />
+    </ButtonGroupContext.Provider>
+  );
+};
 
 export type ButtonGroupSeparatorProps = ComponentPropsWithoutRef<
   typeof Separator
 >;
 
-const ButtonGroupSeparator = forwardRef<
-  ElementRef<typeof Separator>,
-  ButtonGroupSeparatorProps
->(function ButtonGroupSeparator(props, ref) {
+const ButtonGroupSeparator = function ButtonGroupSeparator({
+  ref,
+  ...props
+}: Omit<ButtonGroupSeparatorProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof Separator>>;
+}) {
   const {
     className,
     orientation: orientationProp,
@@ -101,14 +110,16 @@ const ButtonGroupSeparator = forwardRef<
       {...separatorProps}
     />
   );
-});
+};
 
 export type ButtonGroupTextProps = useRender.ComponentProps<'span'>;
 
-const ButtonGroupText = forwardRef<
-  ElementRef<'span'>,
-  ButtonGroupTextProps
->(function ButtonGroupText(props, ref) {
+const ButtonGroupText = function ButtonGroupText({
+  ref,
+  ...props
+}: Omit<ButtonGroupTextProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'span'>>;
+}) {
   const { className, render, ...textProps } = props;
 
   return useRender({
@@ -128,6 +139,6 @@ const ButtonGroupText = forwardRef<
       textProps,
     ),
   });
-});
+};
 
 export { ButtonGroup, ButtonGroupSeparator, ButtonGroupText };

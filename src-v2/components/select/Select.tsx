@@ -3,11 +3,11 @@ import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
 import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
 import { cn } from '@/lib/utils';
 import { Select as BaseSelect } from '@base-ui/react/select';
-import { forwardRef } from 'react';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   ReactNode,
+  Ref,
 } from 'react';
 
 export type SelectProps = ComponentPropsWithoutRef<
@@ -20,10 +20,13 @@ export type SelectGroupProps = ComponentPropsWithoutRef<
   typeof BaseSelect.Group
 >;
 
-const SelectGroup = forwardRef<
-  ElementRef<typeof BaseSelect.Group>,
-  SelectGroupProps
->(function SelectGroup({ className, ...props }, ref) {
+const SelectGroup = function SelectGroup({
+  className,
+  ref,
+  ...props
+}: Omit<SelectGroupProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseSelect.Group>>;
+}) {
   return (
     <BaseSelect.Group
       ref={ref}
@@ -32,16 +35,19 @@ const SelectGroup = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type SelectValueProps = ComponentPropsWithoutRef<
   typeof BaseSelect.Value
 >;
 
-const SelectValue = forwardRef<
-  ElementRef<typeof BaseSelect.Value>,
-  SelectValueProps
->(function SelectValue({ className, ...props }, ref) {
+const SelectValue = function SelectValue({
+  className,
+  ref,
+  ...props
+}: Omit<SelectValueProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseSelect.Value>>;
+}) {
   return (
     <BaseSelect.Value
       ref={ref}
@@ -54,7 +60,7 @@ const SelectValue = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type SelectTriggerProps = ComponentPropsWithoutRef<
   typeof BaseSelect.Trigger
@@ -62,13 +68,15 @@ export type SelectTriggerProps = ComponentPropsWithoutRef<
   placeholder?: ReactNode;
 };
 
-const SelectTrigger = forwardRef<
-  ElementRef<typeof BaseSelect.Trigger>,
-  SelectTriggerProps
->(function SelectTrigger(
-  { children, className, placeholder = '', ...props },
+const SelectTrigger = function SelectTrigger({
+  children,
+  className,
+  placeholder = '',
   ref,
-) {
+  ...props
+}: Omit<SelectTriggerProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseSelect.Trigger>>;
+}) {
   return (
     <BaseSelect.Trigger
       ref={ref}
@@ -98,7 +106,7 @@ const SelectTrigger = forwardRef<
       />
     </BaseSelect.Trigger>
   );
-});
+};
 
 export type SelectContentProps = ComponentPropsWithoutRef<
   typeof BaseSelect.Popup
@@ -117,26 +125,23 @@ export type SelectContentProps = ComponentPropsWithoutRef<
     showScrollButtons?: boolean;
   };
 
-const SelectContent = forwardRef<
-  ElementRef<typeof BaseSelect.Popup>,
-  SelectContentProps
->(function SelectContent(
-  {
-    align = 'start',
-    alignItemWithTrigger = false,
-    alignOffset,
-    children,
-    className,
-    listClassName,
-    listRender,
-    listWrapper,
-    showScrollButtons = true,
-    side,
-    sideOffset = 4,
-    ...props
-  },
+const SelectContent = function SelectContent({
+  align = 'start',
+  alignItemWithTrigger = false,
+  alignOffset,
+  children,
+  className,
+  listClassName,
+  listRender,
+  listWrapper,
+  showScrollButtons = true,
+  side,
+  sideOffset = 4,
   ref,
-) {
+  ...props
+}: Omit<SelectContentProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseSelect.Popup>>;
+}) {
   return (
     <BaseSelect.Portal>
       <BaseSelect.Positioner
@@ -172,16 +177,19 @@ const SelectContent = forwardRef<
       </BaseSelect.Positioner>
     </BaseSelect.Portal>
   );
-});
+};
 
 export type SelectListProps = ComponentPropsWithoutRef<
   typeof BaseSelect.List
 >;
 
-const SelectList = forwardRef<
-  ElementRef<typeof BaseSelect.List>,
-  SelectListProps
->(function SelectList({ className, ...props }, ref) {
+const SelectList = function SelectList({
+  className,
+  ref,
+  ...props
+}: Omit<SelectListProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseSelect.List>>;
+}) {
   return (
     <BaseSelect.List
       ref={ref}
@@ -193,16 +201,19 @@ const SelectList = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type SelectLabelProps = ComponentPropsWithoutRef<
   typeof BaseSelect.GroupLabel
 >;
 
-const SelectLabel = forwardRef<
-  ElementRef<typeof BaseSelect.GroupLabel>,
-  SelectLabelProps
->(function SelectLabel({ className, ...props }, ref) {
+const SelectLabel = function SelectLabel({
+  className,
+  ref,
+  ...props
+}: Omit<SelectLabelProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseSelect.GroupLabel>>;
+}) {
   return (
     <BaseSelect.GroupLabel
       ref={ref}
@@ -214,16 +225,19 @@ const SelectLabel = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type SelectItemProps = ComponentPropsWithoutRef<
   typeof BaseSelect.Item
 >;
 
-const SelectItem = forwardRef<
-  ElementRef<typeof BaseSelect.Item>,
-  SelectItemProps
->(function SelectItem({ className, ...props }, ref) {
+const SelectItem = function SelectItem({
+  className,
+  ref,
+  ...props
+}: Omit<SelectItemProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseSelect.Item>>;
+}) {
   return (
     <BaseSelect.Item
       ref={ref}
@@ -240,16 +254,19 @@ const SelectItem = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type SelectItemTextProps = ComponentPropsWithoutRef<
   typeof BaseSelect.ItemText
 >;
 
-const SelectItemText = forwardRef<
-  ElementRef<typeof BaseSelect.ItemText>,
-  SelectItemTextProps
->(function SelectItemText({ className, ...props }, ref) {
+const SelectItemText = function SelectItemText({
+  className,
+  ref,
+  ...props
+}: Omit<SelectItemTextProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseSelect.ItemText>>;
+}) {
   return (
     <BaseSelect.ItemText
       ref={ref}
@@ -258,16 +275,20 @@ const SelectItemText = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type SelectItemCheckProps = ComponentPropsWithoutRef<
   typeof BaseSelect.ItemIndicator
 >;
 
-const SelectItemCheck = forwardRef<
-  ElementRef<typeof BaseSelect.ItemIndicator>,
-  SelectItemCheckProps
->(function SelectItemCheck({ children, className, ...props }, ref) {
+const SelectItemCheck = function SelectItemCheck({
+  children,
+  className,
+  ref,
+  ...props
+}: Omit<SelectItemCheckProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseSelect.ItemIndicator>>;
+}) {
   return (
     <BaseSelect.ItemIndicator
       ref={ref}
@@ -281,18 +302,19 @@ const SelectItemCheck = forwardRef<
       {children ?? <CheckIcon className="size-3" />}
     </BaseSelect.ItemIndicator>
   );
-});
+};
 
 export type SelectItemCheckboxProps =
   ComponentPropsWithoutRef<'span'>;
 
-const SelectItemCheckbox = forwardRef<
-  HTMLSpanElement,
-  SelectItemCheckboxProps
->(function SelectItemCheckbox(
-  { children, className, ...props },
+const SelectItemCheckbox = function SelectItemCheckbox({
+  children,
+  className,
   ref,
-) {
+  ...props
+}: Omit<SelectItemCheckboxProps, 'ref'> & {
+  ref?: Ref<HTMLSpanElement>;
+}) {
   return (
     <span
       ref={ref}
@@ -311,16 +333,19 @@ const SelectItemCheckbox = forwardRef<
       </BaseSelect.ItemIndicator>
     </span>
   );
-});
+};
 
 export type SelectSeparatorProps = ComponentPropsWithoutRef<
   typeof BaseSelect.Separator
 >;
 
-const SelectSeparator = forwardRef<
-  ElementRef<typeof BaseSelect.Separator>,
-  SelectSeparatorProps
->(function SelectSeparator({ className, ...props }, ref) {
+const SelectSeparator = function SelectSeparator({
+  className,
+  ref,
+  ...props
+}: Omit<SelectSeparatorProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseSelect.Separator>>;
+}) {
   return (
     <BaseSelect.Separator
       ref={ref}
@@ -332,16 +357,19 @@ const SelectSeparator = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type SelectScrollUpButtonProps = ComponentPropsWithoutRef<
   typeof BaseSelect.ScrollUpArrow
 >;
 
-const SelectScrollUpButton = forwardRef<
-  ElementRef<typeof BaseSelect.ScrollUpArrow>,
-  SelectScrollUpButtonProps
->(function SelectScrollUpButton({ className, ...props }, ref) {
+const SelectScrollUpButton = function SelectScrollUpButton({
+  className,
+  ref,
+  ...props
+}: Omit<SelectScrollUpButtonProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseSelect.ScrollUpArrow>>;
+}) {
   return (
     <BaseSelect.ScrollUpArrow
       ref={ref}
@@ -355,16 +383,19 @@ const SelectScrollUpButton = forwardRef<
       <ChevronUpIcon className="size-3.5" />
     </BaseSelect.ScrollUpArrow>
   );
-});
+};
 
 export type SelectScrollDownButtonProps = ComponentPropsWithoutRef<
   typeof BaseSelect.ScrollDownArrow
 >;
 
-const SelectScrollDownButton = forwardRef<
-  ElementRef<typeof BaseSelect.ScrollDownArrow>,
-  SelectScrollDownButtonProps
->(function SelectScrollDownButton({ className, ...props }, ref) {
+const SelectScrollDownButton = function SelectScrollDownButton({
+  className,
+  ref,
+  ...props
+}: Omit<SelectScrollDownButtonProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseSelect.ScrollDownArrow>>;
+}) {
   return (
     <BaseSelect.ScrollDownArrow
       ref={ref}
@@ -378,7 +409,7 @@ const SelectScrollDownButton = forwardRef<
       <ChevronDownIcon className="size-3.5" />
     </BaseSelect.ScrollDownArrow>
   );
-});
+};
 
 export {
   Select,

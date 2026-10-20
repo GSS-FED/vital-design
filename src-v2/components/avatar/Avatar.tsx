@@ -3,11 +3,11 @@ import { UserIcon } from '@/icons/UserIcon';
 import { type CvaProps, cn } from '@/lib/utils';
 import { Avatar as BaseAvatar } from '@base-ui/react/avatar';
 import { type VariantProps, cva } from 'class-variance-authority';
-import { forwardRef } from 'react';
 import type {
   ComponentPropsWithoutRef,
   ComponentRef,
   ReactNode,
+  Ref,
 } from 'react';
 
 const avatarVariants = cva(
@@ -188,10 +188,12 @@ export type AvatarProps = Omit<AvatarRootProps, 'children'> & {
   onLoadingStatusChange?: AvatarImageProps['onLoadingStatusChange'];
 };
 
-const AvatarRoot = forwardRef<
-  ComponentRef<typeof BaseAvatar.Root>,
-  AvatarRootProps
->(function AvatarRoot(props, ref) {
+const AvatarRoot = function AvatarRoot({
+  ref,
+  ...props
+}: Omit<AvatarRootProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAvatar.Root>>;
+}) {
   const {
     children,
     className,
@@ -232,12 +234,14 @@ const AvatarRoot = forwardRef<
       {children}
     </BaseAvatar.Root>
   );
-});
+};
 
-const AvatarImage = forwardRef<
-  ComponentRef<typeof BaseAvatar.Image>,
-  AvatarImageProps
->(function AvatarImage(props, ref) {
+const AvatarImage = function AvatarImage({
+  ref,
+  ...props
+}: Omit<AvatarImageProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAvatar.Image>>;
+}) {
   const { className, ...imageProps } = props;
 
   return (
@@ -248,12 +252,14 @@ const AvatarImage = forwardRef<
       className={cn('h-full w-full object-cover', className)}
     />
   );
-});
+};
 
-const AvatarFallback = forwardRef<
-  ComponentRef<typeof BaseAvatar.Fallback>,
-  AvatarFallbackProps
->(function AvatarFallback(props, ref) {
+const AvatarFallback = function AvatarFallback({
+  ref,
+  ...props
+}: Omit<AvatarFallbackProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAvatar.Fallback>>;
+}) {
   const { className, color = 'default', ...fallbackProps } = props;
 
   return (
@@ -264,7 +270,7 @@ const AvatarFallback = forwardRef<
       className={cn(fallbackVariants({ color }), className)}
     />
   );
-});
+};
 
 function AvatarGroup({
   className,

@@ -1,12 +1,13 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { forwardRef, useState } from 'react';
+import { useState } from 'react';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   FocusEvent,
   MouseEvent,
+  Ref,
 } from 'react';
 
 export type TableOfContentsLevel = 1 | 2 | 3;
@@ -42,23 +43,20 @@ const labelLevel: Record<TableOfContentsLevel, string> = {
   3: 'pl-6 text-xs leading-4 font-normal',
 };
 
-const TableOfContents = forwardRef<
-  ElementRef<'nav'>,
-  TableOfContentsProps
->(function TableOfContents(
-  {
-    items,
-    value: controlledValue,
-    defaultValue,
-    onValueChange,
-    side = 'right',
-    expanded,
-    'aria-label': ariaLabel = 'Table of contents',
-    className,
-    ...navProps
-  },
+const TableOfContents = function TableOfContents({
+  items,
+  value: controlledValue,
+  defaultValue,
+  onValueChange,
+  side = 'right',
+  expanded,
+  'aria-label': ariaLabel = 'Table of contents',
+  className,
   ref,
-) {
+  ...navProps
+}: Omit<TableOfContentsProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'nav'>>;
+}) {
   const isControlled = controlledValue !== undefined;
   const [internalValue, setInternalValue] = useState(defaultValue);
   const activeId = isControlled ? controlledValue : internalValue;
@@ -187,6 +185,6 @@ const TableOfContents = forwardRef<
       </div>
     </nav>
   );
-});
+};
 
 export { TableOfContents };

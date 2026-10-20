@@ -39,7 +39,7 @@ import {
   type CSSProperties,
   type ComponentProps,
   type ReactNode,
-  forwardRef,
+  type Ref,
 } from 'react';
 
 type ImportedImage = string | { src: string };
@@ -394,10 +394,14 @@ function MenuSubButton({
  * Cloud product sidebar. Sample nav/brand/footer live in this file so
  * `<CloudSidebar />` matches the docs preview. Frost photo is imported and shipped.
  */
-export const CloudSidebar = forwardRef<
-  HTMLDivElement,
-  ComponentProps<typeof Sidebar>
->(function CloudSidebar({ className, style, ...props }, ref) {
+export const CloudSidebar = function CloudSidebar({
+  className,
+  style,
+  ref,
+  ...props
+}: Omit<ComponentProps<typeof Sidebar>, 'ref'> & {
+  ref?: Ref<HTMLDivElement>;
+}) {
   return (
     <Sidebar
       ref={ref}
@@ -433,4 +437,4 @@ export const CloudSidebar = forwardRef<
       </Footer>
     </Sidebar>
   );
-});
+};

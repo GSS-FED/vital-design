@@ -1,6 +1,9 @@
 import { cn } from '@/lib/utils';
-import { forwardRef } from 'react';
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ComponentRef,
+  Ref,
+} from 'react';
 
 const alertBaseClasses = [
   'group/alert',
@@ -23,41 +26,51 @@ const alertActionClasses = ['col-span-full flex justify-end gap-6'];
 
 export type AlertProps = ComponentPropsWithoutRef<'div'>;
 
-const Alert = forwardRef<ElementRef<'div'>, AlertProps>(
-  function Alert({ className, role = 'alert', ...alertProps }, ref) {
-    return (
-      <div
-        ref={ref}
-        role={role}
-        data-slot="alert"
-        className={cn(alertBaseClasses, className)}
-        {...alertProps}
-      />
-    );
-  },
-);
+const Alert = function Alert({
+  className,
+  role = 'alert',
+  ref,
+  ...alertProps
+}: Omit<AlertProps, 'ref'> & { ref?: Ref<ComponentRef<'div'>> }) {
+  return (
+    <div
+      ref={ref}
+      role={role}
+      data-slot="alert"
+      className={cn(alertBaseClasses, className)}
+      {...alertProps}
+    />
+  );
+};
 
 export type AlertTitleProps = ComponentPropsWithoutRef<'div'>;
 
-const AlertTitle = forwardRef<ElementRef<'div'>, AlertTitleProps>(
-  function AlertTitle({ className, ...titleProps }, ref) {
-    return (
-      <div
-        ref={ref}
-        data-slot="alert-title"
-        className={cn(alertTitleClasses, className)}
-        {...titleProps}
-      />
-    );
-  },
-);
+const AlertTitle = function AlertTitle({
+  className,
+  ref,
+  ...titleProps
+}: Omit<AlertTitleProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
+  return (
+    <div
+      ref={ref}
+      data-slot="alert-title"
+      className={cn(alertTitleClasses, className)}
+      {...titleProps}
+    />
+  );
+};
 
 export type AlertDescriptionProps = ComponentPropsWithoutRef<'div'>;
 
-const AlertDescription = forwardRef<
-  ElementRef<'div'>,
-  AlertDescriptionProps
->(function AlertDescription({ className, ...descriptionProps }, ref) {
+const AlertDescription = function AlertDescription({
+  className,
+  ref,
+  ...descriptionProps
+}: Omit<AlertDescriptionProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
   return (
     <div
       ref={ref}
@@ -66,21 +79,25 @@ const AlertDescription = forwardRef<
       {...descriptionProps}
     />
   );
-});
+};
 
 export type AlertActionProps = ComponentPropsWithoutRef<'div'>;
 
-const AlertAction = forwardRef<ElementRef<'div'>, AlertActionProps>(
-  function AlertAction({ className, ...actionProps }, ref) {
-    return (
-      <div
-        ref={ref}
-        data-slot="alert-action"
-        className={cn(alertActionClasses, className)}
-        {...actionProps}
-      />
-    );
-  },
-);
+const AlertAction = function AlertAction({
+  className,
+  ref,
+  ...actionProps
+}: Omit<AlertActionProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
+  return (
+    <div
+      ref={ref}
+      data-slot="alert-action"
+      className={cn(alertActionClasses, className)}
+      {...actionProps}
+    />
+  );
+};
 
 export { Alert, AlertAction, AlertDescription, AlertTitle };

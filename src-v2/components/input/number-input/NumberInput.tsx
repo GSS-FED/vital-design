@@ -2,17 +2,23 @@ import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
 import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
 import { cn } from '@/lib/utils';
 import { NumberField as BaseNumberField } from '@base-ui/react/number-field';
-import { forwardRef } from 'react';
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ComponentRef,
+  Ref,
+} from 'react';
 
 export type NumberInputProps = ComponentPropsWithoutRef<
   typeof BaseNumberField.Root
 >;
 
-const NumberInput = forwardRef<
-  ElementRef<typeof BaseNumberField.Root>,
-  NumberInputProps
->(function NumberInput({ className, ...props }, ref) {
+const NumberInput = function NumberInput({
+  className,
+  ref,
+  ...props
+}: Omit<NumberInputProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseNumberField.Root>>;
+}) {
   return (
     <BaseNumberField.Root
       ref={ref}
@@ -21,16 +27,19 @@ const NumberInput = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type NumberInputGroupProps = ComponentPropsWithoutRef<
   typeof BaseNumberField.Group
 >;
 
-const NumberInputGroup = forwardRef<
-  ElementRef<typeof BaseNumberField.Group>,
-  NumberInputGroupProps
->(function NumberInputGroup({ className, ...props }, ref) {
+const NumberInputGroup = function NumberInputGroup({
+  className,
+  ref,
+  ...props
+}: Omit<NumberInputGroupProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseNumberField.Group>>;
+}) {
   return (
     <BaseNumberField.Group
       ref={ref}
@@ -45,16 +54,19 @@ const NumberInputGroup = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type NumberInputControlProps = ComponentPropsWithoutRef<
   typeof BaseNumberField.Input
 >;
 
-const NumberInputControl = forwardRef<
-  ElementRef<typeof BaseNumberField.Input>,
-  NumberInputControlProps
->(function NumberInputControl({ className, ...props }, ref) {
+const NumberInputControl = function NumberInputControl({
+  className,
+  ref,
+  ...props
+}: Omit<NumberInputControlProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseNumberField.Input>>;
+}) {
   return (
     <BaseNumberField.Input
       ref={ref}
@@ -68,7 +80,7 @@ const NumberInputControl = forwardRef<
       {...props}
     />
   );
-});
+};
 
 const stepperBaseClasses = [
   'flex h-1/2 w-6 cursor-pointer items-center justify-center border-l border-grayscale-opacity-300 bg-white text-grayscale-opacity-700 transition-colors duration-150 outline-none select-none',
@@ -80,13 +92,14 @@ export type NumberInputIncrementProps = ComponentPropsWithoutRef<
   typeof BaseNumberField.Increment
 >;
 
-const NumberInputIncrement = forwardRef<
-  ElementRef<typeof BaseNumberField.Increment>,
-  NumberInputIncrementProps
->(function NumberInputIncrement(
-  { className, children, ...props },
+const NumberInputIncrement = function NumberInputIncrement({
+  className,
+  children,
   ref,
-) {
+  ...props
+}: Omit<NumberInputIncrementProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseNumberField.Increment>>;
+}) {
   return (
     <BaseNumberField.Increment
       ref={ref}
@@ -101,19 +114,20 @@ const NumberInputIncrement = forwardRef<
       {children ?? <ChevronUpIcon className="size-2.5" />}
     </BaseNumberField.Increment>
   );
-});
+};
 
 export type NumberInputDecrementProps = ComponentPropsWithoutRef<
   typeof BaseNumberField.Decrement
 >;
 
-const NumberInputDecrement = forwardRef<
-  ElementRef<typeof BaseNumberField.Decrement>,
-  NumberInputDecrementProps
->(function NumberInputDecrement(
-  { className, children, ...props },
+const NumberInputDecrement = function NumberInputDecrement({
+  className,
+  children,
   ref,
-) {
+  ...props
+}: Omit<NumberInputDecrementProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseNumberField.Decrement>>;
+}) {
   return (
     <BaseNumberField.Decrement
       ref={ref}
@@ -124,18 +138,19 @@ const NumberInputDecrement = forwardRef<
       {children ?? <ChevronDownIcon className="size-2.5" />}
     </BaseNumberField.Decrement>
   );
-});
+};
 
 export type NumberInputSteppersProps =
   ComponentPropsWithoutRef<'div'>;
 
-const NumberInputSteppers = forwardRef<
-  ElementRef<'div'>,
-  NumberInputSteppersProps
->(function NumberInputSteppers(
-  { className, children, ...props },
+const NumberInputSteppers = function NumberInputSteppers({
+  className,
+  children,
   ref,
-) {
+  ...props
+}: Omit<NumberInputSteppersProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'div'>>;
+}) {
   return (
     <div
       ref={ref}
@@ -154,16 +169,19 @@ const NumberInputSteppers = forwardRef<
       )}
     </div>
   );
-});
+};
 
 export type NumberInputScrubAreaProps = ComponentPropsWithoutRef<
   typeof BaseNumberField.ScrubArea
 >;
 
-const NumberInputScrubArea = forwardRef<
-  ElementRef<typeof BaseNumberField.ScrubArea>,
-  NumberInputScrubAreaProps
->(function NumberInputScrubArea({ className, ...props }, ref) {
+const NumberInputScrubArea = function NumberInputScrubArea({
+  className,
+  ref,
+  ...props
+}: Omit<NumberInputScrubAreaProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseNumberField.ScrubArea>>;
+}) {
   return (
     <BaseNumberField.ScrubArea
       ref={ref}
@@ -172,24 +190,28 @@ const NumberInputScrubArea = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type NumberInputScrubAreaCursorProps =
   ComponentPropsWithoutRef<typeof BaseNumberField.ScrubAreaCursor>;
 
-const NumberInputScrubAreaCursor = forwardRef<
-  ElementRef<typeof BaseNumberField.ScrubAreaCursor>,
-  NumberInputScrubAreaCursorProps
->(function NumberInputScrubAreaCursor({ className, ...props }, ref) {
-  return (
-    <BaseNumberField.ScrubAreaCursor
-      ref={ref}
-      data-slot="number-input-scrub-area-cursor"
-      className={cn('text-grayscale-opacity-800', className)}
-      {...props}
-    />
-  );
-});
+const NumberInputScrubAreaCursor =
+  function NumberInputScrubAreaCursor({
+    className,
+    ref,
+    ...props
+  }: Omit<NumberInputScrubAreaCursorProps, 'ref'> & {
+    ref?: Ref<ComponentRef<typeof BaseNumberField.ScrubAreaCursor>>;
+  }) {
+    return (
+      <BaseNumberField.ScrubAreaCursor
+        ref={ref}
+        data-slot="number-input-scrub-area-cursor"
+        className={cn('text-grayscale-opacity-800', className)}
+        {...props}
+      />
+    );
+  };
 
 export {
   NumberInput,

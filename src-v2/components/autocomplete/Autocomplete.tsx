@@ -4,12 +4,12 @@ import { ClearIcon } from '@/icons/ClearIcon';
 import { SearchIcon } from '@/icons/SearchIcon';
 import { cn } from '@/lib/utils';
 import { Autocomplete as BaseAutocomplete } from '@base-ui/react/autocomplete';
-import { forwardRef } from 'react';
 import type {
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   ReactElement,
   ReactNode,
+  Ref,
 } from 'react';
 
 export type AutocompleteProps<ItemValue = unknown> =
@@ -31,10 +31,13 @@ export type AutocompleteInputGroupProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.InputGroup
 >;
 
-const InputGroup = forwardRef<
-  ElementRef<typeof BaseAutocomplete.InputGroup>,
-  AutocompleteInputGroupProps
->(function AutocompleteInputGroup({ className, ...props }, ref) {
+const InputGroup = function AutocompleteInputGroup({
+  className,
+  ref,
+  ...props
+}: Omit<AutocompleteInputGroupProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.InputGroup>>;
+}) {
   return (
     <BaseAutocomplete.InputGroup
       ref={ref}
@@ -49,16 +52,19 @@ const InputGroup = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type AutocompleteInputProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.Input
 >;
 
-const Input = forwardRef<
-  ElementRef<typeof BaseAutocomplete.Input>,
-  AutocompleteInputProps
->(function AutocompleteInput({ className, ...props }, ref) {
+const Input = function AutocompleteInput({
+  className,
+  ref,
+  ...props
+}: Omit<AutocompleteInputProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Input>>;
+}) {
   return (
     <BaseAutocomplete.Input
       ref={ref}
@@ -71,19 +77,20 @@ const Input = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type AutocompleteTriggerProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.Trigger
 >;
 
-const Trigger = forwardRef<
-  ElementRef<typeof BaseAutocomplete.Trigger>,
-  AutocompleteTriggerProps
->(function AutocompleteTrigger(
-  { children, className, ...props },
+const Trigger = function AutocompleteTrigger({
+  children,
+  className,
   ref,
-) {
+  ...props
+}: Omit<AutocompleteTriggerProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Trigger>>;
+}) {
   return (
     <BaseAutocomplete.Trigger
       ref={ref}
@@ -110,16 +117,20 @@ const Trigger = forwardRef<
       )}
     </BaseAutocomplete.Trigger>
   );
-});
+};
 
 export type AutocompleteIconProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.Icon
 >;
 
-const Icon = forwardRef<
-  ElementRef<typeof BaseAutocomplete.Icon>,
-  AutocompleteIconProps
->(function AutocompleteIcon({ children, className, ...props }, ref) {
+const Icon = function AutocompleteIcon({
+  children,
+  className,
+  ref,
+  ...props
+}: Omit<AutocompleteIconProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Icon>>;
+}) {
   return (
     <BaseAutocomplete.Icon
       ref={ref}
@@ -133,16 +144,20 @@ const Icon = forwardRef<
       {children ?? <SearchIcon className="size-4.5" />}
     </BaseAutocomplete.Icon>
   );
-});
+};
 
 export type AutocompleteClearProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.Clear
 >;
 
-const Clear = forwardRef<
-  ElementRef<typeof BaseAutocomplete.Clear>,
-  AutocompleteClearProps
->(function AutocompleteClear({ children, className, ...props }, ref) {
+const Clear = function AutocompleteClear({
+  children,
+  className,
+  ref,
+  ...props
+}: Omit<AutocompleteClearProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Clear>>;
+}) {
   return (
     <BaseAutocomplete.Clear
       ref={ref}
@@ -158,7 +173,7 @@ const Clear = forwardRef<
       {children ?? <ClearIcon className="size-5" />}
     </BaseAutocomplete.Clear>
   );
-});
+};
 
 export type AutocompletePortalProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.Portal
@@ -170,10 +185,13 @@ export type AutocompleteBackdropProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.Backdrop
 >;
 
-const Backdrop = forwardRef<
-  ElementRef<typeof BaseAutocomplete.Backdrop>,
-  AutocompleteBackdropProps
->(function AutocompleteBackdrop({ className, ...props }, ref) {
+const Backdrop = function AutocompleteBackdrop({
+  className,
+  ref,
+  ...props
+}: Omit<AutocompleteBackdropProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Backdrop>>;
+}) {
   return (
     <BaseAutocomplete.Backdrop
       ref={ref}
@@ -182,16 +200,19 @@ const Backdrop = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type AutocompletePositionerProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.Positioner
 >;
 
-const Positioner = forwardRef<
-  ElementRef<typeof BaseAutocomplete.Positioner>,
-  AutocompletePositionerProps
->(function AutocompletePositioner({ className, ...props }, ref) {
+const Positioner = function AutocompletePositioner({
+  className,
+  ref,
+  ...props
+}: Omit<AutocompletePositionerProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Positioner>>;
+}) {
   return (
     <BaseAutocomplete.Positioner
       ref={ref}
@@ -200,16 +221,19 @@ const Positioner = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type AutocompletePopupProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.Popup
 >;
 
-const Popup = forwardRef<
-  ElementRef<typeof BaseAutocomplete.Popup>,
-  AutocompletePopupProps
->(function AutocompletePopup({ className, ...props }, ref) {
+const Popup = function AutocompletePopup({
+  className,
+  ref,
+  ...props
+}: Omit<AutocompletePopupProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Popup>>;
+}) {
   return (
     <BaseAutocomplete.Popup
       ref={ref}
@@ -221,7 +245,7 @@ const Popup = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type AutocompleteContentProps = Omit<
   AutocompletePopupProps,
@@ -241,24 +265,21 @@ export type AutocompleteContentProps = Omit<
     positionerClassName?: string;
   };
 
-const Content = forwardRef<
-  ElementRef<typeof BaseAutocomplete.Popup>,
-  AutocompleteContentProps
->(function AutocompleteContent(
-  {
-    align = 'start',
-    alignOffset,
-    children,
-    className,
-    emptyText,
-    listClassName,
-    positionerClassName,
-    side,
-    sideOffset = 4,
-    ...props
-  },
+const Content = function AutocompleteContent({
+  align = 'start',
+  alignOffset,
+  children,
+  className,
+  emptyText,
+  listClassName,
+  positionerClassName,
+  side,
+  sideOffset = 4,
   ref,
-) {
+  ...props
+}: Omit<AutocompleteContentProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Popup>>;
+}) {
   return (
     <Portal>
       <Positioner
@@ -288,16 +309,20 @@ const Content = forwardRef<
       </Positioner>
     </Portal>
   );
-});
+};
 
 export type AutocompleteListProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.List
 >;
 
-const List = forwardRef<
-  ElementRef<typeof BaseAutocomplete.List>,
-  AutocompleteListProps
->(function AutocompleteList({ className, onScroll, ...props }, ref) {
+const List = function AutocompleteList({
+  className,
+  onScroll,
+  ref,
+  ...props
+}: Omit<AutocompleteListProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.List>>;
+}) {
   return (
     <BaseAutocomplete.List
       ref={ref}
@@ -311,16 +336,19 @@ const List = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type AutocompleteItemProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.Item
 >;
 
-const Item = forwardRef<
-  ElementRef<typeof BaseAutocomplete.Item>,
-  AutocompleteItemProps
->(function AutocompleteItem({ className, ...props }, ref) {
+const Item = function AutocompleteItem({
+  className,
+  ref,
+  ...props
+}: Omit<AutocompleteItemProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Item>>;
+}) {
   return (
     <BaseAutocomplete.Item
       ref={ref}
@@ -334,15 +362,18 @@ const Item = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type AutocompleteItemTextProps =
   ComponentPropsWithoutRef<'span'>;
 
-const ItemText = forwardRef<
-  HTMLSpanElement,
-  AutocompleteItemTextProps
->(function AutocompleteItemText({ className, ...props }, ref) {
+const ItemText = function AutocompleteItemText({
+  className,
+  ref,
+  ...props
+}: Omit<AutocompleteItemTextProps, 'ref'> & {
+  ref?: Ref<HTMLSpanElement>;
+}) {
   return (
     <span
       ref={ref}
@@ -351,16 +382,19 @@ const ItemText = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type AutocompleteStatusProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.Status
 >;
 
-const Status = forwardRef<
-  ElementRef<typeof BaseAutocomplete.Status>,
-  AutocompleteStatusProps
->(function AutocompleteStatus({ className, ...props }, ref) {
+const Status = function AutocompleteStatus({
+  className,
+  ref,
+  ...props
+}: Omit<AutocompleteStatusProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Status>>;
+}) {
   return (
     <BaseAutocomplete.Status
       ref={ref}
@@ -372,16 +406,20 @@ const Status = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type AutocompleteEmptyProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.Empty
 >;
 
-const Empty = forwardRef<
-  ElementRef<typeof BaseAutocomplete.Empty>,
-  AutocompleteEmptyProps
->(function AutocompleteEmpty({ children, className, ...props }, ref) {
+const Empty = function AutocompleteEmpty({
+  children,
+  className,
+  ref,
+  ...props
+}: Omit<AutocompleteEmptyProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Empty>>;
+}) {
   return (
     <BaseAutocomplete.Empty
       ref={ref}
@@ -397,16 +435,19 @@ const Empty = forwardRef<
       </span>
     </BaseAutocomplete.Empty>
   );
-});
+};
 
 export type AutocompleteGroupProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.Group
 >;
 
-const Group = forwardRef<
-  ElementRef<typeof BaseAutocomplete.Group>,
-  AutocompleteGroupProps
->(function AutocompleteGroup({ className, ...props }, ref) {
+const Group = function AutocompleteGroup({
+  className,
+  ref,
+  ...props
+}: Omit<AutocompleteGroupProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Group>>;
+}) {
   return (
     <BaseAutocomplete.Group
       ref={ref}
@@ -415,16 +456,19 @@ const Group = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type AutocompleteGroupLabelProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.GroupLabel
 >;
 
-const GroupLabel = forwardRef<
-  ElementRef<typeof BaseAutocomplete.GroupLabel>,
-  AutocompleteGroupLabelProps
->(function AutocompleteGroupLabel({ className, ...props }, ref) {
+const GroupLabel = function AutocompleteGroupLabel({
+  className,
+  ref,
+  ...props
+}: Omit<AutocompleteGroupLabelProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.GroupLabel>>;
+}) {
   return (
     <BaseAutocomplete.GroupLabel
       ref={ref}
@@ -436,16 +480,19 @@ const GroupLabel = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type AutocompleteRowProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.Row
 >;
 
-const Row = forwardRef<
-  ElementRef<typeof BaseAutocomplete.Row>,
-  AutocompleteRowProps
->(function AutocompleteRow({ className, ...props }, ref) {
+const Row = function AutocompleteRow({
+  className,
+  ref,
+  ...props
+}: Omit<AutocompleteRowProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Row>>;
+}) {
   return (
     <BaseAutocomplete.Row
       ref={ref}
@@ -454,7 +501,7 @@ const Row = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type AutocompleteCollectionProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.Collection
@@ -466,10 +513,13 @@ export type AutocompleteSeparatorProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.Separator
 >;
 
-const Separator = forwardRef<
-  ElementRef<typeof BaseAutocomplete.Separator>,
-  AutocompleteSeparatorProps
->(function AutocompleteSeparator({ className, ...props }, ref) {
+const Separator = function AutocompleteSeparator({
+  className,
+  ref,
+  ...props
+}: Omit<AutocompleteSeparatorProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Separator>>;
+}) {
   return (
     <BaseAutocomplete.Separator
       ref={ref}
@@ -481,16 +531,19 @@ const Separator = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type AutocompleteArrowProps = ComponentPropsWithoutRef<
   typeof BaseAutocomplete.Arrow
 >;
 
-const Arrow = forwardRef<
-  ElementRef<typeof BaseAutocomplete.Arrow>,
-  AutocompleteArrowProps
->(function AutocompleteArrow({ className, ...props }, ref) {
+const Arrow = function AutocompleteArrow({
+  className,
+  ref,
+  ...props
+}: Omit<AutocompleteArrowProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAutocomplete.Arrow>>;
+}) {
   return (
     <BaseAutocomplete.Arrow
       ref={ref}
@@ -499,7 +552,7 @@ const Arrow = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export {
   Autocomplete,
