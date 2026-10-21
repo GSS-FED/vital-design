@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "collapsible",
+  "title": "Collapsible",
+  "description": "Expand and collapse a panel with a trigger button; built on Base UI primitives",
+  "dependencies": [
+    "@base-ui/react",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@vital-design/utils",
+    "@vital-design/vital-theme"
+  ],
+  "files": [
+    {
+      "path": "src-v2/components/collapsible/Collapsible.tsx",
+      "content": "import { cn } from '@/lib/utils';\nimport { Collapsible as BaseCollapsible } from '@base-ui/react/collapsible';\nimport type {\n  ComponentPropsWithoutRef,\n  ComponentRef,\n  Ref,\n} from 'react';\n\nexport type CollapsibleProps = ComponentPropsWithoutRef<\n  typeof BaseCollapsible.Root\n>;\n\nconst Collapsible = function Collapsible({\n  className,\n  ref,\n  ...props\n}: Omit<CollapsibleProps, 'ref'> & { ref?: Ref<HTMLDivElement> }) {\n  return (\n    <BaseCollapsible.Root\n      ref={ref}\n      data-slot=\"collapsible\"\n      className={cn(className)}\n      {...props}\n    />\n  );\n};\n\nexport type CollapsibleTriggerProps = ComponentPropsWithoutRef<\n  typeof BaseCollapsible.Trigger\n>;\n\nconst CollapsibleTrigger = function CollapsibleTrigger({\n  className,\n  type = 'button',\n  ref,\n  ...props\n}: Omit<CollapsibleTriggerProps, 'ref'> & {\n  ref?: Ref<HTMLButtonElement>;\n}) {\n  return (\n    <BaseCollapsible.Trigger\n      ref={ref}\n      type={type}\n      data-slot=\"collapsible-trigger\"\n      className={cn(\n        'cursor-pointer focus-visible:shadow-focus-primary focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60 data-disabled:cursor-not-allowed data-disabled:opacity-60',\n        className,\n      )}\n      {...props}\n    />\n  );\n};\n\nexport type CollapsibleContentProps = ComponentPropsWithoutRef<\n  typeof BaseCollapsible.Panel\n>;\n\nconst CollapsibleContent = function CollapsibleContent({\n  className,\n  ref,\n  ...props\n}: Omit<CollapsibleContentProps, 'ref'> & {\n  ref?: Ref<ComponentRef<typeof BaseCollapsible.Panel>>;\n}) {\n  return (\n    <BaseCollapsible.Panel\n      ref={ref}\n      data-slot=\"collapsible-content\"\n      className={cn(\n        'h-(--collapsible-panel-height) overflow-hidden font-sans text-sm leading-5 text-grayscale-opacity-700 transition-[height] duration-150 ease-out data-starting-style:h-0 data-ending-style:h-0',\n        className,\n      )}\n      {...props}\n    />\n  );\n};\n\nexport { Collapsible, CollapsibleContent, CollapsibleTrigger };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

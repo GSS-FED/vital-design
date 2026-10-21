@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-group",
+  "title": "Button Group",
+  "description": "Composable button group layout primitive",
+  "dependencies": [
+    "@base-ui/react",
+    "class-variance-authority",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@vital-design/utils",
+    "@vital-design/separator",
+    "@vital-design/vital-theme"
+  ],
+  "files": [
+    {
+      "path": "src-v2/components/button/button-group/ButtonGroup.tsx",
+      "content": "import { Separator } from '@/components/separator/Separator';\nimport { type CvaProps, cn } from '@/lib/utils';\nimport { mergeProps } from '@base-ui/react/merge-props';\nimport { useRender } from '@base-ui/react/use-render';\nimport { type VariantProps, cva } from 'class-variance-authority';\nimport { createContext, useContext } from 'react';\nimport type {\n  ComponentPropsWithoutRef,\n  ComponentRef,\n  Ref,\n} from 'react';\n\nconst buttonGroupVariants = cva(\n  [\n    'inline-flex w-fit items-stretch font-sans box-border',\n    'has-[>[data-slot=button-group]]:gap-2',\n    '[&>*]:focus-visible:relative [&>*]:focus-visible:z-10',\n    '[&>input]:flex-1',\n  ],\n  {\n    variants: {\n      orientation: {\n        horizontal:\n          '[&>:not([data-slot=button-group])+*:not([data-slot=button-group])]:rounded-l-none [&>:not([data-slot=button-group])+*:not([data-slot=button-group])]:border-l-0 [&>:not([data-slot=button-group]):has(+*:not([data-slot=button-group]))]:rounded-r-none',\n        vertical:\n          'flex-col [&>:not([data-slot=button-group])+*:not([data-slot=button-group])]:rounded-t-none [&>:not([data-slot=button-group])+*:not([data-slot=button-group])]:border-t-0 [&>:not([data-slot=button-group]):has(+*:not([data-slot=button-group]))]:rounded-b-none',\n      },\n    },\n    defaultVariants: {\n      orientation: 'horizontal',\n    },\n  },\n);\n\nexport type ButtonGroupVariants = VariantProps<\n  typeof buttonGroupVariants\n>;\n\nexport type ButtonGroupProps = ComponentPropsWithoutRef<'div'> &\n  CvaProps<ButtonGroupVariants>;\n\nconst ButtonGroupContext = createContext<{\n  orientation: NonNullable<ButtonGroupVariants['orientation']>;\n} | null>(null);\n\nconst ButtonGroup = function ButtonGroup({\n  ref,\n  ...props\n}: Omit<ButtonGroupProps, 'ref'> & {\n  ref?: Ref<ComponentRef<'div'>>;\n}) {\n  const {\n    className,\n    orientation = 'horizontal',\n    role = 'group',\n    ...groupProps\n  } = props;\n\n  return (\n    <ButtonGroupContext.Provider value={{ orientation }}>\n      <div\n        ref={ref}\n        role={role}\n        data-orientation={orientation}\n        data-slot=\"button-group\"\n        className={cn(\n          buttonGroupVariants({ orientation }),\n          className,\n        )}\n        {...groupProps}\n      />\n    </ButtonGroupContext.Provider>\n  );\n};\n\nexport type ButtonGroupSeparatorProps = ComponentPropsWithoutRef<\n  typeof Separator\n>;\n\nconst ButtonGroupSeparator = function ButtonGroupSeparator({\n  ref,\n  ...props\n}: Omit<ButtonGroupSeparatorProps, 'ref'> & {\n  ref?: Ref<ComponentRef<typeof Separator>>;\n}) {\n  const {\n    className,\n    orientation: orientationProp,\n    role = 'separator',\n    ...separatorProps\n  } = props;\n  const context = useContext(ButtonGroupContext);\n  const orientation =\n    orientationProp ??\n    (context?.orientation === 'vertical' ? 'horizontal' : 'vertical');\n\n  return (\n    <Separator\n      ref={ref}\n      role={role}\n      orientation={orientation}\n      data-slot=\"button-group-separator\"\n      className={cn(\n        orientation === 'horizontal'\n          ? 'h-px w-auto self-stretch'\n          : 'h-auto min-h-0 w-px self-stretch',\n        'relative shrink-0 self-stretch bg-grayscale-opacity-300',\n        className,\n      )}\n      {...separatorProps}\n    />\n  );\n};\n\nexport type ButtonGroupTextProps = useRender.ComponentProps<'span'>;\n\nconst ButtonGroupText = function ButtonGroupText({\n  ref,\n  ...props\n}: Omit<ButtonGroupTextProps, 'ref'> & {\n  ref?: Ref<ComponentRef<'span'>>;\n}) {\n  const { className, render, ...textProps } = props;\n\n  return useRender({\n    ref,\n    render,\n    defaultTagName: 'span',\n    state: {\n      slot: 'button-group-text',\n    },\n    props: mergeProps<'span'>(\n      {\n        className: cn(\n          'flex items-center gap-2 border border-grayscale-opacity-300 bg-grayscale-opacity-100 px-4 text-sm font-medium leading-5 text-grayscale-opacity-700',\n          className,\n        ),\n      },\n      textProps,\n    ),\n  });\n};\n\nexport { ButtonGroup, ButtonGroupSeparator, ButtonGroupText };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
