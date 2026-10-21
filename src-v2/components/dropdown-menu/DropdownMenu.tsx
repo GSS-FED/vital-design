@@ -2,8 +2,11 @@ import { CheckIcon } from '@/icons/CheckIcon';
 import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
 import { cn } from '@/lib/utils';
 import { Menu as BaseMenu } from '@base-ui/react/menu';
-import { forwardRef } from 'react';
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ComponentRef,
+  Ref,
+} from 'react';
 
 const ITEM_BASE_CLASSES =
   'relative flex cursor-pointer items-center gap-2 py-1.5 px-3 text-sm leading-5 font-normal text-grayscale-opacity-800 outline-none select-none transition-colors duration-200';
@@ -21,10 +24,13 @@ export type DropdownMenuTriggerProps = ComponentPropsWithoutRef<
   typeof BaseMenu.Trigger
 >;
 
-const DropdownMenuTrigger = forwardRef<
-  HTMLButtonElement,
-  DropdownMenuTriggerProps
->(function DropdownMenuTrigger({ className, ...props }, ref) {
+const DropdownMenuTrigger = function DropdownMenuTrigger({
+  className,
+  ref,
+  ...props
+}: Omit<DropdownMenuTriggerProps, 'ref'> & {
+  ref?: Ref<HTMLButtonElement>;
+}) {
   return (
     <BaseMenu.Trigger
       ref={ref}
@@ -33,7 +39,7 @@ const DropdownMenuTrigger = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type DropdownMenuPortalProps = ComponentPropsWithoutRef<
   typeof BaseMenu.Portal
@@ -71,24 +77,21 @@ export type DropdownMenuContentProps = ComponentPropsWithoutRef<
     portalContainer?: DropdownMenuPortalProps['container'];
   };
 
-const DropdownMenuContent = forwardRef<
-  ElementRef<typeof BaseMenu.Popup>,
-  DropdownMenuContentProps
->(function DropdownMenuContent(
-  {
-    align = 'start',
-    alignOffset,
-    anchor,
-    children,
-    className,
-    portalContainer,
-    positionerClassName,
-    side = 'bottom',
-    sideOffset = 4,
-    ...props
-  },
+const DropdownMenuContent = function DropdownMenuContent({
+  align = 'start',
+  alignOffset,
+  anchor,
+  children,
+  className,
+  portalContainer,
+  positionerClassName,
+  side = 'bottom',
+  sideOffset = 4,
   ref,
-) {
+  ...props
+}: Omit<DropdownMenuContentProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseMenu.Popup>>;
+}) {
   return (
     <BaseMenu.Portal container={portalContainer}>
       <BaseMenu.Positioner
@@ -113,27 +116,24 @@ const DropdownMenuContent = forwardRef<
       </BaseMenu.Positioner>
     </BaseMenu.Portal>
   );
-});
+};
 
 export type DropdownMenuSubContentProps = DropdownMenuContentProps;
 
-const DropdownMenuSubContent = forwardRef<
-  ElementRef<typeof BaseMenu.Popup>,
-  DropdownMenuSubContentProps
->(function DropdownMenuSubContent(
-  {
-    align = 'start',
-    alignOffset,
-    children,
-    className,
-    portalContainer,
-    positionerClassName,
-    side = 'right',
-    sideOffset = 4,
-    ...props
-  },
+const DropdownMenuSubContent = function DropdownMenuSubContent({
+  align = 'start',
+  alignOffset,
+  children,
+  className,
+  portalContainer,
+  positionerClassName,
+  side = 'right',
+  sideOffset = 4,
   ref,
-) {
+  ...props
+}: Omit<DropdownMenuSubContentProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseMenu.Popup>>;
+}) {
   return (
     <BaseMenu.Portal container={portalContainer}>
       <BaseMenu.Positioner
@@ -157,16 +157,19 @@ const DropdownMenuSubContent = forwardRef<
       </BaseMenu.Positioner>
     </BaseMenu.Portal>
   );
-});
+};
 
 export type DropdownMenuItemProps = ComponentPropsWithoutRef<
   typeof BaseMenu.Item
 >;
 
-const DropdownMenuItem = forwardRef<
-  ElementRef<typeof BaseMenu.Item>,
-  DropdownMenuItemProps
->(function DropdownMenuItem({ className, ...props }, ref) {
+const DropdownMenuItem = function DropdownMenuItem({
+  className,
+  ref,
+  ...props
+}: Omit<DropdownMenuItemProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseMenu.Item>>;
+}) {
   return (
     <BaseMenu.Item
       ref={ref}
@@ -175,19 +178,20 @@ const DropdownMenuItem = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type DropdownMenuSubTriggerProps = ComponentPropsWithoutRef<
   typeof BaseMenu.SubmenuTrigger
 >;
 
-const DropdownMenuSubTrigger = forwardRef<
-  ElementRef<typeof BaseMenu.SubmenuTrigger>,
-  DropdownMenuSubTriggerProps
->(function DropdownMenuSubTrigger(
-  { children, className, ...props },
+const DropdownMenuSubTrigger = function DropdownMenuSubTrigger({
+  children,
+  className,
   ref,
-) {
+  ...props
+}: Omit<DropdownMenuSubTriggerProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseMenu.SubmenuTrigger>>;
+}) {
   return (
     <BaseMenu.SubmenuTrigger
       ref={ref}
@@ -207,19 +211,20 @@ const DropdownMenuSubTrigger = forwardRef<
       />
     </BaseMenu.SubmenuTrigger>
   );
-});
+};
 
 export type DropdownMenuCheckboxItemProps = ComponentPropsWithoutRef<
   typeof BaseMenu.CheckboxItem
 >;
 
-const DropdownMenuCheckboxItem = forwardRef<
-  ElementRef<typeof BaseMenu.CheckboxItem>,
-  DropdownMenuCheckboxItemProps
->(function DropdownMenuCheckboxItem(
-  { children, className, ...props },
+const DropdownMenuCheckboxItem = function DropdownMenuCheckboxItem({
+  children,
+  className,
   ref,
-) {
+  ...props
+}: Omit<DropdownMenuCheckboxItemProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseMenu.CheckboxItem>>;
+}) {
   return (
     <BaseMenu.CheckboxItem
       ref={ref}
@@ -243,19 +248,20 @@ const DropdownMenuCheckboxItem = forwardRef<
       {children}
     </BaseMenu.CheckboxItem>
   );
-});
+};
 
 export type DropdownMenuRadioItemProps = ComponentPropsWithoutRef<
   typeof BaseMenu.RadioItem
 >;
 
-const DropdownMenuRadioItem = forwardRef<
-  ElementRef<typeof BaseMenu.RadioItem>,
-  DropdownMenuRadioItemProps
->(function DropdownMenuRadioItem(
-  { children, className, ...props },
+const DropdownMenuRadioItem = function DropdownMenuRadioItem({
+  children,
+  className,
   ref,
-) {
+  ...props
+}: Omit<DropdownMenuRadioItemProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseMenu.RadioItem>>;
+}) {
   return (
     <BaseMenu.RadioItem
       ref={ref}
@@ -279,16 +285,19 @@ const DropdownMenuRadioItem = forwardRef<
       {children}
     </BaseMenu.RadioItem>
   );
-});
+};
 
 export type DropdownMenuLabelProps = ComponentPropsWithoutRef<
   typeof BaseMenu.GroupLabel
 >;
 
-const DropdownMenuLabel = forwardRef<
-  ElementRef<typeof BaseMenu.GroupLabel>,
-  DropdownMenuLabelProps
->(function DropdownMenuLabel({ className, ...props }, ref) {
+const DropdownMenuLabel = function DropdownMenuLabel({
+  className,
+  ref,
+  ...props
+}: Omit<DropdownMenuLabelProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseMenu.GroupLabel>>;
+}) {
   return (
     <BaseMenu.GroupLabel
       ref={ref}
@@ -300,16 +309,19 @@ const DropdownMenuLabel = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type DropdownMenuSeparatorProps = ComponentPropsWithoutRef<
   typeof BaseMenu.Separator
 >;
 
-const DropdownMenuSeparator = forwardRef<
-  ElementRef<typeof BaseMenu.Separator>,
-  DropdownMenuSeparatorProps
->(function DropdownMenuSeparator({ className, ...props }, ref) {
+const DropdownMenuSeparator = function DropdownMenuSeparator({
+  className,
+  ref,
+  ...props
+}: Omit<DropdownMenuSeparatorProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseMenu.Separator>>;
+}) {
   return (
     <BaseMenu.Separator
       ref={ref}
@@ -321,7 +333,7 @@ const DropdownMenuSeparator = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export {
   DropdownMenu,

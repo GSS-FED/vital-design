@@ -1,6 +1,6 @@
 // 元件結構模板
 // 替換所有 ComponentName 為實際元件名稱
-import { cn } from '@/utils/cn';
+import { type CvaProps, cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type { CSSProperties } from 'react';
 
@@ -13,7 +13,6 @@ const componentNameVariants = cva(
         sm: 'text-sm',
         md: 'text-base',
       },
-      // 新增其他 variant 維度
     },
     defaultVariants: {
       size: 'md',
@@ -21,19 +20,23 @@ const componentNameVariants = cva(
   },
 );
 
+export type ComponentNameVariants = VariantProps<
+  typeof componentNameVariants
+>;
+
 export type ComponentNameProps = {
   className?: string;
   style?: CSSProperties;
-  // 新增元件專屬 props
-} & VariantProps<typeof componentNameVariants>;
+} & CvaProps<ComponentNameVariants>;
 
-export default function ComponentName({
+export function ComponentName({
   className,
   style,
   size,
 }: ComponentNameProps) {
   return (
     <div
+      data-slot="component-name"
       className={cn(componentNameVariants({ size }), className)}
       style={style}
     />

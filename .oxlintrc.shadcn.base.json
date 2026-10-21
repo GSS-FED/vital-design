@@ -1,0 +1,78 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "jsPlugins": ["@shadcn/lint"],
+  "extends": ["./vital-design.lint.json"],
+  "categories": {
+    "correctness": "off"
+  },
+  "plugins": [],
+  "settings": {
+    "shadcn": {
+      "ui": "@/components",
+      "ignoreImports": ["^@/components/collapsible(/|$)"]
+    }
+  },
+  "ignorePatterns": [
+    "**/dist",
+    "**/coverage",
+    "**/storybook-static*",
+    "**/*.test.{ts,tsx}",
+    "src",
+    "src-v2/icons",
+    "apps/docs/.next",
+    "apps/docs/out",
+    "apps/docs/components/previews/__sources__.ts"
+  ],
+  "rules": {
+    "shadcn/no-unknown-classes": [
+      "error",
+      {
+        "allow": ["not-prose"]
+      }
+    ],
+    "shadcn/no-restyle": [
+      "warn",
+      {
+        "allow": ["layout"],
+        "contracts": [
+          {
+            "pattern": "(Group|Header|Footer|Content|MenuItem)$|^Toolbar$",
+            "allow": ["layout", "spacing"]
+          },
+          {
+            "pattern": "^Skeleton$",
+            "allow": ["layout", "shape"]
+          },
+          {
+            "pattern": "^Label$",
+            "allow": ["layout", "typography"]
+          },
+          {
+            "pattern": "^Table$",
+            "allow": [
+              "layout",
+              "rounded",
+              "border-w",
+              "border-color",
+              "bg-color",
+              "shadow"
+            ]
+          },
+          {
+            "pattern": "^ProgressSegment$",
+            "allow": ["layout", "bg-color"]
+          },
+          {
+            "pattern": "^ProgressSegments$",
+            "allow": ["layout", "gap"]
+          },
+          {
+            "pattern": "^(Button|DialogTitle|SheetTitle)$",
+            "allow": ["layout", "text-transform"]
+          }
+        ]
+      }
+    ],
+    "shadcn/require-static-classes": "warn"
+  }
+}

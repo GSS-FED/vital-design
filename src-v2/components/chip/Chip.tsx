@@ -1,15 +1,6 @@
-import { cn } from '@/lib/utils';
+import { type CvaProps, cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type { CSSProperties, ReactNode } from 'react';
-
-export type ChipProps = {
-  children: ReactNode;
-  selected: boolean;
-  onChange?: (selected: boolean) => void;
-  icon?: ReactNode;
-  className?: string;
-  style?: CSSProperties;
-};
 
 const chipVariants = cva(
   // Base classes
@@ -41,6 +32,16 @@ const chipVariants = cva(
 );
 
 export type ChipVariants = VariantProps<typeof chipVariants>;
+
+export type ChipProps = {
+  children: ReactNode;
+  onChange?: (selected: boolean) => void;
+  icon?: ReactNode;
+  className?: string;
+  style?: CSSProperties;
+} & CvaProps<ChipVariants> & {
+    selected: NonNullable<ChipVariants['selected']>;
+  };
 
 export function Chip(props: ChipProps) {
   const { children, selected, onChange, icon, className, style } =

@@ -129,7 +129,10 @@ function TaskProgress({ state }: { state: string }) {
 export function TablePreview() {
   return (
     <ComponentPreview name="TablePreview" centered={false}>
-      <Table containerClassName="max-w-5xl rounded-(--radius-sm) border border-grayscale-opacity-300 bg-white shadow-(--shadow-base)">
+      <Table
+        striped
+        containerClassName="max-w-5xl rounded-(--radius-sm) border border-grayscale-opacity-300 bg-white shadow-(--shadow-base)"
+      >
         <TableHeader>
           <TableRow>
             <TableHead>
@@ -154,7 +157,10 @@ export function TablePreview() {
               data-state={task.id === 5 ? 'selected' : undefined}
             >
               <TableCell>
-                <Checkbox aria-label={`Select ${task.topic}`} />
+                <Checkbox
+                  defaultChecked={task.id === 5}
+                  aria-label={`Select ${task.topic}`}
+                />
               </TableCell>
               <TableCell className="text-center">{task.id}</TableCell>
               <TableCell>{task.topic}</TableCell>

@@ -1,8 +1,11 @@
-import { cn } from '@/lib/utils';
+import { type CvaProps, cn } from '@/lib/utils';
 import { Input as InputPrimitive } from '@base-ui/react/input';
 import { type VariantProps, cva } from 'class-variance-authority';
-import { forwardRef } from 'react';
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ComponentRef,
+  Ref,
+} from 'react';
 
 const inputVariants = cva(
   cn(
@@ -26,15 +29,19 @@ const inputVariants = cva(
   },
 );
 
+export type InputVariants = VariantProps<typeof inputVariants>;
+
 export type InputProps = ComponentPropsWithoutRef<
   typeof InputPrimitive
 > &
-  VariantProps<typeof inputVariants>;
+  CvaProps<InputVariants>;
 
-const Input = forwardRef<
-  ElementRef<typeof InputPrimitive>,
-  InputProps
->(function Input(props, ref) {
+const Input = function Input({
+  ref,
+  ...props
+}: Omit<InputProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof InputPrimitive>>;
+}) {
   const {
     className,
     disabled = false,
@@ -54,6 +61,6 @@ const Input = forwardRef<
       {...inputProps}
     />
   );
-});
+};
 
 export { Input };

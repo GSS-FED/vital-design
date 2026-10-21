@@ -1,36 +1,7 @@
 import { CloseIcon } from '@/icons/CloseIcon';
-import { cn } from '@/lib/utils';
+import { type CvaProps, cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type { CSSProperties, ReactNode } from 'react';
-
-type Color =
-  | 'default'
-  | 'teal'
-  | 'olive'
-  | 'brown'
-  | 'rose'
-  | 'indigo'
-  | 'blue'
-  | 'green'
-  | 'gold'
-  | 'red'
-  | 'purple'
-  | 'navy';
-
-type ColorVariant = 'solid' | 'tint';
-
-export type TagProps = {
-  color?: Color;
-  colorVariant?: ColorVariant;
-  children: ReactNode;
-  icon?: ReactNode;
-  removable?: boolean;
-  selected?: boolean;
-  onClick?: () => void;
-  onRemove?: () => void;
-  className?: string;
-  style?: CSSProperties;
-};
 
 const tagVariants = cva(
   // Base classes
@@ -208,6 +179,16 @@ const tagVariants = cva(
 );
 
 export type TagVariants = VariantProps<typeof tagVariants>;
+
+export type TagProps = CvaProps<TagVariants> & {
+  children: ReactNode;
+  icon?: ReactNode;
+  removable?: boolean;
+  onClick?: () => void;
+  onRemove?: () => void;
+  className?: string;
+  style?: CSSProperties;
+};
 
 export function Tag(props: TagProps) {
   const {

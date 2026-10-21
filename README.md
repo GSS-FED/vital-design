@@ -1,6 +1,6 @@
 # Vittal Design
 
-基於 React 18 + Tailwind CSS 4 的元件庫，透過 shadcn registry 分發。
+基於 React 19 + Tailwind CSS 4 的元件庫，透過 shadcn registry 分發。
 
 ## 使用 shadcn CLI 安裝元件
 
@@ -48,7 +48,7 @@ npx shadcn@latest add @vital-design/button
 | `pnpm install`                    | 安裝相依套件                                                         |
 | `pnpm run dev`                    | 開啟 Storybook 開發伺服器（port 6006）                               |
 | `pnpm run build`                  | 編譯、打包到 `dist` 資料夾                                           |
-| `pnpm run lint`                   | 以 ESLint 檢查程式碼                                                 |
+| `pnpm run lint`                   | 以 Oxlint 檢查程式碼                                                 |
 | `pnpm run format`                 | 以 Prettier 整理程式碼                                               |
 | `pnpm run test`                   | 執行所有測試案例                                                     |
 | `pnpm run test:coverage`          | 計算測試覆蓋率                                                       |

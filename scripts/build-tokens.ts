@@ -148,7 +148,7 @@ if (requestedPlatforms.length > 0) {
   }
 
   for (const platform of requestedPlatforms) {
-    await sd.buildPlatform(platform as BuildPlatform);
+    await sd.buildPlatform(platform);
   }
 } else {
   await sd.buildAllPlatforms();

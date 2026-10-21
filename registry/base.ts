@@ -14,6 +14,16 @@ const iconGroups = [
     title: 'Calendar Icon',
     files: ['CalendarIcon'],
   },
+  {
+    name: 'icon-caret-down',
+    title: 'Caret Down Icon',
+    files: ['CaretDownIcon'],
+  },
+  {
+    name: 'icon-caret-up',
+    title: 'Caret Up Icon',
+    files: ['CaretUpIcon'],
+  },
   { name: 'icon-check', title: 'Check Icon', files: ['CheckIcon'] },
   {
     name: 'icon-chevron-down',
@@ -150,6 +160,21 @@ export const base = [
       '@vital-design/vital-theme',
       '@vital-design/utils',
       '@vital-design/vital-icons',
+    ],
+  },
+  {
+    name: 'vital-design-lint',
+    type: 'registry:file',
+    title: 'Vital Design Lint',
+    description:
+      'Design system lint policy for @shadcn/lint (Oxlint): theme tokens only, no unknown Tailwind classes',
+    devDependencies: ['@shadcn/lint', 'oxlint'],
+    files: [
+      {
+        path: 'vital-design.lint.json',
+        target: '~/vital-design.lint.json',
+        type: 'registry:file',
+      },
     ],
   },
   ...iconItems,

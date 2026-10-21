@@ -24,7 +24,6 @@ import { useRender } from '@base-ui/react/use-render';
 import { type VariantProps, cva } from 'class-variance-authority';
 import {
   createContext,
-  forwardRef,
   useCallback,
   useContext,
   useEffect,
@@ -34,10 +33,11 @@ import {
 import type {
   CSSProperties,
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   HTMLAttributes,
   MouseEvent,
   ReactElement,
+  Ref,
 } from 'react';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
@@ -78,22 +78,19 @@ export type SidebarProviderProps = ComponentPropsWithoutRef<'div'> & {
   enableKeyboardShortcut?: boolean;
 };
 
-const SidebarProvider = forwardRef<
-  HTMLDivElement,
-  SidebarProviderProps
->(function SidebarProvider(
-  {
-    defaultOpen = true,
-    open: openProp,
-    onOpenChange: setOpenProp,
-    enableKeyboardShortcut = true,
-    className,
-    style,
-    children,
-    ...props
-  },
+const SidebarProvider = function SidebarProvider({
+  defaultOpen = true,
+  open: openProp,
+  onOpenChange: setOpenProp,
+  enableKeyboardShortcut = true,
+  className,
+  style,
+  children,
   ref,
-) {
+  ...props
+}: Omit<SidebarProviderProps, 'ref'> & {
+  ref?: Ref<HTMLDivElement>;
+}) {
   const isMobile = useIsMobile();
   const [openMobile, setOpenMobile] = useState(false);
   const [_open, _setOpen] = useState(defaultOpen);
@@ -185,7 +182,7 @@ const SidebarProvider = forwardRef<
       </TooltipProvider>
     </SidebarContext.Provider>
   );
-});
+};
 
 export type SidebarProps = ComponentPropsWithoutRef<'div'> & {
   side?: 'left' | 'right';
@@ -193,156 +190,155 @@ export type SidebarProps = ComponentPropsWithoutRef<'div'> & {
   collapsible?: 'offcanvas' | 'icon' | 'none';
 };
 
-const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
-  function Sidebar(
-    {
-      side = 'left',
-      variant = 'sidebar',
-      collapsible = 'offcanvas',
-      className,
-      style,
-      children,
-      ...props
-    },
-    ref,
-  ) {
-    const { isMobile, state, openMobile, setOpenMobile } =
-      useSidebar();
+const Sidebar = function Sidebar({
+  side = 'left',
+  variant = 'sidebar',
+  collapsible = 'offcanvas',
+  className,
+  style,
+  children,
+  ref,
+  ...props
+}: Omit<SidebarProps, 'ref'> & { ref?: Ref<HTMLDivElement> }) {
+  const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
 
-    if (collapsible === 'none') {
-      return (
-        <div
-          ref={ref}
-          data-slot="sidebar"
-          data-side={side}
-          data-variant={variant}
-          data-state={state}
-          data-collapsible="none"
-          className={cn(
-            'group peer',
-            'flex h-full min-h-0 w-full flex-col',
-            'relative w-(--sidebar-width) bg-sidebar text-sidebar-foreground',
-            className,
-          )}
-          style={style}
-          {...props}
-        >
-          <div
-            data-sidebar="sidebar"
-            data-slot="sidebar-inner"
-            className="flex h-full min-h-0 w-full flex-1 flex-col"
-          >
-            {children}
-          </div>
-        </div>
-      );
-    }
-
-    if (isMobile) {
-      return (
-        <Sheet open={openMobile} onOpenChange={setOpenMobile}>
-          <SheetContent
-            data-sidebar="sidebar"
-            data-slot="sidebar"
-            data-mobile="true"
-            data-variant={variant}
-            data-state={state}
-            data-collapsible=""
-            showCloseButton={false}
-            side={side}
-            className={cn(
-              'group w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden',
-              'max-w-none gap-0 overflow-hidden border-sidebar-border shadow-none',
-              'duration-500 ease-in-out data-ending-style:duration-300',
-              className,
-            )}
-            style={
-              {
-                '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
-                ...style,
-              } as CSSProperties
-            }
-          >
-            <SheetHeader className="sr-only">
-              <SheetTitle>Sidebar</SheetTitle>
-              <SheetDescription>
-                Displays the mobile sidebar.
-              </SheetDescription>
-            </SheetHeader>
-            <div
-              ref={ref}
-              data-slot="sidebar-inner"
-              className={cn(
-                'flex h-full min-h-0 w-full flex-col',
-                'text-sidebar-foreground',
-              )}
-              {...props}
-            >
-              {children}
-            </div>
-          </SheetContent>
-        </Sheet>
-      );
-    }
-
+  if (collapsible === 'none') {
     return (
       <div
-        className="group peer hidden text-sidebar-foreground md:block data-[side=right]:order-last"
-        data-state={state}
-        data-collapsible={state === 'collapsed' ? collapsible : ''}
-        data-variant={variant}
-        data-side={side}
+        ref={ref}
         data-slot="sidebar"
+        data-side={side}
+        data-variant={variant}
+        data-state={state}
+        data-collapsible="none"
+        className={cn(
+          'group peer',
+          'flex h-full min-h-0 w-full flex-col',
+          'relative w-(--sidebar-width) bg-sidebar text-sidebar-foreground',
+          className,
+        )}
+        style={style}
+        {...props}
       >
         <div
-          data-slot="sidebar-gap"
-          className={cn(
-            'relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear',
-            'group-data-[collapsible=offcanvas]:w-0',
-            'group-data-[side=right]:rotate-180',
-            variant === 'floating' || variant === 'inset'
-              ? 'group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]'
-              : 'group-data-[collapsible=icon]:w-(--sidebar-width-icon)',
-          )}
-        />
-        <div
-          ref={ref}
-          data-slot="sidebar-container"
-          className={cn(
-            'fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex md:flex-col',
-            side === 'left'
-              ? 'left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]'
-              : 'right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]',
-            variant === 'floating' || variant === 'inset'
-              ? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]'
-              : 'bg-sidebar group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=left]:border-sidebar-border group-data-[side=right]:border-l group-data-[side=right]:border-sidebar-border',
-            className,
-          )}
-          style={style}
-          {...props}
+          data-sidebar="sidebar"
+          data-slot="sidebar-inner"
+          className="flex h-full min-h-0 w-full flex-1 flex-col"
         >
-          <div
-            data-sidebar="sidebar"
-            data-slot="sidebar-inner"
-            className={cn(
-              'flex h-full min-h-0 w-full flex-col',
-              'flex-1 bg-sidebar group-data-[variant=floating]:overflow-hidden group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow-sm',
-            )}
-          >
-            {children}
-          </div>
+          {children}
         </div>
       </div>
     );
-  },
-);
+  }
+
+  if (isMobile) {
+    return (
+      <Sheet open={openMobile} onOpenChange={setOpenMobile}>
+        <SheetContent
+          data-sidebar="sidebar"
+          data-slot="sidebar"
+          data-mobile="true"
+          data-variant={variant}
+          data-state={state}
+          data-collapsible=""
+          showCloseButton={false}
+          side={side}
+          className={cn(
+            'group w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden',
+            'max-w-none gap-0 overflow-hidden border-sidebar-border shadow-none',
+            'duration-500 ease-in-out data-ending-style:duration-300',
+            className,
+          )}
+          style={
+            {
+              '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
+              ...style,
+            } as CSSProperties
+          }
+        >
+          <SheetHeader className="sr-only">
+            <SheetTitle>Sidebar</SheetTitle>
+            <SheetDescription>
+              Displays the mobile sidebar.
+            </SheetDescription>
+          </SheetHeader>
+          <div
+            ref={ref}
+            data-slot="sidebar-inner"
+            className={cn(
+              'flex h-full min-h-0 w-full flex-col',
+              'text-sidebar-foreground',
+            )}
+            {...props}
+          >
+            {children}
+          </div>
+        </SheetContent>
+      </Sheet>
+    );
+  }
+
+  return (
+    <div
+      className="group peer hidden text-sidebar-foreground md:block data-[side=right]:order-last"
+      data-state={state}
+      data-collapsible={state === 'collapsed' ? collapsible : ''}
+      data-variant={variant}
+      data-side={side}
+      data-slot="sidebar"
+    >
+      <div
+        data-slot="sidebar-gap"
+        className={cn(
+          'relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear',
+          'group-data-[collapsible=offcanvas]:w-0',
+          'group-data-[side=right]:rotate-180',
+          variant === 'floating' || variant === 'inset'
+            ? 'group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]'
+            : 'group-data-[collapsible=icon]:w-(--sidebar-width-icon)',
+        )}
+      />
+      <div
+        ref={ref}
+        data-slot="sidebar-container"
+        className={cn(
+          'fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex md:flex-col',
+          side === 'left'
+            ? 'left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]'
+            : 'right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]',
+          variant === 'floating' || variant === 'inset'
+            ? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]'
+            : 'bg-sidebar group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=left]:border-sidebar-border group-data-[side=right]:border-l group-data-[side=right]:border-sidebar-border',
+          className,
+        )}
+        style={style}
+        {...props}
+      >
+        <div
+          data-sidebar="sidebar"
+          data-slot="sidebar-inner"
+          className={cn(
+            'flex h-full min-h-0 w-full flex-col',
+            'flex-1 bg-sidebar group-data-[variant=floating]:overflow-hidden group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow-sm',
+          )}
+        >
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export type SidebarTriggerProps = ComponentPropsWithoutRef<'button'>;
 
-const SidebarTrigger = forwardRef<
-  HTMLButtonElement,
-  SidebarTriggerProps
->(function SidebarTrigger({ className, onClick, ...props }, ref) {
+const SidebarTrigger = function SidebarTrigger({
+  className,
+  onClick,
+  ref,
+  ...props
+}: Omit<SidebarTriggerProps, 'ref'> & {
+  ref?: Ref<HTMLButtonElement>;
+}) {
   const { toggleSidebar, isMobile, open, openMobile } = useSidebar();
 
   return (
@@ -368,69 +364,77 @@ const SidebarTrigger = forwardRef<
       <span className="sr-only">Toggle Sidebar</span>
     </button>
   );
-});
+};
 
 export type SidebarRailProps = ComponentPropsWithoutRef<'button'>;
 
-const SidebarRail = forwardRef<HTMLButtonElement, SidebarRailProps>(
-  function SidebarRail({ className, onClick, ...props }, ref) {
-    const { toggleSidebar } = useSidebar();
+const SidebarRail = function SidebarRail({
+  className,
+  onClick,
+  ref,
+  ...props
+}: Omit<SidebarRailProps, 'ref'> & { ref?: Ref<HTMLButtonElement> }) {
+  const { toggleSidebar } = useSidebar();
 
-    return (
-      <button
-        ref={ref}
-        type="button"
-        data-sidebar="rail"
-        data-slot="sidebar-rail"
-        aria-label="Toggle Sidebar"
-        tabIndex={-1}
-        title="Toggle Sidebar"
-        className={cn(
-          'absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-0.5 hover:after:bg-sidebar-border sm:flex',
-          'in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize',
-          '[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize',
-          'group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full hover:group-data-[collapsible=offcanvas]:bg-sidebar',
-          '[[data-side=left][data-collapsible=offcanvas]_&]:-right-2',
-          '[[data-side=right][data-collapsible=offcanvas]_&]:-left-2',
-          className,
-        )}
-        onClick={(event: MouseEvent<HTMLButtonElement>) => {
-          onClick?.(event);
-          toggleSidebar();
-        }}
-        {...props}
-      />
-    );
-  },
-);
+  return (
+    <button
+      ref={ref}
+      type="button"
+      data-sidebar="rail"
+      data-slot="sidebar-rail"
+      aria-label="Toggle Sidebar"
+      tabIndex={-1}
+      title="Toggle Sidebar"
+      className={cn(
+        'absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-0.5 hover:after:bg-sidebar-border sm:flex',
+        'in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize',
+        '[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize',
+        'group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full hover:group-data-[collapsible=offcanvas]:bg-sidebar',
+        '[[data-side=left][data-collapsible=offcanvas]_&]:-right-2',
+        '[[data-side=right][data-collapsible=offcanvas]_&]:-left-2',
+        className,
+      )}
+      onClick={(event: MouseEvent<HTMLButtonElement>) => {
+        onClick?.(event);
+        toggleSidebar();
+      }}
+      {...props}
+    />
+  );
+};
 
 export type SidebarInsetProps = ComponentPropsWithoutRef<'main'>;
 
-const SidebarInset = forwardRef<HTMLElement, SidebarInsetProps>(
-  function SidebarInset({ className, ...props }, ref) {
-    return (
-      <main
-        ref={ref}
-        data-slot="sidebar-inset"
-        className={cn(
-          'relative flex w-full flex-1 flex-col bg-background',
-          'md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const SidebarInset = function SidebarInset({
+  className,
+  ref,
+  ...props
+}: Omit<SidebarInsetProps, 'ref'> & { ref?: Ref<HTMLElement> }) {
+  return (
+    <main
+      ref={ref}
+      data-slot="sidebar-inset"
+      className={cn(
+        'relative flex w-full flex-1 flex-col bg-background',
+        'md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2',
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 export type SidebarInputProps = ComponentPropsWithoutRef<
   typeof Input
 >;
 
-const SidebarInput = forwardRef<
-  ElementRef<typeof Input>,
-  SidebarInputProps
->(function SidebarInput({ className, ...props }, ref) {
+const SidebarInput = function SidebarInput({
+  className,
+  ref,
+  ...props
+}: Omit<SidebarInputProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof Input>>;
+}) {
   return (
     <Input
       ref={ref}
@@ -444,54 +448,61 @@ const SidebarInput = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type SidebarHeaderProps = ComponentPropsWithoutRef<'div'>;
 
-const SidebarHeader = forwardRef<HTMLDivElement, SidebarHeaderProps>(
-  function SidebarHeader({ className, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        data-slot="sidebar-header"
-        data-sidebar="header"
-        className={cn(
-          'flex shrink-0 flex-col gap-2 bg-sidebar p-2',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const SidebarHeader = function SidebarHeader({
+  className,
+  ref,
+  ...props
+}: Omit<SidebarHeaderProps, 'ref'> & { ref?: Ref<HTMLDivElement> }) {
+  return (
+    <div
+      ref={ref}
+      data-slot="sidebar-header"
+      data-sidebar="header"
+      className={cn(
+        'flex shrink-0 flex-col gap-2 bg-sidebar p-2',
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 export type SidebarFooterProps = ComponentPropsWithoutRef<'div'>;
 
-const SidebarFooter = forwardRef<HTMLDivElement, SidebarFooterProps>(
-  function SidebarFooter({ className, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        data-slot="sidebar-footer"
-        data-sidebar="footer"
-        className={cn(
-          'flex shrink-0 flex-col gap-2 bg-sidebar p-2',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const SidebarFooter = function SidebarFooter({
+  className,
+  ref,
+  ...props
+}: Omit<SidebarFooterProps, 'ref'> & { ref?: Ref<HTMLDivElement> }) {
+  return (
+    <div
+      ref={ref}
+      data-slot="sidebar-footer"
+      data-sidebar="footer"
+      className={cn(
+        'flex shrink-0 flex-col gap-2 bg-sidebar p-2',
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 export type SidebarSeparatorProps = ComponentPropsWithoutRef<
   typeof Separator
 >;
 
-const SidebarSeparator = forwardRef<
-  ElementRef<typeof Separator>,
-  SidebarSeparatorProps
->(function SidebarSeparator({ className, ...props }, ref) {
+const SidebarSeparator = function SidebarSeparator({
+  className,
+  ref,
+  ...props
+}: Omit<SidebarSeparatorProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof Separator>>;
+}) {
   return (
     <Separator
       ref={ref}
@@ -501,14 +512,15 @@ const SidebarSeparator = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type SidebarContentProps = ComponentPropsWithoutRef<'div'>;
 
-const SidebarContent = forwardRef<
-  HTMLDivElement,
-  SidebarContentProps
->(function SidebarContent({ className, ...props }, ref) {
+const SidebarContent = function SidebarContent({
+  className,
+  ref,
+  ...props
+}: Omit<SidebarContentProps, 'ref'> & { ref?: Ref<HTMLDivElement> }) {
   return (
     <div
       ref={ref}
@@ -521,33 +533,39 @@ const SidebarContent = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type SidebarGroupProps = ComponentPropsWithoutRef<'div'>;
 
-const SidebarGroup = forwardRef<HTMLDivElement, SidebarGroupProps>(
-  function SidebarGroup({ className, ...props }, ref) {
-    return (
-      <div
-        ref={ref}
-        data-slot="sidebar-group"
-        data-sidebar="group"
-        className={cn(
-          'relative flex w-full min-w-0 flex-col p-2',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const SidebarGroup = function SidebarGroup({
+  className,
+  ref,
+  ...props
+}: Omit<SidebarGroupProps, 'ref'> & { ref?: Ref<HTMLDivElement> }) {
+  return (
+    <div
+      ref={ref}
+      data-slot="sidebar-group"
+      data-sidebar="group"
+      className={cn(
+        'relative flex w-full min-w-0 flex-col p-2',
+        className,
+      )}
+      {...props}
+    />
+  );
+};
 
 export type SidebarGroupLabelProps = useRender.ComponentProps<'div'>;
 
-const SidebarGroupLabel = forwardRef<
-  HTMLDivElement,
-  SidebarGroupLabelProps
->(function SidebarGroupLabel({ className, render, ...props }, ref) {
+const SidebarGroupLabel = function SidebarGroupLabel({
+  className,
+  render,
+  ref,
+  ...props
+}: Omit<SidebarGroupLabelProps, 'ref'> & {
+  ref?: Ref<HTMLDivElement>;
+}) {
   return useRender({
     ref,
     render,
@@ -567,15 +585,19 @@ const SidebarGroupLabel = forwardRef<
       props,
     ),
   });
-});
+};
 
 export type SidebarGroupActionProps =
   useRender.ComponentProps<'button'>;
 
-const SidebarGroupAction = forwardRef<
-  HTMLButtonElement,
-  SidebarGroupActionProps
->(function SidebarGroupAction({ className, render, ...props }, ref) {
+const SidebarGroupAction = function SidebarGroupAction({
+  className,
+  render,
+  ref,
+  ...props
+}: Omit<SidebarGroupActionProps, 'ref'> & {
+  ref?: Ref<HTMLButtonElement>;
+}) {
   return useRender({
     ref,
     render,
@@ -597,15 +619,18 @@ const SidebarGroupAction = forwardRef<
       props,
     ),
   });
-});
+};
 
 export type SidebarGroupContentProps =
   ComponentPropsWithoutRef<'div'>;
 
-const SidebarGroupContent = forwardRef<
-  HTMLDivElement,
-  SidebarGroupContentProps
->(function SidebarGroupContent({ className, ...props }, ref) {
+const SidebarGroupContent = function SidebarGroupContent({
+  className,
+  ref,
+  ...props
+}: Omit<SidebarGroupContentProps, 'ref'> & {
+  ref?: Ref<HTMLDivElement>;
+}) {
   return (
     <div
       ref={ref}
@@ -615,33 +640,33 @@ const SidebarGroupContent = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type SidebarMenuProps = ComponentPropsWithoutRef<'ul'>;
 
-const SidebarMenu = forwardRef<HTMLUListElement, SidebarMenuProps>(
-  function SidebarMenu({ className, ...props }, ref) {
-    return (
-      <ul
-        ref={ref}
-        data-slot="sidebar-menu"
-        data-sidebar="menu"
-        className={cn(
-          'flex w-full min-w-0 flex-col gap-1',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+const SidebarMenu = function SidebarMenu({
+  className,
+  ref,
+  ...props
+}: Omit<SidebarMenuProps, 'ref'> & { ref?: Ref<HTMLUListElement> }) {
+  return (
+    <ul
+      ref={ref}
+      data-slot="sidebar-menu"
+      data-sidebar="menu"
+      className={cn('flex w-full min-w-0 flex-col gap-1', className)}
+      {...props}
+    />
+  );
+};
 
 export type SidebarMenuItemProps = ComponentPropsWithoutRef<'li'>;
 
-const SidebarMenuItem = forwardRef<
-  HTMLLIElement,
-  SidebarMenuItemProps
->(function SidebarMenuItem({ className, ...props }, ref) {
+const SidebarMenuItem = function SidebarMenuItem({
+  className,
+  ref,
+  ...props
+}: Omit<SidebarMenuItemProps, 'ref'> & { ref?: Ref<HTMLLIElement> }) {
   return (
     <li
       ref={ref}
@@ -651,11 +676,11 @@ const SidebarMenuItem = forwardRef<
       {...props}
     />
   );
-});
+};
 
 const sidebarMenuButtonVariants = cva(
   // Icon-collapse: hide label spans only — not Avatar (Base UI root is often <span data-slot=avatar>)
-  'peer/menu-button relative flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm text-grayscale-800 ring-sidebar-ring outline-hidden transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:p-2! hover:bg-grayscale-200 focus-visible:ring-2 active:bg-grayscale-200 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-grayscale-200 data-[active=true]:font-medium data-[state=open]:hover:bg-grayscale-200 [&>span:last-child]:truncate group-data-[collapsible=icon]:[&>span:not([data-slot=avatar])]:hidden [&>svg]:size-4 [&>svg]:shrink-0',
+  'peer/menu-button relative flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm text-grayscale-800 ring-sidebar-ring outline-hidden transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:p-2! hover:bg-grayscale-200 focus-visible:ring-2 active:bg-grayscale-200 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-grayscale-200 data-[active=true]:font-medium data-popup-open:bg-grayscale-200 [&>span:last-child]:truncate group-data-[collapsible=icon]:[&>span:not([data-slot=avatar])]:hidden [&>svg]:size-4 [&>svg]:shrink-0',
   {
     variants: {
       variant: {
@@ -685,21 +710,18 @@ export type SidebarMenuButtonProps =
         | ComponentPropsWithoutRef<typeof TooltipContent>;
     };
 
-const SidebarMenuButton = forwardRef<
-  HTMLButtonElement,
-  SidebarMenuButtonProps
->(function SidebarMenuButton(
-  {
-    isActive = false,
-    variant = 'default',
-    size = 'default',
-    tooltip,
-    className,
-    render,
-    ...props
-  },
+const SidebarMenuButton = function SidebarMenuButton({
+  isActive = false,
+  variant = 'default',
+  size = 'default',
+  tooltip,
+  className,
+  render,
   ref,
-) {
+  ...props
+}: Omit<SidebarMenuButtonProps, 'ref'> & {
+  ref?: Ref<HTMLButtonElement>;
+}) {
   const { isMobile, state } = useSidebar();
   const buttonClassName = cn(
     sidebarMenuButtonVariants({ variant, size }),
@@ -747,20 +769,22 @@ const SidebarMenuButton = forwardRef<
       />
     </Tooltip>
   );
-});
+};
 
 export type SidebarMenuActionProps =
   useRender.ComponentProps<'button'> & {
     showOnHover?: boolean;
   };
 
-const SidebarMenuAction = forwardRef<
-  HTMLButtonElement,
-  SidebarMenuActionProps
->(function SidebarMenuAction(
-  { className, render, showOnHover = false, ...props },
+const SidebarMenuAction = function SidebarMenuAction({
+  className,
+  render,
+  showOnHover = false,
   ref,
-) {
+  ...props
+}: Omit<SidebarMenuActionProps, 'ref'> & {
+  ref?: Ref<HTMLButtonElement>;
+}) {
   return useRender({
     ref,
     render,
@@ -777,7 +801,7 @@ const SidebarMenuAction = forwardRef<
           'peer-data-[size=lg]/menu-button:top-2.5',
           'group-data-[collapsible=icon]:hidden',
           showOnHover &&
-            'group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-[active=true]/menu-button:text-sidebar-accent-foreground data-[state=open]:opacity-100 md:opacity-0',
+            'group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-[active=true]/menu-button:text-sidebar-accent-foreground data-popup-open:opacity-100 md:opacity-0',
           className,
         ),
         ...({
@@ -787,14 +811,17 @@ const SidebarMenuAction = forwardRef<
       props,
     ),
   });
-});
+};
 
 export type SidebarMenuBadgeProps = ComponentPropsWithoutRef<'div'>;
 
-const SidebarMenuBadge = forwardRef<
-  HTMLDivElement,
-  SidebarMenuBadgeProps
->(function SidebarMenuBadge({ className, ...props }, ref) {
+const SidebarMenuBadge = function SidebarMenuBadge({
+  className,
+  ref,
+  ...props
+}: Omit<SidebarMenuBadgeProps, 'ref'> & {
+  ref?: Ref<HTMLDivElement>;
+}) {
   return (
     <div
       ref={ref}
@@ -812,7 +839,7 @@ const SidebarMenuBadge = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type SidebarMenuSkeletonProps =
   ComponentPropsWithoutRef<'div'> & {
@@ -821,13 +848,15 @@ export type SidebarMenuSkeletonProps =
     width?: string;
   };
 
-const SidebarMenuSkeleton = forwardRef<
-  HTMLDivElement,
-  SidebarMenuSkeletonProps
->(function SidebarMenuSkeleton(
-  { className, showIcon = false, width = '70%', ...props },
+const SidebarMenuSkeleton = function SidebarMenuSkeleton({
+  className,
+  showIcon = false,
+  width = '70%',
   ref,
-) {
+  ...props
+}: Omit<SidebarMenuSkeletonProps, 'ref'> & {
+  ref?: Ref<HTMLDivElement>;
+}) {
   return (
     <div
       ref={ref}
@@ -856,14 +885,17 @@ const SidebarMenuSkeleton = forwardRef<
       />
     </div>
   );
-});
+};
 
 export type SidebarMenuSubProps = ComponentPropsWithoutRef<'ul'>;
 
-const SidebarMenuSub = forwardRef<
-  HTMLUListElement,
-  SidebarMenuSubProps
->(function SidebarMenuSub({ className, ...props }, ref) {
+const SidebarMenuSub = function SidebarMenuSub({
+  className,
+  ref,
+  ...props
+}: Omit<SidebarMenuSubProps, 'ref'> & {
+  ref?: Ref<HTMLUListElement>;
+}) {
   return (
     <ul
       ref={ref}
@@ -877,14 +909,17 @@ const SidebarMenuSub = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type SidebarMenuSubItemProps = ComponentPropsWithoutRef<'li'>;
 
-const SidebarMenuSubItem = forwardRef<
-  HTMLLIElement,
-  SidebarMenuSubItemProps
->(function SidebarMenuSubItem({ className, ...props }, ref) {
+const SidebarMenuSubItem = function SidebarMenuSubItem({
+  className,
+  ref,
+  ...props
+}: Omit<SidebarMenuSubItemProps, 'ref'> & {
+  ref?: Ref<HTMLLIElement>;
+}) {
   return (
     <li
       ref={ref}
@@ -894,7 +929,7 @@ const SidebarMenuSubItem = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type SidebarMenuSubButtonProps =
   useRender.ComponentProps<'button'> & {
@@ -902,20 +937,17 @@ export type SidebarMenuSubButtonProps =
     isActive?: boolean;
   };
 
-const SidebarMenuSubButton = forwardRef<
-  HTMLButtonElement,
-  SidebarMenuSubButtonProps
->(function SidebarMenuSubButton(
-  {
-    className,
-    render,
-    size = 'md',
-    isActive = false,
-    children,
-    ...props
-  },
+const SidebarMenuSubButton = function SidebarMenuSubButton({
+  className,
+  render,
+  size = 'md',
+  isActive = false,
+  children,
   ref,
-) {
+  ...props
+}: Omit<SidebarMenuSubButtonProps, 'ref'> & {
+  ref?: Ref<HTMLButtonElement>;
+}) {
   const content =
     typeof children === 'string' || typeof children === 'number' ? (
       <span>{children}</span>
@@ -949,7 +981,7 @@ const SidebarMenuSubButton = forwardRef<
       props,
     ),
   });
-});
+};
 
 export {
   Sidebar,

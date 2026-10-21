@@ -4,8 +4,11 @@
  */
 import { cn } from '@/lib/utils';
 import { Popover as BasePopover } from '@base-ui/react/popover';
-import { forwardRef } from 'react';
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ComponentRef,
+  Ref,
+} from 'react';
 
 export type PopoverProps = ComponentPropsWithoutRef<
   typeof BasePopover.Root
@@ -17,10 +20,13 @@ export type PopoverTriggerProps = ComponentPropsWithoutRef<
   typeof BasePopover.Trigger
 >;
 
-const PopoverTrigger = forwardRef<
-  HTMLButtonElement,
-  PopoverTriggerProps
->(function PopoverTrigger({ className, ...props }, ref) {
+const PopoverTrigger = function PopoverTrigger({
+  className,
+  ref,
+  ...props
+}: Omit<PopoverTriggerProps, 'ref'> & {
+  ref?: Ref<HTMLButtonElement>;
+}) {
   return (
     <BasePopover.Trigger
       ref={ref}
@@ -29,7 +35,7 @@ const PopoverTrigger = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type PopoverHandle<Payload = unknown> =
   BasePopover.Handle<Payload>;
@@ -46,10 +52,13 @@ export type PopoverViewportProps = ComponentPropsWithoutRef<
   typeof BasePopover.Viewport
 >;
 
-const PopoverViewport = forwardRef<
-  ElementRef<typeof BasePopover.Viewport>,
-  PopoverViewportProps
->(function PopoverViewport({ className, ...props }, ref) {
+const PopoverViewport = function PopoverViewport({
+  className,
+  ref,
+  ...props
+}: Omit<PopoverViewportProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BasePopover.Viewport>>;
+}) {
   return (
     <BasePopover.Viewport
       ref={ref}
@@ -58,7 +67,7 @@ const PopoverViewport = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type PopoverContentProps = ComponentPropsWithoutRef<
   typeof BasePopover.Popup
@@ -70,22 +79,19 @@ export type PopoverContentProps = ComponentPropsWithoutRef<
     positionerClassName?: string;
   };
 
-const PopoverContent = forwardRef<
-  ElementRef<typeof BasePopover.Popup>,
-  PopoverContentProps
->(function PopoverContent(
-  {
-    align = 'start',
-    alignOffset,
-    children,
-    className,
-    positionerClassName,
-    side,
-    sideOffset = 4,
-    ...props
-  },
+const PopoverContent = function PopoverContent({
+  align = 'start',
+  alignOffset,
+  children,
+  className,
+  positionerClassName,
+  side,
+  sideOffset = 4,
   ref,
-) {
+  ...props
+}: Omit<PopoverContentProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BasePopover.Popup>>;
+}) {
   return (
     <BasePopover.Portal>
       <BasePopover.Positioner
@@ -109,16 +115,19 @@ const PopoverContent = forwardRef<
       </BasePopover.Positioner>
     </BasePopover.Portal>
   );
-});
+};
 
 export type PopoverArrowProps = ComponentPropsWithoutRef<
   typeof BasePopover.Arrow
 >;
 
-const PopoverArrow = forwardRef<
-  ElementRef<typeof BasePopover.Arrow>,
-  PopoverArrowProps
->(function PopoverArrow({ className, ...props }, ref) {
+const PopoverArrow = function PopoverArrow({
+  className,
+  ref,
+  ...props
+}: Omit<PopoverArrowProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BasePopover.Arrow>>;
+}) {
   return (
     <BasePopover.Arrow
       ref={ref}
@@ -127,16 +136,19 @@ const PopoverArrow = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type PopoverCloseProps = ComponentPropsWithoutRef<
   typeof BasePopover.Close
 >;
 
-const PopoverClose = forwardRef<
-  ElementRef<typeof BasePopover.Close>,
-  PopoverCloseProps
->(function PopoverClose({ className, ...props }, ref) {
+const PopoverClose = function PopoverClose({
+  className,
+  ref,
+  ...props
+}: Omit<PopoverCloseProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BasePopover.Close>>;
+}) {
   return (
     <BasePopover.Close
       ref={ref}
@@ -145,16 +157,19 @@ const PopoverClose = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type PopoverTitleProps = ComponentPropsWithoutRef<
   typeof BasePopover.Title
 >;
 
-const PopoverTitle = forwardRef<
-  ElementRef<typeof BasePopover.Title>,
-  PopoverTitleProps
->(function PopoverTitle({ className, ...props }, ref) {
+const PopoverTitle = function PopoverTitle({
+  className,
+  ref,
+  ...props
+}: Omit<PopoverTitleProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BasePopover.Title>>;
+}) {
   return (
     <BasePopover.Title
       ref={ref}
@@ -166,16 +181,19 @@ const PopoverTitle = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export type PopoverDescriptionProps = ComponentPropsWithoutRef<
   typeof BasePopover.Description
 >;
 
-const PopoverDescription = forwardRef<
-  ElementRef<typeof BasePopover.Description>,
-  PopoverDescriptionProps
->(function PopoverDescription({ className, ...props }, ref) {
+const PopoverDescription = function PopoverDescription({
+  className,
+  ref,
+  ...props
+}: Omit<PopoverDescriptionProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BasePopover.Description>>;
+}) {
   return (
     <BasePopover.Description
       ref={ref}
@@ -187,7 +205,7 @@ const PopoverDescription = forwardRef<
       {...props}
     />
   );
-});
+};
 
 export {
   Popover,

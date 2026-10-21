@@ -1,20 +1,6 @@
-import { cn } from '@/lib/utils';
+import { type CvaProps, cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type { CSSProperties, ReactNode } from 'react';
-
-export type BadgeProps = {
-  variant?:
-    | 'primary'
-    | 'success'
-    | 'warning'
-    | 'destructive'
-    | 'info';
-  size?: 'sm' | 'md' | 'lg';
-  type?: 'number' | 'text';
-  children?: ReactNode;
-  className?: string;
-  style?: CSSProperties;
-};
 
 const badgeVariants = cva(
   [
@@ -62,6 +48,12 @@ const badgeVariants = cva(
 );
 
 export type BadgeVariants = VariantProps<typeof badgeVariants>;
+
+export type BadgeProps = CvaProps<BadgeVariants> & {
+  children?: ReactNode;
+  className?: string;
+  style?: CSSProperties;
+};
 
 export function Badge(props: BadgeProps) {
   const {

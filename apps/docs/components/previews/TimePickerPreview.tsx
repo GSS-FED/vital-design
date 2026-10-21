@@ -105,7 +105,6 @@ export function TimePickerInPopoverPreview() {
               value={value}
               onValueChange={setValue}
               showSeconds={false}
-              className="shadow-emphasis"
             />
           </PopoverContent>
         </Popover>

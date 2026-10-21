@@ -17,7 +17,9 @@ pnpm run test:coverage     # 計算測試覆蓋率
 pnpm run test:watch        # 監測檔案變更時重新執行測試
 pnpm run test:visual       # Playwright 視覺回歸（需先 storybook:build；baseline 在 visual/__baseline__，不進 git）
 pnpm run test:visual:update # 重新產生視覺 baseline
-pnpm run lint              # ESLint 檢查
+pnpm run lint              # Oxlint 檢查（.oxlintrc.json，含 type-aware 規則）
+pnpm run lint:design       # @shadcn/lint 設計系統規則（.oxlintrc.shadcn.json extends vital-design.lint.json；先重建 CSS tokens）
+pnpm run lint:design:audit # 對 blocks 跑 no-restyle，定期找跨 block 重複的覆寫（非 gate）
 pnpm run format            # Prettier 格式化
 pnpm run storybook:build   # 把 Storybook 打包成靜態網頁
 pnpm run tokens:build      # 重建所有 token 平台（generated.css + vital-theme-vars.ts）
@@ -28,7 +30,7 @@ pnpm run registry:validate # 驗證 registry 完整性（CI 用）
 
 # 文件站（apps/docs/）
 pnpm docs:dev              # Fumadocs dev server (port 3000)
-pnpm docs:lint             # 檢查 docs app 的 ESLint 與 Next.js 規則
+pnpm docs:lint             # 檢查 docs app 的 Oxlint 與 Next.js 規則（apps/docs/.oxlintrc.json）
 pnpm docs:build            # 建置文件站靜態頁面（含 registry JSON → /r）
 pnpm docs:start            # 啟動生產環境文件站
 ```
@@ -45,19 +47,20 @@ pnpm docs:start            # 啟動生產環境文件站
 
 ## AI Skills
 
-| Skill           | 說明                                             |
-| --------------- | ------------------------------------------------ |
-| `new-component` | 建立新的原子 UI 元件                             |
-| `add-registry`  | 維護 `registry/*.ts` 並產生 shadcn registry 項目 |
-| `add-docs`      | 補齊 Fumadocs 頁面、preview 與導覽               |
-| `create-block`  | 使用既有 VD 元件組合出 block                     |
-| `check-quality` | 檢查型別、lint、測試、registry 與文件同步狀態    |
+| Skill                  | 說明                                                            |
+| ---------------------- | --------------------------------------------------------------- |
+| `new-component`        | 建立新的原子 UI 元件                                            |
+| `add-registry`         | 維護 `registry/*.ts` 並產生 shadcn registry 項目                |
+| `add-docs`             | 補齊 Fumadocs 頁面、preview 與導覽                              |
+| `create-block`         | 使用既有 VD 元件組合出 block                                    |
+| `check-quality`        | 檢查型別、lint、測試、registry 與文件同步狀態                   |
+| `lint-design-decision` | 判讀 `lint:design` 結果：改 code 還是改 lint policy（contract） |
 
 ## Tech Stack
 
 ### 元件庫（根目錄）
 
-- **React 18** + **TypeScript 5** - 核心框架
+- **React 19** + **TypeScript 5** - 核心框架
 - **Tailwind CSS 4** - 樣式框架
 - **Vite 5** - 建置工具
 - **Vitest** + **Testing Library** - 測試
@@ -82,6 +85,7 @@ pnpm docs:start            # 啟動生產環境文件站
 - `src-v2/utils/` - 工具函數（`cn.ts` 等）
 - `src-v2/styles/` - 全域 CSS（`globals.css`）
 - 路徑別名：`@/` → `src-v2/`
+- `skills/` - 對外發佈給 consumer 專案 agent 的 skill（如 `use-vital-design`），與 `.agents/skills/` 的 repo 內部維護 skill 分開
 - `tokens/` - Design token 定義（Style Dictionary v5，三層結構）
   - `tokens/primitive/` - raw values（colors, typography, radius）
   - `tokens/semantic/` - intent-based（shadows, gradients, color aliases）
@@ -137,12 +141,13 @@ pnpm docs:start            # 啟動生產環境文件站
 
 - `public/r/` - 自動產生，勿手動編輯
 - `registry.json` - 自動產生，勿手動編輯（由 `registry/*.ts` 產生）
+- `vital-design.lint.json` - 對外發佈的設計系統 lint policy（registry item `vital-design-lint`）；只放 rules，路徑與 repo 專用設定放 `.oxlintrc.shadcn.json`。修改即改變 consumer 行為
 - `registry/` - TypeScript source，新增/修改元件的 registry 定義於此，修改後執行 `registry:build`
 
 ### AI 行為指引
 
 - 不要自行新增設計 tokens
-- 不要修改 Prettier/ESLint 設定
+- 不要修改 Prettier/Oxlint 設定
 - 新元件必須遵循現有結構模式
 - 任何結構性變動後（新增/刪除元件、修改 registry 結構、調整路徑或命名規範）須同步檢查並更新 `AGENTS.md`、`.agents/RULES.md`、`.agents/commands/`、`.agents/skills/` 中的相關說明
 - `.agents/` 是 AI workflow 文件唯一來源；`.claude` 是指向 `.agents` 的 symlink，不要分開維護兩份
@@ -160,8 +165,8 @@ pnpm docs:start            # 啟動生產環境文件站
 - **Registry 依賴**：`registryDependencies` 必須加 `@vital-design/` 前綴
 - **Compound 基礎元件**：單行文字輸入使用 `Input` primitive；自訂輸入組合優先使用 `InputGroup` parts；按鈕群組優先使用 `ButtonGroup`。`PasswordInput`、`SearchBar`、`SplitButton` 保持 preset/compat wrapper。
 - **src-v2 exports**：`src-v2` components use named exports only; do not add component default exports.
-- **Button icons**：`Button` / `SplitButton` 不使用 `icon` / `iconPlacement` props；icon 或 spinner 作為 children 傳入，並在 icon 上標 `data-icon="inline-start"` 或 `data-icon="inline-end"`。Button label size 使用 `md` / `lg`；icon-only Button 使用 `icon-md` / `icon-lg`。
-- **CVA helpers**：`src-v2` components may use `cva()` internally, but must not export raw variant helpers such as `buttonVariants`; component defaults live on the component API.
+- **Button icons**：`Button` / `SplitButton` 不使用 `icon` / `iconPlacement` props；icon 或 spinner 作為 children 傳入，並在 icon 上標 `data-icon="inline-start"` 或 `data-icon="inline-end"`。Button label size 使用 `md` / `lg`；icon-only Button 使用 `icon-md` / `icon-lg`。看起來像按鈕的連結使用 `LinkButton`（同檔 export，共用 Button 樣式，保留 link 語意）；不要用 `<Button nativeButton={false} render={<a />}>`，Base UI 會加上 `role="button"`。
+- **CVA helpers**：`src-v2` components may use `cva()` internally, but must not export raw variant helpers such as `buttonVariants`; component defaults live on the component API. Derive public variant props with `CvaProps<VariantProps<typeof xVariants>>` from `@/lib/utils` (strips CVA `| null`); do not hand-write duplicate unions. `CvaProps` keys stay optional — require an axis with an intersection override, omit internal axes, and keep extra constraints (e.g. Button `text`/`ghost` cannot use `dangerous`) as a discriminated union on top.
 - **Select family**：v2 public selection components are split by interaction: `Select` = flat dropdown for single or multiple values, `Combobox` = searchable input picker, `Command` + `Popover` = hierarchical path picker recipe, `DropdownMenu` = action menu (no value binding). `Command` is also public — a primitive for command palettes, custom searchable popups, and paged hierarchical pickers.
 - **Item**：display row primitive for media/title/description/actions. Use `size="list"` for select/list row density. Do not add search, loading, paging, or selection state to `Item`; use picker/menu/command primitives for those.
 - **Separator**：shared divider primitive. Prefer it over hand-rolled `div role="separator"` in new `src-v2` components.

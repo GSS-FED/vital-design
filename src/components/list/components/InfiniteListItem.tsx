@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { type JSX, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { colors } from 'src/constants';
 import { SpinnerIcon } from 'src/icons/SpinnerIcon';

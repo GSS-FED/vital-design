@@ -1,17 +1,14 @@
 import { DisabledIcon } from '@/icons/DisabledIcon';
 import { UserIcon } from '@/icons/UserIcon';
-import { cn } from '@/lib/utils';
+import { type CvaProps, cn } from '@/lib/utils';
 import { Avatar as BaseAvatar } from '@base-ui/react/avatar';
 import { type VariantProps, cva } from 'class-variance-authority';
-import { forwardRef } from 'react';
 import type {
   ComponentPropsWithoutRef,
   ComponentRef,
   ReactNode,
+  Ref,
 } from 'react';
-
-export type AvatarSize = AvatarVariants['size'];
-export type AvatarColor = AvatarVariants['color'];
 
 const avatarVariants = cva(
   [
@@ -154,19 +151,19 @@ const fallbackVariants = cva(
 export type AvatarVariants = VariantProps<typeof avatarVariants>;
 export type FallbackVariants = VariantProps<typeof fallbackVariants>;
 
+export type AvatarSize = NonNullable<AvatarVariants['size']>;
+export type AvatarColor = NonNullable<AvatarVariants['color']>;
+
 type BaseAvatarRootProps = Omit<
   ComponentPropsWithoutRef<typeof BaseAvatar.Root>,
   'children' | 'className' | 'color'
 >;
 
-export type AvatarRootProps = BaseAvatarRootProps & {
-  children?: ReactNode;
-  className?: string;
-  color?: AvatarColor;
-  bordered?: boolean;
-  disabled?: boolean;
-  size?: AvatarSize;
-};
+export type AvatarRootProps = BaseAvatarRootProps &
+  Omit<CvaProps<AvatarVariants>, 'clickable'> & {
+    children?: ReactNode;
+    className?: string;
+  };
 
 export type AvatarImageProps = Omit<
   ComponentPropsWithoutRef<typeof BaseAvatar.Image>,
@@ -178,10 +175,10 @@ export type AvatarImageProps = Omit<
 export type AvatarFallbackProps = Omit<
   ComponentPropsWithoutRef<typeof BaseAvatar.Fallback>,
   'className' | 'color'
-> & {
-  className?: string;
-  color?: AvatarColor;
-};
+> &
+  CvaProps<FallbackVariants> & {
+    className?: string;
+  };
 
 export type AvatarProps = Omit<AvatarRootProps, 'children'> & {
   name?: string;
@@ -191,10 +188,12 @@ export type AvatarProps = Omit<AvatarRootProps, 'children'> & {
   onLoadingStatusChange?: AvatarImageProps['onLoadingStatusChange'];
 };
 
-const AvatarRoot = forwardRef<
-  ComponentRef<typeof BaseAvatar.Root>,
-  AvatarRootProps
->(function AvatarRoot(props, ref) {
+const AvatarRoot = function AvatarRoot({
+  ref,
+  ...props
+}: Omit<AvatarRootProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAvatar.Root>>;
+}) {
   const {
     children,
     className,
@@ -235,12 +234,14 @@ const AvatarRoot = forwardRef<
       {children}
     </BaseAvatar.Root>
   );
-});
+};
 
-const AvatarImage = forwardRef<
-  ComponentRef<typeof BaseAvatar.Image>,
-  AvatarImageProps
->(function AvatarImage(props, ref) {
+const AvatarImage = function AvatarImage({
+  ref,
+  ...props
+}: Omit<AvatarImageProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAvatar.Image>>;
+}) {
   const { className, ...imageProps } = props;
 
   return (
@@ -251,12 +252,14 @@ const AvatarImage = forwardRef<
       className={cn('h-full w-full object-cover', className)}
     />
   );
-});
+};
 
-const AvatarFallback = forwardRef<
-  ComponentRef<typeof BaseAvatar.Fallback>,
-  AvatarFallbackProps
->(function AvatarFallback(props, ref) {
+const AvatarFallback = function AvatarFallback({
+  ref,
+  ...props
+}: Omit<AvatarFallbackProps, 'ref'> & {
+  ref?: Ref<ComponentRef<typeof BaseAvatar.Fallback>>;
+}) {
   const { className, color = 'default', ...fallbackProps } = props;
 
   return (
@@ -267,7 +270,7 @@ const AvatarFallback = forwardRef<
       className={cn(fallbackVariants({ color }), className)}
     />
   );
-});
+};
 
 function AvatarGroup({
   className,

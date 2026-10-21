@@ -131,7 +131,7 @@ Vittal Design uses a three-tier policy:
 | **No passthrough** | Interactive parts must be wrapped; never `const X = Base.Trigger` | `DialogTrigger` (good), `PopoverTrigger` (gap) |
 | **Exempt** | Parts with no styleable DOM output | `Provider`, state-only `Root`, bare `Portal` |
 
-`@base-ui/react` and `cmdk` do **not** ship `data-slot`. Direct re-exports have no slot until Vittal Design adds a `forwardRef` wrapper. Do not expect slots on `Select` root or `ToastPortal` — scope via child parts such as `select-trigger` or `toast-content` instead.
+`@base-ui/react` and `cmdk` do **not** ship `data-slot`. Direct re-exports have no slot until Vittal Design wraps them. Do not expect slots on `Select` root or `ToastPortal` — scope via child parts such as `select-trigger` or `toast-content` instead.
 
 ### Coverage status
 

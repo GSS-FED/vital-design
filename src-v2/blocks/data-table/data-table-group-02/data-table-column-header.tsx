@@ -1,5 +1,5 @@
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
-import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
+import { CaretDownIcon } from '@/icons/CaretDownIcon';
+import { CaretUpIcon } from '@/icons/CaretUpIcon';
 import { cn } from '@/lib/utils';
 import type { Column } from '@tanstack/react-table';
 import type { ReactNode } from 'react';
@@ -16,7 +16,9 @@ export function DataTableColumnHeader<TData, TValue>({
   className,
 }: DataTableColumnHeaderProps<TData, TValue>) {
   if (!column.getCanSort()) {
-    return <span className={className}>{title}</span>;
+    return (
+      <span className={cn('block truncate', className)}>{title}</span>
+    );
   }
 
   const sort = column.getIsSorted();
@@ -28,25 +30,31 @@ export function DataTableColumnHeader<TData, TValue>({
       data-sort={sort || undefined}
       onClick={column.getToggleSortingHandler()}
       className={cn(
-        'inline-flex cursor-pointer items-center gap-1 font-normal text-grayscale-opacity-800 transition-colors hover:text-grayscale-opacity-900 focus-visible:shadow-focus-primary focus-visible:outline-none',
+        'inline-flex max-w-full cursor-pointer items-center gap-1 font-normal text-grayscale-opacity-800 transition-colors hover:text-grayscale-opacity-900 focus-visible:shadow-focus-primary focus-visible:outline-none',
         className,
       )}
     >
-      <span>{title}</span>
+      <span className="truncate">{title}</span>
       <span
         aria-hidden="true"
-        className="inline-flex size-4 items-center justify-center text-grayscale-opacity-500"
+        className="inline-flex size-4 shrink-0 flex-col items-center justify-center"
       >
-        {sort === 'desc' ? (
-          <ChevronDownIcon className="size-3.5" />
-        ) : sort === 'asc' ? (
-          <ChevronUpIcon className="size-3.5" />
-        ) : (
-          <span className="relative inline-flex h-3 w-3 flex-col items-center justify-between leading-none">
-            <ChevronUpIcon className="size-2" />
-            <ChevronDownIcon className="size-2" />
-          </span>
-        )}
+        <CaretUpIcon
+          className={cn(
+            'size-2',
+            sort === 'asc'
+              ? 'text-grayscale-opacity-800'
+              : 'text-grayscale-opacity-400',
+          )}
+        />
+        <CaretDownIcon
+          className={cn(
+            'size-2',
+            sort === 'desc'
+              ? 'text-grayscale-opacity-800'
+              : 'text-grayscale-opacity-400',
+          )}
+        />
       </span>
     </button>
   );

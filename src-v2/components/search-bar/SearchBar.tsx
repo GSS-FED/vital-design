@@ -5,13 +5,14 @@ import {
 } from '@/components/input/input-group/InputGroup';
 import { SearchIcon } from '@/icons/SearchIcon';
 import { cn } from '@/lib/utils';
-import { type VariantProps, cva } from 'class-variance-authority';
-import { forwardRef, useRef } from 'react';
+import { cva } from 'class-variance-authority';
+import { useRef } from 'react';
 import type {
   CSSProperties,
   ComponentPropsWithoutRef,
-  ElementRef,
+  ComponentRef,
   KeyboardEvent,
+  Ref,
 } from 'react';
 
 const searchIconVariants = cva(
@@ -35,10 +36,6 @@ const searchIconVariants = cva(
   },
 );
 
-export type SearchIconVariants = VariantProps<
-  typeof searchIconVariants
->;
-
 export type SearchBarProps = Omit<
   ComponentPropsWithoutRef<'input'>,
   | 'className'
@@ -61,93 +58,96 @@ export type SearchBarProps = Omit<
   style?: CSSProperties;
 };
 
-const SearchBar = forwardRef<ElementRef<'input'>, SearchBarProps>(
-  function SearchBar(props, ref) {
-    const {
-      className,
-      defaultValue,
-      disabled = false,
-      isSearchIconClickable,
-      onChange,
-      onKeyUp,
-      onSearch,
-      placeholder,
-      style,
-      value,
-      width,
-      ...inputProps
-    } = props;
+const SearchBar = function SearchBar({
+  ref,
+  ...props
+}: Omit<SearchBarProps, 'ref'> & {
+  ref?: Ref<ComponentRef<'input'>>;
+}) {
+  const {
+    className,
+    defaultValue,
+    disabled = false,
+    isSearchIconClickable,
+    onChange,
+    onKeyUp,
+    onSearch,
+    placeholder,
+    style,
+    value,
+    width,
+    ...inputProps
+  } = props;
 
-    const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-    const setInputRef = (node: HTMLInputElement | null) => {
-      inputRef.current = node;
-      if (typeof ref === 'function') {
-        ref(node);
-      } else if (ref) {
-        ref.current = node;
-      }
-    };
+  const setInputRef = (node: HTMLInputElement | null) => {
+    inputRef.current = node;
+    if (typeof ref === 'function') {
+      ref(node);
+    } else if (ref) {
+      ref.current = node;
+    }
+  };
 
-    const handleSearch = () => {
-      if (!disabled && inputRef.current) {
-        onSearch?.(inputRef.current.value);
-      }
-    };
+  const handleSearch = () => {
+    if (!disabled && inputRef.current) {
+      onSearch?.(inputRef.current.value);
+    }
+  };
 
-    const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
-      onKeyUp?.(event);
-      if (event.key === 'Enter') {
-        handleSearch();
-      }
-    };
+  const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
+    onKeyUp?.(event);
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
-    const handleChange = (
-      event: React.ChangeEvent<HTMLInputElement>,
-    ) => {
-      onChange?.(event.target.value);
-    };
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    onChange?.(event.target.value);
+  };
 
-    const handleSearchIconClick = () => {
-      if (isSearchIconClickable) {
-        handleSearch();
-      }
-    };
+  const handleSearchIconClick = () => {
+    if (isSearchIconClickable) {
+      handleSearch();
+    }
+  };
 
-    return (
-      <InputGroup
-        data-slot="search-bar"
-        className={cn('rounded-[20px] pl-2 pr-4', className)}
-        style={{ width: width ?? '100%', ...style }}
+  return (
+    <InputGroup
+      data-slot="search-bar"
+      className={cn('rounded-[20px] pl-2 pr-4', className)}
+      style={{ width: width ?? '100%', ...style }}
+    >
+      <InputGroupAddon
+        data-testid="search-icon"
+        onClick={handleSearchIconClick}
+        className={searchIconVariants({
+          disabled,
+          clickable: isSearchIconClickable && !disabled,
+        })}
       >
-        <InputGroupAddon
-          data-testid="search-icon"
-          onClick={handleSearchIconClick}
-          className={searchIconVariants({
-            disabled,
-            clickable: isSearchIconClickable && !disabled,
-          })}
-        >
-          <SearchIcon className="size-4.5" />
-        </InputGroupAddon>
+        <SearchIcon className="size-4.5" />
+      </InputGroupAddon>
 
-        <InputGroupInput
-          {...inputProps}
-          {...(value !== undefined ? { value } : { defaultValue })}
-          type="text"
-          placeholder={placeholder}
-          onKeyUp={handleKeyUp}
-          onChange={handleChange}
-          disabled={disabled}
-          ref={setInputRef}
-          className={cn(
-            'ml-0 mr-4 max-w-[calc(100%-18px)]',
-            'whitespace-nowrap text-ellipsis overflow-hidden',
-          )}
-        />
-      </InputGroup>
-    );
-  },
-);
+      <InputGroupInput
+        {...inputProps}
+        {...(value !== undefined ? { value } : { defaultValue })}
+        type="text"
+        placeholder={placeholder}
+        onKeyUp={handleKeyUp}
+        onChange={handleChange}
+        disabled={disabled}
+        ref={setInputRef}
+        className={cn(
+          'ml-0 mr-4 max-w-[calc(100%-18px)]',
+          'whitespace-nowrap text-ellipsis overflow-hidden',
+        )}
+      />
+    </InputGroup>
+  );
+};
 
 export { SearchBar };

@@ -1,0 +1,73 @@
+---
+title: Design Lint
+description: Lint your app against the Vital Design theme with @shadcn/lint and Oxlint.
+---
+
+## Overview
+
+`@vital-design/vital-design-lint` installs the Vital Design lint policy for [`@shadcn/lint`](https://github.com/shadcn-ui/lint). It checks Tailwind classes against the theme that the registry wrote into your CSS, and each error explains what to use instead. That makes it useful for people and coding agents alike.
+
+The policy currently turns on two rules:
+
+| Rule                        | Catches                                                           | Example                                                    |
+| --------------------------- | ----------------------------------------------------------------- | ---------------------------------------------------------- |
+| `shadcn/no-raw-colors`      | Tailwind palette colors and undeclared color tokens               | `bg-pink-500` → use a theme color such as `bg-primary-500` |
+| `shadcn/no-unknown-classes` | Classes your Tailwind setup cannot generate, so no CSS is emitted | `break-anywhere` → `wrap-anywhere`                         |
+
+Both rules only check tokens and class validity. They do not restrict how you compose or restyle components, so installed components and blocks pass as-is.
+
+## Installation
+
+```bash
+npx shadcn@latest add @vital-design/vital-design-lint
+```
+
+This adds `vital-design.lint.json` to your project root and installs `@shadcn/lint` and `oxlint` as dev dependencies.
+
+## Configuration
+
+Create `.oxlintrc.json` in your project root, or add these keys to your existing one:
+
+```json
+{
+  "jsPlugins": ["@shadcn/lint"],
+  "extends": ["./vital-design.lint.json"]
+}
+```
+
+Then run:
+
+```bash
+npx oxlint
+```
+
+Add it to your `lint` script and CI. For coding agents, add this to `AGENTS.md`:
+
+```md
+After making changes, run `npm run lint` and fix all errors.
+```
+
+The linter finds your theme and components through `components.json`, which the shadcn CLI already created. You do not need a `settings.shadcn` block unless your setup has no `components.json`. See the [@shadcn/lint settings](https://github.com/shadcn-ui/lint#settings).
+
+## Adding your own rules
+
+Keep `vital-design.lint.json` unchanged so that re-running the install command can update it. Put project rules in your own `.oxlintrc.json`. Rules there override the policy:
+
+```json
+{
+  "jsPlugins": ["@shadcn/lint"],
+  "extends": ["./vital-design.lint.json"],
+  "rules": {
+    "shadcn/no-unknown-classes": ["error", { "allow": ["not-prose"] }]
+  }
+}
+```
+
+When you override a policy rule, write out its full options. Changing only the severity (for example `"warn"`) drops the options from the policy.
+
+For an intentional one-off exception, add a disable comment with a reason:
+
+```tsx
+// oxlint-disable-next-line shadcn/no-raw-colors -- Partner brand color, approved by design.
+<span className="bg-amber-400">Sponsor</span>
+```

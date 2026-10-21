@@ -15,7 +15,6 @@
         "name": "next"
       }
     ],
-    "baseUrl": ".",
     "paths": {
       "@/*": ["../../src-v2/*"],
       "~/*": ["./*"]
@@ -28,6 +27,7 @@
     "next-env.d.ts",
     "svg.d.ts",
     "**/*.ts",
+    "**/*.mts",
     "**/*.tsx",
     "**/*.cjs",
     ".next/types/**/*.ts",

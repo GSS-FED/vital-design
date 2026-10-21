@@ -15,7 +15,7 @@
    pnpm exec tsc --noEmit
    ```
 
-2. **ESLint 檢查**
+2. **Oxlint 檢查**
    ```bash
    pnpm run lint
    pnpm docs:lint
@@ -48,7 +48,7 @@
 
    重點確認項目：
    - `AGENTS.md` 的 commands 區塊是否覆蓋 root `package.json` 中的主要 scripts（含 `docs:*`、`registry:*`、`tokens:*`）
-   - `pnpm docs:lint` 是否能獨立檢查 `apps/docs`，且 Fumadocs app 套用了 Next.js ESLint 規則
+   - `pnpm docs:lint` 是否能獨立檢查 `apps/docs`，且 Fumadocs app 套用了 Oxlint `nextjs` 規則
    - `pnpm docs:build` 是否能成功建置文件站，確認路由、MDX 與 docs shell 整合仍正常
    - `AGENTS.md` 的 AI Commands / AI Skills 是否與 `.agents/commands/`、`.agents/skills/` 一致
    - slash command surface 是否固定為 `/new-component`、`/add-registry`、`/add-docs`、`/create-block`、`/check-quality`
@@ -59,7 +59,7 @@
 執行完成後，報告以下結果：
 
 - ✅ / ❌ TypeScript 類型檢查
-- ✅ / ❌ ESLint 檢查
+- ✅ / ❌ Oxlint 檢查
 - ✅ / ❌ 測試結果（通過/失敗數量）
 - ✅ / ❌ Registry 驗證
 - ✅ / ❌ 建置結果

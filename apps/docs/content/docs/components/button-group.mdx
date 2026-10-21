@@ -77,6 +77,52 @@ import {
 </ButtonGroup>;
 ```
 
+## Vertical
+
+<ComponentPreview>
+  <ButtonGroup orientation="vertical" className="w-[160px]">
+    <Button theme="default">Action A</Button>
+    <Button theme="default">Action B</Button>
+  </ButtonGroup>
+</ComponentPreview>
+
+```tsx
+import { Button } from '@/components/ui/Button';
+import { ButtonGroup } from '@/components/ui/ButtonGroup';
+
+<ButtonGroup orientation="vertical" className="w-[160px]">
+  <Button theme="default">Action A</Button>
+  <Button theme="default">Action B</Button>
+</ButtonGroup>;
+```
+
+## Nested
+
+A nested group stays joined inside, and is spaced apart from its siblings.
+
+<ComponentPreview>
+  <ButtonGroup>
+    <ButtonGroup>
+      <Button theme="default">Back</Button>
+      <Button theme="default">Next</Button>
+    </ButtonGroup>
+    <Button theme="default">Submit</Button>
+  </ButtonGroup>
+</ComponentPreview>
+
+```tsx
+import { Button } from '@/components/ui/Button';
+import { ButtonGroup } from '@/components/ui/ButtonGroup';
+
+<ButtonGroup>
+  <ButtonGroup>
+    <Button theme="default">Back</Button>
+    <Button theme="default">Next</Button>
+  </ButtonGroup>
+  <Button theme="default">Submit</Button>
+</ButtonGroup>;
+```
+
 ## Props
 
 ### ButtonGroup

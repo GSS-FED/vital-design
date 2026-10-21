@@ -1,9 +1,11 @@
-@source "../../../src-v2/**/*.{tsx,ts}";
-
-/* fumadocs-ui 先 import，讓 Vital Design tokens 後蓋前，確保主色調一致 */
+/* Tailwind 必須先於 fumadocs。preset.css 的 @theme 若出現在
+   @import "tailwindcss" 之前，--fd-nav-height 等變數會落到無 layer 的
+   :root，蓋過 on-root utilities，手機導覽列與 TOC 選單高度會塌成 0。 */
+@import '../../../src-v2/styles/globals.css';
 @import 'fumadocs-ui/css/shadcn.css';
 @import 'fumadocs-ui/css/preset.css';
-@import '../../../src-v2/styles/globals.css';
+
+@source "../../../src-v2/**/*.{tsx,ts}";
 
 @layer base {
   /* fumadocs-ui/css/shadcn.css maps --color-fd-* to bare --background /

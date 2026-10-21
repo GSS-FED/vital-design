@@ -2,6 +2,8 @@
 
 import { BellIcon } from '@/icons/BellIcon';
 import { CalendarIcon } from '@/icons/CalendarIcon';
+import { CaretDownIcon } from '@/icons/CaretDownIcon';
+import { CaretUpIcon } from '@/icons/CaretUpIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { ChevronDoubleLeftIcon } from '@/icons/ChevronDoubleLeftIcon';
 import { ChevronDoubleRightIcon } from '@/icons/ChevronDoubleRightIcon';
@@ -37,6 +39,8 @@ type IconEntry = {
 const icons: IconEntry[] = [
   { name: 'BellIcon', Icon: BellIcon },
   { name: 'CalendarIcon', Icon: CalendarIcon },
+  { name: 'CaretDownIcon', Icon: CaretDownIcon },
+  { name: 'CaretUpIcon', Icon: CaretUpIcon },
   { name: 'CheckIcon', Icon: CheckIcon },
   { name: 'ChevronDownIcon', Icon: ChevronDownIcon },
   { name: 'ChevronUpIcon', Icon: ChevronUpIcon },

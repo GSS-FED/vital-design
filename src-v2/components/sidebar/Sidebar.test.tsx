@@ -455,6 +455,8 @@ describe('Sidebar', () => {
       await screen.findByRole('menuitem', { name: 'Profile' }),
     ).toBeInTheDocument();
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    expect(trigger).toHaveAttribute('data-popup-open');
+    expect(trigger).toHaveClass('data-popup-open:bg-grayscale-200');
   });
 
   it('forwards skin className/style to the mobile sheet panel', async () => {

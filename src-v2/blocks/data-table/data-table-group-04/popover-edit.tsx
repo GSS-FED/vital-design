@@ -9,8 +9,8 @@ import {
 } from '@/components/popover/Popover';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { cn } from '@/lib/utils';
-import { forwardRef, useState } from 'react';
-import type { ComponentPropsWithoutRef } from 'react';
+import { useState } from 'react';
+import type { ComponentPropsWithoutRef, Ref } from 'react';
 import {
   PERSON_OPTIONS,
   type PersonOption,
@@ -209,13 +209,15 @@ export type PopoverEditTriggerProps = ComponentPropsWithoutRef<
   payload: EditorPayload;
 };
 
-export const PopoverEditTrigger = forwardRef<
-  HTMLButtonElement,
-  PopoverEditTriggerProps
->(function PopoverEditTrigger(
-  { payload, className, children, ...props },
+export const PopoverEditTrigger = function PopoverEditTrigger({
+  payload,
+  className,
+  children,
   ref,
-) {
+  ...props
+}: Omit<PopoverEditTriggerProps, 'ref'> & {
+  ref?: Ref<HTMLButtonElement>;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -243,7 +245,7 @@ export const PopoverEditTrigger = forwardRef<
       </PopoverContent>
     </Popover>
   );
-});
+};
 
 export type {
   EditorPayload,

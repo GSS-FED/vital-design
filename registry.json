@@ -249,6 +249,23 @@
       ]
     },
     {
+      "name": "vital-design-lint",
+      "type": "registry:file",
+      "title": "Vital Design Lint",
+      "description": "Design system lint policy for @shadcn/lint (Oxlint): theme tokens only, no unknown Tailwind classes",
+      "devDependencies": [
+        "@shadcn/lint",
+        "oxlint"
+      ],
+      "files": [
+        {
+          "path": "vital-design.lint.json",
+          "target": "~/vital-design.lint.json",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
       "name": "icon-bell",
       "type": "registry:ui",
       "title": "Bell Icon",
@@ -270,6 +287,32 @@
         {
           "path": "src-v2/icons/CalendarIcon.tsx",
           "target": "src/components/icons/CalendarIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-caret-down",
+      "type": "registry:ui",
+      "title": "Caret Down Icon",
+      "description": "Caret Down Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CaretDownIcon.tsx",
+          "target": "src/components/icons/CaretDownIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-caret-up",
+      "type": "registry:ui",
+      "title": "Caret Up Icon",
+      "description": "Caret Up Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CaretUpIcon.tsx",
+          "target": "src/components/icons/CaretUpIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -603,6 +646,16 @@
           "type": "registry:ui"
         },
         {
+          "path": "src-v2/icons/CaretDownIcon.tsx",
+          "target": "src/components/icons/CaretDownIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CaretUpIcon.tsx",
+          "target": "src/components/icons/CaretUpIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src-v2/icons/CheckIcon.tsx",
           "target": "src/components/icons/CheckIcon.tsx",
           "type": "registry:ui"
@@ -794,7 +847,7 @@
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
-      "description": "Button component with default, text, and ghost variants, multiple themes and sizes",
+      "description": "Button and LinkButton components with default, text, and ghost variants, multiple themes and sizes",
       "dependencies": [
         "@base-ui/react",
         "class-variance-authority",
@@ -1782,6 +1835,11 @@
           "path": "src-v2/blocks/data-table/data-table-group-01/pinning.ts",
           "target": "src/blocks/data-table-group-01/pinning.ts",
           "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-01/resize-handle.tsx",
+          "target": "src/blocks/data-table-group-01/resize-handle.tsx",
+          "type": "registry:block"
         }
       ]
     },
@@ -1810,8 +1868,9 @@
         "@vital-design/table",
         "@vital-design/tag",
         "@vital-design/toolbar",
+        "@vital-design/icon-caret-down",
+        "@vital-design/icon-caret-up",
         "@vital-design/icon-chevron-down",
-        "@vital-design/icon-chevron-up",
         "@vital-design/icon-ellipsis",
         "@vital-design/vital-theme"
       ],
@@ -1844,6 +1903,11 @@
         {
           "path": "src-v2/blocks/data-table/data-table-group-02/pinning.ts",
           "target": "src/blocks/data-table-group-02/pinning.ts",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-02/resize-handle.tsx",
+          "target": "src/blocks/data-table-group-02/resize-handle.tsx",
           "type": "registry:block"
         },
         {

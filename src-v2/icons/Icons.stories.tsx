@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentType, SVGProps } from 'react';
 import { BellIcon } from './BellIcon';
+import { CaretDownIcon } from './CaretDownIcon';
+import { CaretUpIcon } from './CaretUpIcon';
 import { CheckIcon } from './CheckIcon';
 import { ChevronDownIcon } from './ChevronDownIcon';
 import { ChevronLeftIcon } from './ChevronLeftIcon';
@@ -29,6 +31,8 @@ type IconEntry = {
 
 const icons: IconEntry[] = [
   { name: 'BellIcon', Icon: BellIcon },
+  { name: 'CaretDownIcon', Icon: CaretDownIcon },
+  { name: 'CaretUpIcon', Icon: CaretUpIcon },
   { name: 'CheckIcon', Icon: CheckIcon },
   { name: 'ChevronDownIcon', Icon: ChevronDownIcon },
   { name: 'ChevronUpIcon', Icon: ChevronUpIcon },

@@ -47,16 +47,16 @@ import {
 
 ## Parts
 
-| Part           | Element     | Notes                                                                                                      |
-| -------------- | ----------- | ---------------------------------------------------------------------------------------------------------- |
-| `Table`        | `<table>`   | Wrapped in a scroll container. Use `containerClassName` to style the frame and `containerRef` to reach it. |
-| `TableHeader`  | `<thead>`   | Adds a bottom border on each child `<tr>`.                                                                 |
-| `TableBody`    | `<tbody>`   | Drops the border from the last row.                                                                        |
-| `TableFooter`  | `<tfoot>`   | Muted background with top border.                                                                          |
-| `TableRow`     | `<tr>`      | Hover + `aria-expanded` + `data-state="selected"` styling.                                                 |
-| `TableHead`    | `<th>`      | Dense header cell with right border.                                                                       |
-| `TableCell`    | `<td>`      | Dense body cell with right border.                                                                         |
-| `TableCaption` | `<caption>` | Muted, top margin.                                                                                         |
+| Part           | Element     | Notes                                                                                                                      |
+| -------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `Table`        | `<table>`   | Wrapped in a scroll container. Use `containerClassName` to style the frame and `containerRef` to reach it.                 |
+| `TableHeader`  | `<thead>`   | Adds a bottom border on each child `<tr>`.                                                                                 |
+| `TableBody`    | `<tbody>`   | Drops the border from the last row.                                                                                        |
+| `TableFooter`  | `<tfoot>`   | Muted background with top border.                                                                                          |
+| `TableRow`     | `<tr>`      | Hover + `aria-expanded` + `data-state="selected"` styling.                                                                 |
+| `TableHead`    | `<th>`      | Dense header cell with right border. `position: relative`, so edge overlays (e.g. a column resize handle) can anchor to it. |
+| `TableCell`    | `<td>`      | Dense body cell with right border.                                                                                         |
+| `TableCaption` | `<caption>` | Muted, top margin.                                                                                                         |
 
 ## Scroll container
 
@@ -75,6 +75,33 @@ Because the container sets `overflow-x`, the browser computes `overflow-y` as
 `auto` too. Nesting it inside another scrolling region therefore produces two
 scroll areas; pass `containerClassName="overflow-x-visible"` to opt out when the
 outer region should own the scroll.
+
+## Striped rows（斑馬紋）
+
+`Table` 的 `striped` prop 會為 `<tbody>` 的隔行加上底色。`true` 等同 `'even'`（第 2、4… 列上色）；用 `'odd'` 讓第 1、3… 列上色。
+
+```tsx
+<Table striped>…</Table>
+<Table striped="odd">…</Table>
+```
+
+底色透過 CSS variables 設定，可在 `Table` 上覆寫：
+
+| Variable            | 預設                                                                         | 說明                                                   |
+| ------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------ |
+| `--table-stripe`    | `var(--grayscale-opacity-100)`                                               | 斑馬紋底色                                             |
+| `--table-row-hover` | `var(--grayscale-opacity-200)`（striped 時）／`var(--grayscale-opacity-100)` | hover、`aria-expanded`、`data-state="selected"` 的底色 |
+
+```tsx
+<Table
+  striped
+  className="[--table-stripe:var(--primary-50)] [--table-row-hover:var(--primary-100)]"
+>
+  …
+</Table>
+```
+
+Hover 與 selected 永遠蓋過斑馬紋底色，因此開啟 `striped` 時 hover 會自動加深一階以維持對比。
 
 ## Selected row state
 
