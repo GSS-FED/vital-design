@@ -48,8 +48,7 @@ for (const { id } of stories) {
       () =>
         window.__STORYBOOK_PREVIEW__?.storyRenders.some(
           (render) =>
-            render.phase === 'completed' ||
-            render.phase === 'errored',
+            render.phase === 'finished' || render.phase === 'errored',
         ) ?? false,
     );
     await expect(page.locator('body')).not.toHaveClass(
