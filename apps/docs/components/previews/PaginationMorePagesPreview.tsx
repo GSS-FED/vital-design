@@ -14,6 +14,7 @@ import {
 import { Fragment, useState } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
+// oxlint-disable jsx-a11y/control-has-associated-label -- useRender merges the accessible name onto this button
 export function PaginationMorePagesPreview() {
   const [page, setPage] = useState(121);
   const totalPages = 200;
