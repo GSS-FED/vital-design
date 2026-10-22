@@ -7,11 +7,14 @@ import { PageFirstIcon } from '@/icons/PageFirstIcon';
 import { PageLastIcon } from '@/icons/PageLastIcon';
 import { cn } from '@/lib/utils';
 import { useRender } from '@base-ui/react/use-render';
-import type { ComponentPropsWithRef, MouseEvent } from 'react';
+import type { ComponentProps, MouseEvent } from 'react';
 
-export type PaginationProps = ComponentPropsWithRef<'nav'>;
+export type PaginationProps = ComponentProps<'nav'>;
 
-function Pagination({ className, ...props }: PaginationProps) {
+const Pagination = function Pagination({
+  className,
+  ...props
+}: PaginationProps) {
   return (
     <nav
       aria-label="pagination"
@@ -20,11 +23,11 @@ function Pagination({ className, ...props }: PaginationProps) {
       {...props}
     />
   );
-}
+};
 
-export type PaginationContentProps = ComponentPropsWithRef<'ul'>;
+export type PaginationContentProps = ComponentProps<'ul'>;
 
-function PaginationContent({
+const PaginationContent = function PaginationContent({
   className,
   ...props
 }: PaginationContentProps) {
@@ -38,11 +41,11 @@ function PaginationContent({
       {...props}
     />
   );
-}
+};
 
-export type PaginationItemProps = ComponentPropsWithRef<'li'>;
+export type PaginationItemProps = ComponentProps<'li'>;
 
-function PaginationItem({
+const PaginationItem = function PaginationItem({
   className,
   ...props
 }: PaginationItemProps) {
@@ -53,7 +56,7 @@ function PaginationItem({
       {...props}
     />
   );
-}
+};
 
 export type PaginationLinkProps = useRender.ComponentProps<'a'> & {
   isActive?: boolean;
@@ -65,18 +68,16 @@ function preventActivation(event: MouseEvent<HTMLAnchorElement>) {
   event.stopPropagation();
 }
 
-function PaginationLink({
+const PaginationLink = function PaginationLink({
   className,
   disabled = false,
   href,
   isActive = false,
   render,
-  ref,
   tabIndex,
   ...props
 }: PaginationLinkProps) {
   return useRender({
-    ref,
     render,
     defaultTagName: 'a',
     state: { slot: 'pagination-link', active: isActive, disabled },
@@ -105,11 +106,11 @@ function PaginationLink({
       ),
     },
   });
-}
+};
 
 export type PaginationPreviousProps = PaginationLinkProps;
 
-function PaginationPrevious({
+const PaginationPrevious = function PaginationPrevious({
   children,
   className,
   ...props
@@ -128,11 +129,11 @@ function PaginationPrevious({
       {children}
     </PaginationLink>
   );
-}
+};
 
 export type PaginationNextProps = PaginationLinkProps;
 
-function PaginationNext({
+const PaginationNext = function PaginationNext({
   children,
   className,
   ...props
@@ -151,11 +152,11 @@ function PaginationNext({
       />
     </PaginationLink>
   );
-}
+};
 
 export type PaginationFirstProps = PaginationLinkProps;
 
-function PaginationFirst({
+const PaginationFirst = function PaginationFirst({
   children,
   className,
   ...props
@@ -174,11 +175,11 @@ function PaginationFirst({
       {children}
     </PaginationLink>
   );
-}
+};
 
 export type PaginationLastProps = PaginationLinkProps;
 
-function PaginationLast({
+const PaginationLast = function PaginationLast({
   children,
   className,
   ...props
@@ -197,11 +198,11 @@ function PaginationLast({
       />
     </PaginationLink>
   );
-}
+};
 
-export type PaginationEllipsisProps = ComponentPropsWithRef<'span'>;
+export type PaginationEllipsisProps = ComponentProps<'span'>;
 
-function PaginationEllipsis({
+const PaginationEllipsis = function PaginationEllipsis({
   children,
   className,
   ...props
@@ -219,7 +220,7 @@ function PaginationEllipsis({
       <span className="sr-only">{children ?? 'More pages'}</span>
     </span>
   );
-}
+};
 
 export {
   Pagination,
