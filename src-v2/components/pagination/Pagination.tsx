@@ -7,38 +7,29 @@ import { PageFirstIcon } from '@/icons/PageFirstIcon';
 import { PageLastIcon } from '@/icons/PageLastIcon';
 import { cn } from '@/lib/utils';
 import { useRender } from '@base-ui/react/use-render';
-import { forwardRef } from 'react';
-import type {
-  ComponentPropsWithoutRef,
-  ElementRef,
-  MouseEvent,
-} from 'react';
+import type { ComponentPropsWithRef, MouseEvent } from 'react';
 
-export type PaginationProps = ComponentPropsWithoutRef<'nav'>;
+export type PaginationProps = ComponentPropsWithRef<'nav'>;
 
-const Pagination = forwardRef<ElementRef<'nav'>, PaginationProps>(
-  function Pagination({ className, ...props }, ref) {
-    return (
-      <nav
-        ref={ref}
-        aria-label="pagination"
-        data-slot="pagination"
-        className={cn('flex w-fit items-center font-sans', className)}
-        {...props}
-      />
-    );
-  },
-);
+function Pagination({ className, ...props }: PaginationProps) {
+  return (
+    <nav
+      aria-label="pagination"
+      data-slot="pagination"
+      className={cn('flex w-fit items-center font-sans', className)}
+      {...props}
+    />
+  );
+}
 
-export type PaginationContentProps = ComponentPropsWithoutRef<'ul'>;
+export type PaginationContentProps = ComponentPropsWithRef<'ul'>;
 
-const PaginationContent = forwardRef<
-  ElementRef<'ul'>,
-  PaginationContentProps
->(function PaginationContent({ className, ...props }, ref) {
+function PaginationContent({
+  className,
+  ...props
+}: PaginationContentProps) {
   return (
     <ul
-      ref={ref}
       data-slot="pagination-content"
       className={cn(
         'm-0 flex list-none items-center gap-1 p-0',
@@ -47,23 +38,22 @@ const PaginationContent = forwardRef<
       {...props}
     />
   );
-});
+}
 
-export type PaginationItemProps = ComponentPropsWithoutRef<'li'>;
+export type PaginationItemProps = ComponentPropsWithRef<'li'>;
 
-const PaginationItem = forwardRef<
-  ElementRef<'li'>,
-  PaginationItemProps
->(function PaginationItem({ className, ...props }, ref) {
+function PaginationItem({
+  className,
+  ...props
+}: PaginationItemProps) {
   return (
     <li
-      ref={ref}
       data-slot="pagination-item"
       className={cn('inline-flex', className)}
       {...props}
     />
   );
-});
+}
 
 export type PaginationLinkProps = useRender.ComponentProps<'a'> & {
   isActive?: boolean;
@@ -75,21 +65,16 @@ function preventActivation(event: MouseEvent<HTMLAnchorElement>) {
   event.stopPropagation();
 }
 
-const PaginationLink = forwardRef<
-  ElementRef<'a'>,
-  PaginationLinkProps
->(function PaginationLink(
-  {
-    className,
-    disabled = false,
-    href,
-    isActive = false,
-    render,
-    tabIndex,
-    ...props
-  },
+function PaginationLink({
+  className,
+  disabled = false,
+  href,
+  isActive = false,
+  render,
   ref,
-) {
+  tabIndex,
+  ...props
+}: PaginationLinkProps) {
   return useRender({
     ref,
     render,
@@ -120,20 +105,17 @@ const PaginationLink = forwardRef<
       ),
     },
   });
-});
+}
 
 export type PaginationPreviousProps = PaginationLinkProps;
 
-const PaginationPrevious = forwardRef<
-  ElementRef<'a'>,
-  PaginationPreviousProps
->(function PaginationPrevious(
-  { children, className, ...props },
-  ref,
-) {
+function PaginationPrevious({
+  children,
+  className,
+  ...props
+}: PaginationPreviousProps) {
   return (
     <PaginationLink
-      ref={ref}
       aria-label="Go to previous page"
       data-slot="pagination-previous"
       className={cn('me-1 px-1.5', className)}
@@ -146,17 +128,17 @@ const PaginationPrevious = forwardRef<
       {children}
     </PaginationLink>
   );
-});
+}
 
 export type PaginationNextProps = PaginationLinkProps;
 
-const PaginationNext = forwardRef<
-  ElementRef<'a'>,
-  PaginationNextProps
->(function PaginationNext({ children, className, ...props }, ref) {
+function PaginationNext({
+  children,
+  className,
+  ...props
+}: PaginationNextProps) {
   return (
     <PaginationLink
-      ref={ref}
       aria-label="Go to next page"
       data-slot="pagination-next"
       className={cn('ms-1 px-1.5', className)}
@@ -169,17 +151,17 @@ const PaginationNext = forwardRef<
       />
     </PaginationLink>
   );
-});
+}
 
 export type PaginationFirstProps = PaginationLinkProps;
 
-const PaginationFirst = forwardRef<
-  ElementRef<'a'>,
-  PaginationFirstProps
->(function PaginationFirst({ children, className, ...props }, ref) {
+function PaginationFirst({
+  children,
+  className,
+  ...props
+}: PaginationFirstProps) {
   return (
     <PaginationLink
-      ref={ref}
       aria-label="Go to first page"
       data-slot="pagination-first"
       className={cn('px-1.5', className)}
@@ -192,17 +174,17 @@ const PaginationFirst = forwardRef<
       {children}
     </PaginationLink>
   );
-});
+}
 
 export type PaginationLastProps = PaginationLinkProps;
 
-const PaginationLast = forwardRef<
-  ElementRef<'a'>,
-  PaginationLastProps
->(function PaginationLast({ children, className, ...props }, ref) {
+function PaginationLast({
+  children,
+  className,
+  ...props
+}: PaginationLastProps) {
   return (
     <PaginationLink
-      ref={ref}
       aria-label="Go to last page"
       data-slot="pagination-last"
       className={cn('px-1.5', className)}
@@ -215,21 +197,17 @@ const PaginationLast = forwardRef<
       />
     </PaginationLink>
   );
-});
+}
 
-export type PaginationEllipsisProps =
-  ComponentPropsWithoutRef<'span'>;
+export type PaginationEllipsisProps = ComponentPropsWithRef<'span'>;
 
-const PaginationEllipsis = forwardRef<
-  ElementRef<'span'>,
-  PaginationEllipsisProps
->(function PaginationEllipsis(
-  { children, className, ...props },
-  ref,
-) {
+function PaginationEllipsis({
+  children,
+  className,
+  ...props
+}: PaginationEllipsisProps) {
   return (
     <span
-      ref={ref}
       data-slot="pagination-ellipsis"
       className={cn(
         'inline-flex size-[30px] shrink-0 items-center justify-center text-grayscale-opacity-600',
@@ -241,7 +219,7 @@ const PaginationEllipsis = forwardRef<
       <span className="sr-only">{children ?? 'More pages'}</span>
     </span>
   );
-});
+}
 
 export {
   Pagination,
