@@ -1,3 +1,7 @@
+import '@fontsource/noto-sans-tc/400.css';
+import '@fontsource/noto-sans-tc/500.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
 import type { Decorator, Preview } from '@storybook/react';
 import { Agentation } from 'agentation';
 import '../src-v2/styles/globals.css';
