@@ -19,7 +19,7 @@ const Pagination = function Pagination({
     <nav
       aria-label="pagination"
       data-slot="pagination"
-      className={cn('flex w-fit items-center font-sans', className)}
+      className={cn('mx-auto w-full flex justify-center', className)}
       {...props}
     />
   );
@@ -34,10 +34,7 @@ const PaginationContent = function PaginationContent({
   return (
     <ul
       data-slot="pagination-content"
-      className={cn(
-        'm-0 flex list-none items-center gap-1 p-0',
-        className,
-      )}
+      className={cn('flex flex-row items-center gap-1', className)}
       {...props}
     />
   );
@@ -46,16 +43,9 @@ const PaginationContent = function PaginationContent({
 export type PaginationItemProps = ComponentProps<'li'>;
 
 const PaginationItem = function PaginationItem({
-  className,
   ...props
 }: PaginationItemProps) {
-  return (
-    <li
-      data-slot="pagination-item"
-      className={cn('inline-flex', className)}
-      {...props}
-    />
-  );
+  return <li data-slot="pagination-item" {...props} />;
 };
 
 export type PaginationLinkProps = useRender.ComponentProps<'a'> & {
@@ -119,7 +109,7 @@ const PaginationPrevious = function PaginationPrevious({
     <PaginationLink
       aria-label="Go to previous page"
       data-slot="pagination-previous"
-      className={cn('me-1 px-1.5', className)}
+      className={cn('me-1', className)}
       {...props}
     >
       <ChevronLeftIcon
@@ -142,7 +132,7 @@ const PaginationNext = function PaginationNext({
     <PaginationLink
       aria-label="Go to next page"
       data-slot="pagination-next"
-      className={cn('ms-1 px-1.5', className)}
+      className={cn('ms-1', className)}
       {...props}
     >
       {children}
@@ -158,14 +148,12 @@ export type PaginationFirstProps = PaginationLinkProps;
 
 const PaginationFirst = function PaginationFirst({
   children,
-  className,
   ...props
 }: PaginationFirstProps) {
   return (
     <PaginationLink
       aria-label="Go to first page"
       data-slot="pagination-first"
-      className={cn('px-1.5', className)}
       {...props}
     >
       <PageFirstIcon
@@ -181,14 +169,12 @@ export type PaginationLastProps = PaginationLinkProps;
 
 const PaginationLast = function PaginationLast({
   children,
-  className,
   ...props
 }: PaginationLastProps) {
   return (
     <PaginationLink
       aria-label="Go to last page"
       data-slot="pagination-last"
-      className={cn('px-1.5', className)}
       {...props}
     >
       {children}
