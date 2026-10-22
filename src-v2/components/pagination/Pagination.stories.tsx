@@ -6,6 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/select/Select';
+import { cn } from '@/lib/utils';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Fragment, useState } from 'react';
 import {
@@ -40,10 +41,12 @@ function PageNavigation({
   page,
   total,
   onPageChange,
+  className,
 }: {
   page: number;
   total: number;
   onPageChange: (page: number) => void;
+  className?: string;
 }) {
   const pages = Array.from(
     { length: total },
@@ -59,7 +62,7 @@ function PageNavigation({
   );
 
   return (
-    <Pagination>
+    <Pagination className={cn('w-auto', className)}>
       <PaginationContent>
         <PaginationItem>
           <PaginationFirst
@@ -180,15 +183,16 @@ function TableExample() {
   const totalPages = Math.ceil(totalItems / pageSize);
 
   return (
-    <div className="flex w-full flex-wrap items-center justify-between gap-6 rounded-b border-t border-grayscale-opacity-200 bg-grayscale-opacity-100 px-4 py-2 font-sans text-sm leading-5 text-grayscale-opacity-600">
-      <div className="flex flex-wrap items-center gap-6">
+    <div className="w-full overflow-x-auto rounded-b border-t border-grayscale-opacity-200 bg-grayscale-opacity-100">
+      <div className="flex w-max min-w-full items-center justify-between gap-6 px-4 py-2 font-sans text-sm leading-5 whitespace-nowrap text-grayscale-opacity-600">
         <PageNavigation
+          className="mx-0 shrink-0"
           page={page}
           total={totalPages}
           onPageChange={setPage}
         />
         <form
-          className="flex items-center gap-2"
+          className="flex shrink-0 items-center gap-2"
           onSubmit={(event) => {
             event.preventDefault();
             const value = Number(
@@ -214,34 +218,34 @@ function TableExample() {
             前往
           </button>
         </form>
-      </div>
-      <div className="flex flex-wrap items-center gap-6">
-        <div className="flex items-center gap-2">
-          <Select
-            value={String(pageSize)}
-            onValueChange={(value) => {
-              setPageSize(Number(value));
-              setPage(1);
-            }}
-          >
-            <SelectTrigger className="w-20" aria-label="每頁筆數">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {[10, 20, 50].map((size) => (
-                <SelectItem key={size} value={String(size)}>
-                  {size}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <span>筆資料 / 頁</span>
+        <div className="flex shrink-0 items-center gap-6">
+          <div className="flex items-center gap-2">
+            <Select
+              value={String(pageSize)}
+              onValueChange={(value) => {
+                setPageSize(Number(value));
+                setPage(1);
+              }}
+            >
+              <SelectTrigger className="w-20" aria-label="每頁筆數">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {[10, 20, 50].map((size) => (
+                  <SelectItem key={size} value={String(size)}>
+                    {size}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <span>筆資料 / 頁</span>
+          </div>
+          <span aria-live="polite">
+            第 {(page - 1) * pageSize + 1} -{' '}
+            {Math.min(page * pageSize, totalItems)} 筆，共{' '}
+            {totalItems} 筆
+          </span>
         </div>
-        <span aria-live="polite">
-          第 {(page - 1) * pageSize + 1} -{' '}
-          {Math.min(page * pageSize, totalItems)} 筆，共 {totalItems}{' '}
-          筆
-        </span>
       </div>
     </div>
   );
