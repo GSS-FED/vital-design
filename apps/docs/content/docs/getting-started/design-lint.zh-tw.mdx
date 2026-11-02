@@ -1,0 +1,73 @@
+---
+title: 設計 Lint
+description: 用 @shadcn/lint 與 Oxlint，依 Vital Design 主題檢查應用。
+---
+
+## 概覽
+
+`@vital-design/vital-design-lint` 會安裝 Vital Design 給 [`@shadcn/lint`](https://github.com/shadcn-ui/lint) 用的 lint 政策。它依 registry 寫進 CSS 的主題檢查 Tailwind class，每則錯誤都會說明該改用什麼。人與寫程式的 agent 都能用。
+
+目前政策開啟兩條規則：
+
+| 規則                        | 抓到什麼                                      | 例子                                                       |
+| --------------------------- | --------------------------------------------- | ---------------------------------------------------------- |
+| `shadcn/no-raw-colors`      | Tailwind 色票顏色，以及沒有宣告的顏色 token   | `bg-pink-500` → 改用主題色，例如 `bg-primary-500`          |
+| `shadcn/no-unknown-classes` | Tailwind 產生不出來、所以不會有 CSS 的 class  | `break-anywhere` → `wrap-anywhere`                         |
+
+兩條規則只檢查 token 與 class 是否有效。它們不限制你怎麼組合或覆寫元件，所以裝進來的元件與區塊可以照原樣通過。
+
+## 安裝
+
+```bash
+npx shadcn@latest add @vital-design/vital-design-lint
+```
+
+這會在專案根目錄加上 `vital-design.lint.json`，並把 `@shadcn/lint` 與 `oxlint` 裝成 dev dependencies。
+
+## 設定
+
+在專案根目錄建立 `.oxlintrc.json`，或把這些鍵加進既有的檔案：
+
+```json
+{
+  "jsPlugins": ["@shadcn/lint"],
+  "extends": ["./vital-design.lint.json"]
+}
+```
+
+然後執行：
+
+```bash
+npx oxlint
+```
+
+把它加進 `lint` script 與 CI。如果有 coding agent，在 `AGENTS.md` 加上：
+
+```md
+After making changes, run `npm run lint` and fix all errors.
+```
+
+Linter 會透過 `components.json` 找到主題與元件。shadcn CLI 已經建立這份檔案。除非專案沒有 `components.json`，否則不需要 `settings.shadcn`。見 [@shadcn/lint settings](https://github.com/shadcn-ui/lint#settings)。
+
+## 加上自己的規則
+
+不要改 `vital-design.lint.json`，這樣重跑安裝指令時才能更新它。專案自己的規則放在 `.oxlintrc.json`。那裡的規則會蓋過政策：
+
+```json
+{
+  "jsPlugins": ["@shadcn/lint"],
+  "extends": ["./vital-design.lint.json"],
+  "rules": {
+    "shadcn/no-unknown-classes": ["error", { "allow": ["not-prose"] }]
+  }
+}
+```
+
+覆寫政策裡的規則時，要把選項完整寫出來。如果只改嚴重性（例如改成 `"warn"`），政策裡的選項會掉。
+
+單次、有意的例外，用帶原因的 disable 註解：
+
+```tsx
+// oxlint-disable-next-line shadcn/no-raw-colors -- Partner brand color, approved by design.
+<span className="bg-amber-400">Sponsor</span>
+```

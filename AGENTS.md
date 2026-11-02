@@ -174,6 +174,7 @@ pnpm docs:start            # 啟動生產環境文件站
 - **文件站 Preview 元件**：`apps/docs/components/previews/` 的元件必須有 `'use client'`，因為 MDX 頁面是 RSC，不能直接傳 inline function prop（如 `onChange={() => {}}`）
 - **文件站 .next 快取**：修改 `apps/docs/source.config.ts` 後，須執行 `rm -rf apps/docs/.next` 再重建，否則 source config hash 不符導致新頁面 404
 - **文件站 `/llms.txt`**：`output: 'export'` 下必須用 `dynamic = 'force-static'` 的 Route Handler（`apps/docs/app/llms.txt/route.ts`），build 後輸出 `apps/docs/out/llms.txt`。Sidebar 用 `content/docs/meta.json` 的 `[llms.txt](/llms.txt)`（Fumadocs 15.7 無 `external:` 前綴，same-origin 連結要在 layout 把該 node 標 `external: true` 才會整頁開檔）。產生器須跳過 `/llms.txt`，避免 index 自連。不要加 `.md` rewrite／middleware（靜態 export 不支援）
+- **文件站繁體中文**：英文留在 `/docs/...`，繁中在 `/zh-tw/docs/...`。不要加 middleware，也不要做 `/en` 前綴（靜態輸出沒有 rewrite）。內容用 dot parser：`page.mdx` 是英文，`page.zh-tw.mdx` 是繁中；`meta.zh-tw.json` 只翻譯顯示名，`pages` 陣列與英文相同。缺中文檔時同一個中文網址顯示英文，並標「尚未翻譯」。站內連結在中文檔寫 `/zh-tw/docs/...`。prop、程式碼、CLI、registry 名稱維持英文。新頁面先寫英文；改了已有中文檔的使用者可見文句時，同一份變更更新 `.zh-tw.mdx`。`/llms.txt` 維持英文索引
 - **文件站路徑別名**：`@/` 指向 `src-v2/`（元件庫），`~/` 指向 `apps/docs/`（文件站），兩個 alias 並存於 `apps/docs/next.config.ts`
 - **src/ vs src-v2/**：根目錄同時存在 `src/`（legacy npm 分發面，供既有專案相容維護）和 `src-v2/`（新元件與 registry 分發主路徑）；所有新元件開發均在 `src-v2/`，不得新增到 `src/`
 - **Primitive 選型**：`src-v2/` 新增或重構元件若需要 headless primitive，預設使用 `@base-ui/react`；目前 package build 入口仍是 `src/index.tsx`，docs 與 registry 內容則以 `src-v2/` 為主

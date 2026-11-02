@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "getting-started",
+    "components",
+    "blocks",
+    "design-tokens",
+    "registry",
+    "changelog",
+    "[llms.txt](/llms.txt)"
+  ]
+}

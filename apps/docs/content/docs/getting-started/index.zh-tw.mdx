@@ -1,0 +1,112 @@
+---
+title: 簡介
+description: Vittal Design 是以 TypeScript 與 Tailwind CSS 4 建立的 React 19 元件庫。
+---
+
+## 概覽
+
+**Vittal Design**（`@fed/vital-design`）是給企業應用使用的 React 元件庫。它提供一套可套用、可調整的無障礙 UI 元件。目前以 registry 發佈的 `src-v2/` 是新元件的主要來源。
+
+> **發佈方式：** 新專案與新元件請使用 registry 的 `src-v2/`。已發佈的 `@fed/vital-design` npm 套件仍可供既有專案相容使用，但它對應的是較舊的 `src/`，不包含只有 registry 才有的 `src-v2` 資產。
+
+## 特性
+
+- **React 19** — 以現代 React 的 hooks 與並行功能建立
+- **TypeScript** — 匯出型別，維持完整的型別檢查
+- **Tailwind CSS 4** — utility-first 樣式，搭配設計變數
+- **Base UI** — `src-v2/` 裡複雜互動使用的無障礙、無樣式 primitive
+- **shadcn Registry** — 新元件的主要安裝方式，透過 shadcn CLI
+
+## 元件分類
+
+### 基礎
+
+標籤、動作、狀態與裝飾用的小元件。
+
+| 元件                                         | 說明                         |
+| -------------------------------------------- | ---------------------------- |
+| [Button](/zh-tw/docs/components/button)            | 實心與文字動作按鈕           |
+| [ButtonGroup](/zh-tw/docs/components/button-group) | 把相關按鈕組成共用框線的一組 |
+| [Avatar](/zh-tw/docs/components/avatar)            | 頭像，沒有圖片時顯示色塊縮寫 |
+| [Chip](/zh-tw/docs/components/chip)                | 可選取的篩選標籤             |
+| [Tag](/zh-tw/docs/components/tag)                  | 唯讀、可上色的標籤           |
+| [Label](/zh-tw/docs/components/label)              | 表單標籤 primitive           |
+| [Separator](/zh-tw/docs/components/separator)      | 水平或垂直分隔線             |
+| [Skeleton](/zh-tw/docs/components/skeleton)        | 載入中的佔位                 |
+| [Spinner](/zh-tw/docs/components/spinner)          | 行內載入指示                 |
+| [Icons](/zh-tw/docs/components/icons)              | 可經 registry 安裝的圖示     |
+
+### 輸入
+
+文字輸入與表單組合。
+
+| 元件                                             | 說明                               |
+| ------------------------------------------------ | ---------------------------------- |
+| [Field](/zh-tw/docs/components/field)              | 欄位、標籤、說明與錯誤狀態         |
+| [Input](/zh-tw/docs/components/input)              | 單行、密碼與組合輸入               |
+| [NumberInput](/zh-tw/docs/components/number-input) | 帶增減按鈕的數字輸入               |
+| [SearchBar](/zh-tw/docs/components/search-bar)     | 以 `InputGroup` 組成的搜尋輸入     |
+| [Checkbox](/zh-tw/docs/components/checkbox)        | 可呈現不確定狀態的核取方塊         |
+| [RadioGroup](/zh-tw/docs/components/radio-group)   | 互斥的單選                         |
+| [Switch](/zh-tw/docs/components/switch)            | 開關                               |
+| [Slider](/zh-tw/docs/components/slider)            | 數值範圍輸入                       |
+
+### 選擇器與選單
+
+自己管理彈出層、搜尋或鍵盤操作的元件。
+
+| 元件                                               | 說明                         |
+| -------------------------------------------------- | ---------------------------- |
+| [Select](/zh-tw/docs/components/select)              | 單選或多選的平面下拉         |
+| [Autocomplete](/zh-tw/docs/components/autocomplete)  | 自由輸入時的建議清單         |
+| [Combobox](/zh-tw/docs/components/combobox)          | 可搜尋的輸入選擇器，可帶標籤 |
+| [Command](/zh-tw/docs/components/command)            | 命令面板與可搜尋清單的底層   |
+| [DropdownMenu](/zh-tw/docs/components/dropdown-menu) | 動作選單                     |
+| [Popover](/zh-tw/docs/components/popover)            | 錨定的浮動內容               |
+| [Calendar](/zh-tw/docs/components/calendar)          | 日期選擇月曆                 |
+| [TimePicker](/zh-tw/docs/components/time-picker)     | 時間選擇                     |
+
+### 覆蓋層與回饋
+
+疊在內容上或旁邊的表面與狀態訊息。
+
+| 元件                                    | 說明           |
+| --------------------------------------- | -------------- |
+| [Alert](/zh-tw/docs/components/alert)     | 狀態或回饋訊息 |
+| [Toast](/zh-tw/docs/components/toast)     | 短暫通知       |
+| [Dialog](/zh-tw/docs/components/dialog)   | 模態對話框     |
+| [Sheet](/zh-tw/docs/components/sheet)     | 側邊滑入面板   |
+| [Tooltip](/zh-tw/docs/components/tooltip) | 懸停提示       |
+
+### 版面與導覽
+
+用來排列內容、在內容之間移動的結構元件。
+
+| 元件                                             | 說明                          |
+| ------------------------------------------------ | ----------------------------- |
+| [Tabs](/zh-tw/docs/components/tabs)                | 分頁內容                      |
+| [Collapsible](/zh-tw/docs/components/collapsible)  | 可展開與收合的區域            |
+| [Item](/zh-tw/docs/components/item)                | 媒體、標題、說明與動作的一列  |
+| [Table](/zh-tw/docs/components/table)              | 表格 primitive                |
+| [Toolbar](/zh-tw/docs/components/toolbar)          | 水平指令列                    |
+| [SplitButton](/zh-tw/docs/components/split-button) | 主要動作加上相鄰的次要觸發器  |
+| [Progress](/zh-tw/docs/components/progress)        | 線性進度                      |
+| [ScrollArea](/zh-tw/docs/components/scroll-area)   | 自訂捲軸的容器                |
+| [Resizable](/zh-tw/docs/components/resizable)      | 可調整大小的面板              |
+
+### 組合區塊
+
+把多個原子元件組成常見畫面的現成模式。
+
+| 區塊                                                                       | 說明                                           |
+| -------------------------------------------------------------------------- | ---------------------------------------------- |
+| [Data Table — Candidate Tree](/zh-tw/docs/blocks/data-table-group-01)    | 樹狀表格，含動作列、篩選下拉與釘選             |
+| [Data Table — ESG Emission Tree](/zh-tw/docs/blocks/data-table-group-02) | 可展開的樹狀表格，含固定軌道、可排序表頭與選取 |
+| [Data Table — Editable Cells](/zh-tw/docs/blocks/data-table-group-04)    | 可編輯表格，含行內文字、popover 選擇器與標籤   |
+
+## 設計原則
+
+- **可預期** — 各元件的 props 用法一致
+- **可組合** — 元件彼此之間，以及和自訂程式，都能放在一起用
+- **無障礙** — 透過 Base UI 提供 ARIA 與鍵盤操作
+- **可調主題** — 用 CSS custom properties 調整設計變數
