@@ -90,7 +90,7 @@ function collectPages(
 
 function descriptionMap(): Map<string, string> {
   const descriptions = new Map<string, string>();
-  for (const page of source.getPages()) {
+  for (const page of source.getPages('en')) {
     const description = (page.data as { description?: string })
       .description;
     if (description) descriptions.set(page.url, description);
@@ -98,9 +98,9 @@ function descriptionMap(): Map<string, string> {
   return descriptions;
 }
 
-export function withExternalLlmsLink(
-  tree: typeof source.pageTree,
-): typeof source.pageTree {
+type DocsTree = ReturnType<typeof source.getPageTree>;
+
+export function withExternalLlmsLink(tree: DocsTree): DocsTree {
   return {
     ...tree,
     children: tree.children.map((node) =>
@@ -116,7 +116,8 @@ export function buildLlmsIndex(): string {
   const sections: { heading: string; links: string[] }[] = [];
   const optional: string[] = [];
 
-  for (const node of source.pageTree.children as TreeNode[]) {
+  for (const node of source.getPageTree('en')
+    .children as TreeNode[]) {
     if (node.type === 'separator') continue;
 
     if (node.type === 'page') {

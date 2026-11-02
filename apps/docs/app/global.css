@@ -53,6 +53,8 @@
   /* Soften the page bg so the article panel can read as elevated. */
   body {
     background-color: var(--grayscale-100);
+    font-family: var(--font-roboto), 'Noto Sans TC', 'PingFang TC',
+      'Microsoft JhengHei', sans-serif;
   }
 
   /* Lift the docs article into a card. fumadocs renders <article> as the

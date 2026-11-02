@@ -59,8 +59,16 @@ allowed-tools: Read, Write, Edit, Bash
 6. **確認 meta.json**（如需調整排序）
    - `apps/docs/content/docs/components/meta.json`
    - `apps/docs/content/docs/blocks/meta.json`
+   - 若該資料夾已有 `meta.zh-tw.json`，`pages` 陣列要與英文檔保持相同順序
 
-7. **Changelog**（使用者可見的變更才寫）
+7. **繁體中文（可選，英文寫完再加）**
+   - 英文 MDX 是準稿。要翻譯時，在同一路徑加 `名稱.zh-tw.mdx`（資料夾首頁是 `index.zh-tw.mdx`）
+   - 中文檔的站內連結用 `/zh-tw/docs/...`
+   - prop、程式碼、CLI、元件名、registry 名稱維持英文
+   - 這個資料夾已經有中文檔時，改了英文裡使用者看得到的文句，就在同一份變更更新對應的 `.zh-tw.mdx`。還沒有中文檔就不用補
+   - 不要只新增中文檔而沒有英文檔
+
+8. **Changelog**（使用者可見的變更才寫）
    - 新元件、breaking 用法、token、安裝方式：在 `apps/docs/content/docs/changelog.mdx` 最上方補一則（當月 `## Month YYYY` 標題下）
    - 不要寫內部 refactor / CI；不要用 npm 版號或 semantic-release 輸出
 

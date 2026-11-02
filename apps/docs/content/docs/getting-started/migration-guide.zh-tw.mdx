@@ -1,0 +1,342 @@
+---
+title: 從 v0 遷移到 v1
+description: 從舊的 npm 套件表面，改用 registry 的 src-v2 元件。
+---
+
+## 哪些東西會變
+
+v0 是從 `src/` 建出來、已發佈的 `@fed/vital-design` 套件。
+v1 是從 `src-v2/` 建出來、用 registry 安裝的元件。
+
+主要差別是元件歸誰管：
+
+- v0：從 `@fed/vital-design` import
+- v1：用 Vittal Design registry 安裝，再從應用裡複製出來的檔案 import
+
+```tsx
+// v0
+import { Button, Select } from '@fed/vital-design';
+
+// v1
+import { Button } from '@/components/ui/Button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectTrigger,
+} from '@/components/ui/Select';
+```
+
+新工作用 v1。既有畫面在遷移完成前才留著 v0。
+
+## 開始之前
+
+1. 依 [安裝](/zh-tw/docs/getting-started/installation) 加上 registry 設定。
+2. 完成 [Tailwind CSS 設定](/zh-tw/docs/getting-started/tailwind-setup)。
+3. 一次遷移一個畫面。
+4. 確認沒有 v0 的 import 之後，再移除 `@fed/vital-design` 與 `styled-components`。
+
+## 安裝方式
+
+安裝需要的元件：
+
+```bash
+npx shadcn@latest add @vital-design/button
+```
+
+安裝後，從 `components.json` 產生的本地路徑 import。
+這份文件的範例使用 `@/components/ui/*`。
+
+## 元件對照
+
+v0 套件的 barrel 會匯出 `Avatar`、`Button`、`Checkbox`、`Chip`、
+`RadioGroup`、`SearchBar`、`Select`、`SplitButton`、`Switch`、`Tag`
+與 `TreeSelect`。`ActionList` 與 `ActionInfiniteList` 已不再從 v0 匯出，替代方式見下表。其他列是舊原始碼與 v1 registry 的對應。
+
+| v0 元件或原始碼              | v0 原始檔                                              | v1 registry 項目                                  | v1 原始檔                                                                         | 說明                                                                                                                                                                                                 |
+| ---------------------------- | ------------------------------------------------------ | ------------------------------------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Avatar`                     | `src/components/avatar/Avatar.tsx`                     | `@vital-design/avatar`                            | `src-v2/components/avatar/Avatar.tsx`                                             | 角色相同                                                                                                                                                                                             |
+| `Button`                     | `src/components/button/Button.tsx`                     | `@vital-design/button`                            | `src-v2/components/button/Button.tsx`                                             | 圖示與載入中的 API 已改                                                                                                                                                                              |
+| `SplitButton`                | `src/components/button/split-button/SplitButton.tsx`   | `@vital-design/split-button`                      | `src-v2/components/button/split-button/SplitButton.tsx`                           | 內部使用 `ButtonGroup`                                                                                                                                                                               |
+| `Checkbox`                   | `src/components/checkbox/Checkbox.tsx`                 | `@vital-design/checkbox`                          | `src-v2/components/checkbox/Checkbox.tsx`                                         | 角色相同                                                                                                                                                                                             |
+| `Chip`                       | `src/components/chip/Chip.tsx`                         | `@vital-design/chip`                              | `src-v2/components/chip/Chip.tsx`                                                 | 角色相同                                                                                                                                                                                             |
+| `RadioGroup`                 | `src/components/radio-group/RadioGroup.tsx`            | `@vital-design/radio-group`                       | `src-v2/components/radio-group/RadioGroup.tsx`                                    | 角色相同                                                                                                                                                                                             |
+| `SearchBar`                  | `src/components/search-bar/SearchBar.tsx`              | `@vital-design/search-bar`                        | `src-v2/components/search-bar/SearchBar.tsx`                                      | 以 `InputGroup` 組成                                                                                                                                                                                 |
+| `Select`                     | `src/components/select/Select.tsx`                     | `@vital-design/select`                            | `src-v2/components/select/Select.tsx`                                             | 單選或多選的平面下拉                                                                                                                                                                                 |
+| `Switch`                     | `src/components/switch/Switch.tsx`                     | `@vital-design/switch`                            | `src-v2/components/switch/Switch.tsx`                                             | 角色相同                                                                                                                                                                                             |
+| `Tag`                        | `src/components/tag/Tag.tsx`                           | `@vital-design/tag`                               | `src-v2/components/tag/Tag.tsx`                                                   | 角色相同                                                                                                                                                                                             |
+| `TextInput`                  | `src/components/input/textInput/TextInput.tsx`         | `@vital-design/input`                             | `src-v2/components/input/input/Input.tsx`                                         | 用 `Input`；附加內容用 `InputGroup`；走 value 風格的呼叫端優先用 Base UI 的 `onValueChange`                                                                                                          |
+| `TextareaInput` → `Textarea` | `src/components/input/textareaInput/TextareaInput.tsx` | `@vital-design/textarea`                          | `src-v2/components/textarea/Textarea.tsx`                                         | 原生 textarea primitive；只有自訂輸入外殼才用 `InputGroupTextarea`                                                                                                                                   |
+| `PasswordInput`              | `src/components/input/passwordInput/PasswordInput.tsx` | `@vital-design/password-input`                    | `src-v2/components/input/password-input/PasswordInput.tsx`                        | 以 `InputGroup` 組成                                                                                                                                                                                 |
+| `Mask`                       | `src/components/mask/Mask.tsx`                         | `@vital-design/scroll-area`                       | `src-v2/components/scroll-area/ScrollArea.tsx`                                    | 沒有一對一的包裝元件；視窗需要邊緣淡出時，自己組合 `ScrollArea`                                                                                                                                     |
+| `ActionList`                 | （已移除）                                             | 依用途選擇，見說明                                | —                                                                                 | 動作選單 → `@vital-design/dropdown-menu`；值選擇器 → `@vital-design/combobox`；階層選擇 → `@vital-design/command` + `@vital-design/popover`；顯示列 → `@vital-design/item`                            |
+| `ActionInfiniteList`         | （已移除）                                             | 依用途選擇，見說明                                | —                                                                                 | 與 `ActionList` 相同；載入與分頁由應用自己處理                                                                                                                                                       |
+| `TreeSelect`                 | `src/components/tree-select/TreeSelect.tsx`            | `@vital-design/command` + `@vital-design/popover` | `src-v2/components/command/Command.tsx` + `src-v2/components/popover/Popover.tsx` | 階層路徑選擇做成配方；畫面自己管理頁面堆疊、搜尋、載入與已選路徑                                                                                                                                    |
+
+## 只有 v1 才有的新元件
+
+這些元件不在 v0 的 npm 套件裡：
+
+| 元件          | Registry 項目                | 使用時機                    |
+| ------------- | ---------------------------- | --------------------------- |
+| `ButtonGroup` | `@vital-design/button-group` | 把按鈕或分割按鈕的部分排成一組 |
+| `Input`       | `@vital-design/input`        | 單行文字欄位                |
+| `InputGroup`  | `@vital-design/input-group`  | 自訂輸入外殼                |
+| `Item`        | `@vital-design/item`         | 帶媒體與動作的顯示列        |
+| `Label`       | `@vital-design/label`        | 表單控制項的標籤            |
+| `Combobox`    | `@vital-design/combobox`     | 可搜尋的選擇器或標籤選擇器  |
+| `Skeleton`    | `@vital-design/skeleton`     | 載入中的佔位                |
+| `Spinner`     | `@vital-design/spinner`      | 載入指示                    |
+
+## 怎麼選選擇器
+
+依新的分工來選：
+
+| 需求                                       | v1 元件                                                   |
+| ------------------------------------------ | --------------------------------------------------------- |
+| 單選或多選的平面值選擇器                   | `Select`                                                  |
+| 可搜尋的值選擇器、自動完成或 chips         | `Combobox`                                                |
+| 階層路徑選擇                               | `Command` + `Popover` 配方                                |
+| 每一項都會觸發 callback 的動作選單         | `DropdownMenu`                                            |
+| 顯示用的列                                 | `Item` + `ItemGroup`（選擇器密度用 `size="list"`）        |
+| 命令面板                                   | `Command`                                                 |
+
+`Command` 是公開 primitive（`@vital-design/command`），用來做命令面板、自訂的可搜尋彈出層，以及分頁的階層選擇器。
+
+改觸發器的外觀不會改變該用哪個元件。`Select` 與 `Combobox` 維持各自的 root。階層路徑選擇用 `Popover` + `Command` 組出來。
+
+不要為了拿到按鈕觸發器，把 `Select`、`Combobox` 或自訂的 `Command` 選擇器包進 `DropdownMenu`。只有彈出列是指令、而不是綁定的值時，才用 `DropdownMenu`。
+
+## 程式改動
+
+### Import
+
+把套件 import 換成本地 import：
+
+```tsx
+// v0
+import { SearchBar } from '@fed/vital-design';
+
+// v1
+import { SearchBar } from '@/components/ui/SearchBar';
+```
+
+複合元件使用具名匯出：
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectTrigger,
+} from '@/components/ui/Select';
+```
+
+### Button
+
+Button 不再自己管圖示或載入狀態。把圖示與 spinner 放進 `children`，並標上 `data-icon="inline-start"` 或 `data-icon="inline-end"`。
+
+```tsx
+// v0
+import { Button } from '@fed/vital-design';
+import { SearchIcon } from './icons/SearchIcon';
+
+<Button icon={<SearchIcon />} iconPlacement="left">
+  Search
+</Button>;
+
+// v1
+import { Button } from '@/components/ui/Button';
+import { SearchIcon } from '@/components/icons/SearchIcon';
+
+<Button>
+  <SearchIcon data-icon="inline-start" />
+  Search
+</Button>;
+```
+
+`isLoading` 改成明確的 disabled 按鈕加上 `Spinner`。
+應用需要共用的 spinner 時，安裝 `@vital-design/spinner`。
+
+```tsx
+// v0
+import { Button } from '@fed/vital-design';
+
+<Button isLoading>Saving</Button>
+
+// v1
+import { Button } from '@/components/ui/Button';
+import { Spinner } from '@/components/ui/Spinner';
+
+<Button disabled>
+  <Spinner data-icon="inline-start" />
+  Saving
+</Button>
+```
+
+只有圖示的按鈕改用 size，不再用空的 children 或 icon prop：
+
+```tsx
+<Button size="icon-md" aria-label="Search">
+  <SearchIcon data-icon="inline-start" />
+</Button>
+
+<Button size="icon-lg" aria-label="Search">
+  <SearchIcon data-icon="inline-start" />
+</Button>
+```
+
+有文字的按鈕維持 `size="md"` 或 `size="lg"`。實心、有文字的按鈕沿用 v0 的間距：圖示那一側是 12px，另一側是 16px。
+如果用過較早的 v1 草稿尺寸名稱，把 `medium` 改成 `md`、`large` 改成 `lg`、`icon-medium` 改成 `icon-md`、`icon-large` 改成 `icon-lg`。
+
+`variant` 的 `filled` 已改名為 `default`。新的 `ghost` 是透明、懸停才有背景的按鈕，用在 popover、工具列與分割按鈕的選單裡（Popup Button 用的就是它）。
+
+```tsx
+// v0 / earlier v1 draft
+<Button variant="filled" theme="primary">Save</Button>
+
+// v1
+<Button variant="default" theme="primary">Save</Button>
+
+// New ghost variant
+<Button variant="ghost" theme="primary">Open</Button>
+```
+
+`theme` 仍把 `alarm`（實心紅色）與 `dangerous`（白底紅字）分成兩種意圖。`alarm` 只在 `variant="default"` 可用。`dangerous` 在 `size="md"` 是有框線的，在 `size="lg"` 是帶陰影浮起的，對應 Figma 的 Outlined 指引。
+
+### 文字輸入的值變更
+
+`Input` 建在 Base UI 的 input primitive 上。受控更新優先用 `onValueChange`。只有呼叫端需要 DOM change 事件時才留原生 `onChange`。
+
+```tsx
+// v0
+<TextInput value={name} onChange={(event) => setName(event.target.value)} />
+
+// v1
+<Input value={name} onValueChange={setName} />
+```
+
+### 無效的表單控制項
+
+v2 表單控制項拿掉了只有 v1 才有的 `isError`。改在實際的控制項上使用 `aria-invalid`。
+
+```tsx
+// v0
+<Input isError />
+<InputGroup isError>
+  <InputGroupInput />
+</InputGroup>
+<PasswordInput isError value={password} onChange={setPassword} />
+
+// v1
+<Input aria-invalid />
+<InputGroup>
+  <InputGroupInput aria-invalid />
+</InputGroup>
+<PasswordInput
+  aria-invalid
+  value={password}
+  onChange={setPassword}
+/>
+```
+
+使用 `Field` 時，欄位外層與控制項都要標無效：`Field data-invalid` 負責標籤與說明文字的樣式，控制項上的 `aria-invalid` 負責語意與看得見的框線。
+
+### Switch
+
+Switch 改用 Base UI 的 callback 名稱。把 `onChange` 換成 `onCheckedChange`。`defaultChecked`、`name`、`value`、`disabled`、`aria-invalid` 這類 root props 會照原樣傳下去。
+
+```tsx
+// v0
+import { Switch } from '@fed/vital-design';
+
+<Switch checked={enabled} onChange={setEnabled} />;
+
+// v1
+import { Switch } from '@/components/ui/Switch';
+
+<Switch checked={enabled} onCheckedChange={setEnabled} />;
+```
+
+### Label
+
+遷移後的畫面如果有獨立文字對應到表單控制項，安裝 `@vital-design/label`。
+
+```tsx
+// v1
+import { Input } from '@/components/ui/Input';
+import { Label } from '@/components/ui/Label';
+
+<div className="flex flex-col gap-2">
+  <Label htmlFor="email">Email</Label>
+  <Input id="email" placeholder="name@example.com" />
+</div>;
+```
+
+看得到的欄位標籤，用 `Label` 配上 `htmlFor`，指向 `Input`、`InputGroupInput`、`Textarea` 或 `PasswordInput`。
+
+不要把底層的 label 組合藏進 primitive：
+
+- `Checkbox` 與 `RadioGroupItem` 是控制項 primitive。在呼叫端用 `Label htmlFor` 配對。
+- `InputGroupAddon` 是展示用的。欄位有可見標籤時，`Label htmlFor` 放在 group 外面。
+
+目前 v2 的 label 盤點：
+
+| 位置                                                                             | 要改成 `Label`？ | 說明                                      |
+| -------------------------------------------------------------------------------- | ---------------- | ----------------------------------------- |
+| `src-v2/components/label/Label.tsx`                                              | 否               | primitive 本身的實作                      |
+| `src-v2/components/checkbox/Checkbox.tsx`                                        | 是               | 在呼叫端用 `Label htmlFor` 配對           |
+| `src-v2/components/radio-group/RadioGroup.tsx`                                   | 是               | 在呼叫端用 `Label htmlFor` 配對每個項目   |
+| `src-v2/components/input/input-group/InputGroup.test.tsx`                        | 否               | 只在測試裡覆寫 addon 的語意               |
+| 應用與文件裡 `Input`、`InputGroupInput`、`Textarea`、`PasswordInput` 的範例      | 是               | 欄位有可見標籤文字時加上 `Label htmlFor`  |
+
+### 樣式
+
+v0 元件依賴 `styled-components`。
+v1 元件使用 Tailwind CSS 4 utilities 與 Vittal Design 的 CSS 變數。
+
+不要從 npm 套件 import `src-v2/styles/*`。用 registry 安裝，讓主題寫進應用的 CSS。
+
+### 清單
+
+`ActionList` 與 `ActionInfiniteList` 在 v1 已移除。依用途選替代：
+
+- **動作選單**（每一項觸發 callback，沒有綁定值）→ `DropdownMenu`。
+- **可搜尋的值選擇器** → `Combobox`。階層 → `Command` + `Popover`。
+- **顯示列或明細清單** → `Item` + `ItemGroup`。選擇器密度用 `size="list"`。
+- **可搜尋的命令面板**（搜尋、載入、分頁、空狀態文字由你管）→ `Command`。
+
+```tsx
+import {
+  Item,
+  ItemContent,
+  ItemGroup,
+  ItemTitle,
+} from '@/components/ui/Item';
+
+<ItemGroup>
+  <Item size="list">
+    <ItemContent>
+      <ItemTitle>Option</ItemTitle>
+    </ItemContent>
+  </Item>
+</ItemGroup>;
+```
+
+### TreeSelect
+
+把 `TreeSelect` 的畫面改成 `Command` + `Popover` 配方。
+舊元件管了更多資料行為。在 v1，畫面自己管路徑、搜尋值、載入狀態與子層載入。建議的形狀見 `Command` Storybook 的 `HierarchicalPicker`。
+
+如果舊畫面只需要可搜尋的平面選項，改用 `Combobox`。
+
+## 遷移檢查清單
+
+- 安裝 v1 的 registry 項目。
+- 換掉畫面上的 `@fed/vital-design` import。
+- 把 props 更新成 v1 的元件 API。
+- 每個應用做一次 Tailwind 與主題設定。
+- 測試選擇器、彈出層與列的鍵盤操作。
+- 最後一個 v0 import 移除後，再拿掉 v0 的依賴。
