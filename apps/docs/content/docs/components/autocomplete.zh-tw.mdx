@@ -1,0 +1,203 @@
+---
+title: Autocomplete
+description: 可自由輸入的文字欄，附篩選建議，也可選擇行內補完。
+---
+
+import {
+  AutocompleteCommandPreview,
+  AutocompleteGroupedPreview,
+  AutocompleteInlinePreview,
+  AutocompleteLimitedPreview,
+  AutocompletePreview,
+  AutocompleteSubmitPreview,
+} from '~/components/previews/AutocompletePreview';
+
+## 預覽 [#preview]
+
+<AutocompletePreview />
+
+## 用法 [#usage]
+
+`Autocomplete` 建立在 Base UI 的
+[Autocomplete](https://base-ui.com/react/components/autocomplete) 上。使用者可以輸入任意值、建議只是輔助時，用它。如果元件必須把選到的選項記成元件狀態，改用 `Combobox`。
+
+```tsx
+import {
+  Autocomplete,
+  AutocompleteClear,
+  AutocompleteContent,
+  AutocompleteIcon,
+  AutocompleteInput,
+  AutocompleteInputGroup,
+  AutocompleteItem,
+  AutocompleteItemText,
+  AutocompleteTrigger,
+} from '@/components/ui/Autocomplete';
+
+const tags = [
+  { id: 'feature', value: 'feature' },
+  { id: 'fix', value: 'fix' },
+  { id: 'docs', value: 'docs' },
+];
+
+<Autocomplete
+  items={tags}
+  itemToStringValue={(tag) => tag.value}
+  openOnInputClick
+>
+  <label>
+    Search tags
+    <AutocompleteInputGroup>
+      <AutocompleteIcon />
+      <AutocompleteInput placeholder="e.g. feature" />
+      <AutocompleteClear />
+      <AutocompleteTrigger />
+    </AutocompleteInputGroup>
+  </label>
+  <AutocompleteContent emptyText="No tags found.">
+    {(tag) => (
+      <AutocompleteItem key={tag.id} value={tag}>
+        <AutocompleteItemText>{tag.value}</AutocompleteItemText>
+      </AutocompleteItem>
+    )}
+  </AutocompleteContent>
+</Autocomplete>;
+```
+
+## 模式 [#modes]
+
+預設 `mode="list"` 只篩選建議清單，不改輸入值。標示中的項目也要暫時把文字補進行內時，用 `mode="both"`。
+
+<AutocompleteInlinePreview />
+
+```tsx
+<Autocomplete mode="both" items={tags} openOnInputClick>
+  ...
+</Autocomplete>
+```
+
+## 分組建議 [#grouped-suggestions]
+
+結果需要分區時，用分組的 `items`，搭配 `AutocompleteGroup` 與 `AutocompleteGroupLabel`。
+
+<AutocompleteGroupedPreview />
+
+```tsx
+const groups = [
+  { value: 'Work', items: ['feature', 'fix'] },
+  { value: 'Components', items: ['autocomplete', 'select'] },
+];
+
+<Autocomplete items={groups} openOnInputClick>
+  <AutocompleteContent>
+    {(group) => (
+      <AutocompleteGroup key={group.value} items={group.items}>
+        <AutocompleteGroupLabel>{group.value}</AutocompleteGroupLabel>
+        {group.items.map((item) => (
+          <AutocompleteItem key={item} value={item}>
+            {item}
+          </AutocompleteItem>
+        ))}
+      </AutocompleteGroup>
+    )}
+  </AutocompleteContent>
+</Autocomplete>;
+```
+
+## 限制結果 [#limit-results]
+
+用 `limit` 限制可見的符合項目。`AutocompleteStatus` 可以在結果清單上方加一行簡短說明。
+
+<AutocompleteLimitedPreview />
+
+```tsx
+<Autocomplete items={tags} limit={4} openOnInputClick>
+  <AutocompleteContent>
+    <AutocompleteStatus>
+      Keep typing to narrow the result list.
+    </AutocompleteStatus>
+    <AutocompleteList>
+      {(tag) => (
+        <AutocompleteItem value={tag}>{tag.value}</AutocompleteItem>
+      )}
+    </AutocompleteList>
+    <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
+  </AutocompleteContent>
+</Autocomplete>
+```
+
+## 類似指令的動作 [#command-like-actions]
+
+Autocomplete 的建議可以觸發 `onClick`。適合自由輸入的指令搜尋，輸入文字仍是主要狀態。完整的命令面板或階層選擇器，請用 `Command`。
+
+<AutocompleteCommandPreview />
+
+```tsx
+<Autocomplete items={commands} openOnInputClick>
+  <AutocompleteInputGroup>
+    <AutocompleteIcon />
+    <AutocompleteInput placeholder="Run command..." />
+    <AutocompleteClear />
+  </AutocompleteInputGroup>
+  <AutocompleteContent emptyText="No commands found.">
+    {(item) => (
+      <AutocompleteItem value={item} onClick={() => runCommand(item)}>
+        {item}
+      </AutocompleteItem>
+    )}
+  </AutocompleteContent>
+</Autocomplete>
+```
+
+## 送出搜尋 [#submit-search]
+
+單欄搜尋表單用 `name` 與 `submitOnItemClick`。
+
+<AutocompleteSubmitPreview />
+
+```tsx
+<form>
+  <Autocomplete items={tags} name="query" submitOnItemClick>
+    ...
+  </Autocomplete>
+</form>
+```
+
+## Props [#props]
+
+### Autocomplete
+
+| Prop                | Type                                     | Default  | 說明                         |
+| ------------------- | ---------------------------------------- | -------- | ---------------------------- |
+| `items`             | `readonly Item[] \| grouped items`       | —        | render function 使用的建議   |
+| `value`             | `string`                                 | —        | 受控的輸入值                 |
+| `defaultValue`      | `string`                                 | —        | 非受控的初始輸入值           |
+| `onValueChange`     | `(value, details) => void`               | —        | 輸入值變更時呼叫             |
+| `mode`              | `'list' \| 'both' \| 'inline' \| 'none'` | `'list'` | 篩選與行內補完的行為         |
+| `autoHighlight`     | `boolean \| 'always'`                    | `false`  | 自動標示符合的建議           |
+| `openOnInputClick`  | `boolean`                                | `false`  | 點擊輸入框時開啟彈出層       |
+| `limit`             | `number`                                 | —        | 最多顯示幾筆符合項目         |
+| `submitOnItemClick` | `boolean`                                | `false`  | 選取項目時送出所屬表單       |
+| `itemToStringValue` | `(item) => string`                       | —        | 把物件項目轉成輸入或表單文字 |
+
+### 部分 [#parts]
+
+| 部分                     | 說明                                           |
+| ------------------------ | ---------------------------------------------- |
+| `Autocomplete`           | Root；管理輸入值、篩選、彈出層與標示           |
+| `AutocompleteInputGroup` | 有樣式的輸入外框                               |
+| `AutocompleteInput`      | 接到 autocomplete 行為的原生 input             |
+| `AutocompleteIcon`       | 搜尋圖示 slot                                  |
+| `AutocompleteClear`      | 清除輸入值                                     |
+| `AutocompleteTrigger`    | 開啟或關閉彈出層                               |
+| `AutocompleteContent`    | 預設的 portal + positioner + popup，可再加 list wrapper |
+| `AutocompleteList`       | 可捲動的清單 primitive                         |
+| `AutocompleteItem`       | 可標示的建議列                                 |
+| `AutocompleteItemText`   | 項目內的文字 slot                              |
+| `AutocompleteEmpty`      | 空狀態                                         |
+| `AutocompleteStatus`     | 狀態或輔助說明列                               |
+| `AutocompleteGroup`      | 建議群組                                       |
+| `AutocompleteGroupLabel` | 建議群組的標籤                                 |
+| `AutocompletePortal`     | 較底層的 portal                                |
+| `AutocompletePositioner` | 較底層的浮動定位                               |
+| `AutocompletePopup`      | 較底層的彈出表面                               |

@@ -1,0 +1,58 @@
+---
+title: Textarea
+description: 多行文字輸入，框線、焦點與停用狀態一致。
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { Textarea } from '~/components/vital-components';
+
+## 預覽 [#preview]
+
+<ComponentPreview centered={false}>
+  <Textarea
+    className="w-80"
+    placeholder="Tell us what you think..."
+    rows={4}
+  />
+</ComponentPreview>
+
+## 用法 [#usage]
+
+```tsx
+import { Textarea } from '@/components/ui/Textarea';
+
+<Textarea placeholder="Tell us what you think..." rows={4} />;
+```
+
+## 停用 [#disabled]
+
+<ComponentPreview centered={false}>
+  <Textarea
+    className="w-80"
+    placeholder="Disabled"
+    rows={3}
+    disabled
+  />
+</ComponentPreview>
+
+## 無效 [#invalid]
+
+設定 `aria-invalid` 以套用 destructive 框線。
+
+<ComponentPreview centered={false}>
+  <Textarea
+    className="w-80"
+    placeholder="Invalid"
+    rows={3}
+    aria-invalid
+  />
+</ComponentPreview>
+
+## 屬性 [#props]
+
+| Prop           | Type                                  | Default | 說明                       |
+| -------------- | ------------------------------------- | ------- | -------------------------- |
+| `disabled`     | `boolean`                             | `false` | 停用 textarea              |
+| `aria-invalid` | `boolean`                             | —       | 套用 destructive 框線樣式  |
+| `className`    | `string`                              | —       | 額外的 CSS class           |
+| `...props`     | `ComponentPropsWithoutRef<'textarea'>` | —       | 轉送的原生 textarea props  |

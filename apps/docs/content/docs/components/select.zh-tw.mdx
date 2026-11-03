@@ -1,0 +1,161 @@
+---
+title: Select
+description: 從平面清單選一個或多個選項的下拉。
+---
+
+import {
+  SelectMultiplePreview,
+  SelectPreview,
+} from '~/components/previews/SelectPreview';
+
+## 預覽 [#preview]
+
+<SelectPreview />
+
+## 用法 [#usage]
+
+`Select` 是包住 Base UI Select 的薄樣式層。root 是 `BaseSelect.Root`；版面屬於父層 wrapper。
+
+平面選值用 `Select`。觸發器要自訂外觀時，仍以 `Select` 為 root，只改 `SelectTrigger`；不要把選擇器搬進 `DropdownMenu`。
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectItemCheck,
+  SelectItemText,
+  SelectTrigger,
+} from '@/components/ui/Select';
+
+const items = [
+  { label: 'Option 1', value: '1' },
+  { label: 'Option 2', value: '2' },
+  { label: 'Option 3', value: '3' },
+];
+
+const [value, setValue] = useState<string | null>(null);
+
+<div className="w-50">
+  <Select items={items} value={value} onValueChange={setValue}>
+    <SelectTrigger placeholder="Select an option" />
+    <SelectContent>
+      {items.map((item) => (
+        <SelectItem key={item.value} value={item.value}>
+          <SelectItemText>{item.label}</SelectItemText>
+          <SelectItemCheck />
+        </SelectItem>
+      ))}
+    </SelectContent>
+  </Select>
+</div>;
+```
+
+## 多選 [#multiple]
+
+<SelectMultiplePreview />
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectItemCheckbox,
+  SelectItemText,
+  SelectTrigger,
+} from '@/components/ui/Select';
+
+const [value, setValue] = useState<string[]>([]);
+
+<div className="w-60">
+  <Select
+    multiple
+    items={items}
+    value={value}
+    onValueChange={setValue}
+  >
+    <SelectTrigger placeholder="Select options" />
+    <SelectContent>
+      {items.map((item) => (
+        <SelectItem key={item.value} value={item.value}>
+          <SelectItemCheckbox />
+          <SelectItemText>{item.label}</SelectItemText>
+        </SelectItem>
+      ))}
+    </SelectContent>
+  </Select>
+</div>;
+```
+
+可搜尋的選擇器、自動完成，或可移除的 chip 值，改用 `Combobox`。
+
+## 怎麼選 [#when-to-choose-what]
+
+| 需求                                 | 使用            |
+| ------------------------------------ | -------------- |
+| 平面的單選或多選值選擇器             | `Select`       |
+| 可搜尋的選擇器或標籤選擇器           | `Combobox`     |
+| 階層路徑選擇器                       | `Command` + `Popover` |
+| 帶 callback 的命令選單               | `DropdownMenu` |
+
+## 匯出 [#exports]
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectItemCheck,
+  SelectItemCheckbox,
+  SelectItemText,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/Select';
+```
+
+## 分組項目 [#with-grouped-items]
+
+```tsx
+<SelectContent>
+  <SelectGroup>
+    <SelectLabel>Fruits</SelectLabel>
+    <SelectItem value="apple">
+      <SelectItemText>Apple</SelectItemText>
+      <SelectItemCheck />
+    </SelectItem>
+  </SelectGroup>
+  <SelectSeparator />
+  <SelectGroup>
+    <SelectLabel>Vegetables</SelectLabel>
+    <SelectItem value="carrot">
+      <SelectItemText>Carrot</SelectItemText>
+      <SelectItemCheck />
+    </SelectItem>
+  </SelectGroup>
+</SelectContent>
+```
+
+## 屬性 [#props]
+
+`Select` 接受 Base UI `Select.Root` 的 props。希望 `SelectValue` 顯示標籤而不是原始值時，傳入 `items`。
+
+### SelectTrigger
+
+| Prop          | Type        | Default | 說明                               |
+| ------------- | ----------- | ------- | ---------------------------------- |
+| `placeholder` | `ReactNode` | `''`    | 尚未選取時的佔位內容               |
+
+### SelectItem
+
+| Prop       | Type               | Default | 說明        |
+| ---------- | ------------------ | ------- | ----------- |
+| `value`    | `string \| number` | —       | 項目值      |
+| `children` | `ReactNode`        | —       | 項目內容    |
+| `disabled` | `boolean`          | `false` | 停用這個項目 |
+
+依需要的視覺提示，在項目裡使用 `<SelectItemText>`、`<SelectItemCheck>` 與 `<SelectItemCheckbox>`。

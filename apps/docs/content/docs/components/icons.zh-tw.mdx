@@ -1,0 +1,111 @@
+---
+title: Icons
+description: Vittal Design 元件共用的內建 SVG 圖示集。
+---
+
+import {
+  IconColorsPreview,
+  IconSizesPreview,
+  IconSpinnerPreview,
+  IconsGalleryPreview,
+} from '~/components/previews/IconsPreview';
+
+## 圖庫 [#gallery]
+
+所有圖示都是 inline SVG，並繼承 `currentColor`，所以會跟著容器的文字顏色。
+
+<IconsGalleryPreview />
+
+## 用法 [#usage]
+
+每個圖示從自己的檔案引入。元件源碼不允許 barrel import（`@/icons`），registry 的使用者就只會帶入實際用到的圖示。
+
+```tsx
+import { SearchIcon } from '@/icons/SearchIcon';
+
+<SearchIcon className="size-4 text-grayscale-opacity-700" />;
+```
+
+可用的圖示：
+
+```ts
+import { BellIcon } from '@/icons/BellIcon';
+import { CalendarIcon } from '@/icons/CalendarIcon';
+import { CaretDownIcon } from '@/icons/CaretDownIcon';
+import { CaretUpIcon } from '@/icons/CaretUpIcon';
+import { CheckIcon } from '@/icons/CheckIcon';
+import { ChevronDoubleLeftIcon } from '@/icons/ChevronDoubleLeftIcon';
+import { ChevronDoubleRightIcon } from '@/icons/ChevronDoubleRightIcon';
+import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
+import { ChevronLeftIcon } from '@/icons/ChevronLeftIcon';
+import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
+import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
+import { ClearIcon } from '@/icons/ClearIcon';
+import { ClockIcon } from '@/icons/ClockIcon';
+import { CloseIcon } from '@/icons/CloseIcon';
+import { DisabledIcon } from '@/icons/DisabledIcon';
+import { EllipsisIcon } from '@/icons/EllipsisIcon';
+import { EyeIcon } from '@/icons/EyeIcon';
+import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
+import { FlagIcon } from '@/icons/FlagIcon';
+import { InfoIcon } from '@/icons/InfoIcon';
+import { MinusIcon } from '@/icons/MinusIcon';
+import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
+import { PlusIcon } from '@/icons/PlusIcon';
+import { SearchIcon } from '@/icons/SearchIcon';
+import { ShieldCheckIcon } from '@/icons/ShieldCheckIcon';
+import { SpinnerIcon } from '@/icons/SpinnerIcon';
+import { SquareArrowOutUpRightIcon } from '@/icons/SquareArrowOutUpRightIcon';
+import { UserIcon } from '@/icons/UserIcon';
+```
+
+## 尺寸 [#sizes]
+
+用 Tailwind 的 `size-*` utility 控制尺寸。每個圖示 SVG 會填滿 width / height 設定的容器。
+
+<IconSizesPreview />
+
+```tsx
+<SearchIcon className="size-3" />
+<SearchIcon className="size-4" />
+<SearchIcon className="size-5" />
+<SearchIcon className="size-6" />
+<SearchIcon className="size-8" />
+```
+
+## 顏色 [#colors]
+
+圖示繼承 `currentColor`，任何 Tailwind 文字顏色 utility 都適用。
+
+<IconColorsPreview />
+
+```tsx
+<FlagIcon className="size-5 text-primary-500" />
+<FlagIcon className="size-5 text-success-500" />
+<FlagIcon className="size-5 text-warning-500" />
+<FlagIcon className="size-5 text-destructive-500" />
+<FlagIcon className="size-5 text-grayscale-opacity-700" />
+```
+
+## SpinnerIcon
+
+`SpinnerIcon` 渲染靜態圖形。需要旋轉時加上 Tailwind 的 `animate-spin`，或用 `Spinner` 做載入狀態。
+
+<IconSpinnerPreview />
+
+```tsx
+<SpinnerIcon className="size-6 animate-spin text-primary-500" />
+<SpinnerIcon className="size-6 text-grayscale-opacity-500" />
+```
+
+## 屬性 [#props]
+
+所有圖示都接受標準 SVG 屬性。尺寸與顏色通常用 Tailwind class 控制。
+
+| Prop          | Type                    | Default | 說明                         |
+| ------------- | ----------------------- | ------- | ---------------------------- |
+| `className`   | `string`                | —       | 額外的 CSS class             |
+| `width`       | `number \| string`      | `'1em'` | SVG 寬度                     |
+| `height`      | `number \| string`      | `'1em'` | SVG 高度                     |
+| `aria-hidden` | `boolean`               | `true`  | 對輔助技術隱藏裝飾用圖示     |
+| `...props`    | `ComponentProps<'svg'>` | —       | 原生 `svg` 屬性與事件        |

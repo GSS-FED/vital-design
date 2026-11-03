@@ -1,0 +1,132 @@
+---
+title: Dialog
+description: 用來確認、做決定，以及填簡短表單的模態表面。
+---
+
+import {
+  DialogPreview,
+  DialogSizesPreview,
+} from '~/components/previews/DialogPreview';
+
+## 預覽 [#preview]
+
+<DialogPreview />
+
+## 用法 [#usage]
+
+`Dialog` 建立在 Base UI Dialog 上。把具名的 root、觸發器、portal、backdrop、viewport、popup 與內容部分組在一起，標題和說明才會對輔助科技保持可及。
+
+```tsx
+import { Button } from '@/components/ui/Button';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogBody,
+  DialogClose,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogPopup,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+  DialogViewport,
+} from '@/components/ui/Dialog';
+
+function ConfirmDialog() {
+  return (
+    <Dialog>
+      <DialogTrigger render={<Button>Open dialog</Button>} />
+      <DialogPortal>
+        <DialogBackdrop />
+        <DialogViewport>
+          <DialogPopup>
+            <DialogHeader>
+              <div className="space-y-1">
+                <DialogTitle>Submit request?</DialogTitle>
+                <DialogDescription>
+                  Review the details before sending this request for
+                  approval.
+                </DialogDescription>
+              </div>
+              <DialogClose />
+            </DialogHeader>
+            <DialogBody>
+              This action will notify approvers and lock the current
+              draft.
+            </DialogBody>
+            <DialogFooter>
+              <DialogClose
+                render={
+                  <Button variant="text" theme="default">
+                    Cancel
+                  </Button>
+                }
+              />
+              <DialogClose render={<Button>Submit</Button>} />
+            </DialogFooter>
+          </DialogPopup>
+        </DialogViewport>
+      </DialogPortal>
+    </Dialog>
+  );
+}
+```
+
+## 尺寸 [#sizes]
+
+<DialogSizesPreview />
+
+```tsx
+<DialogPopup size="small">...</DialogPopup>
+<DialogPopup size="medium">...</DialogPopup>
+<DialogPopup size="large">...</DialogPopup>
+```
+
+簡短確認文案用 `small`，常見決策流程用 `medium`，內容較密時用 `large`。
+
+## 結構 [#anatomy]
+
+```tsx
+<Dialog>
+  <DialogTrigger />
+  <DialogPortal>
+    <DialogBackdrop />
+    <DialogViewport>
+      <DialogPopup>
+        <DialogHeader>
+          <DialogTitle />
+          <DialogDescription />
+          <DialogClose />
+        </DialogHeader>
+        <DialogBody />
+        <DialogFooter />
+      </DialogPopup>
+    </DialogViewport>
+  </DialogPortal>
+</Dialog>
+```
+
+## Props [#props]
+
+`Dialog` 接受 Base UI `Dialog.Root` 的 props，包含 `open`、`defaultOpen`、`onOpenChange`、`modal` 與 `disablePointerDismissal`。
+
+### DialogPopup
+
+| Prop        | Type                             | Default    | 說明                 |
+| ----------- | -------------------------------- | ---------- | -------------------- |
+| `size`      | `'small' \| 'medium' \| 'large'` | `'medium'` | 控制最大寬度         |
+| `className` | `string`                         | -          | 額外的 CSS class     |
+| `children`  | `ReactNode`                      | -          | 對話框內容與子部分   |
+
+### DialogClose
+
+| Prop         | Type        | Default   | 說明                         |
+| ------------ | ----------- | --------- | ---------------------------- |
+| `children`   | `ReactNode` | -         | 可選的自訂關閉按鈕內容       |
+| `render`     | `ReactNode` | -         | 把自訂元素渲染成關閉按鈕     |
+| `aria-label` | `string`    | `'Close'` | 預設圖示按鈕的無障礙標籤     |
+
+## 無障礙 [#accessibility]
+
+popup 裡一定要放 `DialogTitle`。對話框需要額外脈絡時加上 `DialogDescription`，破壞性或無法復原的動作要在頁尾寫清楚。

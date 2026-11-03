@@ -1,0 +1,277 @@
+---
+title: Button
+description: 用 default、text、ghost 變體、多種主題與圖示觸發動作。
+---
+
+import { SearchIcon } from '@/icons/SearchIcon';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import {
+  Button,
+  LinkButton,
+  Spinner,
+} from '~/components/vital-components';
+
+## 預覽 [#preview]
+
+<ComponentPreview>
+  <Button theme="primary" size="lg">
+    Primary
+  </Button>
+  <Button theme="default" size="lg">
+    Default
+  </Button>
+  <Button theme="success" size="lg">
+    Success
+  </Button>
+  <Button theme="alarm" size="lg">
+    Alarm
+  </Button>
+</ComponentPreview>
+
+## 用法 [#usage]
+
+```tsx
+import { Button } from '@/components/ui/Button';
+
+<Button theme="primary" size="lg">
+  Click me
+</Button>;
+```
+
+## 變體 [#variants]
+
+### 預設 [#default]
+
+`default` 變體是實心背景的按鈕，也是預設樣式。
+
+<ComponentPreview>
+  <Button variant="default" theme="primary">
+    Primary
+  </Button>
+  <Button variant="default" theme="default">
+    Default
+  </Button>
+  <Button variant="default" theme="success">
+    Success
+  </Button>
+  <Button variant="default" theme="info">
+    Info
+  </Button>
+  <Button variant="default" theme="warning">
+    Warning
+  </Button>
+  <Button variant="default" theme="alarm">
+    Alarm
+  </Button>
+  <Button variant="default" theme="dangerous">
+    Dangerous
+  </Button>
+</ComponentPreview>
+
+```tsx
+<Button variant="default" theme="primary">Primary</Button>
+<Button variant="default" theme="default">Default</Button>
+<Button variant="default" theme="success">Success</Button>
+<Button variant="default" theme="info">Info</Button>
+<Button variant="default" theme="warning">Warning</Button>
+<Button variant="default" theme="alarm">Alarm</Button>
+<Button variant="default" theme="dangerous">Dangerous</Button>
+```
+
+### 文字 [#text]
+
+`text` 變體是透明背景的按鈕。除了 `dangerous`，其他主題都能用。
+
+<ComponentPreview>
+  <Button variant="text" theme="primary">
+    Primary
+  </Button>
+  <Button variant="text" theme="default">
+    Default
+  </Button>
+  <Button variant="text" theme="success">
+    Success
+  </Button>
+  <Button variant="text" theme="info">
+    Info
+  </Button>
+  <Button variant="text" theme="warning">
+    Warning
+  </Button>
+  <Button variant="text" theme="alarm">
+    Alarm
+  </Button>
+</ComponentPreview>
+
+```tsx
+<Button variant="text" theme="primary">Primary</Button>
+<Button variant="text" theme="default">Default</Button>
+```
+
+### 幽靈 [#ghost]
+
+`ghost` 變體是透明按鈕，hover 時才出現背景。用在 popover、toolbar 與 split-button 選單裡；周圍的外框已經表示它可以點。
+
+<ComponentPreview>
+  <Button variant="ghost" theme="primary">
+    Primary
+  </Button>
+  <Button variant="ghost" theme="default">
+    Default
+  </Button>
+</ComponentPreview>
+
+```tsx
+<Button variant="ghost" theme="default">
+  Default
+</Button>
+```
+
+### 尺寸 [#sizes]
+
+<ComponentPreview>
+  <Button theme="primary" size="md">
+    Medium
+  </Button>
+  <Button theme="primary" size="lg">
+    Large
+  </Button>
+  <Button theme="primary" size="icon-md" aria-label="Search">
+    <SearchIcon data-icon="inline-start" />
+  </Button>
+</ComponentPreview>
+
+```tsx
+<Button size="md">Medium</Button>
+<Button size="lg">Large</Button>
+<Button size="icon-md" aria-label="Search">
+  <SearchIcon data-icon="inline-start" />
+</Button>
+```
+
+### 圖示 [#icons]
+
+子圖示用 `data-icon="inline-start"` 或 `data-icon="inline-end"`。只有圖示的按鈕用 `size="icon-md"` 或 `size="icon-lg"`。圖示或 spinner 要另外安裝或引入，不要跟按鈕放在一起。
+
+<ComponentPreview>
+  <Button theme="primary" size="lg">
+    <SearchIcon data-icon="inline-start" />
+    Search
+  </Button>
+  <Button theme="default" size="lg">
+    Search
+    <SearchIcon data-icon="inline-end" />
+  </Button>
+</ComponentPreview>
+
+```tsx
+<Button theme="primary">
+  <SearchIcon data-icon="inline-start" />
+  Search
+</Button>
+<Button theme="default">
+  Search
+  <SearchIcon data-icon="inline-end" />
+</Button>
+```
+
+### 載入狀態 [#loading-state]
+
+工作進行中時，把 spinner 當成子圖示，並停用按鈕。
+
+<ComponentPreview>
+  <Button theme="primary" size="lg" disabled>
+    <Spinner data-icon="inline-start" />
+    Saving
+  </Button>
+  <Button theme="default" size="lg" disabled>
+    Loading
+    <Spinner data-icon="inline-end" />
+  </Button>
+</ComponentPreview>
+
+```tsx
+<Button theme="primary" disabled>
+  <Spinner data-icon="inline-start" />
+  Saving
+</Button>
+```
+
+### 停用 [#disabled]
+
+<ComponentPreview>
+  <Button theme="primary" size="lg" disabled>
+    Disabled
+  </Button>
+  <Button variant="text" theme="primary" size="lg" disabled>
+    Disabled
+  </Button>
+</ComponentPreview>
+
+```tsx
+<Button theme="primary" disabled>
+  Disabled
+</Button>
+```
+
+### 連結 [#link]
+
+導覽要長得像按鈕時，用 `LinkButton`。它渲染 `<a>`，變體、主題、尺寸與 `Button` 相同，並保留連結語意，所以螢幕閱讀器會把它報成連結，`getByRole('link')` 也能找到它。
+
+不要用 `<Button nativeButton={false} render={<a />}>` 做連結：Base UI 會給每個非 `<button>` 元素加上 `role="button"`。
+
+<ComponentPreview>
+  <LinkButton href="#link" size="lg">
+    Log in
+  </LinkButton>
+  <LinkButton href="#link" theme="default" size="lg">
+    Docs
+  </LinkButton>
+  <LinkButton href="#link" variant="text" theme="primary" size="lg">
+    Learn more
+  </LinkButton>
+</ComponentPreview>
+
+```tsx
+import { LinkButton } from '@/components/ui/Button';
+import Link from 'next/link';
+
+<LinkButton href="/login">Log in</LinkButton>
+
+// Router links: pass the link element through `render`
+<LinkButton render={<Link href="/login" />}>Log in</LinkButton>
+```
+
+## 屬性 [#props]
+
+### Button
+
+| Prop                    | Type                                                                                   | Default                                       | 說明                                     |
+| ----------------------- | -------------------------------------------------------------------------------------- | --------------------------------------------- | ---------------------------------------- |
+| `variant`               | `'default' \| 'text' \| 'ghost'`                                                       | `'default'`                                   | 視覺變體                                 |
+| `theme`                 | `'primary' \| 'default' \| 'success' \| 'info' \| 'warning' \| 'alarm' \| 'dangerous'` | `'primary'` for default, `'default'` for text | 色彩主題（`dangerous` 只適用 `default`） |
+| `size`                  | `'md' \| 'lg' \| 'icon-md' \| 'icon-lg'`                                               | `'md'`                                        | 按鈕尺寸                                 |
+| `focusableWhenDisabled` | `boolean`                                                                              | `false`                                       | 套用停用樣式時，按鈕仍可聚焦             |
+| `disabled`              | `boolean`                                                                              | `false`                                       | 原生 `disabled` 屬性                     |
+| `className`             | `string`                                                                               | —                                             | 加在 `<button>` 本身的 class             |
+| `contentClassName`      | `string`                                                                               | —                                             | 內層內容 wrapper 的 class（見下方）      |
+| `style`                 | `CSSProperties`                                                                        | —                                             | 行內樣式                                 |
+
+### LinkButton
+
+接受的 `variant`、`theme`、`size`、`className`、`contentClassName` 與 `Button` 相同，另外還有所有 `<a>` 屬性與 `render`。沒有 `disabled`，因為連結不能停用。需要停用狀態時，改用純文字或 `Button`。根節點是 `data-slot="link-button"`，內容 wrapper 是 `data-slot="link-button-content"`。
+
+### 排列內容 [#laying-out-the-content]
+
+`Button` 會把 children 包在 `span[data-slot="button-content"]` 裡，讓圖示和文字置中，並排成一行。這個 span 是按鈕唯一的子元素，寫在按鈕上的 flex utility 沒有東西可以分配。要調 wrapper，用 `contentClassName`，不要用 `[&>span]:*` 往內選。
+
+```tsx
+// Icon on the left, count pushed to the right, label allowed to wrap
+<Button contentClassName="w-full justify-between whitespace-normal">
+  <FlagIcon data-icon="inline-start" />
+  Reported issues
+  <span>12</span>
+</Button>
+```
+
+顏色、尺寸、圓角與 hover 狀態由主題決定。用 `className` 傳這些樣式不會蓋過變體。按鈕為了 hover 疊層設了 `overflow-hidden`，所以放在按鈕框外的子元素（例如 `-top-1 -right-1` 的通知徽章）要在按鈕上加 `className="overflow-visible"`。

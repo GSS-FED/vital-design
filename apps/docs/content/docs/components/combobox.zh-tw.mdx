@@ -1,0 +1,190 @@
+---
+title: Combobox
+description: 可搜尋並選取一個或多個選項的輸入選擇器。
+---
+
+import {
+  ComboboxMultiplePreview,
+  ComboboxPreview,
+} from '~/components/previews/ComboboxPreview';
+
+## 預覽 [#preview]
+
+<ComboboxPreview />
+
+## 用法 [#usage]
+
+選擇器會渲染輸入框時使用 `Combobox`：搜尋、自動完成，或可移除的 chip。
+
+彈出層是可搜尋的值選擇器時，以 `Combobox` 為 root。如果只改觸發器，自訂 `ComboboxTrigger`；不要把 combobox 包進 `DropdownMenu`。
+
+```tsx
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxHeader,
+  ComboboxItem,
+  ComboboxItemCheck,
+  ComboboxItemCheckbox,
+  ComboboxItemText,
+  ComboboxList,
+  ComboboxSearchBar,
+  ComboboxTagsValue,
+  ComboboxTrigger,
+  ComboboxValue,
+} from '@/components/ui/Combobox';
+
+const options = [
+  { label: 'Taiwan', value: 'tw' },
+  { label: 'Japan', value: 'jp' },
+];
+
+function itemToStringLabel(item: (typeof options)[number] | null) {
+  return item?.label ?? '';
+}
+
+function itemToStringValue(item: (typeof options)[number] | null) {
+  return item?.value ?? '';
+}
+
+const [value, setValue] = useState<(typeof options)[number] | null>(
+  null,
+);
+
+<Combobox
+  items={options}
+  itemToStringLabel={itemToStringLabel}
+  itemToStringValue={itemToStringValue}
+  value={value}
+  onValueChange={setValue}
+>
+  <ComboboxTrigger className="w-60" aria-label="Open countries">
+    <ComboboxValue placeholder="Search countries" />
+  </ComboboxTrigger>
+  <ComboboxContent emptyText="No results">
+    <ComboboxHeader>
+      <ComboboxSearchBar placeholder="Search countries" />
+    </ComboboxHeader>
+    <ComboboxList>
+      {(item) => (
+        <ComboboxItem key={item.value} value={item}>
+          <ComboboxItemText>{item.label}</ComboboxItemText>
+          <ComboboxItemCheck />
+        </ComboboxItem>
+      )}
+    </ComboboxList>
+  </ComboboxContent>
+</Combobox>;
+```
+
+## 多選 [#multiple]
+
+<ComboboxMultiplePreview />
+
+```tsx
+const frameworks = [
+  { label: 'React', value: 'react' },
+  { label: 'Vue', value: 'vue' },
+  { label: 'Angular', value: 'angular' },
+  { label: 'Svelte', value: 'svelte' },
+];
+
+const [value, setValue] = useState<typeof frameworks>([]);
+
+<Combobox
+  multiple
+  items={frameworks}
+  itemToStringLabel={itemToStringLabel}
+  itemToStringValue={itemToStringValue}
+  value={value}
+  onValueChange={setValue}
+>
+  <ComboboxTrigger
+    nativeButton={false}
+    render={<div />}
+    className="w-72"
+    aria-label="Open frameworks"
+  >
+    <ComboboxTagsValue
+      maxDisplayCount={2}
+      placeholder="Search frameworks"
+    />
+  </ComboboxTrigger>
+  <ComboboxContent emptyText="No results">
+    <ComboboxHeader>
+      <ComboboxSearchBar placeholder="Search frameworks" />
+    </ComboboxHeader>
+    <ComboboxList>
+      {(item) => (
+        <ComboboxItem key={item.value} value={item}>
+          <ComboboxItemCheckbox />
+          <ComboboxItemText>{item.label}</ComboboxItemText>
+        </ComboboxItem>
+      )}
+    </ComboboxList>
+  </ComboboxContent>
+</Combobox>;
+```
+
+## 怎麼選 [#when-to-choose-what]
+
+| 需求                                 | 使用            |
+| ------------------------------------ | -------------- |
+| 平面的單選或多選值選擇器             | `Select`       |
+| 可搜尋的選擇器或標籤選擇器           | `Combobox`     |
+| 階層路徑選擇器                       | `Command` + `Popover` |
+| 帶 callback 的命令選單               | `DropdownMenu` |
+
+具名匯出給 shadcn 風格的 import 使用：
+
+```tsx
+import {
+  Combobox,
+  ComboboxChip,
+  ComboboxChipRemove,
+  ComboboxChips,
+  ComboboxClear,
+  ComboboxContent,
+  ComboboxHeader,
+  ComboboxInput,
+  ComboboxInputGroup,
+  ComboboxItem,
+  ComboboxItemCheck,
+  ComboboxItemCheckbox,
+  ComboboxItemText,
+  ComboboxOverflowChip,
+  ComboboxSearchBar,
+  ComboboxTagsValue,
+  ComboboxTrigger,
+  ComboboxValue,
+} from '@/components/ui/Combobox';
+```
+
+## 屬性 [#props]
+
+### Combobox
+
+`Combobox` 是 `BaseCombobox.Root`。使用 Base UI root props，例如 `items`、`value`、`onValueChange`、`multiple`、`disabled`、`itemToStringLabel` 與 `itemToStringValue`。
+
+### ComboboxTrigger
+
+已選值的樣式外框。裡面要渲染可移除標籤時，使用 `nativeButton={false}` 搭配 `render={<div />}`。
+
+### ComboboxSearchBar
+
+combobox 清單的彈出層搜尋輸入。它渲染 `BaseCombobox.Input`，所以篩選仍由 Base UI 負責。
+
+### ComboboxTagsValue
+
+多選 combobox 的預設值渲染器。把已選值渲染成可移除的 chip，支援 `maxDisplayCount`，隱藏的數量顯示為 `+N`。
+
+### ComboboxContent
+
+| Prop            | Type        | Default | 說明                  |
+| --------------- | ----------- | ------- | --------------------- |
+| `emptyText`     | `ReactNode` | —       | 空狀態內容            |
+| `listClassName` | `string`    | —       | 清單元素的 class      |
+
+### ComboboxItem
+
+`ComboboxItem` 是帶 Vittal Design 列樣式的 `BaseComboboxItem`。與 `ComboboxItemText`、`ComboboxItemCheck` 或 `ComboboxItemCheckbox` 一起組合。

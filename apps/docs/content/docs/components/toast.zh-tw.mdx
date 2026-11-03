@@ -1,0 +1,342 @@
+---
+title: Toast
+description: 依狀態上色的通知，可從應用任何地方以命令式送出。
+---
+
+import {
+  ToastActionPreview,
+  ToastAnchoredPreview,
+  ToastDescriptionPreview,
+  ToastIconPreview,
+  ToastLoadingPreview,
+  ToastPreview,
+  ToastPromisePreview,
+  ToastSubtlePreview,
+  ToastTopCenterPreview,
+  ToastTopRightPreview,
+  ToastTwoChannelsPreview,
+} from '~/components/previews/ToastPreview';
+
+## 預覽 [#preview]
+
+<ToastPreview />
+
+## 用法 [#usage]
+
+`Toast` 建立在 Base UI 的
+[Toast](https://base-ui.com/react/components/toast) 上。這個套件匯出模組層級的 singleton `toastManager`，以及會自動掛上 viewport 的 `ToastProvider`。在應用根層放一次 `<ToastProvider>`，就可以從任何地方呼叫 `toastManager.add(...)`（事件處理、fetch interceptor、zustand action 等）。呼叫處不需要 hook。
+
+```tsx
+// app root
+import {
+  toastManager,
+  ToastProvider,
+} from '@/components/ui/Toast';
+
+function App() {
+  return (
+    <ToastProvider>
+      <Page />
+    </ToastProvider>
+  );
+}
+
+// anywhere
+import { toastManager } from '@/components/ui/Toast';
+
+function SaveButton() {
+  return (
+    <Button
+      onClick={() =>
+        toastManager.add({ type: 'success', title: '已成功儲存' })
+      }
+    >
+      Save
+    </Button>
+  );
+}
+```
+
+## 狀態 [#status]
+
+`type` 接受 `success`、`warning`、`error`、`info` 或 `loading`。toast 會套上對應顏色，但不會自己選圖示。圖示要透過 `data.icon` 選擇加入。`loading` 狀態在有提供 `data.cancelProps` 時，會把關閉的 X 換成取消按鈕。
+
+## 位置 [#position]
+
+`ToastProvider` 接受 `position` prop，有六個錨點：`top-left`、`top-center`、`top-right`、`bottom-left`、`bottom-center`、`bottom-right`。一個 provider 對應一個位置。透過它的 manager 送出的 toast 會出現在該錨點。
+
+<ToastTopRightPreview />
+
+```tsx
+<ToastProvider position="top-right">{children}</ToastProvider>
+```
+
+### 上方置中 [#top-centre]
+
+<ToastTopCenterPreview />
+
+```tsx
+<ToastProvider position="top-center">{children}</ToastProvider>
+```
+
+### 多個位置（兩條通道） [#multiple-positions-two-channels]
+
+要把一部分 toast 送到一個角落、另一部分送到不同角落，用 `createToastManager` 建立第二個 manager，並為它巢狀第二個 `ToastProvider`。每一組 provider／manager 是獨立通道。呼叫處選要用哪一條。
+
+<ToastTwoChannelsPreview />
+
+```tsx
+// toast-managers.ts
+import {
+  createToastManager,
+  type ToasterToastData,
+} from '@/components/ui/Toast';
+
+export const errorToast = createToastManager<ToasterToastData>();
+```
+
+```tsx
+// app root
+import {
+  toastManager,
+  ToastProvider,
+} from '@/components/ui/Toast';
+import { errorToast } from './toast-managers';
+
+<ToastProvider position="bottom-right">
+  <ToastProvider
+    toastManager={errorToast}
+    position="top-center"
+    variant="subtle"
+  >
+    {children}
+  </ToastProvider>
+</ToastProvider>;
+```
+
+```tsx
+// anywhere
+import { toastManager } from '@/components/ui/Toast';
+import { errorToast } from './toast-managers';
+
+toastManager.add({ type: 'success', title: 'Saved' });
+errorToast.add({ type: 'error', title: 'Connection lost' });
+```
+
+## 變體 [#variants]
+
+`solid` 變體（預設）用狀態色填滿 toast，彩色底、白字。`subtle` 變體改成白底，圖示帶色調，對應設計系統裡的 notification 模式。
+
+<ToastSubtlePreview />
+
+```tsx
+<ToastProvider position="top-right" variant="subtle">
+  {children}
+</ToastProvider>
+```
+
+## 載入中 [#loading]
+
+耗時操作時，送出 `type: 'loading'` 且 `timeout: 0` 的 toast。搭配 `actionProps`，以及 `data.cancelProps` 按鈕（取代關閉的 X），讓使用者可以取消操作，完成後再 `update` 這則 toast。
+
+<ToastLoadingPreview />
+
+```tsx
+const id = toastManager.add({
+  type: 'loading',
+  title: '上傳中',
+  timeout: 0,
+  data: {
+    icon: <Spinner className="size-5" />,
+    cancelProps: { children: '取消', onClick: cancelUpload },
+  },
+  actionProps: { children: '動作', onClick: openLog },
+});
+
+await upload();
+toastManager.update(id, {
+  type: 'success',
+  title: '上傳完成',
+  timeout: 4000,
+  data: { icon: <CheckIcon className="size-5" /> },
+});
+```
+
+## 附圖示 [#with-icon]
+
+透過 `data.icon` 傳入任何圖示節點；渲染時會把它放進標題前方的圖示 slot。
+
+<ToastIconPreview />
+
+```tsx
+toastManager.add({
+  type: 'warning',
+  title: '請注意系統公告',
+  data: {
+    icon: <FlagIcon className="size-5" />,
+  },
+});
+```
+
+## 附說明 [#with-description]
+
+用 `description` 加第二行脈絡。
+
+<ToastDescriptionPreview />
+
+```tsx
+toastManager.add({
+  type: 'success',
+  title: '已成功儲存',
+  description: '所有變更已套用至專案。',
+});
+```
+
+## 附動作 [#with-action]
+
+`actionProps` 會轉給動作按鈕。用來做「復原」或其他補救操作。
+
+<ToastActionPreview />
+
+```tsx
+toastManager.add({
+  type: 'info',
+  title: '已封存項目',
+  actionProps: {
+    children: '復原',
+    onClick: () => undoArchive(),
+  },
+});
+```
+
+## Promise [#promise]
+
+`promise` 會依一個 promise，把同一則 toast 依序換成載入、成功與錯誤。
+
+<ToastPromisePreview />
+
+```tsx
+toastManager.promise(saveDraft(), {
+  loading: { type: 'info', title: '處理中…' },
+  success: { type: 'success', title: '已儲存' },
+  error: { type: 'error', title: '失敗，請稍後再試' },
+});
+```
+
+## 錨定 toast [#anchored-toasts]
+
+要在特定元素旁做類似 tooltip 的回饋（例如按鈕附近的 "Copied!"），用 `anchoredToastManager`，並用 `AnchoredToastProvider` 包起來。每次呼叫傳入 `positionerProps.anchor`。
+
+<ToastAnchoredPreview />
+
+```tsx
+// app root
+import {
+  AnchoredToastProvider,
+  ToastProvider,
+} from '@/components/ui/Toast';
+
+<ToastProvider>
+  <AnchoredToastProvider variant="subtle">
+    {children}
+  </AnchoredToastProvider>
+</ToastProvider>;
+```
+
+```tsx
+// anywhere
+import { anchoredToastManager } from '@/components/ui/Toast';
+
+function CopyButton() {
+  const ref = useRef<HTMLButtonElement>(null);
+  return (
+    <Button
+      ref={ref}
+      onClick={() => {
+        navigator.clipboard.writeText(value);
+        anchoredToastManager.add({
+          type: 'success',
+          title: 'Copied!',
+          positionerProps: {
+            anchor: ref.current,
+            side: 'top',
+            sideOffset: 8,
+          },
+        });
+      }}
+    >
+      Copy
+    </Button>
+  );
+}
+```
+
+## Props [#props]
+
+### ToastProvider
+
+| Prop           | Type                                                                                              | Default          | 說明                                                                                         |
+| -------------- | ------------------------------------------------------------------------------------------------- | ---------------- | -------------------------------------------------------------------------------------------- |
+| `position`     | `'top-left' \| 'top-center' \| 'top-right' \| 'bottom-left' \| 'bottom-center' \| 'bottom-right'` | `'bottom-right'` | toast viewport 的錨點                                                                        |
+| `variant`      | `'solid' \| 'subtle'`                                                                             | `'solid'`        | 實心的狀態色表面，或 subtle 白底                                                             |
+| `closable`     | `boolean`                                                                                         | `true`           | 渲染關閉的 X 按鈕                                                                            |
+| `className`    | `string`                                                                                          | —                | viewport 的額外 class                                                                        |
+| `toastManager` | `ToastManager`                                                                                    | `toastManager`   | 覆寫預設 singleton。傳入 `createToastManager` 的自訂 manager，開第二條通道                   |
+| `timeout`      | `number`                                                                                          | `5000`           | 預設自動關閉的毫秒數（`0` 保持開啟）                                                         |
+| `limit`        | `number`                                                                                          | `3`              | 同時顯示的 toast 上限                                                                        |
+
+### AnchoredToastProvider
+
+與 `ToastProvider` 相同，但沒有 `position`。錨定 toast 每次呼叫時，依 `positionerProps.anchor` 自己定位。預設使用 `anchoredToastManager` singleton。
+
+### Manager 方法 [#manager-methods]
+
+`toastManager`、`anchoredToastManager`，以及 `createToastManager()` 產生的任何 manager，都提供同一套命令式 API。
+
+| 方法      | 簽章                                                       | 說明                                           |
+| --------- | ---------------------------------------------------------- | ---------------------------------------------- |
+| `add`     | `(options) => string`                                      | 新增一則 toast 並回傳 id                       |
+| `update`  | `(id, options) => void`                                    | 更新既有 toast（或透過 `add` 依 id 新增或更新） |
+| `close`   | `(id?) => void`                                            | 關閉一則 toast（沒有 id 時關閉全部）           |
+| `promise` | `(promise, { loading, success, error }) => Promise<Value>` | 讓同一則 toast 依序呈現載入、成功與錯誤         |
+
+### 新增選項 [#add-options]
+
+| 選項                | Type                                                       | 說明                                                                 |
+| ------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------- |
+| `id`                | `string`                                                   | 穩定 id。再用相同 id 呼叫 `add` 會就地更新                           |
+| `type`              | `'success' \| 'warning' \| 'error' \| 'info' \| 'loading'` | 狀態顏色                                                             |
+| `title`             | `ReactNode`                                                | 主要訊息                                                             |
+| `description`       | `ReactNode`                                                | 標題後面的次要文字                                                   |
+| `timeout`           | `number`                                                   | 覆寫 provider 的 timeout（`0` 保持開啟）                             |
+| `priority`          | `'low' \| 'high'`                                          | ARIA live region 的 politeness                                       |
+| `actionProps`       | `ButtonHTMLAttributes`                                     | 動作按鈕的 props                                                     |
+| `positionerProps`   | `{ anchor, side, ... }`                                    | 錨定 toast 用：要錨定的元素（傳給 `Toast.Positioner`）               |
+| `data.icon`         | `ReactNode`                                                | 標題前方的圖示                                                       |
+| `data.cancelProps`  | `ButtonHTMLAttributes`                                     | 取消按鈕。有設定時，或在 loading toast 上，會取代關閉的 X            |
+| `onClose`           | `() => void`                                               | toast 關閉時呼叫                                                     |
+
+### createToastManager
+
+```tsx
+import {
+  createToastManager,
+  type ToasterToastData,
+} from '@/components/ui/Toast';
+
+const errorToast = createToastManager<ToasterToastData>();
+```
+
+把回傳的 manager 傳給 `ToastProvider` 的 `toastManager` prop，就能開一條獨立通道，有自己的狀態、位置與變體。
+
+### 匯出 [#exports]
+
+| 匯出                                                                                                                                        | 說明                                                                 |
+| ------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `toastManager`                                                                                                                              | 預設的模組層級 singleton manager，接到 `ToastProvider`               |
+| `anchoredToastManager`                                                                                                                      | 錨定／類似 tooltip 的 toast 用 singleton，接到 `AnchoredToastProvider` |
+| `createToastManager`                                                                                                                        | 額外 manager 通道的工廠函式                                          |
+| `ToastProvider`                                                                                                                             | 在某個位置掛上 viewport，並預先接上 `toastManager`（可用 prop 覆寫） |
+| `AnchoredToastProvider`                                                                                                                     | 錨定 toast 的同樣做法                                                |
+| `useToast`                                                                                                                                  | 從 context 讀取 manager 的 hook，給 primitive 內部的進階自訂渲染     |
+| `Toast`, `ToastViewport`, `ToastPortal`, `ToastPositioner`, `ToastContent`, `ToastTitle`, `ToastDescription`, `ToastIcon`, `ToastAction`, `ToastClose`, `ToastCancel` | 自訂渲染用的較底層部分 |

@@ -1,0 +1,112 @@
+---
+title: RadioGroup
+description: 只能選一個的 radio 按鈕群組。
+---
+
+import {
+  RadioGroupPreview,
+  RadioGroupVerticalPreview,
+} from '~/components/previews/RadioGroupPreview';
+
+## 預覽 [#preview]
+
+<RadioGroupPreview />
+
+## 用法 [#usage]
+
+```tsx
+import { Label } from '@/components/ui/Label';
+import {
+  RadioGroup,
+  RadioGroupItem,
+} from '@/components/ui/RadioGroup';
+import { useState } from 'react';
+
+const options = [
+  { label: 'Option A', value: 'a' },
+  { label: 'Option B', value: 'b' },
+  { label: 'Option C', value: 'c' },
+];
+
+function Form() {
+  const [value, setValue] = useState('a');
+
+  return (
+    <RadioGroup value={value} onValueChange={setValue}>
+      {options.map((option) => (
+        <div key={option.value} className="flex items-center gap-2">
+          <RadioGroupItem id={option.value} value={option.value} />
+          <Label htmlFor={option.value}>{option.label}</Label>
+        </div>
+      ))}
+    </RadioGroup>
+  );
+}
+```
+
+## 複合項目 [#compound-items]
+
+選項需要自訂版面或額外文字時，使用 `RadioGroupItem`。
+
+```tsx
+import { Label } from '@/components/ui/Label';
+import {
+  RadioGroup,
+  RadioGroupItem,
+} from '@/components/ui/RadioGroup';
+
+<RadioGroup value={value} onValueChange={setValue}>
+  <div className="flex items-center gap-2">
+    <RadioGroupItem id="basic" value="basic" />
+    <Label htmlFor="basic">Basic</Label>
+  </div>
+  <div className="flex items-center gap-2">
+    <RadioGroupItem id="pro" value="pro" />
+    <Label htmlFor="pro">
+      <span>
+        <span className="block">Pro</span>
+        <span className="block text-grayscale-opacity-500">
+          Recommended for teams
+        </span>
+      </span>
+    </Label>
+  </div>
+</RadioGroup>;
+```
+
+## 垂直排列 [#vertical-layout]
+
+<RadioGroupVerticalPreview />
+
+```tsx
+<RadioGroup
+  className="flex flex-col gap-4"
+  value={value}
+  onValueChange={setValue}
+>
+  {options.map((option) => (
+    <div key={option.value} className="flex items-center gap-2">
+      <RadioGroupItem id={option.value} value={option.value} />
+      <Label htmlFor={option.value}>{option.label}</Label>
+    </div>
+  ))}
+</RadioGroup>
+```
+
+## 屬性 [#props]
+
+### RadioGroup
+
+| Prop            | Type             | Default | 說明                          |
+| --------------- | ---------------- | ------- | ----------------------------- |
+| `value`         | `string`         | —       | 目前選取的值                  |
+| `defaultValue`  | `string`         | —       | 非受控用法的初始值            |
+| `onValueChange` | Base UI callback | —       | 選取變更時呼叫                |
+| `className`     | `string`         | —       | 額外的 CSS class              |
+
+### RadioGroupItem
+
+| Prop       | Type      | Default | 說明                 |
+| ---------- | --------- | ------- | -------------------- |
+| `value`    | `string`  | —       | **必填。** 選項值    |
+| `disabled` | `boolean` | `false` | 停用這一個項目       |

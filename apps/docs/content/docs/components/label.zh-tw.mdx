@@ -1,0 +1,73 @@
+---
+title: Label
+description: 與表單控制項關聯的無障礙標籤文字。
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { Input, Label } from '~/components/vital-components';
+
+## 預覽 [#preview]
+
+<ComponentPreview>
+  <Label htmlFor="email">Email</Label>
+</ComponentPreview>
+
+## 用法 [#usage]
+
+```tsx
+import { Label } from '@/components/ui/Label';
+
+<Label htmlFor="email">Email</Label>;
+```
+
+## 必填 [#required]
+
+`required` 會在標籤加上 Vittal Design 的必填圓點。控制項本身也要維持真正的必填狀態。
+
+<ComponentPreview centered={false}>
+  <div className="flex w-80 flex-col gap-2">
+    <Label htmlFor="required-email" required>
+      Email
+    </Label>
+    <Input
+      id="required-email"
+      placeholder="name@example.com"
+      required
+    />
+  </div>
+</ComponentPreview>
+
+```tsx
+<div className="flex flex-col gap-2">
+  <Label htmlFor="email" required>
+    Email
+  </Label>
+  <Input id="email" placeholder="name@example.com" required />
+</div>
+```
+
+## 搭配 Input [#with-input]
+
+<ComponentPreview centered={false}>
+  <div className="flex w-80 flex-col gap-2">
+    <Label htmlFor="email-input">Email</Label>
+    <Input id="email-input" placeholder="name@example.com" />
+  </div>
+</ComponentPreview>
+
+```tsx
+<div className="flex flex-col gap-2">
+  <Label htmlFor="email">Email</Label>
+  <Input id="email" placeholder="name@example.com" />
+</div>
+```
+
+## 屬性 [#props]
+
+| Prop        | Type                      | Default | 說明                     |
+| ----------- | ------------------------- | ------- | ------------------------------- |
+| `htmlFor`   | `string`                  | —       | 關聯的控制項 id           |
+| `required`  | `boolean`                 | `false` | 顯示必填圓點          |
+| `className` | `string`                  | —       | 額外的 CSS class          |
+| `style`     | `CSSProperties`           | —       | 行內樣式                   |
+| `...props`  | `ComponentProps<'label'>` | —       | 原生 `label` props 與事件 |
