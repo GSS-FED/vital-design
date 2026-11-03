@@ -33,13 +33,10 @@ for (const { id } of stories) {
     await page.clock.install({
       time: new Date('2026-01-01T00:00:00Z'),
     });
-    // Remote images (e.g. pravatar.cc) load nondeterministically; only
-    // allow the local build and Google Fonts from preview-head.html.
+    // Fonts are bundled locally; block nondeterministic remote assets
+    // such as avatar images.
     await page.route(
-      (url) =>
-        url.hostname !== '127.0.0.1' &&
-        !url.hostname.endsWith('fonts.googleapis.com') &&
-        !url.hostname.endsWith('fonts.gstatic.com'),
+      (url) => url.hostname !== '127.0.0.1',
       (route) => route.abort(),
     );
     await page.goto(`/iframe.html?id=${id}&viewMode=story`);
