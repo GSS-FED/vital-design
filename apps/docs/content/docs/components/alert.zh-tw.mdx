@@ -1,0 +1,115 @@
+---
+title: Alert
+description: 可組合的訊息表面，用來放確認、警告與情境提示。
+---
+
+import {
+  AlertCustomContentPreview,
+  AlertPreview,
+  AlertWithIconPreview,
+} from '~/components/previews/AlertPreview';
+
+## 預覽 [#preview]
+
+<AlertPreview />
+
+## 用法 [#usage]
+
+```tsx
+import {
+  Alert,
+  AlertAction,
+  AlertDescription,
+  AlertTitle,
+} from '@/components/ui/Alert';
+import { Button } from '@/components/ui/Button';
+
+function SubmitAlert() {
+  return (
+    <Alert>
+      <AlertTitle>Request submitted</AlertTitle>
+      <AlertDescription>
+        The approval flow has started. You can keep editing the draft
+        until the reviewer opens it.
+      </AlertDescription>
+      <AlertAction>
+        <Button size="md" variant="text" theme="primary">
+          View request
+        </Button>
+      </AlertAction>
+    </Alert>
+  );
+}
+```
+
+## 加上圖示 [#with-icon]
+
+訊息需要更強的視覺脈絡時，把圖示放在第一個子元素。
+
+<AlertWithIconPreview />
+
+```tsx
+import { ClearIcon } from '@/components/icons/ClearIcon';
+
+<Alert role="status">
+  <ClearIcon className="text-destructive-500" />
+  <AlertTitle>Payment method expired</AlertTitle>
+  <AlertDescription>
+    Update the billing card before the next renewal date.
+  </AlertDescription>
+</Alert>;
+```
+
+## 自訂內容 [#custom-content]
+
+提示需要一個小的後續決定時，`AlertDescription` 可以放額外控制項。
+
+<AlertCustomContentPreview />
+
+## 結構 [#anatomy]
+
+```tsx
+<Alert>
+  <AlertTitle />
+  <AlertDescription />
+  <AlertAction />
+</Alert>
+```
+
+## 屬性 [#props]
+
+### Alert
+
+`Alert` 接受原生 `div` props，預設渲染 `role="alert"`。
+
+| Prop        | Type            | Default   | 說明                                |
+| ----------- | --------------- | --------- | ------------------------------------------ |
+| `role`      | `string`        | `'alert'` | 訊息的 ARIA live region 角色      |
+| `children`  | `ReactNode`     | -         | Alert 內容與組成的子部分       |
+| `className` | `string`        | -         | 根元素上的額外 CSS class |
+| `style`     | `CSSProperties` | -         | 根元素上的行內樣式          |
+
+### AlertTitle
+
+| Prop        | Type        | Default | 說明            |
+| ----------- | ----------- | ------- | ---------------------- |
+| `children`  | `ReactNode` | -       | 標題內容          |
+| `className` | `string`    | -       | 額外的 CSS class |
+
+### AlertDescription
+
+| Prop        | Type        | Default | 說明                     |
+| ----------- | ----------- | ------- | ------------------------------- |
+| `children`  | `ReactNode` | -       | 內文或輔助內容 |
+| `className` | `string`    | -       | 額外的 CSS class          |
+
+### AlertAction
+
+| Prop        | Type        | Default | 說明                        |
+| ----------- | ----------- | ------- | ---------------------------------- |
+| `children`  | `ReactNode` | -       | 動作按鈕、連結或控制項 |
+| `className` | `string`    | -       | 額外的 CSS class             |
+
+## 無障礙 [#accessibility]
+
+緊急、要立刻朗讀的訊息，維持預設 `role="alert"`。優先度較低、不該打斷目前工作的確認，改用 `role="status"`。

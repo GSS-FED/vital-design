@@ -1,0 +1,168 @@
+---
+title: 色彩
+description: Vittal Design 的色彩系統：primitive 色階、語意別名，以及具名的元件 token。
+---
+
+import {
+  AvatarPalette,
+  ColorPalette,
+  TagPalette,
+} from '~/components/tokens/Swatch';
+import {
+  avatarTokens,
+  destructiveTokens,
+  grayscaleOpacityTokens,
+  grayscaleTokens,
+  infoTokens,
+  primaryTokens,
+  semanticActionTokens,
+  semanticChartTokens,
+  semanticFormTokens,
+  semanticSidebarTokens,
+  semanticStatusTokens,
+  semanticSurfaceTokens,
+  semanticVitalTokens,
+  successTokens,
+  tagTokens,
+  warningTokens,
+} from '~/components/tokens/data';
+
+## 概覽
+
+Vittal Design 的語意層沿用 [shadcn/ui](https://ui.shadcn.com/docs/theming) 的命名。顏色定義在 `tokens/`（Style Dictionary），建置成 `src-v2/styles/tokens/generated.css` 裡 `:root` 上的 CSS custom properties，再經 `@theme inline`（`--color-*`）交給 Tailwind。
+
+```ts
+// 3 layers, generated from tokens/*.json by Style Dictionary
+primitive  →  semantic  →  component
+```
+
+- **Primitive 色階**（`--primary-50…900`、`--grayscale-100…900`、`--grayscale-opacity-100…900`、`--success-100…900` 等）是內部基礎。圖表、插圖，或需要指定某一階色調時再用。Tailwind utility：`bg-primary-500`、`text-grayscale-700`。
+- **語意 token**（`--background`、`--primary`、`--card`、`--destructive` 等）是公開 API。它們描述用途，並搭配 `-foreground`，讓表面上的內容看得清楚。Tailwind utility：`bg-primary text-primary-foreground`。
+- **元件 token**（`--avatar-*-fg`、`--tag-*-solid`）是特定元件使用的封閉色盤。
+
+## Primary
+
+主要色是一組藍色，用在可互動的元素、按鈕、焦點狀態與主要操作。
+
+<ColorPalette tokens={primaryTokens} />
+
+## Grayscale
+
+預設灰階完全不透明。表面必須不透明時用它，例如 popover、tooltip、toast、實心 chip。
+
+<ColorPalette tokens={grayscaleTokens} />
+
+## Grayscale (Opacity)
+
+這個變體使用 `rgba(35, 35, 50, α)`，疊在任何背景上都會跟著調。用在 hover 色調、分隔線、停用欄位，以及其他需要半透明的狀態。`--grayscale-opacity-900` 是唯一的實心 hex。
+
+<ColorPalette tokens={grayscaleOpacityTokens} />
+
+## Success
+
+正向回饋、確認，以及「已儲存」狀態。
+
+<ColorPalette tokens={successTokens} />
+
+## Info
+
+資訊訊息與中性狀態。
+
+<ColorPalette tokens={infoTokens} />
+
+## Warning
+
+提醒。不阻擋操作的輕度警告。
+
+<ColorPalette tokens={warningTokens} />
+
+## Destructive
+
+錯誤、破壞性動作，以及擋下流程的驗證失敗。
+
+<ColorPalette tokens={destructiveTokens} />
+
+## 語意 token
+
+依用途命名的別名，指向 primitive 顏色。每個表面都有配對的 `-foreground` token。一起用，文字在主題被覆寫時仍然看得清楚。
+
+```tsx
+<button className="bg-primary text-primary-foreground">Save</button>
+<div className="bg-card text-card-foreground border border-border">…</div>
+```
+
+### 表面
+
+頁面外框、card、popover，以及 muted / accent 區域。`background` 是頁面；`card` 與 `popover` 是抬高的容器；`muted` 與 `accent` 是淡的背景色調（例如表格斑馬紋、hover）。
+
+<ColorPalette tokens={semanticSurfaceTokens} columns={2} />
+
+### 動作
+
+品牌動作表面。`primary` 是主要行動呼籲；`secondary` 是另一種按鈕表面。
+
+<ColorPalette tokens={semanticActionTokens} columns={2} />
+
+### 狀態
+
+回饋色，並配上前景色，讓內容看得清楚。
+
+<ColorPalette tokens={semanticStatusTokens} columns={2} />
+
+### 表單
+
+框線、輸入框線條與焦點環。`border` 是標準的實心分隔；`input` 預設與它相同，但可以分開調整主題；`ring` 畫焦點外框。
+
+<ColorPalette tokens={semanticFormTokens} columns={3} />
+
+### 圖表
+
+資料視覺化的五階色盤。預設依 `primary → success → warning → info → destructive` 輪替，圖表系列會跟著品牌色，不受主題覆寫影響。
+
+<ColorPalette tokens={semanticChartTokens} columns={5} />
+
+### Sidebar
+
+應用側邊欄的外框 slot（相容 shadcn）。[Sidebar](/zh-tw/docs/components/sidebar) primitive 使用 `bg-sidebar`、`text-sidebar-foreground`、`border-sidebar-border`。產品 block 可以覆寫個別 slot（例如 cloud shell 上的 `[--sidebar:transparent]`）。
+
+| Slot                           | 預設別名                    |
+| ------------------------------ | --------------------------- |
+| `--sidebar`                    | `grayscale.100`             |
+| `--sidebar-foreground`         | `grayscale.900`             |
+| `--sidebar-primary`            | `primary.500`               |
+| `--sidebar-primary-foreground` | white                       |
+| `--sidebar-accent`             | `primary.50`                |
+| `--sidebar-accent-foreground`  | `primary.700`               |
+| `--sidebar-border`             | `grayscale-opacity.200`     |
+| `--sidebar-ring`               | `primary.300`               |
+
+<ColorPalette tokens={semanticSidebarTokens} columns={2} />
+
+### Vittal 擴充
+
+Vittal Design 獨有、shadcn 沒有對應的 token。為了和生態一致，不加前綴（與 Origin UI 的擴充方式相同）。
+
+<ColorPalette tokens={semanticVitalTokens} columns={3} />
+
+## Avatar 色盤
+
+每個具名 avatar 顏色有三個 token：`fg`（文字 / 縮寫）、`border`、`bg`。由 `AvatarRoot color="…"` 使用。
+
+<AvatarPalette tokens={avatarTokens} />
+
+```css
+background: var(--avatar-tiffany-bg);
+border-color: var(--avatar-tiffany-border);
+color: var(--avatar-tiffany-fg);
+```
+
+## Tag 色盤
+
+每個具名 tag 顏色有 `solid`（文字 / 圖示）與 `tint`（背景）。由 `Tag color="…"` 使用。
+
+<TagPalette tokens={tagTokens} />
+
+```css
+background: var(--tag-teal-tint);
+color: var(--tag-teal-solid);
+```

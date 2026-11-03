@@ -1,0 +1,63 @@
+---
+title: Data Table — Editable Cells
+description: 可編輯的資料表，含行內文字儲存格、popover 選擇器、標籤多選與日期選擇。
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { DataTableGroup04 } from '~/components/vital-components';
+
+## 預覽 [#preview]
+
+<ComponentPreview
+  centered={false}
+  className="overflow-x-auto"
+  minHeight="min-h-0"
+>
+  <DataTableGroup04 />
+</ComponentPreview>
+
+## 組合 [#composition]
+
+這個區塊用以下 Vittal Design primitive 組成：
+
+- `Avatar`, `Calendar`, `Card`, `Editable`, `Popover`, `Table`, `Tag`
+- `CheckIcon`
+- [`@tanstack/react-table`](https://tanstack.com/table/v8) 管理表格狀態
+
+## 效能 [#performance]
+
+這個示範把編輯模型留得很簡單：每個可編輯的 popover 儲存格各自有一個 `Popover` root。小表格要讀、測試、複製，這種形狀最容易。
+
+關掉的 popup 通常不是成本高的地方。Popover 與 select 的內容走 portal，所以關掉時不會 mount popup DOM、listbox，也不做定位。剩下的每格成本仍是線性的：root 狀態、trigger 的處理函式、訂閱、類似 select 的控制項裡的隱藏 input，以及建立 React element。
+
+小表格與示範用每格一個 popup root 就好。大型且沒有虛擬化的表格，先把列虛擬化。如果還是有很多可互動的儲存格，改用共用覆層：表格附近一個 popover root、多個 trigger，內容依作用中 trigger 的 payload 決定。
+
+這些情況用共用覆層：
+
+- 表格一次渲染很多可編輯儲存格
+- popup 內容很重，或是重複的
+- 儲存格要共用同一種浮動表面
+- 表格已經自己持有更高層的編輯狀態
+
+這些情況維持每格一個：
+
+- 表格很小，或已經虛擬化
+- 每個儲存格編輯器很輕
+- 本地狀態比一份共用的作用中 payload 更好理解
+
+## 檔案 [#files]
+
+| 檔案                   | 說明                                        |
+| ---------------------- | ------------------------------------------- |
+| `DataTableGroup04.tsx` | 區塊進入點——固定寬度的表格與列更新          |
+| `columns.tsx`          | 可編輯文字儲存格與 popover 儲存格的 renderer |
+| `data.ts`              | 範例排放列、人員與標籤選項                  |
+| `popover-edit.tsx`     | 人員、標籤與日期的 popover 編輯器           |
+
+## 安裝 [#installation]
+
+```bash
+npx shadcn@latest add @vital-design/data-table-group-04
+```
+
+會把區塊安裝到 `src/blocks/data-table-group-04/`，並自動帶入需要的每個 primitive。

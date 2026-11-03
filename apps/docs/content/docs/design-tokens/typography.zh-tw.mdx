@@ -1,0 +1,209 @@
+---
+title: 字體
+description: Vittal Design 使用的字型家族、字級、字重與文字樣式。
+---
+
+## 字型家族
+
+Vittal Design 透過 `--font-sans` 提供一組無襯線字型，並註冊成 Tailwind 的 `font-sans` token。
+
+```css
+--font-sans:
+  Roboto,
+  'Noto Sans TC',
+  'PingFang TC',
+  'Microsoft JhengHei',
+  sans-serif;
+```
+
+這組字型的順序是：
+
+1. **Roboto** — 拉丁字母與介面文字
+2. **Noto Sans TC** / **PingFang TC** / **Microsoft JhengHei** — 繁體中文的後備字型
+
+```html
+<p class="font-sans">Vittal Design 元件庫</p>
+```
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="font-sans text-base text-grayscale-opacity-900">
+    Vittal Design 元件庫 — Roboto, 你好, 1234567890
+  </p>
+</div>
+
+## 字級
+
+Vittal Design 使用 Tailwind 的預設字級，沒有專案自己的 font-size token。內文排版用這些 utility。
+
+### 標題 1 — `text-4xl`
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <h1 className="text-4xl font-semibold tracking-tight text-grayscale-opacity-900">
+    更快做出清楚的介面。
+  </h1>
+</div>
+
+```html
+<h1 class="text-4xl font-semibold tracking-tight">…</h1>
+```
+
+### 標題 2 — `text-3xl`
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <h2 className="text-3xl font-semibold tracking-tight text-grayscale-opacity-900">
+    可組合的無障礙 primitive。
+  </h2>
+</div>
+
+```html
+<h2 class="text-3xl font-semibold tracking-tight">…</h2>
+```
+
+### 標題 3 — `text-2xl`
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <h3 className="text-2xl font-semibold text-grayscale-opacity-900">
+    章節標題
+  </h3>
+</div>
+
+```html
+<h3 class="text-2xl font-semibold">…</h3>
+```
+
+### 標題 4 — `text-xl`
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <h4 className="text-xl font-semibold text-grayscale-opacity-900">
+    小節標題
+  </h4>
+</div>
+
+```html
+<h4 class="text-xl font-semibold">…</h4>
+```
+
+### 導言 — `text-lg`
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="text-lg text-grayscale-opacity-700">
+    用來帶出一個段落，或摘要這一頁。
+  </p>
+</div>
+
+```html
+<p class="text-lg text-grayscale-opacity-700">…</p>
+```
+
+### 內文 — `text-base`
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="text-base text-grayscale-opacity-800">
+    內文的預設尺寸。長文用這個大小。
+  </p>
+</div>
+
+```html
+<p class="text-base text-grayscale-opacity-800">…</p>
+```
+
+### 小字 — `text-sm`
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="text-sm text-grayscale-opacity-700">
+    表單標籤、表格儲存格、按鈕文字等介面文字用這個尺寸。
+  </p>
+</div>
+
+```html
+<p class="text-sm text-grayscale-opacity-700">…</p>
+```
+
+### 圖說 — `text-xs`
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="text-xs text-grayscale-opacity-600">
+    輔助說明、圖說、後設資料與小標籤。
+  </p>
+</div>
+
+```html
+<p class="text-xs text-grayscale-opacity-600">…</p>
+```
+
+> 完整範圍（`text-xs` 到 `text-9xl`）見 [Tailwind 字級文件](https://tailwindcss.com/docs/font-size)。
+
+## 字重
+
+<div className="not-prose my-4 grid gap-3 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="text-base font-normal text-grayscale-opacity-900">
+    <span className="mr-3 font-mono text-xs text-grayscale-opacity-500">font-normal</span>
+    The quick brown fox jumps over the lazy dog.
+  </p>
+  <p className="text-base font-medium text-grayscale-opacity-900">
+    <span className="mr-3 font-mono text-xs text-grayscale-opacity-500">font-medium</span>
+    The quick brown fox jumps over the lazy dog.
+  </p>
+  <p className="text-base font-semibold text-grayscale-opacity-900">
+    <span className="mr-3 font-mono text-xs text-grayscale-opacity-500">font-semibold</span>
+    The quick brown fox jumps over the lazy dog.
+  </p>
+  <p className="text-base font-bold text-grayscale-opacity-900">
+    <span className="mr-3 font-mono text-xs text-grayscale-opacity-500">font-bold</span>
+    The quick brown fox jumps over the lazy dog.
+  </p>
+</div>
+
+```html
+<p class="font-normal">Body text</p>
+<p class="font-medium">Form labels and emphasised UI text</p>
+<p class="font-semibold">Headings and high-weight UI text</p>
+<p class="font-bold">Reserved for marketing and display text</p>
+```
+
+## 文字顏色
+
+Vittal Design 的灰階用漸進透明度，同一組文字 token 在淺色與帶色背景上都讀得一致。依用途使用語意 `--text-*` token；需要精確控制對比時，直接選灰階。
+
+| 用途           | 語意                             | 灰階                         |
+| -------------- | -------------------------------- | ---------------------------- |
+| 主要內容       | `text-(--foreground)`            | `text-grayscale-opacity-900` |
+| 內文           | —                                | `text-grayscale-opacity-800` |
+| 次要文字       | `text-(--muted-foreground)`      | `text-grayscale-opacity-700` |
+| 淡文字         | `text-(--text-tertiary)`         | `text-grayscale-opacity-600` |
+| 佔位文字       | `text-(--text-disabled)`         | `text-grayscale-opacity-400` |
+| 強調背景上的字 | `text-(--primary-foreground)`    | —                            |
+
+<div className="not-prose my-4 grid gap-2 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="text-base text-grayscale-opacity-900">主要內容 — grayscale-opacity-900</p>
+  <p className="text-base text-grayscale-opacity-800">內文 — grayscale-opacity-800</p>
+  <p className="text-base text-grayscale-opacity-700">次要文字 — grayscale-opacity-700</p>
+  <p className="text-base text-grayscale-opacity-600">淡文字 — grayscale-opacity-600</p>
+  <p className="text-base text-grayscale-opacity-400">佔位文字 — grayscale-opacity-400</p>
+</div>
+
+## 行內元素
+
+### 程式碼
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="text-base text-grayscale-opacity-800">
+    在 CSS 裡使用{' '}
+    <code className="rounded-sm bg-grayscale-opacity-150 px-1.5 py-0.5 font-mono text-[0.85em] text-grayscale-opacity-900">
+      var(--primary-500)
+    </code>
+    ，或在標記裡使用對應的 Tailwind utility。
+  </p>
+</div>
+
+### 連結
+
+<div className="not-prose my-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <p className="text-base text-grayscale-opacity-800">
+    開始新專案前，先看{' '}
+    <a className="text-primary-500 underline underline-offset-4 hover:text-primary-600">
+      Tailwind 設定說明
+    </a>
+    。
+  </p>
+</div>

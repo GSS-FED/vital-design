@@ -1,0 +1,177 @@
+---
+title: Sidebar
+description: 應用側邊欄，含結構、行為，以及基本的中性預設外觀。產品專用外觀放在區塊。
+---
+
+import {
+  SidebarFloatingPreview,
+  SidebarInsetPreview,
+  SidebarPreview,
+} from '~/components/previews/SidebarPreview';
+
+## 預覽 [#preview]
+
+> **邊界**
+>
+> - **Primitive：** 結構與行為（收合、cookie、⌘B、行動版 Sheet），以及每個面板分支上對齊 shadcn 的 `data-slot` / `data-side` / `data-variant` / `data-state`，**再加上基本預設外觀**（灰階文字，以及 hover / active 填色——不是 shadcn 的 `sidebar-accent`）。沒有產品專用的裝飾，例如左側軌道條。
+> - **產品樣式 / 完整外殼：** [Cloud](/zh-tw/docs/blocks/sidebar/cloud/flat) — [Flat](/zh-tw/docs/blocks/sidebar/cloud/flat)、[Inline Submenus](/zh-tw/docs/blocks/sidebar/cloud/inline-submenus)、[Collapsible Submenus](/zh-tw/docs/blocks/sidebar/cloud/collapsible-submenus)、[Dropdown Submenus](/zh-tw/docs/blocks/sidebar/cloud/dropdown-submenus)、[Secondary Nav](/zh-tw/docs/blocks/sidebar/cloud/secondary-nav)、[Header Actions](/zh-tw/docs/blocks/sidebar/cloud/header-actions)。
+> - **色彩：** 語意 slot `--sidebar*`（來自 `tokens/semantic/color.json` → `generated.css`）為外框上色。選單項目的預設外觀維持 `grayscale-*`。見 [色彩 → Sidebar](/zh-tw/docs/design-tokens/colors#sidebar)。
+> - **`SidebarProvider`** 用 `TooltipProvider delay={0}` 包住 children（與 shadcn 相同），所以 `SidebarInset` 底下的 tooltip 也會立刻打開。
+>
+> Header / Footer 的「sticky」是 **flex 釘住**：它們是 `SidebarContent` 的兄弟節點，不在它裡面。只有 `SidebarContent` 會捲動。
+
+<SidebarPreview />
+
+## 安裝 [#installation]
+
+```bash
+npx shadcn@latest add @vital-design/sidebar
+```
+
+## 用法 [#usage]
+
+用 `SidebarProvider` 包住版面，用 `Sidebar` + `SidebarInset` 組外殼，再用選單部分組導覽。基本樣式直接可用；產品專用外觀用**區塊**或 `className`。
+
+```tsx
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@/components/ui/Sidebar';
+
+export function AppLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <SidebarProvider>
+      <Sidebar collapsible="icon">
+        <SidebarHeader>Brand</SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>Platform</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton isActive tooltip="Home">
+                    Home
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>
+      <SidebarInset>
+        <header>
+          <SidebarTrigger />
+        </header>
+        {children}
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}
+```
+
+## 結構 [#structure]
+
+| 部分                                                 | 角色                                                                                                                |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `SidebarProvider`                                    | 收合狀態、cookie 持久化、鍵盤快捷鍵（`enableKeyboardShortcut`，預設 true）、tooltip provider                        |
+| `Sidebar`                                            | 主面板（`side`、`variant`、`collapsible`）                                                                          |
+| `SidebarTrigger` / `SidebarRail`                     | 切換控制                                                                                                            |
+| `SidebarInset`                                       | 主要內容區                                                                                                          |
+| `SidebarHeader` / `SidebarFooter` / `SidebarContent` | 釘住的頁首 / 頁尾，以及可捲動的主體                                                                                 |
+| `SidebarGroup*`                                      | 內容裡有標籤的區段                                                                                                  |
+| `SidebarMenu*`                                       | 導覽列、動作、badge、skeleton、巢狀子選單                                                                           |
+
+## 可收合模式 [#collapsible-modes]
+
+- `offcanvas`（預設）— 收合時移出畫面
+- `icon` — 收成 icon 軌道；選單標籤隱藏；hover 時顯示 `tooltip`
+- `none` — 固定寬度，不可收合
+
+## 變體 [#variants]
+
+### Inset
+
+<SidebarInsetPreview />
+
+### Floating
+
+<SidebarFloatingPreview />
+
+## 受控狀態 [#controlled-state]
+
+父層要自己持有收合狀態時，在 `SidebarProvider` 上用 `open` + `onOpenChange`。
+
+```tsx
+const [open, setOpen] = useState(true);
+
+<SidebarProvider open={open} onOpenChange={setOpen}>
+  ...
+</SidebarProvider>;
+```
+
+## 多型（`render` vs shadcn `asChild`） [#polymorphism-render-vs-shadcn-aschild]
+
+Vittal Design 用 Base UI 的 `render` prop，不用 Radix 的 `asChild`：
+
+```tsx
+// shadcn
+<SidebarMenuButton asChild>
+  <a href="/docs">Docs</a>
+</SidebarMenuButton>
+
+// Vittal Design
+<SidebarMenuButton render={<a href="/docs" />}>
+  Docs
+</SidebarMenuButton>
+```
+
+適用於：`SidebarGroupLabel`、`SidebarGroupAction`、`SidebarMenuButton`、`SidebarMenuAction`、`SidebarMenuSubButton`。
+
+## 鍵盤 [#keyboard]
+
+`⌘B` / `Ctrl+B` 切換側邊欄（桌面的開啟狀態，或行動版 Sheet）。
+
+## Cookie 與開啟狀態 [#cookie--open-state]
+
+`SidebarProvider` 在開啟狀態改變時**寫入** `sidebar_state` cookie（用來選擇性做跨頁同步）。掛載時**不會**讀這個 cookie——初始狀態來自 `defaultOpen`，或受控的 `open` prop。這樣 SSR 與第一次繪製才可預期；只有應用要在載入時還原，才自己讀 cookie。
+
+## 主題 CSS 變數 [#theme-css-variables]
+
+側邊欄顏色用相容 shadcn 的語意 slot。預設定義在 `tokens/semantic/color.json`，輸出到 `src-v2/styles/tokens/generated.css`（經 `globals.css` 引入）。見 [色彩 → Sidebar](/zh-tw/docs/design-tokens/colors#sidebar)。
+
+| 變數                           | 預設                           |
+| ------------------------------ | ------------------------------ |
+| `--sidebar`                    | `var(--grayscale-100)`         |
+| `--sidebar-foreground`         | `var(--grayscale-900)`         |
+| `--sidebar-primary`            | `var(--primary-500)`           |
+| `--sidebar-primary-foreground` | `#fff`                         |
+| `--sidebar-accent`             | `var(--primary-50)`            |
+| `--sidebar-accent-foreground`  | `var(--primary-700)`           |
+| `--sidebar-border`             | `var(--grayscale-opacity-200)` |
+| `--sidebar-ring`               | `var(--primary-300)`           |
+
+版面寬度設在 provider 外包的那一層：
+
+- `--sidebar-width`：`16rem`
+- `--sidebar-width-icon`：`3rem`
+- 行動版 Sheet 寬度：`18rem`
+
+## 行動版 [#mobile]
+
+低於 `768px` 時，`Sidebar` 渲染成由 `openMobile` 控制的 `Sheet`。把 `SidebarTrigger` 放在面板外面（通常在 `SidebarInset` 的頁首外框）——或呼叫 `useSidebar().toggleSidebar`——才能打開。`SidebarTrigger` 依行動版或桌面的開啟狀態設定 `aria-expanded`。
+
+選單動作預設是**按鈕**。要做成連結，在 `SidebarMenuButton` / `SidebarMenuSubButton` 上用 `render` prop（`render={<a href="…" />}`）。

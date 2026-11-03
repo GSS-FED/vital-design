@@ -1,0 +1,72 @@
+---
+title: Checkbox
+description: 支援已核取、未核取與不確定狀態的核取方塊。以 Base UI 處理無障礙。
+---
+
+import {
+  CheckboxPreview,
+  CheckboxStatesPreview,
+} from '~/components/previews/CheckboxPreview';
+
+## 預覽 [#preview]
+
+<CheckboxPreview />
+
+## 用法 [#usage]
+
+```tsx
+import { Checkbox } from '@/components/ui/Checkbox';
+import { Label } from '@/components/ui/Label';
+import { useState } from 'react';
+
+function Agreement() {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <div className="flex items-center gap-2">
+      <Checkbox
+        id="terms"
+        checked={checked}
+        onCheckedChange={setChecked}
+      />
+      <Label htmlFor="terms">I accept the terms and conditions</Label>
+    </div>
+  );
+}
+```
+
+## 狀態 [#states]
+
+<CheckboxStatesPreview />
+
+`indeterminate` 狀態適合「全選」：只選了一部分項目時使用。
+
+## 不確定狀態範例 [#indeterminate-pattern]
+
+```tsx
+const allChecked = items.every((i) => i.checked);
+const someChecked = items.some((i) => i.checked);
+
+<div className="flex items-center gap-2">
+  <Checkbox
+    id="select-all"
+    checked={allChecked}
+    indeterminate={!allChecked && someChecked}
+    onCheckedChange={(checked) => setAll(checked)}
+  />
+  <Label htmlFor="select-all">Select all</Label>
+</div>;
+```
+
+## 屬性 [#props]
+
+| Prop              | Type             | Default | 說明                       |
+| ----------------- | ---------------- | ------- | -------------------------- |
+| `checked`         | `boolean`        | —       | 受控的核取狀態             |
+| `defaultChecked`  | `boolean`        | `false` | 初始核取狀態               |
+| `indeterminate`   | `boolean`        | `false` | 顯示混合狀態               |
+| `onCheckedChange` | Base UI callback | —       | 核取狀態變更時呼叫         |
+| `disabled`        | `boolean`        | `false` | 停用互動                   |
+| `required`        | `boolean`        | `false` | 把 checkbox 標成必填       |
+| `className`       | `string`         | —       | 額外的 CSS class           |
+| `style`           | `CSSProperties`  | —       | 行內樣式                   |

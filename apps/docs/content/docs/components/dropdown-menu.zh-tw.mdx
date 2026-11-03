@@ -1,0 +1,220 @@
+---
+title: DropdownMenu
+description: 每一項都會觸發 callback 的動作選單。項目是在執行動作，不是綁定表單值。
+---
+
+import {
+  DropdownMenuPreview,
+  DropdownMenuSubmenuPreview,
+} from '~/components/previews/DropdownMenuPreview';
+
+## 預覽 [#preview]
+
+<DropdownMenuPreview />
+
+## 用法 [#usage]
+
+`DropdownMenu` 是 Base UI Menu 的薄樣式包裝。用來下指令，不用來選值。觸發器是 render prop，也不限定元素：透過 `render` 傳入任何元素（按鈕、只有圖示的按鈕、`SplitButton`，或其他）。
+
+```tsx
+import { Button } from '@/components/ui/Button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/DropdownMenu';
+
+<DropdownMenu>
+  <DropdownMenuTrigger render={<Button>Account</Button>} />
+  <DropdownMenuContent>
+    <DropdownMenuGroup>
+      <DropdownMenuLabel>My account</DropdownMenuLabel>
+      <DropdownMenuItem>Profile</DropdownMenuItem>
+      <DropdownMenuItem>Billing</DropdownMenuItem>
+    </DropdownMenuGroup>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem>Log out</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>;
+```
+
+## 何時使用 [#when-to-use]
+
+| 需求                                     | 使用                  |
+| ---------------------------------------- | --------------------- |
+| **動作選單**，每一項觸發 callback        | **`DropdownMenu`**    |
+| 平面值選擇器                             | `Select`              |
+| 可搜尋的值選擇器或標籤選擇器             | `Combobox`            |
+| 階層路徑選擇器                           | `Command` + `Popover` |
+| 任意內容的浮動面板                       | `Popover`             |
+
+關鍵差別：`DropdownMenu` 的項目是**指令**（每一項觸發副作用），不是值。沒有值綁定，一般項目也沒有選取狀態，選取後預設會關閉選單。
+
+不要只為了換一種觸發器，就把 `Select`、`Combobox` 或自訂的 `Command` 選擇器包進 `DropdownMenu`。直接用選擇器 primitive，並自訂它自己的觸發器。
+
+## 核取方塊與單選項目 [#checkbox-and-radio-items]
+
+切換型項目用 `DropdownMenuCheckboxItem` 與 `DropdownMenuRadioItem`。左側會顯示指示器，選取後保持開啟，方便一次切換多個項目。
+
+```tsx
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/DropdownMenu';
+
+const [showStatusBar, setShowStatusBar] = useState(true);
+const [position, setPosition] = useState('bottom');
+
+<DropdownMenu>
+  <DropdownMenuTrigger render={<Button>View</Button>} />
+  <DropdownMenuContent>
+    <DropdownMenuGroup>
+      <DropdownMenuLabel>Appearance</DropdownMenuLabel>
+      <DropdownMenuCheckboxItem
+        checked={showStatusBar}
+        onCheckedChange={setShowStatusBar}
+      >
+        Status bar
+      </DropdownMenuCheckboxItem>
+    </DropdownMenuGroup>
+    <DropdownMenuGroup>
+      <DropdownMenuLabel>Position</DropdownMenuLabel>
+      <DropdownMenuRadioGroup
+        value={position}
+        onValueChange={setPosition}
+      >
+        <DropdownMenuRadioItem value="top">Top</DropdownMenuRadioItem>
+        <DropdownMenuRadioItem value="bottom">
+          Bottom
+        </DropdownMenuRadioItem>
+      </DropdownMenuRadioGroup>
+    </DropdownMenuGroup>
+  </DropdownMenuContent>
+</DropdownMenu>;
+```
+
+## 子選單 [#submenus]
+
+把巢狀項目包在 `DropdownMenuSub` 裡，搭配 `DropdownMenuSubTrigger` 與 `DropdownMenuSubContent`。子選單預設在懸停與按右方向鍵時開啟。
+
+<DropdownMenuSubmenuPreview />
+
+```tsx
+import { Button } from '@/components/ui/Button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from '@/components/ui/DropdownMenu';
+
+<DropdownMenu>
+  <DropdownMenuTrigger render={<Button>File</Button>} />
+  <DropdownMenuContent>
+    <DropdownMenuItem>New file</DropdownMenuItem>
+    <DropdownMenuItem>Open…</DropdownMenuItem>
+    <DropdownMenuSeparator />
+    <DropdownMenuSub>
+      <DropdownMenuSubTrigger>Open recent</DropdownMenuSubTrigger>
+      <DropdownMenuSubContent>
+        <DropdownMenuItem>project-a.tsx</DropdownMenuItem>
+        <DropdownMenuItem>project-b.tsx</DropdownMenuItem>
+        <DropdownMenuItem>notes.md</DropdownMenuItem>
+      </DropdownMenuSubContent>
+    </DropdownMenuSub>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem>Settings</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>;
+```
+
+## SplitButton 配方 [#splitbutton-recipe]
+
+`DropdownMenu` 不限定觸發器，所以能和 `SplitButton` 直接組合。從外部控制開啟狀態：chevron 那一半切換選單，主要按鈕維持自己的動作。把 `DropdownMenuContent` 錨到包住的 `div`，選單就會出現在 SplitButton 下方。
+
+```tsx
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/DropdownMenu';
+import { SplitButton } from '@/components/ui/SplitButton';
+import { useRef, useState } from 'react';
+
+function SplitWithMenu() {
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      <div ref={anchorRef} className="inline-flex">
+        <SplitButton
+          open={open}
+          onClick={() => save()}
+          splitOnClick={() => setOpen((prev) => !prev)}
+        >
+          Save
+        </SplitButton>
+      </div>
+      <DropdownMenuContent anchor={anchorRef}>
+        <DropdownMenuItem>Save as draft</DropdownMenuItem>
+        <DropdownMenuItem>Save and publish</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+```
+
+## Props [#props]
+
+### DropdownMenuContent
+
+`DropdownMenuContent`（以及 `DropdownMenuSubContent`）是 Portal + Positioner + Popup 的組合。定位 props 會轉給 Positioner；popup 接受一般的 Base UI Menu Popup props。
+
+| Prop                  | Type                                          | Default                                   | 說明                                   |
+| --------------------- | --------------------------------------------- | ----------------------------------------- | -------------------------------------- |
+| `align`               | `'start' \| 'center' \| 'end'`                | `'start'`                                 | 相對錨點的對齊                         |
+| `alignOffset`         | `number`                                      | -                                         | 沿對齊軸的偏移                         |
+| `anchor`              | `RefObject \| Element \| …`                   | -                                         | 自訂定位錨點（例如 SplitButton 的外框） |
+| `side`                | `'top' \| 'right' \| 'bottom' \| 'left' \| …` | `'bottom'` (`'right'` for SubContent)     | 偏好出現在錨點的哪一側                 |
+| `sideOffset`          | `number`                                      | `4`                                       | 與錨點的距離                           |
+| `positionerClassName` | `string`                                      | -                                         | Positioner wrapper 上的 class          |
+| `portalContainer`     | `HTMLElement \| null`                         | -                                         | 自訂 portal 容器（預設 `document.body`） |
+| `className`           | `string`                                      | -                                         | popup 上的額外 class                   |
+
+選單必須留在 CSS scope 根節點內時，用 `portalContainer`。樣式寫在 scope 選擇器底下時，popup 被 portal 到 `document.body` 就套不到。body portal 弄壞堆疊或裁切時也有用（Dialog、transform、全螢幕、Shadow DOM）。
+
+使用子選單時，`DropdownMenuContent` 與 `DropdownMenuSubContent` 要傳**同一個**容器，主選單與巢狀選單才會共用一個 portal 環境。
+
+## 匯出 [#exports]
+
+| 匯出                       | 說明                                              |
+| -------------------------- | ------------------------------------------------- |
+| `DropdownMenu`             | Root；管理開啟狀態                                |
+| `DropdownMenuTrigger`      | render prop 觸發器 slot，接受任何元素             |
+| `DropdownMenuContent`      | Portal + Positioner + Popup 的組合；支援 `portalContainer` |
+| `DropdownMenuItem`         | 動作列；觸發 `onClick`，預設關閉選單              |
+| `DropdownMenuCheckboxItem` | 可切換的項目，內建指示器                          |
+| `DropdownMenuRadioGroup`   | 單選群組容器                                      |
+| `DropdownMenuRadioItem`    | 互斥項目，內建指示器                              |
+| `DropdownMenuLabel`        | 群組內的區段標籤                                  |
+| `DropdownMenuSeparator`    | 水平分隔線                                        |
+| `DropdownMenuGroup`        | 相關項目的群組容器                                |
+| `DropdownMenuSub`          | 子選單 root                                       |
+| `DropdownMenuSubTrigger`   | 子選單觸發列，內建朝右的 chevron 指示器           |
+| `DropdownMenuSubContent`   | 子選單內容組合；支援 `portalContainer`            |
+| `DropdownMenuPortal`       | Portal 目標（很少直接使用）                       |
