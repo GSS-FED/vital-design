@@ -118,7 +118,8 @@ export type RegistryItemName =
   | 'sidebar-cloud-03'
   | 'sidebar-cloud-04'
   | 'sidebar-cloud-05'
-  | 'sidebar-cloud-06';
+  | 'sidebar-cloud-06'
+  | 'tree-select';
 
 /**
  * Extends the official shadcn RegistryItem with:

@@ -40,6 +40,7 @@ const titles: Record<string, string> = {
   'blocks/sidebar-cloud-06':
     'Blocks/Sidebar/Cloud/06 - Collapsible Submenus',
   'blocks/table-pagination': 'Blocks/Table Pagination',
+  'blocks/tree-select': 'Blocks/Tree Select',
 };
 
 // Same rules as Storybook's toId(title, startCase(exportName)).

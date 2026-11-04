@@ -17,63 +17,52 @@ import {
 } from '@/components/popover/Popover';
 import { AngleDownIcon } from '@/icons/AngleDownIcon';
 import { AngleRightIcon } from '@/icons/AngleRightIcon';
+import { cn } from '@/lib/utils';
 import { useState } from 'react';
 
-type LocationItem = {
+export type TreeSelectItem = {
   hasChildren?: boolean;
   label: string;
   parentValue: string | null;
   value: string;
 };
 
-type SelectedLocation = {
+export type TreeSelectValue = {
   label: string;
-  path: LocationItem[];
+  path: TreeSelectItem[];
   value: string;
 };
 
-const locationItems: LocationItem[] = [
-  {
-    label: 'Taiwan',
-    parentValue: null,
-    value: 'tw',
-    hasChildren: true,
-  },
-  {
-    label: 'Japan',
-    parentValue: null,
-    value: 'jp',
-    hasChildren: true,
-  },
-  { label: 'Taipei', parentValue: 'tw', value: 'tpe' },
-  { label: 'Kaohsiung', parentValue: 'tw', value: 'khh' },
-  { label: 'Tokyo', parentValue: 'jp', value: 'tky' },
-  { label: 'Osaka', parentValue: 'jp', value: 'osa' },
-];
+export type TreeSelectProps = {
+  items: TreeSelectItem[];
+  label: string;
+  value: TreeSelectValue | null;
+  onValueChange?: (value: TreeSelectValue) => void;
+  placeholder?: string;
+  searchPlaceholder?: string;
+  emptyMessage?: string;
+  className?: string;
+};
 
-function getLocationItems(
-  parentValue: string | null,
-  searchValue: string,
-) {
-  const normalizedSearchValue = searchValue.trim().toLowerCase();
-
-  return locationItems.filter((item) => {
-    if (item.parentValue !== parentValue) return false;
-    if (!normalizedSearchValue) return true;
-
-    return item.label.toLowerCase().includes(normalizedSearchValue);
-  });
-}
-
-export function CommandHierarchicalPickerExample() {
+export function TreeSelect({
+  items,
+  label,
+  value,
+  onValueChange,
+  placeholder = 'Select',
+  searchPlaceholder = 'Search',
+  emptyMessage = 'No results found.',
+  className,
+}: TreeSelectProps) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState<SelectedLocation | null>(null);
-  const [pages, setPages] = useState<LocationItem[]>([]);
+  const [pages, setPages] = useState<TreeSelectItem[]>([]);
   const [searchValue, setSearchValue] = useState('');
   const currentPage = pages[pages.length - 1] ?? null;
-  const visibleItems = getLocationItems(
-    currentPage?.value ?? null,
-    searchValue,
+  const normalizedSearchValue = searchValue.trim().toLowerCase();
+  const visibleItems = items.filter(
+    (item) =>
+      item.parentValue === (currentPage?.value ?? null) &&
+      item.label.toLowerCase().includes(normalizedSearchValue),
   );
 
   const resetView = () => {
@@ -86,13 +75,13 @@ export function CommandHierarchicalPickerExample() {
     setSearchValue('');
   };
 
-  const openPage = (item: LocationItem) => {
+  const openPage = (item: TreeSelectItem) => {
     setPages((prev) => [...prev, item]);
     setSearchValue('');
   };
 
-  const selectItem = (item: LocationItem) => {
-    setValue({
+  const selectItem = (item: TreeSelectItem) => {
+    onValueChange?.({
       label: item.label,
       path: [...pages, item],
       value: item.value,
@@ -116,26 +105,29 @@ export function CommandHierarchicalPickerExample() {
         type="button"
         role="combobox"
         aria-haspopup="listbox"
-        className="group box-border flex h-8 w-60 cursor-pointer items-center justify-between gap-2 rounded border border-grayscale-opacity-300 bg-background py-2 pr-1.5 pl-3 text-left text-sm leading-5 font-normal text-grayscale-opacity-800 transition-colors duration-200 hover:border-grayscale-opacity-500 focus:border-primary-500 focus:outline-none data-[popup-open]:border-primary-500"
+        aria-label={label}
+        className={cn(
+          'group box-border flex h-8 w-60 cursor-pointer items-center justify-between gap-2 rounded border border-grayscale-opacity-300 bg-background py-2 pr-1.5 pl-3 text-left text-sm leading-5 font-normal text-grayscale-opacity-800 transition-colors duration-200 hover:border-grayscale-opacity-500 focus:border-primary-500 focus:outline-none data-[popup-open]:border-primary-500',
+          className,
+        )}
       >
         <span
-          className={
-            value
-              ? 'min-w-0 flex-1 truncate text-left'
-              : 'min-w-0 flex-1 truncate text-left text-grayscale-opacity-400'
-          }
+          className={cn(
+            'min-w-0 flex-1 truncate text-left',
+            !value && 'text-grayscale-opacity-400',
+          )}
         >
-          {value?.label ?? 'Select location'}
+          {value?.label ?? placeholder}
         </span>
         <span className="flex h-5 w-5 shrink-0 items-center justify-center text-grayscale-opacity-700">
-          <AngleDownIcon className="size-3.5" />
+          <AngleDownIcon className="size-5" />
         </span>
       </PopoverTrigger>
       <PopoverContent
         className="w-[var(--anchor-width)] p-0"
         initialFocus
       >
-        <Command label="Locations" shouldFilter={false}>
+        <Command label={label} shouldFilter={false}>
           {pages.length > 0 ? (
             <CommandHeader>
               <CommandBackButton onClick={goBack}>
@@ -144,7 +136,7 @@ export function CommandHierarchicalPickerExample() {
             </CommandHeader>
           ) : null}
           <CommandInput
-            placeholder="Search locations"
+            placeholder={searchPlaceholder}
             value={searchValue}
             onValueChange={setSearchValue}
             onKeyDown={(event) => {
@@ -159,7 +151,7 @@ export function CommandHierarchicalPickerExample() {
             }}
           />
           <CommandList>
-            <CommandEmpty>No locations found.</CommandEmpty>
+            <CommandEmpty>{emptyMessage}</CommandEmpty>
             <CommandGroup>
               {visibleItems.map((item) => (
                 <CommandItem

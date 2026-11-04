@@ -240,4 +240,28 @@ export const blocks: VitalRegistryItem[] = [
     ],
     files: cloudSidebarFiles('sidebar-cloud-06'),
   },
+  {
+    name: 'tree-select',
+    type: 'registry:block',
+    title: 'Tree Select',
+    description:
+      'Searchable hierarchical path picker with a page stack, built from Command and Popover',
+    categories: ['form', 'navigation'],
+    dependencies: ['cn'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/command',
+      '@vital-design/popover',
+      '@vital-design/icon-angle-down',
+      '@vital-design/icon-angle-right',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/blocks/tree-select/components/tree-select.tsx',
+        target: 'src/blocks/tree-select/tree-select.tsx',
+        type: 'registry:component',
+      },
+    ],
+  },
 ];
