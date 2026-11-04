@@ -19,7 +19,7 @@ Recipes and registry ids for consumer assembly.
 | `Chip`          | `chip`           | Selectable or removable filter pill                  | Active filter criteria, multi-select toggles             |
 | `Collapsible`   | `collapsible`    | Expand/collapse disclosure panel                     | Accordion sections, nested sidebar menus                 |
 | `Combobox`      | `combobox`       | Searchable bound value picker (single or multi-chip) | Dense option pickers, tag multi-select                   |
-| `Command`       | `command`        | Command palette / searchable list (`cmdk`)           | Search palettes, hierarchical path picker (in `Popover`) |
+| `Command`       | `command`        | Command palette / searchable list (`cmdk`)           | Search palettes, `tree-select` block (in `Popover`)      |
 | `Dialog`        | `dialog`         | Modal overlay (`DialogTrigger`, `DialogPopup`, `DialogHeader`, `DialogBody`, `DialogFooter`) | Confirmations, focused forms |
 | `DropdownMenu`  | `dropdown-menu`  | Action menu (`DropdownMenuItem` closes on pick)      | Language, account, row overflow actions                  |
 | `Editable`      | `editable`       | Inline click-to-edit text or textarea field          | Editable titles, inline table cells                      |
@@ -70,6 +70,7 @@ The registry has no pagination item: build pagination from `ButtonGroup` + `Butt
 | `data-table-group-01` | `registry:block` | Tree data table with row selection, column pinning/resize, action bar, and filter dropdown        |
 | `data-table-group-02` | `registry:block` | Expandable tree data table with sticky rail, sortable headers, column resize, and inline `Switch` |
 | `data-table-group-04` | `registry:block` | Editable data table with `Editable` text cells, `Popover` pickers, `Tag` multi-select, `Calendar` |
+| `tree-select`         | `registry:block` | Searchable hierarchical path picker with a page stack (`Command` in `Popover`)                    |
 | `use-debounce-value`  | `registry:hook`  | `useDebounceValue` hook (`@/hooks/useDebounceValue`)                                              |
 | `use-is-mobile`       | `registry:hook`  | `useIsMobile` 768px viewport hook (`@/hooks/useIsMobile`)                                         |
 | `vital-design-base`   | `registry:base`  | One-command install of `vital-theme`, `utils`, and `vital-icons`                                  |

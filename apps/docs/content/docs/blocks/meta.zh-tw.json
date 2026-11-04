@@ -1,4 +1,9 @@
 {
   "title": "區塊",
-  "pages": ["sidebar", "data-table", "table-pagination"]
+  "pages": [
+    "sidebar",
+    "data-table",
+    "table-pagination",
+    "tree-select"
+  ]
 }

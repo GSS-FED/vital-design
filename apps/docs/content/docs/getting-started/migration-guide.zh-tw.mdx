@@ -72,7 +72,7 @@ v0 套件的 barrel 會匯出 `Avatar`、`Button`、`Checkbox`、`Chip`、
 | `Mask`                       | `src/components/mask/Mask.tsx`                         | `@vital-design/scroll-area`                       | `src-v2/components/scroll-area/ScrollArea.tsx`                                    | 沒有一對一的包裝元件；視窗需要邊緣淡出時，自己組合 `ScrollArea`                                                                                                                                     |
 | `ActionList`                 | （已移除）                                             | 依用途選擇，見說明                                | —                                                                                 | 動作選單 → `@vital-design/dropdown-menu`；值選擇器 → `@vital-design/combobox`；階層選擇 → `@vital-design/command` + `@vital-design/popover`；顯示列 → `@vital-design/item`                            |
 | `ActionInfiniteList`         | （已移除）                                             | 依用途選擇，見說明                                | —                                                                                 | 與 `ActionList` 相同；載入與分頁由應用自己處理                                                                                                                                                       |
-| `TreeSelect`                 | `src/components/tree-select/TreeSelect.tsx`            | `@vital-design/command` + `@vital-design/popover` | `src-v2/components/command/Command.tsx` + `src-v2/components/popover/Popover.tsx` | 階層路徑選擇做成配方；畫面自己管理頁面堆疊、搜尋、載入與已選路徑                                                                                                                                    |
+| `TreeSelect`                 | `src/components/tree-select/TreeSelect.tsx`            | `@vital-design/tree-select`                       | `src-v2/blocks/tree-select/components/tree-select.tsx`                            | 安裝區塊後直接修改；畫面自己管理資料、載入與已選路徑                                                                                                                                                |
 
 ## 只有 v1 才有的新元件
 
@@ -97,7 +97,7 @@ v0 套件的 barrel 會匯出 `Avatar`、`Button`、`Checkbox`、`Chip`、
 | ------------------------------------------ | --------------------------------------------------------- |
 | 單選或多選的平面值選擇器                   | `Select`                                                  |
 | 可搜尋的值選擇器、自動完成或 chips         | `Combobox`                                                |
-| 階層路徑選擇                               | `Command` + `Popover` 配方                                |
+| 階層路徑選擇                               | `tree-select` 區塊（`Command` + `Popover`）               |
 | 每一項都會觸發 callback 的動作選單         | `DropdownMenu`                                            |
 | 顯示用的列                                 | `Item` + `ItemGroup`（選擇器密度用 `size="list"`）        |
 | 命令面板                                   | `Command`                                                 |
@@ -327,8 +327,8 @@ import {
 
 ### TreeSelect
 
-把 `TreeSelect` 的畫面改成 `Command` + `Popover` 配方。
-舊元件管了更多資料行為。在 v1，畫面自己管路徑、搜尋值、載入狀態與子層載入。建議的形狀見 Command 頁的[階層選擇器範例](/zh-tw/docs/components/command#hierarchical-picker)。
+把 `TreeSelect` 的畫面改成 [Tree Select](/zh-tw/docs/blocks/tree-select) 區塊，它用 `Command` 與 `Popover` 組成。
+舊元件管了更多資料行為。在 v1，畫面自己管資料、載入狀態與子層載入；路徑與搜尋值由區塊持有，畫面需要更多行為時就直接修改區塊。
 
 如果舊畫面只需要可搜尋的平面選項，改用 `Combobox`。
 

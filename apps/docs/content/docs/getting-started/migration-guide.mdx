@@ -74,7 +74,7 @@ rows cover legacy source files with v1 registry equivalents.
 | `Mask`                       | `src/components/mask/Mask.tsx`                         | `@vital-design/scroll-area`                       | `src-v2/components/scroll-area/ScrollArea.tsx`                                    | No direct wrapper replacement; compose `ScrollArea` when a viewport needs edge fade                                                                                                                |
 | `ActionList`                 | (removed)                                              | Pick by intent — see notes                        | —                                                                                 | Action menu → `@vital-design/dropdown-menu`; value picker → `@vital-design/combobox`; hierarchical picker → `@vital-design/command` + `@vital-design/popover`; display rows → `@vital-design/item` |
 | `ActionInfiniteList`         | (removed)                                              | Pick by intent — see notes                        | —                                                                                 | Same as `ActionList`; own loading and paging in app                                                                                                                                                |
-| `TreeSelect`                 | `src/components/tree-select/TreeSelect.tsx`            | `@vital-design/command` + `@vital-design/popover` | `src-v2/components/command/Command.tsx` + `src-v2/components/popover/Popover.tsx` | Build hierarchical path pickers as a recipe; the screen owns page stack, search, loading, and selected path                                                                                        |
+| `TreeSelect`                 | `src/components/tree-select/TreeSelect.tsx`            | `@vital-design/tree-select`                       | `src-v2/blocks/tree-select/components/tree-select.tsx`                            | Install the block and edit it in place; the screen owns the data, loading, and selected path                                                                                                       |
 
 ## New v1-Only Components
 
@@ -99,7 +99,7 @@ Use the new picker split:
 | ----------------------------------------------- | --------------------------------------------------------- |
 | Flat single or multiple value picker            | `Select`                                                  |
 | Searchable value picker, autocomplete, or chips | `Combobox`                                                |
-| Hierarchical path picker                        | `Command` + `Popover` recipe                              |
+| Hierarchical path picker                        | `tree-select` block (`Command` + `Popover`)               |
 | Action menu where each item fires a callback    | `DropdownMenu`                                            |
 | Display row list                                | `Item` + `ItemGroup` (`size="list"` for picker-like rows) |
 | Command panel                                   | `Command`                                                 |
@@ -331,8 +331,8 @@ import {
 
 ### TreeSelect
 
-Move `TreeSelect` screens to a `Command` + `Popover` recipe.
-The old component owned more data behavior. In v1, the screen owns the path, search value, loading state, and child loading. See the [Hierarchical Picker example](/docs/components/command#hierarchical-picker) on the Command page for the recommended shape.
+Move `TreeSelect` screens to the [Tree Select](/docs/blocks/tree-select) block, built from `Command` and `Popover`.
+The old component owned more data behavior. In v1, the screen owns the data, loading state, and child loading; the block keeps the path and search value, and you edit it in place when a screen needs more.
 
 Use `Combobox` instead if the old screen only needed searchable flat options.
 
