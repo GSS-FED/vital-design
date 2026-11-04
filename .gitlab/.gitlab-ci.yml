@@ -44,6 +44,11 @@ variables:
   - visual/**/*
   - playwright.config.ts
 
+# Docs preview only. Component work already has the Storybook URL.
+.docs-changes: &docs-changes
+  - apps/docs/**/*
+  - .gitlab/.gitlab-ci.yml
+
 before_script:
   - npm i -g pnpm@${PNPM_VERSION}
   - pnpm install --frozen-lockfile
@@ -102,10 +107,13 @@ visual-diff:
       changes: *visual-changes
 
 # ── Cloudflare Pages previews ─────────────────────────────────────────────────
-# Public Storybook and visual-diff URLs for an MR. GitLab shows them as
-# environments. Jobs stay out of the pipeline until both Cloudflare variables
-# exist. Do not mark those variables Protected: feature-branch MR pipelines
-# would not receive them. Closing the MR runs the matching stop job.
+# Public Storybook, docs, and visual-diff URLs for an MR. GitLab shows them
+# as environments. Jobs stay out of the pipeline until both Cloudflare
+# variables exist. Do not mark those variables Protected: feature-branch MR
+# pipelines would not receive them. Closing the MR runs the matching stop job.
+# Docs uses its own Pages branch (mr-<iid>-docs) so it does not replace
+# Storybook at mr-<iid>. Do not set GITHUB_PAGES here: that flag turns on
+# trailingSlash for GitHub Pages, and the preview host is pages.dev.
 
 preview-storybook:
   stage: preview
@@ -134,6 +142,44 @@ stop-preview-storybook:
     - node .gitlab/scripts/pages-preview.mjs delete-branch "mr-${CI_MERGE_REQUEST_IID}"
   environment:
     name: preview/mr-$CI_MERGE_REQUEST_IID
+    action: stop
+  allow_failure: true
+  rules:
+    - <<: *cloudflare-mr
+      when: manual
+
+# After Storybook so the two production builds do not share the runner heap.
+preview-docs:
+  stage: preview
+  needs:
+    - job: preview-storybook
+      optional: true
+  resource_group: preview-mr-$CI_MERGE_REQUEST_IID-docs
+  script:
+    - pnpm docs:build
+    - node .gitlab/scripts/pages-preview.mjs deploy apps/docs/out "mr-${CI_MERGE_REQUEST_IID}-docs" preview.env DOCS_PREVIEW_URL
+  artifacts:
+    reports:
+      dotenv: preview.env
+  environment:
+    name: preview/mr-$CI_MERGE_REQUEST_IID/docs
+    url: $DOCS_PREVIEW_URL
+    on_stop: stop-preview-docs
+  allow_failure: true
+  rules:
+    - <<: *cloudflare-mr
+      changes: *docs-changes
+      when: always
+
+stop-preview-docs:
+  stage: preview
+  needs: []
+  interruptible: false
+  before_script: []
+  script:
+    - node .gitlab/scripts/pages-preview.mjs delete-branch "mr-${CI_MERGE_REQUEST_IID}-docs"
+  environment:
+    name: preview/mr-$CI_MERGE_REQUEST_IID/docs
     action: stop
   allow_failure: true
   rules:
