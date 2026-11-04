@@ -1,0 +1,59 @@
+---
+title: SearchBar
+description: 帶圖示的搜尋輸入。支援即時 onChange，以及按 Enter 或點圖示觸發的 onSearch。
+---
+
+import {
+  SearchBarDisabledPreview,
+  SearchBarPreview,
+} from '~/components/previews/SearchBarPreview';
+
+## 預覽 [#preview]
+
+<SearchBarPreview />
+
+## 用法 [#usage]
+
+```tsx
+import { SearchBar } from '@/components/ui/SearchBar';
+
+<SearchBar
+  placeholder="Search users..."
+  onChange={(value) => setQuery(value)}
+  onSearch={(value) => fetchResults(value)}
+/>;
+```
+
+## 停用 [#disabled]
+
+<SearchBarDisabledPreview />
+
+## 屬性 [#props]
+
+| Prop                    | Type                      | Default | 說明                                       |
+| ----------------------- | ------------------------- | ------- | ------------------------------------------ |
+| `value`                 | `string`                  | —       | 受控值                                     |
+| `defaultValue`          | `string`                  | —       | 非受控的初始值                             |
+| `placeholder`           | `string`                  | —       | 佔位文字                                   |
+| `onChange`              | `(value: string) => void` | —       | 每次按鍵都呼叫                             |
+| `onSearch`              | `(value: string) => void` | —       | 按下 Enter 或點擊圖示時呼叫                |
+| `isSearchIconClickable` | `boolean`                 | `false` | 讓搜尋圖示在點擊時觸發 `onSearch`          |
+| `disabled`              | `boolean`                 | `false` | 停用輸入                                   |
+| `width`                 | `string`                  | —       | 自訂寬度（例如 `'300px'`）                 |
+| `className`             | `string`                  | —       | InputGroup 外框的 class                    |
+| `style`                 | `CSSProperties`           | —       | InputGroup 外框的行內樣式                  |
+
+其餘 `<input>` props（`id`、`name`、`aria-label`、`autoFocus`、`inputMode`、`enterKeyHint`、`onBlur` 等）會轉送到內部 input，`ref` 也指向該 input。
+
+## 受控與非受控 [#controlled-vs-uncontrolled]
+
+外部要擁有查詢內容時傳 `value`，例如 URL search param、「清除所有篩選」按鈕，或填入欄位的建議 chip。輸入本身是唯一的資料來源、`onChange` 只是拿去發請求時，改傳 `defaultValue`。兩個都設的話，`defaultValue` 不會生效。
+
+```tsx
+// Controlled: the query string owns the value, so clearing it clears the input
+<SearchBar
+  value={query}
+  onChange={setQuery}
+  onSearch={(value) => router.push(`?q=${value}`)}
+/>
+```

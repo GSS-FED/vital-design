@@ -1,0 +1,57 @@
+---
+title: Toolbar
+description: 帶 role="toolbar" 的 flex 版面 primitive。把動作、分隔線與間隔排在表格、編輯器或面板上方。
+---
+
+import { ToolbarPreview } from '~/components/previews/ToolbarPreview';
+
+## 預覽 [#preview]
+
+<ToolbarPreview />
+
+## 用法 [#usage]
+
+```tsx
+import {
+  Toolbar,
+  ToolbarGroup,
+  ToolbarSeparator,
+  ToolbarSpacer,
+} from '@/components/ui/Toolbar';
+import { Button } from '@/components/ui/Button';
+
+<Toolbar variant="outline">
+  <ToolbarGroup>
+    <Button variant="text">File</Button>
+    <Button variant="text">Edit</Button>
+  </ToolbarGroup>
+  <ToolbarSeparator />
+  <ToolbarSpacer />
+  <Button variant="text" theme="primary">Save</Button>
+</Toolbar>
+```
+
+## 變體 [#variants]
+
+| Variant   | 用途                                       |
+| --------- | ------------------------------------------ |
+| `default` | 透明背景。放進既有表面。                   |
+| `bar`     | 淡淡的 gray-50 背景。獨立的工具列，放在面板上方。 |
+| `outline` | 白底加底框。放在表格上方。                 |
+
+## 尺寸 [#sizes]
+
+| Size      | Padding     | 用途                           |
+| --------- | ----------- | ------------------------------ |
+| `default` | `px-4 py-3` | 頁面頂端的工具列。             |
+| `sm`      | `px-3 py-2` | 資料表上方的精簡工具列。       |
+| `none`    | `p-0`       | 包住已有自己版面的內容時使用。 |
+
+## 部分 [#parts]
+
+| Part               | 說明                                                     |
+| ------------------ | -------------------------------------------------------- |
+| `Toolbar`          | 預設 `role="toolbar"`、`aria-orientation="horizontal"`。 |
+| `ToolbarGroup`     | `role="group"`。flex 加 gap，把動作排在一起。            |
+| `ToolbarSeparator` | 垂直分隔線（使用 `Separator` primitive）。               |
+| `ToolbarSpacer`    | 用 `flex-1` 把後面的項目推到尾端。                       |

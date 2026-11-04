@@ -1,0 +1,156 @@
+---
+title: Editable
+description: 行內可編輯文字欄位，包含顯示、單行輸入與多行輸入部件。
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import {
+  Editable,
+  EditableDisplay,
+  EditableInput,
+  EditableTextarea,
+} from '~/components/vital-components';
+
+## 預覽 [#preview]
+
+<ComponentPreview centered={false}>
+  <Editable
+    defaultValue="點擊以編輯"
+    placeholder="未填寫"
+    className="w-80"
+  >
+    <EditableDisplay />
+    <EditableInput />
+  </Editable>
+</ComponentPreview>
+
+## 用法 [#usage]
+
+```tsx
+import {
+  Editable,
+  EditableDisplay,
+  EditableInput,
+} from '@/components/ui/Editable';
+
+<Editable defaultValue="點擊以編輯" placeholder="未填寫">
+  <EditableDisplay />
+  <EditableInput />
+</Editable>;
+```
+
+`Editable` 是行內編輯文字的複合元件。顯示區看起來像靜態文字；點擊後換成聚焦的 `Input`（或 `Textarea`），游標在文字結尾。按 `Enter`（或失焦）會透過 `onCommit` 確認值；`Escape` 會捨棄暫存的編輯。
+
+## 空值狀態 [#empty-state]
+
+值是空的時，`EditableDisplay` 會顯示 `placeholder` 文字，並套上看起來像虛線的框線，讓可編輯的提示維持可見。
+
+<ComponentPreview centered={false}>
+  <Editable
+    defaultValue=""
+    placeholder="點擊以新增備註"
+    className="w-80"
+  >
+    <EditableDisplay />
+    <EditableInput />
+  </Editable>
+</ComponentPreview>
+
+```tsx
+<Editable defaultValue="" placeholder="點擊以新增備註">
+  <EditableDisplay />
+  <EditableInput />
+</Editable>
+```
+
+## Textarea 變體 [#textarea-variant]
+
+欄位要接受多行內容時，把 `EditableInput` 換成 `EditableTextarea`。`Enter` 會插入換行；點外面才確認。
+
+<ComponentPreview centered={false}>
+  <Editable
+    defaultValue="這是一段較長的備註，點擊以編輯。"
+    placeholder="點擊以新增備註"
+    className="w-80"
+  >
+    <EditableDisplay />
+    <EditableTextarea rows={3} />
+  </Editable>
+</ComponentPreview>
+
+```tsx
+<Editable defaultValue="這是一段較長的備註">
+  <EditableDisplay />
+  <EditableTextarea rows={3} />
+</Editable>
+```
+
+## 停用與唯讀 [#disabled--read-only]
+
+傳 `disabled` 會完全不能編輯；傳 `readOnly` 時顯示仍像可互動，但點擊不會進入編輯。
+
+<ComponentPreview centered={false} className="grid gap-3">
+  <Editable defaultValue="無法編輯" disabled className="w-80">
+    <EditableDisplay />
+    <EditableInput />
+  </Editable>
+  <Editable defaultValue="唯讀內容" readOnly className="w-80">
+    <EditableDisplay />
+    <EditableInput />
+  </Editable>
+</ComponentPreview>
+
+```tsx
+<Editable defaultValue="無法編輯" disabled>
+  <EditableDisplay />
+  <EditableInput />
+</Editable>
+
+<Editable defaultValue="唯讀內容" readOnly>
+  <EditableDisplay />
+  <EditableInput />
+</Editable>
+```
+
+## 受控 [#controlled]
+
+同時提供 `value` 與 `onCommit`，由外部驅動欄位。元件內部仍管理自己的暫存編輯緩衝，父層只會收到已確認的值。
+
+```tsx
+const [name, setName] = useState('Alice');
+
+<Editable value={name} onCommit={setName} placeholder="輸入姓名">
+  <EditableDisplay />
+  <EditableInput />
+</Editable>;
+```
+
+## 部件 [#parts]
+
+| 部件               | 說明                                                    |
+| ------------------ | ------------------------------------------------------- |
+| `Editable`         | 擁有值與編輯狀態的 context provider                     |
+| `EditableDisplay`  | 非編輯時顯示的、看起來像靜態文字的按鈕                  |
+| `EditableInput`    | 編輯時顯示的單行 `Input`                                |
+| `EditableTextarea` | 編輯時顯示的多行 `textarea`                             |
+
+## Editable 屬性 [#editable-props]
+
+| Prop           | Type                       | Default | 說明                                        |
+| -------------- | -------------------------- | ------- | ------------------------------------------- |
+| `value`        | `string`                   | —       | 受控值                                      |
+| `defaultValue` | `string`                   | `''`    | 非受控的初始值                              |
+| `onCommit`     | `(value: string) => void`  | —       | 暫存值被確認時呼叫                          |
+| `placeholder`  | `string`                   | —       | 空值時顯示，也給 input 使用                 |
+| `disabled`     | `boolean`                  | `false` | 阻止進入編輯模式                            |
+| `readOnly`     | `boolean`                  | `false` | 顯示仍可聚焦，但不能進入編輯模式            |
+| `className`    | `string`                   | —       | wrapper 上的額外 CSS class                  |
+| `...props`     | `ComponentProps<'div'>`    | —       | wrapper 上的原生 `div` props                |
+
+## 鍵盤 [#keyboard]
+
+| 按鍵      | 行為                                                    |
+| -------- | ------------------------------------------------------- |
+| `Enter`  | （Input）確認暫存值並離開編輯模式                       |
+| `Escape` | 捨棄暫存值並離開編輯模式                                |
+| Blur     | 確認暫存值（`Input` 與 `Textarea` 皆是）                |

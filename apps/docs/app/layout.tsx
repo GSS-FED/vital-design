@@ -1,8 +1,13 @@
 import { Agentation } from 'agentation';
-import { RootProvider } from 'fumadocs-ui/provider';
+import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import type { ReactNode } from 'react';
+import { HtmlLang } from '~/components/docs/HtmlLang';
 import './global.css';
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://vittal.design'),
+};
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -22,18 +27,8 @@ export default function RootLayout({
         <link rel="describedby" href="/llms.txt" />
       </head>
       <body className={roboto.variable}>
-        <RootProvider
-          search={{
-            options: {
-              type: 'static',
-            },
-          }}
-          theme={{
-            enabled: false,
-          }}
-        >
-          {children}
-        </RootProvider>
+        <HtmlLang />
+        {children}
         {process.env.NODE_ENV === 'development' && <Agentation />}
       </body>
     </html>

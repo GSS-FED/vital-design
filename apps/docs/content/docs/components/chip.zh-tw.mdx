@@ -1,0 +1,68 @@
+---
+title: Chip
+description: 可切換的膠囊，用來做篩選、標籤與多選。
+---
+
+import {
+  ChipPreview,
+  ChipStatesPreview,
+} from '~/components/previews/ChipPreview';
+
+## 預覽 [#preview]
+
+<ChipPreview />
+
+## 用法 [#usage]
+
+```tsx
+import { Chip } from '@/components/ui/Chip';
+import { useState } from 'react';
+
+function FilterChips() {
+  const [active, setActive] = useState(false);
+
+  return (
+    <Chip selected={active} onChange={setActive}>
+      Filter
+    </Chip>
+  );
+}
+```
+
+## 狀態 [#states]
+
+<ChipStatesPreview />
+
+`selected` 為 `true` 時，chip 以主色藍底與藍字渲染。為 `false` 時，以灰階樣式渲染。
+
+## 多個 Chip（篩選群組） [#multiple-chips-filter-group]
+
+常見做法是一組 chip 當成互斥篩選：
+
+```tsx
+const filters = ['All', 'Active', 'Inactive', 'Pending'];
+const [selected, setSelected] = useState('All');
+
+{
+  filters.map((filter) => (
+    <Chip
+      key={filter}
+      selected={selected === filter}
+      onChange={() => setSelected(filter)}
+    >
+      {filter}
+    </Chip>
+  ));
+}
+```
+
+## 屬性 [#props]
+
+| Prop        | Type                          | Default | 說明                                     |
+| ----------- | ----------------------------- | ------- | ----------------------------------------------- |
+| `children`  | `ReactNode`                   | —       | Chip 標籤內容                              |
+| `selected`  | `boolean`                     | —       | **必填。** 控制選取狀態       |
+| `onChange`  | `(selected: boolean) => void` | —       | **必填。** 點擊 chip 時呼叫   |
+| `icon`      | `ReactNode`                   | —       | 渲染在標籤左側的選用圖示 |
+| `className` | `string`                      | —       | 額外的 CSS class                          |
+| `style`     | `CSSProperties`               | —       | 行內樣式                                   |

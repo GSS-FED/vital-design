@@ -1,0 +1,160 @@
+---
+title: Resizable
+description: 以 react-resizable-panels 實作的無障礙可調整面板。
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from '~/components/vital-components';
+
+## 預覽 [#preview]
+
+<ComponentPreview centered={false}>
+  <ResizablePanelGroup
+    orientation="horizontal"
+    className="min-h-[200px] max-w-md rounded-md border border-grayscale-opacity-300"
+  >
+    <ResizablePanel defaultSize="50%">
+      <div className="flex h-full items-center justify-center p-6 text-sm font-medium text-grayscale-opacity-800">
+        One
+      </div>
+    </ResizablePanel>
+    <ResizableHandle />
+    <ResizablePanel defaultSize="50%">
+      <ResizablePanelGroup orientation="vertical">
+        <ResizablePanel defaultSize="35%">
+          <div className="flex h-full items-center justify-center p-6 text-sm font-medium text-grayscale-opacity-800">
+            Two
+          </div>
+        </ResizablePanel>
+        <ResizableHandle />
+        <ResizablePanel defaultSize="65%">
+          <div className="flex h-full items-center justify-center p-6 text-sm font-medium text-grayscale-opacity-800">
+            Three
+          </div>
+        </ResizablePanel>
+      </ResizablePanelGroup>
+    </ResizablePanel>
+  </ResizablePanelGroup>
+</ComponentPreview>
+
+## 用法 [#usage]
+
+```tsx
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from '@/components/ui/Resizable';
+
+<ResizablePanelGroup orientation="horizontal">
+  <ResizablePanel defaultSize="50%">One</ResizablePanel>
+  <ResizableHandle />
+  <ResizablePanel defaultSize="50%">Two</ResizablePanel>
+</ResizablePanelGroup>;
+```
+
+`Resizable` 包裝 [`react-resizable-panels`](https://github.com/bvaughn/react-resizable-panels)。用 `ResizableHandle` 隔開 `ResizablePanel`，組成 `ResizablePanelGroup`。群組可以巢狀，做出水平與垂直混用的版面。
+
+## 垂直 [#vertical]
+
+<ComponentPreview centered={false}>
+  <ResizablePanelGroup
+    orientation="vertical"
+    className="min-h-[240px] max-w-md rounded-md border border-grayscale-opacity-300"
+  >
+    <ResizablePanel defaultSize="30%">
+      <div className="flex h-full items-center justify-center p-6 text-sm font-medium text-grayscale-opacity-800">
+        Header
+      </div>
+    </ResizablePanel>
+    <ResizableHandle />
+    <ResizablePanel defaultSize="70%">
+      <div className="flex h-full items-center justify-center p-6 text-sm font-medium text-grayscale-opacity-800">
+        Content
+      </div>
+    </ResizablePanel>
+  </ResizablePanelGroup>
+</ComponentPreview>
+
+```tsx
+<ResizablePanelGroup orientation="vertical">
+  <ResizablePanel defaultSize="30%">Header</ResizablePanel>
+  <ResizableHandle />
+  <ResizablePanel defaultSize="70%">Content</ResizablePanel>
+</ResizablePanelGroup>
+```
+
+## 帶拖曳把手 [#with-handle]
+
+把 `withHandle` 傳給 `ResizableHandle`，渲染看得見的拖曳指示。在面板上設 `minSize`，避免它被收合。
+
+<ComponentPreview centered={false}>
+  <ResizablePanelGroup
+    orientation="horizontal"
+    className="min-h-[200px] max-w-md rounded-md border border-grayscale-opacity-300"
+  >
+    <ResizablePanel defaultSize="30%" minSize="20%">
+      <div className="flex h-full items-center justify-center p-6 text-sm font-medium text-grayscale-opacity-800">
+        Sidebar
+      </div>
+    </ResizablePanel>
+    <ResizableHandle withHandle />
+    <ResizablePanel defaultSize="70%">
+      <div className="flex h-full items-center justify-center p-6 text-sm font-medium text-grayscale-opacity-800">
+        Content
+      </div>
+    </ResizablePanel>
+  </ResizablePanelGroup>
+</ComponentPreview>
+
+```tsx
+<ResizablePanelGroup orientation="horizontal">
+  <ResizablePanel defaultSize="30%" minSize="20%">
+    Sidebar
+  </ResizablePanel>
+  <ResizableHandle withHandle />
+  <ResizablePanel defaultSize="70%">Content</ResizablePanel>
+</ResizablePanelGroup>
+```
+
+## 部分 [#parts]
+
+| 部分                  | 說明                                                     |
+| --------------------- | -------------------------------------------------------- |
+| `ResizablePanelGroup` | 版面容器；設定 `horizontal` 或 `vertical` 方向           |
+| `ResizablePanel`      | 群組裡可調整大小的區域                                   |
+| `ResizableHandle`     | 兩個面板之間的拖曳分隔                                   |
+
+## ResizablePanelGroup 屬性 [#resizablepanelgroup-props]
+
+接受 `react-resizable-panels` 的 [`PanelGroup`](https://github.com/bvaughn/react-resizable-panels#panelgroup) 每一個 prop。
+
+| Prop          | Type                          | Default        | 說明                   |
+| ------------- | ----------------------------- | -------------- | ---------------------- |
+| `orientation` | `'horizontal' \| 'vertical'`  | `'horizontal'` | 版面方向               |
+| `autoSaveId`  | `string`                      | —              | 把尺寸存在 `localStorage` |
+| `className`   | `string`                      | —              | 額外的 CSS class       |
+
+## ResizablePanel 屬性 [#resizablepanel-props]
+
+接受 `react-resizable-panels` 的 [`Panel`](https://github.com/bvaughn/react-resizable-panels#panel) 每一個 prop。
+
+| Prop          | Type                | Default | 說明                              |
+| ------------- | ------------------- | ------- | --------------------------------- |
+| `defaultSize` | `number \| string`  | —       | 初始尺寸，以百分比表示            |
+| `minSize`     | `number \| string`  | —       | 收合前的最小尺寸                  |
+| `maxSize`     | `number \| string`  | —       | 最大尺寸                          |
+| `collapsible` | `boolean`           | `false` | 允許縮過 `collapsedSize`          |
+| `id`          | `string`            | —       | 群組設了 `autoSaveId` 時必填      |
+
+## ResizableHandle 屬性 [#resizablehandle-props]
+
+| Prop         | Type      | Default | 說明                         |
+| ------------ | --------- | ------- | ---------------------------- |
+| `withHandle` | `boolean` | `false` | 渲染看得見的握把指示         |
+| `disabled`   | `boolean` | `false` | 停用拖曳                     |
+| `className`  | `string`  | —       | 額外的 CSS class             |

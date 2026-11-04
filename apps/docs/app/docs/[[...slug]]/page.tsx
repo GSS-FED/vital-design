@@ -11,9 +11,9 @@ import {
   DocsPage,
   DocsTitle,
 } from 'fumadocs-ui/page';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { readFile } from 'node:fs/promises';
-import path from 'node:path';
 import type { FC } from 'react';
 import { MdxPre } from '~/components/docs/MdxPre';
 import { TitleActions } from '~/components/docs/TitleActions';
@@ -119,7 +119,9 @@ import {
   TimePickerPreview,
   TimePickerStepsPreview,
 } from '~/components/previews/TimePickerPreview';
+import { type DocsLocale } from '~/lib/i18n';
 import { source } from '~/lib/source';
+import { hasZhTranslation } from '~/lib/translation-file';
 
 // fumadocs-mdx generates body, toc, etc. from CompiledMDXProperties, but
 // the base PageData type in fumadocs-core doesn't declare them. Cast to access.
@@ -145,25 +147,14 @@ const REGISTRY_ITEM_BY_SLUG: Record<string, string> = {
 };
 
 async function loadRawMarkdown(
-  slug: string[] | undefined,
+  absolutePath: string,
 ): Promise<string | undefined> {
-  const segments = slug ?? [];
-  const contentRoot = path.join(process.cwd(), 'content', 'docs');
-  const candidates =
-    segments.length === 0
-      ? [path.join(contentRoot, 'index.mdx')]
-      : [
-          path.join(contentRoot, ...segments) + '.mdx',
-          path.join(contentRoot, ...segments, 'index.mdx'),
-        ];
-  for (const candidate of candidates) {
-    try {
-      return await readFile(candidate, 'utf-8');
-    } catch {
-      // try next candidate
-    }
+  if (!absolutePath) return undefined;
+  try {
+    return await readFile(absolutePath, 'utf-8');
+  } catch {
+    return undefined;
   }
-  return undefined;
 }
 
 function registryUrlFor(
@@ -181,20 +172,25 @@ function registryUrlFor(
   return `${REGISTRY_BASE_URL}/${item}.json`;
 }
 
-export default async function Page({
-  params,
+export async function DocsContentPage({
+  locale,
+  slug,
 }: {
-  params: Promise<{ slug?: string[] }>;
+  locale: DocsLocale;
+  slug?: string[];
 }) {
-  const slug = (await params).slug;
-  const page = source.getPage(slug);
+  const page = source.getPage(slug, locale);
   if (!page) notFound();
 
   const data = page.data as unknown as CompiledPageData;
   const MDX = data.body;
-  const neighbours = findNeighbour(source.pageTree, page.url);
+  const neighbours = findNeighbour(
+    source.getPageTree(locale),
+    page.url,
+  );
+  const translated = locale === 'en' || hasZhTranslation(slug);
   const [rawMarkdown, registryUrl] = [
-    await loadRawMarkdown(slug),
+    await loadRawMarkdown(page.absolutePath),
     registryUrlFor(slug),
   ];
 
@@ -204,11 +200,17 @@ export default async function Page({
       full={data.full}
       footer={{ items: neighbours }}
     >
+      {!translated ? (
+        <Callout title="尚未翻譯">
+          此頁尚無繁體中文，以下為英文原文。
+        </Callout>
+      ) : null}
       <DocsTitle>{data.title}</DocsTitle>
       <DocsDescription>{data.description}</DocsDescription>
       <TitleActions
         rawMarkdown={rawMarkdown}
         registryUrl={registryUrl}
+        locale={locale}
       />
       <DocsBody>
         <MDX
@@ -292,20 +294,66 @@ export default async function Page({
   );
 }
 
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug?: string[] }>;
+}) {
+  const { slug } = await params;
+  return <DocsContentPage locale="en" slug={slug} />;
+}
+
+export const dynamicParams = false;
+
 export function generateStaticParams() {
-  return source.generateParams();
+  return staticParamsFor('en');
 }
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug?: string[] }>;
-}) {
-  const page = source.getPage((await params).slug);
+}): Promise<Metadata> {
+  const { slug } = await params;
+  return metadataFor('en', slug);
+}
+
+export function staticParamsFor(locale: DocsLocale) {
+  return source
+    .generateParams()
+    .filter((entry) => entry.lang === locale)
+    .map(({ slug }) => ({ slug }));
+}
+
+export async function metadataFor(
+  locale: DocsLocale,
+  slug: string[] | undefined,
+): Promise<Metadata> {
+  const page = source.getPage(slug, locale);
   if (!page) notFound();
   const data = page.data as unknown as CompiledPageData;
+  const translated = locale === 'en' || hasZhTranslation(slug);
+  const enUrl = source.getPage(slug, 'en')?.url;
+  const zhUrl = hasZhTranslation(slug)
+    ? source.getPage(slug, 'zh-tw')?.url
+    : undefined;
+
+  const languages: Record<string, string> = {};
+  if (enUrl) languages.en = enUrl;
+  if (zhUrl) languages['zh-TW'] = zhUrl;
+
   return {
     title: data.title,
     description: data.description,
+    alternates:
+      translated && zhUrl
+        ? { languages }
+        : enUrl
+          ? { canonical: enUrl }
+          : undefined,
+    robots:
+      locale === 'zh-tw' && !translated
+        ? { index: false, follow: true }
+        : undefined,
   };
 }

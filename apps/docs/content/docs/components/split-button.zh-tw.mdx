@@ -1,0 +1,82 @@
+---
+title: SplitButton
+description: 由 ButtonGroup 組成的分割動作，含主要動作與獨立的切換觸發。
+---
+
+import { SearchIcon } from '@/icons/SearchIcon';
+import {
+  SplitButtonDefaultPreview,
+  SplitButtonPreview,
+  SplitButtonSizesPreview,
+} from '~/components/previews/SplitButtonPreview';
+
+## 預覽 [#preview]
+
+<SplitButtonPreview />
+
+## 用法 [#usage]
+
+圖示要另外安裝或引入，不要跟 SplitButton 放在一起。
+
+```tsx
+import { SplitButton } from '@/components/ui/SplitButton';
+import { useState } from 'react';
+
+function SaveButton() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <SplitButton
+      theme="primary"
+      open={open}
+      onClick={() => handleSave()}
+      splitOnClick={() => setOpen((v) => !v)}
+    >
+      <SearchIcon data-icon="inline-start" />
+      Save
+    </SplitButton>
+  );
+}
+```
+
+## 預設主題 [#default-theme]
+
+<SplitButtonDefaultPreview />
+
+```tsx
+<SplitButton
+  theme="default"
+  open={open}
+  onClick={handleAction}
+  splitOnClick={toggleOpen}
+>
+  Action
+</SplitButton>
+```
+
+## 尺寸 [#sizes]
+
+`size="lg"` 會加上主題陰影，hover 時上浮；`size="md"` 是沒有陰影的精簡尺寸。
+
+<SplitButtonSizesPreview />
+
+```tsx
+<SplitButton size="md" theme="primary" open={open} {...handlers}>
+  Medium
+</SplitButton>
+<SplitButton size="lg" theme="primary" open={open} {...handlers}>
+  Large
+</SplitButton>
+```
+
+## 屬性 [#props]
+
+| Prop                    | Type                                                                                   | Default     | 說明                                           |
+| ----------------------- | -------------------------------------------------------------------------------------- | ----------- | ---------------------------------------------- |
+| `open`                  | `boolean`                                                                              | —           | **必填。** 控制分割箭頭是否為開啟狀態         |
+| `theme`                 | `'primary' \| 'default' \| 'success' \| 'info' \| 'warning' \| 'alarm' \| 'dangerous'` | `'default'` | 色彩主題（與 `Button` 相同）                   |
+| `size`                  | `'md' \| 'lg'`                                                                         | `'md'`      | 按鈕尺寸                                       |
+| `onClick`               | `(e: MouseEvent) => void`                                                              | —           | 主要按鈕區域的處理函式                         |
+| `splitOnClick`          | `(e: MouseEvent) => void`                                                              | —           | 箭頭觸發的處理函式                             |
+| `focusableWhenDisabled` | `boolean`                                                                              | `false`     | 套用停用樣式時，按鈕仍可被鍵盤聚焦             |
+| `disabled`              | `boolean`                                                                              | `false`     | 停用整個按鈕                                   |

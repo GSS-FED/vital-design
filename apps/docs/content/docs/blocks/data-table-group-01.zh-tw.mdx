@@ -1,0 +1,46 @@
+---
+title: Data Table — Candidate Tree
+description: 樹狀資料表，含分組的候選列、動作列、篩選下拉與欄位釘選。
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { DataTableGroup01 } from '~/components/vital-components';
+
+## 預覽 [#preview]
+
+<ComponentPreview centered={false}>
+  <DataTableGroup01 />
+</ComponentPreview>
+
+## 組合 [#composition]
+
+這個區塊用以下 Vittal Design primitive 組成：
+
+- `Avatar`, `Button`, `Card`, `Checkbox`, `DropdownMenu`, `Progress`, `SearchBar`, `Table`, `Tag`, `Toolbar`
+- `ChevronDownIcon`, `EllipsisIcon`
+- [`@tanstack/react-table`](https://tanstack.com/table/v8) 管理狀態
+
+## 檔案 [#files]
+
+| 檔案                   | 說明                                              |
+| ---------------------- | ------------------------------------------------- |
+| `DataTableGroup01.tsx` | 區塊進入點——接上欄位、狀態、展開與釘選            |
+| `action-bar.tsx`       | 搜尋列、篩選按鈕、更多動作的下拉                  |
+| `columns.tsx`          | 含自訂儲存格的 `ColumnDef` 陣列                   |
+| `data.ts`              | 範例候選資料集與樹的建立函式                      |
+| `pinning.ts`           | 欄寬變數，以及左右釘選的樣式 helper               |
+| `resize-handle.tsx`    | 可拖曳的欄寬把手，含全高導線                      |
+
+## 屬性 [#props]
+
+| Prop                | Type                      | Default      | 說明                                                                                          |
+| ------------------- | ------------------------- | ------------ | ---------------------------------------------------------------------------------------------------- |
+| `columnResizeMode`  | `'onChange' \| 'onEnd'`   | `'onChange'` | `'onChange'` 讓欄位跟著指標移動。`'onEnd'` 拖曳時欄位先不動，放開才提交，導線標出邊緣會落在哪裡——拖曳過程不做版面計算，所以欄很多、釘選很重的寬表仍然順暢。 |
+
+## 安裝 [#installation]
+
+```bash
+npx shadcn@latest add @vital-design/data-table-group-01
+```
+
+會把區塊安裝到 `src/blocks/data-table-group-01/`，並自動帶入需要的每個 primitive。

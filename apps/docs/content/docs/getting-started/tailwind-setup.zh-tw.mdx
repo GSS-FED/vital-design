@@ -1,0 +1,146 @@
+---
+title: Tailwind CSS 設定
+description: 讓 Tailwind CSS 4 使用 Vittal Design 元件與設計變數。
+---
+
+## 概覽
+
+這一頁適用於 **從 registry 安裝的 Vittal Design 元件**。透過相容 shadcn 的 registry 安裝 `src-v2/` 元件時，CLI 會把元件複製進應用，並把 Vittal Design 的主題變數與少量基礎 CSS 寫進 `components.json` 指定的 CSS 檔。
+
+如果既有專案仍使用已發佈的 `@fed/vital-design` npm 套件，維持原本的 `src/` 整合即可。npm 套件**不會**把只有 registry 才有的 `src-v2` 樣式表當成公開 import。
+
+## Registry 安裝的本地元件
+
+在 `components.json` 指定的全域 CSS（例如 Next.js 的 `app/globals.css`）保留 Tailwind import：
+
+```css
+@import 'tailwindcss';
+@import 'tw-animate-css';
+```
+
+從 registry 安裝 Vittal Design 元件時，shadcn 也會安裝 `@vital-design/vital-theme`，並把需要的 CSS 變數、Tailwind 主題 token 與 Vittal Design 基礎規則寫進那個 CSS 檔。
+
+複製進來的元件檔在應用原始碼裡，Tailwind CSS 4 通常會自動掃到。常見的 `app/` 或 `src/` 配置不需要再為 registry 元件加 `@source`。
+
+如果 `components.json` 指到 Tailwind 自動掃描範圍之外的目錄，再加一條對應本地元件路徑的 `@source`。
+
+## 設計變數
+
+Registry 安裝會把 Vittal Design 的設計變數做成 CSS custom properties 與 Tailwind utilities。shadcn 流程會把需要的主題變數，以及 `not-disabled` custom variant，寫進你設定的全域 CSS。
+
+例如這些 token 會可以使用：
+
+```css
+/* registry 安裝後可用 */
+--primary-500: #0e86fe;
+--grayscale-opacity-900: #232332;
+--success-500: #2bcd86;
+```
+
+它們透過 `@theme inline` 變成 Tailwind 顏色 utility：
+
+```html
+<!-- 在標記裡使用 -->
+<div class="text-primary-500 bg-primary-50">...</div>
+<p class="text-grayscale-opacity-900">...</p>
+```
+
+## PostCSS 設定
+
+Tailwind CSS 4 需要 `@tailwindcss/postcss`。建立或更新 `postcss.config.js`（或依專案使用 `postcss.config.cjs`）：
+
+```js
+export default {
+  plugins: {
+    '@tailwindcss/postcss': {},
+  },
+};
+```
+
+專案如果已經使用 `autoprefixer`，可以留著。
+
+## 字型
+
+Vittal Design 使用這個字型堆疊（定義在 `--font-sans`）：
+
+```
+'Roboto', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif
+```
+
+要載入 Roboto，把它加到 HTML，或透過字型提供者引入。Next.js：
+
+```tsx
+import { Roboto } from 'next/font/google';
+
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+});
+```
+
+## 用 data-slot 隔離樣式
+
+Vittal Design 元件會在可上樣式的 DOM 部分放上穩定的 `data-slot`。用這些鉤子把 Tailwind utilities 與自訂 CSS 限縮在 VD 元件上，避免樣式漏到應用自己的元素，也避免反過來被蓋掉。
+
+這跟 [shadcn 的 data-slot 慣例](https://ui.shadcn.com/docs/changelog) 一致：每個 **DOM 表面** 都有可預期的選擇器。
+
+### 命名
+
+| 部分 | `data-slot` 的值 | 元素範例 |
+| ---- | ---------------- | -------- |
+| Root | `{component}` | `data-slot="button"` |
+| 子部分 | `{component}-{part}` | `data-slot="select-trigger"` |
+
+### 在應用裡限縮樣式
+
+**後代選擇器** — 只影響容器裡的 VD 部分：
+
+```html
+<div class="[&_[data-slot=button]]:rounded-lg">
+  <Button>Save</Button>
+</div>
+```
+
+**Custom variant**（Tailwind CSS 4）— 在 `globals.css` 做成可重複使用的範圍：
+
+```css
+@custom-variant vd (& [data-slot]);
+```
+
+```html
+<div class="vd:[&_[data-slot=button]]:shadow-md">
+  <Button>Save</Button>
+</div>
+```
+
+**指定某個部分：**
+
+```html
+<div class="[&_[data-slot=table-head]]:sticky [&_[data-slot=table-head]]:top-0">
+  <Table>...</Table>
+</div>
+```
+
+### 哪些部分會有 slot？
+
+Vittal Design 用三層規則：
+
+| 層級 | 規則 | 例子 |
+| ---- | ---- | ---- |
+| **必要** | 每個會渲染出可上樣式 DOM 的匯出部分 | `button`、`select-trigger`、`dialog-popup` |
+| **禁止直接轉出** | 互動部分必須包一層，不要寫 `const X = Base.Trigger` | `DialogTrigger`（正確）、`PopoverTrigger`（還沒包） |
+| **豁免** | 沒有可上樣式 DOM 的部分 | `Provider`、只有狀態的 `Root`、空的 `Portal` |
+
+`@base-ui/react` 與 `cmdk` **沒有**附 `data-slot`。直接再匯出的元件在 Vittal Design 包上一層之前不會有 slot。不要預期 `Select` 的 root 或 `ToastPortal` 有 slot。請改以子部分為範圍，例如 `select-trigger` 或 `toast-content`。
+
+### 涵蓋狀態
+
+最後更新：2026-07-03。範圍是 `src-v2/components/`（43 個資料夾）。
+
+| 狀態 | 元件 |
+| ------ | ---------- |
+| **完整** | alert, avatar, badge, breadcrumb, button, button-group, card, checkbox, chip, collapsible, combobox (incl. tags value), command, dropdown-menu, editable, field, input, number-input, item, label, password-input, popover, progress, radio-group, resizable, scroll-area, search-bar, separator, skeleton, slider, spinner, split-button, switch, table, table-of-contents, tabs, tag, textarea, time-picker, toolbar |
+| **接近完整**（只有 root 或 portal 直接轉出） | select, dialog, sheet, tooltip, toast, input-group, autocomplete |
+| **部分** | calendar（標題列的月份／年份下拉觸發器） |
+
+第三層豁免（刻意沒有 slot）：select、dialog、dropdown-menu、popover、tooltip、toast、autocomplete 上的 `Provider`、只有狀態的 `Root`、空的 `Portal`。`AutocompleteValue` / `ComboboxValue` 也豁免，它們不渲染 DOM（只有文字或 children）。

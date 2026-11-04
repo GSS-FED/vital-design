@@ -1,0 +1,58 @@
+---
+title: 圓角
+description: input、按鈕、card 與 dialog 共用的圓角 token。
+---
+
+import { RadiusPalette } from '~/components/tokens/Swatch';
+import { radiusTokens } from '~/components/tokens/data';
+
+## Token
+
+Vittal Design 用 CSS custom properties 提供六階圓角。它們對應 Tailwind 的 `rounded-*` utility，兩種寫法都可以。
+
+<RadiusPalette tokens={radiusTokens} />
+
+## 用法
+
+| Token             | 建議用法                                              |
+| ----------------- | ----------------------------------------------------- |
+| `--radius-none`   | 直角。工具表面、貼齊邊緣的行內群組                    |
+| `--radius-sm`     | 小 input、緊湊按鈕、tag                               |
+| `--radius-md`     | 預設表單控制項、表格儲存格、card                      |
+| `--radius-lg`     | 中型按鈕、alert 容器                                  |
+| `--radius-xl`     | card、dialog、大型按鈕                                |
+| `--radius-full`   | 膠囊與圓形。chip、avatar、狀態點                      |
+
+```css
+/* CSS */
+.card {
+  border-radius: var(--radius-md);
+}
+```
+
+```html
+<!-- Tailwind utility -->
+<div class="rounded-md">…</div>
+```
+
+## 與尺寸搭配
+
+圓角 token 配上尺寸 utility，元件外形才一致。Button、input、chip 內部都用同一組比例。
+
+<div className="not-prose my-4 flex flex-wrap items-center gap-4 rounded-md border border-grayscale-opacity-200 bg-white p-6">
+  <span className="rounded-sm bg-primary-100 px-3 py-1 text-sm text-primary-700">
+    rounded-sm
+  </span>
+  <span className="rounded-md bg-primary-100 px-3 py-1 text-sm text-primary-700">
+    rounded-md
+  </span>
+  <span className="rounded-lg bg-primary-100 px-3 py-1 text-sm text-primary-700">
+    rounded-lg
+  </span>
+  <span className="rounded-xl bg-primary-100 px-3 py-1 text-sm text-primary-700">
+    rounded-xl
+  </span>
+  <span className="rounded-full bg-primary-100 px-3 py-1 text-sm text-primary-700">
+    rounded-full
+  </span>
+</div>

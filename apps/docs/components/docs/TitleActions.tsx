@@ -2,24 +2,48 @@
 
 import { type ReactNode, useState } from 'react';
 
+const copyLabels = {
+  en: {
+    markdown: 'Copy Markdown',
+    registry: 'Copy registry URL',
+    copied: 'Copied',
+  },
+  'zh-tw': {
+    markdown: '複製 Markdown',
+    registry: '複製 registry URL',
+    copied: '已複製',
+  },
+} as const;
+
 export function TitleActions({
   rawMarkdown,
   registryUrl,
+  locale = 'en',
 }: {
   rawMarkdown?: string;
   registryUrl?: string;
+  locale?: keyof typeof copyLabels;
 }) {
   if (!rawMarkdown && !registryUrl) return null;
+  const labels = copyLabels[locale];
 
   return (
     <div className="not-prose -mt-2 mb-6 flex flex-wrap items-center gap-2">
       {rawMarkdown ? (
-        <CopyButton value={rawMarkdown} label="Copy Markdown">
+        <CopyButton
+          value={rawMarkdown}
+          label={labels.markdown}
+          copiedLabel={labels.copied}
+        >
           <CopyIcon className="size-3.5" />
         </CopyButton>
       ) : null}
       {registryUrl ? (
-        <CopyButton value={registryUrl} label="Copy registry URL">
+        <CopyButton
+          value={registryUrl}
+          label={labels.registry}
+          copiedLabel={labels.copied}
+        >
           <ChainIcon className="size-3.5" />
         </CopyButton>
       ) : null}
@@ -30,10 +54,12 @@ export function TitleActions({
 function CopyButton({
   value,
   label,
+  copiedLabel,
   children,
 }: {
   value: string;
   label: string;
+  copiedLabel: string;
   children: ReactNode;
 }) {
   const [copied, setCopied] = useState(false);
@@ -50,7 +76,7 @@ function CopyButton({
       className="inline-flex h-7 items-center gap-1.5 rounded-md border border-grayscale-opacity-200 bg-white px-2.5 text-xs font-medium text-grayscale-opacity-800 shadow-sm transition-colors hover:bg-grayscale-100"
     >
       {copied ? <CheckIcon className="size-3.5" /> : children}
-      {copied ? 'Copied' : label}
+      {copied ? copiedLabel : label}
     </button>
   );
 }
