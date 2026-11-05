@@ -211,8 +211,6 @@ export function Tag(props: TagProps) {
 
   return (
     <div
-      role="option"
-      aria-selected={isSelected}
       data-slot="tag"
       className={cn(
         tagVariants({ color, colorVariant, selected: isSelected }),
@@ -223,6 +221,7 @@ export function Tag(props: TagProps) {
       {isClickable ? (
         <button
           type="button"
+          aria-pressed={selected}
           onClick={onClick}
           data-slot="tag-action"
           className={cn(

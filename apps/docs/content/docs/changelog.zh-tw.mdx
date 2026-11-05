@@ -9,6 +9,12 @@ description: Vittal Design registry、元件與文件裡，會影響安裝或用
 
 新的紀錄在上面。標題用變更上線的月份。只記會影響你怎麼安裝或使用 registry 的變更：新元件、破壞性用法、token，以及安裝步驟。
 
+## 2026 年 11 月 — Tag 語意
+
+### 元件
+
+- **Tag：** 不再渲染 `role="option"` 與 `aria-selected`。可點擊且設定 `selected` 的 Tag，現在會在按鈕上設定 `aria-pressed`。如果測試用 `getByRole('option')` 找 Tag，請改用文字或 `data-slot="tag"` 查詢。重新安裝 `tag` 才會套用。
+
 ## 2026 年 11 月 — Breadcrumb
 
 ### 元件

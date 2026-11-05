@@ -9,6 +9,12 @@ That package is built from `src/` and stays available for existing apps. New wor
 
 Newest entries are at the top. Headings use the month the change shipped. We only record changes that affect how you install or use the registry — new components, breaking usage, tokens, and install steps.
 
+## November 2026 — Tag semantics
+
+### Components
+
+- **Tag:** no longer renders `role="option"` or `aria-selected`. A clickable Tag with `selected` now sets `aria-pressed` on its button. If your tests find Tags with `getByRole('option')`, query by text or `data-slot="tag"` instead. Reinstall `tag` to pick this up.
+
 ## November 2026 — Breadcrumb
 
 ### Components

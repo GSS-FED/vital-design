@@ -6,7 +6,7 @@ import { Tag } from './Tag';
 
 it('renders a tag', () => {
   render(<Tag>Tag</Tag>);
-  expect(screen.getByRole('option')).toBeInTheDocument();
+  expect(screen.queryByRole('option')).not.toBeInTheDocument();
   expect(screen.getByText('Tag')).toBeInTheDocument();
   expect(
     screen.queryByRole('button', { name: 'Tag' }),
@@ -29,14 +29,34 @@ it('renders a removable tag', () => {
   expect(removeButton).toBeInTheDocument();
 });
 
-it('renders a selected tag', () => {
-  const props = {
-    selected: true,
-  };
-  render(<Tag {...props}>Tag</Tag>);
-  const tag = screen.getByRole('option');
-  expect(tag).toBeInTheDocument();
-  expect(tag).toHaveAttribute('aria-selected', 'true');
+it('exposes selection on the action button only when selected is set', () => {
+  const onClick = vi.fn();
+  const { rerender } = render(<Tag onClick={onClick}>Tag</Tag>);
+  const action = screen.getByRole('button', { name: 'Tag' });
+  expect(action).not.toHaveAttribute('aria-pressed');
+
+  rerender(
+    <Tag onClick={onClick} selected>
+      Tag
+    </Tag>,
+  );
+  expect(action).toHaveAttribute('aria-pressed', 'true');
+
+  rerender(
+    <Tag onClick={onClick} selected={false}>
+      Tag
+    </Tag>,
+  );
+  expect(action).toHaveAttribute('aria-pressed', 'false');
+});
+
+it('renders a selected static tag without selection semantics', () => {
+  const { container } = render(<Tag selected>Tag</Tag>);
+  // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+  const tag = container.querySelector('[data-slot="tag"]');
+  expect(tag).toHaveClass('outline-primary-500');
+  expect(tag).not.toHaveAttribute('role');
+  expect(tag).not.toHaveAttribute('aria-selected');
 });
 
 it('calls the onClick callback when clicked', async () => {
@@ -88,8 +108,9 @@ it('applies custom class names and styles', () => {
       backgroundColor: '#655FED',
     },
   };
-  render(<Tag {...props}>Tag</Tag>);
-  const tag = screen.getByRole('option');
+  const { container } = render(<Tag {...props}>Tag</Tag>);
+  // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+  const tag = container.querySelector('[data-slot="tag"]');
   expect(tag).toBeInTheDocument();
   expect(tag).toHaveClass(props.className);
   expect(tag).toHaveStyle(props.style);
