@@ -123,19 +123,36 @@ import { PasswordInput } from '@/components/ui/PasswordInput';
 
 ### PasswordInput 屬性 [#passwordinput-props]
 
-| Prop               | Type                      | Default | 說明                           |
-| ------------------ | ------------------------- | ------- | ------------------------------ |
-| `value`            | `string`                  | —       | 受控值                         |
-| `defaultValue`     | `string`                  | —       | 非受控的初始值                 |
-| `onChange`         | `(value: string) => void` | —       | 值變更時的回呼                 |
-| `placeholder`      | `string`                  | —       | 佔位文字                       |
-| `initiallyVisible` | `boolean`                 | `false` | 一開始就顯示密碼文字           |
-| `disabled`         | `boolean`                 | `false` | 停用輸入                       |
-| `aria-invalid`     | `boolean`                 | —       | 套用無效框線樣式               |
-| `prefix`           | `ReactNode`               | —       | 顯示在左側內部的元素           |
-| `onEnter`          | `(value: string) => void` | —       | 按下 Enter 時呼叫              |
-| `className`        | `string`                  | —       | 額外的 CSS class               |
-| `style`            | `CSSProperties`           | —       | 行內樣式                       |
+| Prop                | Type                      | Default           | 說明                           |
+| ------------------- | ------------------------- | ----------------- | ------------------------------ |
+| `value`             | `string`                  | —                 | 受控值                         |
+| `defaultValue`      | `string`                  | —                 | 非受控的初始值                 |
+| `onChange`          | `(value: string) => void` | —                 | 值變更時的回呼                 |
+| `placeholder`       | `string`                  | —                 | 佔位文字                       |
+| `initiallyVisible`  | `boolean`                 | `false`           | 一開始就顯示密碼文字           |
+| `disabled`          | `boolean`                 | `false`           | 停用輸入                       |
+| `aria-invalid`      | `boolean`                 | —                 | 套用無效框線樣式               |
+| `prefix`            | `ReactNode`               | —                 | 顯示在左側內部的元素           |
+| `onEnter`           | `(value: string) => void` | —                 | 按下 Enter 時呼叫              |
+| `showPasswordLabel` | `string`                  | `'Show password'` | 密碼隱藏時，切換鈕的名稱       |
+| `hidePasswordLabel` | `string`                  | `'Hide password'` | 密碼顯示時，切換鈕的名稱       |
+| `className`         | `string`                  | —                 | InputGroup 外殼的 class        |
+| `style`             | `CSSProperties`           | —                 | InputGroup 外殼的行內樣式      |
+
+其餘 `<input>` props（`id`、`name`、`autoComplete`、`required`、`onBlur` 等）都會傳給內層 input，`ref` 也指向該 input。`onChange` 收到的仍是 `string`，不是事件。
+
+設定 `id` 來連接 `Label`，設定 `autoComplete` 讓密碼管理員可以填入：
+
+```tsx
+<Label htmlFor="current-password">Password</Label>
+<PasswordInput
+  id="current-password"
+  name="password"
+  autoComplete="current-password"
+  value={password}
+  onChange={setPassword}
+/>
+```
 
 ---
 

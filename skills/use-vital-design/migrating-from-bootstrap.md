@@ -7,12 +7,16 @@ Branch of the `use-vital-design` workflow for apps currently styled with Bootstr
 Formik `<Field type="checkbox">` binds to a native input. Vital controls do not. Wire each one from its own callback:
 
 - `Input` forwards the DOM change event and accepts `name`, so `value={values.email}` with `onChange={handleChange}` works.
-- `PasswordInput` and `SearchBar` call `onChange` with a `string` and have no `name`. `handleChange` then reads `event.target` on that string and the field stays empty. Write the value back yourself:
+- `PasswordInput` and `SearchBar` call `onChange` with a `string`. `handleChange` then reads `event.target` on that string and the field stays empty. Write the value back yourself. Other `<input>` props are forwarded, so `id`, `name`, `autoComplete`, and `onBlur={handleBlur}` work as usual:
 
   ```tsx
   <PasswordInput
+    id="password"
+    name="password"
+    autoComplete="current-password"
     value={values.password}
     onChange={(value) => setFieldValue('password', value)}
+    onBlur={handleBlur}
   />
   ```
 

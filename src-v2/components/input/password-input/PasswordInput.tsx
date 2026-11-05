@@ -7,37 +7,63 @@ import { EyeIcon } from '@/icons/EyeIcon';
 import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type {
+  CSSProperties,
+  ComponentPropsWithoutRef,
+  ComponentRef,
+  ReactNode,
+  Ref,
+} from 'react';
 
 /* ---------------------------------- Types --------------------------------- */
-export type PasswordInputProps = {
-  'aria-invalid'?: ComponentPropsWithoutRef<'input'>['aria-invalid'];
+export type PasswordInputProps = Omit<
+  ComponentPropsWithoutRef<'input'>,
+  | 'className'
+  | 'defaultValue'
+  | 'onChange'
+  | 'prefix'
+  | 'style'
+  | 'type'
+  | 'value'
+> & {
+  /** Applied to the InputGroup shell, not the inner `<input>`. */
   className?: string;
-  placeholder?: string;
+  /** Applied to the InputGroup shell, not the inner `<input>`. */
+  style?: CSSProperties;
   prefix?: ReactNode;
   initiallyVisible?: boolean;
   defaultValue?: string;
   value?: string;
-  disabled?: boolean;
-  style?: ComponentPropsWithoutRef<'div'>['style'];
   onChange?: (value: string) => void;
   onEnter?: (value: string) => void;
+  /** Accessible name of the toggle while the password is hidden. */
+  showPasswordLabel?: string;
+  /** Accessible name of the toggle while the password is visible. */
+  hidePasswordLabel?: string;
 };
 
 /* ---------------------------------- Component --------------------------------- */
-export function PasswordInput(props: PasswordInputProps) {
+export function PasswordInput({
+  ref,
+  ...props
+}: PasswordInputProps & {
+  ref?: Ref<ComponentRef<'input'>>;
+}) {
   const {
-    'aria-invalid': ariaInvalid,
     className,
     value,
     defaultValue,
-    placeholder,
     initiallyVisible = false,
     prefix,
     style,
     onChange,
     onEnter,
+    onInput,
+    onKeyDown,
     disabled = false,
+    showPasswordLabel = 'Show password',
+    hidePasswordLabel = 'Hide password',
+    ...inputProps
   } = props;
 
   const [passwordVisible, setPasswordVisible] =
@@ -54,22 +80,29 @@ export function PasswordInput(props: PasswordInputProps) {
         <InputGroupAddon>{prefix}</InputGroupAddon>
       )}
       <InputGroupInput
-        data-state={passwordVisible ? 'visible' : 'invisible'}
         data-testid="password-input"
-        aria-invalid={ariaInvalid}
+        {...inputProps}
+        ref={ref}
+        data-state={passwordVisible ? 'visible' : 'invisible'}
         disabled={disabled}
-        onInput={(event) => onChange?.(event.currentTarget.value)}
+        onInput={(event) => {
+          onInput?.(event);
+          onChange?.(event.currentTarget.value);
+        }}
         onKeyDown={(event) => {
+          onKeyDown?.(event);
           if (event.key === 'Enter') {
             onEnter?.(event.currentTarget.value);
           }
         }}
-        placeholder={placeholder}
         type={type}
         {...(value !== undefined ? { value } : { defaultValue })}
       />
       <InputGroupAddon align="inline-end">
         <VisibilityToggle
+          aria-label={
+            passwordVisible ? hidePasswordLabel : showPasswordLabel
+          }
           disabled={disabled}
           onClick={() => setPasswordVisible((visible) => !visible)}
         >
@@ -82,10 +115,12 @@ export function PasswordInput(props: PasswordInputProps) {
 
 /* --------------------------------- Components --------------------------------- */
 function VisibilityToggle({
+  'aria-label': ariaLabel,
   disabled,
   onClick,
   children,
 }: {
+  'aria-label': string;
   disabled?: boolean;
   onClick: () => void;
   children: ReactNode;
@@ -93,6 +128,7 @@ function VisibilityToggle({
   return (
     <button
       type="button"
+      aria-label={ariaLabel}
       data-slot="password-input-toggle"
       data-testid="visibility-toggle"
       disabled={disabled}

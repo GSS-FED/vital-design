@@ -125,19 +125,36 @@ import { PasswordInput } from '@/components/ui/PasswordInput';
 
 ### PasswordInput Props
 
-| Prop               | Type                      | Default | Description                           |
-| ------------------ | ------------------------- | ------- | ------------------------------------- |
-| `value`            | `string`                  | —       | Controlled value                      |
-| `defaultValue`     | `string`                  | —       | Uncontrolled initial value            |
-| `onChange`         | `(value: string) => void` | —       | Value change callback                 |
-| `placeholder`      | `string`                  | —       | Placeholder text                      |
-| `initiallyVisible` | `boolean`                 | `false` | Show password text initially          |
-| `disabled`         | `boolean`                 | `false` | Disables the input                    |
-| `aria-invalid`     | `boolean`                 | —       | Applies invalid border styling        |
-| `prefix`           | `ReactNode`               | —       | Element rendered inside the left side |
-| `onEnter`          | `(value: string) => void` | —       | Called when Enter key is pressed      |
-| `className`        | `string`                  | —       | Additional CSS classes                |
-| `style`            | `CSSProperties`           | —       | Inline styles                         |
+| Prop                | Type                      | Default           | Description                             |
+| ------------------- | ------------------------- | ----------------- | --------------------------------------- |
+| `value`             | `string`                  | —                 | Controlled value                        |
+| `defaultValue`      | `string`                  | —                 | Uncontrolled initial value              |
+| `onChange`          | `(value: string) => void` | —                 | Value change callback                   |
+| `placeholder`       | `string`                  | —                 | Placeholder text                        |
+| `initiallyVisible`  | `boolean`                 | `false`           | Show password text initially            |
+| `disabled`          | `boolean`                 | `false`           | Disables the input                      |
+| `aria-invalid`      | `boolean`                 | —                 | Applies invalid border styling          |
+| `prefix`            | `ReactNode`               | —                 | Element rendered inside the left side   |
+| `onEnter`           | `(value: string) => void` | —                 | Called when Enter key is pressed        |
+| `showPasswordLabel` | `string`                  | `'Show password'` | Toggle name while the text is hidden    |
+| `hidePasswordLabel` | `string`                  | `'Hide password'` | Toggle name while the text is visible   |
+| `className`         | `string`                  | —                 | Classes for the InputGroup shell        |
+| `style`             | `CSSProperties`           | —                 | Inline styles for the InputGroup shell  |
+
+Every other `<input>` prop (`id`, `name`, `autoComplete`, `required`, `onBlur`, …) is forwarded to the inner input, and `ref` points at that input. `onChange` still receives a `string`, not an event.
+
+Set `id` to connect a `Label`, and `autoComplete` so password managers can fill the field:
+
+```tsx
+<Label htmlFor="current-password">Password</Label>
+<PasswordInput
+  id="current-password"
+  name="password"
+  autoComplete="current-password"
+  value={password}
+  onChange={setPassword}
+/>
+```
 
 ---
 
