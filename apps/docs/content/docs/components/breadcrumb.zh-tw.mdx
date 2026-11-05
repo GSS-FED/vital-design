@@ -1,0 +1,147 @@
+---
+title: Breadcrumb
+description: 一串連結，顯示目前頁面在網站階層中的位置。
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '~/components/vital-components';
+
+## 預覽 [#preview]
+
+<ComponentPreview>
+  <Breadcrumb>
+    <BreadcrumbList>
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">專案</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">網站</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbPage>設定</BreadcrumbPage>
+      </BreadcrumbItem>
+    </BreadcrumbList>
+  </Breadcrumb>
+</ComponentPreview>
+
+## 用法 [#usage]
+
+```tsx
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/Breadcrumb';
+
+<Breadcrumb>
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/projects">專案</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbPage>設定</BreadcrumbPage>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>;
+```
+
+目前頁面用 `BreadcrumbPage`。它不是連結，並會設定 `aria-current="page"`。
+
+## 路由連結 [#router-links]
+
+`BreadcrumbLink` 預設渲染 `<a>`。要用路由的連結時，透過 `render` 傳入：
+
+```tsx
+import { Link } from 'react-router-dom';
+
+<BreadcrumbLink render={<Link to="/projects" />}>
+  專案
+</BreadcrumbLink>;
+```
+
+## 尺寸 [#sizes]
+
+在 `BreadcrumbList` 設定 `size`，預設是 `sm`。
+
+<ComponentPreview>
+  <div className="flex flex-col gap-6">
+    <Breadcrumb>
+      <BreadcrumbList size="lg">
+        <BreadcrumbItem>
+          <BreadcrumbLink href="#">專案</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbPage>設定</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+    <Breadcrumb>
+      <BreadcrumbList size="sm">
+        <BreadcrumbItem>
+          <BreadcrumbLink href="#">專案</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbPage>設定</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+  </div>
+</ComponentPreview>
+
+## 收合層級 [#collapsed-items]
+
+路徑很深時，用 `BreadcrumbEllipsis` 取代隱藏的層級。
+
+<ComponentPreview>
+  <Breadcrumb>
+    <BreadcrumbList>
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">專案</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbEllipsis />
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbPage>設定</BreadcrumbPage>
+      </BreadcrumbItem>
+    </BreadcrumbList>
+  </Breadcrumb>
+</ComponentPreview>
+
+```tsx
+<BreadcrumbItem>
+  <BreadcrumbEllipsis />
+</BreadcrumbItem>
+```
+
+## 組成 [#parts]
+
+| Part                  | 元素   | 說明                                                  |
+| --------------------- | ------ | ----------------------------------------------------- |
+| `Breadcrumb`          | `nav`  | 導覽地標。`aria-label` 預設為 `breadcrumb`            |
+| `BreadcrumbList`      | `ol`   | 層級的有序清單。可設 `size`：`'sm'`（預設）或 `'lg'`  |
+| `BreadcrumbItem`      | `li`   | 一個層級                                              |
+| `BreadcrumbLink`      | `a`    | 連到上層的連結。路由連結用 `render` 傳入              |
+| `BreadcrumbPage`      | `span` | 目前頁面，帶 `aria-current="page"`                    |
+| `BreadcrumbSeparator` | `li`   | 層級間的分隔。傳 `children` 可替換箭頭                |
+| `BreadcrumbEllipsis`  | `span` | 標示隱藏的層級。傳 `children` 可替換省略圖示          |
+
+每個 part 也接受其元素的 props。

@@ -10,6 +10,7 @@ Recipes and registry ids for consumer assembly.
 | `Autocomplete`  | `autocomplete`   | Free-form text input with filtered suggestions       | Search inputs with suggestions, inline completion        |
 | `Avatar`        | `avatar`         | User identity display (image, initials, icon)        | Navbars, user cards, table rows                          |
 | `Badge`         | `badge`          | Notification count or dot indicator                  | Unread counts, icon badges (use `Tag` for status labels) |
+| `Breadcrumb`    | `breadcrumb`     | Navigation trail of parent pages (`BreadcrumbEllipsis` in a `DropdownMenu` for hidden levels) | Detail pages, nested settings |
 | `Button`        | `button`         | Action button. `LinkButton` is the styled link       | CTAs, toolbar actions. Nav links use `LinkButton`        |
 | `ButtonGroup`   | `button-group`   | Grouped button container                             | Toolbars, segmented actions, pagination                  |
 | `Calendar`      | `calendar`       | Date picker calendar (`react-day-picker`)            | Single, range, or multi-date selection                   |
@@ -53,7 +54,7 @@ Recipes and registry ids for consumer assembly.
 | `Toolbar`       | `toolbar`        | Flex toolbar (`ToolbarGroup`, `ToolbarSpacer`, `ToolbarSeparator`, `variant="outline"`) | Table and editor action bars |
 | `Tooltip`       | `tooltip`        | Hover/focus hint (`TooltipProvider`, `TooltipTrigger`, `TooltipContent`) | Icon button labels, truncated text hints |
 
-The registry has no pagination or breadcrumb item: build pagination from `ButtonGroup` + `Button` (`aria-current="page"` on the active page), and a breadcrumb from `nav` + `ol` + router links styled with token utilities.
+The registry has no pagination item: build pagination from `ButtonGroup` + `Button` (`aria-current="page"` on the active page).
 
 ## Blocks, Hooks, and Setup Items
 
