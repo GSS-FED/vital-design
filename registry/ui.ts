@@ -426,6 +426,30 @@ export const ui = [
     ],
   },
   {
+    name: 'breadcrumb',
+    type: 'registry:ui',
+    title: 'Breadcrumb',
+    description:
+      'Navigation trail with links, current page, separator, and ellipsis parts',
+    dependencies: [
+      '@base-ui/react',
+      'class-variance-authority',
+      'cn',
+    ],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/icon-chevron-right',
+      '@vital-design/icon-ellipsis',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/breadcrumb/Breadcrumb.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
     name: 'separator',
     type: 'registry:ui',
     title: 'Separator',

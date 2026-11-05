@@ -39,6 +39,7 @@ export type RegistryItemName =
   | 'alert'
   | 'avatar'
   | 'badge'
+  | 'breadcrumb'
   | 'button'
   | 'button-group'
   | 'split-button'

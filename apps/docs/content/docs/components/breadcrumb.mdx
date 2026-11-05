@@ -1,0 +1,147 @@
+---
+title: Breadcrumb
+description: A trail of links that shows where the current page sits in the site hierarchy.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview>
+  <Breadcrumb>
+    <BreadcrumbList>
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">Projects</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">Website</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbPage>Settings</BreadcrumbPage>
+      </BreadcrumbItem>
+    </BreadcrumbList>
+  </Breadcrumb>
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/Breadcrumb';
+
+<Breadcrumb>
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/projects">Projects</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbPage>Settings</BreadcrumbPage>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>;
+```
+
+Use `BreadcrumbPage` for the current page. It is not a link and sets `aria-current="page"`.
+
+## Router Links
+
+`BreadcrumbLink` renders `<a>` by default. Pass your router's link through `render`:
+
+```tsx
+import { Link } from 'react-router-dom';
+
+<BreadcrumbLink render={<Link to="/projects" />}>
+  Projects
+</BreadcrumbLink>;
+```
+
+## Sizes
+
+Set `size` on `BreadcrumbList`. The default is `sm`.
+
+<ComponentPreview>
+  <div className="flex flex-col gap-6">
+    <Breadcrumb>
+      <BreadcrumbList size="lg">
+        <BreadcrumbItem>
+          <BreadcrumbLink href="#">Projects</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbPage>Settings</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+    <Breadcrumb>
+      <BreadcrumbList size="sm">
+        <BreadcrumbItem>
+          <BreadcrumbLink href="#">Projects</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbPage>Settings</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+  </div>
+</ComponentPreview>
+
+## Collapsed Items
+
+Use `BreadcrumbEllipsis` in place of the levels you hide on a deep path.
+
+<ComponentPreview>
+  <Breadcrumb>
+    <BreadcrumbList>
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">Projects</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbEllipsis />
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbPage>Settings</BreadcrumbPage>
+      </BreadcrumbItem>
+    </BreadcrumbList>
+  </Breadcrumb>
+</ComponentPreview>
+
+```tsx
+<BreadcrumbItem>
+  <BreadcrumbEllipsis />
+</BreadcrumbItem>
+```
+
+## Parts
+
+| Part                  | Element | Description                                                        |
+| --------------------- | ------- | ------------------------------------------------------------------ |
+| `Breadcrumb`          | `nav`   | Navigation landmark. `aria-label` defaults to `breadcrumb`         |
+| `BreadcrumbList`      | `ol`    | Ordered list of levels. Takes `size`: `'sm'` (default) or `'lg'`   |
+| `BreadcrumbItem`      | `li`    | One level                                                          |
+| `BreadcrumbLink`      | `a`     | Link to a parent level. Takes `render` for router links            |
+| `BreadcrumbPage`      | `span`  | Current page, with `aria-current="page"`                           |
+| `BreadcrumbSeparator` | `li`    | Divider between levels. Pass `children` to replace the chevron     |
+| `BreadcrumbEllipsis`  | `span`  | Marks hidden levels. Pass `children` to replace the ellipsis icon  |
+
+Each part also accepts the props of its element.

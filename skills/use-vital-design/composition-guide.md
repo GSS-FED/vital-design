@@ -36,8 +36,9 @@ Recipes and registry ids for consumer assembly.
 | `Progress`      | `progress`       | Completion bar                            | Dashboards, uploads                                      |
 | `Spinner`       | `spinner`        | Loading indicator                         | Pending lists, submit buttons                            |
 | `Badge`         | `badge`          | Count or short status label               | Nav counts, list meta                                    |
+| `Breadcrumb`    | `breadcrumb`     | Trail of parent pages                     | Detail pages, nested settings                            |
 
-The registry has no pagination or breadcrumb item: build pagination from `ButtonGroup` + `Button` (`aria-current="page"` on the active page), and a breadcrumb from `nav` + `ol` + router links styled with token utilities.
+The registry has no pagination item: build pagination from `ButtonGroup` + `Button` (`aria-current="page"` on the active page).
 
 ---
 
