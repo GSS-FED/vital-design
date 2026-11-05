@@ -208,26 +208,23 @@ A registry add can append Vital's `@theme inline` token definitions after existi
 />
 ```
 
-**Action with a menu** (split button): `SplitButton` has no built-in menu, so compose `ButtonGroup` + `Button` + `DropdownMenu`:
+**Action with a menu** (split button): pass `<DropdownMenuTrigger />` to `SplitButton`'s `splitRender`. Only the chevron opens the menu. Do not wrap the whole `SplitButton` in `DropdownMenuTrigger render`:
 
 ```tsx
-<ButtonGroup>
-  <Button onClick={markAllDone}>Mark all done</Button>
-  <DropdownMenu>
-    <DropdownMenuTrigger
-      render={
-        <Button size="icon-md" aria-label="More actions">
-          <AngleDownIcon data-icon="inline-end" />
-        </Button>
-      }
-    />
-    <DropdownMenuContent>
-      <DropdownMenuItem onClick={clearCompleted}>
-        Clear completed
-      </DropdownMenuItem>
-    </DropdownMenuContent>
-  </DropdownMenu>
-</ButtonGroup>
+<DropdownMenu>
+  <SplitButton
+    onClick={markAllDone}
+    splitRender={<DropdownMenuTrigger />}
+    splitLabel="More bulk actions"
+  >
+    Mark all done
+  </SplitButton>
+  <DropdownMenuContent align="end">
+    <DropdownMenuItem onClick={clearCompleted}>
+      Clear completed
+    </DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
 ```
 
 **Selection vs. action menus**:

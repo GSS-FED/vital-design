@@ -14,7 +14,7 @@ import {
 
 ## 用法 [#usage]
 
-`DropdownMenu` 是 Base UI Menu 的薄樣式包裝。用來下指令，不用來選值。觸發器是 render prop，也不限定元素：透過 `render` 傳入任何元素（按鈕、只有圖示的按鈕、`SplitButton`，或其他）。
+`DropdownMenu` 是 Base UI Menu 的薄樣式包裝。用來下指令，不用來選值。觸發器是 render prop，也不限定元素：透過 `render` 傳入任何元素（按鈕、只有圖示的按鈕，或其他）。`SplitButton` 請看 [SplitButton 配方](#splitbutton-recipe)。
 
 ```tsx
 import { Button } from '@/components/ui/Button';
@@ -144,39 +144,28 @@ import {
 
 ## SplitButton 配方 [#splitbutton-recipe]
 
-`DropdownMenu` 不限定觸發器，所以能和 `SplitButton` 直接組合。從外部控制開啟狀態：chevron 那一半切換選單，主要按鈕維持自己的動作。把 `DropdownMenuContent` 錨到包住的 `div`，選單就會出現在 SplitButton 下方。
+把 `<DropdownMenuTrigger />` 傳給 `SplitButton` 的 `splitRender`。只有箭頭會開啟選單，主要按鈕維持自己的動作。`align="end"` 讓選單和 SplitButton 的右緣對齊。
+
+不要把整個 `SplitButton` 傳給 `DropdownMenuTrigger` 的 `render`。這樣主要按鈕也會開啟選單，選單位置也會跑掉。
 
 ```tsx
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
 import { SplitButton } from '@/components/ui/SplitButton';
-import { useRef, useState } from 'react';
 
-function SplitWithMenu() {
-  const [open, setOpen] = useState(false);
-  const anchorRef = useRef<HTMLDivElement>(null);
-
-  return (
-    <DropdownMenu open={open} onOpenChange={setOpen}>
-      <div ref={anchorRef} className="inline-flex">
-        <SplitButton
-          open={open}
-          onClick={() => save()}
-          splitOnClick={() => setOpen((prev) => !prev)}
-        >
-          Save
-        </SplitButton>
-      </div>
-      <DropdownMenuContent anchor={anchorRef}>
-        <DropdownMenuItem>Save as draft</DropdownMenuItem>
-        <DropdownMenuItem>Save and publish</DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-}
+<DropdownMenu>
+  <SplitButton onClick={save} splitRender={<DropdownMenuTrigger />}>
+    Save
+  </SplitButton>
+  <DropdownMenuContent align="end">
+    <DropdownMenuItem>Save as draft</DropdownMenuItem>
+    <DropdownMenuItem>Save and publish</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>;
 ```
 
 ## Props [#props]
@@ -189,7 +178,7 @@ function SplitWithMenu() {
 | --------------------- | --------------------------------------------- | ----------------------------------------- | -------------------------------------- |
 | `align`               | `'start' \| 'center' \| 'end'`                | `'start'`                                 | 相對錨點的對齊                         |
 | `alignOffset`         | `number`                                      | -                                         | 沿對齊軸的偏移                         |
-| `anchor`              | `RefObject \| Element \| …`                   | -                                         | 自訂定位錨點（例如 SplitButton 的外框） |
+| `anchor`              | `RefObject \| Element \| …`                   | -                                         | 自訂定位錨點                           |
 | `side`                | `'top' \| 'right' \| 'bottom' \| 'left' \| …` | `'bottom'` (`'right'` for SubContent)     | 偏好出現在錨點的哪一側                 |
 | `sideOffset`          | `number`                                      | `4`                                       | 與錨點的距離                           |
 | `positionerClassName` | `string`                                      | -                                         | Positioner wrapper 上的 class          |

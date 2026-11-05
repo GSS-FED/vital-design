@@ -16,27 +16,63 @@ import {
 
 ## 用法 [#usage]
 
+把 `SplitButton` 放進 `DropdownMenu`，並傳入 `splitRender={<DropdownMenuTrigger />}`。箭頭就會成為選單的觸發器：負責開關選單、定位、鍵盤操作，選單開著時箭頭會朝上。主要按鈕仍執行自己的 `onClick`。
+
 圖示要另外安裝或引入，不要跟 SplitButton 放在一起。
 
 ```tsx
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/DropdownMenu';
 import { SplitButton } from '@/components/ui/SplitButton';
-import { useState } from 'react';
 
-function SaveButton() {
-  const [open, setOpen] = useState(false);
+<DropdownMenu>
+  <SplitButton
+    theme="primary"
+    onClick={save}
+    splitRender={<DropdownMenuTrigger />}
+  >
+    <MagnifyingGlassIcon data-icon="inline-start" />
+    Save
+  </SplitButton>
+  <DropdownMenuContent align="end">
+    <DropdownMenuItem onClick={saveDraft}>Save as draft</DropdownMenuItem>
+    <DropdownMenuItem onClick={saveAndPublish}>
+      Save and publish
+    </DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>;
+```
 
-  return (
-    <SplitButton
-      theme="primary"
-      open={open}
-      onClick={() => handleSave()}
-      splitOnClick={() => setOpen((v) => !v)}
-    >
-      <MagnifyingGlassIcon data-icon="inline-start" />
-      Save
-    </SplitButton>
-  );
-}
+選單錨定在箭頭上。設定 `align="end"`，選單右緣就會和整個 SplitButton 的右緣對齊。
+
+## 箭頭名稱 [#chevron-label]
+
+箭頭的無障礙名稱預設是 `More options`。用 `splitLabel` 說明選單內容，或改成其他語言：
+
+```tsx
+<SplitButton splitLabel="更多儲存選項" splitRender={<DropdownMenuTrigger />}>
+  儲存
+</SplitButton>
+```
+
+## 自行控制箭頭 [#controlled-chevron]
+
+如果彈出的不是 `DropdownMenu`，可以用 `open` 和 `splitOnClick` 自行控制箭頭。`open` 會讓箭頭朝上，並把名稱切換成 `Expand options` 或 `Collapse options`。
+
+```tsx
+const [open, setOpen] = useState(false);
+
+<SplitButton
+  open={open}
+  onClick={save}
+  splitOnClick={() => setOpen((v) => !v)}
+>
+  Save
+</SplitButton>;
 ```
 
 ## 預設主題 [#default-theme]
@@ -73,7 +109,9 @@ function SaveButton() {
 
 | Prop                    | Type                                                                                   | Default     | 說明                                           |
 | ----------------------- | -------------------------------------------------------------------------------------- | ----------- | ---------------------------------------------- |
-| `open`                  | `boolean`                                                                              | —           | **必填。** 控制分割箭頭是否為開啟狀態         |
+| `open`                  | `boolean`                                                                              | —           | 讓箭頭呈現開啟狀態。搭配 `splitRender` 時不用設定 |
+| `splitRender`           | `ReactElement`                                                                         | —           | 把箭頭渲染成其他元素，通常是 `<DropdownMenuTrigger />` |
+| `splitLabel`            | `string`                                                                               | `'More options'` | 箭頭的無障礙名稱。設定 `open` 時預設為 `'Expand options'`／`'Collapse options'` |
 | `theme`                 | `'primary' \| 'default' \| 'success' \| 'info' \| 'warning' \| 'alarm' \| 'dangerous'` | `'default'` | 色彩主題（與 `Button` 相同）                   |
 | `size`                  | `'md' \| 'lg'`                                                                         | `'md'`      | 按鈕尺寸                                       |
 | `onClick`               | `(e: MouseEvent) => void`                                                              | —           | 主要按鈕區域的處理函式                         |

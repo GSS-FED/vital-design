@@ -16,27 +16,63 @@ import {
 
 ## Usage
 
+Put `SplitButton` inside a `DropdownMenu` and pass `splitRender={<DropdownMenuTrigger />}`. The chevron becomes the menu trigger: it opens the menu, positions it, supports the keyboard, and flips while the menu is open. The main button keeps its own `onClick`.
+
 Install or import the icon separately from SplitButton.
 
 ```tsx
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/DropdownMenu';
 import { SplitButton } from '@/components/ui/SplitButton';
-import { useState } from 'react';
 
-function SaveButton() {
-  const [open, setOpen] = useState(false);
+<DropdownMenu>
+  <SplitButton
+    theme="primary"
+    onClick={save}
+    splitRender={<DropdownMenuTrigger />}
+  >
+    <MagnifyingGlassIcon data-icon="inline-start" />
+    Save
+  </SplitButton>
+  <DropdownMenuContent align="end">
+    <DropdownMenuItem onClick={saveDraft}>Save as draft</DropdownMenuItem>
+    <DropdownMenuItem onClick={saveAndPublish}>
+      Save and publish
+    </DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>;
+```
 
-  return (
-    <SplitButton
-      theme="primary"
-      open={open}
-      onClick={() => handleSave()}
-      splitOnClick={() => setOpen((v) => !v)}
-    >
-      <MagnifyingGlassIcon data-icon="inline-start" />
-      Save
-    </SplitButton>
-  );
-}
+The menu is anchored to the chevron. Set `align="end"` so its right edge lines up with the right edge of the SplitButton.
+
+## Chevron Label
+
+The chevron's accessible name defaults to `More options`. Set `splitLabel` to describe what the menu holds, or to translate it:
+
+```tsx
+<SplitButton splitLabel="More save options" splitRender={<DropdownMenuTrigger />}>
+  Save
+</SplitButton>
+```
+
+## Controlled Chevron
+
+For a popup that is not a `DropdownMenu`, control the chevron yourself with `open` and `splitOnClick`. `open` flips the chevron and switches its name between `Expand options` and `Collapse options`.
+
+```tsx
+const [open, setOpen] = useState(false);
+
+<SplitButton
+  open={open}
+  onClick={save}
+  splitOnClick={() => setOpen((v) => !v)}
+>
+  Save
+</SplitButton>;
 ```
 
 ## Default Theme
@@ -74,7 +110,9 @@ is the compact variant without shadow.
 
 | Prop                    | Type                                                                                        | Default     | Description                                                          |
 | ----------------------- | ------------------------------------------------------------------------------------------- | ----------- | -------------------------------------------------------------------- |
-| `open`                  | `boolean`                                                                                   | —           | **Required.** Controls whether the split arrow appears in open state |
+| `open`                  | `boolean`                                                                                   | —           | Puts the chevron in its open state. Leave unset with `splitRender`   |
+| `splitRender`           | `ReactElement`                                                                              | —           | Renders the chevron as another element, usually `<DropdownMenuTrigger />` |
+| `splitLabel`            | `string`                                                                                    | `'More options'` | Accessible name of the chevron. With `open`, defaults to `'Expand options'` / `'Collapse options'` |
 | `theme`                 | `'primary' \| 'default' \| 'success' \| 'info' \| 'warning' \| 'alarm' \| 'dangerous'`      | `'default'` | Color theme (matches `Button`)                                       |
 | `size`                  | `'md' \| 'lg'`                                                                             | `'md'`      | Button size                                                          |
 | `onClick`               | `(e: MouseEvent) => void`                                                                   | —           | Handler for the main button area                                     |

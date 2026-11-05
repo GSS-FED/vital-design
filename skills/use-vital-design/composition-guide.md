@@ -43,7 +43,7 @@ Recipes and registry ids for consumer assembly.
 | `Skeleton`      | `skeleton`       | Pulse loading placeholder                            | Pending cards, table rows, avatars                       |
 | `Slider`        | `slider`         | Numeric value or range slider                        | Volume, thresholds, range filters                        |
 | `Spinner`       | `spinner`        | Accessible spinning loader (`role="status"`)         | Pending buttons (`data-icon`), async panels              |
-| `SplitButton`   | `split-button`   | Action + toggle segment, no built-in menu            | Primary action with a caller-owned popup                 |
+| `SplitButton`   | `split-button`   | Action + chevron segment                             | Primary action with a menu (`splitRender`)               |
 | `Switch`        | `switch`         | Boolean on/off toggle                                | Settings rows, inline table toggles                      |
 | `Table`         | `table`          | Semantic table primitives (`striped` optional)       | Data tables, static comparison tables                    |
 | `Tabs`          | `tabs`           | Tabbed panel switcher (`underline` or `pill`)        | Detail views, segmented page sections                    |

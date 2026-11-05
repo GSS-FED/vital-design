@@ -14,7 +14,7 @@ import {
 
 ## Usage
 
-`DropdownMenu` is a thin styled wrapper around Base UI Menu. Use it for commands, not value picking. The trigger is render-prop based and trigger-agnostic — pass any element (a button, an icon-only button, a `SplitButton`, anything) via `render`.
+`DropdownMenu` is a thin styled wrapper around Base UI Menu. Use it for commands, not value picking. The trigger is render-prop based and trigger-agnostic — pass any element (a button, an icon-only button, anything) via `render`. For a `SplitButton`, see the [SplitButton recipe](#splitbutton-recipe).
 
 ```tsx
 import { Button } from '@/components/ui/Button';
@@ -144,39 +144,28 @@ import {
 
 ## SplitButton Recipe
 
-`DropdownMenu` is trigger-agnostic, so it composes with `SplitButton` cleanly. Control the open state externally and let the chevron half toggle the menu while the primary button keeps its own action. Anchor `DropdownMenuContent` to a wrapping `div` so the menu pops below the SplitButton.
+Pass `<DropdownMenuTrigger />` to `SplitButton`'s `splitRender`. Only the chevron opens the menu; the main button keeps its own action. `align="end"` lines the menu up with the right edge of the SplitButton.
+
+Do not pass the whole `SplitButton` to `DropdownMenuTrigger`'s `render`. The main button would also open the menu, and the menu would lose its position.
 
 ```tsx
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
 import { SplitButton } from '@/components/ui/SplitButton';
-import { useRef, useState } from 'react';
 
-function SplitWithMenu() {
-  const [open, setOpen] = useState(false);
-  const anchorRef = useRef<HTMLDivElement>(null);
-
-  return (
-    <DropdownMenu open={open} onOpenChange={setOpen}>
-      <div ref={anchorRef} className="inline-flex">
-        <SplitButton
-          open={open}
-          onClick={() => save()}
-          splitOnClick={() => setOpen((prev) => !prev)}
-        >
-          Save
-        </SplitButton>
-      </div>
-      <DropdownMenuContent anchor={anchorRef}>
-        <DropdownMenuItem>Save as draft</DropdownMenuItem>
-        <DropdownMenuItem>Save and publish</DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-}
+<DropdownMenu>
+  <SplitButton onClick={save} splitRender={<DropdownMenuTrigger />}>
+    Save
+  </SplitButton>
+  <DropdownMenuContent align="end">
+    <DropdownMenuItem>Save as draft</DropdownMenuItem>
+    <DropdownMenuItem>Save and publish</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>;
 ```
 
 ## Props
@@ -189,7 +178,7 @@ function SplitWithMenu() {
 | -------------------- | ----------------------------------------- | ---------- | --------------------------------------------------------------------------- |
 | `align`              | `'start' \| 'center' \| 'end'`            | `'start'`  | Alignment relative to the anchor                                            |
 | `alignOffset`        | `number`                                  | -          | Offset along the alignment axis                                             |
-| `anchor`             | `RefObject \| Element \| …`               | -          | Custom positioning anchor (e.g. SplitButton wrapper)                        |
+| `anchor`             | `RefObject \| Element \| …`               | -          | Custom positioning anchor                                                   |
 | `side`               | `'top' \| 'right' \| 'bottom' \| 'left' \| …` | `'bottom'` (`'right'` for SubContent) | Preferred side of the anchor                                      |
 | `sideOffset`         | `number`                                  | `4`        | Distance from the anchor                                                    |
 | `positionerClassName`| `string`                                  | -          | Classes on the Positioner wrapper                                           |
