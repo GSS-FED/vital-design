@@ -45,6 +45,76 @@ it('toggles visibility when the visibility icon is clicked', () => {
   expect(input).toHaveAttribute('type', 'password');
 });
 
+it('forwards label association, form props, and ref to the input', () => {
+  const ref = { current: null as HTMLInputElement | null };
+  const onBlur = vi.fn();
+  render(
+    <>
+      <label htmlFor="current-password">Password</label>
+      <PasswordInput
+        ref={ref}
+        id="current-password"
+        name="password"
+        autoComplete="current-password"
+        onBlur={onBlur}
+      />
+    </>,
+  );
+
+  const input = screen.getByLabelText('Password');
+  expect(ref.current).toBe(input);
+  expect(input).toHaveAttribute('name', 'password');
+  expect(input).toHaveAttribute('autocomplete', 'current-password');
+
+  fireEvent.blur(input);
+  expect(onBlur).toHaveBeenCalledTimes(1);
+});
+
+it('names the toggle after the action it performs next', () => {
+  const { rerender } = render(<PasswordInput />);
+
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Show password' }),
+  );
+  expect(
+    screen.getByRole('button', { name: 'Hide password' }),
+  ).toBeInTheDocument();
+
+  rerender(
+    <PasswordInput
+      showPasswordLabel="顯示密碼"
+      hidePasswordLabel="隱藏密碼"
+    />,
+  );
+  expect(
+    screen.getByRole('button', { name: '隱藏密碼' }),
+  ).toBeInTheDocument();
+});
+
+it('runs caller input and key handlers alongside onChange and onEnter', () => {
+  const onInput = vi.fn();
+  const onChange = vi.fn();
+  const onKeyDown = vi.fn();
+  const onEnter = vi.fn();
+  render(
+    <PasswordInput
+      onInput={onInput}
+      onChange={onChange}
+      onKeyDown={onKeyDown}
+      onEnter={onEnter}
+    />,
+  );
+  const input = screen.getByTestId('password-input');
+
+  fireEvent.input(input, { target: { value: 'secret' } });
+  expect(onInput).toHaveBeenCalledTimes(1);
+  expect(onChange).toHaveBeenCalledWith('secret');
+
+  fireEvent.keyDown(input, { key: 'Enter' });
+  expect(onKeyDown).toHaveBeenCalledTimes(1);
+  expect(onEnter).toHaveBeenCalledWith('secret');
+});
+
 it('calls onEnter when the user presses Enter', () => {
   const props = {
     value: 'secret',
