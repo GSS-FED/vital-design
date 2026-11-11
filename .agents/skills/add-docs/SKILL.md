@@ -1,10 +1,6 @@
 ---
 name: add-docs
-description: >
-  Use when the developer asks to write or add documentation for a component or block.
-  Triggered by requests like "幫 Button 補文件", "add docs for X", "write docs page for X",
-  "建立 Switch 的 docs 頁面", "幫 X 元件補上 Fumadocs", "/add-docs <name>".
-  Do NOT use for creating the component itself — use new-component or create-block instead.
+description: "Creates or updates a Fumadocs documentation page, interactive preview component, navigation metadata, and changelog entry for a Vital Design component or block. Use when asked to write or add documentation for a component or block (e.g. '幫 Button 補文件', 'add docs for X', 'write docs page for X', '建立 Switch 的 docs 頁面', '/add-docs <name>'). Do not use for creating the component itself — use new-component or create-block instead."
 allowed-tools: Read, Write, Edit, Bash
 ---
 
@@ -69,8 +65,15 @@ allowed-tools: Read, Write, Edit, Bash
    - 不要只新增中文檔而沒有英文檔
 
 8. **Changelog**（使用者可見的變更才寫）
-   - 新元件、breaking 用法、token、安裝方式：在 `apps/docs/content/docs/changelog.mdx` 最上方補一則（當月 `## Month YYYY` 標題下）
+   - 新元件、breaking 用法、token、安裝方式：在 `apps/docs/content/docs/changelog.mdx` 最上方補一則（當月 `## Month YYYY` 標題下），並同步更新 `changelog.zh-tw.mdx`
    - 不要寫內部 refactor / CI；不要用 npm 版號或 semantic-release 輸出
+
+9. **驗證**
+   ```bash
+   pnpm run lint:design
+   pnpm docs:lint
+   pnpm docs:build
+   ```
 
 ## 關鍵規則
 

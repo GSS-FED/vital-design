@@ -42,7 +42,7 @@ className="bg-blue-500 text-white"
 ```typescript
 // 實際排序範例（Prettier 自動產生）
 import { CheckIcon } from '@/icons/CheckIcon';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
 import type { CSSProperties, ReactNode } from 'react';
 ```
@@ -74,7 +74,7 @@ import { CheckIcon, CloseIcon } from '@/icons';
 
 ## 主題（Theme）
 
-元件**不使用** React-level `theme` prop。主題透過 `vital-theme` registry 的 CSS variables 統一處理（如 `var(--primary-500)`、`var(--grayscale-opacity-900)`），在 HTML root 或容器套用 class 即可切換，元件本身無需額外 prop。
+一般元件**不新增**全域亮暗色／品牌 `theme` prop；整體主題透過 `vital-theme` registry 的 CSS variables 統一處理（如 `var(--primary-500)`、`var(--grayscale-opacity-900)`）。（例外：`Button`、`LinkButton`、`SplitButton` 的 `theme` prop 用於按鈕語意色調 `primary` / `default` / `success` / `info` / `warning` / `alarm` / `dangerous`。）
 
 ## Primitive Library
 
@@ -84,12 +84,13 @@ import { CheckIcon, CloseIcon } from '@/icons';
 - 僅供 `src-v2/`、docs、registry 或 stories 使用的套件，根目錄 `package.json` 應維持在 `devDependencies`，避免 legacy npm package 對外帶出額外 runtime dependency；registry 安裝所需套件則由 `registry/*.ts` 的 `dependencies` 個別宣告
 - `src-v2/styles/` 是 registry / docs 內部使用的 theme 資產，不是 npm package 公開 API；不要在 `package.json` exports 中暴露它
 - 單行文字輸入使用 `Input` primitive；自訂輸入組合優先使用 `InputGroup` parts；按鈕群組優先使用 `ButtonGroup`。preset wrapper（如 `PasswordInput`、`SearchBar`、`SplitButton`）需維持既有 props。
+- `src-v2` 元件使用 React 19 的 `ref` prop（搭配 `Ref<ComponentRef<...>>`），不要使用 `forwardRef` 或已棄用的 `ElementRef`。
 - `src-v2` component 只使用 named exports；不要新增 component default export。
-- `Button` / `SplitButton` icon 使用 shadcn child-icon 形式：把 icon 或 spinner 放在 children，並在 icon 上加 `data-icon="inline-start"` 或 `data-icon="inline-end"`；不要新增 `icon` / `iconPlacement` props。Button label size 使用 `medium` / `large`；icon-only Button 使用 `icon-medium` / `icon-large`。
+- `Button` / `SplitButton` icon 使用 shadcn child-icon 形式：把 icon 或 spinner 放在 children，並在 icon 上加 `data-icon="inline-start"` 或 `data-icon="inline-end"`；不要新增 `icon` / `iconPlacement` props。Button label size 使用 `md` / `lg`；icon-only Button 使用 `icon-md` / `icon-lg`。
 - 看起來像按鈕的連結使用 `LinkButton`（`Button.tsx` 同檔 export）；不要用 `<Button nativeButton={false} render={<a />}>`，Base UI 對非 `<button>` 元素一律加 `role="button"`，會破壞連結語意。
 - `src-v2` 元件可以內部使用 `cva()`，但不要 export 原始 variants helper（例如 `buttonVariants`）。元件 default 應只由 component API 控制，避免 helper default 和 component default 漂移。公開 variant props 用 `CvaProps<VariantProps<typeof xVariants>>`（`@/lib/utils`）從 CVA 推導，不要手寫一份重複的 union。`CvaProps` 的 key 維持 optional；必填軸用 intersection 覆寫，內部軸 `Omit`，CVA 無法表達的限制（如 Button `text`/`ghost` 不能用 `dangerous`）再疊 discriminated union。
-- v2 選擇類元件依互動方式拆分：`Select` 平面單選或多選下拉、`Combobox` 可搜尋輸入選擇、`Cascader` 階層路徑選擇。`Command` 是公開 primitive，用於命令面板與自訂 searchable popup。
-- `Item` 是內容列 primitive（media/title/description/actions），`size="list"` 對齊 select/list row 密度。不要把資料載入、搜尋、選取狀態塞進 `Item`；picker 用 `Select` / `Combobox` / `Cascader`，action menu 用 `DropdownMenu`。
+- v2 選擇類元件依互動方式拆分：`Select` 平面單選或多選下拉、`Combobox` 可搜尋輸入選擇、`Autocomplete` 自由輸入加建議清單、`Command` + `Popover` 階層路徑選擇配方、`DropdownMenu` 動作選單（不綁定表單值）。`Command` 也是公開 primitive，用於命令面板與自訂 searchable popup。
+- `Item` 是內容列 primitive（media/title/description/actions），`size="list"` 對齊 select/list row 密度。不要把資料載入、搜尋、選取狀態塞進 `Item`；picker 用 `Select` / `Combobox` / `Command`，action menu 用 `DropdownMenu`。
 - `Separator` 是共用分隔線 primitive。新 `src-v2` 元件不要再手寫 `div role="separator"`。
 
 ## data-slot 合約
@@ -100,7 +101,7 @@ import { CheckIcon, CloseIcon } from '@/icons';
 
 - Root：`data-slot="{component}"`（例：`button`、`card`）
 - Subpart：`data-slot="{component}-{part}"`（例：`select-trigger`、`dialog-popup`）
-- 透過 Base UI `useRender` 的 part 使用 `state.slot`（例：`breadcrumb-link`、`item`）
+- 透過 Base UI `useRender` 的 part 使用 `state.slot`（例：`link-button`、`item`）
 
 ### Tier 1 — 必須有 slot（強制）
 
@@ -110,9 +111,8 @@ import { CheckIcon, CloseIcon } from '@/icons';
 
 ### Tier 2 — 禁止 passthrough
 
-- **Trigger 等互動 part 不得** `const FooTrigger = Base.Trigger`；須包一層 component，從 props 接 `ref` 並加 `data-slot`（參考 `DialogTrigger`、`SelectTrigger`）
+- **Trigger 等互動 part 不得** `const FooTrigger = Base.Trigger`；須包一層 component，從 props 接 `ref` 並加 `data-slot`（參考 `DialogTrigger`、`DropdownMenuTrigger`、`PopoverTrigger`、`SelectTrigger`）
 - `@base-ui/react` 與 `cmdk` **不內建** `data-slot`；直接 re-export 不會自帶 slot
-- 待修範例：`DropdownMenuTrigger`、`PopoverTrigger`（應對齊 `DialogTrigger`）
 
 ### Tier 3 — 可豁免
 
@@ -147,15 +147,16 @@ import { CheckIcon, CloseIcon } from '@/icons';
 
 ### 元件類型
 
-| 類型                 | 用途                                        | 檔案位置                              |
-| -------------------- | ------------------------------------------- | ------------------------------------- |
-| `registry:ui`        | UI 元件與 icon 元件                         | `src-v2/components/`、`src-v2/icons/` |
-| `registry:lib`       | 工具庫與常數                                | `src-v2/utils/`、`src-v2/constants/`  |
-| `registry:hook`      | React Hooks                                 | `src-v2/hooks/`                       |
-| `registry:theme`     | CSS variables 主題（`vital-theme`）         | `registry/base.ts`                    |
-| `registry:block`     | 複合區塊                                    | `src-v2/blocks/`                      |
-| `registry:component` | block 組成檔案（block 的 files 陣列使用）   | —                                     |
-| `registry:base`      | 一鍵安裝的 meta 套件（`vital-design-base`） | `registry/base.ts`（唯一，勿新增）    |
+| 類型                 | 用途                                               | 檔案位置                               |
+| -------------------- | -------------------------------------------------- | -------------------------------------- |
+| `registry:ui`        | UI 元件與 icon 元件                                | `src-v2/components/`、`src-v2/icons/`  |
+| `registry:lib`       | 工具函數與共用型別                                 | `src-v2/lib/`                          |
+| `registry:hook`      | React Hooks                                        | `src-v2/hooks/`                        |
+| `registry:theme`     | CSS variables 主題（`vital-theme`）                | `registry/base.ts`                     |
+| `registry:block`     | 複合區塊                                           | `src-v2/blocks/`                       |
+| `registry:component` | block 組成檔案（block 的 files 陣列使用）          | —                                      |
+| `registry:file`      | 靜態設定或資產檔（如 `vital-design.lint.json`）    | 根目錄或 `src-v2/public/`              |
+| `registry:base`      | 一鍵安裝的 meta 套件（`vital-design-base`）        | `registry/base.ts`（唯一，勿新增）     |
 
 ## 測試規範
 
@@ -169,8 +170,7 @@ import { CheckIcon, CloseIcon } from '@/icons';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
-
-import ComponentName from './ComponentName';
+import { ComponentName } from './ComponentName';
 
 it('renders correctly', () => {
   render(<ComponentName />);

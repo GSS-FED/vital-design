@@ -1,19 +1,12 @@
 ---
 name: create-block
-description: >
-  Use when the developer asks to create a composite UI component, block, or
-  page section using multiple Vital Design components. Triggered by requests
-  like "我想要一個導覽列", "幫我做一個篩選區", "我需要一個設定卡片",
-  "build a navbar", "create a filter bar", "make a page header",
-  "我需要空白狀態", "建立工具列", "我想要頁面標題區", "create a block".
+description: "Creates a composite UI block or page section in src-v2/blocks/ by composing multiple Vital Design v2 primitives. Use when asked to create a composite block or section (e.g. '我想要一個導覽列', '幫我做一個篩選區', 'build a navbar', 'create a filter bar', 'make a page header', '/create-block')."
 allowed-tools: Read, Write, Edit, Bash
 ---
 
 # 建立 Block（複合元件區塊）
 
 給定自然語言描述的 UI block 或頁面區塊，自動生成符合 Vital Design 規範的複合元件。
-
-> 目前 stable 版本可能沒有任何正式 block 原始碼可參考。未來新增 block 時，直接依本 skill、`composition-guide.md` 與 `block-template.tsx` 建立，不需先恢復舊範例。
 
 ## 執行步驟
 
@@ -30,8 +23,8 @@ allowed-tools: Read, Write, Edit, Bash
 
 3. **檢查 blocks 目錄現況**
 
-   - 先查看 `src-v2/blocks/` 是否已有正式 block 可作為風格參考
-   - 若目前沒有既有 block，直接依 `block-template.tsx` 與 `composition-guide.md` 建立新 block
+   - 查看 `src-v2/blocks/` 既有正式 block（如 `sidebar-cloud-01`..`06`、`data-table/data-table-group-01`、`02`、`04`）作為結構與命名參考
+   - 依 `block-template.tsx` 與 `composition-guide.md` 建立新 block
 
 4. **依 block-template.tsx 結構** 寫入新的 block 檔案
 
@@ -39,11 +32,11 @@ allowed-tools: Read, Write, Edit, Bash
    - Named export + Props type
    - 接受 `className?: string` 並透過 `cn()` 套用
 
-5. **確認依賴清單** 列出所有使用的 VD 元件（用於 registry）
+5. **確認依賴清單** 列出所有使用的 VD 元件与精確 `@vital-design/icon-*`（用於 registry）
 
 6. **輸出結果**：
    - block 檔案已建立
-   - 建議的 registry/blocks.ts 條目（供確認後執行 /add-registry 使用）
+   - 建議的 `registry/blocks.ts` 條目（供確認後執行 `/add-registry` 使用）
    - 提示執行 `/add-registry <block-name>` 以加入 registry
 
 ## 命名規則
@@ -55,10 +48,10 @@ allowed-tools: Read, Write, Edit, Bash
 ## Import 規則
 
 ```typescript
-// 完整路徑，禁止 barrel import
-import Avatar from '@/components/avatar/Avatar';
-import Button from '@/components/button/Button';
-import { cn } from '@/utils/cn';
+// Named export + 完整路徑，禁止 barrel import
+import { Avatar } from '@/components/avatar/Avatar';
+import { Button } from '@/components/button/Button';
+import { cn } from '@/lib/utils';
 ```
 
 ## Props 規則

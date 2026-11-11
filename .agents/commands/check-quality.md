@@ -15,9 +15,10 @@
    pnpm exec tsc --noEmit
    ```
 
-2. **Oxlint 檢查**
+2. **Oxlint 與設計系統檢查**
    ```bash
    pnpm run lint
+   pnpm run lint:design
    pnpm docs:lint
    ```
    專案設定 max-warnings 為 0，任何警告都會失敗

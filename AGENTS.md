@@ -22,6 +22,7 @@ pnpm run lint:design       # @shadcn/lint 設計系統規則（.oxlintrc.shadcn.
 pnpm run lint:design:audit # 對 blocks 跑 no-restyle，定期找跨 block 重複的覆寫（非 gate）
 pnpm run format            # Prettier 格式化
 pnpm run storybook:build   # 把 Storybook 打包成靜態網頁
+pnpm run icons:build       # 從 src-v2/icons/_source/*.svg 重新產生 icon .tsx
 pnpm run tokens:build      # 重建所有 token 平台（generated.css + vital-theme-vars.ts）
 pnpm run tokens:build:css  # 僅重建 CSS tokens
 pnpm run registry:generate # 從 registry/*.ts 產生 registry.json
@@ -53,6 +54,7 @@ pnpm docs:start            # 啟動生產環境文件站
 | `add-registry`         | 維護 `registry/*.ts` 並產生 shadcn registry 項目                |
 | `add-docs`             | 補齊 Fumadocs 頁面、preview 與導覽                              |
 | `create-block`         | 使用既有 VD 元件組合出 block                                    |
+| `build-shadcn-ui`      | 以 Base UI + Tailwind v4 + `data-slot` 建立或重構 `src-v2` 元件 |
 | `check-quality`        | 檢查型別、lint、測試、registry 與文件同步狀態                   |
 | `lint-design-decision` | 判讀 `lint:design` 結果：改 code 還是改 lint policy（contract） |
 
@@ -82,7 +84,7 @@ pnpm docs:start            # 啟動生產環境文件站
 - `src-v2/blocks/` - 複合區塊
 - `src-v2/hooks/` - React Hooks
 - `src-v2/icons/` - SVG 圖示
-- `src-v2/utils/` - 工具函數（`cn.ts` 等）
+- `src-v2/lib/` - 工具函數與共用型別（`utils.ts`：`cn()`、`CvaProps`）
 - `src-v2/styles/` - 全域 CSS（`globals.css`）
 - 路徑別名：`@/` → `src-v2/`
 - `skills/` - 對外發佈給 consumer 專案 agent 的 skill（如 `use-vital-design`），與 `.agents/skills/` 的 repo 內部維護 skill 分開
