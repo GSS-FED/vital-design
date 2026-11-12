@@ -142,7 +142,7 @@ const TableOfContents = function TableOfContents({
         data-state={open ? 'open' : 'closed'}
         style={{ width: 232, maxHeight: 556 }}
         className={cn(
-          'absolute top-0 z-10 flex-col overflow-hidden rounded bg-white px-4 py-3 shadow-emphasis',
+          'absolute top-0 z-10 flex-col overflow-hidden rounded bg-background px-4 py-3 shadow-emphasis',
           open ? 'flex' : 'hidden',
           isRight ? 'right-0' : 'left-0',
         )}

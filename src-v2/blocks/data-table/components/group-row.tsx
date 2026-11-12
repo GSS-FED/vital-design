@@ -29,8 +29,8 @@ function groupChrome(depth: number) {
   return {
     row: root
       ? 'sticky z-30 bg-grayscale-100 hover:bg-grayscale-200'
-      : 'sticky z-20 bg-white hover:bg-grayscale-opacity-100',
-    bar: root ? 'h-9 bg-grayscale-100' : 'h-11 bg-white',
+      : 'sticky z-20 bg-background hover:bg-grayscale-opacity-100',
+    bar: root ? 'h-9 bg-grayscale-100' : 'h-11 bg-background',
     title: root
       ? 'font-medium text-grayscale-opacity-900'
       : 'font-medium text-grayscale-opacity-800',
@@ -84,7 +84,7 @@ export function GutterCells({
   return rails.map((line, index) => (
     <td
       key={index}
-      className={cn('sticky z-10 border-0 bg-white p-0', className)}
+      className={cn('sticky z-10 border-0 bg-background p-0', className)}
       style={{
         width: NESTED_GUTTER,
         left: index * NESTED_GUTTER,

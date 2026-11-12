@@ -89,7 +89,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
       variant: 'default',
       theme: 'default',
       class:
-        'text-grayscale-opacity-800 bg-white focus-visible:shadow-focus-primary disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300',
+        'text-grayscale-opacity-800 bg-background focus-visible:shadow-focus-primary disabled:text-grayscale-opacity-300 data-[disabled]:text-grayscale-opacity-300',
     },
     {
       variant: 'default',
@@ -118,7 +118,7 @@ const buttonVariants = cva(BUTTON_BASE_CLASSES, {
       variant: 'default',
       theme: 'dangerous',
       class:
-        'text-destructive-500 bg-white focus-visible:shadow-focus-destructive disabled:text-destructive-100 data-[disabled]:text-destructive-100',
+        'text-destructive-500 bg-background focus-visible:shadow-focus-destructive disabled:text-destructive-100 data-[disabled]:text-destructive-100',
     },
     {
       variant: 'default',

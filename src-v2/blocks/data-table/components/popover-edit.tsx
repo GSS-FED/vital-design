@@ -64,7 +64,7 @@ function OptionCheck({ checked }: { checked: boolean }) {
     <span
       aria-hidden="true"
       className={cn(
-        'grid size-4 shrink-0 place-content-center rounded-xs border border-grayscale-opacity-300 bg-white text-white transition-colors duration-200',
+        'grid size-4 shrink-0 place-content-center rounded-xs border border-grayscale-opacity-300 bg-background text-white transition-colors duration-200',
         checked && 'border-primary-500 bg-primary-500',
       )}
     >

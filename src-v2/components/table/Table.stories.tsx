@@ -342,7 +342,7 @@ function TaskProgress({ state }: { state: string }) {
 
 export const Default: Story = {
   render: () => (
-    <Table containerClassName="max-w-5xl rounded-(--radius-sm) border border-grayscale-opacity-300 bg-white shadow-(--shadow-base)">
+    <Table containerClassName="max-w-5xl rounded-(--radius-sm) border border-grayscale-opacity-300 bg-background shadow-(--shadow-base)">
       <TableHeader>
         <TableRow>
           <TableHead>

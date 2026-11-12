@@ -43,7 +43,7 @@ export function CodeBlockCommand({
   const value = commands[active] ?? '';
 
   return (
-    <div className="not-prose my-4 overflow-hidden rounded-xl border border-grayscale-opacity-200 bg-white">
+    <div className="not-prose my-4 overflow-hidden rounded-xl border border-grayscale-opacity-200 bg-background">
       <BaseTabs.Root
         value={active}
         onValueChange={(v) => select(v as Manager)}
@@ -55,7 +55,7 @@ export function CodeBlockCommand({
                 key={m}
                 value={m}
                 disabled={!commands[m]}
-                className="cursor-pointer rounded-md px-2 py-1 font-mono text-grayscale-opacity-700 transition-colors hover:text-grayscale-opacity-900 data-[active]:bg-white data-[active]:text-grayscale-opacity-900 data-[active]:shadow-sm disabled:cursor-not-allowed disabled:opacity-40"
+                className="cursor-pointer rounded-md px-2 py-1 font-mono text-grayscale-opacity-700 transition-colors hover:text-grayscale-opacity-900 data-[active]:bg-background data-[active]:text-grayscale-opacity-900 data-[active]:shadow-sm disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {m}
               </BaseTabs.Tab>
@@ -69,7 +69,7 @@ export function CodeBlockCommand({
                 setTimeout(() => setCopied(false), 1500);
               });
             }}
-            className="inline-flex h-6 items-center rounded-md px-2 text-xs font-medium text-grayscale-opacity-700 transition-colors hover:bg-white hover:text-grayscale-opacity-900"
+            className="inline-flex h-6 items-center rounded-md px-2 text-xs font-medium text-grayscale-opacity-700 transition-colors hover:bg-background hover:text-grayscale-opacity-900"
           >
             {copied ? 'Copied' : 'Copy'}
           </button>

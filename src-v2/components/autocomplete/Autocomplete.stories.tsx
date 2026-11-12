@@ -238,7 +238,7 @@ export const InlineList: Story = {
           <AutocompleteInput placeholder="Filter inline commands..." />
           <AutocompleteClear />
         </AutocompleteInputGroup>
-        <div className="mt-2 w-80 rounded bg-white py-2 shadow-emphasis">
+        <div className="mt-2 w-80 rounded bg-background py-2 shadow-emphasis">
           <AutocompleteList>
             {(item: string) => (
               <AutocompleteItem

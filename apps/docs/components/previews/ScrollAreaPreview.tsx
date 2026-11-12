@@ -34,7 +34,7 @@ function ScrollAreaItems() {
 
 function ScrollAreaPreview() {
   return (
-    <ScrollArea className="h-64 w-80 rounded border border-grayscale-opacity-200 bg-white">
+    <ScrollArea className="h-64 w-80 rounded border border-grayscale-opacity-200 bg-background">
       <ScrollAreaViewport className="h-full">
         <ScrollAreaItems />
       </ScrollAreaViewport>
@@ -48,7 +48,7 @@ function ScrollAreaPreview() {
 function ScrollAreaFadePreview() {
   return (
     <ScrollArea
-      className="h-64 w-80 rounded border border-grayscale-opacity-200 bg-white"
+      className="h-64 w-80 rounded border border-grayscale-opacity-200 bg-background"
       overflowEdgeThreshold={1}
     >
       <ScrollAreaViewport className="h-full" fadeEdges>

@@ -161,7 +161,7 @@ const TimePicker = function TimePicker({
       ref={ref}
       data-slot="time-picker"
       className={cn(
-        'box-border inline-flex h-75 divide-x divide-grayscale-opacity-200 overflow-hidden rounded bg-white',
+        'box-border inline-flex h-75 divide-x divide-grayscale-opacity-200 overflow-hidden rounded bg-background',
         className,
       )}
       {...props}

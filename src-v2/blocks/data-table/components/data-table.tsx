@@ -156,7 +156,7 @@ function ColumnHeaderRows<TData>({
       <TableRow
         className={cn(
           'border-b-0 hover:bg-transparent',
-          stickyTop !== undefined && 'sticky z-[15] bg-white',
+          stickyTop !== undefined && 'sticky z-[15] bg-background',
         )}
         style={
           stickyTop !== undefined ? { top: stickyTop } : undefined
@@ -186,9 +186,9 @@ function ColumnHeaderRows<TData>({
                 ...(boxed ? nestedEdges(pinned, true, inset) : {}),
               }}
               className={cn(
-                'group/th border-b border-grayscale-opacity-300 bg-white',
+                'group/th border-b border-grayscale-opacity-300 bg-background',
                 topBorder && 'border-t',
-                pinned && 'bg-white',
+                pinned && 'bg-background',
                 pinned === 'left' && 'px-0 text-center',
                 pinned === 'right' && 'px-3',
                 header.column.getIsLastColumn('center') &&
@@ -240,7 +240,7 @@ function ColumnHeaderRows<TData>({
  * does not turn translucent and show the cells scrolling behind it.
  */
 const PINNED_CELL =
-  'bg-white group-hover:[background-image:linear-gradient(var(--grayscale-opacity-100),var(--grayscale-opacity-100))] group-data-[state=selected]:[background-image:linear-gradient(var(--grayscale-opacity-100),var(--grayscale-opacity-100))]';
+  'bg-background group-hover:[background-image:linear-gradient(var(--grayscale-opacity-100),var(--grayscale-opacity-100))] group-data-[state=selected]:[background-image:linear-gradient(var(--grayscale-opacity-100),var(--grayscale-opacity-100))]';
 
 function DataRow<TData>({
   row,

@@ -73,7 +73,7 @@ function CopyButton({
           setTimeout(() => setCopied(false), 1500);
         });
       }}
-      className="inline-flex h-7 items-center gap-1.5 rounded-md border border-grayscale-opacity-200 bg-white px-2.5 text-xs font-medium text-grayscale-opacity-800 shadow-sm transition-colors hover:bg-grayscale-100"
+      className="inline-flex h-7 items-center gap-1.5 rounded-md border border-grayscale-opacity-200 bg-background px-2.5 text-xs font-medium text-grayscale-opacity-800 shadow-sm transition-colors hover:bg-grayscale-100"
     >
       {copied ? <CheckIcon className="size-3.5" /> : children}
       {copied ? copiedLabel : label}

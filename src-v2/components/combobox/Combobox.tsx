@@ -62,7 +62,7 @@ const InputGroup = function ComboboxInputGroup({
       ref={ref}
       data-slot="combobox-input-group"
       className={cn(
-        'group box-border flex min-h-8 w-full cursor-text items-center gap-1 rounded border border-grayscale-opacity-300 bg-white py-1 pr-1.5 pl-3 font-sans text-sm leading-5 font-normal text-grayscale-opacity-800 transition-colors duration-200',
+        'group box-border flex min-h-8 w-full cursor-text items-center gap-1 rounded border border-grayscale-opacity-300 bg-background py-1 pr-1.5 pl-3 font-sans text-sm leading-5 font-normal text-grayscale-opacity-800 transition-colors duration-200',
         'hover:border-grayscale-opacity-500 focus-within:border-primary-500 focus-within:outline-none',
         'data-[popup-open]:border-primary-500 data-[disabled]:pointer-events-none data-[disabled]:bg-grayscale-opacity-200 data-[disabled]:text-grayscale-opacity-500',
         'aria-invalid:border-destructive-500 aria-invalid:hover:border-destructive-500',
@@ -123,7 +123,7 @@ const Trigger = function ComboboxTrigger({
       ref={ref}
       data-slot="combobox-trigger"
       className={cn(
-        'group box-border flex h-8 w-full cursor-pointer items-center justify-between gap-2 rounded border border-grayscale-opacity-300 bg-white py-2 pr-1.5 pl-3 font-sans text-sm leading-5 font-normal text-grayscale-opacity-800 transition-colors duration-200',
+        'group box-border flex h-8 w-full cursor-pointer items-center justify-between gap-2 rounded border border-grayscale-opacity-300 bg-background py-2 pr-1.5 pl-3 font-sans text-sm leading-5 font-normal text-grayscale-opacity-800 transition-colors duration-200',
         'hover:border-grayscale-opacity-500 focus:border-primary-500 focus:outline-none',
         'data-[placeholder]:text-grayscale-opacity-400 data-[popup-open]:border-primary-500',
         'data-[disabled]:pointer-events-none data-[disabled]:bg-grayscale-opacity-200 data-[disabled]:text-grayscale-opacity-500',
@@ -217,7 +217,7 @@ const Content = function ComboboxContent({
           ref={ref}
           data-slot="combobox-content"
           className={cn(
-            'box-border flex max-h-75 w-[var(--anchor-width)] min-w-36 origin-(--transform-origin) flex-col overflow-hidden rounded bg-white py-2 font-sans shadow-emphasis duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95',
+            'box-border flex max-h-75 w-[var(--anchor-width)] min-w-36 origin-(--transform-origin) flex-col overflow-hidden rounded bg-background py-2 font-sans shadow-emphasis duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95',
             className,
           )}
           {...props}
@@ -304,7 +304,7 @@ const SearchBar = function ComboboxSearchBar({
       <div
         data-slot="combobox-search-bar"
         className={cn(
-          'group box-border flex min-h-8 w-full items-center gap-2 rounded-[20px] border border-grayscale-opacity-300 bg-white py-1.5 pr-4 pl-2 font-sans text-grayscale-opacity-500 transition-colors duration-200',
+          'group box-border flex min-h-8 w-full items-center gap-2 rounded-[20px] border border-grayscale-opacity-300 bg-background py-1.5 pr-4 pl-2 font-sans text-grayscale-opacity-500 transition-colors duration-200',
           'hover:border-grayscale-opacity-500 focus-within:border-primary-500',
           'data-[disabled]:border-grayscale-opacity-300 data-[disabled]:bg-grayscale-opacity-200 data-[disabled]:text-grayscale-opacity-500',
         )}
@@ -421,7 +421,7 @@ const ItemCheckbox = function ComboboxItemCheckbox({
       aria-hidden="true"
       data-slot="combobox-item-checkbox"
       className={cn(
-        'grid h-4 w-4 shrink-0 place-content-center rounded-xs border border-grayscale-opacity-300 bg-white text-white',
+        'grid h-4 w-4 shrink-0 place-content-center rounded-xs border border-grayscale-opacity-300 bg-background text-white',
         'transition-colors duration-200',
         className,
       )}

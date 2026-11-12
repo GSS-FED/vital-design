@@ -28,7 +28,7 @@ const InputGroup = function InputGroup({
       role="group"
       data-slot="input-group"
       className={cn(
-        'group/input-group relative box-border flex h-8 w-full min-w-0 items-center rounded border border-grayscale-opacity-300 bg-white font-sans text-grayscale-opacity-500 transition-colors duration-200 outline-none',
+        'group/input-group relative box-border flex h-8 w-full min-w-0 items-center rounded border border-grayscale-opacity-300 bg-background font-sans text-grayscale-opacity-500 transition-colors duration-200 outline-none',
         'hover:border-grayscale-opacity-500',
         'has-[:disabled]:border-grayscale-opacity-300 has-[:disabled]:bg-grayscale-opacity-200 has-[:disabled]:text-grayscale-opacity-500 has-[:disabled]:opacity-100 has-[:disabled]:hover:border-grayscale-opacity-300',
         'has-[[data-slot=input-group-control]:focus-visible]:border-primary-500',

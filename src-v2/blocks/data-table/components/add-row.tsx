@@ -60,7 +60,7 @@ export function AddRow({
       aria-label={label}
       className={cn(
         'border-b-0 hover:bg-transparent',
-        sticky && 'sticky bottom-0 z-10 bg-white',
+        sticky && 'sticky bottom-0 z-10 bg-background',
       )}
     >
       {rails.length > 0 ? (
@@ -69,7 +69,7 @@ export function AddRow({
       <TableCell
         colSpan={columnCount}
         className={cn(
-          'bg-white p-0',
+          'bg-background p-0',
           bottomBorder ? 'border-b' : 'border-b-0',
           boxed
             ? 'border-r border-grayscale-opacity-300'
@@ -94,7 +94,7 @@ export function AddRow({
           aria-label={label}
           onClick={onAdd}
           className={cn(
-            'sticky z-10 flex h-11 w-full items-center gap-2 bg-white px-4 text-left text-sm text-grayscale-opacity-700 hover:bg-grayscale-opacity-100',
+            'sticky z-10 flex h-11 w-full items-center gap-2 bg-background px-4 text-left text-sm text-grayscale-opacity-700 hover:bg-grayscale-opacity-100',
             boxed && 'border-l border-grayscale-opacity-300',
           )}
           style={{
@@ -140,11 +140,11 @@ export function AddRow({
         {rails.map((_, index) => (
           <td
             key={index}
-            className="border-0 bg-white p-0"
+            className="border-0 bg-background p-0"
             style={{ width: NESTED_GUTTER }}
           />
         ))}
-        <td colSpan={columnCount} className="border-0 bg-white p-0">
+        <td colSpan={columnCount} className="border-0 bg-background p-0">
           <div className="h-3" />
         </td>
       </TableRow>

@@ -24,7 +24,7 @@ function RadioGroupItem({
     <BaseRadio.Root
       data-slot="radio-group-item"
       className={cn(
-        'group/radio-group-item relative flex size-4 shrink-0 items-center justify-center rounded-full border border-grayscale-opacity-400 bg-white outline-none transition-colors duration-100',
+        'group/radio-group-item relative flex size-4 shrink-0 items-center justify-center rounded-full border border-grayscale-opacity-400 bg-background outline-none transition-colors duration-100',
         'after:absolute after:-inset-x-3 after:-inset-y-2',
         'hover:border-primary-500 hover:shadow-(--shadow-focus-ring-primary)',
         'focus-visible:border-primary-500 focus-visible:shadow-(--shadow-focus-ring-primary)',

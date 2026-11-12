@@ -59,7 +59,7 @@ function ResizableHandle({
           <span
             aria-hidden="true"
             data-slot="resizable-handle-indicator"
-            className="z-10 flex h-4 w-3 items-center justify-center gap-px rounded-xs border border-grayscale-opacity-300 bg-white text-grayscale-opacity-500 shadow-base"
+            className="z-10 flex h-4 w-3 items-center justify-center gap-px rounded-xs border border-grayscale-opacity-300 bg-background text-grayscale-opacity-500 shadow-base"
           >
             <span className="h-2.5 w-px rounded-full bg-current" />
             <span className="h-2.5 w-px rounded-full bg-current" />

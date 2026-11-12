@@ -226,7 +226,7 @@ export const componentVariants = cva(
       },
       theme: {
         primary: 'bg-primary-500 text-white',
-        default: 'bg-white text-grayscale-opacity-800',
+        default: 'bg-background text-grayscale-opacity-800',
       },
     },
     defaultVariants: {
