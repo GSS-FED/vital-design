@@ -8,7 +8,7 @@ type ColorEntry = {
 
 export function ColorSwatch({ name, value, utility }: ColorEntry) {
   return (
-    <div className="flex items-center gap-3 rounded-md border border-grayscale-opacity-200 bg-white p-3">
+    <div className="flex items-center gap-3 rounded-md border border-grayscale-opacity-200 bg-background p-3">
       <div
         className="size-10 shrink-0 rounded-md border border-grayscale-opacity-300/60"
         style={{ background: `var(${name})` }}
@@ -75,7 +75,7 @@ export function AvatarPalette({
       {tokens.map((token) => (
         <div
           key={token.name}
-          className="flex items-center gap-3 rounded-md border border-grayscale-opacity-200 bg-white p-3"
+          className="flex items-center gap-3 rounded-md border border-grayscale-opacity-200 bg-background p-3"
         >
           <div
             className="flex size-10 items-center justify-center rounded-full border text-sm font-semibold"
@@ -113,7 +113,7 @@ export function TagPalette({ tokens }: { tokens: TagSwatchEntry[] }) {
       {tokens.map((token) => (
         <div
           key={token.name}
-          className="flex items-center gap-3 rounded-md border border-grayscale-opacity-200 bg-white p-3"
+          className="flex items-center gap-3 rounded-md border border-grayscale-opacity-200 bg-background p-3"
         >
           <span
             className="rounded-full px-2.5 py-1 text-xs font-medium"
@@ -150,7 +150,7 @@ export function RadiusPalette({ tokens }: { tokens: RadiusEntry[] }) {
       {tokens.map((token) => (
         <div
           key={token.name}
-          className="flex flex-col items-center gap-2 rounded-md border border-grayscale-opacity-200 bg-white p-4"
+          className="flex flex-col items-center gap-2 rounded-md border border-grayscale-opacity-200 bg-background p-4"
         >
           <div
             className="size-16 border border-primary-300 bg-primary-100"
@@ -190,7 +190,7 @@ export function ShadowPalette({ tokens }: { tokens: ShadowEntry[] }) {
           className="flex flex-col items-center gap-3 rounded-md bg-grayscale-opacity-100 p-6"
         >
           <div
-            className="size-20 rounded-md bg-white"
+            className="size-20 rounded-md bg-background"
             style={{ boxShadow: `var(${token.name})` }}
           />
           <div className="text-center">
@@ -223,7 +223,7 @@ export function GradientPalette({
       {tokens.map((token) => (
         <div
           key={token.name}
-          className="flex flex-col gap-2 rounded-md border border-grayscale-opacity-200 bg-white p-3"
+          className="flex flex-col gap-2 rounded-md border border-grayscale-opacity-200 bg-background p-3"
         >
           <div
             className="h-20 w-full rounded-md"

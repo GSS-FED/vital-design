@@ -9,7 +9,7 @@ import { Button, LinkButton } from './Button';
 
 const defaultThemeCases = [
   ['primary', 'bg-[image:var(--gradient-primary-button)]'],
-  ['default', 'bg-white'],
+  ['default', 'bg-background'],
   ['success', 'bg-success-500'],
   ['info', 'bg-info-500'],
   ['warning', 'bg-warning-500'],

@@ -18,7 +18,7 @@ const inputVariants = cva(
   {
     variants: {
       appearance: {
-        solid: 'border-grayscale-opacity-300 bg-white',
+        solid: 'border-grayscale-opacity-300 bg-background',
         ghost:
           'border-transparent bg-transparent hover:border-grayscale-opacity-300',
       },

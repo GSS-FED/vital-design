@@ -63,7 +63,7 @@ export function ActionBar({
     <Toolbar
       size="sm"
       className={cn(
-        'h-12 flex-nowrap gap-6 overflow-x-auto overflow-y-hidden rounded bg-white px-3 py-2',
+        'h-12 flex-nowrap gap-6 overflow-x-auto overflow-y-hidden rounded bg-background px-3 py-2',
         '[&_[data-slot=toolbar-group]]:shrink-0',
         raised && 'shadow-emphasis',
         minWidthClassName,

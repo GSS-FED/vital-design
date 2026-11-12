@@ -70,7 +70,7 @@ it('renders the visible handle indicator', () => {
   );
   expect(handle).toContainHTML('aria-hidden="true"');
   expect(handle).toContainHTML('border-grayscale-opacity-300');
-  expect(handle).toContainHTML('bg-white');
+  expect(handle).toContainHTML('bg-background');
 });
 
 it('allows custom handle content', () => {

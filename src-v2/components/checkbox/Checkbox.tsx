@@ -18,7 +18,7 @@ const Checkbox = function Checkbox({
       ref={ref}
       data-slot="checkbox"
       className={cn(
-        'peer flex size-4 shrink-0 items-center justify-center rounded-sm border border-grayscale-opacity-400 bg-white outline-none transition-colors duration-100',
+        'peer flex size-4 shrink-0 items-center justify-center rounded-sm border border-grayscale-opacity-400 bg-background outline-none transition-colors duration-100',
         'hover:border-primary-500 hover:shadow-(--shadow-focus-ring-primary)',
         'focus-visible:border-primary-500 focus-visible:shadow-(--shadow-focus-ring-primary)',
         'data-disabled:cursor-not-allowed data-disabled:border-grayscale-opacity-300 data-disabled:bg-grayscale-opacity-200 data-disabled:opacity-50',

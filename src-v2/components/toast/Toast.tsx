@@ -451,7 +451,7 @@ function ToasterItem({
       className={cn(
         variant === 'solid'
           ? cn(SOLID_BG[status], 'w-fit px-4 py-1.5 text-white')
-          : 'min-w-[300px] bg-white p-4 text-grayscale-opacity-800',
+          : 'min-w-[300px] bg-background p-4 text-grayscale-opacity-800',
       )}
     >
       <ToastContent
@@ -585,7 +585,7 @@ function AnchoredToasterItem({
         ANCHORED_TOAST_CLASSES,
         variant === 'solid'
           ? cn(SOLID_BG[status], 'text-white')
-          : 'bg-white text-grayscale-opacity-800',
+          : 'bg-background text-grayscale-opacity-800',
       )}
     >
       {icon ? (

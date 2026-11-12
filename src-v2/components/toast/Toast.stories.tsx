@@ -208,7 +208,7 @@ function PositionScene({ position }: { position: ToastPosition }) {
   );
   return (
     <ToastProvider toastManager={manager} position={position}>
-      <div className="flex min-h-[140px] flex-col gap-3 rounded border border-grayscale-opacity-200 bg-white p-4">
+      <div className="flex min-h-[140px] flex-col gap-3 rounded border border-grayscale-opacity-200 bg-background p-4">
         <p className="font-sans text-xs text-grayscale-opacity-600">
           position: {position}
         </p>

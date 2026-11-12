@@ -65,7 +65,7 @@ export function DataTableGroup04() {
               {hg.headers.map((header) => (
                 <TableHead
                   key={header.id}
-                  className="border-b border-grayscale-opacity-300 bg-white text-left text-xs font-medium text-grayscale-opacity-600"
+                  className="border-b border-grayscale-opacity-300 bg-background text-left text-xs font-medium text-grayscale-opacity-600"
                 >
                   {header.isPlaceholder
                     ? null

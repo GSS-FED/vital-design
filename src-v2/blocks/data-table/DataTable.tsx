@@ -209,7 +209,7 @@ export function DataTable<TData>({
               );
             })}
             {resizable && (
-              <td aria-hidden="true" className="bg-white" />
+              <td aria-hidden="true" className="bg-background" />
             )}
           </TableRow>
         ))}

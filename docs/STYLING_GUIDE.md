@@ -120,7 +120,7 @@ export const buttonVariants = cva(
       },
       theme: {
         primary: 'text-white bg-primary-500',
-        default: 'text-grayscale-opacity-800 bg-white border',
+        default: 'text-grayscale-opacity-800 bg-background border',
       },
     },
     defaultVariants: {
@@ -204,7 +204,7 @@ const OVERLAY_CLASSES = [
 ```typescript
 const THEME_CLASSES: Record<Theme, string> = {
   primary: 'text-white bg-primary-500',
-  default: 'text-grayscale-opacity-800 bg-white',
+  default: 'text-grayscale-opacity-800 bg-background',
 };
 
 // 使用
@@ -253,7 +253,7 @@ export const buttonVariants = cva(
       },
       theme: {
         primary: 'text-white bg-primary-500',
-        default: 'text-grayscale-opacity-800 bg-white border border-grayscale-opacity-300',
+        default: 'text-grayscale-opacity-800 bg-background border border-grayscale-opacity-300',
       },
     },
     defaultVariants: { size: 'medium', theme: 'primary' },

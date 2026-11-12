@@ -114,7 +114,7 @@ function EmissionHeaderRows({
               )}
             </TableHead>
           ))}
-          <td className="border-b border-grayscale-opacity-300 bg-white p-0" />
+          <td className="border-b border-grayscale-opacity-300 bg-background p-0" />
         </TableRow>
       ))}
     </>
@@ -204,7 +204,7 @@ function EmissionSubcategoryRow({
           row.toggleExpanded();
         }
       }}
-      className="sticky top-9 z-20 cursor-pointer bg-white hover:bg-grayscale-opacity-100"
+      className="sticky top-9 z-20 cursor-pointer bg-background hover:bg-grayscale-opacity-100"
     >
       <RailCells
         variant="branch"

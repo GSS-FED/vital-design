@@ -26,12 +26,12 @@ const stickyTableClassName = [
 
 const frozenColumnClassNames = {
   select: {
-    head: 'left-[var(--datatable-sticky-inset)] !z-40 before:absolute before:top-0 before:right-full before:h-full before:w-[var(--datatable-sticky-inset)] before:bg-white before:content-[""]',
-    cell: 'sticky left-[var(--datatable-sticky-inset)] z-20 bg-white before:absolute before:top-0 before:right-full before:h-full before:w-[var(--datatable-sticky-inset)] before:bg-white before:content-[""] group-hover:bg-[#f8f8f9] group-hover:before:bg-[#f8f8f9]',
+    head: 'left-[var(--datatable-sticky-inset)] !z-40 before:absolute before:top-0 before:right-full before:h-full before:w-[var(--datatable-sticky-inset)] before:bg-background before:content-[""]',
+    cell: 'sticky left-[var(--datatable-sticky-inset)] z-20 bg-background before:absolute before:top-0 before:right-full before:h-full before:w-[var(--datatable-sticky-inset)] before:bg-background before:content-[""] group-hover:bg-[#f8f8f9] group-hover:before:bg-[#f8f8f9]',
   },
   id: {
     head: 'left-[calc(var(--datatable-sticky-inset)+2.5rem)] !z-40 after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-opacity-300 after:content-[""]',
-    cell: 'sticky left-[calc(var(--datatable-sticky-inset)+2.5rem)] z-20 bg-white group-hover:bg-[#f8f8f9] after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-opacity-300 after:content-[""]',
+    cell: 'sticky left-[calc(var(--datatable-sticky-inset)+2.5rem)] z-20 bg-background group-hover:bg-[#f8f8f9] after:absolute after:top-0 after:right-0 after:h-full after:w-px after:bg-grayscale-opacity-300 after:content-[""]',
   },
 };
 
@@ -77,7 +77,7 @@ function PillarCard({
         type="button"
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
-        className="sticky top-0 left-[var(--datatable-sticky-inset)] z-50 flex w-[min(1010px,calc(100vw-var(--datatable-sticky-inset)-48px))] items-center gap-10 rounded-t border-b border-grayscale-opacity-300 bg-white py-2.5 text-left transition-colors hover:bg-grayscale-100"
+        className="sticky top-0 left-[var(--datatable-sticky-inset)] z-50 flex w-[min(1010px,calc(100vw-var(--datatable-sticky-inset)-48px))] items-center gap-10 rounded-t border-b border-grayscale-opacity-300 bg-background py-2.5 text-left transition-colors hover:bg-grayscale-100"
       >
         <span className="flex flex-1 items-center">
           <span className="flex w-10 items-center justify-center py-2">

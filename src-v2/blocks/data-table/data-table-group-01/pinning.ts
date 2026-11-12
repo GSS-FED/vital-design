@@ -129,7 +129,7 @@ export function getPinnedCellClassName<TData>(
     // hovered/selected frozen body cell would paint over the sticky header
     // while scrolling vertically.
     column.getIsPinned() &&
-      'bg-white group-hover:bg-[#f8f8f9] group-data-[state=selected]:bg-[#f8f8f9]',
+      'bg-background group-hover:bg-[#f8f8f9] group-data-[state=selected]:bg-[#f8f8f9]',
   ]
     .filter(Boolean)
     .join(' ');

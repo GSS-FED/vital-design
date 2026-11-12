@@ -28,7 +28,7 @@ const CommandRoot = function Command({
       ref={ref}
       data-slot="command"
       className={cn(
-        'box-border flex w-full flex-col overflow-hidden rounded bg-white font-sans text-sm text-grayscale-opacity-800 shadow-emphasis',
+        'box-border flex w-full flex-col overflow-hidden rounded bg-background font-sans text-sm text-grayscale-opacity-800 shadow-emphasis',
         className,
       )}
       {...props}
@@ -56,7 +56,7 @@ const CommandInput = function CommandInput({
     <div
       data-slot="command-input"
       className={cn(
-        'mx-2 my-2 flex items-center gap-2 rounded-[4rem] border border-grayscale-opacity-300 bg-white px-3 py-1.5 text-grayscale-opacity-500 transition-colors duration-200',
+        'mx-2 my-2 flex items-center gap-2 rounded-[4rem] border border-grayscale-opacity-300 bg-background px-3 py-1.5 text-grayscale-opacity-500 transition-colors duration-200',
         'hover:border-grayscale-opacity-500 focus-within:border-primary-500',
         containerClassName,
       )}

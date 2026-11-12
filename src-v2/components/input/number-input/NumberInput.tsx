@@ -45,7 +45,7 @@ const NumberInputGroup = function NumberInputGroup({
       ref={ref}
       data-slot="number-input-group"
       className={cn(
-        'group/number-input box-border flex h-8 w-full min-w-0 items-stretch overflow-hidden rounded border border-grayscale-opacity-300 bg-white font-sans text-grayscale-opacity-800 transition-colors duration-200 outline-none',
+        'group/number-input box-border flex h-8 w-full min-w-0 items-stretch overflow-hidden rounded border border-grayscale-opacity-300 bg-background font-sans text-grayscale-opacity-800 transition-colors duration-200 outline-none',
         'hover:border-grayscale-opacity-500 focus-within:border-primary-500',
         'has-[input:disabled]:border-grayscale-opacity-300 has-[input:disabled]:bg-grayscale-opacity-200 has-[input:disabled]:text-grayscale-opacity-500 has-[input:disabled]:hover:border-grayscale-opacity-300',
         'has-[input[aria-invalid=true]]:border-destructive-500 has-[input[aria-invalid=true]]:hover:border-destructive-500 has-[input[aria-invalid=true]]:focus-within:border-destructive-500',
@@ -83,7 +83,7 @@ const NumberInputControl = function NumberInputControl({
 };
 
 const stepperBaseClasses = [
-  'flex h-1/2 w-6 cursor-pointer items-center justify-center border-l border-grayscale-opacity-300 bg-white text-grayscale-opacity-700 transition-colors duration-150 outline-none select-none',
+  'flex h-1/2 w-6 cursor-pointer items-center justify-center border-l border-grayscale-opacity-300 bg-background text-grayscale-opacity-700 transition-colors duration-150 outline-none select-none',
   'hover:bg-grayscale-opacity-100 active:bg-grayscale-opacity-200',
   'disabled:cursor-not-allowed disabled:bg-grayscale-opacity-100 disabled:text-grayscale-opacity-300',
 ] as const;

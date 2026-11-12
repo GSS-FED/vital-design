@@ -234,7 +234,7 @@ describe('Toast', () => {
 
     const toast = findSlot(baseElement, 'toast');
     expect(toast).toHaveAttribute('data-variant', 'subtle');
-    expect(toast).toHaveClass('bg-white');
+    expect(toast).toHaveClass('bg-background');
     expect(toast).toHaveClass('text-grayscale-opacity-800');
     expect(toast).not.toHaveClass('bg-success-500');
   });

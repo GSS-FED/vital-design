@@ -77,7 +77,7 @@ export function IconsGalleryPreview() {
         {icons.map(({ name, Icon }) => (
           <div
             key={name}
-            className="flex flex-col items-center justify-center gap-2 rounded-md border border-grayscale-opacity-200 bg-white p-4 text-grayscale-opacity-800"
+            className="flex flex-col items-center justify-center gap-2 rounded-md border border-grayscale-opacity-200 bg-background p-4 text-grayscale-opacity-800"
           >
             <Icon className="size-6" />
             <span className="font-mono text-xs text-grayscale-opacity-600">

@@ -24,7 +24,7 @@ export function RailBranch() {
 export function RailCells({
   variant,
   trailingCell,
-  bgClassName = 'bg-white',
+  bgClassName = 'bg-background',
 }: {
   variant: 'vertical' | 'branch';
   trailingCell?: ReactNode;
@@ -61,7 +61,7 @@ export function RailCells({
 export function ChevronCell({
   expanded,
   leftOffset,
-  bgClassName = 'bg-white',
+  bgClassName = 'bg-background',
 }: {
   expanded: boolean;
   leftOffset: number;

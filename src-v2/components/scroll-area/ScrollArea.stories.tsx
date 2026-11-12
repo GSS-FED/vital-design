@@ -26,7 +26,7 @@ export default meta;
 export const FadeEdges: Story = {
   render: () => (
     <ScrollArea
-      className="h-64 w-80 rounded border border-grayscale-opacity-200 bg-white"
+      className="h-64 w-80 rounded border border-grayscale-opacity-200 bg-background"
       overflowEdgeThreshold={1}
     >
       <ScrollAreaViewport className="h-full" fadeEdges>
@@ -49,7 +49,7 @@ export const FadeEdges: Story = {
 
 export const Vertical: Story = {
   render: () => (
-    <ScrollArea className="h-64 w-80 rounded border border-grayscale-opacity-200 bg-white">
+    <ScrollArea className="h-64 w-80 rounded border border-grayscale-opacity-200 bg-background">
       <ScrollAreaViewport className="h-full">
         <div className="flex flex-col py-2">
           {ITEMS.map((item) => (

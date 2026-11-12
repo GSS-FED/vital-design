@@ -199,7 +199,7 @@ function CandidateGroupSection({
               ))}
               <td
                 aria-hidden="true"
-                className="border-b border-grayscale-opacity-300 bg-white p-0"
+                className="border-b border-grayscale-opacity-300 bg-background p-0"
               />
             </TableRow>
           ))}

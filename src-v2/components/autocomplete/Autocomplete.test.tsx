@@ -106,7 +106,7 @@ describe('Autocomplete', () => {
 
     expect(
       findSlot(baseElement, 'autocomplete-input-group'),
-    ).toHaveClass('border-grayscale-opacity-300', 'bg-white');
+    ).toHaveClass('border-grayscale-opacity-300', 'bg-background');
     expect(findSlot(baseElement, 'autocomplete-input')).toHaveClass(
       'placeholder:text-grayscale-opacity-400',
     );
@@ -126,7 +126,7 @@ describe('Autocomplete', () => {
 
     expect(findSlot(baseElement, 'autocomplete-popup')).toHaveClass(
       'shadow-emphasis',
-      'bg-white',
+      'bg-background',
     );
     expect(
       findSlot(baseElement, 'autocomplete-list'),

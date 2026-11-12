@@ -45,7 +45,7 @@ The registry has no pagination or breadcrumb item: build pagination from `Button
 
 ### Navigation Bar (`Navbar`)
 
-- **Structure**: `flex items-center justify-between h-14 px-6 border-b border-grayscale-opacity-200 bg-white`
+- **Structure**: `flex items-center justify-between h-14 px-6 border-b border-grayscale-opacity-200 bg-background`
 - **Left**: Logo slot + navigation links. A button-styled link is `LinkButton` from `@/components/ui/Button` (`variant="text"`, `render={<Link href="…" />}`). A text link is the router `<Link>` with token utilities. Do not pass `nativeButton={false}` to `Button`.
 - **Right**: `Avatar` for current user + action `Button`
 - **Optional**: Inline `SearchBar`. Language/account overflow is `DropdownMenu` + `DropdownMenuItem` (commands).

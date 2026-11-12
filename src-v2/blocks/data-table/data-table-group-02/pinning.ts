@@ -102,5 +102,7 @@ export function getPinningStyles(
 export function getPinnedClassName(column: Column<EmissionTreeRow>) {
   // Pinned cells need a solid bg so scrolling content doesn't bleed through.
   // We lose the TR hover bg for these cells — acceptable for identity columns.
-  return column.getIsPinned() === 'left' ? 'bg-white' : undefined;
+  return column.getIsPinned() === 'left'
+    ? 'bg-background'
+    : undefined;
 }
