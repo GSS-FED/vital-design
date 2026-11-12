@@ -11,24 +11,40 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/pagination/Pagination';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 // oxlint-disable jsx-a11y/control-has-associated-label -- useRender merges the accessible name onto this button
 export function PaginationMorePagesPreview() {
   const [page, setPage] = useState(121);
   const totalPages = 200;
+  const current = Math.min(Math.max(page, 1), totalPages);
+  const groupStart = Math.floor((current - 1) / 5) * 5 + 1;
+  const groupEnd = Math.min(totalPages, groupStart + 4);
+  const hasLeftGap = groupStart > 1;
+  const hasRightGap = groupEnd < totalPages;
+  const bothGaps = hasLeftGap && hasRightGap;
   const pages = Array.from(
-    { length: totalPages },
-    (_, index) => index + 1,
-  ).filter(
-    (value) =>
-      value === 1 ||
-      value === totalPages ||
-      Math.abs(value - page) <= 1 ||
-      (page <= 3 && value <= 4) ||
-      (page >= totalPages - 2 && value >= totalPages - 3),
+    { length: groupEnd - groupStart + 1 },
+    (_, index) => groupStart + index,
   );
+  const leadingPage = hasLeftGap && !bothGaps ? 1 : undefined;
+  const trailingPage =
+    hasRightGap && !bothGaps ? totalPages : undefined;
+  const leftHidden = hasLeftGap
+    ? Array.from(
+        { length: groupStart - (bothGaps ? 1 : 2) },
+        (_, index) => (bothGaps ? 1 : 2) + index,
+      )
+    : [];
+  const rightHidden = hasRightGap
+    ? Array.from(
+        {
+          length: (bothGaps ? totalPages : totalPages - 1) - groupEnd,
+        },
+        (_, index) => groupEnd + 1 + index,
+      )
+    : [];
 
   return (
     <ComponentPreview name="PaginationMorePagesPreview">
@@ -50,25 +66,58 @@ export function PaginationMorePagesPreview() {
                   onClick={() => setPage(page - 1)}
                 />
               </PaginationItem>
-              {pages.map((value, index) => (
-                <Fragment key={value}>
-                  {index > 0 && value - pages[index - 1] > 1 && (
-                    <PaginationItem>
-                      <PaginationEllipsis />
-                    </PaginationItem>
-                  )}
-                  <PaginationItem>
-                    <PaginationLink
-                      render={<button type="button" />}
-                      aria-label={`Page ${value}`}
-                      isActive={page === value}
-                      onClick={() => setPage(value)}
-                    >
-                      {value}
-                    </PaginationLink>
-                  </PaginationItem>
-                </Fragment>
+              {leadingPage !== undefined && (
+                <PaginationItem>
+                  <PaginationLink
+                    render={<button type="button" />}
+                    aria-label={`Page ${leadingPage}`}
+                    isActive={page === leadingPage}
+                    onClick={() => setPage(leadingPage)}
+                  >
+                    {leadingPage}
+                  </PaginationLink>
+                </PaginationItem>
+              )}
+              {leftHidden.length > 0 && (
+                <PaginationItem>
+                  <PaginationEllipsis
+                    pages={leftHidden}
+                    onPageSelect={setPage}
+                  />
+                </PaginationItem>
+              )}
+              {pages.map((value) => (
+                <PaginationItem key={value}>
+                  <PaginationLink
+                    render={<button type="button" />}
+                    aria-label={`Page ${value}`}
+                    isActive={page === value}
+                    onClick={() => setPage(value)}
+                  >
+                    {value}
+                  </PaginationLink>
+                </PaginationItem>
               ))}
+              {rightHidden.length > 0 && (
+                <PaginationItem>
+                  <PaginationEllipsis
+                    pages={rightHidden}
+                    onPageSelect={setPage}
+                  />
+                </PaginationItem>
+              )}
+              {trailingPage !== undefined && (
+                <PaginationItem>
+                  <PaginationLink
+                    render={<button type="button" />}
+                    aria-label={`Page ${trailingPage}`}
+                    isActive={page === trailingPage}
+                    onClick={() => setPage(trailingPage)}
+                  >
+                    {trailingPage}
+                  </PaginationLink>
+                </PaginationItem>
+              )}
               <PaginationItem>
                 <PaginationNext
                   render={<button type="button" />}

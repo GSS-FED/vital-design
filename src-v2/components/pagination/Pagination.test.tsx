@@ -231,9 +231,21 @@ it('forwards auxiliary events while enabled', () => {
   expect(onAuxClick).toHaveBeenCalledTimes(1);
 });
 
-it('keeps ellipsis descriptive and non-interactive', () => {
-  render(<PaginationEllipsis>更多頁面</PaginationEllipsis>);
-  expect(screen.getByText('更多頁面')).toHaveClass('sr-only');
-  expect(screen.queryByRole('button')).not.toBeInTheDocument();
-  expect(screen.queryByRole('link')).not.toBeInTheDocument();
+it('opens hidden pages from the ellipsis button', async () => {
+  const user = userEvent.setup();
+  const onPageSelect = vi.fn();
+  render(
+    <PaginationEllipsis pages={[5, 6, 7]} onPageSelect={onPageSelect}>
+      更多頁面
+    </PaginationEllipsis>,
+  );
+
+  const trigger = screen.getByRole('button', { name: '更多頁面' });
+  expect(trigger).toHaveAttribute('data-slot', 'pagination-ellipsis');
+  await user.click(trigger);
+  expect(
+    await screen.findByRole('menuitem', { name: '6' }),
+  ).toBeInTheDocument();
+  await user.click(screen.getByRole('menuitem', { name: '6' }));
+  expect(onPageSelect).toHaveBeenCalledWith(6);
 });

@@ -1,14 +1,6 @@
-import { Input } from '@/components/input/input/Input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/select/Select';
 import { cn } from '@/lib/utils';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import {
   Pagination,
   PaginationContent,
@@ -48,18 +40,32 @@ function PageNavigation({
   onPageChange: (page: number) => void;
   className?: string;
 }) {
+  const current = Math.min(Math.max(page, 1), total);
+  const groupStart = Math.floor((current - 1) / 5) * 5 + 1;
+  const groupEnd = Math.min(total, groupStart + 4);
+  const hasLeftGap = groupStart > 1;
+  const hasRightGap = groupEnd < total;
+  const bothGaps = hasLeftGap && hasRightGap;
   const pages = Array.from(
-    { length: total },
-    (_, index) => index + 1,
-  ).filter(
-    (value) =>
-      total <= 7 ||
-      value === 1 ||
-      value === total ||
-      Math.abs(value - page) <= 1 ||
-      (page <= 3 && value <= 4) ||
-      (page >= total - 2 && value >= total - 3),
+    { length: groupEnd - groupStart + 1 },
+    (_, index) => groupStart + index,
   );
+  const leadingPage = hasLeftGap && !bothGaps ? 1 : undefined;
+  const trailingPage = hasRightGap && !bothGaps ? total : undefined;
+  const leftHidden = hasLeftGap
+    ? Array.from(
+        { length: groupStart - (bothGaps ? 1 : 2) },
+        (_, index) => (bothGaps ? 1 : 2) + index,
+      )
+    : [];
+  const rightHidden = hasRightGap
+    ? Array.from(
+        {
+          length: (bothGaps ? total : total - 1) - groupEnd,
+        },
+        (_, index) => groupEnd + 1 + index,
+      )
+    : [];
 
   return (
     <Pagination className={cn('w-auto', className)}>
@@ -78,25 +84,58 @@ function PageNavigation({
             onClick={() => onPageChange(page - 1)}
           />
         </PaginationItem>
-        {pages.map((value, index) => (
-          <Fragment key={value}>
-            {index > 0 && value - pages[index - 1]! > 1 && (
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-            )}
-            <PaginationItem>
-              <PaginationLink
-                render={<button type="button" />}
-                isActive={page === value}
-                onClick={() => onPageChange(value)}
-                aria-label={`Page ${value}`}
-              >
-                {value}
-              </PaginationLink>
-            </PaginationItem>
-          </Fragment>
+        {leadingPage !== undefined && (
+          <PaginationItem>
+            <PaginationLink
+              render={<button type="button" />}
+              isActive={page === leadingPage}
+              onClick={() => onPageChange(leadingPage)}
+              aria-label={`Page ${leadingPage}`}
+            >
+              {leadingPage}
+            </PaginationLink>
+          </PaginationItem>
+        )}
+        {leftHidden.length > 0 && (
+          <PaginationItem>
+            <PaginationEllipsis
+              pages={leftHidden}
+              onPageSelect={onPageChange}
+            />
+          </PaginationItem>
+        )}
+        {pages.map((value) => (
+          <PaginationItem key={value}>
+            <PaginationLink
+              render={<button type="button" />}
+              isActive={page === value}
+              onClick={() => onPageChange(value)}
+              aria-label={`Page ${value}`}
+            >
+              {value}
+            </PaginationLink>
+          </PaginationItem>
         ))}
+        {rightHidden.length > 0 && (
+          <PaginationItem>
+            <PaginationEllipsis
+              pages={rightHidden}
+              onPageSelect={onPageChange}
+            />
+          </PaginationItem>
+        )}
+        {trailingPage !== undefined && (
+          <PaginationItem>
+            <PaginationLink
+              render={<button type="button" />}
+              isActive={page === trailingPage}
+              onClick={() => onPageChange(trailingPage)}
+              aria-label={`Page ${trailingPage}`}
+            >
+              {trailingPage}
+            </PaginationLink>
+          </PaginationItem>
+        )}
         <PaginationItem>
           <PaginationNext
             render={<button type="button" />}
@@ -174,86 +213,6 @@ export const Links: Story = {
       </PaginationContent>
     </Pagination>
   ),
-};
-
-function TableExample() {
-  const totalItems = 91;
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const totalPages = Math.ceil(totalItems / pageSize);
-
-  return (
-    <div className="w-full overflow-x-auto rounded-b border-t border-grayscale-opacity-200 bg-grayscale-opacity-100">
-      <div className="flex w-max min-w-full items-center justify-between gap-6 px-4 py-2 font-sans text-sm leading-5 whitespace-nowrap text-grayscale-opacity-600">
-        <PageNavigation
-          className="mx-0 shrink-0"
-          page={page}
-          total={totalPages}
-          onPageChange={setPage}
-        />
-        <form
-          className="flex shrink-0 items-center gap-2"
-          onSubmit={(event) => {
-            event.preventDefault();
-            const value = Number(
-              new FormData(event.currentTarget).get('page'),
-            );
-            setPage(Math.min(totalPages, Math.max(1, value)));
-          }}
-        >
-          <label htmlFor="pagination-jump">前往第</label>
-          <Input
-            key={page}
-            id="pagination-jump"
-            name="page"
-            type="number"
-            min={1}
-            max={totalPages}
-            required
-            defaultValue={page}
-            className="w-[50px] px-3"
-          />
-          <span>頁 / 共 {totalPages} 頁</span>
-          <button type="submit" tabIndex={-1} className="sr-only">
-            前往
-          </button>
-        </form>
-        <div className="flex shrink-0 items-center gap-6">
-          <div className="flex items-center gap-2">
-            <Select
-              value={String(pageSize)}
-              onValueChange={(value) => {
-                setPageSize(Number(value));
-                setPage(1);
-              }}
-            >
-              <SelectTrigger className="w-20" aria-label="每頁筆數">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {[10, 20, 50].map((size) => (
-                  <SelectItem key={size} value={String(size)}>
-                    {size}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <span>筆資料 / 頁</span>
-          </div>
-          <span aria-live="polite">
-            第 {(page - 1) * pageSize + 1} -{' '}
-            {Math.min(page * pageSize, totalItems)} 筆，共{' '}
-            {totalItems} 筆
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export const TablePagination: Story = {
-  parameters: { layout: 'padded' },
-  render: () => <TableExample />,
 };
 
 export const RightToLeft: Story = {
