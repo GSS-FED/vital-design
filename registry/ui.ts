@@ -11,6 +11,7 @@ export const ui = [
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
+      '@vital-design/dropdown-menu',
       '@vital-design/icon-chevron-left',
       '@vital-design/icon-chevron-right',
       '@vital-design/icon-ellipsis',

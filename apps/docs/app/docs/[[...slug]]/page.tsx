@@ -102,6 +102,7 @@ import {
   SwitchInvalidPreview,
   SwitchPreview,
 } from '~/components/previews/SwitchPreview';
+import { TablePaginationPreview } from '~/components/previews/TablePaginationPreview';
 import {
   TabsBorderedPreview,
   TabsPillPreview,
@@ -260,6 +261,7 @@ export async function DocsContentPage({
             SidebarCloud05Preview,
             SidebarCloud06Preview,
             SwitchPreview,
+            TablePaginationPreview,
             SwitchDisabledPreview,
             SwitchInvalidPreview,
             CheckboxPreview,

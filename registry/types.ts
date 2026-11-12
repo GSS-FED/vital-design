@@ -105,6 +105,7 @@ export type RegistryItemName =
   | 'resizable'
   | 'slider'
   | 'table'
+  | 'table-pagination'
   | 'tabs'
   | 'toolbar'
   | 'calendar'

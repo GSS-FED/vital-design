@@ -1,5 +1,11 @@
 'use client';
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/dropdown-menu/DropdownMenu';
 import { ChevronLeftIcon } from '@/icons/ChevronLeftIcon';
 import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
 import { EllipsisIcon } from '@/icons/EllipsisIcon';
@@ -7,7 +13,7 @@ import { PageFirstIcon } from '@/icons/PageFirstIcon';
 import { PageLastIcon } from '@/icons/PageLastIcon';
 import { cn } from '@/lib/utils';
 import { useRender } from '@base-ui/react/use-render';
-import type { ComponentProps, MouseEvent } from 'react';
+import type { ComponentProps, MouseEvent, ReactNode } from 'react';
 
 export type PaginationProps = ComponentProps<'nav'>;
 
@@ -186,25 +192,51 @@ const PaginationLast = function PaginationLast({
   );
 };
 
-export type PaginationEllipsisProps = ComponentProps<'span'>;
+export type PaginationEllipsisProps = {
+  /** Hidden page numbers shown in the menu. */
+  pages?: number[];
+  onPageSelect?: (page: number) => void;
+  className?: string;
+  /** Accessible name. Defaults to “More pages”. */
+  children?: ReactNode;
+};
 
 const PaginationEllipsis = function PaginationEllipsis({
   children,
   className,
-  ...props
+  pages = [],
+  onPageSelect,
 }: PaginationEllipsisProps) {
+  const label =
+    typeof children === 'string' ? children : 'More pages';
+
   return (
-    <span
-      data-slot="pagination-ellipsis"
-      className={cn(
-        'inline-flex size-[30px] shrink-0 items-center justify-center text-grayscale-opacity-600',
-        className,
-      )}
-      {...props}
-    >
-      <EllipsisIcon className="size-[18px]" />
-      <span className="sr-only">{children ?? 'More pages'}</span>
-    </span>
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        type="button"
+        data-slot="pagination-ellipsis"
+        aria-label={label}
+        className={cn(
+          'inline-flex size-[30px] shrink-0 cursor-pointer items-center justify-center rounded-full text-grayscale-opacity-600 outline-none hover:bg-grayscale-opacity-200 focus-visible:shadow-focus-primary',
+          className,
+        )}
+      >
+        <EllipsisIcon className="size-[18px] [&_path]:[fill-opacity:1]" />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        align="center"
+        className="max-h-60 min-w-16 overflow-y-auto"
+      >
+        {pages.map((value) => (
+          <DropdownMenuItem
+            key={value}
+            onClick={() => onPageSelect?.(value)}
+          >
+            {value}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
