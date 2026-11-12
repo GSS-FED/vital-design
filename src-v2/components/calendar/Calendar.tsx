@@ -5,11 +5,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/popover/Popover';
-import { ChevronDoubleLeftIcon } from '@/icons/ChevronDoubleLeftIcon';
-import { ChevronDoubleRightIcon } from '@/icons/ChevronDoubleRightIcon';
+import { AngleLeftIcon } from '@/icons/AngleLeftIcon';
+import { AngleRightIcon } from '@/icons/AngleRightIcon';
+import { AnglesLeftIcon } from '@/icons/AnglesLeftIcon';
+import { AnglesRightIcon } from '@/icons/AnglesRightIcon';
 import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
-import { ChevronLeftIcon } from '@/icons/ChevronLeftIcon';
-import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
 import { cn } from '@/lib/utils';
 import * as React from 'react';
 import {
@@ -183,7 +183,7 @@ function CalendarChevron(props: CalendarChevronProps) {
   const { className, orientation, ...rest } = props;
   if (orientation === 'left') {
     return (
-      <ChevronLeftIcon
+      <AngleLeftIcon
         className={cn('size-3.5', className)}
         {...rest}
       />
@@ -191,7 +191,7 @@ function CalendarChevron(props: CalendarChevronProps) {
   }
   if (orientation === 'right') {
     return (
-      <ChevronRightIcon
+      <AngleRightIcon
         className={cn('size-3.5', className)}
         {...rest}
       />
@@ -252,7 +252,7 @@ function CalendarNav({
           onClick={() => goToYear(-1)}
           className={navButtonClassName}
         >
-          <ChevronDoubleLeftIcon className="size-3.5" />
+          <AnglesLeftIcon className="size-3.5" />
         </button>
         <button
           type="button"
@@ -261,7 +261,7 @@ function CalendarNav({
           onClick={onPreviousClick}
           className={navButtonClassName}
         >
-          <ChevronLeftIcon className="size-3.5" />
+          <AngleLeftIcon className="size-3.5" />
         </button>
       </div>
       <div className="pointer-events-auto flex">
@@ -272,7 +272,7 @@ function CalendarNav({
           onClick={onNextClick}
           className={navButtonClassName}
         >
-          <ChevronRightIcon className="size-3.5" />
+          <AngleRightIcon className="size-3.5" />
         </button>
         <button
           type="button"
@@ -281,7 +281,7 @@ function CalendarNav({
           onClick={() => goToYear(1)}
           className={navButtonClassName}
         >
-          <ChevronDoubleRightIcon className="size-3.5" />
+          <AnglesRightIcon className="size-3.5" />
         </button>
       </div>
     </nav>

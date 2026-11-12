@@ -1,4 +1,4 @@
-import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
+import { AngleRightIcon } from '@/icons/AngleRightIcon';
 import { EllipsisIcon } from '@/icons/EllipsisIcon';
 import { type CvaProps, cn } from '@/lib/utils';
 import { mergeProps } from '@base-ui/react/merge-props';
@@ -162,7 +162,7 @@ const BreadcrumbSeparator = function BreadcrumbSeparator({
       )}
       {...props}
     >
-      {children ?? <ChevronRightIcon />}
+      {children ?? <AngleRightIcon />}
     </li>
   );
 };

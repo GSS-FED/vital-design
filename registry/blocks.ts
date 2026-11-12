@@ -208,7 +208,7 @@ export const blocks: VitalRegistryItem[] = [
       '@vital-design/dropdown-menu',
       '@vital-design/icon-calendar',
       '@vital-design/icon-check',
-      '@vital-design/icon-chevron-right',
+      '@vital-design/icon-angle-right',
       '@vital-design/icon-flag',
       '@vital-design/icon-panel-left',
       '@vital-design/icon-search',

@@ -1,5 +1,5 @@
+import { AngleRightIcon } from '@/icons/AngleRightIcon';
 import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
-import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import {
@@ -284,7 +284,7 @@ export const HierarchicalPicker: Story = {
                     </span>
                     {item.hasChildren ? (
                       <span className="ml-auto flex shrink-0 text-grayscale-opacity-500">
-                        <ChevronRightIcon className="size-5" />
+                        <AngleRightIcon className="size-5" />
                       </span>
                     ) : null}
                   </CommandItem>

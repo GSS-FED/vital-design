@@ -1,5 +1,5 @@
 import { Spinner } from '@/components/spinner/Spinner';
-import { ChevronLeftIcon } from '@/icons/ChevronLeftIcon';
+import { AngleLeftIcon } from '@/icons/AngleLeftIcon';
 import { SearchIcon } from '@/icons/SearchIcon';
 import { cn } from '@/lib/utils';
 import { Command as CommandPrimitive } from 'cmdk';
@@ -322,7 +322,7 @@ const CommandBackButton = function CommandBackButton({
         data-slot="command-back-button-icon"
         className="flex shrink-0 items-center"
       >
-        {icon ?? <ChevronLeftIcon />}
+        {icon ?? <AngleLeftIcon />}
       </span>
       <span
         data-slot="command-back-button-label"

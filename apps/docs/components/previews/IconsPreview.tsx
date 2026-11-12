@@ -1,16 +1,22 @@
 'use client';
 
+import { AngleLeftIcon } from '@/icons/AngleLeftIcon';
+import { AngleLeftSolidIcon } from '@/icons/AngleLeftSolidIcon';
+import { AngleLeftToLineSolidIcon } from '@/icons/AngleLeftToLineSolidIcon';
+import { AngleRightIcon } from '@/icons/AngleRightIcon';
+import { AngleRightSolidIcon } from '@/icons/AngleRightSolidIcon';
+import { AngleRightToLineSolidIcon } from '@/icons/AngleRightToLineSolidIcon';
+import { AnglesLeftIcon } from '@/icons/AnglesLeftIcon';
+import { AnglesRightIcon } from '@/icons/AnglesRightIcon';
+import { BarsIcon } from '@/icons/BarsIcon';
 import { BellIcon } from '@/icons/BellIcon';
 import { CalendarIcon } from '@/icons/CalendarIcon';
 import { CaretDownIcon } from '@/icons/CaretDownIcon';
 import { CaretUpIcon } from '@/icons/CaretUpIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
-import { ChevronDoubleLeftIcon } from '@/icons/ChevronDoubleLeftIcon';
-import { ChevronDoubleRightIcon } from '@/icons/ChevronDoubleRightIcon';
 import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
-import { ChevronLeftIcon } from '@/icons/ChevronLeftIcon';
-import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
 import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
+import { CircleUserIcon } from '@/icons/CircleUserIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
 import { ClockIcon } from '@/icons/ClockIcon';
 import { CloseIcon } from '@/icons/CloseIcon';
@@ -20,14 +26,21 @@ import { EyeIcon } from '@/icons/EyeIcon';
 import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
 import { GearIcon } from '@/icons/GearIcon';
+import { HomeIcon } from '@/icons/HomeIcon';
+import { InboxIcon } from '@/icons/InboxIcon';
 import { InfoIcon } from '@/icons/InfoIcon';
+import { LifeRingIcon } from '@/icons/LifeRingIcon';
 import { MinusIcon } from '@/icons/MinusIcon';
 import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
+import { PlanetRingedIcon } from '@/icons/PlanetRingedIcon';
 import { PlusIcon } from '@/icons/PlusIcon';
 import { SearchIcon } from '@/icons/SearchIcon';
 import { ShieldCheckIcon } from '@/icons/ShieldCheckIcon';
+import { SidebarIcon } from '@/icons/SidebarIcon';
 import { SpinnerIcon } from '@/icons/SpinnerIcon';
 import { SquareArrowOutUpRightIcon } from '@/icons/SquareArrowOutUpRightIcon';
+import { ThumbtackIcon } from '@/icons/ThumbtackIcon';
+import { ThumbtackSolidIcon } from '@/icons/ThumbtackSolidIcon';
 import { UserIcon } from '@/icons/UserIcon';
 import type { ComponentType, SVGProps } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
@@ -38,6 +51,21 @@ type IconEntry = {
 };
 
 const icons: IconEntry[] = [
+  { name: 'AngleLeftIcon', Icon: AngleLeftIcon },
+  { name: 'AngleLeftSolidIcon', Icon: AngleLeftSolidIcon },
+  {
+    name: 'AngleLeftToLineSolidIcon',
+    Icon: AngleLeftToLineSolidIcon,
+  },
+  { name: 'AngleRightIcon', Icon: AngleRightIcon },
+  { name: 'AngleRightSolidIcon', Icon: AngleRightSolidIcon },
+  {
+    name: 'AngleRightToLineSolidIcon',
+    Icon: AngleRightToLineSolidIcon,
+  },
+  { name: 'AnglesLeftIcon', Icon: AnglesLeftIcon },
+  { name: 'AnglesRightIcon', Icon: AnglesRightIcon },
+  { name: 'BarsIcon', Icon: BarsIcon },
   { name: 'BellIcon', Icon: BellIcon },
   { name: 'CalendarIcon', Icon: CalendarIcon },
   { name: 'CaretDownIcon', Icon: CaretDownIcon },
@@ -45,10 +73,7 @@ const icons: IconEntry[] = [
   { name: 'CheckIcon', Icon: CheckIcon },
   { name: 'ChevronDownIcon', Icon: ChevronDownIcon },
   { name: 'ChevronUpIcon', Icon: ChevronUpIcon },
-  { name: 'ChevronLeftIcon', Icon: ChevronLeftIcon },
-  { name: 'ChevronRightIcon', Icon: ChevronRightIcon },
-  { name: 'ChevronDoubleLeftIcon', Icon: ChevronDoubleLeftIcon },
-  { name: 'ChevronDoubleRightIcon', Icon: ChevronDoubleRightIcon },
+  { name: 'CircleUserIcon', Icon: CircleUserIcon },
   { name: 'ClearIcon', Icon: ClearIcon },
   { name: 'ClockIcon', Icon: ClockIcon },
   { name: 'CloseIcon', Icon: CloseIcon },
@@ -58,17 +83,24 @@ const icons: IconEntry[] = [
   { name: 'EyeSlashIcon', Icon: EyeSlashIcon },
   { name: 'FlagIcon', Icon: FlagIcon },
   { name: 'GearIcon', Icon: GearIcon },
+  { name: 'HomeIcon', Icon: HomeIcon },
+  { name: 'InboxIcon', Icon: InboxIcon },
   { name: 'InfoIcon', Icon: InfoIcon },
+  { name: 'LifeRingIcon', Icon: LifeRingIcon },
   { name: 'MinusIcon', Icon: MinusIcon },
   { name: 'PanelLeftIcon', Icon: PanelLeftIcon },
+  { name: 'PlanetRingedIcon', Icon: PlanetRingedIcon },
   { name: 'PlusIcon', Icon: PlusIcon },
   { name: 'SearchIcon', Icon: SearchIcon },
   { name: 'ShieldCheckIcon', Icon: ShieldCheckIcon },
+  { name: 'SidebarIcon', Icon: SidebarIcon },
   { name: 'SpinnerIcon', Icon: SpinnerIcon },
   {
     name: 'SquareArrowOutUpRightIcon',
     Icon: SquareArrowOutUpRightIcon,
   },
+  { name: 'ThumbtackIcon', Icon: ThumbtackIcon },
+  { name: 'ThumbtackSolidIcon', Icon: ThumbtackSolidIcon },
   { name: 'UserIcon', Icon: UserIcon },
 ];
 

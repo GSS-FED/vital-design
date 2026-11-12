@@ -3,10 +3,10 @@ import type { SVGProps } from 'react';
 export const SearchIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
+    fill="none"
     viewBox="0 0 13 13"
     width="1em"
     height="1em"
-    fill="currentColor"
     aria-hidden="true"
     {...props}
   >
