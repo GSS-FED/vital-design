@@ -5,6 +5,7 @@ import '@fontsource/roboto/500.css';
 import type { Decorator, Preview } from '@storybook/react';
 import { Agentation } from 'agentation';
 import '../src-v2/styles/globals.css';
+import { ThemedDocsContainer } from './docs-container';
 
 // Class on <html> so portaled layers inherit the same variables.
 // Default stays light; visual baselines do not opt into dark.
@@ -49,6 +50,7 @@ const preview: Preview = {
   parameters: {
     controls: { exclude: ['style', 'className'] },
     docs: {
+      container: ThemedDocsContainer,
       toc: true, //Enables the table of contents
     },
     options: {
