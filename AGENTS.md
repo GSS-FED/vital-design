@@ -97,6 +97,7 @@ pnpm changelog:build       # 重組 changelog 頁（docs dev/build 會自動跑�
   - `tokens/primitive/` - raw values（colors, typography, radius）
   - `tokens/semantic/` - intent-based（shadows, gradients, color aliases）
   - `tokens/component/` - component-specific（avatar, tag）
+  - `tokens/dark/` - 既有色的暗色覆寫（primitive，以及已存在的 `background` / `card` / `popover`；沒有亮色對應的名稱不要加；Style Dictionary source 不含這個資料夾）
   - 建置輸出：`src-v2/styles/tokens/generated.css`（CSS）、`registry/vital-theme-vars.ts`（TypeScript）
 
 ### 文件站（apps/docs/）

@@ -1,11 +1,123 @@
 #!/usr/bin/env tsx
-import { mkdirSync } from 'fs';
-import { resolve } from 'path';
+import { mkdirSync, readFileSync, readdirSync } from 'fs';
+import { join, resolve } from 'path';
 import SD from 'style-dictionary';
 import type { TransformedToken } from 'style-dictionary/types';
 
 // Ensure output directory exists
 mkdirSync(resolve('src-v2/styles/tokens'), { recursive: true });
+
+// Light sources only. `tokens/dark/` is applied later as overrides for
+// the same names. Style Dictionary deep-merges every JSON file, so a
+// second file with the same path would replace the light value, and a
+// `dark.*` path would emit `--dark-*` into :root.
+const LIGHT_SOURCE_DIRS = [
+  'tokens/primitive',
+  'tokens/semantic',
+  'tokens/component',
+];
+const DARK_COLOR_FILE = 'tokens/dark/colors.json';
+const REFERENCE = /^\{([^{}]+)\}$/;
+
+type Json = Record<string, unknown>;
+
+function isRecord(value: unknown): value is Json {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    !Array.isArray(value)
+  );
+}
+
+function walkColorTokens(
+  node: Json,
+  path: string[],
+  into: Map<string, string>,
+) {
+  for (const [key, child] of Object.entries(node)) {
+    if (key.startsWith('$') || !isRecord(child)) continue;
+    const next = [...path, key];
+    if (typeof child.$value === 'string') {
+      into.set(next.join('.'), child.$value);
+      continue;
+    }
+    walkColorTokens(child, next, into);
+  }
+}
+
+function readColorFile(file: string): Map<string, string> {
+  const json = JSON.parse(readFileSync(file, 'utf8')) as Json;
+  const into = new Map<string, string>();
+  walkColorTokens(json, [], into);
+  return into;
+}
+
+function readLightColors(): Map<string, string> {
+  const into = new Map<string, string>();
+  for (const dir of LIGHT_SOURCE_DIRS) {
+    const files = readdirSync(dir)
+      .filter((name) => name.endsWith('.json'))
+      .sort();
+    for (const name of files) {
+      for (const [path, value] of readColorFile(join(dir, name))) {
+        into.set(path, value);
+      }
+    }
+  }
+  return into;
+}
+
+function sameColor(a: string, b: string): boolean {
+  return (
+    a.replace(/\s+/g, '').toLowerCase() ===
+    b.replace(/\s+/g, '').toLowerCase()
+  );
+}
+
+function darkValueFor(
+  tokenPath: string,
+  raw: string | undefined,
+  dark: Map<string, string>,
+): string | undefined {
+  if (raw) {
+    const reference = REFERENCE.exec(raw.trim());
+    if (reference) return dark.get(reference[1]);
+  }
+  return dark.get(tokenPath);
+}
+
+const lightColors = readLightColors();
+const darkColors = readColorFile(DARK_COLOR_FILE);
+
+for (const tokenPath of darkColors.keys()) {
+  if (!lightColors.has(tokenPath)) {
+    throw new Error(
+      `Dark token "${tokenPath}" has no light token. Remove it from ${DARK_COLOR_FILE}.`,
+    );
+  }
+}
+
+function darkOverrides(
+  colorTokens: TransformedToken[],
+): [string, string][] {
+  const overrides: [string, string][] = [];
+  for (const token of colorTokens) {
+    const tokenPath = token.path.join('.');
+    if (!lightColors.has(tokenPath)) {
+      throw new Error(
+        `Built token "${tokenPath}" is missing from the light token sources.`,
+      );
+    }
+    const dark = darkValueFor(
+      tokenPath,
+      lightColors.get(tokenPath),
+      darkColors,
+    );
+    if (!dark || sameColor(dark, String(token.$value))) continue;
+    overrides.push([token.name, dark]);
+  }
+  return overrides;
+}
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -21,7 +133,7 @@ function quoteValue(v: string): string {
 
 const sd = new SD({
   log: { verbosity: 'silent' },
-  source: ['tokens/**/*.json'],
+  source: LIGHT_SOURCE_DIRS.map((dir) => `${dir}/**/*.json`),
   hooks: {
     transforms: {
       // Drops a leading `theme.` segment from semantic shadcn tokens so they
@@ -41,15 +153,22 @@ const sd = new SD({
       },
     },
     formats: {
-      // Outputs: :root { --name: value } + @theme inline { --color-name: var(--name); --name: value; }
+      // :root keeps light values. .dark overrides the same custom
+      // properties. @theme inline maps each --color-* once, so utilities
+      // follow whichever value is active.
       'css/vital-tokens': ({ dictionary }) => {
         const colorTokens = dictionary.allTokens.filter(isColor);
         const nonColorTokens = dictionary.allTokens.filter(
           (t) => !isColor(t),
         );
+        const dark = darkOverrides(colorTokens);
 
         const rootVars = colorTokens
           .map((t) => `  --${t.name}: ${t.$value};`)
+          .join('\n');
+
+        const darkVars = dark
+          .map(([name, value]) => `  --${name}: ${value};`)
           .join('\n');
 
         const themeColorMappings = colorTokens
@@ -68,6 +187,10 @@ const sd = new SD({
           rootVars,
           '}',
           '',
+          '.dark {',
+          darkVars,
+          '}',
+          '',
           '@theme inline {',
           themeColorMappings,
           themeNonColorVars,
@@ -76,17 +199,24 @@ const sd = new SD({
         ].join('\n');
       },
 
-      // Outputs: export const vitalThemeCssVars = { theme: {...}, light: {...} } as const
+      // theme = non-colors, light = every color, dark = overrides only.
       'typescript/vital-theme-vars': ({ dictionary }) => {
         const colorTokens = dictionary.allTokens.filter(isColor);
         const nonColorTokens = dictionary.allTokens.filter(
           (t) => !isColor(t),
         );
+        const dark = darkOverrides(colorTokens);
 
         const lightEntries = colorTokens
           .map(
             (t) =>
               `    '${t.name}': ${quoteValue(String(t.$value))},`,
+          )
+          .join('\n');
+
+        const darkEntries = dark
+          .map(
+            ([name, value]) => `    '${name}': ${quoteValue(value)},`,
           )
           .join('\n');
 
@@ -107,6 +237,9 @@ const sd = new SD({
           '  },',
           '  light: {',
           lightEntries,
+          '  },',
+          '  dark: {',
+          darkEntries,
           '  },',
           '} as const;',
           '',

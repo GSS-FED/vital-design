@@ -256,12 +256,17 @@ export const base = [
     cssVars: vitalThemeCssVars,
     css: {
       '@custom-variant not-disabled (&:not(:disabled))': {},
+      '@custom-variant dark (&:is(.dark *))': {},
       '@layer base': {
         '*, *::before, *::after': {
           'box-sizing': 'border-box',
         },
         '*, ::after, ::before, ::backdrop, ::file-selector-button': {
           'border-color': 'var(--border, currentColor)',
+        },
+        '.dark': {
+          'background-color': 'var(--background)',
+          color: 'var(--foreground)',
         },
       },
     },
