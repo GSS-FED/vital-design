@@ -9,6 +9,18 @@ That package is built from `src/` and stays available for existing apps. New wor
 
 Newest entries are at the top. Headings use the month the change shipped. We only record changes that affect how you install or use the registry — new components, breaking usage, tokens, and install steps.
 
+## November 2026 — Dark color tokens
+
+Reinstall the theme to pick up dark colors:
+
+```bash
+npx shadcn@latest add @vital-design/vital-theme
+```
+
+Light values stay on `:root`. The same custom properties change when an ancestor has `class="dark"`. `prefers-color-scheme` does not switch them. See [Colors → Dark mode](/docs/design-tokens/colors#dark-mode).
+
+Primitive scales, and semantic aliases that point at those scales, have dark values. `background`, `card`, and `popover` are `#232327`. The `.dark` ancestor uses that paper and the dark foreground. Component paper uses `bg-background`, so the dark ink stays visible. Reinstall the theme and any component that still has a copied `bg-white` paper class. `bg-white` stays Tailwind's fixed white and is reserved for marks such as switch thumbs. `text-white` stays white. Avatar, tag, literal `*-foreground` whites, `input`, and `border` keep their light values.
+
 ## October 2026 — React 19
 
 The registry and the docs site are developed and tested on React 19. New projects should use React 19. See [Installation](/docs/getting-started/installation).

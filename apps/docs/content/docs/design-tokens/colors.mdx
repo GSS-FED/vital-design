@@ -32,8 +32,8 @@ import {
 Vittal Design follows the [shadcn/ui](https://ui.shadcn.com/docs/theming)
 naming convention for its semantic layer. Colors are defined under
 `tokens/` (Style Dictionary), built into `src-v2/styles/tokens/generated.css`
-as CSS custom properties on `:root`, and exposed to Tailwind via
-`@theme inline` (`--color-*`).
+as CSS custom properties on `:root`, with dark overrides on `.dark`,
+and exposed to Tailwind via `@theme inline` (`--color-*`).
 
 ```ts
 // 3 layers, generated from tokens/*.json by Style Dictionary
@@ -51,6 +51,29 @@ primitive  →  semantic  →  component
   surface. Tailwind utility: `bg-primary text-primary-foreground`.
 - **Component tokens** (`--avatar-*-fg`, `--tag-*-solid`) — closed
   palettes used by specific components.
+
+## Dark mode
+
+Add `class="dark"` to an ancestor, usually `<html>`. With
+[next-themes](https://github.com/pacocoursey/next-themes), set
+`attribute="class"`. The theme does not follow
+`prefers-color-scheme`. Reinstall `@vital-design/vital-theme` so
+`cssVars.dark` is written into the app stylesheet.
+
+`tokens/dark/colors.json` overrides existing primitive colors, and
+the paper tokens `background`, `card`, and `popover` (`#232327`).
+A semantic token that aliases one of those primitives
+(`primary` → `primary.500`, `foreground` → `grayscale-opacity.900`)
+is rebuilt from the dark primitive. Tokens with no dark entry keep
+the light value: literal `*-foreground` whites, `input`, `border`,
+`grayscale-opacity-150`, and the avatar and tag palettes.
+
+The `.dark` ancestor paints `background` and `foreground`, so text
+that sits on the page uses the dark ink. Component paper uses
+`bg-background`, which reads that same variable. `bg-white` stays
+Tailwind's fixed white. Use it for marks that must stay white, such
+as switch thumbs, slider thumbs, and radio dots. `text-white` and
+opacity forms such as `bg-white/80` also stay white.
 
 ## Primary
 

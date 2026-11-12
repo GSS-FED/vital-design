@@ -45,6 +45,8 @@ These are exposed as Tailwind color utilities via `@theme inline`:
 <p class="text-grayscale-opacity-900">...</p>
 ```
 
+Dark values for those same variables are installed under `.dark`. Put `class="dark"` on `<html>` to switch. The theme does not follow `prefers-color-scheme`. The install also adds `@custom-variant dark (&:is(.dark *));` so `dark:` utilities use that class. Paper surfaces use `bg-background`. `bg-white` and `text-white` stay white. See [Colors → Dark mode](/docs/design-tokens/colors#dark-mode).
+
 ## PostCSS Configuration
 
 Tailwind CSS 4 requires `@tailwindcss/postcss`. Create or update `postcss.config.js` (or `postcss.config.cjs`, depending on your project) like this:
