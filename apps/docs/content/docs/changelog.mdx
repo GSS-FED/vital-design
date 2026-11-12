@@ -9,6 +9,23 @@ That package is built from `src/` and stays available for existing apps. New wor
 
 Newest entries are at the top. Headings use the month the change shipped. We only record changes that affect how you install or use the registry — new components, breaking usage, tokens, and install steps.
 
+## November 2026 — Angle icons replace left and right chevrons
+
+**Breaking:** left and right chevrons now use the designer names. The old registry items are removed. `icon-chevron-up` and `icon-chevron-down` stay.
+
+| Old item | New item |
+| --- | --- |
+| `@vital-design/icon-chevron-left` | `@vital-design/icon-angle-left` |
+| `@vital-design/icon-chevron-right` | `@vital-design/icon-angle-right` |
+| `@vital-design/icon-chevron-double-left` | `@vital-design/icon-angles-left` |
+| `@vital-design/icon-chevron-double-right` | `@vital-design/icon-angles-right` |
+
+Update imports to `AngleLeftIcon`, `AngleRightIcon`, `AnglesLeftIcon`, and `AnglesRightIcon`. Reinstall components that pulled the old icons: `calendar`, `command`, `dropdown-menu`, and `sidebar-cloud-06`.
+
+```bash
+npx shadcn@latest add @vital-design/calendar @vital-design/command @vital-design/dropdown-menu @vital-design/sidebar-cloud-06
+```
+
 ## October 2026 — React 19
 
 The registry and the docs site are developed and tested on React 19. New projects should use React 19. See [Installation](/docs/getting-started/installation).

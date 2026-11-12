@@ -1,4 +1,4 @@
-import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
+import { AngleRightIcon } from '@/icons/AngleRightIcon';
 import { UserIcon } from '@/icons/UserIcon';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { Fragment } from 'react';
@@ -136,7 +136,7 @@ export const IconRows: Story = {
           <ItemTitle>Right icon</ItemTitle>
         </ItemContent>
         <ItemActions>
-          <ChevronRightIcon className="size-[11px]" />
+          <AngleRightIcon className="size-[11px]" />
         </ItemActions>
       </Item>
       <Item size="list" data-current>
@@ -148,7 +148,7 @@ export const IconRows: Story = {
           <ItemDescription>Description text</ItemDescription>
         </ItemContent>
         <ItemActions>
-          <ChevronRightIcon className="size-[11px]" />
+          <AngleRightIcon className="size-[11px]" />
         </ItemActions>
       </Item>
       <Item size="list" data-disabled>
@@ -159,7 +159,7 @@ export const IconRows: Story = {
           <ItemTitle>Disabled</ItemTitle>
         </ItemContent>
         <ItemActions>
-          <ChevronRightIcon className="size-[11px]" />
+          <AngleRightIcon className="size-[11px]" />
         </ItemActions>
       </Item>
     </ItemGroup>
@@ -193,7 +193,7 @@ export const ImageRows: Story = {
             </ItemContent>
             {index < 3 ? (
               <ItemActions>
-                <ChevronRightIcon className="size-[11px]" />
+                <AngleRightIcon className="size-[11px]" />
               </ItemActions>
             ) : null}
           </Item>

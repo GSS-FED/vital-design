@@ -33,6 +33,64 @@ export const ${variables.componentName} = (props: SVGProps<SVGSVGElement>) => (
 `;
 };
 
+type PaintNode = {
+  name: string;
+  attributes: Record<string, string>;
+};
+
+// Root <svg> stays a container: fill is none, stroke color is dropped.
+// A shared child stroke-width is hoisted onto the root so one strokeWidth
+// prop changes the whole icon. linecap / linejoin stay where the source put them.
+// Child paint attributes are rewritten in place; missing ones are not added.
+const normalizeIconPaint = {
+  name: 'normalizeIconPaint',
+  fn: () => {
+    const childStrokeWidths: PaintNode[] = [];
+    return {
+      element: {
+        enter: (node: PaintNode) => {
+          if (node.name === 'svg') {
+            childStrokeWidths.length = 0;
+            node.attributes.fill = 'none';
+            delete node.attributes.stroke;
+            return;
+          }
+          if (node.attributes.fill != null) {
+            node.attributes.fill = 'currentColor';
+          }
+          if (node.attributes.stroke != null) {
+            node.attributes.stroke = 'currentColor';
+          }
+          if (node.attributes['stroke-width'] != null) {
+            childStrokeWidths.push(node);
+          }
+        },
+        exit: (node: PaintNode) => {
+          if (node.name !== 'svg' || childStrokeWidths.length === 0) {
+            return;
+          }
+          const widths = new Set(
+            childStrokeWidths.map(
+              (child) => child.attributes['stroke-width'],
+            ),
+          );
+          if (widths.size !== 1) {
+            console.warn(
+              `Keep per-shape stroke-width; values differ: ${[...widths].join(', ')}`,
+            );
+            return;
+          }
+          const width = [...widths][0];
+          for (const child of childStrokeWidths) {
+            delete child.attributes['stroke-width'];
+          }
+          node.attributes['stroke-width'] = width;
+        },
+      },
+    };
+  },
+};
+
 const svgrConfig: Config = {
   jsxRuntime: 'automatic',
   typescript: true,
@@ -42,25 +100,20 @@ const svgrConfig: Config = {
   svgProps: {
     width: '1em',
     height: '1em',
-    fill: 'currentColor',
+    fill: 'none',
     'aria-hidden': 'true',
-  },
-  replaceAttrValues: {
-    '#000': 'currentColor',
-    '#000000': 'currentColor',
-    black: 'currentColor',
-    '#fff': 'currentColor',
-    '#ffffff': 'currentColor',
-    white: 'currentColor',
   },
   svgoConfig: {
     multipass: true,
     plugins: [
+      // Rewrite paint before preset-default. The preset drops a child
+      // fill="none" when it matches the root, which would leave nothing
+      // for this plugin to turn into currentColor.
+      normalizeIconPaint,
       {
         name: 'preset-default',
         params: {
           overrides: {
-            removeViewBox: false,
             mergePaths: false,
             removeUselessStrokeAndFill: false,
             convertPathData: false,
@@ -71,10 +124,6 @@ const svgrConfig: Config = {
       {
         name: 'removeAttrs',
         params: { attrs: ['data-.*', '(class|id)'] },
-      },
-      {
-        name: 'removeAttrs',
-        params: { attrs: '.*:fill:(?!currentColor|none).+' },
       },
     ],
   },
@@ -101,30 +150,18 @@ async function listSources(): Promise<Entry[]> {
   return entries;
 }
 
-function isStrokeSource(svg: string): boolean {
-  const openTag = svg.match(/<svg\b[^>]*>/i)?.[0] ?? '';
-  return (
-    /\bfill="none"/i.test(openTag) &&
-    /\bstroke(?:-width)?=/i.test(openTag)
-  );
-}
-
-async function generateIcon(entry: Entry): Promise<string> {
+async function generateIcon(entry: Entry): Promise<Entry | null> {
   const svg = await readFile(entry.svgPath, 'utf8');
-  const stroke = isStrokeSource(svg);
-  const config: Config = {
-    ...svgrConfig,
-    svgProps: {
-      ...svgrConfig.svgProps,
-      fill: stroke ? 'none' : 'currentColor',
-    },
-  };
-  const tsx = await transform(svg, config, {
+  if (svg.trim() === '') {
+    console.warn(`Skip empty SVG ${relative(ROOT, entry.svgPath)}`);
+    return null;
+  }
+  const tsx = await transform(svg, svgrConfig, {
     componentName: entry.component,
   });
   const outPath = join(OUT_DIR, `${entry.component}.tsx`);
   await writeFile(outPath, tsx, 'utf8');
-  return relative(ROOT, outPath);
+  return entry;
 }
 
 async function writeBarrels(entries: Entry[]) {
@@ -147,10 +184,14 @@ async function main() {
     console.error('No SVG sources found in', SOURCE_DIR);
     process.exit(1);
   }
-  const written = await Promise.all(entries.map(generateIcon));
-  await writeBarrels(entries);
-  console.log(`Generated ${written.length} icons:`);
-  for (const path of written) console.log(`  ${path}`);
+  const generated = (
+    await Promise.all(entries.map(generateIcon))
+  ).filter((entry): entry is Entry => entry != null);
+  await writeBarrels(generated);
+  console.log(`Generated ${generated.length} icons:`);
+  for (const entry of generated) {
+    console.log(`  src-v2/icons/${entry.component}.tsx`);
+  }
   console.log(`  src-v2/icons/index.tsx`);
 }
 

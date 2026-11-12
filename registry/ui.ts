@@ -538,7 +538,7 @@ export const ui = [
     dependencies: ['cmdk', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/icon-chevron-left',
+      '@vital-design/icon-angle-left',
       '@vital-design/icon-search',
       '@vital-design/spinner',
       '@vital-design/vital-theme',
@@ -615,7 +615,7 @@ export const ui = [
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-check',
-      '@vital-design/icon-chevron-right',
+      '@vital-design/icon-angle-right',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -731,11 +731,11 @@ export const ui = [
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/popover',
-      '@vital-design/icon-chevron-double-left',
-      '@vital-design/icon-chevron-double-right',
+      '@vital-design/icon-angles-left',
+      '@vital-design/icon-angles-right',
       '@vital-design/icon-chevron-down',
-      '@vital-design/icon-chevron-left',
-      '@vital-design/icon-chevron-right',
+      '@vital-design/icon-angle-left',
+      '@vital-design/icon-angle-right',
       '@vital-design/vital-theme',
     ],
     files: [

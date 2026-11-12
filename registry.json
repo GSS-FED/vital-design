@@ -357,53 +357,53 @@
       ]
     },
     {
-      "name": "icon-chevron-left",
+      "name": "icon-angle-left",
       "type": "registry:ui",
-      "title": "Chevron Left Icon",
-      "description": "Chevron Left Icon component",
+      "title": "Angle Left Icon",
+      "description": "Angle Left Icon component",
       "files": [
         {
-          "path": "src-v2/icons/ChevronLeftIcon.tsx",
-          "target": "src/components/icons/ChevronLeftIcon.tsx",
+          "path": "src-v2/icons/AngleLeftIcon.tsx",
+          "target": "src/components/icons/AngleLeftIcon.tsx",
           "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "icon-chevron-right",
+      "name": "icon-angle-right",
       "type": "registry:ui",
-      "title": "Chevron Right Icon",
-      "description": "Chevron Right Icon component",
+      "title": "Angle Right Icon",
+      "description": "Angle Right Icon component",
       "files": [
         {
-          "path": "src-v2/icons/ChevronRightIcon.tsx",
-          "target": "src/components/icons/ChevronRightIcon.tsx",
+          "path": "src-v2/icons/AngleRightIcon.tsx",
+          "target": "src/components/icons/AngleRightIcon.tsx",
           "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "icon-chevron-double-left",
+      "name": "icon-angles-left",
       "type": "registry:ui",
-      "title": "Chevron Double Left Icon",
-      "description": "Chevron Double Left Icon component",
+      "title": "Angles Left Icon",
+      "description": "Angles Left Icon component",
       "files": [
         {
-          "path": "src-v2/icons/ChevronDoubleLeftIcon.tsx",
-          "target": "src/components/icons/ChevronDoubleLeftIcon.tsx",
+          "path": "src-v2/icons/AnglesLeftIcon.tsx",
+          "target": "src/components/icons/AnglesLeftIcon.tsx",
           "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "icon-chevron-double-right",
+      "name": "icon-angles-right",
       "type": "registry:ui",
-      "title": "Chevron Double Right Icon",
-      "description": "Chevron Double Right Icon component",
+      "title": "Angles Right Icon",
+      "description": "Angles Right Icon component",
       "files": [
         {
-          "path": "src-v2/icons/ChevronDoubleRightIcon.tsx",
-          "target": "src/components/icons/ChevronDoubleRightIcon.tsx",
+          "path": "src-v2/icons/AnglesRightIcon.tsx",
+          "target": "src/components/icons/AnglesRightIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -671,23 +671,23 @@
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/ChevronLeftIcon.tsx",
-          "target": "src/components/icons/ChevronLeftIcon.tsx",
+          "path": "src-v2/icons/AngleLeftIcon.tsx",
+          "target": "src/components/icons/AngleLeftIcon.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/ChevronRightIcon.tsx",
-          "target": "src/components/icons/ChevronRightIcon.tsx",
+          "path": "src-v2/icons/AngleRightIcon.tsx",
+          "target": "src/components/icons/AngleRightIcon.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/ChevronDoubleLeftIcon.tsx",
-          "target": "src/components/icons/ChevronDoubleLeftIcon.tsx",
+          "path": "src-v2/icons/AnglesLeftIcon.tsx",
+          "target": "src/components/icons/AnglesLeftIcon.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/ChevronDoubleRightIcon.tsx",
-          "target": "src/components/icons/ChevronDoubleRightIcon.tsx",
+          "path": "src-v2/icons/AnglesRightIcon.tsx",
+          "target": "src/components/icons/AnglesRightIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -1389,7 +1389,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-chevron-left",
+        "@vital-design/icon-angle-left",
         "@vital-design/icon-search",
         "@vital-design/spinner",
         "@vital-design/vital-theme"
@@ -1474,7 +1474,7 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-check",
-        "@vital-design/icon-chevron-right",
+        "@vital-design/icon-angle-right",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1599,11 +1599,11 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/popover",
-        "@vital-design/icon-chevron-double-left",
-        "@vital-design/icon-chevron-double-right",
+        "@vital-design/icon-angles-left",
+        "@vital-design/icon-angles-right",
         "@vital-design/icon-chevron-down",
-        "@vital-design/icon-chevron-left",
-        "@vital-design/icon-chevron-right",
+        "@vital-design/icon-angle-left",
+        "@vital-design/icon-angle-right",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -2186,7 +2186,7 @@
         "@vital-design/dropdown-menu",
         "@vital-design/icon-calendar",
         "@vital-design/icon-check",
-        "@vital-design/icon-chevron-right",
+        "@vital-design/icon-angle-right",
         "@vital-design/icon-flag",
         "@vital-design/icon-panel-left",
         "@vital-design/icon-search",

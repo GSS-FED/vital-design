@@ -32,9 +32,9 @@ import {
   SidebarTrigger,
   useSidebar,
 } from '@/components/sidebar/Sidebar';
+import { AngleRightIcon } from '@/icons/AngleRightIcon';
 import { CalendarIcon } from '@/icons/CalendarIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
-import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
 import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
 import { SearchIcon } from '@/icons/SearchIcon';
@@ -312,7 +312,7 @@ function NavMain() {
                           {item.icon}
                           <span>{item.title}</span>
                           <span className="ml-auto shrink-0 group-data-[collapsible=icon]:hidden">
-                            <ChevronRightIcon
+                            <AngleRightIcon
                               data-icon="inline-end"
                               className="size-3 text-grayscale-700 transition-transform duration-150"
                             />

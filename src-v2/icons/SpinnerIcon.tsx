@@ -3,10 +3,10 @@ import type { SVGProps } from 'react';
 export const SpinnerIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
+    fill="none"
     viewBox="0 0 50 50"
     width="1em"
     height="1em"
-    fill="currentColor"
     aria-hidden="true"
     {...props}
   >

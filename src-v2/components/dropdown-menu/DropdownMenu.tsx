@@ -1,5 +1,5 @@
+import { AngleRightIcon } from '@/icons/AngleRightIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
-import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
 import { cn } from '@/lib/utils';
 import { Menu as BaseMenu } from '@base-ui/react/menu';
 import type {
@@ -205,7 +205,7 @@ const DropdownMenuSubTrigger = function DropdownMenuSubTrigger({
       {...props}
     >
       {children}
-      <ChevronRightIcon
+      <AngleRightIcon
         aria-hidden="true"
         className="ml-auto text-grayscale-opacity-500"
       />
