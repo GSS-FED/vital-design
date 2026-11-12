@@ -143,9 +143,14 @@ export const base = [
     cssVars: vitalThemeCssVars,
     css: {
       '@custom-variant not-disabled (&:not(:disabled))': {},
+      '@custom-variant dark (&:is(.dark *))': {},
       '@layer base': {
         '*, *::before, *::after': {
           'box-sizing': 'border-box',
+        },
+        '.dark': {
+          'background-color': 'var(--background)',
+          color: 'var(--foreground)',
         },
       },
     },
