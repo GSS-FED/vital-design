@@ -45,6 +45,8 @@ Registry 安裝會把 Vittal Design 的設計變數做成 CSS custom properties 
 <p class="text-grayscale-opacity-900">...</p>
 ```
 
+同一組變數的暗色值裝在 `.dark` 底下。在 `<html>` 加上 `class="dark"` 就會切換。theme 不會跟著 `prefers-color-scheme`。安裝時也會加上 `@custom-variant dark (&:is(.dark *));`，讓 `dark:` utility 使用這個 class。紙面用 `bg-background`。`bg-white` 和 `text-white` 維持白色。請看[顏色 → 暗色模式](/zh-tw/docs/design-tokens/colors#dark-mode)。
+
 ## PostCSS 設定
 
 Tailwind CSS 4 需要 `@tailwindcss/postcss`。建立或更新 `postcss.config.js`（或依專案使用 `postcss.config.cjs`）：

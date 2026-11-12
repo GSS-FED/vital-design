@@ -29,7 +29,7 @@ import {
 
 ## 概覽
 
-Vittal Design 的語意層沿用 [shadcn/ui](https://ui.shadcn.com/docs/theming) 的命名。顏色定義在 `tokens/`（Style Dictionary），建置成 `src-v2/styles/tokens/generated.css` 裡 `:root` 上的 CSS custom properties，再經 `@theme inline`（`--color-*`）交給 Tailwind。
+Vittal Design 的語意層沿用 [shadcn/ui](https://ui.shadcn.com/docs/theming) 的命名。顏色定義在 `tokens/`（Style Dictionary），建置成 `src-v2/styles/tokens/generated.css` 裡 `:root` 上的 CSS custom properties，暗色值寫在 `.dark`，再經 `@theme inline`（`--color-*`）交給 Tailwind。
 
 ```ts
 // 3 layers, generated from tokens/*.json by Style Dictionary
@@ -39,6 +39,14 @@ primitive  →  semantic  →  component
 - **Primitive 色階**（`--primary-50…900`、`--grayscale-100…900`、`--grayscale-opacity-100…900`、`--success-100…900` 等）是內部基礎。圖表、插圖，或需要指定某一階色調時再用。Tailwind utility：`bg-primary-500`、`text-grayscale-700`。
 - **語意 token**（`--background`、`--primary`、`--card`、`--destructive` 等）是公開 API。它們描述用途，並搭配 `-foreground`，讓表面上的內容看得清楚。Tailwind utility：`bg-primary text-primary-foreground`。
 - **元件 token**（`--avatar-*-fg`、`--tag-*-solid`）是特定元件使用的封閉色盤。
+
+## 暗色模式 [#dark-mode]
+
+在祖先元素加上 `class="dark"`，通常是 `<html>`。使用 [next-themes](https://github.com/pacocoursey/next-themes) 時設定 `attribute="class"`。theme 不會跟著 `prefers-color-scheme` 切換。重新安裝 `@vital-design/vital-theme`，`cssVars.dark` 才會寫進應用的樣式表。
+
+`tokens/dark/colors.json` 覆寫既有的 primitive 色階，以及紙面 token `background`、`card`、`popover`（`#232327`）。引用這些 primitive 的語意 token（`primary` → `primary.500`、`foreground` → `grayscale-opacity.900`）會用暗色 primitive 重算。沒有暗色值的 token 維持亮色值：寫死白色的 `*-foreground`、`input`、`grayscale-opacity-150`，以及 avatar 與 tag 色盤。
+
+`.dark` 的祖先元素會套用 `background` 和 `foreground`，所以放在頁面上的文字會用暗色文字色。元件的紙面用 `bg-background`，讀的是同一個變數。`bg-white` 仍是 Tailwind 固定的白色，只用在必須保持白色的標記，例如開關、滑桿和單選的圓點。`text-white` 與 `bg-white/80` 這類透明度寫法也維持白色。
 
 ## Primary
 

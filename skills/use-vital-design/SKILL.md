@@ -28,6 +28,8 @@ Guide for assembling Vital Design in a **consumer** app (copied registry compone
 
 3. **Token color & Button props.** Layout/chrome uses token utilities (`bg-primary-500`, `text-grayscale-opacity-900`, `border-grayscale-opacity-200`) merged with `cn(...)`. `Button` / `LinkButton` / `SplitButton` color is `theme` (`'primary' | 'default' | 'success' | 'info' | 'warning' | 'alarm' | 'dangerous'`), `variant` is `'default' | 'text' | 'ghost'` (`text` and `ghost` do not accept `dangerous`; use `alarm`), and `size` is `'md' | 'lg' | 'icon-md' | 'icon-lg'`. Ghost without `theme` is primary; pass `theme="default"` for a quiet neutral action.
 
+   Dark mode uses the same custom properties. Put `class="dark"` on `<html>` (`next-themes` `attribute="class"`). Do not switch these tokens with `prefers-color-scheme`. Reinstall `@vital-design/vital-theme` to pick up `cssVars.dark`. Paper surfaces use `bg-background`. `bg-white`, `text-white`, and opacity forms such as `bg-white/80` stay white.
+
 ## Workflow
 
 ### 1. Host
