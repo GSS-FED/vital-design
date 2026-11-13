@@ -3,7 +3,7 @@ import type { SVGProps } from 'react';
 export const MinusIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    fill="none"
+    fill="currentColor"
     viewBox="0 0 10 3"
     width="1em"
     height="1em"

@@ -38,35 +38,87 @@ type PaintNode = {
   attributes: Record<string, string>;
 };
 
-// Root <svg> stays a container: fill is none, stroke color is dropped.
-// A shared child stroke-width is hoisted onto the root so one strokeWidth
-// prop changes the whole icon. linecap / linejoin stay where the source put them.
-// Child paint attributes are rewritten in place; missing ones are not added.
+const isPaint = (value: string | undefined) =>
+  value != null && value !== 'none' && !value.startsWith('url(');
+
+// Every painted colour becomes currentColor; "none" stays "none", so outline
+// shapes keep their empty fill. The root fill defaults to currentColor (SVG's
+// default fill is black), so sources with unpainted shapes still render.
+// When every stroked child carries the same stroke-width (Figma exports), it is
+// hoisted onto the root so one strokeWidth prop changes the whole icon.
+// linecap / linejoin stay where the source put them.
+// A shape with no fill or stroke of its own or from an ancestor would render
+// blank (e.g. a Figma export whose colour was stripped), so it fails the build.
+const SHAPES = new Set([
+  'path',
+  'circle',
+  'ellipse',
+  'line',
+  'polygon',
+  'polyline',
+  'rect',
+]);
+
 const normalizeIconPaint = {
   name: 'normalizeIconPaint',
   fn: () => {
     const childStrokeWidths: PaintNode[] = [];
+    let rootStrokes = false;
+    let strokeWithoutWidth = false;
+    const painted = new WeakMap<object, boolean>();
     return {
       element: {
-        enter: (node: PaintNode) => {
+        enter: (node: PaintNode, parent: object) => {
+          const { attributes } = node;
+          painted.set(
+            node,
+            node.name === 'svg'
+              ? attributes.fill !== 'none' ||
+                  isPaint(attributes.stroke)
+              : isPaint(attributes.fill) ||
+                  isPaint(attributes.stroke) ||
+                  (painted.get(parent) ?? false),
+          );
+          if (SHAPES.has(node.name) && !painted.get(node)) {
+            throw new Error(`<${node.name}> has no fill or stroke`);
+          }
           if (node.name === 'svg') {
             childStrokeWidths.length = 0;
-            node.attributes.fill = 'none';
-            delete node.attributes.stroke;
+            rootStrokes =
+              isPaint(attributes.stroke) ||
+              attributes['stroke-width'] != null;
+            strokeWithoutWidth = false;
+            for (const attr of [
+              'preserveAspectRatio',
+              'overflow',
+              'style',
+            ]) {
+              delete attributes[attr];
+            }
+            if (attributes.fill !== 'none')
+              attributes.fill = 'currentColor';
+            if (isPaint(attributes.stroke))
+              attributes.stroke = 'currentColor';
             return;
           }
-          if (node.attributes.fill != null) {
-            node.attributes.fill = 'currentColor';
+          if (isPaint(attributes.fill))
+            attributes.fill = 'currentColor';
+          if (isPaint(attributes.stroke)) {
+            attributes.stroke = 'currentColor';
+            if (attributes['stroke-width'] == null)
+              strokeWithoutWidth = true;
           }
-          if (node.attributes.stroke != null) {
-            node.attributes.stroke = 'currentColor';
-          }
-          if (node.attributes['stroke-width'] != null) {
+          if (attributes['stroke-width'] != null) {
             childStrokeWidths.push(node);
           }
         },
         exit: (node: PaintNode) => {
-          if (node.name !== 'svg' || childStrokeWidths.length === 0) {
+          if (
+            node.name !== 'svg' ||
+            childStrokeWidths.length === 0 ||
+            rootStrokes ||
+            strokeWithoutWidth
+          ) {
             return;
           }
           const widths = new Set(
@@ -100,15 +152,13 @@ const svgrConfig: Config = {
   svgProps: {
     width: '1em',
     height: '1em',
-    fill: 'none',
     'aria-hidden': 'true',
   },
   svgoConfig: {
     multipass: true,
     plugins: [
-      // Rewrite paint before preset-default. The preset drops a child
-      // fill="none" when it matches the root, which would leave nothing
-      // for this plugin to turn into currentColor.
+      // Rewrite paint before preset-default, which may drop or merge the
+      // source's paint attributes before this plugin sees them.
       normalizeIconPaint,
       {
         name: 'preset-default',
@@ -158,6 +208,10 @@ async function generateIcon(entry: Entry): Promise<Entry | null> {
   }
   const tsx = await transform(svg, svgrConfig, {
     componentName: entry.component,
+  }).catch((error: Error) => {
+    throw new Error(
+      `${relative(ROOT, entry.svgPath)}: ${error.message}`,
+    );
   });
   const outPath = join(OUT_DIR, `${entry.component}.tsx`);
   await writeFile(outPath, tsx, 'utf8');
