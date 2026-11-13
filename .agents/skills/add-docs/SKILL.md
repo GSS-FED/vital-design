@@ -1,6 +1,6 @@
 ---
 name: add-docs
-description: "Creates or updates a Fumadocs documentation page, interactive preview component, navigation metadata, and changelog entry for a Vital Design component or block. Use when asked to write or add documentation for a component or block (e.g. '幫 Button 補文件', 'add docs for X', 'write docs page for X', '建立 Switch 的 docs 頁面', '/add-docs <name>'). Do not use for creating the component itself — use new-component or create-block instead."
+description: "Creates or updates a Fumadocs documentation page, interactive preview component, navigation metadata, and changelog entry for a Vital Design component or block. Use when asked to write or add documentation for a component or block, or to add or change an example on an existing docs page (e.g. '幫 Button 補文件', 'add docs for X', 'write docs page for X', '建立 Switch 的 docs 頁面', '幫 X 加一個範例', '/add-docs <name>'). Do not use for creating the component itself — use new-component or create-block instead."
 allowed-tools: Read, Write, Edit, Bash
 ---
 
@@ -52,6 +52,7 @@ allowed-tools: Read, Write, Edit, Bash
    - 路徑：`apps/docs/content/docs/components/<component-name>.mdx`
    - Block 頁放在家族資料夾，例如 `blocks/sidebar/cloud/<page>.mdx`；只有一個 block 時直接用 `blocks/<name>.mdx`（如 `blocks/data-table.mdx`）。頁面標題用短名（父層 meta.json 已帶家族名）。slug 不是 registry item 名稱時，在 `apps/docs/app/docs/[[...slug]]/page.tsx` 的 `REGISTRY_ITEM_BY_SLUG` 補上對應。
    - 參考：`mdx-template.mdx`（本目錄）與 `apps/docs/content/docs/components/chip.mdx`
+   - **主範例**：`Preview` 與 `Usage` 放預設的最佳實踐組合，讓人整段複製就能用（見下方「主範例」規則）
 
 6. **確認 meta.json**（如需調整排序）
    - `apps/docs/content/docs/components/meta.json`
@@ -77,6 +78,11 @@ allowed-tools: Read, Write, Edit, Bash
    ```
 
 ## 關鍵規則
+
+- **主範例 = 預設最佳實踐**：`Preview` 與 `Usage` 展示建議的完整組合，包含常搭配的其他元件與完整 import，複製貼上就能用。例：Breadcrumb 的主範例直接包含省略符號 + `DropdownMenu`，而不是只有連結。`Preview` 與 `Usage` 結構相同（preview 的連結用 `#` href）
+- **加範例時一併檢查主範例**：在既有頁面新增或修改 section 範例時，判斷這個模式是不是預設建議用法；是的話，同時更新 `Preview` 與 `Usage`。原本的 section 保留，負責說明細節與單獨片段
+- **主範例用到其他 registry 元件**：在 `Usage` 下方說明也要從 registry 加入（例：`dropdown-menu`）
+- **範例沿用元件樣式**：範例不要把元件的 class 複製到原生元素上（例：不要在 `<button>` 上重寫連結樣式）；用元件的 `render` prop 換元素，只補必要的 class
 
 - **`'use client'` 必填**：Preview 元件所在的 MDX 頁面是 RSC，不能傳 inline function（如 `onChange={() => {}}`），Preview 元件一定要加 `'use client'`
 - **page.tsx 兩處都要改**：import 區 + components 物件。只改一個會導致 MDX build error（`ComponentNamePreview is not defined`）
