@@ -140,7 +140,7 @@ import { Link } from 'react-router-dom';
 
 要讓人打開被收起的層級時，把 `BreadcrumbEllipsis` 放進 [`DropdownMenu`](/zh-tw/docs/components/dropdown-menu) 的觸發按鈕。
 
-`BreadcrumbEllipsis` 只做展示，所以觸發按鈕要有名稱，樣式比照麵包屑連結。每個被收起的層級用連結渲染。
+`BreadcrumbEllipsis` 只會念出「More」，所以觸發按鈕要有說明用途的名稱，樣式比照麵包屑連結。每個被收起的層級用連結渲染。
 
 <ComponentPreview>
   <Breadcrumb>
@@ -156,7 +156,7 @@ import { Link } from 'react-router-dom';
               <button
                 type="button"
                 aria-label="顯示隱藏的頁面"
-                className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-500 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-500"
+                className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-400 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-400"
               >
                 <BreadcrumbEllipsis className="text-inherit" />
               </button>
@@ -199,7 +199,7 @@ import {
         <button
           type="button"
           aria-label="顯示隱藏的頁面"
-          className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-500 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-500"
+          className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-400 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-400"
         >
           <BreadcrumbEllipsis className="text-inherit" />
         </button>

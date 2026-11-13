@@ -140,7 +140,7 @@ Use `BreadcrumbEllipsis` in place of the levels you hide on a deep path.
 
 Put `BreadcrumbEllipsis` inside a [`DropdownMenu`](/docs/components/dropdown-menu) trigger to open the levels you hid.
 
-`BreadcrumbEllipsis` is presentational, so name the trigger button. Style that button like a breadcrumb link, and render each hidden level as a link.
+`BreadcrumbEllipsis` only announces "More", so give the trigger button a name that says what it opens. Style that button like a breadcrumb link, and render each hidden level as a link.
 
 <ComponentPreview>
   <Breadcrumb>
@@ -156,7 +156,7 @@ Put `BreadcrumbEllipsis` inside a [`DropdownMenu`](/docs/components/dropdown-men
               <button
                 type="button"
                 aria-label="Show hidden pages"
-                className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-500 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-500"
+                className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-400 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-400"
               >
                 <BreadcrumbEllipsis className="text-inherit" />
               </button>
@@ -199,7 +199,7 @@ import {
         <button
           type="button"
           aria-label="Show hidden pages"
-          className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-500 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-500"
+          className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-400 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-400"
         >
           <BreadcrumbEllipsis className="text-inherit" />
         </button>

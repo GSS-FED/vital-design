@@ -35,8 +35,8 @@ const breadcrumbListVariants = cva(
   {
     variants: {
       size: {
-        sm: 'text-sm leading-5 font-normal [&_[data-slot=breadcrumb-separator]>svg]:size-3.5',
-        lg: 'text-xl leading-8 font-medium [&_[data-slot=breadcrumb-separator]>svg]:size-4',
+        sm: 'text-sm leading-5 font-normal',
+        lg: 'text-xl leading-8 font-medium [&_[data-slot=breadcrumb-separator]]:w-6',
       },
     },
     defaultVariants: {
@@ -108,7 +108,7 @@ const BreadcrumbLink = function BreadcrumbLink({
       {
         className: cn(
           'cursor-pointer rounded-xs text-grayscale-500 outline-none transition-colors duration-200',
-          'hover:text-primary-500',
+          'hover:text-primary-400',
           'focus-visible:shadow-focus-primary',
           className,
         ),
@@ -157,7 +157,7 @@ const BreadcrumbSeparator = function BreadcrumbSeparator({
       aria-hidden="true"
       data-slot="breadcrumb-separator"
       className={cn(
-        'inline-flex items-center justify-center text-grayscale-500 [&>svg]:size-3.5',
+        'inline-flex w-5 items-center justify-center text-grayscale-500 [&>svg]:size-2.75',
         className,
       )}
       {...props}
@@ -181,8 +181,6 @@ const BreadcrumbEllipsis = function BreadcrumbEllipsis({
   return (
     <span
       ref={ref}
-      role="presentation"
-      aria-hidden="true"
       data-slot="breadcrumb-ellipsis"
       className={cn(
         'inline-flex size-5 items-center justify-center text-grayscale-500 [&>svg]:size-3.5',

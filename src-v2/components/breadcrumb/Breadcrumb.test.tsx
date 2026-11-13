@@ -68,7 +68,7 @@ it('renders links as anchors with muted and hover styles', () => {
   expect(link).toHaveAttribute('data-slot', 'breadcrumb-link');
   expect(link).toHaveClass(
     'text-grayscale-500',
-    'hover:text-primary-500',
+    'hover:text-primary-400',
   );
 });
 
@@ -148,14 +148,19 @@ it('allows overriding the separator content', () => {
 });
 
 it('renders an ellipsis with an accessible label', () => {
-  render(<BreadcrumbEllipsis data-testid="ellipsis" />);
+  render(
+    <button type="button">
+      <BreadcrumbEllipsis data-testid="ellipsis" />
+    </button>,
+  );
 
-  const ellipsis = screen.getByTestId('ellipsis');
-  expect(ellipsis).toHaveAttribute(
+  expect(screen.getByTestId('ellipsis')).toHaveAttribute(
     'data-slot',
     'breadcrumb-ellipsis',
   );
-  expect(ellipsis).toHaveAttribute('aria-hidden', 'true');
+  expect(
+    screen.getByRole('button', { name: 'More' }),
+  ).toBeInTheDocument();
   expect(screen.getByText('More')).toHaveClass('sr-only');
 });
 

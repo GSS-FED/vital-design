@@ -166,7 +166,7 @@ export const Dropdown: Story = {
                 <button
                   type="button"
                   aria-label="顯示隱藏的頁面"
-                  className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-500 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-500"
+                  className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-400 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-400"
                 >
                   <BreadcrumbEllipsis className="text-inherit" />
                 </button>
