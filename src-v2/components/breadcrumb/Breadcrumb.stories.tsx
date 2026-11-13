@@ -1,5 +1,11 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '../dropdown-menu/DropdownMenu';
+import {
   Breadcrumb,
   BreadcrumbEllipsis,
   BreadcrumbItem,
@@ -135,6 +141,46 @@ export const Collapsed: Story = {
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink href="#">Layer 3</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbPage>Layer 4</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+  ),
+};
+
+export const Dropdown: Story = {
+  render: ({ size }) => (
+    <Breadcrumb>
+      <BreadcrumbList size={size}>
+        <BreadcrumbItem>
+          <BreadcrumbLink href="#">頁面</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={
+                <button
+                  type="button"
+                  aria-label="顯示隱藏的頁面"
+                  className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-500 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-500"
+                >
+                  <BreadcrumbEllipsis className="text-inherit" />
+                </button>
+              }
+            />
+            <DropdownMenuContent align="start" sideOffset={10}>
+              <DropdownMenuItem render={<a href="#layer-2" />}>
+                Layer 2
+              </DropdownMenuItem>
+              <DropdownMenuItem render={<a href="#layer-3" />}>
+                Layer 3
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
