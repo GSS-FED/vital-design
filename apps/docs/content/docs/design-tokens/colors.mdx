@@ -60,13 +60,13 @@ Add `class="dark"` to an ancestor, usually `<html>`. With
 `prefers-color-scheme`. Reinstall `@vital-design/vital-theme` so
 `cssVars.dark` is written into the app stylesheet.
 
-`tokens/dark/colors.json` overrides existing primitive colors, and
-the paper tokens `background`, `card`, and `popover` (`#232327`).
+`tokens/dark/colors.json` overrides existing primitive colors,
+`border` (`#444447`), and the paper tokens `background`, `card`, and `popover` (`#232327`).
 A semantic token that aliases one of those primitives
 (`primary` → `primary.500`, `foreground` → `grayscale-opacity.900`)
 is rebuilt from the dark primitive. Tokens with no dark entry keep
-the light value: literal `*-foreground` whites, `input`,
-`grayscale-opacity-150`, and the avatar and tag palettes.
+the light value: literal `*-foreground` whites, `input`, and the
+avatar and tag palettes.
 
 The `.dark` ancestor paints `background` and `foreground`, so text
 that sits on the page uses the dark ink. Component paper uses

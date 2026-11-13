@@ -132,7 +132,7 @@ const PopoverArrow = function PopoverArrow({
     <BasePopover.Arrow
       ref={ref}
       data-slot="popover-arrow"
-      className={cn('text-white', className)}
+      className={cn('text-background', className)}
       {...props}
     />
   );

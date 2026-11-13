@@ -231,6 +231,7 @@ export const vitalThemeCssVars = {
     'grayscale-800': '#DEDEDF',
     'grayscale-900': '#FFFFFF',
     'grayscale-opacity-100': 'rgba(255, 255, 255, 0.03)',
+    'grayscale-opacity-150': 'rgba(255, 255, 255, 0.05)',
     'grayscale-opacity-200': 'rgba(255, 255, 255, 0.08)',
     'grayscale-opacity-300': 'rgba(255, 255, 255, 0.15)',
     'grayscale-opacity-400': 'rgba(255, 255, 255, 0.25)',

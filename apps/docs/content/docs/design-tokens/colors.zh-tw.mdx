@@ -44,7 +44,7 @@ primitive  →  semantic  →  component
 
 在祖先元素加上 `class="dark"`，通常是 `<html>`。使用 [next-themes](https://github.com/pacocoursey/next-themes) 時設定 `attribute="class"`。theme 不會跟著 `prefers-color-scheme` 切換。重新安裝 `@vital-design/vital-theme`，`cssVars.dark` 才會寫進應用的樣式表。
 
-`tokens/dark/colors.json` 覆寫既有的 primitive 色階，以及紙面 token `background`、`card`、`popover`（`#232327`）。引用這些 primitive 的語意 token（`primary` → `primary.500`、`foreground` → `grayscale-opacity.900`）會用暗色 primitive 重算。沒有暗色值的 token 維持亮色值：寫死白色的 `*-foreground`、`input`、`grayscale-opacity-150`，以及 avatar 與 tag 色盤。
+`tokens/dark/colors.json` 覆寫既有的 primitive 色階，以及紙面 token `background`、`card`、`popover`（`#232327`）。引用這些 primitive 的語意 token（`primary` → `primary.500`、`foreground` → `grayscale-opacity.900`）會用暗色 primitive 重算。沒有暗色值的 token 維持亮色值：寫死白色的 `*-foreground`、`input`，以及 avatar 與 tag 色盤。
 
 `.dark` 的祖先元素會套用 `background` 和 `foreground`，所以放在頁面上的文字會用暗色文字色。元件的紙面用 `bg-background`，讀的是同一個變數。`bg-white` 仍是 Tailwind 固定的白色，只用在必須保持白色的標記，例如開關、滑桿和單選的圓點。`text-white` 與 `bg-white/80` 這類透明度寫法也維持白色。
 

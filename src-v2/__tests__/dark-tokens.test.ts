@@ -33,6 +33,11 @@ describe('dark color tokens', () => {
     expect(dark.primary).toBe('#33CFFF');
     expect(dark['sidebar-accent']).toBe('#354151');
     expect(dark['text-tertiary']).toBe('rgba(255, 255, 255, 0.55)');
+    expect(dark['grayscale-opacity-150']).toBe(
+      'rgba(255, 255, 255, 0.05)',
+    );
+    expect(dark.border).toBe('rgba(255, 255, 255, 0.08)');
+    expect(dark['border-overlap']).toBe('#444447');
   });
 
   it('leaves tokens without a dark source on the light value', () => {
@@ -41,8 +46,6 @@ describe('dark color tokens', () => {
     expect(dark['success-500']).toBeUndefined();
     expect(dark['primary-foreground']).toBeUndefined();
     expect(dark.input).toBeUndefined();
-    expect(dark.border).toBeUndefined();
-    expect(dark['grayscale-opacity-150']).toBeUndefined();
     expect(dark['avatar-tiffany-fg']).toBeUndefined();
     expect(dark['tag-teal-solid']).toBeUndefined();
   });

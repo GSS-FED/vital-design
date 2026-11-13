@@ -548,7 +548,7 @@ const Arrow = function AutocompleteArrow({
     <BaseAutocomplete.Arrow
       ref={ref}
       data-slot="autocomplete-arrow"
-      className={cn('text-white', className)}
+      className={cn('text-background', className)}
       {...props}
     />
   );
