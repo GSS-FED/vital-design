@@ -53,7 +53,7 @@ export function TablePaginationPreview() {
       minHeight="min-h-0"
       className="overflow-x-auto"
     >
-      <div className="overflow-hidden rounded-md border border-grayscale-opacity-200">
+      <div className="w-full overflow-hidden rounded-md border border-grayscale-opacity-200">
         <Table>
           <TableHeader>
             <TableRow>
