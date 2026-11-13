@@ -1,5 +1,16 @@
-import { render, screen } from '@testing-library/react';
-import { expect, it } from 'vitest';
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
+import { expect, it, vi } from 'vitest';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '../dropdown-menu/DropdownMenu';
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -9,6 +20,14 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from './Breadcrumb';
+
+const ResizeObserverMock = vi.fn(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}));
+
+vi.stubGlobal('ResizeObserver', ResizeObserverMock);
 
 function renderBreadcrumb(size?: 'sm' | 'lg') {
   return render(
@@ -138,4 +157,53 @@ it('renders an ellipsis with an accessible label', () => {
   );
   expect(ellipsis).toHaveAttribute('aria-hidden', 'true');
   expect(screen.getByText('More')).toHaveClass('sr-only');
+});
+
+it('opens hidden levels from an ellipsis menu', async () => {
+  render(
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/projects">Projects</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={
+                <button type="button" aria-label="Show hidden pages">
+                  <BreadcrumbEllipsis />
+                </button>
+              }
+            />
+            <DropdownMenuContent>
+              <DropdownMenuItem render={<a href="/website" />}>
+                Website
+              </DropdownMenuItem>
+              <DropdownMenuItem render={<a href="/analytics" />}>
+                Analytics
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbPage>Settings</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>,
+  );
+
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Show hidden pages' }),
+  );
+
+  await waitFor(() => {
+    expect(
+      screen.getByRole('menuitem', { name: 'Website' }),
+    ).toHaveAttribute('href', '/website');
+  });
+  expect(
+    screen.getByRole('menuitem', { name: 'Analytics' }),
+  ).toHaveAttribute('href', '/analytics');
 });
