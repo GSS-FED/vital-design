@@ -351,7 +351,7 @@ export const TagPickerWithFooter: Story = {
               {visibleChips.map((item) => (
                 <span
                   key={item.value}
-                  className="inline-flex h-5 shrink-0 items-center rounded-full bg-grayscale-700 px-2.5 text-xs leading-5 text-white"
+                  className="inline-flex h-5 shrink-0 items-center rounded-full bg-grayscale-opacity-700 px-2.5 text-xs leading-5 text-background"
                 >
                   {item.label}
                 </span>
