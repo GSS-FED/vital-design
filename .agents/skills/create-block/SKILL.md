@@ -35,7 +35,8 @@ allowed-tools: Read, Write, Edit, Bash
 
 4. **依 block-template.tsx 結構** 寫入新的 block 檔案
 
-   - 位置：`src-v2/blocks/<block-name>/<BlockName>.tsx`
+   - 可安裝的檔案放 `src-v2/blocks/<block-name>/components/`（入口為 `<BlockName>.tsx`）
+   - stories、tests 放在 block 根目錄，不要放進 `components/`（registry 不會安裝它們）
    - Named export + Props type
    - 接受 `className?: string` 並透過 `cn()` 套用
 
@@ -48,8 +49,9 @@ allowed-tools: Read, Write, Edit, Bash
 
 ## 命名規則
 
-- 目錄：`src-v2/blocks/<block-name>/`（kebab-case）
-- 元件：`<BlockName>.tsx`（PascalCase）
+- 目錄：`src-v2/blocks/<block-name>/`（kebab-case），與 Sidebar、Data Table blocks 相同
+- 可安裝的檔案：`components/<BlockName>.tsx`（PascalCase）
+- Stories：`<BlockName>.stories.tsx`；tests：`<BlockName>.test.tsx`（都在 block 根目錄）
 - Export：`export function <BlockName>`（named export）
 
 ## Import 規則

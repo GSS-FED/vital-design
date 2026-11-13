@@ -1783,7 +1783,7 @@
       ]
     },
     {
-      "name": "data-table-group-01",
+      "name": "data-table-01",
       "type": "registry:block",
       "title": "Data Table — Candidate Tree",
       "description": "Grouped tree-style data table with selectable rows, column pinning, action bar, and filter dropdown",
@@ -1812,39 +1812,39 @@
       ],
       "files": [
         {
-          "path": "src-v2/blocks/data-table/data-table-group-01/DataTableGroup01.tsx",
-          "target": "src/blocks/data-table-group-01/DataTableGroup01.tsx",
+          "path": "src-v2/blocks/data-table-01/components/data-table.tsx",
+          "target": "src/blocks/data-table-01/data-table.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-01/action-bar.tsx",
-          "target": "src/blocks/data-table-group-01/action-bar.tsx",
+          "path": "src-v2/blocks/data-table-01/components/action-bar.tsx",
+          "target": "src/blocks/data-table-01/action-bar.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-01/columns.tsx",
-          "target": "src/blocks/data-table-group-01/columns.tsx",
+          "path": "src-v2/blocks/data-table-01/components/columns.tsx",
+          "target": "src/blocks/data-table-01/columns.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-01/data.ts",
-          "target": "src/blocks/data-table-group-01/data.ts",
+          "path": "src-v2/blocks/data-table-01/components/data.ts",
+          "target": "src/blocks/data-table-01/data.ts",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-01/pinning.ts",
-          "target": "src/blocks/data-table-group-01/pinning.ts",
+          "path": "src-v2/blocks/data-table-01/components/pinning.ts",
+          "target": "src/blocks/data-table-01/pinning.ts",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-01/resize-handle.tsx",
-          "target": "src/blocks/data-table-group-01/resize-handle.tsx",
+          "path": "src-v2/blocks/data-table-01/components/resize-handle.tsx",
+          "target": "src/blocks/data-table-01/resize-handle.tsx",
           "type": "registry:block"
         }
       ]
     },
     {
-      "name": "data-table-group-02",
+      "name": "data-table-02",
       "type": "registry:block",
       "title": "Data Table — ESG Emission Tree",
       "description": "Expandable tree data table with sticky rail, sortable headers, selection, action bar, and inline switch toggles",
@@ -1876,49 +1876,49 @@
       ],
       "files": [
         {
-          "path": "src-v2/blocks/data-table/data-table-group-02/DataTableGroup02.tsx",
-          "target": "src/blocks/data-table-group-02/DataTableGroup02.tsx",
+          "path": "src-v2/blocks/data-table-02/components/data-table.tsx",
+          "target": "src/blocks/data-table-02/data-table.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-02/action-bar.tsx",
-          "target": "src/blocks/data-table-group-02/action-bar.tsx",
+          "path": "src-v2/blocks/data-table-02/components/action-bar.tsx",
+          "target": "src/blocks/data-table-02/action-bar.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-02/columns.tsx",
-          "target": "src/blocks/data-table-group-02/columns.tsx",
+          "path": "src-v2/blocks/data-table-02/components/columns.tsx",
+          "target": "src/blocks/data-table-02/columns.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-02/data-table-column-header.tsx",
-          "target": "src/blocks/data-table-group-02/data-table-column-header.tsx",
+          "path": "src-v2/blocks/data-table-02/components/data-table-column-header.tsx",
+          "target": "src/blocks/data-table-02/data-table-column-header.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-02/data.ts",
-          "target": "src/blocks/data-table-group-02/data.ts",
+          "path": "src-v2/blocks/data-table-02/components/data.ts",
+          "target": "src/blocks/data-table-02/data.ts",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-02/pinning.ts",
-          "target": "src/blocks/data-table-group-02/pinning.ts",
+          "path": "src-v2/blocks/data-table-02/components/pinning.ts",
+          "target": "src/blocks/data-table-02/pinning.ts",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-02/resize-handle.tsx",
-          "target": "src/blocks/data-table-group-02/resize-handle.tsx",
+          "path": "src-v2/blocks/data-table-02/components/resize-handle.tsx",
+          "target": "src/blocks/data-table-02/resize-handle.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-02/table-rail.tsx",
-          "target": "src/blocks/data-table-group-02/table-rail.tsx",
+          "path": "src-v2/blocks/data-table-02/components/table-rail.tsx",
+          "target": "src/blocks/data-table-02/table-rail.tsx",
           "type": "registry:block"
         }
       ]
     },
     {
-      "name": "data-table-group-04",
+      "name": "data-table-03",
       "type": "registry:block",
       "title": "Data Table — Editable Cells",
       "description": "Editable data table with inline text cells, popover pickers, tag multi-select, and date selection",
@@ -1943,23 +1943,23 @@
       ],
       "files": [
         {
-          "path": "src-v2/blocks/data-table/data-table-group-04/DataTableGroup04.tsx",
-          "target": "src/blocks/data-table-group-04/DataTableGroup04.tsx",
+          "path": "src-v2/blocks/data-table-03/components/data-table.tsx",
+          "target": "src/blocks/data-table-03/data-table.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-04/columns.tsx",
-          "target": "src/blocks/data-table-group-04/columns.tsx",
+          "path": "src-v2/blocks/data-table-03/components/columns.tsx",
+          "target": "src/blocks/data-table-03/columns.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-04/data.ts",
-          "target": "src/blocks/data-table-group-04/data.ts",
+          "path": "src-v2/blocks/data-table-03/components/data.ts",
+          "target": "src/blocks/data-table-03/data.ts",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-04/popover-edit.tsx",
-          "target": "src/blocks/data-table-group-04/popover-edit.tsx",
+          "path": "src-v2/blocks/data-table-03/components/popover-edit.tsx",
+          "target": "src/blocks/data-table-03/popover-edit.tsx",
           "type": "registry:block"
         }
       ]

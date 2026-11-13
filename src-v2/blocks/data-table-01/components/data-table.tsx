@@ -245,7 +245,7 @@ const MemoCandidateGroupSection = memo(
   (_prev, next) => next.isResizing,
 );
 
-export interface DataTableGroup01Props {
+export interface DataTableProps {
   /**
    * `'onChange'` moves the columns under the pointer; `'onEnd'` holds them and
    * commits on release, with the guide line showing where the edge will land.
@@ -254,9 +254,9 @@ export interface DataTableGroup01Props {
   columnResizeMode?: ColumnResizeMode;
 }
 
-export function DataTableGroup01({
+export function DataTable({
   columnResizeMode = 'onChange',
-}: DataTableGroup01Props = {}) {
+}: DataTableProps = {}) {
   // `true` expands every row by default (vs `{}` which collapses all).
   const [expanded, setExpanded] = useState<ExpandedState>(true);
   const data = useMemo(

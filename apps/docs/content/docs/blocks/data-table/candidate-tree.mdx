@@ -1,15 +1,15 @@
 ---
-title: Data Table — Candidate Tree
+title: Candidate Tree
 description: Tree-style data table with grouped candidate rows, action bar, filter dropdown, and column pinning.
 ---
 
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import { DataTableGroup01 } from '~/components/vital-components';
+import { DataTable } from '~/components/vital-components';
 
 ## Preview
 
 <ComponentPreview centered={false}>
-  <DataTableGroup01 />
+  <DataTable />
 </ComponentPreview>
 
 ## Composition
@@ -22,14 +22,14 @@ This block is built on the following Vittal Design primitives:
 
 ## Files
 
-| File                   | Description                                         |
-| ---------------------- | --------------------------------------------------- |
-| `DataTableGroup01.tsx` | Block entry — wires columns, state, expand, pinning |
-| `action-bar.tsx`       | Search bar, filter buttons, more-actions dropdown   |
-| `columns.tsx`          | `ColumnDef` array with custom cells                 |
-| `data.ts`              | Sample candidate dataset + tree builder             |
-| `pinning.ts`           | Column sizing vars + left/right pinning style helpers |
-| `resize-handle.tsx`    | Draggable column resize handle with full-height guide |
+| File                | Description                                           |
+| ------------------- | ----------------------------------------------------- |
+| `data-table.tsx`    | Block entry — wires columns, state, expand, pinning   |
+| `action-bar.tsx`    | Search bar, filter buttons, more-actions dropdown     |
+| `columns.tsx`       | `ColumnDef` array with custom cells                   |
+| `data.ts`           | Sample candidate dataset + tree builder               |
+| `pinning.ts`        | Column sizing vars + left/right pinning style helpers |
+| `resize-handle.tsx` | Draggable column resize handle with full-height guide |
 
 ## Props
 
@@ -40,7 +40,7 @@ This block is built on the following Vittal Design primitives:
 ## Installation
 
 ```bash
-npx shadcn@latest add @vital-design/data-table-group-01
+npx shadcn@latest add @vital-design/data-table-01
 ```
 
-This installs the block under `src/blocks/data-table-group-01/` and pulls every required primitive automatically.
+This installs the block under `src/blocks/data-table-01/` and pulls every required primitive automatically.

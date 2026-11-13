@@ -21,7 +21,7 @@ allowed-tools: Read, Write, Edit, Bash
    ```
 
    Props 類型通常 inline 定義於 `.tsx` 檔頂部，並從該元件檔 export。
-   （若為 block：`src-v2/blocks/<block-name>/<BlockName>.tsx`）
+   （若為 block：`src-v2/blocks/<block-name>/components/<BlockName>.tsx`）
 
 2. **讀取現有 page.tsx** — 確認 import 格式與 components 物件結構
 
@@ -53,7 +53,8 @@ allowed-tools: Read, Write, Edit, Bash
 
 5. **建立 MDX 文件頁面**
 
-   - 路徑：`apps/docs/content/docs/components/<component-name>.mdx`（blocks 用 `blocks/`）
+   - 路徑：`apps/docs/content/docs/components/<component-name>.mdx`
+   - Block 頁放在家族資料夾，例如 `blocks/sidebar/cloud/<page>.mdx`、`blocks/data-table/<page>.mdx`。頁面標題用短名（父層 meta.json 已帶家族名）。slug 不是 registry item 名稱時，在 `apps/docs/app/docs/[[...slug]]/page.tsx` 的 `REGISTRY_ITEM_BY_SLUG` 補上對應。
    - 參考：`mdx-template.mdx`（本目錄）與 `apps/docs/content/docs/components/chip.mdx`
 
 6. **確認 meta.json**（如需調整排序）

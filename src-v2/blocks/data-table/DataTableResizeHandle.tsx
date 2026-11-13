@@ -47,7 +47,7 @@ function clampedGhostWidth(ghost: Ghost, clientX: number) {
  * scrollable overflow, and keeping it inside the `th` means a pinned column's
  * guide inherits that cell's sticky offset for free.
  *
- * A layout can repeat the header row per group (see `data-table-group-02`), and
+ * A layout can repeat the header row per group (see `data-table-02`), and
  * those later rows are sticky with a z-index, so a single segment drawn from
  * the grabbed handle gets painted over and the line comes out broken. Every
  * copy of the column therefore draws its own segment from its own row down to
@@ -55,7 +55,7 @@ function clampedGhostWidth(ghost: Ghost, clientX: number) {
  *
  * In `onEnd` mode the guide has to track the pointer, and it does so
  * imperatively: a layout may memoize its rows and freeze them for the drag
- * (`data-table-group-01` / `-02` do), which would freeze a React-driven ghost
+ * (`data-table-01` and `data-table-02` do), which would freeze a React-driven ghost
  * offset along with them and leave the drag with no feedback at all.
  */
 function startResizeGuide(
@@ -79,7 +79,7 @@ function startResizeGuide(
   // Sticky group-title rows sit above the header rows and would clip the
   // segments, so the cells hosting a guide are lifted for the drag and put back
   // afterwards. `RAISED_Z` clears the highest layer these layouts use (the
-  // group title at z-50 in `data-table-group-01`).
+  // group title at z-50 in `data-table-01`).
   const raised: { el: HTMLElement; zIndex: string }[] = [];
   const raise = (el: Element | null) => {
     if (!(el instanceof HTMLElement)) return;

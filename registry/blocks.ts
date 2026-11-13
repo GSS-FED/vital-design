@@ -1,7 +1,7 @@
 import type { VitalRegistryItem } from './types';
 
 const groupFile = (group: string, file: string) => ({
-  path: `src-v2/blocks/data-table/${group}/${file}`,
+  path: `src-v2/blocks/${group}/components/${file}`,
   target: `src/blocks/${group}/${file}`,
   type: 'registry:block' as const,
 });
@@ -21,7 +21,7 @@ const cloudSidebarFiles = (name: string) => [
 
 export const blocks: VitalRegistryItem[] = [
   {
-    name: 'data-table-group-01',
+    name: 'data-table-01',
     type: 'registry:block',
     title: 'Data Table — Candidate Tree',
     description:
@@ -45,16 +45,16 @@ export const blocks: VitalRegistryItem[] = [
       '@vital-design/vital-theme',
     ],
     files: [
-      groupFile('data-table-group-01', 'DataTableGroup01.tsx'),
-      groupFile('data-table-group-01', 'action-bar.tsx'),
-      groupFile('data-table-group-01', 'columns.tsx'),
-      groupFile('data-table-group-01', 'data.ts'),
-      groupFile('data-table-group-01', 'pinning.ts'),
-      groupFile('data-table-group-01', 'resize-handle.tsx'),
+      groupFile('data-table-01', 'data-table.tsx'),
+      groupFile('data-table-01', 'action-bar.tsx'),
+      groupFile('data-table-01', 'columns.tsx'),
+      groupFile('data-table-01', 'data.ts'),
+      groupFile('data-table-01', 'pinning.ts'),
+      groupFile('data-table-01', 'resize-handle.tsx'),
     ],
   },
   {
-    name: 'data-table-group-02',
+    name: 'data-table-02',
     type: 'registry:block',
     title: 'Data Table — ESG Emission Tree',
     description:
@@ -81,21 +81,18 @@ export const blocks: VitalRegistryItem[] = [
       '@vital-design/vital-theme',
     ],
     files: [
-      groupFile('data-table-group-02', 'DataTableGroup02.tsx'),
-      groupFile('data-table-group-02', 'action-bar.tsx'),
-      groupFile('data-table-group-02', 'columns.tsx'),
-      groupFile(
-        'data-table-group-02',
-        'data-table-column-header.tsx',
-      ),
-      groupFile('data-table-group-02', 'data.ts'),
-      groupFile('data-table-group-02', 'pinning.ts'),
-      groupFile('data-table-group-02', 'resize-handle.tsx'),
-      groupFile('data-table-group-02', 'table-rail.tsx'),
+      groupFile('data-table-02', 'data-table.tsx'),
+      groupFile('data-table-02', 'action-bar.tsx'),
+      groupFile('data-table-02', 'columns.tsx'),
+      groupFile('data-table-02', 'data-table-column-header.tsx'),
+      groupFile('data-table-02', 'data.ts'),
+      groupFile('data-table-02', 'pinning.ts'),
+      groupFile('data-table-02', 'resize-handle.tsx'),
+      groupFile('data-table-02', 'table-rail.tsx'),
     ],
   },
   {
-    name: 'data-table-group-04',
+    name: 'data-table-03',
     type: 'registry:block',
     title: 'Data Table — Editable Cells',
     description:
@@ -115,10 +112,10 @@ export const blocks: VitalRegistryItem[] = [
       '@vital-design/vital-theme',
     ],
     files: [
-      groupFile('data-table-group-04', 'DataTableGroup04.tsx'),
-      groupFile('data-table-group-04', 'columns.tsx'),
-      groupFile('data-table-group-04', 'data.ts'),
-      groupFile('data-table-group-04', 'popover-edit.tsx'),
+      groupFile('data-table-03', 'data-table.tsx'),
+      groupFile('data-table-03', 'columns.tsx'),
+      groupFile('data-table-03', 'data.ts'),
+      groupFile('data-table-03', 'popover-edit.tsx'),
     ],
   },
   {

@@ -9,6 +9,20 @@ That package is built from `src/` and stays available for existing apps. New wor
 
 Newest entries are at the top. Headings use the month the change shipped. We only record changes that affect how you install or use the registry — new components, breaking usage, tokens, and install steps.
 
+## November 2026 — Data table blocks
+
+The data table blocks now install as `@vital-design/data-table-01`, `@vital-design/data-table-02`, and `@vital-design/data-table-03`. Files land in `src/blocks/data-table-01/`, `src/blocks/data-table-02/`, and `src/blocks/data-table-03/`. Each entry file is `data-table.tsx` and exports `DataTable`.
+
+These ids are retired: `@vital-design/data-table-group-01`, `@vital-design/data-table-group-02`, and `@vital-design/data-table-group-04`. Reinstall the block you use, and update imports from `DataTableGroup01`, `DataTableGroup02`, or `DataTableGroup04`.
+
+```bash
+npx shadcn@latest add @vital-design/data-table-01
+npx shadcn@latest add @vital-design/data-table-02
+npx shadcn@latest add @vital-design/data-table-03
+```
+
+See [Candidate Tree](/docs/blocks/data-table/candidate-tree), [ESG Emission Tree](/docs/blocks/data-table/esg-emission-tree), and [Editable Cells](/docs/blocks/data-table/editable-cells).
+
 ## October 2026 — React 19
 
 The registry and the docs site are developed and tested on React 19. New projects should use React 19. See [Installation](/docs/getting-started/installation).
@@ -49,13 +63,13 @@ npx shadcn@latest add @vital-design/icon-caret-down
 
 ### Data tables
 
-[Data Table group 01](/docs/blocks/data-table-group-01) and [group 02](/docs/blocks/data-table-group-02) can resize columns. Drag the header edge. `columnResizeMode` defaults to `onChange`. Use `onEnd` on a wide table with many pinned columns so the columns stay put until you release.
+[Data Table — Candidate Tree](/docs/blocks/data-table/candidate-tree) and [ESG Emission Tree](/docs/blocks/data-table/esg-emission-tree) can resize columns. Drag the header edge. `columnResizeMode` defaults to `onChange`. Use `onEnd` on a wide table with many pinned columns so the columns stay put until you release.
 
 Reinstall both blocks. Group 02 also swaps its sort icon from chevron up to the caret pair, and drops `@vital-design/icon-chevron-up`. `@vital-design/icon-chevron-down` stays for the row rail. The sort label truncates so the caret stays visible when a column gets narrow.
 
 ```bash
-npx shadcn@latest add @vital-design/data-table-group-01
-npx shadcn@latest add @vital-design/data-table-group-02
+npx shadcn@latest add @vital-design/data-table-01
+npx shadcn@latest add @vital-design/data-table-02
 ```
 
 ## September 2026 — Registry on vittal.design
@@ -87,7 +101,7 @@ Registry URL: `https://vittal.design/r/{name}.json`
 ### Blocks
 
 - Cloud Sidebar: [flat](/docs/blocks/sidebar/cloud/flat), [inline submenus](/docs/blocks/sidebar/cloud/inline-submenus), [collapsible submenus](/docs/blocks/sidebar/cloud/collapsible-submenus), [dropdown submenus](/docs/blocks/sidebar/cloud/dropdown-submenus), [secondary nav](/docs/blocks/sidebar/cloud/secondary-nav), [header actions](/docs/blocks/sidebar/cloud/header-actions)
-- Data Table: [group 01](/docs/blocks/data-table-group-01), [group 02](/docs/blocks/data-table-group-02), [group 04](/docs/blocks/data-table-group-04)
+- Data Table: [candidate tree](/docs/blocks/data-table/candidate-tree), [ESG emission tree](/docs/blocks/data-table/esg-emission-tree), [editable cells](/docs/blocks/data-table/editable-cells)
 
 ### Tokens
 
