@@ -1,10 +1,10 @@
 ---
-title: Data Table — Editable Cells
+title: Editable Cells
 description: 可編輯的資料表，含行內文字儲存格、popover 選擇器、標籤多選與日期選擇。
 ---
 
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import { DataTableGroup04 } from '~/components/vital-components';
+import { DataTable03 as DataTable } from '~/components/vital-components';
 
 ## 預覽 [#preview]
 
@@ -13,7 +13,7 @@ import { DataTableGroup04 } from '~/components/vital-components';
   className="overflow-x-auto"
   minHeight="min-h-0"
 >
-  <DataTableGroup04 />
+  <DataTable />
 </ComponentPreview>
 
 ## 組合 [#composition]
@@ -47,17 +47,17 @@ import { DataTableGroup04 } from '~/components/vital-components';
 
 ## 檔案 [#files]
 
-| 檔案                   | 說明                                        |
-| ---------------------- | ------------------------------------------- |
-| `DataTableGroup04.tsx` | 區塊進入點——固定寬度的表格與列更新          |
-| `columns.tsx`          | 可編輯文字儲存格與 popover 儲存格的 renderer |
-| `data.ts`              | 範例排放列、人員與標籤選項                  |
-| `popover-edit.tsx`     | 人員、標籤與日期的 popover 編輯器           |
+| 檔案               | 說明                                         |
+| ------------------ | -------------------------------------------- |
+| `data-table.tsx`   | 區塊進入點——固定寬度的表格與列更新           |
+| `columns.tsx`      | 可編輯文字儲存格與 popover 儲存格的 renderer |
+| `data.ts`          | 範例排放列、人員與標籤選項                   |
+| `popover-edit.tsx` | 人員、標籤與日期的 popover 編輯器            |
 
 ## 安裝 [#installation]
 
 ```bash
-npx shadcn@latest add @vital-design/data-table-group-04
+npx shadcn@latest add @vital-design/data-table-03
 ```
 
-會把區塊安裝到 `src/blocks/data-table-group-04/`，並自動帶入需要的每個 primitive。
+會把區塊安裝到 `src/blocks/data-table-03/`，並自動帶入需要的每個 primitive。

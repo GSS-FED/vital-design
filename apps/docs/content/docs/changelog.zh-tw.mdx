@@ -9,6 +9,20 @@ description: Vittal Design registry、元件與文件裡，會影響安裝或用
 
 新的紀錄在上面。標題用變更上線的月份。只記會影響你怎麼安裝或使用 registry 的變更：新元件、破壞性用法、token，以及安裝步驟。
 
+## 2026 年 11 月 — 資料表格區塊
+
+資料表格區塊改為以 `@vital-design/data-table-01`、`@vital-design/data-table-02` 與 `@vital-design/data-table-03` 安裝。檔案放在 `src/blocks/data-table-01/`、`src/blocks/data-table-02/` 與 `src/blocks/data-table-03/`。每個區塊的進入點都是 `data-table.tsx`，export `DataTable`。
+
+以下 id 已停用：`@vital-design/data-table-group-01`、`@vital-design/data-table-group-02` 與 `@vital-design/data-table-group-04`。請重新安裝你用到的區塊，並更新從 `DataTableGroup01`、`DataTableGroup02` 或 `DataTableGroup04` 的 import。
+
+```bash
+npx shadcn@latest add @vital-design/data-table-01
+npx shadcn@latest add @vital-design/data-table-02
+npx shadcn@latest add @vital-design/data-table-03
+```
+
+見 [Candidate Tree](/zh-tw/docs/blocks/data-table/candidate-tree)、[ESG Emission Tree](/zh-tw/docs/blocks/data-table/esg-emission-tree) 與 [Editable Cells](/zh-tw/docs/blocks/data-table/editable-cells)。
+
 ## 2026 年 11 月 — 行動裝置上的 Dialog 與 Sheet 高度
 
 ### 元件
@@ -56,13 +70,13 @@ npx shadcn@latest add @vital-design/icon-caret-down
 
 ### 資料表格
 
-[Data Table group 01](/zh-tw/docs/blocks/data-table-group-01) 與 [group 02](/zh-tw/docs/blocks/data-table-group-02) 可以調整欄寬。拖曳標題邊緣。`columnResizeMode` 預設是 `onChange`。欄位很多、又有釘選欄的寬表，用 `onEnd`，放開才更新欄寬。
+[Data Table — Candidate Tree](/zh-tw/docs/blocks/data-table/candidate-tree) 與 [ESG Emission Tree](/zh-tw/docs/blocks/data-table/esg-emission-tree) 可以調整欄寬。拖曳標題邊緣。`columnResizeMode` 預設是 `onChange`。欄位很多、又有釘選欄的寬表，用 `onEnd`，放開才更新欄寬。
 
-兩個 block 都要重新安裝。Group 02 的排序圖示從 chevron up 換成這一對 caret，並移除 `@vital-design/icon-chevron-up`。`@vital-design/icon-chevron-down` 仍用於列的軌道。排序標籤會截斷，欄變窄時 caret 仍然看得到。
+兩個 block 都要重新安裝。ESG Emission Tree 的排序圖示從 chevron up 換成這一對 caret，並移除 `@vital-design/icon-chevron-up`。`@vital-design/icon-chevron-down` 仍用於列的軌道。排序標籤會截斷，欄變窄時 caret 仍然看得到。
 
 ```bash
-npx shadcn@latest add @vital-design/data-table-group-01
-npx shadcn@latest add @vital-design/data-table-group-02
+npx shadcn@latest add @vital-design/data-table-01
+npx shadcn@latest add @vital-design/data-table-02
 ```
 
 ## 2026 年 9 月 — Registry 上線 vittal.design
@@ -94,7 +108,7 @@ Registry URL：`https://vittal.design/r/{name}.json`
 ### 區塊
 
 - Cloud Sidebar：[flat](/zh-tw/docs/blocks/sidebar/cloud/flat)、[inline submenus](/zh-tw/docs/blocks/sidebar/cloud/inline-submenus)、[collapsible submenus](/zh-tw/docs/blocks/sidebar/cloud/collapsible-submenus)、[dropdown submenus](/zh-tw/docs/blocks/sidebar/cloud/dropdown-submenus)、[secondary nav](/zh-tw/docs/blocks/sidebar/cloud/secondary-nav)、[header actions](/zh-tw/docs/blocks/sidebar/cloud/header-actions)
-- Data Table：[group 01](/zh-tw/docs/blocks/data-table-group-01)、[group 02](/zh-tw/docs/blocks/data-table-group-02)、[group 04](/zh-tw/docs/blocks/data-table-group-04)
+- Data Table：[candidate tree](/zh-tw/docs/blocks/data-table/candidate-tree)、[ESG emission tree](/zh-tw/docs/blocks/data-table/esg-emission-tree)、[editable cells](/zh-tw/docs/blocks/data-table/editable-cells)
 
 ### 設計變數
 

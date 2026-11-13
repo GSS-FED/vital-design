@@ -104,7 +104,7 @@ function StatusTag({ status }: { status: Task['status'] }) {
 type Story = StoryObj<typeof DataTable>;
 
 const meta: Meta<typeof DataTable> = {
-  title: 'Blocks/DataTable',
+  title: 'Blocks/DataTable/Experiments',
   component: DataTable,
 };
 

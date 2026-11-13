@@ -1,0 +1,48 @@
+---
+title: ESG Emission Tree
+description: 可展開的樹狀資料表，含固定釘選軌道、可排序表頭、行內 Switch 與動作列。
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { DataTable02 as DataTable } from '~/components/vital-components';
+
+## 預覽 [#preview]
+
+<ComponentPreview centered={false}>
+  <DataTable />
+</ComponentPreview>
+
+## 組合 [#composition]
+
+這個區塊用以下 Vittal Design primitive 組成：
+
+- `Avatar`, `Badge`, `Button`, `Card`, `Checkbox`, `DropdownMenu`, `SearchBar`, `Switch`, `Table`, `Tag`, `Toolbar`
+- `CaretDownIcon`, `CaretUpIcon`, `ChevronDownIcon`, `EllipsisIcon`
+- [`@tanstack/react-table`](https://tanstack.com/table/v8) 管理狀態
+
+## 檔案 [#files]
+
+| 檔案                           | 說明                                   |
+| ------------------------------ | -------------------------------------- |
+| `data-table.tsx`               | 區塊進入點——選取、排序、展開與軌道版面 |
+| `action-bar.tsx`               | 搜尋列、篩選按鈕、更多動作的下拉       |
+| `columns.tsx`                  | 含自訂儲存格的 `ColumnDef` 陣列        |
+| `data-table-column-header.tsx` | 可排序的欄標題，用 caret 切換排序      |
+| `data.ts`                      | 範例排放資料集與樹的建立函式           |
+| `pinning.ts`                   | 軌道寬度、欄寬變數與釘選樣式 helper    |
+| `resize-handle.tsx`            | 可拖曳的欄寬把手，含全高導線           |
+| `table-rail.tsx`               | 分組列上固定的 chevron / 軌道儲存格    |
+
+## 屬性 [#props]
+
+| Prop               | Type                    | Default      | 說明                                                                                                                                                        |
+| ------------------ | ----------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `columnResizeMode` | `'onChange' \| 'onEnd'` | `'onChange'` | `'onChange'` 讓欄位跟著指標移動。`'onEnd'` 拖曳時欄位先不動，放開才提交，導線標出邊緣會落在哪裡——拖曳過程不做版面計算，所以欄很多、釘選很重的寬表仍然順暢。 |
+
+## 安裝 [#installation]
+
+```bash
+npx shadcn@latest add @vital-design/data-table-02
+```
+
+會把區塊安裝到 `src/blocks/data-table-02/`，並自動帶入需要的每個 primitive。

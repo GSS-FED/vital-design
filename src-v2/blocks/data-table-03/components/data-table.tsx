@@ -19,7 +19,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { buildColumns } from './columns';
 import { type EmissionRow, emissionRows } from './data';
 
-export function DataTableGroup04() {
+export function DataTable() {
   const [rows, setRows] = useState<EmissionRow[]>(emissionRows);
 
   const updateRow = useCallback(

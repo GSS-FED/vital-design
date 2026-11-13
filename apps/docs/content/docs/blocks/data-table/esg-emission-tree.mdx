@@ -1,15 +1,15 @@
 ---
-title: Data Table — ESG Emission Tree
+title: ESG Emission Tree
 description: Expandable tree data table with sticky pinned rail, sortable headers, inline switch toggles, and an action bar.
 ---
 
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import { DataTableGroup02 } from '~/components/vital-components';
+import { DataTable02 as DataTable } from '~/components/vital-components';
 
 ## Preview
 
 <ComponentPreview centered={false}>
-  <DataTableGroup02 />
+  <DataTable />
 </ComponentPreview>
 
 ## Composition
@@ -22,16 +22,16 @@ This block is built on the following Vittal Design primitives:
 
 ## Files
 
-| File                           | Description                                           |
-| ------------------------------ | ----------------------------------------------------- |
-| `DataTableGroup02.tsx`         | Block entry — selection, sorting, expand, rail layout |
-| `action-bar.tsx`               | Search bar, filter buttons, more-actions dropdown     |
-| `columns.tsx`                  | `ColumnDef` array with custom cells                   |
-| `data-table-column-header.tsx` | Sortable column header with caret sort toggle         |
-| `data.ts`                      | Sample emission dataset + tree builder                |
+| File                           | Description                                            |
+| ------------------------------ | ------------------------------------------------------ |
+| `data-table.tsx`               | Block entry — selection, sorting, expand, rail layout  |
+| `action-bar.tsx`               | Search bar, filter buttons, more-actions dropdown      |
+| `columns.tsx`                  | `ColumnDef` array with custom cells                    |
+| `data-table-column-header.tsx` | Sortable column header with caret sort toggle          |
+| `data.ts`                      | Sample emission dataset + tree builder                 |
 | `pinning.ts`                   | Rail widths, column sizing vars, pinning style helpers |
 | `resize-handle.tsx`            | Draggable column resize handle with full-height guide  |
-| `table-rail.tsx`               | Sticky chevron/rail cells for grouped rows            |
+| `table-rail.tsx`               | Sticky chevron/rail cells for grouped rows             |
 
 ## Props
 
@@ -42,7 +42,7 @@ This block is built on the following Vittal Design primitives:
 ## Installation
 
 ```bash
-npx shadcn@latest add @vital-design/data-table-group-02
+npx shadcn@latest add @vital-design/data-table-02
 ```
 
-This installs the block under `src/blocks/data-table-group-02/` and pulls every required primitive automatically.
+This installs the block under `src/blocks/data-table-02/` and pulls every required primitive automatically.

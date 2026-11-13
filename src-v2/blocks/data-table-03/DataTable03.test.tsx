@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
-import { DataTableGroup04 } from './DataTableGroup04';
+import { DataTable } from './components/data-table';
 
 function getRow(index: number) {
   const row = screen.getAllByRole('row')[index];
@@ -11,9 +11,9 @@ function getRow(index: number) {
   return row;
 }
 
-describe('DataTableGroup04', () => {
+describe('DataTable', () => {
   it('collapses extra tags into a count pill', () => {
-    render(<DataTableGroup04 />);
+    render(<DataTable />);
 
     const firstRow = getRow(1);
     expect(within(firstRow).getByText('綠線線')).toBeInTheDocument();
@@ -24,7 +24,7 @@ describe('DataTableGroup04', () => {
   });
 
   it('refreshes tag checkbox state while the popover stays open', async () => {
-    render(<DataTableGroup04 />);
+    render(<DataTable />);
     const user = userEvent.setup();
 
     await user.click(

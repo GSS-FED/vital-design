@@ -340,7 +340,7 @@ const MemoEmissionCategorySection = memo(
   (_prev, next) => next.isResizing,
 );
 
-export interface DataTableGroup02Props {
+export interface DataTableProps {
   /**
    * `'onChange'` moves the columns under the pointer; `'onEnd'` holds them and
    * commits on release, with the guide line showing where the edge will land.
@@ -350,9 +350,9 @@ export interface DataTableGroup02Props {
   columnResizeMode?: ColumnResizeMode;
 }
 
-export function DataTableGroup02({
+export function DataTable({
   columnResizeMode = 'onChange',
-}: DataTableGroup02Props = {}) {
+}: DataTableProps = {}) {
   const [sorting, setSorting] = useState<SortingState>([]);
   // `true` expands every row by default (vs `{}` which collapses all).
   const [expanded, setExpanded] = useState<ExpandedState>(true);

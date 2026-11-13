@@ -60,6 +60,7 @@ allowed-tools: Read, Write, Edit, Bash
 - UI 元件：registry item `type: "registry:ui"`，files 陣列中每個 file 也用 `type: "registry:ui"`
 - Icon registry item 也使用 `registry:ui`，target 為 `src/components/icons/<IconName>.tsx`
 - Block：registry item `type: "registry:block"`，files 陣列中每個 file 用 `type: "registry:component"`（block 本身的 type 是 registry:block，但組成的檔案 type 是 registry:component）
+- Block 可安裝的檔案放在 `src-v2/blocks/<name>/components/`。`path` 指到那裡，`target` 展平到 `src/blocks/<name>/`。stories 與 tests 留在 block 根目錄，不要列進 `files`
 - **勿直接編輯 `registry.json`**，修改 `registry/` TypeScript 檔後執行 `pnpm run registry:build`
 - `dependencies` 必須包含 `cn`（如果用了 cn()）
 - 新元件預設透過 registry 分發；不要假設會同步進入 legacy npm package（`src/`）

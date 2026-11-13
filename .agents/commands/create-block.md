@@ -28,7 +28,8 @@
 
 4. **建立 block 檔案**
 
-   - 路徑：`src-v2/blocks/<block-name>/<BlockName>.tsx`
+   - 可安裝的檔案：`src-v2/blocks/<block-name>/components/<BlockName>.tsx`
+   - stories、tests 放在 block 根目錄，不進 `components/`
    - 使用 named export
    - Props 至少包含 `className?: string`
    - 使用 `cn()` 合併基礎樣式與傳入 className

@@ -13,7 +13,7 @@
 1. **讀取目標元件資訊**
 
    - UI 元件：`src-v2/components/<component-name>/<ComponentName>.tsx`
-   - Block：`src-v2/blocks/<block-name>/<BlockName>.tsx`
+   - Block：`src-v2/blocks/<block-name>/components/<BlockName>.tsx`
    - Props 類型通常由元件 `.tsx` 檔 export
 
 2. **讀取現有 docs 結構**
@@ -36,7 +36,7 @@
 5. **建立或更新 MDX 文件**
 
    - 元件頁：`apps/docs/content/docs/components/<component-name>.mdx`
-   - Block 頁：`apps/docs/content/docs/blocks/<block-name>.mdx`
+   - Block 頁：`apps/docs/content/docs/blocks/<family>/<page>.mdx`（Sidebar、Data Table 都是家族資料夾；slug 與 registry 名稱不同時，補 `page.tsx` 的 `REGISTRY_ITEM_BY_SLUG`）
    - 參考 `apps/docs/content/docs/components/chip.mdx` 或同類型頁面
 
 6. **更新排序與導覽**

@@ -5,11 +5,9 @@ import { DataTableGroupingCardsBodyScrollGutterBlock } from './DataTableGrouping
 import { DataTableGroupingCardsJsStickyBlock } from './DataTableGroupingCardsJsStickyBlock';
 import { DataTableGroupingCardsLocalScrollBlock } from './DataTableGroupingCardsLocalScrollBlock';
 import { DataTableGroupingResizableBlock } from './DataTableGroupingResizableBlock';
-import { DataTableGroup01 } from './data-table-group-01/DataTableGroup01';
-import { DataTableGroup02 } from './data-table-group-02/DataTableGroup02';
 
 const meta: Meta = {
-  title: 'Blocks/DataTable/Grouping',
+  title: 'Blocks/DataTable/Experiments/Grouping',
   parameters: { layout: 'fullscreen' },
   decorators: [
     (Story) => (
@@ -40,22 +38,6 @@ const resizeModeControl = {
       options: ['onChange', 'onEnd'],
     },
   },
-};
-
-export const FlatSections: ResizeModeStory = {
-  name: 'V1 — Flat sections (one table)',
-  ...resizeModeControl,
-  render: ({ columnResizeMode }) => (
-    <DataTableGroup01 columnResizeMode={columnResizeMode} />
-  ),
-};
-
-export const NestedSections: ResizeModeStory = {
-  name: 'V2 — Nested 2-level sections',
-  ...resizeModeControl,
-  render: ({ columnResizeMode }) => (
-    <DataTableGroup02 columnResizeMode={columnResizeMode} />
-  ),
 };
 
 export const CardPerGroup: Story = {
