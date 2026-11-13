@@ -24,11 +24,35 @@ import {
   <Breadcrumb>
     <BreadcrumbList>
       <BreadcrumbItem>
-        <BreadcrumbLink href="#">專案</BreadcrumbLink>
+        <BreadcrumbLink href="#projects">專案</BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbSeparator />
       <BreadcrumbItem>
-        <BreadcrumbLink href="#">網站</BreadcrumbLink>
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            render={
+              <BreadcrumbLink
+                render={<button type="button" />}
+                aria-label="顯示隱藏的頁面"
+                className="inline-flex items-center data-[popup-open]:text-primary-400"
+              />
+            }
+          >
+            <BreadcrumbEllipsis className="text-inherit" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" sideOffset={10}>
+            <DropdownMenuItem render={<a href="#website" />}>
+              網站
+            </DropdownMenuItem>
+            <DropdownMenuItem render={<a href="#analytics" />}>
+              分析
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#reports">報表</BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbSeparator />
       <BreadcrumbItem>
@@ -43,17 +67,52 @@ import {
 ```tsx
 import {
   Breadcrumb,
+  BreadcrumbEllipsis,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/Breadcrumb';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/DropdownMenu';
 
 <Breadcrumb>
   <BreadcrumbList>
     <BreadcrumbItem>
       <BreadcrumbLink href="/projects">專案</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          render={
+            <BreadcrumbLink
+              render={<button type="button" />}
+              aria-label="顯示隱藏的頁面"
+              className="inline-flex items-center data-[popup-open]:text-primary-400"
+            />
+          }
+        >
+          <BreadcrumbEllipsis className="text-inherit" />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start" sideOffset={10}>
+          <DropdownMenuItem render={<a href="/projects/website" />}>
+            網站
+          </DropdownMenuItem>
+          <DropdownMenuItem render={<a href="/projects/analytics" />}>
+            分析
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/projects/reports">報表</BreadcrumbLink>
     </BreadcrumbItem>
     <BreadcrumbSeparator />
     <BreadcrumbItem>
@@ -64,6 +123,8 @@ import {
 ```
 
 目前頁面用 `BreadcrumbPage`。它不是連結，並會設定 `aria-current="page"`。
+
+被收起的層級在 [`DropdownMenu`](/zh-tw/docs/components/dropdown-menu) 裡打開，所以也要從 registry 加入 `dropdown-menu`。路徑很短時，拿掉省略符號，直接列出每一層。
 
 ## 路由連結 [#router-links]
 
@@ -140,28 +201,28 @@ import { Link } from 'react-router-dom';
 
 要讓人打開被收起的層級時，把 `BreadcrumbEllipsis` 放進 [`DropdownMenu`](/zh-tw/docs/components/dropdown-menu) 的觸發按鈕。
 
-`BreadcrumbEllipsis` 只會念出「More」，所以觸發按鈕要有說明用途的名稱，樣式比照麵包屑連結。每個被收起的層級用連結渲染。
+觸發按鈕用 `BreadcrumbLink` 搭配 `render={<button type="button" />}` 渲染，沿用連結的顏色、hover 與 focus 樣式。`BreadcrumbEllipsis` 只會念出「More」，所以觸發按鈕要有說明用途的名稱。每個被收起的層級用連結渲染。
 
 <ComponentPreview>
   <Breadcrumb>
     <BreadcrumbList>
       <BreadcrumbItem>
-        <BreadcrumbLink href="#">專案</BreadcrumbLink>
+        <BreadcrumbLink href="#projects">專案</BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbSeparator />
       <BreadcrumbItem>
         <DropdownMenu>
           <DropdownMenuTrigger
             render={
-              <button
-                type="button"
+              <BreadcrumbLink
+                render={<button type="button" />}
                 aria-label="顯示隱藏的頁面"
-                className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-400 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-400"
-              >
-                <BreadcrumbEllipsis className="text-inherit" />
-              </button>
+                className="inline-flex items-center data-[popup-open]:text-primary-400"
+              />
             }
-          />
+          >
+            <BreadcrumbEllipsis className="text-inherit" />
+          </DropdownMenuTrigger>
           <DropdownMenuContent align="start" sideOffset={10}>
             <DropdownMenuItem render={<a href="#website" />}>
               網站
@@ -181,35 +242,24 @@ import { Link } from 'react-router-dom';
 </ComponentPreview>
 
 ```tsx
-import {
-  BreadcrumbEllipsis,
-  BreadcrumbItem,
-} from '@/components/ui/Breadcrumb';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/DropdownMenu';
-
 <BreadcrumbItem>
   <DropdownMenu>
     <DropdownMenuTrigger
       render={
-        <button
-          type="button"
+        <BreadcrumbLink
+          render={<button type="button" />}
           aria-label="顯示隱藏的頁面"
-          className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-400 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-400"
-        >
-          <BreadcrumbEllipsis className="text-inherit" />
-        </button>
+          className="inline-flex items-center data-[popup-open]:text-primary-400"
+        />
       }
-    />
+    >
+      <BreadcrumbEllipsis className="text-inherit" />
+    </DropdownMenuTrigger>
     <DropdownMenuContent align="start" sideOffset={10}>
-      <DropdownMenuItem render={<a href="/website" />}>
+      <DropdownMenuItem render={<a href="/projects/website" />}>
         網站
       </DropdownMenuItem>
-      <DropdownMenuItem render={<a href="/analytics" />}>
+      <DropdownMenuItem render={<a href="/projects/analytics" />}>
         分析
       </DropdownMenuItem>
     </DropdownMenuContent>

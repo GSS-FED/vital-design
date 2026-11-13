@@ -176,11 +176,14 @@ it('opens hidden levels from an ellipsis menu', async () => {
           <DropdownMenu>
             <DropdownMenuTrigger
               render={
-                <button type="button" aria-label="Show hidden pages">
-                  <BreadcrumbEllipsis />
-                </button>
+                <BreadcrumbLink
+                  render={<button type="button" />}
+                  aria-label="Show hidden pages"
+                />
               }
-            />
+            >
+              <BreadcrumbEllipsis />
+            </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem render={<a href="/website" />}>
                 Website
@@ -199,9 +202,11 @@ it('opens hidden levels from an ellipsis menu', async () => {
     </Breadcrumb>,
   );
 
-  fireEvent.click(
-    screen.getByRole('button', { name: 'Show hidden pages' }),
-  );
+  const trigger = screen.getByRole('button', {
+    name: 'Show hidden pages',
+  });
+  expect(trigger).toHaveClass('hover:text-primary-400');
+  fireEvent.click(trigger);
 
   await waitFor(() => {
     expect(

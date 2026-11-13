@@ -24,11 +24,35 @@ import {
   <Breadcrumb>
     <BreadcrumbList>
       <BreadcrumbItem>
-        <BreadcrumbLink href="#">Projects</BreadcrumbLink>
+        <BreadcrumbLink href="#projects">Projects</BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbSeparator />
       <BreadcrumbItem>
-        <BreadcrumbLink href="#">Website</BreadcrumbLink>
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            render={
+              <BreadcrumbLink
+                render={<button type="button" />}
+                aria-label="Show hidden pages"
+                className="inline-flex items-center data-[popup-open]:text-primary-400"
+              />
+            }
+          >
+            <BreadcrumbEllipsis className="text-inherit" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" sideOffset={10}>
+            <DropdownMenuItem render={<a href="#website" />}>
+              Website
+            </DropdownMenuItem>
+            <DropdownMenuItem render={<a href="#analytics" />}>
+              Analytics
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#reports">Reports</BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbSeparator />
       <BreadcrumbItem>
@@ -43,17 +67,52 @@ import {
 ```tsx
 import {
   Breadcrumb,
+  BreadcrumbEllipsis,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/Breadcrumb';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/DropdownMenu';
 
 <Breadcrumb>
   <BreadcrumbList>
     <BreadcrumbItem>
       <BreadcrumbLink href="/projects">Projects</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          render={
+            <BreadcrumbLink
+              render={<button type="button" />}
+              aria-label="Show hidden pages"
+              className="inline-flex items-center data-[popup-open]:text-primary-400"
+            />
+          }
+        >
+          <BreadcrumbEllipsis className="text-inherit" />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start" sideOffset={10}>
+          <DropdownMenuItem render={<a href="/projects/website" />}>
+            Website
+          </DropdownMenuItem>
+          <DropdownMenuItem render={<a href="/projects/analytics" />}>
+            Analytics
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/projects/reports">Reports</BreadcrumbLink>
     </BreadcrumbItem>
     <BreadcrumbSeparator />
     <BreadcrumbItem>
@@ -64,6 +123,8 @@ import {
 ```
 
 Use `BreadcrumbPage` for the current page. It is not a link and sets `aria-current="page"`.
+
+The hidden levels open in a [`DropdownMenu`](/docs/components/dropdown-menu), so add `dropdown-menu` from the registry too. On a short path, drop the ellipsis and list every level.
 
 ## Router Links
 
@@ -140,28 +201,28 @@ Use `BreadcrumbEllipsis` in place of the levels you hide on a deep path.
 
 Put `BreadcrumbEllipsis` inside a [`DropdownMenu`](/docs/components/dropdown-menu) trigger to open the levels you hid.
 
-`BreadcrumbEllipsis` only announces "More", so give the trigger button a name that says what it opens. Style that button like a breadcrumb link, and render each hidden level as a link.
+Render the trigger as a `BreadcrumbLink` with `render={<button type="button" />}`, so it keeps the link's color, hover, and focus styles. `BreadcrumbEllipsis` only announces "More", so give the trigger a name that says what it opens. Render each hidden level as a link.
 
 <ComponentPreview>
   <Breadcrumb>
     <BreadcrumbList>
       <BreadcrumbItem>
-        <BreadcrumbLink href="#">Projects</BreadcrumbLink>
+        <BreadcrumbLink href="#projects">Projects</BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbSeparator />
       <BreadcrumbItem>
         <DropdownMenu>
           <DropdownMenuTrigger
             render={
-              <button
-                type="button"
+              <BreadcrumbLink
+                render={<button type="button" />}
                 aria-label="Show hidden pages"
-                className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-400 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-400"
-              >
-                <BreadcrumbEllipsis className="text-inherit" />
-              </button>
+                className="inline-flex items-center data-[popup-open]:text-primary-400"
+              />
             }
-          />
+          >
+            <BreadcrumbEllipsis className="text-inherit" />
+          </DropdownMenuTrigger>
           <DropdownMenuContent align="start" sideOffset={10}>
             <DropdownMenuItem render={<a href="#website" />}>
               Website
@@ -181,35 +242,24 @@ Put `BreadcrumbEllipsis` inside a [`DropdownMenu`](/docs/components/dropdown-men
 </ComponentPreview>
 
 ```tsx
-import {
-  BreadcrumbEllipsis,
-  BreadcrumbItem,
-} from '@/components/ui/Breadcrumb';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/DropdownMenu';
-
 <BreadcrumbItem>
   <DropdownMenu>
     <DropdownMenuTrigger
       render={
-        <button
-          type="button"
+        <BreadcrumbLink
+          render={<button type="button" />}
           aria-label="Show hidden pages"
-          className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-400 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-400"
-        >
-          <BreadcrumbEllipsis className="text-inherit" />
-        </button>
+          className="inline-flex items-center data-[popup-open]:text-primary-400"
+        />
       }
-    />
+    >
+      <BreadcrumbEllipsis className="text-inherit" />
+    </DropdownMenuTrigger>
     <DropdownMenuContent align="start" sideOffset={10}>
-      <DropdownMenuItem render={<a href="/website" />}>
+      <DropdownMenuItem render={<a href="/projects/website" />}>
         Website
       </DropdownMenuItem>
-      <DropdownMenuItem render={<a href="/analytics" />}>
+      <DropdownMenuItem render={<a href="/projects/analytics" />}>
         Analytics
       </DropdownMenuItem>
     </DropdownMenuContent>

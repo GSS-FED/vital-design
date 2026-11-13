@@ -163,15 +163,15 @@ export const Dropdown: Story = {
           <DropdownMenu>
             <DropdownMenuTrigger
               render={
-                <button
-                  type="button"
+                <BreadcrumbLink
+                  render={<button type="button" />}
                   aria-label="顯示隱藏的頁面"
-                  className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-400 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-400"
-                >
-                  <BreadcrumbEllipsis className="text-inherit" />
-                </button>
+                  className="inline-flex items-center data-[popup-open]:text-primary-400"
+                />
               }
-            />
+            >
+              <BreadcrumbEllipsis className="text-inherit" />
+            </DropdownMenuTrigger>
             <DropdownMenuContent align="start" sideOffset={10}>
               <DropdownMenuItem render={<a href="#layer-2" />}>
                 Layer 2
