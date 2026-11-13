@@ -180,7 +180,7 @@ const TableOfContents = function TableOfContents({
         <div
           aria-hidden
           data-slot="toc-panel-fade"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-4 bg-linear-to-t from-white to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-4 bg-linear-to-t from-background to-transparent"
         />
       </div>
     </nav>

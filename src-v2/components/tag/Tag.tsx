@@ -41,7 +41,7 @@ const tagVariants = cva(
       {
         color: 'default',
         colorVariant: 'solid',
-        class: 'text-white bg-grayscale-700',
+        class: 'text-background bg-grayscale-opacity-700',
       },
       {
         color: 'default',
@@ -228,9 +228,9 @@ export function Tag(props: TagProps) {
             'relative flex gap-1 px-2.5',
             hasIcon && 'pl-2',
             isRemovable ? 'pr-1 rounded-l-full' : 'rounded-full',
-            'before:content-[""] before:absolute before:inset-0',
+            'before:content-[""] before:absolute before:inset-0 before:rounded-[inherit]',
             'before:pointer-events-none before:transition-colors before:duration-100',
-            'cursor-pointer hover:before:bg-white/20',
+            'cursor-pointer hover:before:bg-background/20',
           )}
         >
           {hasIcon && (
@@ -274,9 +274,9 @@ export function Tag(props: TagProps) {
             'relative inline-flex justify-center items-center',
             'pl-1 pr-2 rounded-r-full cursor-pointer',
             'transition-colors duration-100',
-            'before:content-[""] before:absolute before:inset-0',
+            'before:content-[""] before:absolute before:inset-0 before:rounded-[inherit]',
             'before:pointer-events-none before:transition-colors before:duration-100',
-            'hover:before:bg-white/20',
+            'hover:before:bg-background/20',
             '[&_svg]:size-4',
           )}
         >

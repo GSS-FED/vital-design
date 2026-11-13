@@ -409,6 +409,16 @@ const SOLID_BG: Record<ToastStatus, string> = {
   loading: 'bg-grayscale-700',
 };
 
+// grayscale-700 turns light gray under .dark, so its text follows the page
+// color instead of staying white.
+const SOLID_FG: Record<ToastStatus, string> = {
+  success: 'text-white',
+  warning: 'text-white',
+  error: 'text-white',
+  info: 'text-background',
+  loading: 'text-background',
+};
+
 const SUBTLE_ICON: Record<ToastStatus, string> = {
   success: 'text-success-500',
   warning: 'text-warning-500',
@@ -450,7 +460,11 @@ function ToasterItem({
       data-variant={variant}
       className={cn(
         variant === 'solid'
-          ? cn(SOLID_BG[status], 'w-fit px-4 py-1.5 text-white')
+          ? cn(
+              SOLID_BG[status],
+              SOLID_FG[status],
+              'w-fit px-4 py-1.5',
+            )
           : 'min-w-[300px] bg-background p-4 text-grayscale-opacity-800',
       )}
     >
@@ -481,7 +495,7 @@ function ToasterItem({
           <ToastDescription
             className={
               variant === 'solid'
-                ? 'text-white/90'
+                ? 'text-current/90'
                 : 'text-grayscale-opacity-600'
             }
           >
@@ -493,7 +507,7 @@ function ToasterItem({
         <ToastAction
           className={
             variant === 'solid'
-              ? 'text-white underline underline-offset-2 hover:text-white/90 focus-visible:text-white/90'
+              ? 'underline underline-offset-2 hover:text-current/90 focus-visible:text-current/90'
               : 'text-primary-500 hover:text-primary-600 focus-visible:text-primary-600'
           }
         />
@@ -509,7 +523,7 @@ function ToasterItem({
           }}
           className={cn(
             variant === 'solid'
-              ? 'text-white/80 hover:text-white focus-visible:text-white'
+              ? 'text-current/80 hover:text-current focus-visible:text-current'
               : 'text-grayscale-opacity-600 hover:text-grayscale-opacity-800 focus-visible:text-grayscale-opacity-800',
             cancelProps.className,
           )}
@@ -519,7 +533,7 @@ function ToasterItem({
         <ToastClose
           className={
             variant === 'solid'
-              ? 'text-white hover:text-white/80 focus-visible:text-white/80'
+              ? 'hover:text-current/80 focus-visible:text-current/80'
               : 'text-grayscale-opacity-500 hover:text-grayscale-opacity-700 focus-visible:text-grayscale-opacity-700'
           }
         />
@@ -584,7 +598,7 @@ function AnchoredToasterItem({
       className={cn(
         ANCHORED_TOAST_CLASSES,
         variant === 'solid'
-          ? cn(SOLID_BG[status], 'text-white')
+          ? cn(SOLID_BG[status], SOLID_FG[status])
           : 'bg-background text-grayscale-opacity-800',
       )}
     >
@@ -609,7 +623,7 @@ function AnchoredToasterItem({
           }}
           className={cn(
             variant === 'solid'
-              ? 'text-white/80 hover:text-white focus-visible:text-white'
+              ? 'text-current/80 hover:text-current focus-visible:text-current'
               : 'text-grayscale-opacity-600 hover:text-grayscale-opacity-800 focus-visible:text-grayscale-opacity-800',
             cancelProps.className,
           )}
@@ -619,7 +633,7 @@ function AnchoredToasterItem({
         <ToastClose
           className={
             variant === 'solid'
-              ? 'text-white hover:text-white/80 focus-visible:text-white/80'
+              ? 'hover:text-current/80 focus-visible:text-current/80'
               : 'text-grayscale-opacity-500 hover:text-grayscale-opacity-700 focus-visible:text-grayscale-opacity-700'
           }
         />
