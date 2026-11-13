@@ -8,6 +8,7 @@ const iconFile = (name: string): IconFile => ({
 });
 
 const iconGroups = [
+  { name: 'icon-bars', title: 'Bars Icon', files: ['BarsIcon'] },
   { name: 'icon-bell', title: 'Bell Icon', files: ['BellIcon'] },
   {
     name: 'icon-calendar',
@@ -36,14 +37,39 @@ const iconGroups = [
     files: ['ChevronUpIcon'],
   },
   {
+    name: 'icon-circle-user',
+    title: 'Circle User Icon',
+    files: ['CircleUserIcon'],
+  },
+  {
     name: 'icon-angle-left',
     title: 'Angle Left Icon',
     files: ['AngleLeftIcon'],
   },
   {
+    name: 'icon-angle-left-solid',
+    title: 'Angle Left Solid Icon',
+    files: ['AngleLeftSolidIcon'],
+  },
+  {
+    name: 'icon-angle-left-to-line-solid',
+    title: 'Angle Left To Line Solid Icon',
+    files: ['AngleLeftToLineSolidIcon'],
+  },
+  {
     name: 'icon-angle-right',
     title: 'Angle Right Icon',
     files: ['AngleRightIcon'],
+  },
+  {
+    name: 'icon-angle-right-solid',
+    title: 'Angle Right Solid Icon',
+    files: ['AngleRightSolidIcon'],
+  },
+  {
+    name: 'icon-angle-right-to-line-solid',
+    title: 'Angle Right To Line Solid Icon',
+    files: ['AngleRightToLineSolidIcon'],
   },
   {
     name: 'icon-angles-left',
@@ -76,12 +102,24 @@ const iconGroups = [
   },
   { name: 'icon-flag', title: 'Flag Icon', files: ['FlagIcon'] },
   { name: 'icon-gear', title: 'Gear Icon', files: ['GearIcon'] },
+  { name: 'icon-home', title: 'Home Icon', files: ['HomeIcon'] },
+  { name: 'icon-inbox', title: 'Inbox Icon', files: ['InboxIcon'] },
   { name: 'icon-info', title: 'Info Icon', files: ['InfoIcon'] },
+  {
+    name: 'icon-life-ring',
+    title: 'Life Ring Icon',
+    files: ['LifeRingIcon'],
+  },
   { name: 'icon-minus', title: 'Minus Icon', files: ['MinusIcon'] },
   {
     name: 'icon-panel-left',
     title: 'Panel Left Icon',
     files: ['PanelLeftIcon'],
+  },
+  {
+    name: 'icon-planet-ringed',
+    title: 'Planet Ringed Icon',
+    files: ['PlanetRingedIcon'],
   },
   { name: 'icon-plus', title: 'Plus Icon', files: ['PlusIcon'] },
   {
@@ -95,6 +133,11 @@ const iconGroups = [
     files: ['ShieldCheckIcon'],
   },
   {
+    name: 'icon-sidebar',
+    title: 'Sidebar Icon',
+    files: ['SidebarIcon'],
+  },
+  {
     name: 'icon-spinner',
     title: 'Spinner Icon',
     files: ['SpinnerIcon'],
@@ -103,6 +146,16 @@ const iconGroups = [
     name: 'icon-square-arrow-out-up-right',
     title: 'Square Arrow Out Up Right Icon',
     files: ['SquareArrowOutUpRightIcon'],
+  },
+  {
+    name: 'icon-thumbtack',
+    title: 'Thumbtack Icon',
+    files: ['ThumbtackIcon'],
+  },
+  {
+    name: 'icon-thumbtack-solid',
+    title: 'Thumbtack Solid Icon',
+    files: ['ThumbtackSolidIcon'],
   },
   { name: 'icon-user', title: 'User Icon', files: ['UserIcon'] },
 ] as const;

@@ -76,6 +76,15 @@ import { ThumbtackSolidIcon } from '@/icons/ThumbtackSolidIcon';
 import { UserIcon } from '@/icons/UserIcon';
 ```
 
+## Regular and Solid
+
+Icons follow the Figma library's two weights. Regular icons have no suffix
+and use a 1.3 stroke. Solid icons end in `Solid` and use a heavier 1.75
+stroke or a filled shape, for example `AngleLeftIcon` and
+`AngleLeftSolidIcon`. Pick the weight the Figma design names
+(`Icons/Regular/…` or `Icons/Solid/…`); do not thicken a Regular icon with
+`strokeWidth` instead.
+
 ## Sizes
 
 Control the icon size with Tailwind's `size-*` utility — each icon

@@ -13,11 +13,11 @@ Newest entries are at the top. Headings use the month the change shipped. We onl
 
 **Breaking:** left and right chevrons now use the designer names. The old registry items are removed. `icon-chevron-up` and `icon-chevron-down` stay.
 
-| Old item | New item |
-| --- | --- |
-| `@vital-design/icon-chevron-left` | `@vital-design/icon-angle-left` |
-| `@vital-design/icon-chevron-right` | `@vital-design/icon-angle-right` |
-| `@vital-design/icon-chevron-double-left` | `@vital-design/icon-angles-left` |
+| Old item                                  | New item                          |
+| ----------------------------------------- | --------------------------------- |
+| `@vital-design/icon-chevron-left`         | `@vital-design/icon-angle-left`   |
+| `@vital-design/icon-chevron-right`        | `@vital-design/icon-angle-right`  |
+| `@vital-design/icon-chevron-double-left`  | `@vital-design/icon-angles-left`  |
 | `@vital-design/icon-chevron-double-right` | `@vital-design/icon-angles-right` |
 
 Update imports to `AngleLeftIcon`, `AngleRightIcon`, `AnglesLeftIcon`, and `AnglesRightIcon`. Reinstall components that pulled the old icons: `calendar`, `command`, `dropdown-menu`, and `sidebar-cloud-06`.
@@ -26,6 +26,7 @@ Update imports to `AngleLeftIcon`, `AngleRightIcon`, `AnglesLeftIcon`, and `Angl
 npx shadcn@latest add @vital-design/calendar @vital-design/command @vital-design/dropdown-menu @vital-design/sidebar-cloud-06
 ```
 
+New icon items: `icon-angle-left-solid`, `icon-angle-right-solid`, `icon-angle-left-to-line-solid`, `icon-angle-right-to-line-solid`, `icon-bars`, `icon-circle-user`, `icon-home`, `icon-inbox`, `icon-life-ring`, `icon-planet-ringed`, `icon-sidebar`, `icon-thumbtack`, and `icon-thumbtack-solid`. See [Icons → Regular and Solid](/docs/components/icons#regular-and-solid).
 ## November 2026 — Border tokens
 
 `--border` is now the 0.08 hairline (`grayscale-opacity-200`), the line Figma uses for dividers. It was a solid `#DEDEE2`. A new `--border-overlap` token keeps the solid `#DEDEE2` for edges that stack or cross, where a translucent line would darken. Use it with `border-border-overlap`.

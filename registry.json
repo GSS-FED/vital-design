@@ -183,6 +183,7 @@
           "destructive-700": "#852D00",
           "destructive-800": "#521C00",
           "destructive-900": "#1F0B00",
+          "border": "#DEDEE2",
           "background": "#FFFFFF",
           "foreground": "#232332",
           "card": "#FFFFFF",
@@ -205,8 +206,6 @@
           "info-foreground": "#FFFFFF",
           "warning": "#FFA700",
           "warning-foreground": "#232332",
-          "border": "rgba(35, 35, 50, 0.08)",
-          "border-overlap": "#DEDEE2",
           "input": "#DEDEE2",
           "ring": "#0E86FE",
           "chart-1": "#0E86FE",
@@ -234,9 +233,6 @@
         "@layer base": {
           "*, *::before, *::after": {
             "box-sizing": "border-box"
-          },
-          "*, ::after, ::before, ::backdrop, ::file-selector-button": {
-            "border-color": "var(--border, currentColor)"
           }
         }
       }
@@ -266,6 +262,19 @@
           "path": "vital-design.lint.json",
           "target": "~/vital-design.lint.json",
           "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "icon-bars",
+      "type": "registry:ui",
+      "title": "Bars Icon",
+      "description": "Bars Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/BarsIcon.tsx",
+          "target": "src/components/icons/BarsIcon.tsx",
+          "type": "registry:ui"
         }
       ]
     },
@@ -361,6 +370,19 @@
       ]
     },
     {
+      "name": "icon-circle-user",
+      "type": "registry:ui",
+      "title": "Circle User Icon",
+      "description": "Circle User Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CircleUserIcon.tsx",
+          "target": "src/components/icons/CircleUserIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-angle-left",
       "type": "registry:ui",
       "title": "Angle Left Icon",
@@ -374,6 +396,32 @@
       ]
     },
     {
+      "name": "icon-angle-left-solid",
+      "type": "registry:ui",
+      "title": "Angle Left Solid Icon",
+      "description": "Angle Left Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/AngleLeftSolidIcon.tsx",
+          "target": "src/components/icons/AngleLeftSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-angle-left-to-line-solid",
+      "type": "registry:ui",
+      "title": "Angle Left To Line Solid Icon",
+      "description": "Angle Left To Line Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/AngleLeftToLineSolidIcon.tsx",
+          "target": "src/components/icons/AngleLeftToLineSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-angle-right",
       "type": "registry:ui",
       "title": "Angle Right Icon",
@@ -382,6 +430,32 @@
         {
           "path": "src-v2/icons/AngleRightIcon.tsx",
           "target": "src/components/icons/AngleRightIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-angle-right-solid",
+      "type": "registry:ui",
+      "title": "Angle Right Solid Icon",
+      "description": "Angle Right Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/AngleRightSolidIcon.tsx",
+          "target": "src/components/icons/AngleRightSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-angle-right-to-line-solid",
+      "type": "registry:ui",
+      "title": "Angle Right To Line Solid Icon",
+      "description": "Angle Right To Line Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/AngleRightToLineSolidIcon.tsx",
+          "target": "src/components/icons/AngleRightToLineSolidIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -517,14 +591,27 @@
       ]
     },
     {
-      "name": "icon-gear",
+      "name": "icon-home",
       "type": "registry:ui",
-      "title": "Gear Icon",
-      "description": "Gear Icon component",
+      "title": "Home Icon",
+      "description": "Home Icon component",
       "files": [
         {
-          "path": "src-v2/icons/GearIcon.tsx",
-          "target": "src/components/icons/GearIcon.tsx",
+          "path": "src-v2/icons/HomeIcon.tsx",
+          "target": "src/components/icons/HomeIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-inbox",
+      "type": "registry:ui",
+      "title": "Inbox Icon",
+      "description": "Inbox Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/InboxIcon.tsx",
+          "target": "src/components/icons/InboxIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -538,6 +625,19 @@
         {
           "path": "src-v2/icons/InfoIcon.tsx",
           "target": "src/components/icons/InfoIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-life-ring",
+      "type": "registry:ui",
+      "title": "Life Ring Icon",
+      "description": "Life Ring Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/LifeRingIcon.tsx",
+          "target": "src/components/icons/LifeRingIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -564,6 +664,19 @@
         {
           "path": "src-v2/icons/PanelLeftIcon.tsx",
           "target": "src/components/icons/PanelLeftIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-planet-ringed",
+      "type": "registry:ui",
+      "title": "Planet Ringed Icon",
+      "description": "Planet Ringed Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/PlanetRingedIcon.tsx",
+          "target": "src/components/icons/PlanetRingedIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -608,6 +721,19 @@
       ]
     },
     {
+      "name": "icon-sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar Icon",
+      "description": "Sidebar Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/SidebarIcon.tsx",
+          "target": "src/components/icons/SidebarIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-spinner",
       "type": "registry:ui",
       "title": "Spinner Icon",
@@ -634,6 +760,32 @@
       ]
     },
     {
+      "name": "icon-thumbtack",
+      "type": "registry:ui",
+      "title": "Thumbtack Icon",
+      "description": "Thumbtack Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ThumbtackIcon.tsx",
+          "target": "src/components/icons/ThumbtackIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-thumbtack-solid",
+      "type": "registry:ui",
+      "title": "Thumbtack Solid Icon",
+      "description": "Thumbtack Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ThumbtackSolidIcon.tsx",
+          "target": "src/components/icons/ThumbtackSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-user",
       "type": "registry:ui",
       "title": "User Icon",
@@ -652,6 +804,11 @@
       "title": "Vittal Icons",
       "description": "Custom SVG icon components",
       "files": [
+        {
+          "path": "src-v2/icons/BarsIcon.tsx",
+          "target": "src/components/icons/BarsIcon.tsx",
+          "type": "registry:ui"
+        },
         {
           "path": "src-v2/icons/BellIcon.tsx",
           "target": "src/components/icons/BellIcon.tsx",
@@ -688,13 +845,38 @@
           "type": "registry:ui"
         },
         {
+          "path": "src-v2/icons/CircleUserIcon.tsx",
+          "target": "src/components/icons/CircleUserIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src-v2/icons/AngleLeftIcon.tsx",
           "target": "src/components/icons/AngleLeftIcon.tsx",
           "type": "registry:ui"
         },
         {
+          "path": "src-v2/icons/AngleLeftSolidIcon.tsx",
+          "target": "src/components/icons/AngleLeftSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/AngleLeftToLineSolidIcon.tsx",
+          "target": "src/components/icons/AngleLeftToLineSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src-v2/icons/AngleRightIcon.tsx",
           "target": "src/components/icons/AngleRightIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/AngleRightSolidIcon.tsx",
+          "target": "src/components/icons/AngleRightSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/AngleRightToLineSolidIcon.tsx",
+          "target": "src/components/icons/AngleRightToLineSolidIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -748,13 +930,23 @@
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/GearIcon.tsx",
-          "target": "src/components/icons/GearIcon.tsx",
+          "path": "src-v2/icons/HomeIcon.tsx",
+          "target": "src/components/icons/HomeIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/InboxIcon.tsx",
+          "target": "src/components/icons/InboxIcon.tsx",
           "type": "registry:ui"
         },
         {
           "path": "src-v2/icons/InfoIcon.tsx",
           "target": "src/components/icons/InfoIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/LifeRingIcon.tsx",
+          "target": "src/components/icons/LifeRingIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -765,6 +957,11 @@
         {
           "path": "src-v2/icons/PanelLeftIcon.tsx",
           "target": "src/components/icons/PanelLeftIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/PlanetRingedIcon.tsx",
+          "target": "src/components/icons/PlanetRingedIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -783,6 +980,11 @@
           "type": "registry:ui"
         },
         {
+          "path": "src-v2/icons/SidebarIcon.tsx",
+          "target": "src/components/icons/SidebarIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src-v2/icons/SpinnerIcon.tsx",
           "target": "src/components/icons/SpinnerIcon.tsx",
           "type": "registry:ui"
@@ -790,6 +992,16 @@
         {
           "path": "src-v2/icons/SquareArrowOutUpRightIcon.tsx",
           "target": "src/components/icons/SquareArrowOutUpRightIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/ThumbtackIcon.tsx",
+          "target": "src/components/icons/ThumbtackIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/ThumbtackSolidIcon.tsx",
+          "target": "src/components/icons/ThumbtackSolidIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -1805,10 +2017,10 @@
       ]
     },
     {
-      "name": "data-table",
+      "name": "data-table-group-01",
       "type": "registry:block",
-      "title": "Data Table",
-      "description": "Generic data table on TanStack Table: grouping up to two levels with add rows per group, search, sortable and resizable columns, column visibility and drag reordering, row selection with a floating action bar, and inline and popover cell editors. Ships with a review-task example; replace columns.tsx and data.ts with your own rows.",
+      "title": "Data Table — Candidate Tree",
+      "description": "Grouped tree-style data table with selectable rows, column pinning, action bar, and filter dropdown",
       "categories": [
         "data-table"
       ],
@@ -1820,97 +2032,168 @@
         "@vital-design/utils",
         "@vital-design/avatar",
         "@vital-design/button",
-        "@vital-design/calendar",
         "@vital-design/card",
         "@vital-design/checkbox",
         "@vital-design/dropdown-menu",
-        "@vital-design/editable",
-        "@vital-design/popover",
+        "@vital-design/progress",
         "@vital-design/search-bar",
-        "@vital-design/select",
+        "@vital-design/table",
+        "@vital-design/tag",
+        "@vital-design/toolbar",
+        "@vital-design/icon-chevron-down",
+        "@vital-design/icon-ellipsis",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-01/DataTableGroup01.tsx",
+          "target": "src/blocks/data-table-group-01/DataTableGroup01.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-01/action-bar.tsx",
+          "target": "src/blocks/data-table-group-01/action-bar.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-01/columns.tsx",
+          "target": "src/blocks/data-table-group-01/columns.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-01/data.ts",
+          "target": "src/blocks/data-table-group-01/data.ts",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-01/pinning.ts",
+          "target": "src/blocks/data-table-group-01/pinning.ts",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-01/resize-handle.tsx",
+          "target": "src/blocks/data-table-group-01/resize-handle.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "data-table-group-02",
+      "type": "registry:block",
+      "title": "Data Table — ESG Emission Tree",
+      "description": "Expandable tree data table with sticky rail, sortable headers, selection, action bar, and inline switch toggles",
+      "categories": [
+        "data-table"
+      ],
+      "dependencies": [
+        "@tanstack/react-table",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/avatar",
+        "@vital-design/badge",
+        "@vital-design/button",
+        "@vital-design/card",
+        "@vital-design/checkbox",
+        "@vital-design/dropdown-menu",
+        "@vital-design/search-bar",
         "@vital-design/switch",
         "@vital-design/table",
         "@vital-design/tag",
         "@vital-design/toolbar",
         "@vital-design/icon-caret-down",
         "@vital-design/icon-caret-up",
-        "@vital-design/icon-check",
         "@vital-design/icon-chevron-down",
-        "@vital-design/icon-close",
         "@vital-design/icon-ellipsis",
-        "@vital-design/icon-gear",
-        "@vital-design/icon-plus",
         "@vital-design/vital-theme"
       ],
       "files": [
         {
-          "path": "src-v2/blocks/data-table/components/data-table.tsx",
-          "target": "src/blocks/data-table/data-table.tsx",
+          "path": "src-v2/blocks/data-table/data-table-group-02/DataTableGroup02.tsx",
+          "target": "src/blocks/data-table-group-02/DataTableGroup02.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/components/review-task-table.tsx",
-          "target": "src/blocks/data-table/review-task-table.tsx",
+          "path": "src-v2/blocks/data-table/data-table-group-02/action-bar.tsx",
+          "target": "src/blocks/data-table-group-02/action-bar.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/components/columns.tsx",
-          "target": "src/blocks/data-table/columns.tsx",
+          "path": "src-v2/blocks/data-table/data-table-group-02/columns.tsx",
+          "target": "src/blocks/data-table-group-02/columns.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/components/data.ts",
-          "target": "src/blocks/data-table/data.ts",
+          "path": "src-v2/blocks/data-table/data-table-group-02/data-table-column-header.tsx",
+          "target": "src/blocks/data-table-group-02/data-table-column-header.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/components/group-tree.ts",
-          "target": "src/blocks/data-table/group-tree.ts",
+          "path": "src-v2/blocks/data-table/data-table-group-02/data.ts",
+          "target": "src/blocks/data-table-group-02/data.ts",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/components/action-bar.tsx",
-          "target": "src/blocks/data-table/action-bar.tsx",
+          "path": "src-v2/blocks/data-table/data-table-group-02/pinning.ts",
+          "target": "src/blocks/data-table-group-02/pinning.ts",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/components/add-row.tsx",
-          "target": "src/blocks/data-table/add-row.tsx",
+          "path": "src-v2/blocks/data-table/data-table-group-02/resize-handle.tsx",
+          "target": "src/blocks/data-table-group-02/resize-handle.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/components/data-table-column-header.tsx",
-          "target": "src/blocks/data-table/data-table-column-header.tsx",
+          "path": "src-v2/blocks/data-table/data-table-group-02/table-rail.tsx",
+          "target": "src/blocks/data-table-group-02/table-rail.tsx",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "data-table-group-04",
+      "type": "registry:block",
+      "title": "Data Table — Editable Cells",
+      "description": "Editable data table with inline text cells, popover pickers, tag multi-select, and date selection",
+      "categories": [
+        "data-table"
+      ],
+      "dependencies": [
+        "@tanstack/react-table",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/avatar",
+        "@vital-design/calendar",
+        "@vital-design/card",
+        "@vital-design/editable",
+        "@vital-design/popover",
+        "@vital-design/table",
+        "@vital-design/tag",
+        "@vital-design/icon-check",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/blocks/data-table/data-table-group-04/DataTableGroup04.tsx",
+          "target": "src/blocks/data-table-group-04/DataTableGroup04.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/components/group-row.tsx",
-          "target": "src/blocks/data-table/group-row.tsx",
+          "path": "src-v2/blocks/data-table/data-table-group-04/columns.tsx",
+          "target": "src/blocks/data-table-group-04/columns.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/components/pinning.ts",
-          "target": "src/blocks/data-table/pinning.ts",
+          "path": "src-v2/blocks/data-table/data-table-group-04/data.ts",
+          "target": "src/blocks/data-table-group-04/data.ts",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/components/popover-edit.tsx",
-          "target": "src/blocks/data-table/popover-edit.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/components/resize-handle.tsx",
-          "target": "src/blocks/data-table/resize-handle.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/components/select-column.tsx",
-          "target": "src/blocks/data-table/select-column.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/components/selection-bar.tsx",
-          "target": "src/blocks/data-table/selection-bar.tsx",
+          "path": "src-v2/blocks/data-table/data-table-group-04/popover-edit.tsx",
+          "target": "src/blocks/data-table-group-04/popover-edit.tsx",
           "type": "registry:block"
         }
       ]

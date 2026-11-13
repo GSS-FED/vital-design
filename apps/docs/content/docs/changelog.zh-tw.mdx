@@ -9,6 +9,24 @@ description: Vittal Design registry、元件與文件裡，會影響安裝或用
 
 新的紀錄在上面。標題用變更上線的月份。只記會影響你怎麼安裝或使用 registry 的變更：新元件、破壞性用法、token，以及安裝步驟。
 
+## 2026 年 11 月 — Angle 圖示取代左右 chevron
+
+**破壞性變更：** 左右 chevron 改用設計師的命名，舊的 registry item 已移除。`icon-chevron-up` 與 `icon-chevron-down` 保留。
+
+| 舊 item                                   | 新 item                           |
+| ----------------------------------------- | --------------------------------- |
+| `@vital-design/icon-chevron-left`         | `@vital-design/icon-angle-left`   |
+| `@vital-design/icon-chevron-right`        | `@vital-design/icon-angle-right`  |
+| `@vital-design/icon-chevron-double-left`  | `@vital-design/icon-angles-left`  |
+| `@vital-design/icon-chevron-double-right` | `@vital-design/icon-angles-right` |
+
+把 import 改成 `AngleLeftIcon`、`AngleRightIcon`、`AnglesLeftIcon` 與 `AnglesRightIcon`。重新安裝用到舊圖示的元件：`calendar`、`command`、`dropdown-menu` 與 `sidebar-cloud-06`。
+
+```bash
+npx shadcn@latest add @vital-design/calendar @vital-design/command @vital-design/dropdown-menu @vital-design/sidebar-cloud-06
+```
+
+新的圖示 item：`icon-angle-left-solid`、`icon-angle-right-solid`、`icon-angle-left-to-line-solid`、`icon-angle-right-to-line-solid`、`icon-bars`、`icon-circle-user`、`icon-home`、`icon-inbox`、`icon-life-ring`、`icon-planet-ringed`、`icon-sidebar`、`icon-thumbtack` 與 `icon-thumbtack-solid`。見 [Icons → Regular 與 Solid](/zh-tw/docs/components/icons#regular-and-solid)。
 ## 2026 年 11 月 — 邊框 token
 
 `--border` 改為 0.08 的細線（`grayscale-opacity-200`），也就是 Figma 分隔線用的顏色。原本是實色 `#DEDEE2`。新增的 `--border-overlap` 保留實色 `#DEDEE2`，給會相疊或交叉的邊線使用；半透明的線疊在一起會變深。用法是 `border-border-overlap`。
