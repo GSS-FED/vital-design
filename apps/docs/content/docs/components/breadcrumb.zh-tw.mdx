@@ -12,6 +12,10 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from '~/components/vital-components';
 
 ## 預覽 [#preview]
@@ -132,6 +136,87 @@ import { Link } from 'react-router-dom';
 </BreadcrumbItem>
 ```
 
+## 下拉選單 [#dropdown]
+
+要讓人打開被收起的層級時，把 `BreadcrumbEllipsis` 放進 [`DropdownMenu`](/zh-tw/docs/components/dropdown-menu) 的觸發按鈕。
+
+`BreadcrumbEllipsis` 只做展示，所以觸發按鈕要有名稱，樣式比照麵包屑連結。每個被收起的層級用連結渲染。
+
+<ComponentPreview>
+  <Breadcrumb>
+    <BreadcrumbList>
+      <BreadcrumbItem>
+        <BreadcrumbLink href="#">專案</BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            render={
+              <button
+                type="button"
+                aria-label="顯示隱藏的頁面"
+                className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-500 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-500"
+              >
+                <BreadcrumbEllipsis className="text-inherit" />
+              </button>
+            }
+          />
+          <DropdownMenuContent align="start" sideOffset={10}>
+            <DropdownMenuItem render={<a href="#website" />}>
+              網站
+            </DropdownMenuItem>
+            <DropdownMenuItem render={<a href="#analytics" />}>
+              分析
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbPage>設定</BreadcrumbPage>
+      </BreadcrumbItem>
+    </BreadcrumbList>
+  </Breadcrumb>
+</ComponentPreview>
+
+```tsx
+import {
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+} from '@/components/ui/Breadcrumb';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/DropdownMenu';
+
+<BreadcrumbItem>
+  <DropdownMenu>
+    <DropdownMenuTrigger
+      render={
+        <button
+          type="button"
+          aria-label="顯示隱藏的頁面"
+          className="inline-flex cursor-pointer items-center rounded-xs border-0 bg-transparent p-0 text-grayscale-500 outline-none transition-colors duration-200 hover:text-primary-500 focus-visible:shadow-focus-primary data-[popup-open]:text-primary-500"
+        >
+          <BreadcrumbEllipsis className="text-inherit" />
+        </button>
+      }
+    />
+    <DropdownMenuContent align="start" sideOffset={10}>
+      <DropdownMenuItem render={<a href="/website" />}>
+        網站
+      </DropdownMenuItem>
+      <DropdownMenuItem render={<a href="/analytics" />}>
+        分析
+      </DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenu>
+</BreadcrumbItem>
+```
+
 ## 組成 [#parts]
 
 | Part                  | 元素   | 說明                                                  |
@@ -142,6 +227,6 @@ import { Link } from 'react-router-dom';
 | `BreadcrumbLink`      | `a`    | 連到上層的連結。路由連結用 `render` 傳入              |
 | `BreadcrumbPage`      | `span` | 目前頁面，帶 `aria-current="page"`                    |
 | `BreadcrumbSeparator` | `li`   | 層級間的分隔。傳 `children` 可替換箭頭                |
-| `BreadcrumbEllipsis`  | `span` | 標示隱藏的層級。傳 `children` 可替換省略圖示          |
+| `BreadcrumbEllipsis`  | `span` | 標示隱藏的層級。傳 `children` 可替換省略圖示。放進 `DropdownMenu` 的觸發按鈕可打開這些層級 |
 
 每個 part 也接受其元素的 props。
