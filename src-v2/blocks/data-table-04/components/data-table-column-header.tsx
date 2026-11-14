@@ -30,14 +30,20 @@ export function DataTableColumnHeader<TData, TValue>({
       data-sort={sort || undefined}
       onClick={column.getToggleSortingHandler()}
       className={cn(
-        'inline-flex max-w-full cursor-pointer items-center gap-1 font-normal text-grayscale-opacity-800 transition-colors hover:text-grayscale-opacity-900 focus-visible:shadow-focus-primary focus-visible:outline-none',
+        'group/sort inline-flex max-w-full cursor-pointer items-center gap-1 font-normal text-grayscale-opacity-800 transition-colors hover:text-grayscale-opacity-900 focus-visible:shadow-focus-primary focus-visible:outline-none',
         className,
       )}
     >
       <span className="truncate">{title}</span>
+      {/* Unsorted arrows wait for the pointer over the th (group/th) or
+          keyboard focus. A sorted column keeps its arrow on screen. */}
       <span
         aria-hidden="true"
-        className="inline-flex size-4 shrink-0 flex-col items-center justify-center"
+        className={cn(
+          'inline-flex size-4 shrink-0 flex-col items-center justify-center',
+          !sort &&
+            'opacity-0 group-hover/th:opacity-100 group-focus-visible/sort:opacity-100',
+        )}
       >
         <CaretUpIcon
           className={cn(

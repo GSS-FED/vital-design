@@ -13,9 +13,9 @@ export function getLeafColumnsInDisplayOrder<TData>(
 }
 
 /**
- * Sticky offset for a pinned column. This table does not resize, so a
- * pixel offset stays in sync with layout. One left pin (select) sits
- * at 0; one right pin (actions) sits at 0.
+ * Sticky offset for a pinned column. Resizing runs in `onChange` mode,
+ * which re-renders on every move, so a pixel offset stays in sync with
+ * layout. One left pin (select) sits at 0; one right pin (actions) sits at 0.
  */
 export function getPinningStyles<TData>(
   column: Column<TData>,

@@ -11,6 +11,7 @@ import {
 } from '@/components/table/Table';
 import { cn } from '@/lib/utils';
 import {
+  type ColumnOrderState,
   type HeaderGroup,
   type Row,
   type RowSelectionState,
@@ -39,6 +40,7 @@ import {
   selectionFlags,
 } from './columns';
 import {
+  COLUMN_FIELDS,
   type GroupingKeyConfig,
   PROJECT_ORDER,
   type ReviewGroupNode,
@@ -58,8 +60,14 @@ import {
   getLeafColumnsInDisplayOrder,
   getPinningStyles,
 } from './pinning';
+import { ResizeHandle } from './resize-handle';
+import { SelectionBar } from './selection-bar';
 
 const EDITOR_COLUMNS = new Set(['title', 'status', 'note']);
+
+function columnLabel(id: string): string {
+  return COLUMN_FIELDS.find((field) => field.id === id)?.label ?? id;
+}
 
 function nestedEdges(
   pinned: false | 'left' | 'right',
@@ -140,13 +148,19 @@ function ColumnHeaderRows({
           const head = (
             <TableHead
               key={header.id}
+              // The resize handle's own name would join the header's.
+              aria-label={
+                header.column.getCanResize()
+                  ? columnLabel(header.column.id)
+                  : undefined
+              }
               data-pinned={pinned || undefined}
               style={{
                 ...getPinningStyles(header.column, 16),
                 ...(boxed ? nestedEdges(pinned, true, inset) : {}),
               }}
               className={cn(
-                'border-b border-grayscale-opacity-300 bg-white',
+                'group/th border-b border-grayscale-opacity-300 bg-white',
                 topBorder && 'border-t',
                 pinned && 'bg-white',
                 pinned === 'left' && 'px-0 text-center',
@@ -155,19 +169,36 @@ function ColumnHeaderRows({
                   'border-r-0',
               )}
             >
-              {header.isPlaceholder
-                ? null
-                : flexRender(
+              {header.isPlaceholder ? null : (
+                <>
+                  {flexRender(
                     header.column.columnDef.header,
                     header.getContext(),
                   )}
+                  <ResizeHandle
+                    header={header}
+                    label={`調整${columnLabel(header.column.id)}欄寬`}
+                  />
+                </>
+              )}
             </TableHead>
           );
           return firstRight
             ? [
+                // Takes the leftover width once hidden columns leave the
+                // table narrower than the card, so it carries the same
+                // top edge as the headers beside it.
                 <TableHead
                   key={`${header.id}-filler`}
-                  className="border-b border-r-0 border-grayscale-opacity-300 p-0"
+                  style={
+                    boxed
+                      ? nestedEdges(false, true, inset)
+                      : undefined
+                  }
+                  className={cn(
+                    'border-b border-r-0 border-grayscale-opacity-300 p-0',
+                    topBorder && 'border-t',
+                  )}
                 />,
                 head,
               ]
@@ -287,7 +318,7 @@ function applyGroupValues(
   task: ReviewTask,
   values: Record<string, unknown>,
 ): ReviewTask {
-  const next: Record<string, unknown> = { ...task };
+  const next: ReviewTask & Record<string, unknown> = { ...task };
   for (const [key, value] of Object.entries(values)) {
     if (key === 'id') continue;
     if (Array.isArray(value)) {
@@ -300,7 +331,7 @@ function applyGroupValues(
     }
     next[key] = value;
   }
-  return next as ReviewTask;
+  return next;
 }
 
 function GroupBlock({
@@ -498,6 +529,10 @@ export function DataTable({
   );
   const [columnVisibility, setColumnVisibility] =
     useState<VisibilityState>({});
+  // Only the middle fields. select and actions stay pinned at the ends.
+  const [columnOrder, setColumnOrder] = useState<ColumnOrderState>(
+    [],
+  );
   const [expanded, setExpanded] = useState<Record<string, boolean>>(
     {},
   );
@@ -531,6 +566,17 @@ export function DataTable({
 
   const removeRow = useCallback((id: string) => {
     setRows((prev) => prev.filter((row) => row.id !== id));
+    setRowSelection((current) =>
+      nextRowSelection(current, [id], false),
+    );
+  }, []);
+
+  const removeRows = useCallback((ids: readonly string[]) => {
+    const doomed = new Set(ids);
+    setRows((prev) => prev.filter((row) => !doomed.has(row.id)));
+    setRowSelection((current) =>
+      nextRowSelection(current, ids, false),
+    );
   }, []);
 
   const createTask = useCallback(
@@ -575,15 +621,21 @@ export function DataTable({
       globalFilter: query,
       rowSelection,
       columnVisibility,
+      columnOrder,
     },
     initialState: {
       columnPinning: { left: ['select'], right: ['actions'] },
     },
+    defaultColumn: { minSize: 48, maxSize: 480 },
+    columnResizeMode: 'onChange',
+    // Every sortable column cycles 正序 → 倒序 → 解除, numbers included.
+    sortDescFirst: false,
     enableRowSelection: true,
     getRowId: (row) => row.id,
     onSortingChange: setSorting,
     onRowSelectionChange: setRowSelection,
     onColumnVisibilityChange: setColumnVisibility,
+    onColumnOrderChange: setColumnOrder,
     globalFilterFn: (row, _columnId, filterValue) => {
       const needle = String(filterValue).trim();
       if (!needle) return true;
@@ -607,6 +659,15 @@ export function DataTable({
   const leafColumns = getLeafColumnsInDisplayOrder(table);
   const headerGroups = table.getHeaderGroups();
   const columnCount = leafColumns.length + 1;
+  const isResizing = Boolean(
+    table.getState().columnSizingInfo.isResizingColumn,
+  );
+  // Only rows the search still shows. A hidden selected row is never
+  // counted or deleted from the bar.
+  const selectedIds = table
+    .getFilteredSelectedRowModel()
+    .rows.map((row) => row.id);
+  const visibleCount = table.getFilteredRowModel().rows.length;
 
   const toggleGroup = useCallback((id: string) => {
     setExpanded((prev) => ({
@@ -633,11 +694,18 @@ export function DataTable({
         visibility={columnVisibility}
         onQueryChange={setQuery}
         onGroupingChange={setGroupingKeys}
-        onVisibilityChange={setColumnVisibility}
+        columnOrder={columnOrder}
+        onColumnsChange={(visibility, order) => {
+          setColumnVisibility(visibility);
+          setColumnOrder(order);
+        }}
       />
       <Table
         containerRef={containerRef}
-        className="table-fixed border-separate border-spacing-0"
+        className={cn(
+          'table-fixed border-separate border-spacing-0',
+          isResizing && '[&_*]:cursor-col-resize',
+        )}
         containerClassName="max-h-[560px] overflow-auto"
         style={{
           width: table.getTotalSize(),
@@ -732,6 +800,13 @@ export function DataTable({
           </TableBody>
         )}
       </Table>
+      <SelectionBar
+        selectedCount={selectedIds.length}
+        totalCount={visibleCount}
+        onSelectAll={() => table.toggleAllPageRowsSelected(true)}
+        onDelete={() => removeRows(selectedIds)}
+        onClear={() => table.resetRowSelection(true)}
+      />
     </Card>
   );
 }

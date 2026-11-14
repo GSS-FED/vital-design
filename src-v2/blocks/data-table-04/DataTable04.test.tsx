@@ -2,6 +2,7 @@ import {
   fireEvent,
   render,
   screen,
+  waitFor,
   within,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -36,6 +37,18 @@ function groupRow(title: string) {
   const row = groupRows(title)[0];
   if (!row) throw new Error(`Missing group row ${title}`);
   return row;
+}
+
+/**
+ * jsdom runs no exit animation, so Base UI unmounts a closed popover
+ * a few frames after it reports closed.
+ */
+async function waitForPanelClosed() {
+  await waitFor(() =>
+    expect(
+      screen.queryByRole('combobox', { name: '分群' }),
+    ).not.toBeInTheDocument(),
+  );
 }
 
 function getRow(index: number) {
@@ -82,6 +95,111 @@ describe('DataTable', () => {
     expect(
       within(getRow(1)).getByText('水資源管理'),
     ).toBeInTheDocument();
+  });
+
+  it('cycles a number column from ascending to descending to unsorted', async () => {
+    renderTable();
+    const user = userEvent.setup();
+    const sort = within(
+      screen.getByRole('columnheader', { name: '協作者' }),
+    ).getByRole('button');
+
+    await user.click(sort);
+    expect(sort).toHaveAttribute('data-sort', 'asc');
+    expect(
+      within(getRow(1)).getByText('水資源管理'),
+    ).toBeInTheDocument();
+
+    await user.click(sort);
+    expect(sort).toHaveAttribute('data-sort', 'desc');
+    expect(
+      within(getRow(1)).getByText('供應鏈問卷'),
+    ).toBeInTheDocument();
+
+    await user.click(sort);
+    expect(sort).not.toHaveAttribute('data-sort');
+    expect(
+      within(getRow(1)).getByText('溫室氣體盤查'),
+    ).toBeInTheDocument();
+  });
+
+  it('resizes a column from the keyboard', async () => {
+    renderTable();
+    const user = userEvent.setup();
+    const table = screen.getByRole('table');
+    const handle = screen.getByRole('separator', {
+      name: '調整期限欄寬',
+    });
+    const before = Number.parseFloat(table.style.width);
+
+    handle.focus();
+    await user.keyboard('{ArrowRight}');
+
+    expect(handle).toHaveAttribute('aria-valuenow', '128');
+    expect(Number.parseFloat(table.style.width)).toBe(before + 8);
+    expect(
+      screen.queryByRole('separator', { name: /調整select/ }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('acts on the selected rows the search still shows', async () => {
+    renderTable();
+    const user = userEvent.setup();
+
+    expect(
+      screen.queryByRole('toolbar', { name: '已選取的任務' }),
+    ).not.toBeInTheDocument();
+    await user.click(
+      screen.getByRole('checkbox', { name: '選取 溫室氣體盤查' }),
+    );
+    await user.click(
+      screen.getByRole('checkbox', { name: '選取 水資源管理' }),
+    );
+    const bar = screen.getByRole('toolbar', { name: '已選取的任務' });
+    expect(within(bar).getByRole('status')).toHaveTextContent(
+      '已選擇 2 筆',
+    );
+
+    await user.type(
+      screen.getByPlaceholderText('搜尋任務'),
+      '水資源',
+    );
+    expect(within(bar).getByRole('status')).toHaveTextContent(
+      '已選擇 1 筆',
+    );
+    expect(
+      within(bar).queryByRole('button', { name: /全選/ }),
+    ).not.toBeInTheDocument();
+
+    await user.click(
+      within(bar).getByRole('button', { name: '刪除' }),
+    );
+    await user.clear(screen.getByPlaceholderText('搜尋任務'));
+
+    expect(screen.queryByText('水資源管理')).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('checkbox', { name: '選取 溫室氣體盤查' }),
+    ).toBeChecked();
+    // The search hid every selected row for a moment, so this is a new bar.
+    const restored = screen.getByRole('toolbar', {
+      name: '已選取的任務',
+    });
+    const remaining = reviewTasks.length - 1;
+    await user.click(
+      within(restored).getByRole('button', {
+        name: `全選 ${remaining} 筆`,
+      }),
+    );
+    expect(within(restored).getByRole('status')).toHaveTextContent(
+      `已選擇 ${remaining} 筆`,
+    );
+
+    await user.click(
+      within(restored).getByRole('button', { name: '取消選取' }),
+    );
+    expect(
+      screen.queryByRole('toolbar', { name: '已選取的任務' }),
+    ).not.toBeInTheDocument();
   });
 
   it('edits a single title cell', async () => {
@@ -172,6 +290,7 @@ describe('DataTable', () => {
     ).toBeInTheDocument();
     await user.click(screen.getByRole('option', { name: '專案' }));
     await user.keyboard('{Escape}');
+    await waitForPanelClosed();
 
     expect(
       screen.getByRole('button', { name: '環境盤查' }),
@@ -184,11 +303,9 @@ describe('DataTable', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('溫室氣體盤查')).toBeInTheDocument();
 
-    if (!screen.queryByRole('combobox', { name: '子分群' })) {
-      fireEvent.click(
-        within(toolbar).getByRole('button', { name: '分群' }),
-      );
-    }
+    fireEvent.click(
+      within(toolbar).getByRole('button', { name: '分群' }),
+    );
     const subgroup = screen.getByRole('combobox', { name: '子分群' });
     fireEvent.click(subgroup);
     const subgroupList = screen.getAllByRole('listbox').at(-1);
@@ -515,6 +632,101 @@ describe('DataTable', () => {
     ).toBeInTheDocument();
   });
 
+  it('reorders columns from the field card only after it is saved', async () => {
+    renderTable();
+    const user = userEvent.setup();
+    const fieldNames = ['任務', '狀態', '協作者', '期限', '備註'];
+    const headerOrder = () =>
+      screen
+        .getAllByRole('columnheader')
+        .map((head) => head.getAttribute('aria-label'))
+        .filter((name) => name !== null && fieldNames.includes(name));
+    const moveDueUpTwice = async () => {
+      fireEvent.click(
+        screen.getByRole('button', { name: '顯示欄位' }),
+      );
+      screen.getByRole('button', { name: '調整期限的順序' }).focus();
+      await user.keyboard('{ArrowUp}{ArrowUp}');
+    };
+
+    await moveDueUpTwice();
+    await user.click(screen.getByRole('button', { name: '取消' }));
+    expect(headerOrder()).toEqual(fieldNames);
+
+    await moveDueUpTwice();
+    await user.click(screen.getByRole('button', { name: '儲存' }));
+    expect(headerOrder()).toEqual([
+      '任務',
+      '期限',
+      '狀態',
+      '協作者',
+      '備註',
+    ]);
+
+    fireEvent.click(screen.getByRole('button', { name: '顯示欄位' }));
+    expect(
+      screen
+        .getAllByRole('button', { name: /^調整.+的順序$/ })
+        .map((grip) => grip.getAttribute('aria-label')),
+    ).toEqual([
+      '調整任務的順序',
+      '調整期限的順序',
+      '調整狀態的順序',
+      '調整協作者的順序',
+      '調整備註的順序',
+    ]);
+  });
+
+  it('hides unchecked fields in the card and reorders among the rest', async () => {
+    renderTable();
+    const user = userEvent.setup();
+    const grips = () =>
+      screen
+        .getAllByRole('button', { name: /^調整.+的順序$/ })
+        .map((grip) =>
+          grip
+            .getAttribute('aria-label')
+            ?.replace(/^調整|的順序$/g, ''),
+        );
+
+    fireEvent.click(screen.getByRole('button', { name: '顯示欄位' }));
+    const toggle = screen.getByRole('switch', {
+      name: '顯示未勾選項目',
+    });
+    expect(toggle).toBeChecked();
+    await user.click(
+      screen.getByRole('checkbox', { name: '協作者' }),
+    );
+    await user.click(toggle);
+
+    expect(
+      screen.queryByRole('checkbox', { name: '協作者' }),
+    ).not.toBeInTheDocument();
+    expect(grips()).toEqual(['任務', '狀態', '期限', '備註']);
+
+    // One step down among the rows on screen, past 期限.
+    screen.getByRole('button', { name: '調整狀態的順序' }).focus();
+    await user.keyboard('{ArrowDown}');
+    expect(grips()).toEqual(['任務', '期限', '狀態', '備註']);
+
+    await user.click(toggle);
+    expect(grips()).toEqual([
+      '任務',
+      '協作者',
+      '期限',
+      '狀態',
+      '備註',
+    ]);
+
+    await user.click(screen.getByRole('button', { name: '儲存' }));
+    expect(
+      screen
+        .getAllByRole('columnheader')
+        .map((head) => head.getAttribute('aria-label'))
+        .filter((name) => name !== null && name !== '全選'),
+    ).toEqual(['任務', '期限', '狀態', '備註']);
+  });
+
   it('clears hideable fields and keeps the locked field', async () => {
     renderTable();
     const user = userEvent.setup();
@@ -761,9 +973,11 @@ describe('DataTable', () => {
     renderTable({ grouping: ['collaboratorIds'] });
     const user = userEvent.setup();
 
-    await user.click(
-      screen.getAllByRole('button', { name: /新增任務/ })[0],
-    );
+    const [addRow] = screen.getAllByRole('button', {
+      name: /新增任務/,
+    });
+    if (!addRow) throw new Error('missing add row');
+    await user.click(addRow);
 
     expect(
       await screen.findByPlaceholderText('輸入任務'),
@@ -772,7 +986,10 @@ describe('DataTable', () => {
 
   it('keeps grouping and add row after the last grouped row is deleted', async () => {
     render(
-      <DataTable data={[reviewTasks[0]]} grouping={['status']} />,
+      <DataTable
+        data={reviewTasks.slice(0, 1)}
+        grouping={['status']}
+      />,
     );
     const user = userEvent.setup();
 
@@ -799,11 +1016,8 @@ describe('DataTable', () => {
       await screen.findByRole('option', { name: '專案' }),
     );
     await user.keyboard('{Escape}');
-    await user.keyboard('{Escape}');
 
-    expect(
-      screen.queryByRole('combobox', { name: '分群' }),
-    ).not.toBeInTheDocument();
+    await waitForPanelClosed();
   });
 
   it('stretches the table to the card when columns are narrower', () => {
@@ -950,18 +1164,11 @@ describe('DataTable grouping keys', () => {
     render(
       <DataTable
         grouping={['category', 'subcategory']}
-        data={[
-          {
-            ...reviewTasks[0],
-            category: '環境',
-            subcategory: '盤查',
-          },
-          {
-            ...reviewTasks[1],
-            category: '環境',
-            subcategory: '水',
-          },
-        ]}
+        data={reviewTasks.slice(0, 2).map((task, index) => ({
+          ...task,
+          category: '環境',
+          subcategory: index === 0 ? '盤查' : '水',
+        }))}
       />,
     );
 

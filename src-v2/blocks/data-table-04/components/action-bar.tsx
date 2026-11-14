@@ -1,6 +1,7 @@
 import { Button } from '@/components/button/Button';
 import {
   Card,
+  CardAction,
   CardContent,
   CardFooter,
   CardHeader,
@@ -28,6 +29,7 @@ import {
   SelectItemText,
   SelectTrigger,
 } from '@/components/select/Select';
+import { Switch } from '@/components/switch/Switch';
 import {
   Toolbar,
   ToolbarGroup,
@@ -40,18 +42,80 @@ import type { VisibilityState } from '@tanstack/react-table';
 import { useRef, useState } from 'react';
 import { COLUMN_FIELDS, type GroupingFieldOption } from './data';
 
+type FieldId = (typeof COLUMN_FIELDS)[number]['id'];
+
+/** Fields in the saved order. Ids the order does not name keep their default place at the end. */
+function orderedFields(order: readonly string[]) {
+  const rank = (id: string) => {
+    const index = order.indexOf(id);
+    return index === -1 ? order.length : index;
+  };
+  return [...COLUMN_FIELDS].sort((a, b) => rank(a.id) - rank(b.id));
+}
+
+/**
+ * Puts `id` at `index` among the rows on screen. With unchecked fields
+ * hidden, the hidden ones keep their place in the full order.
+ */
+function moveTo(
+  order: readonly FieldId[],
+  visible: readonly FieldId[],
+  id: FieldId,
+  index: number,
+) {
+  const others = visible.filter((item) => item !== id);
+  const rest = order.filter((item) => item !== id);
+  const last = others.at(-1);
+  if (last === undefined) return [...order];
+  const clamped = Math.max(0, Math.min(index, others.length));
+  const anchor = others[clamped];
+  const at =
+    anchor === undefined
+      ? rest.indexOf(last) + 1
+      : rest.indexOf(anchor);
+  return [...rest.slice(0, at), id, ...rest.slice(at)];
+}
+
+/** Six dots. Swap for the grip icon once icon-update lands. */
+function GripDots() {
+  return (
+    <span
+      aria-hidden="true"
+      className="grid grid-cols-2 gap-[2px] [&>span]:size-[2px] [&>span]:rounded-full [&>span]:bg-current"
+    >
+      <span />
+      <span />
+      <span />
+      <span />
+      <span />
+      <span />
+    </span>
+  );
+}
+
 function ColumnVisibilityPopover({
   visibility,
+  order,
   onSave,
 }: {
   visibility: VisibilityState;
-  onSave: (next: VisibilityState) => void;
+  /** Saved field order. Empty keeps the default order. */
+  order: readonly string[];
+  onSave: (next: VisibilityState, order: string[]) => void;
 }) {
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState<VisibilityState>({});
+  const [draftOrder, setDraftOrder] = useState<FieldId[]>([]);
+  const [dragging, setDragging] = useState<FieldId | null>(null);
+  const [showUnchecked, setShowUnchecked] = useState(true);
+  const listRef = useRef<HTMLUListElement>(null);
 
   function handleOpenChange(next: boolean) {
-    if (next) setDraft({ ...visibility });
+    if (next) {
+      setDraft({ ...visibility });
+      setDraftOrder(orderedFields(order).map((field) => field.id));
+    }
+    setDragging(null);
     setOpen(next);
   }
 
@@ -60,7 +124,7 @@ function ColumnVisibilityPopover({
     for (const field of COLUMN_FIELDS) {
       if (field.locked) next[field.id] = true;
     }
-    onSave(next);
+    onSave(next, [...draftOrder]);
     setOpen(false);
   }
 
@@ -73,6 +137,34 @@ function ColumnVisibilityPopover({
       return next;
     });
   }
+
+  // The dragged row lands after every other row whose middle is above
+  // the pointer. Rows move as the pointer goes, so the list itself is
+  // the drop preview.
+  function dragTo(id: FieldId, clientY: number) {
+    const rows = Array.from(
+      listRef.current?.querySelectorAll<HTMLElement>(
+        '[data-field-id]',
+      ) ?? [],
+    ).filter((row) => row.dataset.fieldId !== id);
+    const index = rows.filter((row) => {
+      const box = row.getBoundingClientRect();
+      return box.top + box.height / 2 < clientY;
+    }).length;
+    setDraftOrder((prev) => {
+      const next = moveTo(prev, visibleIds, id, index);
+      return next.every((item, i) => item === prev[i]) ? prev : next;
+    });
+  }
+
+  const isChecked = (field: (typeof COLUMN_FIELDS)[number]) =>
+    field.locked || draft[field.id] !== false;
+  const fields = draftOrder.flatMap((id) => {
+    const field = COLUMN_FIELDS.find((item) => item.id === id);
+    if (!field) return [];
+    return showUnchecked || isChecked(field) ? [field] : [];
+  });
+  const visibleIds = fields.map((field) => field.id);
 
   return (
     <Popover open={open} onOpenChange={handleOpenChange}>
@@ -88,43 +180,104 @@ function ColumnVisibilityPopover({
         顯示欄位
         <ChevronDownIcon data-icon="inline-end" />
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-80 p-0 shadow-none">
-        <Card>
-          <CardHeader className="border-b">
-            <CardTitle>顯示欄位</CardTitle>
+      <PopoverContent
+        align="end"
+        className="w-[350px] bg-transparent p-0 shadow-none"
+      >
+        <Card className="max-h-[350px] overflow-hidden">
+          <CardHeader className="gap-y-0 border-b pt-4">
+            <CardTitle className="text-grayscale-opacity-800">
+              顯示欄位
+            </CardTitle>
+            <CardAction>
+              <label className="flex items-center gap-2 text-sm text-grayscale-opacity-800">
+                顯示未勾選項目
+                <Switch
+                  checked={showUnchecked}
+                  onCheckedChange={(value) =>
+                    setShowUnchecked(Boolean(value))
+                  }
+                />
+              </label>
+            </CardAction>
           </CardHeader>
-          <CardContent className="flex flex-col gap-2">
-            {COLUMN_FIELDS.map((field) => {
-              const checked =
-                field.locked || draft[field.id] !== false;
-              return (
-                <label
+          <CardContent className="min-h-0 flex-1 overflow-y-auto px-0 py-2">
+            <ul ref={listRef}>
+              {fields.map((field, index) => (
+                <li
                   key={field.id}
-                  className={cn(
-                    'flex items-center gap-2 text-sm',
-                    field.locked &&
-                      'cursor-not-allowed text-grayscale-opacity-500',
-                  )}
+                  data-field-id={field.id}
+                  data-dragging={dragging === field.id || undefined}
+                  className="flex h-8 shrink-0 items-center gap-2 px-4 data-[dragging]:bg-grayscale-opacity-100"
                 >
-                  <Checkbox
-                    checked={checked}
-                    disabled={field.locked}
-                    onCheckedChange={(value) =>
-                      setDraft((prev) => ({
-                        ...prev,
-                        [field.id]: Boolean(value),
-                      }))
-                    }
-                  />
-                  {field.label}
-                </label>
-              );
-            })}
+                  <button
+                    type="button"
+                    aria-label={`調整${field.label}的順序`}
+                    aria-keyshortcuts="ArrowUp ArrowDown"
+                    className="flex size-5 shrink-0 cursor-grab touch-none items-center justify-center rounded text-grayscale-opacity-600 hover:text-grayscale-opacity-800 focus-visible:shadow-focus-primary focus-visible:outline-none data-[dragging]:cursor-grabbing"
+                    data-dragging={dragging === field.id || undefined}
+                    onPointerDown={(event) => {
+                      if (event.button !== 0) return;
+                      event.preventDefault();
+                      event.currentTarget.setPointerCapture?.(
+                        event.pointerId,
+                      );
+                      setDragging(field.id);
+                    }}
+                    onPointerMove={(event) => {
+                      if (dragging === field.id) {
+                        dragTo(field.id, event.clientY);
+                      }
+                    }}
+                    onPointerUp={() => setDragging(null)}
+                    onPointerCancel={() => setDragging(null)}
+                    onKeyDown={(event) => {
+                      if (
+                        event.key !== 'ArrowUp' &&
+                        event.key !== 'ArrowDown'
+                      ) {
+                        return;
+                      }
+                      event.preventDefault();
+                      setDraftOrder((prev) =>
+                        moveTo(
+                          prev,
+                          visibleIds,
+                          field.id,
+                          index + (event.key === 'ArrowUp' ? -1 : 1),
+                        ),
+                      );
+                    }}
+                  >
+                    <GripDots />
+                  </button>
+                  <label
+                    className={cn(
+                      'flex min-w-0 flex-1 items-center gap-2 text-sm text-grayscale-opacity-800',
+                      field.locked &&
+                        'cursor-not-allowed text-grayscale-opacity-500',
+                    )}
+                  >
+                    <Checkbox
+                      checked={isChecked(field)}
+                      disabled={field.locked}
+                      onCheckedChange={(value) =>
+                        setDraft((prev) => ({
+                          ...prev,
+                          [field.id]: Boolean(value),
+                        }))
+                      }
+                    />
+                    <span className="truncate">{field.label}</span>
+                  </label>
+                </li>
+              ))}
+            </ul>
           </CardContent>
-          <CardFooter className="justify-between border-t">
+          <CardFooter className="justify-between gap-10 border-t bg-grayscale-opacity-100 py-2 [.border-t]:pt-2">
             <Button
               type="button"
-              variant="text"
+              variant="default"
               theme="default"
               onClick={clearSelection}
             >
@@ -133,7 +286,7 @@ function ColumnVisibilityPopover({
             <div className="flex items-center gap-2">
               <Button
                 type="button"
-                variant="ghost"
+                variant="default"
                 theme="default"
                 onClick={() => setOpen(false)}
               >
@@ -286,9 +439,10 @@ export function ActionBar({
   groupingKeys,
   groupingFields,
   visibility,
+  columnOrder,
   onQueryChange,
   onGroupingChange,
-  onVisibilityChange,
+  onColumnsChange,
 }: {
   query: string;
   groupingKeys: readonly string[];
@@ -296,7 +450,9 @@ export function ActionBar({
   visibility: VisibilityState;
   onQueryChange: (value: string) => void;
   onGroupingChange: (keys: readonly string[]) => void;
-  onVisibilityChange: (next: VisibilityState) => void;
+  /** Saved field order for the 顯示欄位 card. */
+  columnOrder: readonly string[];
+  onColumnsChange: (next: VisibilityState, order: string[]) => void;
 }) {
   const groupKey = groupingKeys[0] ?? null;
   const subKey =
@@ -341,7 +497,8 @@ export function ActionBar({
         ) : null}
         <ColumnVisibilityPopover
           visibility={visibility}
-          onSave={onVisibilityChange}
+          order={columnOrder}
+          onSave={onColumnsChange}
         />
       </ToolbarGroup>
     </Toolbar>

@@ -269,7 +269,7 @@ function SelectAllCheckbox({ table }: { table: Table<ReviewTask> }) {
   );
 }
 
-const LOCKED_FIELDS = new Set(
+const LOCKED_FIELDS = new Set<string>(
   COLUMN_FIELDS.filter((field) => field.locked).map(
     (field) => field.id,
   ),
@@ -301,6 +301,7 @@ export function buildColumns({
       maxSize: selectSize,
       enableSorting: false,
       enableHiding: false,
+      enableResizing: false,
     },
     {
       id: 'title',
@@ -388,6 +389,7 @@ export function buildColumns({
       minSize: 38,
       maxSize: 38,
       enableSorting: false,
+      enableResizing: false,
       cell: ({ row }) => (
         <RowActionsMenu onDelete={() => removeRow(row.original.id)} />
       ),
