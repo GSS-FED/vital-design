@@ -9,13 +9,13 @@
 
 @layer base {
   /* fumadocs-ui/css/shadcn.css maps --color-fd-* to bare --background /
-     --border / --muted etc. but doesn't define them. Without these, the
-     `border` utility falls back to currentColor (dark text) — which is the
-     "still black border" you see. Map them onto VD tokens here. */
+     --border / --muted etc. --border already comes from the VD tokens (the
+     0.08 hairline), so --color-fd-border needs no override here; redefining
+     it would make border-border render differently in the docs than in
+     apps. Map the rest onto VD tokens. */
   :root {
     --background: #fff;
     --foreground: var(--grayscale-900);
-    --border: var(--grayscale-opacity-200);
     --input: var(--grayscale-opacity-200);
     --ring: var(--primary-300);
 

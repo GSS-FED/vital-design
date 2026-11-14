@@ -7,7 +7,7 @@ export function RailVertical() {
   return (
     <span
       aria-hidden="true"
-      className="pointer-events-none absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-border"
+      className="pointer-events-none absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-border-overlap"
     />
   );
 }
@@ -16,7 +16,7 @@ export function RailBranch() {
   return (
     <span
       aria-hidden="true"
-      className="pointer-events-none absolute right-0 top-0 h-[22px] w-3 rounded-bl-lg border-b border-l border-border"
+      className="pointer-events-none absolute right-0 top-0 h-[22px] w-3 rounded-bl-lg border-b border-l border-border-overlap"
     />
   );
 }

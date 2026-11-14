@@ -84,6 +84,5 @@
     "300": { "$value": "#FF8D52" },
     "200": { "$value": "#FFAE85" },
     "100": { "$value": "#FFD0B8" }
-  },
-  "border": { "$value": "#DEDEE2", "$type": "color" }
+  }
 }

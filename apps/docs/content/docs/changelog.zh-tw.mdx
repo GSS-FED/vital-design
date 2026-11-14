@@ -9,6 +9,20 @@ description: Vittal Design registry、元件與文件裡，會影響安裝或用
 
 新的紀錄在上面。標題用變更上線的月份。只記會影響你怎麼安裝或使用 registry 的變更：新元件、破壞性用法、token，以及安裝步驟。
 
+## 2026 年 11 月 — 邊框 token
+
+`--border` 改為 0.08 的細線（`grayscale-opacity-200`），也就是 Figma 分隔線用的顏色。原本是實色 `#DEDEE2`。新增的 `--border-overlap` 保留實色 `#DEDEE2`，給會相疊或交叉的邊線使用；半透明的線疊在一起會變深。用法是 `border-border-overlap`。
+
+Theme 也設定了預設邊框色，沒有指定顏色的 `border`、`border-t`、`border-b` 會畫出 `--border` 細線。以前 Tailwind v4 會用文字顏色畫。
+
+Avatar、`AvatarGroupCount` 與 `data-table-02` 的樹狀軌道改用 `--border-overlap`，外觀和以前一樣。Dialog 頁尾的分隔線，以及你拿來當分隔線的 `border-border`，會變淡。請重新安裝 theme 與這些項目：
+
+```bash
+npx shadcn@latest add @vital-design/vital-theme
+npx shadcn@latest add @vital-design/avatar
+npx shadcn@latest add @vital-design/data-table-02
+```
+
 ## 2026 年 11 月 — 資料表格區塊
 
 資料表格區塊改為以 `@vital-design/data-table-01`、`@vital-design/data-table-02` 與 `@vital-design/data-table-03` 安裝。檔案放在 `src/blocks/data-table-01/`、`src/blocks/data-table-02/` 與 `src/blocks/data-table-03/`。每個區塊的進入點都是 `data-table.tsx`，export `DataTable`。

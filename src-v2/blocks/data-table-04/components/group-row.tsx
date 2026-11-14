@@ -55,13 +55,13 @@ export function NestingRail({
       {continued ? (
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute -top-px -bottom-px left-[calc(100%-12px)] w-px bg-border"
+          className="pointer-events-none absolute -top-px -bottom-px left-[calc(100%-12px)] w-px bg-border-overlap"
         />
       ) : null}
       {branch ? (
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute top-0 right-0 h-[22px] w-3 rounded-bl-[8px] border-b border-l border-border"
+          className="pointer-events-none absolute top-0 right-0 h-[22px] w-3 rounded-bl-[8px] border-b border-l border-border-overlap"
         />
       ) : null}
     </>
@@ -245,7 +245,7 @@ export function GroupHeaderRow({
             {rails.length === 0 && depth > 0 ? (
               <span
                 aria-hidden="true"
-                className="pointer-events-none absolute top-0 left-4 h-[22px] w-3 rounded-bl-[8px] border-b border-l border-border"
+                className="pointer-events-none absolute top-0 left-4 h-[22px] w-3 rounded-bl-[8px] border-b border-l border-border-overlap"
               />
             ) : null}
             <ChevronDownIcon

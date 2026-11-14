@@ -183,7 +183,6 @@
           "destructive-700": "#852D00",
           "destructive-800": "#521C00",
           "destructive-900": "#1F0B00",
-          "border": "#DEDEE2",
           "background": "#FFFFFF",
           "foreground": "#232332",
           "card": "#FFFFFF",
@@ -206,6 +205,8 @@
           "info-foreground": "#FFFFFF",
           "warning": "#FFA700",
           "warning-foreground": "#232332",
+          "border": "rgba(35, 35, 50, 0.08)",
+          "border-overlap": "#DEDEE2",
           "input": "#DEDEE2",
           "ring": "#0E86FE",
           "chart-1": "#0E86FE",
@@ -233,6 +234,9 @@
         "@layer base": {
           "*, *::before, *::after": {
             "box-sizing": "border-box"
+          },
+          "*, ::after, ::before, ::backdrop, ::file-selector-button": {
+            "border-color": "var(--border, currentColor)"
           }
         }
       }

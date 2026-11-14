@@ -147,6 +147,9 @@ export const base = [
         '*, *::before, *::after': {
           'box-sizing': 'border-box',
         },
+        '*, ::after, ::before, ::backdrop, ::file-selector-button': {
+          'border-color': 'var(--border, currentColor)',
+        },
       },
     },
   },

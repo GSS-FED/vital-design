@@ -69,6 +69,16 @@
       "$type": "color"
     },
 
+    "border": {
+      "$value": "{grayscale-opacity.200}",
+      "$type": "color",
+      "$description": "Hairline for dividers and single edges. Translucent, so it reads the same on tinted surfaces."
+    },
+    "border-overlap": {
+      "$value": "{grayscale.300}",
+      "$type": "color",
+      "$description": "Solid line for edges that stack or cross, where a translucent line would darken (Figma Border Color)."
+    },
     "input": { "$value": "#DEDEE2", "$type": "color" },
     "ring": { "$value": "{primary.500}", "$type": "color" },
 

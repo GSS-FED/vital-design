@@ -9,6 +9,20 @@ That package is built from `src/` and stays available for existing apps. New wor
 
 Newest entries are at the top. Headings use the month the change shipped. We only record changes that affect how you install or use the registry — new components, breaking usage, tokens, and install steps.
 
+## November 2026 — Border tokens
+
+`--border` is now the 0.08 hairline (`grayscale-opacity-200`), the line Figma uses for dividers. It was a solid `#DEDEE2`. A new `--border-overlap` token keeps the solid `#DEDEE2` for edges that stack or cross, where a translucent line would darken. Use it with `border-border-overlap`.
+
+The theme also sets a default border color, so a bare `border`, `border-t`, or `border-b` draws the `--border` hairline. Before, Tailwind v4 drew it in the text color.
+
+Avatar, `AvatarGroupCount`, and the tree rails in `data-table-02` move to `--border-overlap`, so they look the same as before. The Dialog footer divider and any `border-border` you use for dividers get lighter. Reinstall the theme and these items:
+
+```bash
+npx shadcn@latest add @vital-design/vital-theme
+npx shadcn@latest add @vital-design/avatar
+npx shadcn@latest add @vital-design/data-table-02
+```
+
 ## November 2026 — Data table blocks
 
 The data table blocks now install as `@vital-design/data-table-01`, `@vital-design/data-table-02`, and `@vital-design/data-table-03`. Files land in `src/blocks/data-table-01/`, `src/blocks/data-table-02/`, and `src/blocks/data-table-03/`. Each entry file is `data-table.tsx` and exports `DataTable`.
