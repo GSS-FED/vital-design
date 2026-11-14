@@ -239,6 +239,6 @@ export {
 } from '../../../src-v2/components/resizable/Resizable';
 
 // Blocks
-export { DataTable } from '../../../src-v2/blocks/data-table-01/components/data-table';
+export { DataTable as DataTable01 } from '../../../src-v2/blocks/data-table-01/components/data-table';
 export { DataTable as DataTable02 } from '../../../src-v2/blocks/data-table-02/components/data-table';
 export { DataTable as DataTable03 } from '../../../src-v2/blocks/data-table-03/components/data-table';

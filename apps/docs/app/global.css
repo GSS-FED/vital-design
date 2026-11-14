@@ -39,17 +39,6 @@
     --fd-page-width: 1400px !important;
   }
 
-  /* Tailwind v4 dropped the implicit gray-200 default for the `border`
-     utility, so anything that doesn't specify a color falls back to
-     currentColor — which is dark text in our theme. Pin it to the soft
-     alpha border so fumadocs's UI chrome (search trigger, kbd keys, etc.)
-     reads as light. */
-  *,
-  ::before,
-  ::after {
-    border-color: var(--grayscale-opacity-200);
-  }
-
   /* Soften the page bg so the article panel can read as elevated. */
   body {
     background-color: var(--grayscale-100);

@@ -28,9 +28,9 @@ function groupChrome(depth: number) {
   const root = depth === 0;
   return {
     row: root
-      ? 'sticky z-30 bg-[#f8f8f9] hover:bg-grayscale-200'
+      ? 'sticky z-30 bg-grayscale-100 hover:bg-grayscale-200'
       : 'sticky z-20 bg-white hover:bg-grayscale-opacity-100',
-    bar: root ? 'h-9 bg-[#f8f8f9]' : 'h-11 bg-white',
+    bar: root ? 'h-9 bg-grayscale-100' : 'h-11 bg-white',
     title: root
       ? 'font-medium text-grayscale-opacity-900'
       : 'font-medium text-grayscale-opacity-800',
@@ -155,6 +155,8 @@ export function GroupHeaderRow({
       <TableCell
         colSpan={columnCount}
         className={cn(
+          // [role=checkbox] matches TableCell's own `[&:has([role=checkbox])]:px-3`,
+          // so tailwind-merge drops it. A data-slot selector would leave both.
           'border-r-0 border-b border-transparent p-0 [&:has([role=checkbox])]:px-0',
           level.bar,
           padEnd && 'pb-3',

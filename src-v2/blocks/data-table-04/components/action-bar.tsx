@@ -39,7 +39,13 @@ import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
 import { EllipsisIcon } from '@/icons/EllipsisIcon';
 import { cn } from '@/lib/utils';
 import type { VisibilityState } from '@tanstack/react-table';
-import { useRef, useState } from 'react';
+import {
+  type Ref,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { COLUMN_FIELDS, type GroupingFieldOption } from './data';
 
 type FieldId = (typeof COLUMN_FIELDS)[number]['id'];
@@ -59,11 +65,13 @@ function orderedFields(order: readonly string[]) {
  */
 function moveTo(
   order: readonly FieldId[],
-  visible: readonly FieldId[],
+  visible: ReadonlySet<FieldId>,
   id: FieldId,
   index: number,
 ) {
-  const others = visible.filter((item) => item !== id);
+  const others = order.filter(
+    (item) => item !== id && visible.has(item),
+  );
   const rest = order.filter((item) => item !== id);
   const last = others.at(-1);
   if (last === undefined) return [...order];
@@ -109,14 +117,55 @@ function ColumnVisibilityPopover({
   const [dragging, setDragging] = useState<FieldId | null>(null);
   const [showUnchecked, setShowUnchecked] = useState(true);
   const listRef = useRef<HTMLUListElement>(null);
+  const stopDragRef = useRef<(() => void) | null>(null);
+  /** Grip to refocus after a keyboard move re-renders the list. */
+  const refocusRef = useRef<FieldId | null>(null);
+
+  function stopDrag() {
+    stopDragRef.current?.();
+    stopDragRef.current = null;
+    setDragging(null);
+  }
+
+  useEffect(() => () => stopDragRef.current?.(), []);
+
+  // Moving a row down makes React move that row's own <li>, which drops
+  // focus from the grip inside it. Put it back.
+  useLayoutEffect(() => {
+    const id = refocusRef.current;
+    if (!id) return;
+    refocusRef.current = null;
+    listRef.current
+      ?.querySelector<HTMLButtonElement>(
+        `[data-field-id="${id}"] button`,
+      )
+      ?.focus();
+  }, [draftOrder]);
 
   function handleOpenChange(next: boolean) {
     if (next) {
       setDraft({ ...visibility });
       setDraftOrder(orderedFields(order).map((field) => field.id));
     }
-    setDragging(null);
+    stopDrag();
     setOpen(next);
+  }
+
+  // The drag listens on window, not on the grip: React moves the dragged
+  // <li> when it goes down, and moving a node drops its pointer capture.
+  function startDrag(id: FieldId) {
+    stopDragRef.current?.();
+    const move = (event: PointerEvent) => dragTo(id, event.clientY);
+    const end = () => stopDrag();
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', end);
+    window.addEventListener('pointercancel', end);
+    stopDragRef.current = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', end);
+      window.removeEventListener('pointercancel', end);
+    };
+    setDragging(id);
   }
 
   function save() {
@@ -164,7 +213,9 @@ function ColumnVisibilityPopover({
     if (!field) return [];
     return showUnchecked || isChecked(field) ? [field] : [];
   });
-  const visibleIds = fields.map((field) => field.id);
+  // Membership cannot change mid-drag (the pointer is held on a grip),
+  // so the drag listener can keep the set from the render it started in.
+  const visibleIds = new Set(fields.map((field) => field.id));
 
   return (
     <Popover open={open} onOpenChange={handleOpenChange}>
@@ -219,18 +270,8 @@ function ColumnVisibilityPopover({
                     onPointerDown={(event) => {
                       if (event.button !== 0) return;
                       event.preventDefault();
-                      event.currentTarget.setPointerCapture?.(
-                        event.pointerId,
-                      );
-                      setDragging(field.id);
+                      startDrag(field.id);
                     }}
-                    onPointerMove={(event) => {
-                      if (dragging === field.id) {
-                        dragTo(field.id, event.clientY);
-                      }
-                    }}
-                    onPointerUp={() => setDragging(null)}
-                    onPointerCancel={() => setDragging(null)}
                     onKeyDown={(event) => {
                       if (
                         event.key !== 'ArrowUp' &&
@@ -239,6 +280,7 @@ function ColumnVisibilityPopover({
                         return;
                       }
                       event.preventDefault();
+                      refocusRef.current = field.id;
                       setDraftOrder((prev) =>
                         moveTo(
                           prev,
@@ -440,6 +482,7 @@ export function ActionBar({
   groupingFields,
   visibility,
   columnOrder,
+  searchRef,
   onQueryChange,
   onGroupingChange,
   onColumnsChange,
@@ -452,6 +495,8 @@ export function ActionBar({
   onGroupingChange: (keys: readonly string[]) => void;
   /** Saved field order for the 顯示欄位 card. */
   columnOrder: readonly string[];
+  /** Where focus goes when the selection bar empties. */
+  searchRef?: Ref<HTMLInputElement>;
   onColumnsChange: (next: VisibilityState, order: string[]) => void;
 }) {
   const groupKey = groupingKeys[0] ?? null;
@@ -478,6 +523,7 @@ export function ActionBar({
       className="h-12 flex-nowrap gap-6 overflow-x-auto overflow-y-hidden rounded bg-white px-3 py-2"
     >
       <SearchBar
+        ref={searchRef}
         placeholder="搜尋任務"
         width="220px"
         value={query}

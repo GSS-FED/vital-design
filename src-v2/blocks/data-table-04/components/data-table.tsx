@@ -11,6 +11,7 @@ import {
 } from '@/components/table/Table';
 import { cn } from '@/lib/utils';
 import {
+  type Column,
   type ColumnOrderState,
   type HeaderGroup,
   type Row,
@@ -64,6 +65,15 @@ import { ResizeHandle } from './resize-handle';
 import { SelectionBar } from './selection-bar';
 
 const EDITOR_COLUMNS = new Set(['title', 'status', 'note']);
+
+/** Sort state for screen readers; unsorted arrows are hidden until hover. */
+function ariaSort(column: Column<ReviewTask>) {
+  if (!column.getCanSort()) return undefined;
+  const sort = column.getIsSorted();
+  if (sort === 'asc') return 'ascending';
+  if (sort === 'desc') return 'descending';
+  return 'none';
+}
 
 function columnLabel(id: string): string {
   return COLUMN_FIELDS.find((field) => field.id === id)?.label ?? id;
@@ -154,6 +164,7 @@ function ColumnHeaderRows({
                   ? columnLabel(header.column.id)
                   : undefined
               }
+              aria-sort={ariaSort(header.column)}
               data-pinned={pinned || undefined}
               style={{
                 ...getPinningStyles(header.column, 16),
@@ -538,6 +549,7 @@ export function DataTable({
   );
   const editRequestId = useRef<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
   const [viewportWidth, setViewportWidth] = useState(0);
 
   useLayoutEffect(() => {
@@ -695,6 +707,7 @@ export function DataTable({
         onQueryChange={setQuery}
         onGroupingChange={setGroupingKeys}
         columnOrder={columnOrder}
+        searchRef={searchRef}
         onColumnsChange={(visibility, order) => {
           setColumnVisibility(visibility);
           setColumnOrder(order);
@@ -804,8 +817,16 @@ export function DataTable({
         selectedCount={selectedIds.length}
         totalCount={visibleCount}
         onSelectAll={() => table.toggleAllPageRowsSelected(true)}
-        onDelete={() => removeRows(selectedIds)}
-        onClear={() => table.resetRowSelection(true)}
+        // Both empty the selection, which removes the focused button
+        // with the bar. Hand focus to the search box first.
+        onDelete={() => {
+          searchRef.current?.focus();
+          removeRows(selectedIds);
+        }}
+        onClear={() => {
+          searchRef.current?.focus();
+          table.resetRowSelection(true);
+        }}
       />
     </Card>
   );

@@ -6,7 +6,7 @@ import {
   within,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   buildReviewTree,
   reviewGroupingConfig,
@@ -48,6 +48,26 @@ async function waitForPanelClosed() {
     expect(
       screen.queryByRole('combobox', { name: '分群' }),
     ).not.toBeInTheDocument(),
+  );
+}
+
+function fieldGrips() {
+  return screen
+    .getAllByRole('button', { name: /^調整.+的順序$/ })
+    .map((grip) =>
+      grip.getAttribute('aria-label')?.replace(/^調整|的順序$/g, ''),
+    );
+}
+
+/** jsdom has no PointerEvent; React only needs the type, button and clientY. */
+function pointer(
+  target: Element | Document | Window,
+  type: 'pointerdown' | 'pointermove' | 'pointerup',
+  clientY = 0,
+) {
+  fireEvent(
+    target,
+    new MouseEvent(type, { bubbles: true, button: 0, clientY }),
   );
 }
 
@@ -104,14 +124,19 @@ describe('DataTable', () => {
       screen.getByRole('columnheader', { name: '協作者' }),
     ).getByRole('button');
 
+    const head = screen.getByRole('columnheader', { name: '協作者' });
+    expect(head).toHaveAttribute('aria-sort', 'none');
+
     await user.click(sort);
     expect(sort).toHaveAttribute('data-sort', 'asc');
+    expect(head).toHaveAttribute('aria-sort', 'ascending');
     expect(
       within(getRow(1)).getByText('水資源管理'),
     ).toBeInTheDocument();
 
     await user.click(sort);
     expect(sort).toHaveAttribute('data-sort', 'desc');
+    expect(head).toHaveAttribute('aria-sort', 'descending');
     expect(
       within(getRow(1)).getByText('供應鏈問卷'),
     ).toBeInTheDocument();
@@ -193,6 +218,10 @@ describe('DataTable', () => {
     expect(within(restored).getByRole('status')).toHaveTextContent(
       `已選擇 ${remaining} 筆`,
     );
+    // 全選 is gone now; focus stays in the bar.
+    expect(
+      within(restored).getByRole('button', { name: '刪除' }),
+    ).toHaveFocus();
 
     await user.click(
       within(restored).getByRole('button', { name: '取消選取' }),
@@ -200,6 +229,67 @@ describe('DataTable', () => {
     expect(
       screen.queryByRole('toolbar', { name: '已選取的任務' }),
     ).not.toBeInTheDocument();
+    expect(screen.getByPlaceholderText('搜尋任務')).toHaveFocus();
+  });
+
+  describe('selection bar exit', () => {
+    afterEach(() => {
+      vi.unstubAllGlobals();
+      vi.restoreAllMocks();
+    });
+
+    function stubAnimations(running: () => object[]) {
+      class FakeCSSAnimation {}
+      vi.stubGlobal('CSSAnimation', FakeCSSAnimation);
+      // src/vitest-setup.ts gives jsdom an empty getAnimations.
+      vi.spyOn(
+        HTMLElement.prototype,
+        'getAnimations',
+      ).mockImplementation(() => running() as Animation[]);
+      return FakeCSSAnimation;
+    }
+
+    it('waits for the exit animation before unmounting', async () => {
+      const FakeCSSAnimation = stubAnimations(() => [
+        new FakeCSSAnimation(),
+      ]);
+      renderTable();
+      const user = userEvent.setup();
+      await user.click(
+        screen.getByRole('checkbox', { name: '選取 溫室氣體盤查' }),
+      );
+      const bar = screen.getByRole('toolbar', {
+        name: '已選取的任務',
+      });
+
+      await user.click(
+        within(bar).getByRole('button', { name: '取消選取' }),
+      );
+      expect(bar).toHaveAttribute('data-state', 'closed');
+      expect(bar).toHaveTextContent('已選擇 1 筆');
+
+      fireEvent.animationEnd(bar);
+      expect(bar).not.toBeInTheDocument();
+    });
+
+    it('unmounts at once when only a transition is running', async () => {
+      // Reduced motion: no exit animation, but the opacity change may
+      // still start a CSS transition, which never fires animationend.
+      stubAnimations(() => [{}]);
+      renderTable();
+      const user = userEvent.setup();
+      await user.click(
+        screen.getByRole('checkbox', { name: '選取 溫室氣體盤查' }),
+      );
+      const bar = screen.getByRole('toolbar', {
+        name: '已選取的任務',
+      });
+
+      await user.click(
+        within(bar).getByRole('button', { name: '取消選取' }),
+      );
+      expect(bar).not.toBeInTheDocument();
+    });
   });
 
   it('edits a single title cell', async () => {
@@ -725,6 +815,58 @@ describe('DataTable', () => {
         .map((head) => head.getAttribute('aria-label'))
         .filter((name) => name !== null && name !== '全選'),
     ).toEqual(['任務', '期限', '狀態', '備註']);
+  });
+
+  it('keeps focus on a grip moved down twice from the keyboard', async () => {
+    renderTable();
+    const user = userEvent.setup();
+    // Let the popover finish moving initial focus before taking it.
+    await user.click(
+      screen.getByRole('button', { name: '顯示欄位' }),
+    );
+    screen.getByRole('button', { name: '調整狀態的順序' }).focus();
+
+    await user.keyboard('{ArrowDown}{ArrowDown}');
+
+    expect(fieldGrips()).toEqual([
+      '任務',
+      '協作者',
+      '期限',
+      '狀態',
+      '備註',
+    ]);
+    expect(
+      screen.getByRole('button', { name: '調整狀態的順序' }),
+    ).toHaveFocus();
+  });
+
+  it('ends a field drag when the pointer is released off the grip', () => {
+    renderTable();
+    fireEvent.click(screen.getByRole('button', { name: '顯示欄位' }));
+    const grip = () =>
+      screen.getByRole('button', { name: '調整任務的順序' });
+
+    // jsdom lays every row out at 0, so any clientY above 0 is below
+    // every row and 0 is above them.
+    pointer(grip(), 'pointerdown');
+    pointer(grip(), 'pointermove', 100);
+    expect(fieldGrips()).toEqual([
+      '狀態',
+      '協作者',
+      '期限',
+      '備註',
+      '任務',
+    ]);
+
+    pointer(document.body, 'pointerup');
+    pointer(grip(), 'pointermove', 0);
+    expect(fieldGrips()).toEqual([
+      '狀態',
+      '協作者',
+      '期限',
+      '備註',
+      '任務',
+    ]);
   });
 
   it('clears hideable fields and keeps the locked field', async () => {

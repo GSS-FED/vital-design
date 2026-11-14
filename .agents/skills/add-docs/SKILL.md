@@ -21,7 +21,7 @@ allowed-tools: Read, Write, Edit, Bash
    ```
 
    Props 類型通常 inline 定義於 `.tsx` 檔頂部，並從該元件檔 export。
-   （若為 block：`src-v2/blocks/<block-name>/components/<BlockName>.tsx`）
+   （若為 block：`src-v2/blocks/<block-name>/components/<entry-name>.tsx`，例如 `data-table.tsx`）
 
 2. **讀取現有 page.tsx** — 確認 import 格式與 components 物件結構
 

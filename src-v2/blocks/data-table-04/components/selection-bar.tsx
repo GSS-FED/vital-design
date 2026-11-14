@@ -31,6 +31,7 @@ export function SelectionBar({
     open ? { selected: selectedCount, total: totalCount } : null,
   );
   const barRef = useRef<HTMLDivElement>(null);
+  const deleteRef = useRef<HTMLButtonElement>(null);
 
   // While open, follow the live counts. While closing, keep the last
   // ones, so the bar does not read 已選擇 0 筆 on its way out.
@@ -47,17 +48,19 @@ export function SelectionBar({
   //
   // No exit animation to wait for (reduced motion, or no Web
   // Animations API): unmount right away instead of waiting for an
-  // animationend that never comes.
+  // animationend that never comes. Only a CSS animation fires
+  // animationend; a running transition does not count.
   useLayoutEffect(() => {
     if (open || !shown) return;
     const bar = barRef.current;
-    if (
-      !bar ||
-      typeof bar.getAnimations !== 'function' ||
-      bar.getAnimations().length === 0
-    ) {
-      setShown(null);
-    }
+    const exiting =
+      bar !== null &&
+      typeof bar.getAnimations === 'function' &&
+      typeof CSSAnimation !== 'undefined' &&
+      bar
+        .getAnimations()
+        .some((animation) => animation instanceof CSSAnimation);
+    if (!exiting) setShown(null);
   }, [open, shown]);
 
   if (!shown) return null;
@@ -78,7 +81,7 @@ export function SelectionBar({
             setShown(null);
           }
         }}
-        className="absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-10 rounded-lg bg-grayscale-opacity-900/85 py-3 pr-4 pl-6 text-sm leading-5 whitespace-nowrap text-white shadow-emphasis backdrop-blur-[4px] duration-300 ease-out data-[state=closed]:opacity-0 data-[state=open]:pointer-events-auto motion-safe:data-[state=closed]:animate-out motion-safe:data-[state=closed]:fade-out-0 motion-safe:data-[state=closed]:slide-out-to-bottom motion-safe:data-[state=open]:animate-in motion-safe:data-[state=open]:fade-in-0 motion-safe:data-[state=open]:slide-in-from-bottom"
+        className="absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-10 rounded-lg bg-grayscale-opacity-900/85 py-3 pr-4 pl-6 text-sm leading-5 whitespace-nowrap text-white shadow-emphasis backdrop-blur-[4px] ease-out motion-safe:duration-300 data-[state=closed]:opacity-0 data-[state=open]:pointer-events-auto motion-safe:data-[state=closed]:animate-out motion-safe:data-[state=closed]:fade-out-0 motion-safe:data-[state=closed]:slide-out-to-bottom motion-safe:data-[state=open]:animate-in motion-safe:data-[state=open]:fade-in-0 motion-safe:data-[state=open]:slide-in-from-bottom"
       >
         <div className="flex items-center gap-4">
           <span role="status">
@@ -91,7 +94,12 @@ export function SelectionBar({
           {shown.selected < shown.total ? (
             <button
               type="button"
-              onClick={onSelectAll}
+              onClick={() => {
+                // Selecting everything removes this button. Keep focus
+                // in the bar, on the next action.
+                deleteRef.current?.focus();
+                onSelectAll();
+              }}
               className="cursor-pointer font-medium text-info-400 hover:underline focus-visible:shadow-focus-primary focus-visible:outline-none"
             >
               全選 {shown.total} 筆
@@ -100,6 +108,7 @@ export function SelectionBar({
         </div>
         <div className="flex items-center gap-6">
           <button
+            ref={deleteRef}
             type="button"
             onClick={onDelete}
             className="cursor-pointer font-medium text-destructive-400 hover:underline focus-visible:shadow-focus-primary focus-visible:outline-none"

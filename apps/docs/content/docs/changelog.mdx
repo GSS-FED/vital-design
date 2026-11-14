@@ -15,7 +15,7 @@ Newest entries are at the top. Headings use the month the change shipped. We onl
 
 The theme also sets a default border color, so a bare `border`, `border-t`, or `border-b` draws the `--border` hairline. Before, Tailwind v4 drew it in the text color.
 
-Avatar, `AvatarGroupCount`, and the tree rails in `data-table-02` move to `--border-overlap`, so they look the same as before. The Dialog footer divider and any `border-border` you use for dividers get lighter. Reinstall the theme and these items:
+Avatar, `AvatarGroupCount`, and the tree rails in `data-table-02` move to `--border-overlap`, so they look the same as before. The Dialog footer divider and any `border-border` you use for dividers get lighter. A `FieldLabel` that wraps a `Field` (the choice-card layout) draws its outline with a bare `border`, so it also goes from the text color to the hairline. Reinstall the theme and these items:
 
 ```bash
 npx shadcn@latest add @vital-design/vital-theme
@@ -86,7 +86,7 @@ npx shadcn@latest add @vital-design/icon-caret-down
 
 [Data Table — Candidate Tree](/docs/blocks/data-table/candidate-tree) and [ESG Emission Tree](/docs/blocks/data-table/esg-emission-tree) can resize columns. Drag the header edge. `columnResizeMode` defaults to `onChange`. Use `onEnd` on a wide table with many pinned columns so the columns stay put until you release.
 
-Reinstall both blocks. Group 02 also swaps its sort icon from chevron up to the caret pair, and drops `@vital-design/icon-chevron-up`. `@vital-design/icon-chevron-down` stays for the row rail. The sort label truncates so the caret stays visible when a column gets narrow.
+Reinstall both blocks. ESG Emission Tree also swaps its sort icon from chevron up to the caret pair, and drops `@vital-design/icon-chevron-up`. `@vital-design/icon-chevron-down` stays for the row rail. The sort label truncates so the caret stays visible when a column gets narrow.
 
 ```bash
 npx shadcn@latest add @vital-design/data-table-01
