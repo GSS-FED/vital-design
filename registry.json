@@ -1787,10 +1787,10 @@
       ]
     },
     {
-      "name": "data-table-01",
+      "name": "data-table",
       "type": "registry:block",
-      "title": "Data Table — Candidate Tree",
-      "description": "Grouped tree-style data table with selectable rows, column pinning, action bar, and filter dropdown",
+      "title": "Data Table",
+      "description": "Generic data table on TanStack Table: grouping up to two levels with add rows per group, search, sortable and resizable columns, column visibility and drag reordering, row selection with a floating action bar, and inline and popover cell editors. Ships with a review-task example; replace columns.tsx and data.ts with your own rows.",
       "categories": [
         "data-table"
       ],
@@ -1802,168 +1802,96 @@
         "@vital-design/utils",
         "@vital-design/avatar",
         "@vital-design/button",
+        "@vital-design/calendar",
         "@vital-design/card",
         "@vital-design/checkbox",
         "@vital-design/dropdown-menu",
-        "@vital-design/progress",
+        "@vital-design/editable",
+        "@vital-design/popover",
         "@vital-design/search-bar",
-        "@vital-design/table",
-        "@vital-design/tag",
-        "@vital-design/toolbar",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-ellipsis",
-        "@vital-design/vital-theme"
-      ],
-      "files": [
-        {
-          "path": "src-v2/blocks/data-table-01/components/data-table.tsx",
-          "target": "src/blocks/data-table-01/data-table.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table-01/components/action-bar.tsx",
-          "target": "src/blocks/data-table-01/action-bar.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table-01/components/columns.tsx",
-          "target": "src/blocks/data-table-01/columns.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table-01/components/data.ts",
-          "target": "src/blocks/data-table-01/data.ts",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table-01/components/pinning.ts",
-          "target": "src/blocks/data-table-01/pinning.ts",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table-01/components/resize-handle.tsx",
-          "target": "src/blocks/data-table-01/resize-handle.tsx",
-          "type": "registry:block"
-        }
-      ]
-    },
-    {
-      "name": "data-table-02",
-      "type": "registry:block",
-      "title": "Data Table — ESG Emission Tree",
-      "description": "Expandable tree data table with sticky rail, sortable headers, selection, action bar, and inline switch toggles",
-      "categories": [
-        "data-table"
-      ],
-      "dependencies": [
-        "@tanstack/react-table",
-        "cn"
-      ],
-      "registryDependencies": [
-        "@vital-design/utils",
-        "@vital-design/avatar",
-        "@vital-design/badge",
-        "@vital-design/button",
-        "@vital-design/card",
-        "@vital-design/checkbox",
-        "@vital-design/dropdown-menu",
-        "@vital-design/search-bar",
+        "@vital-design/select",
         "@vital-design/switch",
         "@vital-design/table",
         "@vital-design/tag",
         "@vital-design/toolbar",
         "@vital-design/icon-caret-down",
         "@vital-design/icon-caret-up",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-ellipsis",
-        "@vital-design/vital-theme"
-      ],
-      "files": [
-        {
-          "path": "src-v2/blocks/data-table-02/components/data-table.tsx",
-          "target": "src/blocks/data-table-02/data-table.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table-02/components/action-bar.tsx",
-          "target": "src/blocks/data-table-02/action-bar.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table-02/components/columns.tsx",
-          "target": "src/blocks/data-table-02/columns.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table-02/components/data-table-column-header.tsx",
-          "target": "src/blocks/data-table-02/data-table-column-header.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table-02/components/data.ts",
-          "target": "src/blocks/data-table-02/data.ts",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table-02/components/pinning.ts",
-          "target": "src/blocks/data-table-02/pinning.ts",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table-02/components/resize-handle.tsx",
-          "target": "src/blocks/data-table-02/resize-handle.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table-02/components/table-rail.tsx",
-          "target": "src/blocks/data-table-02/table-rail.tsx",
-          "type": "registry:block"
-        }
-      ]
-    },
-    {
-      "name": "data-table-03",
-      "type": "registry:block",
-      "title": "Data Table — Editable Cells",
-      "description": "Editable data table with inline text cells, popover pickers, tag multi-select, and date selection",
-      "categories": [
-        "data-table"
-      ],
-      "dependencies": [
-        "@tanstack/react-table",
-        "cn"
-      ],
-      "registryDependencies": [
-        "@vital-design/utils",
-        "@vital-design/avatar",
-        "@vital-design/calendar",
-        "@vital-design/card",
-        "@vital-design/editable",
-        "@vital-design/popover",
-        "@vital-design/table",
-        "@vital-design/tag",
         "@vital-design/icon-check",
+        "@vital-design/icon-chevron-down",
+        "@vital-design/icon-close",
+        "@vital-design/icon-ellipsis",
+        "@vital-design/icon-plus",
         "@vital-design/vital-theme"
       ],
       "files": [
         {
-          "path": "src-v2/blocks/data-table-03/components/data-table.tsx",
-          "target": "src/blocks/data-table-03/data-table.tsx",
+          "path": "src-v2/blocks/data-table/components/data-table.tsx",
+          "target": "src/blocks/data-table/data-table.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table-03/components/columns.tsx",
-          "target": "src/blocks/data-table-03/columns.tsx",
+          "path": "src-v2/blocks/data-table/components/review-task-table.tsx",
+          "target": "src/blocks/data-table/review-task-table.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table-03/components/data.ts",
-          "target": "src/blocks/data-table-03/data.ts",
+          "path": "src-v2/blocks/data-table/components/columns.tsx",
+          "target": "src/blocks/data-table/columns.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table-03/components/popover-edit.tsx",
-          "target": "src/blocks/data-table-03/popover-edit.tsx",
+          "path": "src-v2/blocks/data-table/components/data.ts",
+          "target": "src/blocks/data-table/data.ts",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/group-tree.ts",
+          "target": "src/blocks/data-table/group-tree.ts",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/action-bar.tsx",
+          "target": "src/blocks/data-table/action-bar.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/add-row.tsx",
+          "target": "src/blocks/data-table/add-row.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/data-table-column-header.tsx",
+          "target": "src/blocks/data-table/data-table-column-header.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/group-row.tsx",
+          "target": "src/blocks/data-table/group-row.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/pinning.ts",
+          "target": "src/blocks/data-table/pinning.ts",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/popover-edit.tsx",
+          "target": "src/blocks/data-table/popover-edit.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/resize-handle.tsx",
+          "target": "src/blocks/data-table/resize-handle.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/select-column.tsx",
+          "target": "src/blocks/data-table/select-column.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/selection-bar.tsx",
+          "target": "src/blocks/data-table/selection-bar.tsx",
           "type": "registry:block"
         }
       ]

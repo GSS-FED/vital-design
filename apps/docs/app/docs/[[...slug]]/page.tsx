@@ -144,9 +144,6 @@ const REGISTRY_ITEM_BY_SLUG: Record<string, string> = {
   'blocks/sidebar/cloud/secondary-nav': 'sidebar-cloud-04',
   'blocks/sidebar/cloud/header-actions': 'sidebar-cloud-05',
   'blocks/sidebar/cloud/collapsible-submenus': 'sidebar-cloud-06',
-  'blocks/data-table/candidate-tree': 'data-table-01',
-  'blocks/data-table/esg-emission-tree': 'data-table-02',
-  'blocks/data-table/editable-cells': 'data-table-03',
 };
 
 async function loadRawMarkdown(

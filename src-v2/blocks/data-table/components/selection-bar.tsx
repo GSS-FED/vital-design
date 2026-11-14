@@ -13,12 +13,15 @@ type Counts = { selected: number; total: number };
  * last counts on screen and unmounts after it has slid out.
  */
 export function SelectionBar({
+  label,
   selectedCount,
   totalCount,
   onSelectAll,
   onDelete,
   onClear,
 }: {
+  /** Name of the toolbar, e.g. 已選取的任務. */
+  label: string;
   selectedCount: number;
   /** Rows the current search shows. */
   totalCount: number;
@@ -73,7 +76,7 @@ export function SelectionBar({
       <div
         ref={barRef}
         role="toolbar"
-        aria-label="已選取的任務"
+        aria-label={label}
         data-state={open ? 'open' : 'closed'}
         inert={!open}
         onAnimationEnd={(event) => {

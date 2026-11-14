@@ -54,7 +54,7 @@ allowed-tools: Read, Write, Edit, Bash
 5. **建立 MDX 文件頁面**
 
    - 路徑：`apps/docs/content/docs/components/<component-name>.mdx`
-   - Block 頁放在家族資料夾，例如 `blocks/sidebar/cloud/<page>.mdx`、`blocks/data-table/<page>.mdx`。頁面標題用短名（父層 meta.json 已帶家族名）。slug 不是 registry item 名稱時，在 `apps/docs/app/docs/[[...slug]]/page.tsx` 的 `REGISTRY_ITEM_BY_SLUG` 補上對應。
+   - Block 頁放在家族資料夾，例如 `blocks/sidebar/cloud/<page>.mdx`；只有一個 block 時直接用 `blocks/<name>.mdx`（如 `blocks/data-table.mdx`）。頁面標題用短名（父層 meta.json 已帶家族名）。slug 不是 registry item 名稱時，在 `apps/docs/app/docs/[[...slug]]/page.tsx` 的 `REGISTRY_ITEM_BY_SLUG` 補上對應。
    - 參考：`mdx-template.mdx`（本目錄）與 `apps/docs/content/docs/components/chip.mdx`
 
 6. **確認 meta.json**（如需調整排序）

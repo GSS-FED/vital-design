@@ -46,17 +46,35 @@ import {
   useRef,
   useState,
 } from 'react';
-import { COLUMN_FIELDS, type GroupingFieldOption } from './data';
 
-type FieldId = (typeof COLUMN_FIELDS)[number]['id'];
+/** A field the 分群 menu offers. `id` is the row key. */
+export type GroupingFieldOption = {
+  id: string;
+  label: string;
+};
+
+/**
+ * A column the 顯示欄位 card lists. `locked` columns stay visible and
+ * their checkbox cannot be changed.
+ */
+export type ColumnField = {
+  id: string;
+  label: string;
+  locked: boolean;
+};
+
+type FieldId = string;
 
 /** Fields in the saved order. Ids the order does not name keep their default place at the end. */
-function orderedFields(order: readonly string[]) {
+function orderedFields(
+  fields: readonly ColumnField[],
+  order: readonly string[],
+) {
   const rank = (id: string) => {
     const index = order.indexOf(id);
     return index === -1 ? order.length : index;
   };
-  return [...COLUMN_FIELDS].sort((a, b) => rank(a.id) - rank(b.id));
+  return [...fields].sort((a, b) => rank(a.id) - rank(b.id));
 }
 
 /**
@@ -102,10 +120,13 @@ function GripDots() {
 }
 
 function ColumnVisibilityPopover({
+  fields: allFields,
   visibility,
   order,
   onSave,
 }: {
+  /** Every hideable or locked column, in default order. */
+  fields: readonly ColumnField[];
   visibility: VisibilityState;
   /** Saved field order. Empty keeps the default order. */
   order: readonly string[];
@@ -145,7 +166,9 @@ function ColumnVisibilityPopover({
   function handleOpenChange(next: boolean) {
     if (next) {
       setDraft({ ...visibility });
-      setDraftOrder(orderedFields(order).map((field) => field.id));
+      setDraftOrder(
+        orderedFields(allFields, order).map((field) => field.id),
+      );
     }
     stopDrag();
     setOpen(next);
@@ -170,7 +193,7 @@ function ColumnVisibilityPopover({
 
   function save() {
     const next = { ...draft };
-    for (const field of COLUMN_FIELDS) {
+    for (const field of allFields) {
       if (field.locked) next[field.id] = true;
     }
     onSave(next, [...draftOrder]);
@@ -180,7 +203,7 @@ function ColumnVisibilityPopover({
   function clearSelection() {
     setDraft((prev) => {
       const next = { ...prev };
-      for (const field of COLUMN_FIELDS) {
+      for (const field of allFields) {
         if (!field.locked) next[field.id] = false;
       }
       return next;
@@ -206,10 +229,10 @@ function ColumnVisibilityPopover({
     });
   }
 
-  const isChecked = (field: (typeof COLUMN_FIELDS)[number]) =>
+  const isChecked = (field: ColumnField) =>
     field.locked || draft[field.id] !== false;
   const fields = draftOrder.flatMap((id) => {
-    const field = COLUMN_FIELDS.find((item) => item.id === id);
+    const field = allFields.find((item) => item.id === id);
     if (!field) return [];
     return showUnchecked || isChecked(field) ? [field] : [];
   });
@@ -478,8 +501,10 @@ function GroupingMenu({
 
 export function ActionBar({
   query,
+  searchPlaceholder,
   groupingKeys,
   groupingFields,
+  fields,
   visibility,
   columnOrder,
   searchRef,
@@ -488,8 +513,11 @@ export function ActionBar({
   onColumnsChange,
 }: {
   query: string;
+  searchPlaceholder: string;
   groupingKeys: readonly string[];
   groupingFields: readonly GroupingFieldOption[];
+  /** Columns for the 顯示欄位 card. */
+  fields: readonly ColumnField[];
   visibility: VisibilityState;
   onQueryChange: (value: string) => void;
   onGroupingChange: (keys: readonly string[]) => void;
@@ -524,7 +552,7 @@ export function ActionBar({
     >
       <SearchBar
         ref={searchRef}
-        placeholder="搜尋任務"
+        placeholder={searchPlaceholder}
         width="220px"
         value={query}
         onChange={onQueryChange}
@@ -542,6 +570,7 @@ export function ActionBar({
           />
         ) : null}
         <ColumnVisibilityPopover
+          fields={fields}
           visibility={visibility}
           order={columnOrder}
           onSave={onColumnsChange}

@@ -1,224 +1,1403 @@
+import type { ColumnDef } from '@tanstack/react-table';
 import {
-  type ColumnDef,
-  getCoreRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
-import { fireEvent, render, screen } from '@testing-library/react';
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useState } from 'react';
-import { describe, expect, it } from 'vitest';
-import { DataTable } from './DataTable';
-import { DataTableColumnHeader } from './DataTableColumnHeader';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { reviewGroupingConfig, reviewTasks } from './components/data';
+import { DataTable } from './components/data-table';
+import { buildGroupTree } from './components/group-tree';
+import { ReviewTaskTable } from './components/review-task-table';
 
-interface Row {
-  id: number;
-  name: string;
-}
-
-const data: Row[] = [
-  { id: 1, name: 'Bravo' },
-  { id: 2, name: 'Alpha' },
-];
-
-const columns: ColumnDef<Row>[] = [
-  {
-    accessorKey: 'id',
-    header: 'ID',
-    cell: ({ row }) => row.original.id,
-  },
-  {
-    accessorKey: 'name',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Name" />
-    ),
-    cell: ({ row }) => row.original.name,
-  },
-];
-
-const resizableColumns: ColumnDef<Row>[] = [
-  {
-    accessorKey: 'id',
-    header: 'ID',
-    cell: ({ row }) => row.original.id,
-    size: 100,
-    enableResizing: false,
-  },
-  {
-    accessorKey: 'name',
-    header: 'Name',
-    cell: ({ row }) => row.original.name,
-    size: 200,
-  },
-];
-
-function ResizableHarness({
-  columnResizeMode = 'onChange',
-}: {
-  columnResizeMode?: 'onChange' | 'onEnd';
-} = {}) {
-  const [columnSizing, setColumnSizing] = useState({});
-  const table = useReactTable({
-    data,
-    columns: resizableColumns,
-    state: { columnSizing },
-    defaultColumn: { minSize: 64, maxSize: 400 },
-    columnResizeMode,
-    onColumnSizingChange: setColumnSizing,
-    getCoreRowModel: getCoreRowModel(),
-  });
-  return <DataTable table={table} resizable />;
-}
-
-function fireTouch(
-  target: Element,
-  type: 'touchstart' | 'touchmove' | 'touchend',
-  clientX: number,
+function renderTable(
+  props: {
+    grouping?: readonly string[];
+  } = {},
 ) {
-  const touch = { clientX, clientY: 0, identifier: 0, target };
-  const event = new Event(type, { bubbles: true, cancelable: true });
-  const touches = type === 'touchend' ? [] : [touch];
-  Object.defineProperties(event, {
-    touches: { value: touches },
-    targetTouches: { value: touches },
-    changedTouches: { value: [touch] },
-  });
-  fireEvent(target, event);
+  return render(<ReviewTaskTable {...props} />);
 }
 
-function Harness({ initialData = data }: { initialData?: Row[] }) {
-  const [sorting, setSorting] = useState<
-    { id: string; desc: boolean }[]
-  >([]);
-  const table = useReactTable({
-    data: initialData,
-    columns,
-    state: { sorting },
-    onSortingChange: (updater) =>
-      setSorting((s) =>
-        typeof updater === 'function' ? updater(s) : updater,
-      ),
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
+function groupRows(title: string) {
+  return screen.getAllByRole('row').filter((element) => {
+    return (
+      element.getAttribute('data-slot') === 'data-table-group-row' &&
+      within(element).queryByRole('button', { name: title })
+    );
   });
-  return <DataTable table={table} />;
+}
+
+function groupRow(title: string) {
+  const row = groupRows(title)[0];
+  if (!row) throw new Error(`Missing group row ${title}`);
+  return row;
+}
+
+/**
+ * jsdom runs no exit animation, so Base UI unmounts a closed popover
+ * a few frames after it reports closed.
+ */
+async function waitForPanelClosed() {
+  await waitFor(() =>
+    expect(
+      screen.queryByRole('combobox', { name: '分群' }),
+    ).not.toBeInTheDocument(),
+  );
+}
+
+function fieldGrips() {
+  return screen
+    .getAllByRole('button', { name: /^調整.+的順序$/ })
+    .map((grip) =>
+      grip.getAttribute('aria-label')?.replace(/^調整|的順序$/g, ''),
+    );
+}
+
+/** jsdom has no PointerEvent; React only needs the type, button and clientY. */
+function pointer(
+  target: Element | Document | Window,
+  type: 'pointerdown' | 'pointermove' | 'pointerup',
+  clientY = 0,
+) {
+  fireEvent(
+    target,
+    new MouseEvent(type, { bubbles: true, button: 0, clientY }),
+  );
+}
+
+function getRow(index: number) {
+  const row = screen.getAllByRole('row')[index];
+  if (!row) {
+    throw new Error(`Expected row ${index} to exist`);
+  }
+  return row;
 }
 
 describe('DataTable', () => {
-  it('renders rows from a react-table instance', () => {
-    render(<Harness />);
-    expect(screen.getByText('Bravo')).toBeInTheDocument();
-    expect(screen.getByText('Alpha')).toBeInTheDocument();
+  it('shows a status tag and an avatar group overflow count', () => {
+    renderTable();
+
+    const firstRow = getRow(1);
+    expect(
+      within(firstRow).getByRole('button', { name: '狀態 待覆核' }),
+    ).toBeInTheDocument();
+    const collaborators = within(firstRow).getByRole('group', {
+      name: '林○方、張○安、陳○思、黃○鋪',
+    });
+    expect(within(collaborators).getByText('+1')).toBeInTheDocument();
   });
 
-  it('shows the empty message when there are no rows', () => {
-    render(<Harness initialData={[]} />);
-    expect(screen.getByText('No results.')).toBeInTheDocument();
+  it('edits collaborators and tags from their popovers', async () => {
+    renderTable();
+    const user = userEvent.setup();
+    const row = () => getRow(2);
+    expect(within(row()).getByText('水資源管理')).toBeInTheDocument();
+
+    await user.click(
+      within(row()).getByRole('button', { name: '編輯協作者' }),
+    );
+    await user.click(screen.getByRole('option', { name: /康○成/ }));
+    expect(
+      within(row()).getByRole('group', { name: '陳○思、康○成' }),
+    ).toBeInTheDocument();
+    // The people list stays open for more picks; unpicking removes.
+    await user.click(screen.getByRole('option', { name: /陳○思/ }));
+    expect(
+      within(row()).getByRole('group', { name: '康○成' }),
+    ).toBeInTheDocument();
+    await user.keyboard('{Escape}');
+
+    await user.click(
+      within(row()).getByRole('button', { name: '編輯標籤' }),
+    );
+    await user.click(
+      within(screen.getByRole('listbox')).getByRole('option', {
+        name: 'GRI',
+      }),
+    );
+    expect(within(row()).getByText('GRI')).toBeInTheDocument();
   });
 
-  it('toggles sort order when a sortable column header is clicked', async () => {
-    render(<Harness />);
-    const rowsBefore = screen.getAllByRole('row');
-    // header row + 2 data rows
-    expect(rowsBefore).toHaveLength(3);
-    expect(rowsBefore[1]).toHaveTextContent('Bravo');
+  it('sorts by due date', async () => {
+    renderTable();
+    const user = userEvent.setup();
 
-    await userEvent.click(
-      screen.getByRole('button', { name: /name/i }),
+    expect(
+      within(getRow(1)).getByText('溫室氣體盤查'),
+    ).toBeInTheDocument();
+
+    const dueHeader = screen.getByRole('columnheader', {
+      name: '期限',
+    });
+    await user.click(within(dueHeader).getByRole('button'));
+
+    expect(within(dueHeader).getByRole('button')).toHaveAttribute(
+      'data-sort',
+      'asc',
+    );
+    expect(
+      within(getRow(1)).getByText('水資源管理'),
+    ).toBeInTheDocument();
+  });
+
+  it('cycles a number column from ascending to descending to unsorted', async () => {
+    renderTable();
+    const user = userEvent.setup();
+    const sort = within(
+      screen.getByRole('columnheader', { name: '協作者' }),
+    ).getByRole('button');
+
+    const head = screen.getByRole('columnheader', { name: '協作者' });
+    expect(head).toHaveAttribute('aria-sort', 'none');
+
+    await user.click(sort);
+    expect(sort).toHaveAttribute('data-sort', 'asc');
+    expect(head).toHaveAttribute('aria-sort', 'ascending');
+    expect(
+      within(getRow(1)).getByText('水資源管理'),
+    ).toBeInTheDocument();
+
+    await user.click(sort);
+    expect(sort).toHaveAttribute('data-sort', 'desc');
+    expect(head).toHaveAttribute('aria-sort', 'descending');
+    expect(
+      within(getRow(1)).getByText('供應鏈問卷'),
+    ).toBeInTheDocument();
+
+    await user.click(sort);
+    expect(sort).not.toHaveAttribute('data-sort');
+    expect(
+      within(getRow(1)).getByText('溫室氣體盤查'),
+    ).toBeInTheDocument();
+  });
+
+  it('resizes a column from the keyboard', async () => {
+    renderTable();
+    const user = userEvent.setup();
+    const table = screen.getByRole('table');
+    const handle = screen.getByRole('separator', {
+      name: '調整期限欄寬',
+    });
+    const before = Number.parseFloat(table.style.width);
+
+    handle.focus();
+    await user.keyboard('{ArrowRight}');
+
+    expect(handle).toHaveAttribute('aria-valuenow', '128');
+    expect(Number.parseFloat(table.style.width)).toBe(before + 8);
+    expect(
+      screen.queryByRole('separator', { name: /調整select/ }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('acts on the selected rows the search still shows', async () => {
+    renderTable();
+    const user = userEvent.setup();
+
+    expect(
+      screen.queryByRole('toolbar', { name: '已選取的任務' }),
+    ).not.toBeInTheDocument();
+    await user.click(
+      screen.getByRole('checkbox', { name: '選取 溫室氣體盤查' }),
+    );
+    await user.click(
+      screen.getByRole('checkbox', { name: '選取 水資源管理' }),
+    );
+    const bar = screen.getByRole('toolbar', { name: '已選取的任務' });
+    expect(within(bar).getByRole('status')).toHaveTextContent(
+      '已選擇 2 筆',
     );
 
-    const rowsAfter = screen.getAllByRole('row');
-    expect(rowsAfter[1]).toHaveTextContent('Alpha');
+    await user.type(
+      screen.getByPlaceholderText('搜尋任務'),
+      '水資源',
+    );
+    expect(within(bar).getByRole('status')).toHaveTextContent(
+      '已選擇 1 筆',
+    );
+    expect(
+      within(bar).queryByRole('button', { name: /全選/ }),
+    ).not.toBeInTheDocument();
+
+    await user.click(
+      within(bar).getByRole('button', { name: '刪除' }),
+    );
+    await user.clear(screen.getByPlaceholderText('搜尋任務'));
+
+    expect(screen.queryByText('水資源管理')).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('checkbox', { name: '選取 溫室氣體盤查' }),
+    ).toBeChecked();
+    // The search hid every selected row for a moment, so this is a new bar.
+    const restored = screen.getByRole('toolbar', {
+      name: '已選取的任務',
+    });
+    const remaining = reviewTasks.length - 1;
+    await user.click(
+      within(restored).getByRole('button', {
+        name: `全選 ${remaining} 筆`,
+      }),
+    );
+    expect(within(restored).getByRole('status')).toHaveTextContent(
+      `已選擇 ${remaining} 筆`,
+    );
+    // 全選 is gone now; focus stays in the bar.
+    expect(
+      within(restored).getByRole('button', { name: '刪除' }),
+    ).toHaveFocus();
+
+    await user.click(
+      within(restored).getByRole('button', { name: '取消選取' }),
+    );
+    expect(
+      screen.queryByRole('toolbar', { name: '已選取的任務' }),
+    ).not.toBeInTheDocument();
+    expect(screen.getByPlaceholderText('搜尋任務')).toHaveFocus();
   });
 
-  it('renders no resize handles unless resizable is set', () => {
-    render(<Harness />);
-    expect(screen.queryByRole('separator')).not.toBeInTheDocument();
-  });
+  describe('selection bar exit', () => {
+    afterEach(() => {
+      vi.unstubAllGlobals();
+      vi.restoreAllMocks();
+    });
 
-  it('renders a resize handle only for columns that can resize', () => {
-    render(<ResizableHarness />);
-    const handles = screen.getAllByRole('separator');
-    expect(handles).toHaveLength(1);
-    expect(handles[0]).toHaveAccessibleName(/name/i);
-    expect(handles[0]).toHaveAttribute('aria-valuenow', '200');
-  });
-
-  it('resizes with arrow keys and resets on Home', () => {
-    render(<ResizableHarness />);
-    const handle = screen.getByRole('separator');
-
-    fireEvent.keyDown(handle, { key: 'ArrowRight' });
-    expect(handle).toHaveAttribute('aria-valuenow', '208');
-
-    fireEvent.keyDown(handle, { key: 'ArrowLeft', shiftKey: true });
-    expect(handle).toHaveAttribute('aria-valuenow', '168');
-
-    fireEvent.keyDown(handle, { key: 'Home' });
-    expect(handle).toHaveAttribute('aria-valuenow', '200');
-  });
-
-  it('clamps keyboard resizing to minSize and maxSize', () => {
-    render(<ResizableHarness />);
-    const handle = screen.getByRole('separator');
-
-    for (let i = 0; i < 10; i += 1) {
-      fireEvent.keyDown(handle, { key: 'ArrowLeft', shiftKey: true });
+    function stubAnimations(running: () => object[]) {
+      // Base UI parts on the page also await `finished` on these.
+      class FakeCSSAnimation {
+        finished = Promise.resolve();
+      }
+      vi.stubGlobal('CSSAnimation', FakeCSSAnimation);
+      // src/vitest-setup.ts gives jsdom an empty getAnimations.
+      vi.spyOn(
+        HTMLElement.prototype,
+        'getAnimations',
+      ).mockImplementation(() => running() as Animation[]);
+      return FakeCSSAnimation;
     }
-    expect(handle).toHaveAttribute('aria-valuenow', '64');
 
-    for (let i = 0; i < 12; i += 1) {
-      fireEvent.keyDown(handle, {
-        key: 'ArrowRight',
-        shiftKey: true,
+    it('waits for the exit animation before unmounting', async () => {
+      const FakeCSSAnimation = stubAnimations(() => [
+        new FakeCSSAnimation(),
+      ]);
+      renderTable();
+      const user = userEvent.setup();
+      await user.click(
+        screen.getByRole('checkbox', { name: '選取 溫室氣體盤查' }),
+      );
+      const bar = screen.getByRole('toolbar', {
+        name: '已選取的任務',
       });
+
+      await user.click(
+        within(bar).getByRole('button', { name: '取消選取' }),
+      );
+      expect(bar).toHaveAttribute('data-state', 'closed');
+      expect(bar).toHaveTextContent('已選擇 1 筆');
+
+      fireEvent.animationEnd(bar);
+      expect(bar).not.toBeInTheDocument();
+    });
+
+    it('unmounts at once when only a transition is running', async () => {
+      // Reduced motion: no exit animation, but the opacity change may
+      // still start a CSS transition, which never fires animationend.
+      stubAnimations(() => [{ finished: Promise.resolve() }]);
+      renderTable();
+      const user = userEvent.setup();
+      await user.click(
+        screen.getByRole('checkbox', { name: '選取 溫室氣體盤查' }),
+      );
+      const bar = screen.getByRole('toolbar', {
+        name: '已選取的任務',
+      });
+
+      await user.click(
+        within(bar).getByRole('button', { name: '取消選取' }),
+      );
+      expect(bar).not.toBeInTheDocument();
+    });
+  });
+
+  it('edits a single title cell', async () => {
+    renderTable();
+    const user = userEvent.setup();
+
+    await user.click(
+      screen.getByRole('button', { name: '溫室氣體盤查' }),
+    );
+    const input = screen.getByDisplayValue('溫室氣體盤查');
+    await user.clear(input);
+    await user.type(input, '溫室氣體盤查修訂');
+    await user.keyboard('{Enter}');
+
+    expect(
+      screen.getByRole('button', { name: '溫室氣體盤查修訂' }),
+    ).toBeInTheDocument();
+  });
+
+  it('gives editable cells a different background', () => {
+    renderTable();
+    const row = getRow(1);
+    const cells = within(row).getAllByRole('cell');
+    const status = cells.find((cell) =>
+      within(cell).queryByRole('button', { name: '狀態 待覆核' }),
+    );
+
+    expect(
+      within(row).getByRole('cell', { name: '溫室氣體盤查' }),
+    ).toHaveClass('cursor-pointer', 'hover:bg-grayscale-opacity-200');
+    expect(status).toHaveClass(
+      'cursor-pointer',
+      'hover:bg-grayscale-opacity-200',
+    );
+    const due = cells.find((cell) =>
+      within(cell).queryByRole('button', { name: '期限 2026/03/18' }),
+    );
+    expect(due).toHaveClass('hover:bg-grayscale-opacity-200');
+    expect(
+      within(row).getByRole('cell', { name: '選取 溫室氣體盤查' }),
+    ).not.toHaveClass('hover:bg-grayscale-opacity-200');
+  });
+
+  it('pins the actions menu to the right and deletes that row', async () => {
+    renderTable();
+    const user = userEvent.setup();
+    const firstRow = getRow(1);
+    const cell = within(firstRow).getByRole('cell', {
+      name: '操作',
+    });
+
+    expect(cell).toHaveAttribute('data-pinned', 'right');
+    expect(cell).toHaveClass('px-3');
+    expect(cell).toHaveStyle({ position: 'sticky', right: '0px' });
+
+    fireEvent.click(
+      within(cell).getByRole('button', { name: '更多操作' }),
+    );
+    await user.click(
+      await screen.findByRole('menuitem', { name: '刪除' }),
+    );
+
+    expect(
+      screen.queryByText('溫室氣體盤查'),
+    ).not.toBeInTheDocument();
+  });
+
+  it('switches grouping depth from the toolbar and keeps an empty project', async () => {
+    renderTable();
+    const user = userEvent.setup();
+    const toolbar = screen.getByRole('toolbar');
+
+    expect(
+      screen.queryByRole('button', { name: '治理與揭露' }),
+    ).not.toBeInTheDocument();
+
+    fireEvent.click(
+      within(toolbar).getByRole('button', { name: '分群' }),
+    );
+    const groupField = screen.getByRole('combobox', { name: '分群' });
+    const subgroupField = screen.getByRole('combobox', {
+      name: '子分群',
+    });
+    expect(groupField).toHaveTextContent('無');
+    expect(subgroupField).toBeDisabled();
+    fireEvent.click(groupField);
+    expect(
+      await screen.findByRole('option', { name: '協作者' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('option', { name: '期限' }),
+    ).toBeInTheDocument();
+    await user.click(screen.getByRole('option', { name: '專案' }));
+    await user.keyboard('{Escape}');
+    await waitForPanelClosed();
+
+    expect(
+      screen.getByRole('button', { name: '環境盤查' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: '社會參與' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: '治理與揭露' }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('溫室氣體盤查')).toBeInTheDocument();
+
+    fireEvent.click(
+      within(toolbar).getByRole('button', { name: '分群' }),
+    );
+    const subgroup = screen.getByRole('combobox', { name: '子分群' });
+    fireEvent.click(subgroup);
+    const subgroupList = screen.getAllByRole('listbox').at(-1);
+    if (!subgroupList) throw new Error('missing subgroup list');
+    expect(
+      within(subgroupList).queryByRole('option', { name: '專案' }),
+    ).not.toBeInTheDocument();
+    expect(
+      within(subgroupList).getByRole('option', { name: '協作者' }),
+    ).toBeInTheDocument();
+    await user.click(
+      within(subgroupList).getByRole('option', { name: '狀態' }),
+    );
+    expect(
+      within(toolbar).getByRole('button', { name: '分群' }),
+    ).toBeInTheDocument();
+
+    const statusGroup = screen.getByRole('button', {
+      name: '待填寫',
+    });
+    expect(statusGroup).toHaveStyle({ left: '40px' });
+    expect(groupRow('待填寫')).toHaveStyle({
+      top: '37px',
+    });
+    expect(screen.getByText('水資源管理')).toBeInTheDocument();
+  });
+
+  it('keeps the last status add row border and puts the gap below it', async () => {
+    renderTable({ grouping: ['project', 'status'] });
+    const user = userEvent.setup();
+
+    const lastAdd = within(
+      screen.getByRole('row', {
+        name: '在環境盤查的已完成新增任務',
+      }),
+    )
+      .getAllByRole('cell')
+      .find((cell) => within(cell).queryByRole('button'));
+    const earlierAdd = within(
+      screen.getByRole('row', {
+        name: '在環境盤查的待填寫新增任務',
+      }),
+    )
+      .getAllByRole('cell')
+      .find((cell) => within(cell).queryByRole('button'));
+    const gaps = () =>
+      screen
+        .getAllByRole('row', { hidden: true })
+        .filter(
+          (row) =>
+            row.getAttribute('data-slot') === 'data-table-group-gap',
+        );
+
+    expect(lastAdd).toHaveClass('border-b');
+    expect(lastAdd).not.toHaveClass('pb-3');
+    expect(earlierAdd).not.toHaveClass('pb-3');
+    expect(gaps()).toHaveLength(2);
+
+    await user.click(
+      screen.getByRole('button', { name: '社會參與' }),
+    );
+
+    expect(
+      within(
+        screen.getByRole('row', {
+          name: '在環境盤查的已完成新增任務',
+        }),
+      )
+        .getAllByRole('cell')
+        .find((cell) => within(cell).queryByRole('button')),
+    ).toHaveClass('border-b');
+    expect(gaps()).toHaveLength(1);
+
+    await user.click(
+      screen.getByRole('button', { name: '環境盤查' }),
+    );
+    expect(
+      screen.queryByRole('button', {
+        name: '在環境盤查的已完成新增任務',
+      }),
+    ).not.toBeInTheDocument();
+    expect(gaps()).toHaveLength(0);
+  });
+
+  it('keeps a one-level add row against the next group header', () => {
+    renderTable({ grouping: ['project'] });
+
+    expect(
+      within(
+        screen.getByRole('row', { name: '在環境盤查新增任務' }),
+      ).getByRole('cell'),
+    ).toHaveClass('border-b-0');
+    expect(
+      within(
+        screen.getByRole('row', { name: '在治理與揭露新增任務' }),
+      ).getByRole('cell'),
+    ).toHaveClass('border-b');
+    expect(groupRow('社會參與')).toBeInTheDocument();
+    expect(
+      screen
+        .queryAllByRole('row', { hidden: true })
+        .some(
+          (row) =>
+            row.getAttribute('data-slot') === 'data-table-group-gap',
+        ),
+    ).toBe(false);
+  });
+
+  it('collapses a group without removing the other groups', async () => {
+    renderTable({ grouping: ['project'] });
+    const user = userEvent.setup();
+
+    await user.click(
+      screen.getByRole('button', { name: '環境盤查' }),
+    );
+
+    expect(
+      screen.queryByText('溫室氣體盤查'),
+    ).not.toBeInTheDocument();
+    expect(screen.getByText('供應鏈問卷')).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole('button', { name: '環境盤查' }),
+    );
+    expect(screen.getByText('溫室氣體盤查')).toBeInTheDocument();
+  });
+
+  it('selects rows from the pinned checkbox column', async () => {
+    renderTable();
+    const user = userEvent.setup();
+    const all = screen.getByRole('checkbox', { name: '全選' });
+    const first = screen.getByRole('checkbox', {
+      name: '選取 溫室氣體盤查',
+    });
+    const cell = screen.getByRole('cell', {
+      name: '選取 溫室氣體盤查',
+    });
+
+    expect(cell).toHaveAttribute('data-pinned', 'left');
+    expect(cell).toHaveStyle({ position: 'sticky', left: '0px' });
+
+    await user.click(all);
+    expect(first).toBeChecked();
+    expect(
+      screen.getByRole('checkbox', { name: '選取 水資源管理' }),
+    ).toBeChecked();
+
+    await user.click(first);
+    expect(first).not.toBeChecked();
+    expect(all).not.toBeChecked();
+    expect(all).toHaveAttribute('data-indeterminate');
+    expect(
+      screen.getByRole('row', { name: /水資源管理/ }),
+    ).toHaveAttribute('data-state', 'selected');
+  });
+
+  it('indents task rows to the grouping level', () => {
+    {
+      const view = renderTable();
+      expect(
+        screen.getByRole('cell', { name: '選取 溫室氣體盤查' }),
+      ).not.toHaveStyle({ paddingLeft: '24px' });
+      view.unmount();
     }
-    expect(handle).toHaveAttribute('aria-valuenow', '400');
+
+    {
+      const view = renderTable({ grouping: ['project'] });
+      expect(
+        screen.getByRole('cell', { name: '選取 溫室氣體盤查' }),
+      ).not.toHaveStyle({ paddingLeft: '24px' });
+      expect(
+        screen.getByRole('button', { name: '在環境盤查新增任務' }),
+      ).not.toHaveStyle({ paddingLeft: '36px' });
+      view.unmount();
+    }
+
+    renderTable({ grouping: ['project', 'status'] });
+    expect(
+      screen.getByRole('cell', { name: '選取 溫室氣體盤查' }),
+    ).toHaveStyle({
+      borderLeftWidth: '1px',
+      left: '40px',
+    });
+    expect(
+      screen.getAllByRole('columnheader', { name: /全選/ })[0],
+    ).toHaveStyle({ borderTopWidth: '1px' });
+    expect(
+      screen.getByRole('button', { name: '在治理與揭露新增任務' }),
+    ).not.toHaveStyle({ paddingLeft: '36px' });
   });
 
-  it('marks only the grabbed handle as the drag guide', () => {
-    render(<ResizableHarness />);
-    const handle = screen.getByRole('separator');
+  it('keeps a checkbox on task rows when the table is grouped', () => {
+    renderTable({ grouping: ['project'] });
 
-    fireEvent.mouseDown(handle, { clientX: 300 });
-    expect(handle).toHaveAttribute('data-guide');
-
-    fireEvent.mouseUp(window);
-    expect(handle).not.toHaveAttribute('data-guide');
+    expect(
+      screen.getAllByRole('checkbox', { name: /全選/ }).length,
+    ).toBeGreaterThan(1);
+    expect(
+      screen.getByRole('checkbox', { name: '選取 溫室氣體盤查' }),
+    ).toBeInTheDocument();
+    expect(
+      within(groupRow('環境盤查')).queryByRole('checkbox'),
+    ).not.toBeInTheDocument();
   });
 
-  it('clears the drag guide on touchend even when touches is empty', () => {
-    render(<ResizableHarness />);
-    const handle = screen.getByRole('separator');
+  it('selects only the group whose checkbox was used', async () => {
+    renderTable({ grouping: ['project'] });
+    const user = userEvent.setup();
 
-    fireTouch(handle, 'touchstart', 300);
-    expect(handle).toHaveAttribute('data-guide');
+    await user.click(
+      screen.getByRole('checkbox', { name: '全選 環境盤查' }),
+    );
 
-    fireTouch(handle, 'touchend', 340);
-    expect(handle).not.toHaveAttribute('data-guide');
+    expect(
+      screen.getByRole('checkbox', { name: '選取 溫室氣體盤查' }),
+    ).toBeChecked();
+    expect(
+      screen.getByRole('checkbox', { name: '選取 水資源管理' }),
+    ).toBeChecked();
+    expect(
+      screen.getByRole('checkbox', { name: '選取 供應鏈問卷' }),
+    ).not.toBeChecked();
+    expect(
+      screen.getByRole('checkbox', { name: '全選 社會參與' }),
+    ).not.toBeChecked();
+    expect(screen.getByText('溫室氣體盤查')).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole('checkbox', { name: '選取 水資源管理' }),
+    );
+    expect(
+      screen.getByRole('checkbox', { name: '全選 環境盤查' }),
+    ).toHaveAttribute('data-indeterminate');
+
+    await user.click(
+      screen.getByRole('checkbox', { name: '全選 社會參與' }),
+    );
+    expect(
+      screen.getByRole('checkbox', { name: '選取 供應鏈問卷' }),
+    ).toBeChecked();
+    expect(
+      screen.getByRole('checkbox', { name: '選取 溫室氣體盤查' }),
+    ).toBeChecked();
   });
 
-  it('commits onEnd column size from changedTouches on touchend', () => {
-    render(<ResizableHarness columnResizeMode="onEnd" />);
-    const handle = screen.getByRole('separator');
-    const table = screen.getByRole('table');
+  it('keeps a nested status select-all inside that status', async () => {
+    renderTable({ grouping: ['project', 'status'] });
+    const user = userEvent.setup();
 
-    fireTouch(handle, 'touchstart', 300);
-    fireTouch(handle, 'touchend', 340);
+    await user.click(
+      screen.getByRole('checkbox', { name: '全選 環境盤查 待填寫' }),
+    );
 
-    expect(handle).toHaveAttribute('aria-valuenow', '240');
-    expect(table).toHaveStyle({ '--col-name-size': '240px' });
-    expect(handle).not.toHaveAttribute('data-guide');
+    expect(
+      screen.getByRole('checkbox', { name: '選取 水資源管理' }),
+    ).toBeChecked();
+    expect(
+      screen.getByRole('checkbox', { name: '選取 生物多樣性' }),
+    ).toBeChecked();
+    expect(
+      screen.getByRole('checkbox', { name: '選取 溫室氣體盤查' }),
+    ).not.toBeChecked();
+    expect(
+      screen.getByRole('checkbox', { name: '選取 環境盤查' }),
+    ).toHaveAttribute('data-indeterminate');
+    expect(
+      within(groupRow('待填寫')).queryByRole('checkbox'),
+    ).not.toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole('checkbox', { name: '選取 環境盤查' }),
+    );
+    expect(
+      screen.getByRole('checkbox', { name: '選取 水資源管理' }),
+    ).toBeChecked();
+    expect(
+      screen.getByRole('checkbox', { name: '選取 溫室氣體盤查' }),
+    ).toBeChecked();
+    expect(
+      screen.getByRole('checkbox', { name: '全選 環境盤查 待覆核' }),
+    ).toBeChecked();
+    expect(
+      screen.getByRole('checkbox', { name: '選取 供應鏈問卷' }),
+    ).not.toBeChecked();
+    expect(
+      screen.getByRole('checkbox', { name: '選取 社會參與' }),
+    ).not.toBeChecked();
+    expect(
+      within(groupRow('治理與揭露')).getByRole('checkbox', {
+        name: '選取 治理與揭露',
+      }),
+    ).toHaveAttribute('aria-disabled', 'true');
   });
 
-  it('drives column widths through CSS variables on the table', () => {
-    render(<ResizableHarness />);
-    const table = screen.getByRole('table');
-    expect(table).toHaveStyle({ '--col-name-size': '200px' });
-    expect(table).toHaveStyle({ '--table-total-size': '300px' });
-    // Pinned offsets ship as variables too, so pinned cells stay aligned while
-    // the body is frozen mid-drag.
-    expect(table).toHaveStyle({ '--col-name-start': '0px' });
-    expect(table).toHaveStyle({ '--header-name-size': '200px' });
+  it('hides a column only after the field card is saved', async () => {
+    renderTable();
+    const user = userEvent.setup();
+    const open = () =>
+      fireEvent.click(
+        screen.getByRole('button', { name: '顯示欄位' }),
+      );
+
+    open();
+    const locked = screen.getByRole('checkbox', { name: '任務' });
+    expect(locked).toHaveAttribute('aria-disabled', 'true');
+    expect(locked).toBeChecked();
+
+    await user.click(screen.getByRole('checkbox', { name: '備註' }));
+    await user.click(screen.getByRole('button', { name: '取消' }));
+
+    expect(
+      screen.getByRole('columnheader', { name: '備註' }),
+    ).toBeInTheDocument();
+
+    open();
+    await user.click(screen.getByRole('checkbox', { name: '備註' }));
+    await user.click(screen.getByRole('button', { name: '儲存' }));
+
+    expect(
+      screen.queryByRole('columnheader', { name: '備註' }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('columnheader', { name: '任務' }),
+    ).toBeInTheDocument();
+  });
+
+  it('reorders columns from the field card only after it is saved', async () => {
+    renderTable();
+    const user = userEvent.setup();
+    const fieldNames = [
+      '任務',
+      '狀態',
+      '協作者',
+      '期限',
+      '標籤',
+      '備註',
+    ];
+    const headerOrder = () =>
+      screen
+        .getAllByRole('columnheader')
+        .map((head) => head.getAttribute('aria-label'))
+        .filter((name) => name !== null && fieldNames.includes(name));
+    const moveDueUpTwice = async () => {
+      fireEvent.click(
+        screen.getByRole('button', { name: '顯示欄位' }),
+      );
+      screen.getByRole('button', { name: '調整期限的順序' }).focus();
+      await user.keyboard('{ArrowUp}{ArrowUp}');
+    };
+
+    await moveDueUpTwice();
+    await user.click(screen.getByRole('button', { name: '取消' }));
+    expect(headerOrder()).toEqual(fieldNames);
+
+    await moveDueUpTwice();
+    await user.click(screen.getByRole('button', { name: '儲存' }));
+    expect(headerOrder()).toEqual([
+      '任務',
+      '期限',
+      '狀態',
+      '協作者',
+      '標籤',
+      '備註',
+    ]);
+
+    fireEvent.click(screen.getByRole('button', { name: '顯示欄位' }));
+    expect(
+      screen
+        .getAllByRole('button', { name: /^調整.+的順序$/ })
+        .map((grip) => grip.getAttribute('aria-label')),
+    ).toEqual([
+      '調整任務的順序',
+      '調整期限的順序',
+      '調整狀態的順序',
+      '調整協作者的順序',
+      '調整標籤的順序',
+      '調整備註的順序',
+    ]);
+  });
+
+  it('hides unchecked fields in the card and reorders among the rest', async () => {
+    renderTable();
+    const user = userEvent.setup();
+    const grips = () =>
+      screen
+        .getAllByRole('button', { name: /^調整.+的順序$/ })
+        .map((grip) =>
+          grip
+            .getAttribute('aria-label')
+            ?.replace(/^調整|的順序$/g, ''),
+        );
+
+    fireEvent.click(screen.getByRole('button', { name: '顯示欄位' }));
+    const toggle = screen.getByRole('switch', {
+      name: '顯示未勾選項目',
+    });
+    expect(toggle).toBeChecked();
+    await user.click(
+      screen.getByRole('checkbox', { name: '協作者' }),
+    );
+    await user.click(toggle);
+
+    expect(
+      screen.queryByRole('checkbox', { name: '協作者' }),
+    ).not.toBeInTheDocument();
+    expect(grips()).toEqual(['任務', '狀態', '期限', '標籤', '備註']);
+
+    // One step down among the rows on screen, past 期限.
+    screen.getByRole('button', { name: '調整狀態的順序' }).focus();
+    await user.keyboard('{ArrowDown}');
+    expect(grips()).toEqual(['任務', '期限', '狀態', '標籤', '備註']);
+
+    await user.click(toggle);
+    expect(grips()).toEqual([
+      '任務',
+      '協作者',
+      '期限',
+      '狀態',
+      '標籤',
+      '備註',
+    ]);
+
+    await user.click(screen.getByRole('button', { name: '儲存' }));
+    expect(
+      screen
+        .getAllByRole('columnheader')
+        .map((head) => head.getAttribute('aria-label'))
+        .filter((name) => name !== null && name !== '全選'),
+    ).toEqual(['任務', '期限', '狀態', '標籤', '備註']);
+  });
+
+  it('keeps focus on a grip moved down twice from the keyboard', async () => {
+    renderTable();
+    const user = userEvent.setup();
+    // Let the popover finish moving initial focus before taking it.
+    await user.click(
+      screen.getByRole('button', { name: '顯示欄位' }),
+    );
+    screen.getByRole('button', { name: '調整狀態的順序' }).focus();
+
+    await user.keyboard('{ArrowDown}{ArrowDown}');
+
+    expect(fieldGrips()).toEqual([
+      '任務',
+      '協作者',
+      '期限',
+      '狀態',
+      '標籤',
+      '備註',
+    ]);
+    expect(
+      screen.getByRole('button', { name: '調整狀態的順序' }),
+    ).toHaveFocus();
+  });
+
+  it('ends a field drag when the pointer is released off the grip', () => {
+    renderTable();
+    fireEvent.click(screen.getByRole('button', { name: '顯示欄位' }));
+    const grip = () =>
+      screen.getByRole('button', { name: '調整任務的順序' });
+
+    // jsdom lays every row out at 0, so any clientY above 0 is below
+    // every row and 0 is above them.
+    pointer(grip(), 'pointerdown');
+    pointer(grip(), 'pointermove', 100);
+    expect(fieldGrips()).toEqual([
+      '狀態',
+      '協作者',
+      '期限',
+      '標籤',
+      '備註',
+      '任務',
+    ]);
+
+    pointer(document.body, 'pointerup');
+    pointer(grip(), 'pointermove', 0);
+    expect(fieldGrips()).toEqual([
+      '狀態',
+      '協作者',
+      '期限',
+      '標籤',
+      '備註',
+      '任務',
+    ]);
+  });
+
+  it('clears hideable fields and keeps the locked field', async () => {
+    renderTable();
+    const user = userEvent.setup();
+
+    fireEvent.click(screen.getByRole('button', { name: '顯示欄位' }));
+    await user.click(
+      screen.getByRole('button', { name: '清除選取' }),
+    );
+
+    expect(
+      screen.getByRole('checkbox', { name: '任務' }),
+    ).toBeChecked();
+    expect(
+      screen.getByRole('checkbox', { name: '狀態' }),
+    ).not.toBeChecked();
+    expect(
+      screen.getByRole('columnheader', { name: '狀態' }),
+    ).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: '儲存' }));
+
+    expect(
+      screen.getByRole('columnheader', { name: '任務' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('columnheader', { name: '狀態' }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('columnheader', { name: '協作者' }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('columnheader', { name: '期限' }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('columnheader', { name: '備註' }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('adds a task from the bottom row and keeps it after leaving the title', async () => {
+    renderTable();
+    const user = userEvent.setup();
+
+    expect(
+      within(screen.getByRole('toolbar')).queryByRole('button', {
+        name: /新增/,
+      }),
+    ).not.toBeInTheDocument();
+    expect(screen.getByRole('row', { name: '新增任務' })).toHaveClass(
+      'bottom-0',
+    );
+
+    await user.click(
+      screen.getByRole('button', { name: '新增任務' }),
+    );
+    const title = await screen.findByPlaceholderText('輸入任務');
+    expect(title).toHaveFocus();
+
+    await user.keyboard('{Escape}');
+    expect(
+      screen.getByRole('button', { name: '輸入任務' }),
+    ).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole('button', { name: '輸入任務' }),
+    );
+    await user.type(
+      screen.getByPlaceholderText('輸入任務'),
+      '盤查補件',
+    );
+    await user.keyboard('{Enter}');
+
+    expect(
+      within(screen.getByRole('row', { name: /盤查補件/ })).getByRole(
+        'button',
+        { name: '狀態 待填寫' },
+      ),
+    ).toBeInTheDocument();
+
+    fireEvent.click(
+      within(screen.getByRole('toolbar')).getByRole('button', {
+        name: '分群',
+      }),
+    );
+    fireEvent.click(screen.getByRole('combobox', { name: '分群' }));
+    await user.click(
+      await screen.findByRole('option', { name: '專案' }),
+    );
+
+    const taskRow = screen.getByRole('row', { name: /盤查補件/ });
+    const project = groupRow('環境盤查');
+    const next = groupRow('社會參與');
+    expect(
+      project.compareDocumentPosition(taskRow) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      taskRow.compareDocumentPosition(next) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
+  it('adds a task inside each project, including an empty one', async () => {
+    renderTable({ grouping: ['project'] });
+    const user = userEvent.setup();
+
+    expect(
+      screen.getAllByRole('button', { name: /新增任務$/ }),
+    ).toHaveLength(3);
+    expect(
+      screen.getByRole('row', { name: '在治理與揭露新增任務' }),
+    ).not.toHaveClass('bottom-0');
+
+    await user.click(
+      screen.getByRole('button', { name: '在環境盤查新增任務' }),
+    );
+    await user.type(
+      await screen.findByPlaceholderText('輸入任務'),
+      '盤查補件',
+    );
+    await user.keyboard('{Enter}');
+
+    const taskRow = screen.getByRole('row', { name: /盤查補件/ });
+    const project = groupRow('環境盤查');
+    const next = groupRow('社會參與');
+    expect(
+      project.compareDocumentPosition(taskRow) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      taskRow.compareDocumentPosition(next) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+
+    await user.click(
+      screen.getByRole('button', { name: '在治理與揭露新增任務' }),
+    );
+    await user.type(
+      await screen.findByPlaceholderText('輸入任務'),
+      '治理首次',
+    );
+    await user.keyboard('{Enter}');
+
+    const governance = groupRow('治理與揭露');
+    const created = screen.getByRole('row', { name: /治理首次/ });
+    expect(
+      governance.compareDocumentPosition(created) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      within(created).getByRole('button', { name: '狀態 待填寫' }),
+    ).toBeInTheDocument();
+  });
+
+  it('adds a task inside a status group, and on an empty project', async () => {
+    renderTable({ grouping: ['project', 'status'] });
+    const user = userEvent.setup();
+
+    expect(
+      screen.queryByRole('button', { name: '在環境盤查新增任務' }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('button', {
+        name: '在環境盤查的待覆核新增任務',
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: '在治理與揭露新增任務' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('columnheader', { name: '任務' }),
+    ).toHaveLength(5);
+
+    await user.click(
+      screen.getByRole('button', {
+        name: '在環境盤查的待覆核新增任務',
+      }),
+    );
+    await user.type(
+      await screen.findByPlaceholderText('輸入任務'),
+      '覆核補件',
+    );
+    await user.keyboard('{Enter}');
+
+    const review = groupRow('待覆核');
+    const done = groupRows('已完成').find(
+      (row) =>
+        review.compareDocumentPosition(row) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+    const created = screen.getByRole('row', { name: /覆核補件/ });
+    if (!done) {
+      throw new Error('expected a following 已完成 group');
+    }
+    expect(
+      within(created).getByRole('button', { name: '狀態 待覆核' }),
+    ).toBeInTheDocument();
+    expect(
+      review.compareDocumentPosition(created) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      created.compareDocumentPosition(done) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+
+    await user.click(
+      screen.getByRole('button', { name: '在治理與揭露新增任務' }),
+    );
+    await user.type(
+      await screen.findByPlaceholderText('輸入任務'),
+      '治理首次',
+    );
+    await user.keyboard('{Enter}');
+
+    expect(
+      screen.queryByRole('button', { name: '在治理與揭露新增任務' }),
+    ).not.toBeInTheDocument();
+    const governance = groupRow('治理與揭露');
+    const status = groupRows('待填寫').find(
+      (row) =>
+        governance.compareDocumentPosition(row) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+    if (!status) {
+      throw new Error('expected a 待填寫 group under 治理與揭露');
+    }
+    const task = screen.getByRole('row', { name: /治理首次/ });
+    expect(
+      screen.getByRole('button', {
+        name: '在治理與揭露的待填寫新增任務',
+      }),
+    ).toBeInTheDocument();
+    expect(
+      governance.compareDocumentPosition(status) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      status.compareDocumentPosition(task) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
+  it('adds a row under collaborators without breaking the list', async () => {
+    renderTable({ grouping: ['collaboratorIds'] });
+    const user = userEvent.setup();
+
+    const [addRow] = screen.getAllByRole('button', {
+      name: /新增任務/,
+    });
+    if (!addRow) throw new Error('missing add row');
+    await user.click(addRow);
+
+    expect(
+      await screen.findByPlaceholderText('輸入任務'),
+    ).toBeInTheDocument();
+  });
+
+  it('keeps grouping and add row after the last grouped row is deleted', async () => {
+    render(
+      <ReviewTaskTable
+        data={reviewTasks.slice(0, 1)}
+        grouping={['status']}
+      />,
+    );
+    const user = userEvent.setup();
+
+    fireEvent.click(screen.getByRole('button', { name: '更多操作' }));
+    await user.click(
+      await screen.findByRole('menuitem', { name: '刪除' }),
+    );
+
+    expect(
+      screen.getByRole('button', { name: '分群' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: '新增任務' }),
+    ).toBeInTheDocument();
+  });
+
+  it('closes the grouping panel on the dismiss after a choice', async () => {
+    renderTable();
+    const user = userEvent.setup();
+
+    fireEvent.click(screen.getByRole('button', { name: '分群' }));
+    fireEvent.click(screen.getByRole('combobox', { name: '分群' }));
+    await user.click(
+      await screen.findByRole('option', { name: '專案' }),
+    );
+    await user.keyboard('{Escape}');
+
+    await waitForPanelClosed();
+  });
+
+  it('stretches the table to the card when columns are narrower', () => {
+    renderTable();
+    expect(screen.getByRole('table')).toHaveStyle({
+      minWidth: '100%',
+    });
+  });
+});
+
+describe('buildGroupTree', () => {
+  it('keeps row order when nothing is grouped', () => {
+    expect(
+      buildGroupTree(reviewTasks, []).flatMap((node) =>
+        node.kind === 'row' ? [node.row.title] : [],
+      ),
+    ).toEqual(reviewTasks.map((task) => task.title));
+  });
+
+  it('sorts tasks inside a project and leaves the empty project in place', () => {
+    const sorted = [...reviewTasks].sort((a, b) =>
+      a.due.localeCompare(b.due),
+    );
+    const tree = buildGroupTree(
+      sorted,
+      ['project'],
+      reviewGroupingConfig,
+    );
+    const environment = tree[0];
+    if (environment?.kind !== 'group') {
+      throw new Error('expected the first node to be a group');
+    }
+
+    expect(
+      tree.flatMap((node) =>
+        node.kind === 'group' ? [`${node.title} ${node.count}`] : [],
+      ),
+    ).toEqual(['環境盤查 5', '社會參與 3', '治理與揭露 0']);
+    expect(
+      environment.subRows.flatMap((node) =>
+        node.kind === 'row' ? [node.row.title] : [],
+      ),
+    ).toEqual([
+      '水資源管理',
+      '生物多樣性',
+      '溫室氣體盤查',
+      '能源管理',
+      '廢棄物清運',
+    ]);
+  });
+
+  it('nests status under project and skips statuses with no rows', () => {
+    const tree = buildGroupTree(
+      reviewTasks,
+      ['project', 'status'],
+      reviewGroupingConfig,
+    );
+    const environment = tree[0];
+    const governance = tree[2];
+    if (
+      environment?.kind !== 'group' ||
+      governance?.kind !== 'group'
+    ) {
+      throw new Error('expected project groups');
+    }
+
+    expect(
+      environment.subRows.flatMap((node) =>
+        node.kind === 'group' ? [`${node.title} ${node.count}`] : [],
+      ),
+    ).toEqual(['待填寫 2', '待覆核 2', '已完成 1']);
+    expect(governance.subRows).toEqual([]);
+    expect(environment).toMatchObject({
+      depth: 0,
+      leaf: false,
+      values: { project: '環境盤查' },
+    });
+    expect(environment.subRows[0]).toMatchObject({
+      depth: 1,
+      leaf: true,
+      values: { project: '環境盤查', status: 'todo' },
+      title: '待填寫',
+    });
+    expect(governance).toMatchObject({
+      leaf: false,
+      values: { project: '治理與揭露' },
+    });
+  });
+
+  it('nests every key in the list', () => {
+    const tree = buildGroupTree(
+      reviewTasks,
+      ['project', 'due', 'status'],
+      reviewGroupingConfig,
+    );
+    const environment = tree[0];
+    const due =
+      environment?.kind === 'group'
+        ? environment.subRows[0]
+        : undefined;
+    const status = due?.kind === 'group' ? due.subRows[0] : undefined;
+    if (due?.kind !== 'group' || status?.kind !== 'group') {
+      throw new Error('expected project, due, then status');
+    }
+
+    expect(environment).toMatchObject({ depth: 0, leaf: false });
+    expect(due).toMatchObject({
+      depth: 1,
+      leaf: false,
+      title: '2026/03/18',
+      values: { project: '環境盤查', due: '2026/03/18' },
+    });
+    expect(status).toMatchObject({
+      depth: 2,
+      leaf: true,
+      title: '待覆核',
+      values: {
+        project: '環境盤查',
+        due: '2026/03/18',
+        status: 'review',
+      },
+    });
+    expect(status.subRows[0]).toMatchObject({ kind: 'row' });
+    expect(status.path).toEqual(['環境盤查', '2026/03/18', '待覆核']);
+  });
+});
+
+describe('DataTable grouping keys', () => {
+  it('opens on the sample grouping menu, with no groups yet', () => {
+    render(<ReviewTaskTable />);
+
+    expect(
+      screen.queryByRole('button', { name: '環境盤查' }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: '分群' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: '子分群' }),
+    ).not.toBeInTheDocument();
+    expect(screen.getByText('溫室氣體盤查')).toBeInTheDocument();
+  });
+
+  it('groups any row type by the given keys, without add rows', async () => {
+    type Member = {
+      id: string;
+      name: string;
+      team: string;
+      site: string;
+    };
+    const members: Member[] = [
+      { id: 'a', name: 'Ann', team: 'Design', site: 'Taipei' },
+      { id: 'b', name: 'Bo', team: 'Design', site: 'Tainan' },
+      { id: 'c', name: 'Cy', team: 'Data', site: 'Taipei' },
+    ];
+    const columns: ColumnDef<Member>[] = [
+      {
+        id: 'name',
+        accessorFn: (row) => row.name,
+        header: 'Name',
+        meta: { label: 'Name', searchable: true },
+        cell: ({ row }) => row.original.name,
+      },
+    ];
+    render(
+      <DataTable
+        data={members}
+        columns={columns}
+        groupingConfig={{ team: { label: 'Team' } }}
+        grouping={['team', 'site']}
+        rowLabel={(member) => member.name}
+      />,
+    );
+
+    expect(groupRows('Design')).toHaveLength(1);
+    expect(groupRows('Tainan')).toHaveLength(1);
+    expect(
+      screen.getByRole('checkbox', { name: '選取 Bo' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: /新增/ }),
+    ).not.toBeInTheDocument();
+
+    // Only keys in groupingConfig are offered in the menu.
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: '分群' }));
+    await user.click(screen.getByRole('combobox', { name: '分群' }));
+    expect(
+      await screen.findByRole('option', { name: 'Team' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('option', { name: 'site' }),
+    ).not.toBeInTheDocument();
   });
 });

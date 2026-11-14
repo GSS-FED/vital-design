@@ -12,9 +12,11 @@ import {
 import { cn } from '@/lib/utils';
 import {
   type Column,
+  type ColumnDef,
   type ColumnOrderState,
   type HeaderGroup,
   type Row,
+  type RowData,
   type RowSelectionState,
   type SortingState,
   type VisibilityState,
@@ -25,6 +27,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import {
+  type RefObject,
   useCallback,
   useLayoutEffect,
   useMemo,
@@ -32,25 +35,7 @@ import {
   useState,
 } from 'react';
 import { ActionBar } from './action-bar';
-import { AddTaskRow } from './add-row';
-import {
-  type SelectionScope,
-  SelectionScopeContext,
-  buildColumns,
-  nextRowSelection,
-  selectionFlags,
-} from './columns';
-import {
-  COLUMN_FIELDS,
-  type GroupingKeyConfig,
-  PROJECT_ORDER,
-  type ReviewGroupNode,
-  type ReviewTask,
-  buildReviewTree,
-  fieldsFromRows,
-  reviewGroupingConfig,
-  reviewTasks,
-} from './data';
+import { AddRow } from './add-row';
 import {
   GroupHeaderRow,
   GutterCells,
@@ -58,16 +43,45 @@ import {
   columnHeaderStickyTop,
 } from './group-row';
 import {
+  type GroupNode,
+  type GroupingConfig,
+  buildGroupTree,
+} from './group-tree';
+import {
   getLeafColumnsInDisplayOrder,
   getPinningStyles,
 } from './pinning';
 import { ResizeHandle } from './resize-handle';
+import {
+  type SelectionScope,
+  SelectionScopeContext,
+  actionsColumn,
+  nextRowSelection,
+  selectColumn,
+  selectionFlags,
+} from './select-column';
 import { SelectionBar } from './selection-bar';
 
-const EDITOR_COLUMNS = new Set(['title', 'status', 'note']);
+declare module '@tanstack/react-table' {
+  // Cells reach the table's row state through `table.options.meta`.
+  interface TableMeta<TData extends RowData> {
+    updateRow: (id: string, patch: Partial<TData>) => void;
+    removeRow: (id: string) => void;
+    /** A row that 新增 just added. Its first text cell opens for editing. */
+    editRequestId: RefObject<string | null>;
+  }
+  interface ColumnMeta<TData extends RowData, TValue> {
+    /** Name in 顯示欄位 and for screen readers. Defaults to the id. */
+    label?: string;
+    /** Cells edit in place; they get the editable hover. */
+    editable?: boolean;
+    /** The search box matches this column's value. */
+    searchable?: boolean;
+  }
+}
 
 /** Sort state for screen readers; unsorted arrows are hidden until hover. */
-function ariaSort(column: Column<ReviewTask>) {
+function ariaSort<TData>(column: Column<TData>) {
   if (!column.getCanSort()) return undefined;
   const sort = column.getIsSorted();
   if (sort === 'asc') return 'ascending';
@@ -75,8 +89,8 @@ function ariaSort(column: Column<ReviewTask>) {
   return 'none';
 }
 
-function columnLabel(id: string): string {
-  return COLUMN_FIELDS.find((field) => field.id === id)?.label ?? id;
+function columnLabel<TData>(column: Column<TData>): string {
+  return column.columnDef.meta?.label ?? column.id;
 }
 
 function nestedEdges(
@@ -110,7 +124,7 @@ function nestedEdges(
   };
 }
 
-function ColumnHeaderRows({
+function ColumnHeaderRows<TData>({
   groupId,
   headerGroups,
   stickyTop,
@@ -120,7 +134,7 @@ function ColumnHeaderRows({
   topBorder = false,
 }: {
   groupId?: string;
-  headerGroups: HeaderGroup<ReviewTask>[];
+  headerGroups: HeaderGroup<TData>[];
   /** Stick under the group header. Flat tables leave this unset. */
   stickyTop?: number;
   boxed?: boolean;
@@ -161,7 +175,7 @@ function ColumnHeaderRows({
               // The resize handle's own name would join the header's.
               aria-label={
                 header.column.getCanResize()
-                  ? columnLabel(header.column.id)
+                  ? columnLabel(header.column)
                   : undefined
               }
               aria-sort={ariaSort(header.column)}
@@ -188,7 +202,7 @@ function ColumnHeaderRows({
                   )}
                   <ResizeHandle
                     header={header}
-                    label={`調整${columnLabel(header.column.id)}欄寬`}
+                    label={`調整${columnLabel(header.column)}欄寬`}
                   />
                 </>
               )}
@@ -227,12 +241,12 @@ function ColumnHeaderRows({
 const PINNED_CELL =
   'bg-white group-hover:[background-image:linear-gradient(var(--grayscale-opacity-100),var(--grayscale-opacity-100))] group-data-[state=selected]:[background-image:linear-gradient(var(--grayscale-opacity-100),var(--grayscale-opacity-100))]';
 
-function TaskRow({
+function DataRow<TData>({
   row,
   boxed = false,
   rails = [],
 }: {
-  row: Row<ReviewTask>;
+  row: Row<TData>;
   boxed?: boolean;
   rails?: boolean[];
 }) {
@@ -248,7 +262,7 @@ function TaskRow({
       ) : null}
       {row.getVisibleCells().flatMap((cell) => {
         const pinned = cell.column.getIsPinned();
-        const editor = EDITOR_COLUMNS.has(cell.column.id);
+        const editor = cell.column.columnDef.meta?.editable === true;
         const firstRight =
           pinned === 'right' && cell.column.getIsFirstColumn('right');
         const item = (
@@ -292,11 +306,14 @@ function TaskRow({
   );
 }
 
-function collectTaskIds(node: ReviewGroupNode): string[] {
+function collectRowIds<TData>(
+  node: GroupNode<TData>,
+  getRowId: (row: TData) => string,
+): string[] {
   const ids: string[] = [];
-  const walk = (current: ReviewGroupNode) => {
+  const walk = (current: GroupNode<TData>) => {
     for (const child of current.subRows) {
-      if (child.kind === 'task') ids.push(child.task.id);
+      if (child.kind === 'row') ids.push(getRowId(child.row));
       else walk(child);
     }
   };
@@ -304,48 +321,7 @@ function collectTaskIds(node: ReviewGroupNode): string[] {
   return ids;
 }
 
-function textValue(value: unknown): string {
-  return typeof value === 'string' ? value : '';
-}
-
-function scopeLabel(node: ReviewGroupNode): string {
-  const project = textValue(node.values.project);
-  if (project && node.title !== project) {
-    return `${project} ${node.title}`;
-  }
-  return node.title;
-}
-
-function addLabel(node: ReviewGroupNode): string {
-  const project = textValue(node.values.project);
-  if (textValue(node.values.status) && project) {
-    return `在${project}的${node.title}新增任務`;
-  }
-  if (project) return `在${project}新增任務`;
-  return `在${node.title}新增任務`;
-}
-
-function applyGroupValues(
-  task: ReviewTask,
-  values: Record<string, unknown>,
-): ReviewTask {
-  const next: ReviewTask & Record<string, unknown> = { ...task };
-  for (const [key, value] of Object.entries(values)) {
-    if (key === 'id') continue;
-    if (Array.isArray(value)) {
-      const copy: string[] = [];
-      for (const item of value) {
-        if (typeof item === 'string') copy.push(item);
-      }
-      next[key] = copy;
-      continue;
-    }
-    next[key] = value;
-  }
-  return next;
-}
-
-function GroupBlock({
+function GroupBlock<TData>({
   node,
   expanded,
   columnCount,
@@ -353,6 +329,8 @@ function GroupBlock({
   nestColumns,
   headerGroups,
   rowById,
+  getRowId,
+  itemName,
   ancestorRails = [],
   continued = false,
   hasNextSibling = false,
@@ -362,14 +340,17 @@ function GroupBlock({
   onAdd,
   onSelectIds,
 }: {
-  node: ReviewGroupNode;
+  node: GroupNode<TData>;
   expanded: Record<string, boolean>;
   columnCount: number;
   viewportWidth: number;
   /** Gutter columns reserved for every nesting level in this table. */
   nestColumns: number;
-  headerGroups: HeaderGroup<ReviewTask>[];
-  rowById: Map<string, Row<ReviewTask>>;
+  headerGroups: HeaderGroup<TData>[];
+  rowById: Map<string, Row<TData>>;
+  getRowId: (row: TData) => string;
+  /** What one row is called, e.g. 任務. Used in labels. */
+  itemName: string;
   /** Lines of the groups above this one, outer first. */
   ancestorRails?: boolean[];
   /** A later sibling still needs the vertical line through this group. */
@@ -381,15 +362,16 @@ function GroupBlock({
   /** Last nested group. It carries the gap before the next outer group. */
   padEnd?: boolean;
   onToggle: (id: string) => void;
-  onAdd: (values: Record<string, unknown>) => void;
+  /** Leave out to hide the add rows. */
+  onAdd?: (values: Partial<TData>) => void;
   onSelectIds: (ids: readonly string[], selected: boolean) => void;
 }) {
   const open = expanded[node.id] !== false;
   const groups = node.subRows.flatMap((child) =>
     child.kind === 'group' ? [child] : [],
   );
-  const tasks = node.subRows.flatMap((child) =>
-    child.kind === 'task' ? [child.task] : [],
+  const rows = node.subRows.flatMap((child) =>
+    child.kind === 'row' ? [child.row] : [],
   );
   // The innermost field owns the column header and the task rows.
   // An empty outer group has no child field to head, so the add row
@@ -397,16 +379,18 @@ function GroupBlock({
   const isLeaf = node.leaf;
   const showHeader = open && isLeaf;
   const showAdd =
-    open && (isLeaf || (groups.length === 0 && tasks.length === 0));
+    onAdd !== undefined &&
+    open &&
+    (isLeaf || (groups.length === 0 && rows.length === 0));
   // Depth 0 stays on the left edge. Each deeper field takes one gutter,
   // and only the innermost of those draws the inset table.
   const rails = node.depth === 0 ? [] : [...ancestorRails, continued];
   const boxed = isLeaf && rails.length > 0;
   const span = columnCount + Math.max(0, nestColumns - rails.length);
   // On a screen with two or more levels, the outermost group can
-  // select every task inside it. A single-level screen does not.
+  // select every row inside it. A single-level screen does not.
   const selectGroup = node.depth === 0 && nestColumns > 0;
-  const groupIds = selectGroup ? collectTaskIds(node) : [];
+  const groupIds = selectGroup ? collectRowIds(node, getRowId) : [];
   const groupSelection = selectionFlags(
     groupIds,
     (id) => rowById.get(id)?.getIsSelected() ?? false,
@@ -450,6 +434,8 @@ function GroupBlock({
                 nestColumns={nestColumns}
                 headerGroups={headerGroups}
                 rowById={rowById}
+                getRowId={getRowId}
+                itemName={itemName}
                 ancestorRails={rails}
                 continued={index < groups.length - 1}
                 padEnd={last}
@@ -468,17 +454,17 @@ function GroupBlock({
           boxed={boxed}
           rails={rails}
           scope={{
-            label: scopeLabel(node),
-            ids: tasks.map((task) => task.id),
+            label: node.path.join(' '),
+            ids: rows.map(getRowId),
           }}
         />
       ) : null}
       {open
-        ? tasks.map((task) => {
-            const row = rowById.get(task.id);
+        ? rows.map((item) => {
+            const row = rowById.get(getRowId(item));
             return row ? (
-              <TaskRow
-                key={task.id}
+              <DataRow
+                key={row.id}
                 row={row}
                 boxed={boxed}
                 rails={rails}
@@ -487,7 +473,7 @@ function GroupBlock({
           })
         : null}
       {showAdd ? (
-        <AddTaskRow
+        <AddRow
           columnCount={span}
           viewportWidth={viewportWidth}
           rails={rails}
@@ -496,45 +482,57 @@ function GroupBlock({
           bottomBorder={
             node.leaf && node.depth === 0 ? !hasNextSibling : true
           }
-          label={addLabel(node)}
-          onAdd={() => onAdd(node.values)}
+          label={`在${node.path.join('的')}新增${itemName}`}
+          text={`新增${itemName}`}
+          onAdd={() => onAdd?.(node.values)}
         />
       ) : null}
     </>
   );
 }
 
-export function DataTable({
-  className,
-  data = reviewTasks,
-  grouping = [],
-  groupingConfig = reviewGroupingConfig,
-}: {
+export type DataTableProps<TData extends { id: string }> = {
   className?: string;
+  /** Starting rows. Copied once; later edits stay inside the table. */
+  data: readonly TData[];
   /**
-   * Starting rows. Copied once; later edits stay inside the table.
-   * Defaults to the review-task sample.
+   * Data columns, without selection or actions; the table adds those.
+   * See `columns.tsx` for the `meta` fields the table reads.
    */
-  data?: ReviewTask[];
+  columns: ColumnDef<TData>[];
   /**
-   * Starting grouping keys, outer first. `[]` is flat.
-   * The toolbar replaces them after the first render.
+   * Fields the 分群 menu offers, with their titles and order. Grouping
+   * by a key not listed here still works; its titles are raw values.
    */
+  groupingConfig?: GroupingConfig;
+  /** Starting grouping keys, outer first. `[]` is flat. */
   grouping?: readonly string[];
-  /** Titles and order for keys. Unknown keys use the raw field value. */
-  groupingConfig?: Readonly<Record<string, GroupingKeyConfig>>;
-}) {
-  const [rows, setRows] = useState<ReviewTask[]>(data);
+  /** What one row is called in labels, e.g. 任務. */
+  itemName?: string;
+  /** Accessible name of a row, used by its checkbox. */
+  rowLabel: (row: TData) => string;
+  /**
+   * Builds the row that 新增 adds. `values` holds the group's field
+   * values when it is added inside a group. Leave out to hide 新增.
+   */
+  createRow?: (values: Partial<TData>) => TData;
+};
+
+export function DataTable<TData extends { id: string }>({
+  className,
+  data,
+  columns: dataColumns,
+  groupingConfig = {},
+  grouping = [],
+  itemName = '項目',
+  rowLabel,
+  createRow,
+}: DataTableProps<TData>) {
+  const [rows, setRows] = useState<TData[]>(() => [...data]);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [query, setQuery] = useState('');
   const [groupingKeys, setGroupingKeys] =
     useState<readonly string[]>(grouping);
-  const rememberedFields = useRef(fieldsFromRows(data));
-  const groupingFields = useMemo(() => {
-    const next = fieldsFromRows(rows);
-    if (next.length > 0) rememberedFields.current = next;
-    return next.length > 0 ? next : rememberedFields.current;
-  }, [rows]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>(
     {},
   );
@@ -566,7 +564,7 @@ export function DataTable({
   }, []);
 
   const updateRow = useCallback(
-    (id: string, patch: Partial<ReviewTask>) => {
+    (id: string, patch: Partial<TData>) => {
       setRows((prev) =>
         prev.map((row) =>
           row.id === id ? { ...row, ...patch } : row,
@@ -576,13 +574,6 @@ export function DataTable({
     [],
   );
 
-  const removeRow = useCallback((id: string) => {
-    setRows((prev) => prev.filter((row) => row.id !== id));
-    setRowSelection((current) =>
-      nextRowSelection(current, [id], false),
-    );
-  }, []);
-
   const removeRows = useCallback((ids: readonly string[]) => {
     const doomed = new Set(ids);
     setRows((prev) => prev.filter((row) => !doomed.has(row.id)));
@@ -591,38 +582,30 @@ export function DataTable({
     );
   }, []);
 
-  const createTask = useCallback(
-    (values: Record<string, unknown>) => {
-      const id = `task-${crypto.randomUUID()}`;
-      editRequestId.current = id;
-      setRows((prev) => [
-        ...prev,
-        applyGroupValues(
-          {
-            id,
-            title: '',
-            project: PROJECT_ORDER[0],
-            status: 'todo',
-            collaboratorIds: [],
-            due: '',
-            note: '',
-          },
-          values,
-        ),
-      ]);
-    },
-    [],
+  const removeRow = useCallback(
+    (id: string) => removeRows([id]),
+    [removeRows],
+  );
+
+  const addRow = useMemo(
+    () =>
+      createRow
+        ? (values: Partial<TData>) => {
+            const row = createRow(values);
+            editRequestId.current = row.id;
+            setRows((prev) => [...prev, row]);
+          }
+        : undefined,
+    [createRow],
   );
 
   const columns = useMemo(
-    () =>
-      buildColumns({
-        updateRow,
-        removeRow,
-        editRequestId,
-        rowIndent: 0,
-      }),
-    [updateRow, removeRow],
+    () => [
+      selectColumn(rowLabel),
+      ...dataColumns,
+      actionsColumn<TData>(),
+    ],
+    [dataColumns, rowLabel],
   );
 
   const table = useReactTable({
@@ -638,6 +621,7 @@ export function DataTable({
     initialState: {
       columnPinning: { left: ['select'], right: ['actions'] },
     },
+    meta: { updateRow, removeRow, editRequestId },
     defaultColumn: { minSize: 48, maxSize: 480 },
     columnResizeMode: 'onChange',
     // Every sortable column cycles 正序 → 倒序 → 解除, numbers included.
@@ -648,21 +632,16 @@ export function DataTable({
     onRowSelectionChange: setRowSelection,
     onColumnVisibilityChange: setColumnVisibility,
     onColumnOrderChange: setColumnOrder,
-    globalFilterFn: (row, _columnId, filterValue) => {
-      const needle = String(filterValue).trim();
-      if (!needle) return true;
-      return (
-        row.original.title.includes(needle) ||
-        row.original.note.includes(needle)
-      );
-    },
+    getColumnCanGlobalFilter: (column) =>
+      column.columnDef.meta?.searchable === true,
+    globalFilterFn: 'includesString',
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
 
   const modelRows = table.getRowModel().rows;
-  const tree = buildReviewTree(
+  const tree = buildGroupTree(
     modelRows.map((row) => row.original),
     groupingKeys,
     groupingConfig,
@@ -680,6 +659,21 @@ export function DataTable({
     .getFilteredSelectedRowModel()
     .rows.map((row) => row.id);
   const visibleCount = table.getFilteredRowModel().rows.length;
+  const fields = table
+    .getAllLeafColumns()
+    .filter(
+      (column) => column.id !== 'select' && column.id !== 'actions',
+    )
+    .map((column) => ({
+      id: column.id,
+      label: columnLabel(column),
+      locked: !column.getCanHide(),
+    }));
+  const groupingFields = Object.entries(groupingConfig).map(
+    ([id, config]) => ({ id, label: config.label }),
+  );
+  const getRowId = (row: TData) => row.id;
+  const addText = `新增${itemName}`;
 
   const toggleGroup = useCallback((id: string) => {
     setExpanded((prev) => ({
@@ -701,8 +695,10 @@ export function DataTable({
     <Card className={cn('w-full max-w-4xl', className)}>
       <ActionBar
         query={query}
+        searchPlaceholder={`搜尋${itemName}`}
         groupingKeys={groupingKeys}
         groupingFields={groupingFields}
+        fields={fields}
         visibility={columnVisibility}
         onQueryChange={setQuery}
         onGroupingChange={setGroupingKeys}
@@ -760,19 +756,22 @@ export function DataTable({
             </TableHeader>
             <TableBody>
               {tree.map((node) => {
-                if (node.kind !== 'task') return null;
-                const row = rowById.get(node.task.id);
+                if (node.kind !== 'row') return null;
+                const row = rowById.get(getRowId(node.row));
                 return row ? (
-                  <TaskRow key={node.task.id} row={row} />
+                  <DataRow key={row.id} row={row} />
                 ) : null;
               })}
-              <AddTaskRow
-                columnCount={columnCount}
-                viewportWidth={viewportWidth}
-                label="新增任務"
-                sticky
-                onAdd={() => createTask({})}
-              />
+              {addRow ? (
+                <AddRow
+                  columnCount={columnCount}
+                  viewportWidth={viewportWidth}
+                  label={addText}
+                  text={addText}
+                  sticky
+                  onAdd={() => addRow({})}
+                />
+              ) : null}
             </TableBody>
           </>
         ) : (
@@ -789,8 +788,10 @@ export function DataTable({
                   nestColumns={Math.max(0, groupingKeys.length - 1)}
                   headerGroups={headerGroups}
                   rowById={rowById}
+                  getRowId={getRowId}
+                  itemName={itemName}
                   onToggle={toggleGroup}
-                  onAdd={createTask}
+                  onAdd={addRow}
                   onSelectIds={selectIds}
                   hasNextSibling={index < tree.length - 1}
                   nextCollapsed={
@@ -800,20 +801,22 @@ export function DataTable({
                 />
               ) : null;
             })}
-            {tree.length === 0 ? (
-              <AddTaskRow
+            {tree.length === 0 && addRow ? (
+              <AddRow
                 columnCount={
                   columnCount + Math.max(0, groupingKeys.length - 1)
                 }
                 viewportWidth={viewportWidth}
-                label="新增任務"
-                onAdd={() => createTask({})}
+                label={addText}
+                text={addText}
+                onAdd={() => addRow({})}
               />
             ) : null}
           </TableBody>
         )}
       </Table>
       <SelectionBar
+        label={`已選取的${itemName}`}
         selectedCount={selectedIds.length}
         totalCount={visibleCount}
         onSelectAll={() => table.toggleAllPageRowsSelected(true)}

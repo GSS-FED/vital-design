@@ -1,0 +1,131 @@
+---
+title: Data Table
+description: Generic data table with grouping, add rows per group, search, sorting, column resizing and reordering, row selection, and inline and popover cell editing.
+---
+
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+import { ReviewTaskTable } from '~/components/vital-components';
+
+## Preview
+
+<ComponentPreview
+  centered={false}
+  className="overflow-x-auto"
+  minHeight="min-h-0"
+>
+  <ReviewTaskTable />
+</ComponentPreview>
+
+The table ships with a review-task example. Click a cell to edit it: 任務 and 備註 edit inline, while 狀態, 協作者, 期限, and 標籤 open a popover. Hover a header to sort, and drag a header edge to resize. Check rows to bring up the selection bar. Use **分群** to group rows and **顯示欄位** to hide or reorder columns.
+
+### One level of grouping
+
+Every group gets its own header and its own 新增任務 row, which starts the new row with that group's values.
+
+<ComponentPreview
+  centered={false}
+  className="overflow-x-auto"
+  minHeight="min-h-0"
+>
+  <ReviewTaskTable grouping={['project']} />
+</ComponentPreview>
+
+### Two levels of grouping
+
+The outer group can select every row inside it. A project with no tasks still shows, through `groupingConfig.empty`.
+
+<ComponentPreview
+  centered={false}
+  className="overflow-x-auto"
+  minHeight="min-h-0"
+>
+  <ReviewTaskTable grouping={['project', 'status']} />
+</ComponentPreview>
+
+## Use your own rows
+
+The block is meant to be copied and changed. `data-table.tsx` is generic; the review-task example lives in `columns.tsx`, `data.ts`, and `review-task-table.tsx`. Replace those three with your own.
+
+1. Define your row type. It needs a string `id`.
+
+   ```ts
+   export type Member = { id: string; name: string; team: string };
+   ```
+
+2. Write the data columns. The table adds the checkbox and actions columns itself. It reads three `meta` fields:
+
+   | Field        | Effect                                                       |
+   | ------------ | ------------------------------------------------------------ |
+   | `label`      | Name in 顯示欄位 and for screen readers. Defaults to the id. |
+   | `editable`   | Cells get the editable hover.                                |
+   | `searchable` | The search box matches this column's value.                  |
+
+   `enableHiding: false` keeps a column on in 顯示欄位. Cells save edits with `table.options.meta.updateRow(row.id, patch)`.
+
+   ```tsx
+   export const memberColumns: ColumnDef<Member>[] = [
+     {
+       id: 'name',
+       accessorFn: (row) => row.name,
+       header: ({ column }) => (
+         <DataTableColumnHeader column={column} title="姓名" />
+       ),
+       meta: { label: '姓名', searchable: true },
+       enableHiding: false,
+       cell: ({ row }) => row.original.name,
+     },
+   ];
+   ```
+
+3. Render the table. Keys in `groupingConfig` are the fields the 分群 menu offers. Leave out `createRow` to hide the 新增 rows.
+
+   ```tsx
+   <DataTable
+     data={members}
+     columns={memberColumns}
+     groupingConfig={{ team: { label: '團隊' } }}
+     itemName="成員"
+     rowLabel={(member) => member.name}
+     createRow={(values) => ({
+       name: '',
+       team: '',
+       ...values,
+       id: crypto.randomUUID(),
+     })}
+   />
+   ```
+
+## Composition
+
+This block is built on the following Vittal Design primitives:
+
+- `Avatar`, `Button`, `Calendar`, `Card`, `Checkbox`, `DropdownMenu`, `Editable`, `Popover`, `SearchBar`, `Select`, `Switch`, `Table`, `Tag`, `Toolbar`
+- `CaretDownIcon`, `CaretUpIcon`, `CheckIcon`, `ChevronDownIcon`, `CloseIcon`, `EllipsisIcon`, `PlusIcon`
+- [`@tanstack/react-table`](https://tanstack.com/table/v8) for table state
+
+## Files
+
+| File                           | Description                                                     |
+| ------------------------------ | --------------------------------------------------------------- |
+| `data-table.tsx`               | Generic table: state, grouping layout, pinning, selection       |
+| `review-task-table.tsx`        | Example entry — wires the table to the review-task columns      |
+| `columns.tsx`                  | Example columns, with text, status, people, date, and tag cells |
+| `data.ts`                      | Example rows, people, tags, and grouping config                 |
+| `group-tree.ts`                | Builds the group tree from rows and grouping keys               |
+| `action-bar.tsx`               | Search, 分群 menu, 顯示欄位 card, and the row menu              |
+| `add-row.tsx`                  | 新增 row at the end of the table or a group                     |
+| `data-table-column-header.tsx` | Sortable header with hover arrows                               |
+| `group-row.tsx`                | Group header row and nesting rails                              |
+| `pinning.ts`                   | Pinned column offsets and display order                         |
+| `popover-edit.tsx`             | Popover cell plus people, tags, and date editors                |
+| `resize-handle.tsx`            | Column resize handle with a full-height guide                   |
+| `select-column.tsx`            | Checkbox and actions columns, and group selection               |
+| `selection-bar.tsx`            | Floating bar for the checked rows                               |
+
+## Installation
+
+```bash
+npx shadcn@latest add @vital-design/data-table
+```
+
+This installs the block under `src/blocks/data-table/` and pulls every required primitive automatically.

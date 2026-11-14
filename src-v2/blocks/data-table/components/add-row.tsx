@@ -4,14 +4,15 @@ import { cn } from '@/lib/utils';
 import { GutterCells, NESTED_GUTTER } from './group-row';
 
 /**
- * Last row of the container that will own the new task.
+ * Last row of the container that will own the new row.
  * Depth 0 may stick to the scrollport. Grouped rows stay in their group.
  * The label is pinned to the visible width so horizontal scroll keeps it in view.
  */
-export function AddTaskRow({
+export function AddRow({
   columnCount,
   viewportWidth,
   label,
+  text,
   indent = 0,
   rails = [],
   boxed = false,
@@ -22,8 +23,10 @@ export function AddTaskRow({
 }: {
   columnCount: number;
   viewportWidth: number;
-  /** Accessible name. Visible text stays 新增任務. */
+  /** Accessible name, e.g. 在環境盤查新增任務. */
   label: string;
+  /** Visible text, e.g. 新增任務. */
+  text: string;
   /**
    * Matches the checkbox of a task row at this level.
    * The checkbox is 16px and centered in the 40px select column,
@@ -118,7 +121,7 @@ export function AddTaskRow({
             />
           ) : null}
           <PlusIcon className="size-3 shrink-0" />
-          新增任務
+          {text}
         </button>
       </TableCell>
     </TableRow>
