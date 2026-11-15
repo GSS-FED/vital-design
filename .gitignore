@@ -13,8 +13,11 @@ dist
 dist-ssr
 storybook-static
 storybook-static-visual
-playwright-report
-test-results
+visual-report
+visual-junit.xml
+.vitest
+visual/fixtures/manifest.json
+visual/fixtures/playground/
 visual/__baseline__
 wrangler-pages.ndjson
 preview.env

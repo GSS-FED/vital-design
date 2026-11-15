@@ -15,8 +15,9 @@ pnpm run build             # 建置元件庫
 pnpm run test              # 執行測試
 pnpm run test:coverage     # 計算測試覆蓋率
 pnpm run test:watch        # 監測檔案變更時重新執行測試
-pnpm run test:visual       # Playwright 視覺回歸（需先 storybook:build；baseline 在 visual/__baseline__，不進 git）
+pnpm run test:visual       # 視覺回歸：Vitest browser mode 截每個 src-v2 story / 文件範例（baseline 在 visual/__baseline__，不進 git）
 pnpm run test:visual:update # 重新產生視覺 baseline
+pnpm run fixtures:dev      # Fixture app：一個 story / 範例一個 URL，隔離開發用（不需 Storybook）
 pnpm run lint              # Oxlint 檢查（.oxlintrc.json，含 type-aware 規則）
 pnpm run lint:design       # @shadcn/lint 設計系統規則（.oxlintrc.shadcn.json extends vital-design.lint.json；先重建 CSS tokens）
 pnpm run lint:design:audit # 對 blocks 跑 no-restyle，定期找跨 block 重複的覆寫（非 gate）
@@ -62,8 +63,8 @@ pnpm docs:start            # 啟動生產環境文件站
 
 - **React 19** + **TypeScript 5** - 核心框架
 - **Tailwind CSS 4** - 樣式框架
-- **Vite 5** - 建置工具
-- **Vitest** + **Testing Library** - 測試
+- **Vite 6** - 建置工具（Node 22，見 `.nvmrc`）
+- **Vitest** + **Testing Library** - 測試（`unit` project 用 jsdom；`visual` project 用 browser mode 跑截圖）
 - **Storybook 8** - 元件文件
 - **Base UI** - `src-v2/` 預設的無障礙 primitive library
 
@@ -172,6 +173,7 @@ pnpm docs:start            # 啟動生產環境文件站
 - **Separator**：shared divider primitive. Prefer it over hand-rolled `div role="separator"` in new `src-v2` components.
 - **cn() 依賴**：registry 需列出 `cn`（取代舊的 clsx + tailwind-merge）
 - **文件站 Preview 元件**：`apps/docs/components/previews/` 的元件必須有 `'use client'`，因為 MDX 頁面是 RSC，不能直接傳 inline function prop（如 `onChange={() => {}}`）
+- **視覺回歸（Vitest browser mode）**：`vite.config.ts` 分兩個 project：`unit`（jsdom，`pnpm run test`）與 `visual`（Chromium，`pnpm run test:visual`）。`visual/fixtures.test.tsx` 依 `visual/fixtures/manifest.ts` 產生的清單（ID 與 Storybook story ID 相同）截每個 src-v2 story 與 `components/*/examples/*.tsx`；`visual/capture.ts` 只截有畫出東西的範圍（含 portal 出去的 popup），所以圖檔就是元件大小。需要互動後狀態（打開選單等）時，在元件旁加 `<Name>.vrt.test.tsx`：render → 操作 → `expect(await renderedRegion()).toMatchScreenshot()`。`visual/setup.ts` 固定 Date、擋外部網路。Baseline 寫到 `visual/__baseline__/`，CI 的 `visual-baseline` 產生、`visual-diff` 比對並附 Vitest HTML 報告與 JUnit。Fixture app（`pnpm run fixtures:dev`）用同一份清單；`visual/fixtures/playground/*.tsx`（gitignore，default export 一個元件）會列在首頁，給臨時試東西用。
 - **文件站 .next 快取**：修改 `apps/docs/source.config.ts` 後，須執行 `rm -rf apps/docs/.next` 再重建，否則 source config hash 不符導致新頁面 404
 - **文件站 `/llms.txt`**：`output: 'export'` 下必須用 `dynamic = 'force-static'` 的 Route Handler（`apps/docs/app/llms.txt/route.ts`），build 後輸出 `apps/docs/out/llms.txt`。Sidebar 用 `content/docs/meta.json` 的 `[llms.txt](/llms.txt)`（Fumadocs 15.7 無 `external:` 前綴，same-origin 連結要在 layout 把該 node 標 `external: true` 才會整頁開檔）。產生器須跳過 `/llms.txt`，避免 index 自連。不要加 `.md` rewrite／middleware（靜態 export 不支援）
 - **文件站繁體中文**：英文留在 `/docs/...`，繁中在 `/zh-tw/docs/...`。不要加 middleware，也不要做 `/en` 前綴（靜態輸出沒有 rewrite）。內容用 dot parser：`page.mdx` 是英文，`page.zh-tw.mdx` 是繁中；`meta.zh-tw.json` 只翻譯顯示名，`pages` 陣列與英文相同。缺中文檔時同一個中文網址顯示英文，並標「尚未翻譯」。站內連結在中文檔寫 `/zh-tw/docs/...`。prop、程式碼、CLI、registry 名稱維持英文。新頁面先寫英文；改了已有中文檔的使用者可見文句時，同一份變更更新 `.zh-tw.mdx`。`/llms.txt` 維持英文索引
@@ -181,7 +183,7 @@ pnpm docs:start            # 啟動生產環境文件站
 - **src-v2-only 套件位置**：僅供 `src-v2/`、docs、registry 或 stories 使用的套件，根目錄 `package.json` 請維持在 `devDependencies`，避免 legacy npm package 對外安裝額外 runtime dependency；registry 安裝所需套件則由 `registry/*.ts` 的 `dependencies` 個別宣告
 - **src-v2/styles 邊界**：`src-v2/styles/` 是 registry / docs 內部使用的 theme 資產，不是 npm package 的公開匯出；不要在 `package.json` exports 中暴露它
 - **data-slot**：三層合約 — (1) 會 render 可樣式化 DOM 的 exported part 必須有 slot；(2) Trigger 禁止 passthrough，須 wrapper（`DialogTrigger` 為範本）；(3) 僅 Provider / 純 state Root / bare Portal 可豁免。命名：root `button`、subpart `select-trigger`。詳見 `.agents/RULES.md` 與 docs Tailwind setup。
-- **MR preview**：目標為 `develop` 或 `main` 的 MR，在 GitLab 有 `CLOUDFLARE_API_TOKEN` 與 `CLOUDFLARE_ACCOUNT_ID` 時，會把 Storybook 靜態檔上傳到 Cloudflare Pages（`mr-<編號>`），視覺比對有報告時另傳一份（`mr-<編號>-diff`）。MR 有改到 `apps/docs/` 時，另外上傳文件站（`mr-<編號>-docs`，`pnpm docs:build`，不要設 `GITHUB_PAGES`）。網址掛在各自的 MR environment。這兩個變數不要設成 Protected，否則未受保護的支援分支拿不到。預覽網址是公開的。
+- **MR preview**：目標為 `develop` 或 `main` 的 MR，在 GitLab 有 `CLOUDFLARE_API_TOKEN` 與 `CLOUDFLARE_ACCOUNT_ID` 時，會把 Storybook 靜態檔上傳到 Cloudflare Pages（`mr-<編號>`），視覺比對有報告時另傳一份 Vitest HTML 報告（`mr-<編號>-diff`）。MR 有改到 `apps/docs/` 時，另外上傳文件站（`mr-<編號>-docs`，`pnpm docs:build`，不要設 `GITHUB_PAGES`）。網址掛在各自的 MR environment。這兩個變數不要設成 Protected，否則未受保護的支援分支拿不到。預覽網址是公開的。
 
 ## Registry
 

@@ -8,6 +8,7 @@
     "jsx": "react-jsx",
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
+    "resolveJsonModule": true,
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "./node_modules/.cache/tsconfig.node",
@@ -15,8 +16,9 @@
   },
   "include": [
     "vite.config.ts",
-    "playwright.config.ts",
     "visual/**/*.ts",
+    "visual/**/*.tsx",
+    "visual/fixtures/manifest.json",
     "postcss.config.js",
     "registry/**/*.ts",
     "scripts/**/*.ts",
