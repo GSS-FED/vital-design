@@ -1,0 +1,18 @@
+# Dev servers for orbs: `amp orb services ensure` starts them and prints the
+# portal URLs. Storybook is left out on purpose; docs and the fixture app
+# cover v2 work.
+services:
+  docs:
+    command: >-
+      pnpm run tokens:build:css &&
+      cd apps/docs && pnpm dev --hostname 0.0.0.0 --port "$PORT"
+    health: /
+    portal:
+      title: Docs
+      description: Fumadocs site (apps/docs). Traditional Chinese pages are under /zh-tw/docs.
+  fixtures:
+    command: pnpm run fixtures:dev --host 0.0.0.0 --port "$PORT" --strictPort
+    portal:
+      url: /
+      title: Fixture app
+      description: One URL per src-v2 story and docs example (?id=<story id>). Files in visual/fixtures/playground/ are listed first.
