@@ -19,7 +19,7 @@ workflow:
     - if: '$CI_COMMIT_BRANCH'
 
 default:
-  image: node:20
+  image: node:22
   interruptible: true
   artifacts:
     expire_in: 1 week

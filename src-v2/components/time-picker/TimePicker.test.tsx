@@ -53,7 +53,7 @@ describe('TimePicker', () => {
   });
 
   it('emits a Date with the chosen hours when an item is clicked', () => {
-    const onValueChange = vi.fn<[Date], void>();
+    const onValueChange = vi.fn<(value: Date) => void>();
     const initial = at(9, 30, 0);
     render(
       <TimePicker value={initial} onValueChange={onValueChange} />,
