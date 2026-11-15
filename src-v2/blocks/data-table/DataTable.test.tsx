@@ -13,6 +13,11 @@ import { DataTable } from './components/data-table';
 import { buildGroupTree } from './components/group-tree';
 import { ReviewTaskTable } from './components/review-task-table';
 
+// Each test drives a large table. Alone the slowest takes about 2s, but the
+// first few run on cold code while a full parallel run is still loading
+// other files, and can pass the 5s default. Vitest resets this per file.
+vi.setConfig({ testTimeout: 15_000 });
+
 function renderTable(
   props: {
     grouping?: readonly string[];
