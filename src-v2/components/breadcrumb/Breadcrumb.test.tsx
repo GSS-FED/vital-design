@@ -21,11 +21,14 @@ import {
   BreadcrumbSeparator,
 } from './Breadcrumb';
 
-const ResizeObserverMock = vi.fn(() => ({
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-  disconnect: vi.fn(),
-}));
+// A class, not an arrow function: the mock is called with `new`.
+const ResizeObserverMock = vi.fn(
+  class {
+    observe = vi.fn();
+    unobserve = vi.fn();
+    disconnect = vi.fn();
+  },
+);
 
 vi.stubGlobal('ResizeObserver', ResizeObserverMock);
 
