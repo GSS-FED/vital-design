@@ -44,7 +44,7 @@ export { PlanetRingedIcon } from './PlanetRingedIcon';
 export { PlusIcon } from './PlusIcon';
 export { ShieldCheckIcon } from './ShieldCheckIcon';
 export { SidebarIcon } from './SidebarIcon';
-export { SpinnerThirdIcon } from './SpinnerThirdIcon';
+export { SpinnerIcon } from './SpinnerIcon';
 export { SquareArrowOutUpRightIcon } from './SquareArrowOutUpRightIcon';
 export { ThumbtackIcon } from './ThumbtackIcon';
 export { ThumbtackSolidIcon } from './ThumbtackSolidIcon';

@@ -353,7 +353,7 @@ describe('Registry Validation', () => {
               !line.includes("from '@/icons/")
             ) {
               violations.push(
-                `${file.path}:${i + 1} - Use specific icon imports (e.g., @/icons/SpinnerThirdIcon) instead of barrel import`,
+                `${file.path}:${i + 1} - Use specific icon imports (e.g., @/icons/SpinnerIcon) instead of barrel import`,
               );
             }
           }

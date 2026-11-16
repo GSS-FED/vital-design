@@ -46,7 +46,7 @@ export type RegistryItemName =
   | 'icon-plus'
   | 'icon-magnifying-glass'
   | 'icon-shield-check'
-  | 'icon-spinner-third'
+  | 'icon-spinner'
   | 'icon-square-arrow-out-up-right'
   | 'icon-bars'
   | 'icon-circle-user'

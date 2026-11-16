@@ -172,7 +172,6 @@ export function SplitButton(props: SplitButtonProps) {
     ...groupProps
   } = props;
 
-  // Notion: regular angle on white backgrounds, solid on coloured ones.
   const solid = LIGHT_SEPARATOR_THEMES.has(theme);
   const ChevronIcon = open
     ? solid

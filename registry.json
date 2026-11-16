@@ -881,14 +881,14 @@
       ]
     },
     {
-      "name": "icon-spinner-third",
+      "name": "icon-spinner",
       "type": "registry:ui",
-      "title": "Spinner Third Icon",
-      "description": "Spinner Third Icon component",
+      "title": "Spinner Icon",
+      "description": "Spinner Icon component",
       "files": [
         {
-          "path": "src-v2/icons/SpinnerThirdIcon.tsx",
-          "target": "src/components/icons/SpinnerThirdIcon.tsx",
+          "path": "src-v2/icons/SpinnerIcon.tsx",
+          "target": "src/components/icons/SpinnerIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -1187,8 +1187,8 @@
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/SpinnerThirdIcon.tsx",
-          "target": "src/components/icons/SpinnerThirdIcon.tsx",
+          "path": "src-v2/icons/SpinnerIcon.tsx",
+          "target": "src/components/icons/SpinnerIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -1521,7 +1521,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-spinner-third",
+        "@vital-design/icon-spinner",
         "@vital-design/vital-theme"
       ],
       "files": [

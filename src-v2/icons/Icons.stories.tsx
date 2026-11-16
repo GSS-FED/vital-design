@@ -46,7 +46,7 @@ import { PlanetRingedIcon } from './PlanetRingedIcon';
 import { PlusIcon } from './PlusIcon';
 import { ShieldCheckIcon } from './ShieldCheckIcon';
 import { SidebarIcon } from './SidebarIcon';
-import { SpinnerThirdIcon } from './SpinnerThirdIcon';
+import { SpinnerIcon } from './SpinnerIcon';
 import { SquareArrowOutUpRightIcon } from './SquareArrowOutUpRightIcon';
 import { ThumbtackIcon } from './ThumbtackIcon';
 import { ThumbtackSolidIcon } from './ThumbtackSolidIcon';
@@ -105,7 +105,7 @@ const icons: IconEntry[] = [
   { name: 'PlusIcon', Icon: PlusIcon },
   { name: 'ShieldCheckIcon', Icon: ShieldCheckIcon },
   { name: 'SidebarIcon', Icon: SidebarIcon },
-  { name: 'SpinnerThirdIcon', Icon: SpinnerThirdIcon },
+  { name: 'SpinnerIcon', Icon: SpinnerIcon },
   {
     name: 'SquareArrowOutUpRightIcon',
     Icon: SquareArrowOutUpRightIcon,
@@ -186,8 +186,8 @@ export const Spinner: Story = {
   render: function Render() {
     return (
       <div className="flex items-center gap-4">
-        <SpinnerThirdIcon className="size-6 animate-spin text-primary-500" />
-        <SpinnerThirdIcon className="size-6 text-grayscale-opacity-500" />
+        <SpinnerIcon className="size-6 animate-spin text-primary-500" />
+        <SpinnerIcon className="size-6 text-grayscale-opacity-500" />
       </div>
     );
   },

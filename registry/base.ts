@@ -184,9 +184,9 @@ const iconGroups = [
     files: ['SidebarIcon'],
   },
   {
-    name: 'icon-spinner-third',
-    title: 'Spinner Third Icon',
-    files: ['SpinnerThirdIcon'],
+    name: 'icon-spinner',
+    title: 'Spinner Icon',
+    files: ['SpinnerIcon'],
   },
   {
     name: 'icon-square-arrow-out-up-right',

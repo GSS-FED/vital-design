@@ -46,7 +46,7 @@ import { PlanetRingedIcon } from '@/icons/PlanetRingedIcon';
 import { PlusIcon } from '@/icons/PlusIcon';
 import { ShieldCheckIcon } from '@/icons/ShieldCheckIcon';
 import { SidebarIcon } from '@/icons/SidebarIcon';
-import { SpinnerThirdIcon } from '@/icons/SpinnerThirdIcon';
+import { SpinnerIcon } from '@/icons/SpinnerIcon';
 import { SquareArrowOutUpRightIcon } from '@/icons/SquareArrowOutUpRightIcon';
 import { ThumbtackIcon } from '@/icons/ThumbtackIcon';
 import { ThumbtackSolidIcon } from '@/icons/ThumbtackSolidIcon';
@@ -107,7 +107,7 @@ const icons: IconEntry[] = [
   { name: 'PlusIcon', Icon: PlusIcon },
   { name: 'ShieldCheckIcon', Icon: ShieldCheckIcon },
   { name: 'SidebarIcon', Icon: SidebarIcon },
-  { name: 'SpinnerThirdIcon', Icon: SpinnerThirdIcon },
+  { name: 'SpinnerIcon', Icon: SpinnerIcon },
   {
     name: 'SquareArrowOutUpRightIcon',
     Icon: SquareArrowOutUpRightIcon,
@@ -172,8 +172,8 @@ export function IconColorsPreview() {
 export function IconSpinnerPreview() {
   return (
     <ComponentPreview name="IconSpinnerPreview">
-      <SpinnerThirdIcon className="size-6 animate-spin text-primary-500" />
-      <SpinnerThirdIcon className="size-6 text-grayscale-opacity-500" />
+      <SpinnerIcon className="size-6 animate-spin text-primary-500" />
+      <SpinnerIcon className="size-6 text-grayscale-opacity-500" />
     </ComponentPreview>
   );
 }
