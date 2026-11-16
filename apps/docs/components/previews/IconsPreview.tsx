@@ -14,8 +14,11 @@ import { CalendarIcon } from '@/icons/CalendarIcon';
 import { CaretDownIcon } from '@/icons/CaretDownIcon';
 import { CaretUpIcon } from '@/icons/CaretUpIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
+import { CheckSolidIcon } from '@/icons/CheckSolidIcon';
 import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
+import { ChevronDownSolidIcon } from '@/icons/ChevronDownSolidIcon';
 import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
+import { ChevronUpSolidIcon } from '@/icons/ChevronUpSolidIcon';
 import { CircleUserIcon } from '@/icons/CircleUserIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
 import { ClockIcon } from '@/icons/ClockIcon';
@@ -31,6 +34,7 @@ import { InboxIcon } from '@/icons/InboxIcon';
 import { InfoIcon } from '@/icons/InfoIcon';
 import { LifeRingIcon } from '@/icons/LifeRingIcon';
 import { MinusIcon } from '@/icons/MinusIcon';
+import { MinusSolidIcon } from '@/icons/MinusSolidIcon';
 import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
 import { PlanetRingedIcon } from '@/icons/PlanetRingedIcon';
 import { PlusIcon } from '@/icons/PlusIcon';
@@ -71,8 +75,11 @@ const icons: IconEntry[] = [
   { name: 'CaretDownIcon', Icon: CaretDownIcon },
   { name: 'CaretUpIcon', Icon: CaretUpIcon },
   { name: 'CheckIcon', Icon: CheckIcon },
+  { name: 'CheckSolidIcon', Icon: CheckSolidIcon },
   { name: 'ChevronDownIcon', Icon: ChevronDownIcon },
+  { name: 'ChevronDownSolidIcon', Icon: ChevronDownSolidIcon },
   { name: 'ChevronUpIcon', Icon: ChevronUpIcon },
+  { name: 'ChevronUpSolidIcon', Icon: ChevronUpSolidIcon },
   { name: 'CircleUserIcon', Icon: CircleUserIcon },
   { name: 'ClearIcon', Icon: ClearIcon },
   { name: 'ClockIcon', Icon: ClockIcon },
@@ -88,6 +95,7 @@ const icons: IconEntry[] = [
   { name: 'InfoIcon', Icon: InfoIcon },
   { name: 'LifeRingIcon', Icon: LifeRingIcon },
   { name: 'MinusIcon', Icon: MinusIcon },
+  { name: 'MinusSolidIcon', Icon: MinusSolidIcon },
   { name: 'PanelLeftIcon', Icon: PanelLeftIcon },
   { name: 'PlanetRingedIcon', Icon: PlanetRingedIcon },
   { name: 'PlusIcon', Icon: PlusIcon },
@@ -107,14 +115,21 @@ const icons: IconEntry[] = [
 export function IconsGalleryPreview() {
   return (
     <ComponentPreview name="IconsGalleryPreview" centered={false}>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      <div className="grid w-full grid-cols-[repeat(auto-fill,minmax(9rem,1fr))] gap-3">
         {icons.map(({ name, Icon }) => (
           <div
             key={name}
-            className="flex flex-col items-center justify-center gap-2 rounded-md border border-grayscale-opacity-200 bg-white p-4 text-grayscale-opacity-800"
+            className="flex min-w-0 flex-col items-center justify-center gap-2 rounded-md border border-grayscale-opacity-200 bg-white px-2 py-4 text-grayscale-opacity-800"
           >
             <Icon className="size-6" />
-            <span className="font-mono text-xs text-grayscale-opacity-600">
+            {/* One line so the name copies cleanly. text-fit shrinks long names to
+                fit (Chromium 150+). Chromium skips shrinks under ~2.5%, so the
+                label may spill a few px into the tile padding there. Other
+                browsers truncate with an ellipsis; title shows the full name. */}
+            <span
+              title={name}
+              className="max-w-full truncate font-mono text-[11px] text-grayscale-opacity-600 [text-fit:shrink] supports-[text-fit:shrink]:overflow-visible"
+            >
               {name}
             </span>
           </div>

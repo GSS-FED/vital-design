@@ -183,25 +183,16 @@ function CalendarChevron(props: CalendarChevronProps) {
   const { className, orientation, ...rest } = props;
   if (orientation === 'left') {
     return (
-      <AngleLeftIcon
-        className={cn('size-3.5', className)}
-        {...rest}
-      />
+      <AngleLeftIcon className={cn('size-5', className)} {...rest} />
     );
   }
   if (orientation === 'right') {
     return (
-      <AngleRightIcon
-        className={cn('size-3.5', className)}
-        {...rest}
-      />
+      <AngleRightIcon className={cn('size-5', className)} {...rest} />
     );
   }
   return (
-    <ChevronDownIcon
-      className={cn('size-3.5', className)}
-      {...rest}
-    />
+    <ChevronDownIcon className={cn('size-5', className)} {...rest} />
   );
 }
 
@@ -252,7 +243,7 @@ function CalendarNav({
           onClick={() => goToYear(-1)}
           className={navButtonClassName}
         >
-          <AnglesLeftIcon className="size-3.5" />
+          <AnglesLeftIcon className="size-5" />
         </button>
         <button
           type="button"
@@ -261,7 +252,7 @@ function CalendarNav({
           onClick={onPreviousClick}
           className={navButtonClassName}
         >
-          <AngleLeftIcon className="size-3.5" />
+          <AngleLeftIcon className="size-5" />
         </button>
       </div>
       <div className="pointer-events-auto flex">
@@ -272,7 +263,7 @@ function CalendarNav({
           onClick={onNextClick}
           className={navButtonClassName}
         >
-          <AngleRightIcon className="size-3.5" />
+          <AngleRightIcon className="size-5" />
         </button>
         <button
           type="button"
@@ -281,7 +272,7 @@ function CalendarNav({
           onClick={() => goToYear(1)}
           className={navButtonClassName}
         >
-          <AnglesRightIcon className="size-3.5" />
+          <AnglesRightIcon className="size-5" />
         </button>
       </div>
     </nav>

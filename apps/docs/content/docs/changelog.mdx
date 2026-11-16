@@ -59,6 +59,8 @@ See [Data Table](/docs/blocks/data-table).
 - **Dialog:** the popup's max height now follows the viewport it sits in (`max-h-full`) instead of `calc(100vh-2rem)`. On mobile browsers, `100vh` is taller than the visible area while the address bar shows, so a tall dialog ran under the toolbar and lost its bottom spacing. It now keeps the viewport's 1rem padding and scrolls inside. If you added your own `max-h-[calc(100dvh-…)]` to work around this, you can drop it. Reinstall `dialog` to pick this up.
 - **Sheet:** `top` and `bottom` sheets cap at `80dvh` instead of `80vh`, to match the `h-dvh` that `left` and `right` sheets already use. Reinstall `sheet` to pick this up.
 
+Every icon now uses a 20×20 frame with padding, so a `size-*` class sets the frame, not the glyph. Components size icons to the Figma frame: icons inside `Button` (`data-icon`) are 18px (`md`, `icon-md`) and 20px (`lg`, `icon-lg`) with no margin, and `Sidebar` menu icons are 20px. If you set your own icon sizes, check them against the new frames. Reinstall `button`, `sidebar`, and the components you use to get the new sizes.
+
 ## October 2026 — React 19
 
 The registry and the docs site are developed and tested on React 19. New projects should use React 19. See [Installation](/docs/getting-started/installation).

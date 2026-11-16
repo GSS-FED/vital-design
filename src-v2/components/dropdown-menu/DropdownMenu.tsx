@@ -242,7 +242,7 @@ const DropdownMenuCheckboxItem = function DropdownMenuCheckboxItem({
         className="absolute left-3 grid h-4 w-4 place-content-center text-primary-500"
       >
         <BaseMenu.CheckboxItemIndicator data-slot="dropdown-menu-checkbox-item-indicator">
-          <CheckIcon className="size-3" />
+          <CheckIcon className="size-4" />
         </BaseMenu.CheckboxItemIndicator>
       </span>
       {children}

@@ -111,7 +111,7 @@ const NumberInputIncrement = function NumberInputIncrement({
       )}
       {...props}
     >
-      {children ?? <ChevronUpIcon className="size-2.5" />}
+      {children ?? <ChevronUpIcon className="size-3.75" />}
     </BaseNumberField.Increment>
   );
 };
@@ -135,7 +135,7 @@ const NumberInputDecrement = function NumberInputDecrement({
       className={cn(stepperBaseClasses, className)}
       {...props}
     >
-      {children ?? <ChevronDownIcon className="size-2.5" />}
+      {children ?? <ChevronDownIcon className="size-3.75" />}
     </BaseNumberField.Decrement>
   );
 };

@@ -355,7 +355,7 @@ const ToastClose = function ToastClose({
       )}
       {...props}
     >
-      {children ?? <CloseIcon />}
+      {children ?? <CloseIcon className="size-5" />}
     </BaseToast.Close>
   );
 };

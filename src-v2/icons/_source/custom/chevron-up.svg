@@ -1,1 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 7"><path d="M0.285156 6.03516L5.50781 1.03125C5.67188 0.894531 5.83594 0.8125 6 0.8125C6.16406 0.8125 6.30078 0.867188 6.4375 0.976562L11.6602 5.98047C11.9336 6.25391 11.9336 6.66406 11.6875 6.91016C11.4414 7.18359 11.0312 7.18359 10.7578 6.9375L6 2.39844L1.1875 6.99219C0.941406 7.23828 0.503906 7.23828 0.257812 6.96484C0.0117188 6.69141 0.0117188 6.28125 0.285156 6.03516Z"/></svg>
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icons/Regular/chevron-up">
+<path id="Icon_svg" d="M5 12L10 7L15 12" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" stroke="#232332"/>
+</g>
+</svg>

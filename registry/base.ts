@@ -27,14 +27,29 @@ const iconGroups = [
   },
   { name: 'icon-check', title: 'Check Icon', files: ['CheckIcon'] },
   {
+    name: 'icon-check-solid',
+    title: 'Check Solid Icon',
+    files: ['CheckSolidIcon'],
+  },
+  {
     name: 'icon-chevron-down',
     title: 'Chevron Down Icon',
     files: ['ChevronDownIcon'],
   },
   {
+    name: 'icon-chevron-down-solid',
+    title: 'Chevron Down Solid Icon',
+    files: ['ChevronDownSolidIcon'],
+  },
+  {
     name: 'icon-chevron-up',
     title: 'Chevron Up Icon',
     files: ['ChevronUpIcon'],
+  },
+  {
+    name: 'icon-chevron-up-solid',
+    title: 'Chevron Up Solid Icon',
+    files: ['ChevronUpSolidIcon'],
   },
   {
     name: 'icon-circle-user',
@@ -111,6 +126,11 @@ const iconGroups = [
     files: ['LifeRingIcon'],
   },
   { name: 'icon-minus', title: 'Minus Icon', files: ['MinusIcon'] },
+  {
+    name: 'icon-minus-solid',
+    title: 'Minus Solid Icon',
+    files: ['MinusSolidIcon'],
+  },
   {
     name: 'icon-panel-left',
     title: 'Panel Left Icon',

@@ -14,8 +14,11 @@ import { CalendarIcon } from './CalendarIcon';
 import { CaretDownIcon } from './CaretDownIcon';
 import { CaretUpIcon } from './CaretUpIcon';
 import { CheckIcon } from './CheckIcon';
+import { CheckSolidIcon } from './CheckSolidIcon';
 import { ChevronDownIcon } from './ChevronDownIcon';
+import { ChevronDownSolidIcon } from './ChevronDownSolidIcon';
 import { ChevronUpIcon } from './ChevronUpIcon';
+import { ChevronUpSolidIcon } from './ChevronUpSolidIcon';
 import { CircleUserIcon } from './CircleUserIcon';
 import { ClearIcon } from './ClearIcon';
 import { ClockIcon } from './ClockIcon';
@@ -31,6 +34,7 @@ import { InboxIcon } from './InboxIcon';
 import { InfoIcon } from './InfoIcon';
 import { LifeRingIcon } from './LifeRingIcon';
 import { MinusIcon } from './MinusIcon';
+import { MinusSolidIcon } from './MinusSolidIcon';
 import { PanelLeftIcon } from './PanelLeftIcon';
 import { PlanetRingedIcon } from './PlanetRingedIcon';
 import { PlusIcon } from './PlusIcon';
@@ -69,8 +73,11 @@ const icons: IconEntry[] = [
   { name: 'CaretDownIcon', Icon: CaretDownIcon },
   { name: 'CaretUpIcon', Icon: CaretUpIcon },
   { name: 'CheckIcon', Icon: CheckIcon },
+  { name: 'CheckSolidIcon', Icon: CheckSolidIcon },
   { name: 'ChevronDownIcon', Icon: ChevronDownIcon },
+  { name: 'ChevronDownSolidIcon', Icon: ChevronDownSolidIcon },
   { name: 'ChevronUpIcon', Icon: ChevronUpIcon },
+  { name: 'ChevronUpSolidIcon', Icon: ChevronUpSolidIcon },
   { name: 'CircleUserIcon', Icon: CircleUserIcon },
   { name: 'ClearIcon', Icon: ClearIcon },
   { name: 'ClockIcon', Icon: ClockIcon },
@@ -86,6 +93,7 @@ const icons: IconEntry[] = [
   { name: 'InfoIcon', Icon: InfoIcon },
   { name: 'LifeRingIcon', Icon: LifeRingIcon },
   { name: 'MinusIcon', Icon: MinusIcon },
+  { name: 'MinusSolidIcon', Icon: MinusSolidIcon },
   { name: 'PanelLeftIcon', Icon: PanelLeftIcon },
   { name: 'PlanetRingedIcon', Icon: PlanetRingedIcon },
   { name: 'PlusIcon', Icon: PlusIcon },
@@ -116,14 +124,21 @@ type Story = StoryObj;
 export const Gallery: Story = {
   render: function Render() {
     return (
-      <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+      <div className="grid w-full grid-cols-[repeat(auto-fill,minmax(9rem,1fr))] gap-3">
         {icons.map(({ name, Icon }) => (
           <div
             key={name}
-            className="flex flex-col items-center justify-center gap-2 rounded-md border border-grayscale-opacity-200 bg-white p-4 text-grayscale-opacity-800"
+            className="flex min-w-0 flex-col items-center justify-center gap-2 rounded-md border border-grayscale-opacity-200 bg-white px-2 py-4 text-grayscale-opacity-800"
           >
             <Icon className="size-6" />
-            <span className="font-mono text-xs text-grayscale-opacity-600">
+            {/* One line so the name copies cleanly. text-fit shrinks long names to
+                fit (Chromium 150+). Chromium skips shrinks under ~2.5%, so the
+                label may spill a few px into the tile padding there. Other
+                browsers truncate with an ellipsis; title shows the full name. */}
+            <span
+              title={name}
+              className="max-w-full truncate font-mono text-[11px] text-grayscale-opacity-600 [text-fit:shrink] supports-[text-fit:shrink]:overflow-visible"
+            >
               {name}
             </span>
           </div>

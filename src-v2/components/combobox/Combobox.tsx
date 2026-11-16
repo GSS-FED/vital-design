@@ -1,4 +1,5 @@
 import { CheckIcon } from '@/icons/CheckIcon';
+import { CheckSolidIcon } from '@/icons/CheckSolidIcon';
 import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
 import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
@@ -133,10 +134,10 @@ const Trigger = function ComboboxTrigger({
       {children}
       <span className="flex h-5 w-5 shrink-0 items-center justify-center text-grayscale-opacity-700">
         <span className="block group-data-[popup-open]:hidden">
-          <ChevronDownIcon className="size-3.5" />
+          <ChevronDownIcon className="size-5" />
         </span>
         <span className="hidden group-data-[popup-open]:block">
-          <ChevronUpIcon className="size-3.5" />
+          <ChevronUpIcon className="size-5" />
         </span>
       </span>
     </BaseCombobox.Trigger>
@@ -398,7 +399,7 @@ const ItemCheck = function ComboboxItemCheck({
       )}
       {...props}
     >
-      {children ?? <CheckIcon className="size-3" />}
+      {children ?? <CheckIcon className="size-4" />}
     </BaseCombobox.ItemIndicator>
   );
 };
@@ -427,7 +428,7 @@ const ItemCheckbox = function ComboboxItemCheckbox({
       {...props}
     >
       <BaseCombobox.ItemIndicator data-slot="combobox-item-indicator">
-        {children ?? <CheckIcon className="size-2.5" />}
+        {children ?? <CheckSolidIcon className="size-4 shrink-0" />}
       </BaseCombobox.ItemIndicator>
     </span>
   );

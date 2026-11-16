@@ -47,7 +47,7 @@ export function DataTableColumnHeader<TData, TValue>({
       >
         <CaretUpIcon
           className={cn(
-            'size-2',
+            '-mb-1 size-3.75 shrink-0',
             sort === 'asc'
               ? 'text-grayscale-opacity-800'
               : 'text-grayscale-opacity-400',
@@ -55,7 +55,7 @@ export function DataTableColumnHeader<TData, TValue>({
         />
         <CaretDownIcon
           className={cn(
-            'size-2',
+            '-mt-1 size-3.75 shrink-0',
             sort === 'desc'
               ? 'text-grayscale-opacity-800'
               : 'text-grayscale-opacity-400',

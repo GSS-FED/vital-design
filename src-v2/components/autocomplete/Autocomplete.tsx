@@ -107,11 +107,11 @@ const Trigger = function AutocompleteTrigger({
         <>
           <ChevronDownIcon
             data-slot="autocomplete-trigger-icon-down"
-            className="block size-3.5 group-data-[popup-open]:hidden"
+            className="block size-5 group-data-[popup-open]:hidden"
           />
           <ChevronUpIcon
             data-slot="autocomplete-trigger-icon-up"
-            className="hidden size-3.5 group-data-[popup-open]:block"
+            className="hidden size-5 group-data-[popup-open]:block"
           />
         </>
       )}

@@ -304,12 +304,12 @@ function NavSecondary() {
               <MenuButton
                 size="sm"
                 tooltip={item.title}
-                className="[&>svg]:size-3"
+                className="[&>svg]:size-4"
               >
                 {item.icon}
                 <span className="underline">{item.title}</span>
                 <span className="ml-auto shrink-0 group-data-[collapsible=icon]:hidden">
-                  <SquareArrowOutUpRightIcon className="size-3" />
+                  <SquareArrowOutUpRightIcon className="size-3.5" />
                 </span>
               </MenuButton>
             </MenuItem>

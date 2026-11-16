@@ -344,6 +344,19 @@
       ]
     },
     {
+      "name": "icon-check-solid",
+      "type": "registry:ui",
+      "title": "Check Solid Icon",
+      "description": "Check Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CheckSolidIcon.tsx",
+          "target": "src/components/icons/CheckSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-chevron-down",
       "type": "registry:ui",
       "title": "Chevron Down Icon",
@@ -357,6 +370,19 @@
       ]
     },
     {
+      "name": "icon-chevron-down-solid",
+      "type": "registry:ui",
+      "title": "Chevron Down Solid Icon",
+      "description": "Chevron Down Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ChevronDownSolidIcon.tsx",
+          "target": "src/components/icons/ChevronDownSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-chevron-up",
       "type": "registry:ui",
       "title": "Chevron Up Icon",
@@ -365,6 +391,19 @@
         {
           "path": "src-v2/icons/ChevronUpIcon.tsx",
           "target": "src/components/icons/ChevronUpIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-chevron-up-solid",
+      "type": "registry:ui",
+      "title": "Chevron Up Solid Icon",
+      "description": "Chevron Up Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ChevronUpSolidIcon.tsx",
+          "target": "src/components/icons/ChevronUpSolidIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -656,6 +695,19 @@
       ]
     },
     {
+      "name": "icon-minus-solid",
+      "type": "registry:ui",
+      "title": "Minus Solid Icon",
+      "description": "Minus Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/MinusSolidIcon.tsx",
+          "target": "src/components/icons/MinusSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-panel-left",
       "type": "registry:ui",
       "title": "Panel Left Icon",
@@ -835,13 +887,28 @@
           "type": "registry:ui"
         },
         {
+          "path": "src-v2/icons/CheckSolidIcon.tsx",
+          "target": "src/components/icons/CheckSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src-v2/icons/ChevronDownIcon.tsx",
           "target": "src/components/icons/ChevronDownIcon.tsx",
           "type": "registry:ui"
         },
         {
+          "path": "src-v2/icons/ChevronDownSolidIcon.tsx",
+          "target": "src/components/icons/ChevronDownSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src-v2/icons/ChevronUpIcon.tsx",
           "target": "src/components/icons/ChevronUpIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/ChevronUpSolidIcon.tsx",
+          "target": "src/components/icons/ChevronUpSolidIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -952,6 +1019,11 @@
         {
           "path": "src-v2/icons/MinusIcon.tsx",
           "target": "src/components/icons/MinusIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/MinusSolidIcon.tsx",
+          "target": "src/components/icons/MinusSolidIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -1132,8 +1204,8 @@
         "@vital-design/utils",
         "@vital-design/button",
         "@vital-design/button-group",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-chevron-up",
+        "@vital-design/icon-chevron-down-solid",
+        "@vital-design/icon-chevron-up-solid",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1154,8 +1226,8 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-check",
-        "@vital-design/icon-minus",
+        "@vital-design/icon-check-solid",
+        "@vital-design/icon-minus-solid",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1547,6 +1619,7 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-check",
+        "@vital-design/icon-check-solid",
         "@vital-design/icon-chevron-down",
         "@vital-design/icon-chevron-up",
         "@vital-design/vital-theme"
@@ -1594,6 +1667,7 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-check",
+        "@vital-design/icon-check-solid",
         "@vital-design/icon-chevron-down",
         "@vital-design/icon-chevron-up",
         "@vital-design/icon-clear",

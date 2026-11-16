@@ -98,8 +98,8 @@ export const ui = [
       '@vital-design/utils',
       '@vital-design/button',
       '@vital-design/button-group',
-      '@vital-design/icon-chevron-down',
-      '@vital-design/icon-chevron-up',
+      '@vital-design/icon-chevron-down-solid',
+      '@vital-design/icon-chevron-up-solid',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -118,8 +118,8 @@ export const ui = [
     dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/icon-check',
-      '@vital-design/icon-minus',
+      '@vital-design/icon-check-solid',
+      '@vital-design/icon-minus-solid',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -469,6 +469,7 @@ export const ui = [
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-check',
+      '@vital-design/icon-check-solid',
       '@vital-design/icon-chevron-down',
       '@vital-design/icon-chevron-up',
       '@vital-design/vital-theme',
@@ -511,6 +512,7 @@ export const ui = [
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-check',
+      '@vital-design/icon-check-solid',
       '@vital-design/icon-chevron-down',
       '@vital-design/icon-chevron-up',
       '@vital-design/icon-clear',

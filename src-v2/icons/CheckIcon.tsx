@@ -3,13 +3,19 @@ import type { SVGProps } from 'react';
 export const CheckIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    fill="currentColor"
-    viewBox="0 0 12 9"
+    fill="none"
+    strokeWidth={1.3}
+    viewBox="0 0 20 20"
     width="1em"
     height="1em"
     aria-hidden="true"
     {...props}
   >
-    <path d="M11.016.984c.305.281.305.773 0 1.055l-6 6c-.281.305-.773.305-1.055 0l-3-3c-.305-.281-.305-.773 0-1.055.281-.305.773-.305 1.055 0l2.461 2.461L9.961.984c.281-.305.773-.305 1.055 0z" />
+    <path
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M4.6875 10.4917L8.22917 14.0333L15.3125 6.95"
+    />
   </svg>
 );

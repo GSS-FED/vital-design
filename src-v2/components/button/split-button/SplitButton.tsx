@@ -3,8 +3,8 @@ import {
   ButtonGroup,
   ButtonGroupSeparator,
 } from '@/components/button/button-group/ButtonGroup';
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
-import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
+import { ChevronDownSolidIcon } from '@/icons/ChevronDownSolidIcon';
+import { ChevronUpSolidIcon } from '@/icons/ChevronUpSolidIcon';
 import { type CvaProps, cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type { ComponentPropsWithoutRef, MouseEvent } from 'react';
@@ -170,7 +170,9 @@ export function SplitButton(props: SplitButtonProps) {
     ...groupProps
   } = props;
 
-  const ChevronIcon = open ? ChevronUpIcon : ChevronDownIcon;
+  const ChevronIcon = open
+    ? ChevronUpSolidIcon
+    : ChevronDownSolidIcon;
   const splitSize = size === 'lg' ? 'icon-lg' : 'icon-md';
 
   return (

@@ -66,7 +66,7 @@ const CommandInput = function CommandInput({
           data-slot="command-input-prefix"
           className="flex shrink-0 items-center text-grayscale-opacity-500"
         >
-          <SearchIcon className="size-[13px]" />
+          <SearchIcon className="size-4.5" />
         </span>
       )}
       <CommandPrimitive.Input

@@ -20,11 +20,11 @@ const avatarVariants = cva(
   {
     variants: {
       size: {
-        xs: 'w-6 text-xs [&_[data-slot=avatar-placeholder-icon]]:size-2.5',
-        sm: 'w-8 text-base [&_[data-slot=avatar-placeholder-icon]]:size-3',
-        md: 'w-10 text-xl [&_[data-slot=avatar-placeholder-icon]]:size-4',
-        lg: 'w-12 text-2xl [&_[data-slot=avatar-placeholder-icon]]:size-4.5',
-        xl: 'w-[60px] text-[32px] [&_[data-slot=avatar-placeholder-icon]]:size-6',
+        xs: 'w-6 text-xs [&_[data-slot=avatar-placeholder-icon]]:size-4',
+        sm: 'w-8 text-base [&_[data-slot=avatar-placeholder-icon]]:size-5',
+        md: 'w-10 text-xl [&_[data-slot=avatar-placeholder-icon]]:size-6',
+        lg: 'w-12 text-2xl [&_[data-slot=avatar-placeholder-icon]]:size-7',
+        xl: 'w-[60px] text-[32px] [&_[data-slot=avatar-placeholder-icon]]:size-[38px]',
       },
       color: {
         default: 'bg-grayscale-opacity-100',

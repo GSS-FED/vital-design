@@ -59,6 +59,8 @@ npx shadcn@latest add @vital-design/data-table
 - **Dialog：** popup 的最大高度改為跟隨所在的 viewport（`max-h-full`），不再用 `calc(100vh-2rem)`。在行動瀏覽器上，網址列顯示時 `100vh` 比可視區域高，較高的 dialog 會被工具列蓋住，底部間距也會消失。現在會保留 viewport 的 1rem padding，內容在內部捲動。若你曾自行加上 `max-h-[calc(100dvh-…)]` 來繞過這個問題，可以拿掉。重新安裝 `dialog` 才會拿到這次變更。
 - **Sheet：** `top` 與 `bottom` sheet 的上限改為 `80dvh`（原本是 `80vh`），與 `left`、`right` sheet 已在使用的 `h-dvh` 一致。重新安裝 `sheet` 才會拿到這次變更。
 
+所有 icon 現在都是四周留白的 20×20 frame，`size-*` 設定的是 frame 大小，不是圖形大小。元件裡的 icon 改照 Figma frame：`Button` 裡的 icon（`data-icon`）是 18px（`md`、`icon-md`）與 20px（`lg`、`icon-lg`），沒有 margin；`Sidebar` 選單 icon 是 20px。有自訂 icon 尺寸的話，請照新的 frame 檢查。重新安裝 `button`、`sidebar` 與用到的元件，才會拿到新尺寸。
+
 ## 2026 年 10 月 — React 19
 
 Registry 與文件站在 React 19 上開發與測試。新專案請使用 React 19。見 [安裝](/zh-tw/docs/getting-started/installation)。

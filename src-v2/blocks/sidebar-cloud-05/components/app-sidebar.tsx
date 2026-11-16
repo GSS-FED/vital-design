@@ -112,7 +112,7 @@ function DefaultBrand() {
 }
 
 const headerActionButtonClass =
-  'size-8 overflow-visible rounded-md p-0! [&_[data-icon]]:m-0 [&_[data-icon]]:size-4!';
+  'size-8 overflow-visible rounded-md p-0! [&_[data-icon]]:size-5!';
 
 function HeaderActions() {
   return (

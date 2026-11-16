@@ -239,7 +239,11 @@ const DialogClose = function DialogClose({
       }
       {...props}
     >
-      {hasChildren || hasCustomRender ? children : <CloseIcon />}
+      {hasChildren || hasCustomRender ? (
+        children
+      ) : (
+        <CloseIcon className="size-[22px]" />
+      )}
     </BaseDialog.Close>
   );
 };
