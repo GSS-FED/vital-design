@@ -84,12 +84,12 @@ export function SelectionBar({
             setShown(null);
           }
         }}
-        className="absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-10 rounded-lg bg-grayscale-opacity-900/85 py-3 pr-4 pl-6 text-sm leading-5 whitespace-nowrap text-white shadow-emphasis backdrop-blur-[4px] ease-out motion-safe:duration-300 data-[state=closed]:opacity-0 data-[state=open]:pointer-events-auto motion-safe:data-[state=closed]:animate-out motion-safe:data-[state=closed]:fade-out-0 motion-safe:data-[state=closed]:slide-out-to-bottom motion-safe:data-[state=open]:animate-in motion-safe:data-[state=open]:fade-in-0 motion-safe:data-[state=open]:slide-in-from-bottom"
+        className="absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-10 rounded-lg bg-grayscale-opacity-900/85 py-3 pr-4 pl-6 text-sm leading-5 whitespace-nowrap text-background shadow-emphasis backdrop-blur-[4px] ease-out motion-safe:duration-300 data-[state=closed]:opacity-0 data-[state=open]:pointer-events-auto motion-safe:data-[state=closed]:animate-out motion-safe:data-[state=closed]:fade-out-0 motion-safe:data-[state=closed]:slide-out-to-bottom motion-safe:data-[state=open]:animate-in motion-safe:data-[state=open]:fade-in-0 motion-safe:data-[state=open]:slide-in-from-bottom"
       >
         <div className="flex items-center gap-4">
           <span role="status">
             已選擇{' '}
-            <span className="font-medium text-info-400">
+            <span className="font-medium text-info-400 dark:text-info-200">
               {shown.selected}
             </span>{' '}
             筆
@@ -103,7 +103,7 @@ export function SelectionBar({
                 deleteRef.current?.focus();
                 onSelectAll();
               }}
-              className="cursor-pointer font-medium text-info-400 hover:underline focus-visible:shadow-focus-primary focus-visible:outline-none"
+              className="cursor-pointer font-medium text-info-400 hover:underline dark:text-info-200 focus-visible:shadow-focus-primary focus-visible:outline-none"
             >
               全選 {shown.total} 筆
             </button>
@@ -114,16 +114,16 @@ export function SelectionBar({
             ref={deleteRef}
             type="button"
             onClick={onDelete}
-            className="cursor-pointer font-medium text-destructive-400 hover:underline focus-visible:shadow-focus-primary focus-visible:outline-none"
+            className="cursor-pointer font-medium text-destructive-400 hover:underline dark:text-destructive-300 focus-visible:shadow-focus-primary focus-visible:outline-none"
           >
             刪除
           </button>
-          <span className="flex items-center border-l border-white/25 pl-4">
+          <span className="flex items-center border-l border-background/25 pl-4">
             <button
               type="button"
               aria-label="取消選取"
               onClick={onClear}
-              className="flex size-5 cursor-pointer items-center justify-center text-white/85 hover:text-white focus-visible:shadow-focus-primary focus-visible:outline-none"
+              className="flex size-5 cursor-pointer items-center justify-center text-current/85 hover:text-current focus-visible:shadow-focus-primary focus-visible:outline-none"
             >
               <XmarkIcon className="size-5" />
             </button>
