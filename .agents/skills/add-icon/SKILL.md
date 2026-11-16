@@ -52,15 +52,8 @@ description: >
 
 - 位置：`src-v2/icons/_source/custom/<名稱>.svg`，名稱用 Figma 名稱去掉 `fa-`。
 - Solid：`<名稱>-solid.svg`，會產生 `<Name>SolidIcon`。Regular 不加後綴。
-- **換既有 icon 的圖時，覆蓋原本的檔案，不要改名**。改名對 registry 使用者是 breaking change，要先跟設計和 maintainer 確認。目前名稱不同的對應：
-
-  | Figma / Notion                           | repo                                |
-  | ---------------------------------------- | ----------------------------------- |
-  | chevron-down/up（Notion: angle-down/up） | `ChevronDownIcon` / `ChevronUpIcon` |
-  | ban                                      | `DisabledIcon`（`disabled.svg`）    |
-  | calendar-days                            | `CalendarIcon`（`calendar.svg`）    |
-  | xmark                                    | `CloseIcon`                         |
-  | magnifying-glass                         | `SearchIcon`                        |
+- **名稱以 Notion 為準**（設計會議 2026-11-16 決議）：檔名用 Notion 的 icon 名稱，Regular／Solid 也照 Notion 的「樣式」欄。Figma 名稱不同時（例如 Figma `chevron-down`、Notion `angle-down`）以 Notion 為準。
+- **換既有 icon 的圖時，覆蓋原本的檔案，不要改名**。改名對 registry 使用者是 breaking change，要先跟設計和 maintainer 確認。
 
 - `_source/fontawesome/` 只放未修改的 Font Awesome Free 圖，並列在 `CREDITS.md`。被設計師重畫版取代時，`git mv` 到 `custom/`，再從 `CREDITS.md` 刪掉那一列。
 

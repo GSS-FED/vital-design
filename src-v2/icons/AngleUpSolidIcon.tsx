@@ -1,8 +1,6 @@
 import type { SVGProps } from 'react';
 
-export const ChevronDownSolidIcon = (
-  props: SVGProps<SVGSVGElement>,
-) => (
+export const AngleUpSolidIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -17,7 +15,7 @@ export const ChevronDownSolidIcon = (
       stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
-      d="M5 8L10 13L15 8"
+      d="M5 12L10 7L15 12"
     />
   </svg>
 );

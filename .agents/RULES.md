@@ -69,7 +69,7 @@ import { CheckIcon } from '@/icons/CheckIcon';
 import { CheckIcon } from '@/icons';
 
 // 允許（stories / tests）
-import { CheckIcon, CloseIcon } from '@/icons';
+import { CheckIcon, XmarkIcon } from '@/icons';
 ```
 
 ## 主題（Theme）

@@ -1,6 +1,6 @@
 import type { SVGProps } from 'react';
 
-export const ChevronDownIcon = (props: SVGProps<SVGSVGElement>) => (
+export const AngleDownIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

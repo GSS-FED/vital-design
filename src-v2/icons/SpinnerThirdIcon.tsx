@@ -1,6 +1,6 @@
 import type { SVGProps } from 'react';
 
-export const SpinnerIcon = (props: SVGProps<SVGSVGElement>) => (
+export const SpinnerThirdIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="currentColor"

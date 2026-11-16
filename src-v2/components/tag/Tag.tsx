@@ -1,4 +1,4 @@
-import { CloseIcon } from '@/icons/CloseIcon';
+import { XmarkIcon } from '@/icons/XmarkIcon';
 import { type CvaProps, cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type { CSSProperties, ReactNode } from 'react';
@@ -281,7 +281,7 @@ export function Tag(props: TagProps) {
             '[&_svg]:size-4',
           )}
         >
-          <CloseIcon />
+          <XmarkIcon />
         </button>
       )}
     </div>

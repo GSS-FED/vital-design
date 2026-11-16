@@ -183,7 +183,6 @@
           "destructive-700": "#852D00",
           "destructive-800": "#521C00",
           "destructive-900": "#1F0B00",
-          "border": "#DEDEE2",
           "background": "#FFFFFF",
           "foreground": "#232332",
           "card": "#FFFFFF",
@@ -206,6 +205,8 @@
           "info-foreground": "#FFFFFF",
           "warning": "#FFA700",
           "warning-foreground": "#232332",
+          "border": "rgba(35, 35, 50, 0.08)",
+          "border-overlap": "#DEDEE2",
           "input": "#DEDEE2",
           "ring": "#0E86FE",
           "chart-1": "#0E86FE",
@@ -233,6 +234,9 @@
         "@layer base": {
           "*, *::before, *::after": {
             "box-sizing": "border-box"
+          },
+          "*, ::after, ::before, ::backdrop, ::file-selector-button": {
+            "border-color": "var(--border, currentColor)"
           }
         }
       }
@@ -292,14 +296,14 @@
       ]
     },
     {
-      "name": "icon-calendar",
+      "name": "icon-calendar-days",
       "type": "registry:ui",
-      "title": "Calendar Icon",
-      "description": "Calendar Icon component",
+      "title": "Calendar Days Icon",
+      "description": "Calendar Days Icon component",
       "files": [
         {
-          "path": "src-v2/icons/CalendarIcon.tsx",
-          "target": "src/components/icons/CalendarIcon.tsx",
+          "path": "src-v2/icons/CalendarDaysIcon.tsx",
+          "target": "src/components/icons/CalendarDaysIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -357,53 +361,53 @@
       ]
     },
     {
-      "name": "icon-chevron-down",
+      "name": "icon-angle-down",
       "type": "registry:ui",
-      "title": "Chevron Down Icon",
-      "description": "Chevron Down Icon component",
+      "title": "Angle Down Icon",
+      "description": "Angle Down Icon component",
       "files": [
         {
-          "path": "src-v2/icons/ChevronDownIcon.tsx",
-          "target": "src/components/icons/ChevronDownIcon.tsx",
+          "path": "src-v2/icons/AngleDownIcon.tsx",
+          "target": "src/components/icons/AngleDownIcon.tsx",
           "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "icon-chevron-down-solid",
+      "name": "icon-angle-down-solid",
       "type": "registry:ui",
-      "title": "Chevron Down Solid Icon",
-      "description": "Chevron Down Solid Icon component",
+      "title": "Angle Down Solid Icon",
+      "description": "Angle Down Solid Icon component",
       "files": [
         {
-          "path": "src-v2/icons/ChevronDownSolidIcon.tsx",
-          "target": "src/components/icons/ChevronDownSolidIcon.tsx",
+          "path": "src-v2/icons/AngleDownSolidIcon.tsx",
+          "target": "src/components/icons/AngleDownSolidIcon.tsx",
           "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "icon-chevron-up",
+      "name": "icon-angle-up",
       "type": "registry:ui",
-      "title": "Chevron Up Icon",
-      "description": "Chevron Up Icon component",
+      "title": "Angle Up Icon",
+      "description": "Angle Up Icon component",
       "files": [
         {
-          "path": "src-v2/icons/ChevronUpIcon.tsx",
-          "target": "src/components/icons/ChevronUpIcon.tsx",
+          "path": "src-v2/icons/AngleUpIcon.tsx",
+          "target": "src/components/icons/AngleUpIcon.tsx",
           "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "icon-chevron-up-solid",
+      "name": "icon-angle-up-solid",
       "type": "registry:ui",
-      "title": "Chevron Up Solid Icon",
-      "description": "Chevron Up Solid Icon component",
+      "title": "Angle Up Solid Icon",
+      "description": "Angle Up Solid Icon component",
       "files": [
         {
-          "path": "src-v2/icons/ChevronUpSolidIcon.tsx",
-          "target": "src/components/icons/ChevronUpSolidIcon.tsx",
+          "path": "src-v2/icons/AngleUpSolidIcon.tsx",
+          "target": "src/components/icons/AngleUpSolidIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -448,14 +452,14 @@
       ]
     },
     {
-      "name": "icon-angle-left-to-line-solid",
+      "name": "icon-angle-left-to-line",
       "type": "registry:ui",
-      "title": "Angle Left To Line Solid Icon",
-      "description": "Angle Left To Line Solid Icon component",
+      "title": "Angle Left To Line Icon",
+      "description": "Angle Left To Line Icon component",
       "files": [
         {
-          "path": "src-v2/icons/AngleLeftToLineSolidIcon.tsx",
-          "target": "src/components/icons/AngleLeftToLineSolidIcon.tsx",
+          "path": "src-v2/icons/AngleLeftToLineIcon.tsx",
+          "target": "src/components/icons/AngleLeftToLineIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -487,14 +491,14 @@
       ]
     },
     {
-      "name": "icon-angle-right-to-line-solid",
+      "name": "icon-angle-right-to-line",
       "type": "registry:ui",
-      "title": "Angle Right To Line Solid Icon",
-      "description": "Angle Right To Line Solid Icon component",
+      "title": "Angle Right To Line Icon",
+      "description": "Angle Right To Line Icon component",
       "files": [
         {
-          "path": "src-v2/icons/AngleRightToLineSolidIcon.tsx",
-          "target": "src/components/icons/AngleRightToLineSolidIcon.tsx",
+          "path": "src-v2/icons/AngleRightToLineIcon.tsx",
+          "target": "src/components/icons/AngleRightToLineIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -552,27 +556,27 @@
       ]
     },
     {
-      "name": "icon-close",
+      "name": "icon-xmark",
       "type": "registry:ui",
-      "title": "Close Icon",
-      "description": "Close Icon component",
+      "title": "Xmark Icon",
+      "description": "Xmark Icon component",
       "files": [
         {
-          "path": "src-v2/icons/CloseIcon.tsx",
-          "target": "src/components/icons/CloseIcon.tsx",
+          "path": "src-v2/icons/XmarkIcon.tsx",
+          "target": "src/components/icons/XmarkIcon.tsx",
           "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "icon-disabled",
+      "name": "icon-ban",
       "type": "registry:ui",
-      "title": "Disabled Icon",
-      "description": "Disabled Icon component",
+      "title": "Ban Icon",
+      "description": "Ban Icon component",
       "files": [
         {
-          "path": "src-v2/icons/DisabledIcon.tsx",
-          "target": "src/components/icons/DisabledIcon.tsx",
+          "path": "src-v2/icons/BanIcon.tsx",
+          "target": "src/components/icons/BanIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -625,6 +629,19 @@
         {
           "path": "src-v2/icons/FlagIcon.tsx",
           "target": "src/components/icons/FlagIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-gear",
+      "type": "registry:ui",
+      "title": "Gear Icon",
+      "description": "Gear Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/GearIcon.tsx",
+          "target": "src/components/icons/GearIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -747,14 +764,14 @@
       ]
     },
     {
-      "name": "icon-search",
+      "name": "icon-magnifying-glass",
       "type": "registry:ui",
-      "title": "Search Icon",
-      "description": "Search Icon component",
+      "title": "Magnifying Glass Icon",
+      "description": "Magnifying Glass Icon component",
       "files": [
         {
-          "path": "src-v2/icons/SearchIcon.tsx",
-          "target": "src/components/icons/SearchIcon.tsx",
+          "path": "src-v2/icons/MagnifyingGlassIcon.tsx",
+          "target": "src/components/icons/MagnifyingGlassIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -786,14 +803,14 @@
       ]
     },
     {
-      "name": "icon-spinner",
+      "name": "icon-spinner-third",
       "type": "registry:ui",
-      "title": "Spinner Icon",
-      "description": "Spinner Icon component",
+      "title": "Spinner Third Icon",
+      "description": "Spinner Third Icon component",
       "files": [
         {
-          "path": "src-v2/icons/SpinnerIcon.tsx",
-          "target": "src/components/icons/SpinnerIcon.tsx",
+          "path": "src-v2/icons/SpinnerThirdIcon.tsx",
+          "target": "src/components/icons/SpinnerThirdIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -867,8 +884,8 @@
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/CalendarIcon.tsx",
-          "target": "src/components/icons/CalendarIcon.tsx",
+          "path": "src-v2/icons/CalendarDaysIcon.tsx",
+          "target": "src/components/icons/CalendarDaysIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -892,23 +909,23 @@
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/ChevronDownIcon.tsx",
-          "target": "src/components/icons/ChevronDownIcon.tsx",
+          "path": "src-v2/icons/AngleDownIcon.tsx",
+          "target": "src/components/icons/AngleDownIcon.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/ChevronDownSolidIcon.tsx",
-          "target": "src/components/icons/ChevronDownSolidIcon.tsx",
+          "path": "src-v2/icons/AngleDownSolidIcon.tsx",
+          "target": "src/components/icons/AngleDownSolidIcon.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/ChevronUpIcon.tsx",
-          "target": "src/components/icons/ChevronUpIcon.tsx",
+          "path": "src-v2/icons/AngleUpIcon.tsx",
+          "target": "src/components/icons/AngleUpIcon.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/ChevronUpSolidIcon.tsx",
-          "target": "src/components/icons/ChevronUpSolidIcon.tsx",
+          "path": "src-v2/icons/AngleUpSolidIcon.tsx",
+          "target": "src/components/icons/AngleUpSolidIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -927,8 +944,8 @@
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/AngleLeftToLineSolidIcon.tsx",
-          "target": "src/components/icons/AngleLeftToLineSolidIcon.tsx",
+          "path": "src-v2/icons/AngleLeftToLineIcon.tsx",
+          "target": "src/components/icons/AngleLeftToLineIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -942,8 +959,8 @@
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/AngleRightToLineSolidIcon.tsx",
-          "target": "src/components/icons/AngleRightToLineSolidIcon.tsx",
+          "path": "src-v2/icons/AngleRightToLineIcon.tsx",
+          "target": "src/components/icons/AngleRightToLineIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -967,13 +984,13 @@
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/CloseIcon.tsx",
-          "target": "src/components/icons/CloseIcon.tsx",
+          "path": "src-v2/icons/XmarkIcon.tsx",
+          "target": "src/components/icons/XmarkIcon.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/DisabledIcon.tsx",
-          "target": "src/components/icons/DisabledIcon.tsx",
+          "path": "src-v2/icons/BanIcon.tsx",
+          "target": "src/components/icons/BanIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -994,6 +1011,11 @@
         {
           "path": "src-v2/icons/FlagIcon.tsx",
           "target": "src/components/icons/FlagIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/GearIcon.tsx",
+          "target": "src/components/icons/GearIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -1042,8 +1064,8 @@
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/SearchIcon.tsx",
-          "target": "src/components/icons/SearchIcon.tsx",
+          "path": "src-v2/icons/MagnifyingGlassIcon.tsx",
+          "target": "src/components/icons/MagnifyingGlassIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -1057,8 +1079,8 @@
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/SpinnerIcon.tsx",
-          "target": "src/components/icons/SpinnerIcon.tsx",
+          "path": "src-v2/icons/SpinnerThirdIcon.tsx",
+          "target": "src/components/icons/SpinnerThirdIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -1138,7 +1160,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-disabled",
+        "@vital-design/icon-ban",
         "@vital-design/icon-user",
         "@vital-design/vital-theme"
       ],
@@ -1204,8 +1226,10 @@
         "@vital-design/utils",
         "@vital-design/button",
         "@vital-design/button-group",
-        "@vital-design/icon-chevron-down-solid",
-        "@vital-design/icon-chevron-up-solid",
+        "@vital-design/icon-angle-down",
+        "@vital-design/icon-angle-down-solid",
+        "@vital-design/icon-angle-up",
+        "@vital-design/icon-angle-up-solid",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1248,7 +1272,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-close",
+        "@vital-design/icon-xmark",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1350,7 +1374,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-close",
+        "@vital-design/icon-xmark",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1389,7 +1413,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-spinner",
+        "@vital-design/icon-spinner-third",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1431,7 +1455,7 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/input-group",
-        "@vital-design/icon-search",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1620,8 +1644,8 @@
         "@vital-design/utils",
         "@vital-design/icon-check",
         "@vital-design/icon-check-solid",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-chevron-up",
+        "@vital-design/icon-angle-down",
+        "@vital-design/icon-angle-up",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1642,10 +1666,10 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-chevron-up",
+        "@vital-design/icon-angle-down",
+        "@vital-design/icon-angle-up",
         "@vital-design/icon-clear",
-        "@vital-design/icon-search",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1668,11 +1692,11 @@
         "@vital-design/utils",
         "@vital-design/icon-check",
         "@vital-design/icon-check-solid",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-chevron-up",
+        "@vital-design/icon-angle-down",
+        "@vital-design/icon-angle-up",
         "@vital-design/icon-clear",
-        "@vital-design/icon-close",
-        "@vital-design/icon-search",
+        "@vital-design/icon-xmark",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1698,7 +1722,7 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-angle-left",
-        "@vital-design/icon-search",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/spinner",
         "@vital-design/vital-theme"
       ],
@@ -1760,7 +1784,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-close",
+        "@vital-design/icon-xmark",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1804,7 +1828,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-close",
+        "@vital-design/icon-xmark",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1909,7 +1933,7 @@
         "@vital-design/popover",
         "@vital-design/icon-angles-left",
         "@vital-design/icon-angles-right",
-        "@vital-design/icon-chevron-down",
+        "@vital-design/icon-angle-down",
         "@vital-design/icon-angle-left",
         "@vital-design/icon-angle-right",
         "@vital-design/vital-theme"
@@ -1971,7 +1995,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-close",
+        "@vital-design/icon-xmark",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -2059,8 +2083,8 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-chevron-up",
+        "@vital-design/icon-caret-down",
+        "@vital-design/icon-caret-up",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -2091,10 +2115,10 @@
       ]
     },
     {
-      "name": "data-table-group-01",
+      "name": "data-table",
       "type": "registry:block",
-      "title": "Data Table — Candidate Tree",
-      "description": "Grouped tree-style data table with selectable rows, column pinning, action bar, and filter dropdown",
+      "title": "Data Table",
+      "description": "Generic data table on TanStack Table: grouping up to two levels with add rows per group, search, sortable and resizable columns, column visibility and drag reordering, row selection with a floating action bar, and inline and popover cell editors. Ships with a review-task example; replace columns.tsx and data.ts with your own rows.",
       "categories": [
         "data-table"
       ],
@@ -2106,168 +2130,97 @@
         "@vital-design/utils",
         "@vital-design/avatar",
         "@vital-design/button",
+        "@vital-design/calendar",
         "@vital-design/card",
         "@vital-design/checkbox",
         "@vital-design/dropdown-menu",
-        "@vital-design/progress",
+        "@vital-design/editable",
+        "@vital-design/popover",
         "@vital-design/search-bar",
-        "@vital-design/table",
-        "@vital-design/tag",
-        "@vital-design/toolbar",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-ellipsis",
-        "@vital-design/vital-theme"
-      ],
-      "files": [
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-01/DataTableGroup01.tsx",
-          "target": "src/blocks/data-table-group-01/DataTableGroup01.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-01/action-bar.tsx",
-          "target": "src/blocks/data-table-group-01/action-bar.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-01/columns.tsx",
-          "target": "src/blocks/data-table-group-01/columns.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-01/data.ts",
-          "target": "src/blocks/data-table-group-01/data.ts",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-01/pinning.ts",
-          "target": "src/blocks/data-table-group-01/pinning.ts",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-01/resize-handle.tsx",
-          "target": "src/blocks/data-table-group-01/resize-handle.tsx",
-          "type": "registry:block"
-        }
-      ]
-    },
-    {
-      "name": "data-table-group-02",
-      "type": "registry:block",
-      "title": "Data Table — ESG Emission Tree",
-      "description": "Expandable tree data table with sticky rail, sortable headers, selection, action bar, and inline switch toggles",
-      "categories": [
-        "data-table"
-      ],
-      "dependencies": [
-        "@tanstack/react-table",
-        "cn"
-      ],
-      "registryDependencies": [
-        "@vital-design/utils",
-        "@vital-design/avatar",
-        "@vital-design/badge",
-        "@vital-design/button",
-        "@vital-design/card",
-        "@vital-design/checkbox",
-        "@vital-design/dropdown-menu",
-        "@vital-design/search-bar",
+        "@vital-design/select",
         "@vital-design/switch",
         "@vital-design/table",
         "@vital-design/tag",
         "@vital-design/toolbar",
         "@vital-design/icon-caret-down",
         "@vital-design/icon-caret-up",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-ellipsis",
-        "@vital-design/vital-theme"
-      ],
-      "files": [
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-02/DataTableGroup02.tsx",
-          "target": "src/blocks/data-table-group-02/DataTableGroup02.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-02/action-bar.tsx",
-          "target": "src/blocks/data-table-group-02/action-bar.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-02/columns.tsx",
-          "target": "src/blocks/data-table-group-02/columns.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-02/data-table-column-header.tsx",
-          "target": "src/blocks/data-table-group-02/data-table-column-header.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-02/data.ts",
-          "target": "src/blocks/data-table-group-02/data.ts",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-02/pinning.ts",
-          "target": "src/blocks/data-table-group-02/pinning.ts",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-02/resize-handle.tsx",
-          "target": "src/blocks/data-table-group-02/resize-handle.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-02/table-rail.tsx",
-          "target": "src/blocks/data-table-group-02/table-rail.tsx",
-          "type": "registry:block"
-        }
-      ]
-    },
-    {
-      "name": "data-table-group-04",
-      "type": "registry:block",
-      "title": "Data Table — Editable Cells",
-      "description": "Editable data table with inline text cells, popover pickers, tag multi-select, and date selection",
-      "categories": [
-        "data-table"
-      ],
-      "dependencies": [
-        "@tanstack/react-table",
-        "cn"
-      ],
-      "registryDependencies": [
-        "@vital-design/utils",
-        "@vital-design/avatar",
-        "@vital-design/calendar",
-        "@vital-design/card",
-        "@vital-design/editable",
-        "@vital-design/popover",
-        "@vital-design/table",
-        "@vital-design/tag",
         "@vital-design/icon-check",
+        "@vital-design/icon-angle-down",
+        "@vital-design/icon-xmark",
+        "@vital-design/icon-ellipsis",
+        "@vital-design/icon-gear",
+        "@vital-design/icon-plus",
         "@vital-design/vital-theme"
       ],
       "files": [
         {
-          "path": "src-v2/blocks/data-table/data-table-group-04/DataTableGroup04.tsx",
-          "target": "src/blocks/data-table-group-04/DataTableGroup04.tsx",
+          "path": "src-v2/blocks/data-table/components/data-table.tsx",
+          "target": "src/blocks/data-table/data-table.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-04/columns.tsx",
-          "target": "src/blocks/data-table-group-04/columns.tsx",
+          "path": "src-v2/blocks/data-table/components/review-task-table.tsx",
+          "target": "src/blocks/data-table/review-task-table.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-04/data.ts",
-          "target": "src/blocks/data-table-group-04/data.ts",
+          "path": "src-v2/blocks/data-table/components/columns.tsx",
+          "target": "src/blocks/data-table/columns.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-04/popover-edit.tsx",
-          "target": "src/blocks/data-table-group-04/popover-edit.tsx",
+          "path": "src-v2/blocks/data-table/components/data.ts",
+          "target": "src/blocks/data-table/data.ts",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/group-tree.ts",
+          "target": "src/blocks/data-table/group-tree.ts",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/action-bar.tsx",
+          "target": "src/blocks/data-table/action-bar.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/add-row.tsx",
+          "target": "src/blocks/data-table/add-row.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/data-table-column-header.tsx",
+          "target": "src/blocks/data-table/data-table-column-header.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/group-row.tsx",
+          "target": "src/blocks/data-table/group-row.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/pinning.ts",
+          "target": "src/blocks/data-table/pinning.ts",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/popover-edit.tsx",
+          "target": "src/blocks/data-table/popover-edit.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/resize-handle.tsx",
+          "target": "src/blocks/data-table/resize-handle.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/select-column.tsx",
+          "target": "src/blocks/data-table/select-column.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/selection-bar.tsx",
+          "target": "src/blocks/data-table/selection-bar.tsx",
           "type": "registry:block"
         }
       ]
@@ -2288,11 +2241,11 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/sidebar",
-        "@vital-design/icon-calendar",
+        "@vital-design/icon-calendar-days",
         "@vital-design/icon-check",
         "@vital-design/icon-flag",
         "@vital-design/icon-panel-left",
-        "@vital-design/icon-search",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/icon-user",
         "@vital-design/vital-theme"
       ],
@@ -2327,11 +2280,11 @@
         "@vital-design/sidebar",
         "@vital-design/avatar",
         "@vital-design/dropdown-menu",
-        "@vital-design/icon-calendar",
+        "@vital-design/icon-calendar-days",
         "@vital-design/icon-check",
         "@vital-design/icon-flag",
         "@vital-design/icon-panel-left",
-        "@vital-design/icon-search",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/icon-user",
         "@vital-design/vital-theme"
       ],
@@ -2366,13 +2319,13 @@
         "@vital-design/sidebar",
         "@vital-design/button",
         "@vital-design/dropdown-menu",
-        "@vital-design/icon-calendar",
+        "@vital-design/icon-calendar-days",
         "@vital-design/icon-check",
         "@vital-design/icon-ellipsis",
         "@vital-design/icon-flag",
         "@vital-design/icon-panel-left",
         "@vital-design/icon-plus",
-        "@vital-design/icon-search",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/icon-user",
         "@vital-design/vital-theme"
       ],
@@ -2407,12 +2360,12 @@
         "@vital-design/sidebar",
         "@vital-design/avatar",
         "@vital-design/dropdown-menu",
-        "@vital-design/icon-calendar",
+        "@vital-design/icon-calendar-days",
         "@vital-design/icon-check",
         "@vital-design/icon-flag",
         "@vital-design/icon-info",
         "@vital-design/icon-panel-left",
-        "@vital-design/icon-search",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/icon-shield-check",
         "@vital-design/icon-square-arrow-out-up-right",
         "@vital-design/icon-user",
@@ -2452,11 +2405,11 @@
         "@vital-design/button",
         "@vital-design/dropdown-menu",
         "@vital-design/icon-bell",
-        "@vital-design/icon-calendar",
+        "@vital-design/icon-calendar-days",
         "@vital-design/icon-check",
         "@vital-design/icon-flag",
         "@vital-design/icon-panel-left",
-        "@vital-design/icon-search",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/icon-user",
         "@vital-design/vital-theme"
       ],
@@ -2492,12 +2445,12 @@
         "@vital-design/avatar",
         "@vital-design/collapsible",
         "@vital-design/dropdown-menu",
-        "@vital-design/icon-calendar",
+        "@vital-design/icon-calendar-days",
         "@vital-design/icon-check",
         "@vital-design/icon-angle-right",
         "@vital-design/icon-flag",
         "@vital-design/icon-panel-left",
-        "@vital-design/icon-search",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/icon-user",
         "@vital-design/vital-theme"
       ],

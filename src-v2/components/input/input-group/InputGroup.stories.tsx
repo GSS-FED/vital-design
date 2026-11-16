@@ -1,4 +1,4 @@
-import { SearchIcon } from '@/icons';
+import { MagnifyingGlassIcon } from '@/icons';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import {
@@ -24,7 +24,7 @@ export const Default: Story = {
     return (
       <InputGroup {...args} style={{ width: '450px' }}>
         <InputGroupAddon>
-          <SearchIcon className="size-4.5" />
+          <MagnifyingGlassIcon className="size-4.5" />
         </InputGroupAddon>
         <InputGroupInput placeholder="Search..." />
         <InputGroupAddon align="inline-end">

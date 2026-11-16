@@ -1,6 +1,6 @@
 import { Checkbox } from '@/components/checkbox/Checkbox';
 import { TableCell, TableRow } from '@/components/table/Table';
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
+import { AngleDownIcon } from '@/icons/AngleDownIcon';
 import { cn } from '@/lib/utils';
 
 /**
@@ -206,7 +206,7 @@ export function GroupHeaderRow({
                 level.title,
               )}
             >
-              <ChevronDownIcon
+              <AngleDownIcon
                 className={cn(
                   'size-3 shrink-0 text-grayscale-opacity-700 transition-transform',
                   !open && '-rotate-90',
@@ -250,7 +250,7 @@ export function GroupHeaderRow({
                 className="pointer-events-none absolute top-0 left-4 h-[22px] w-3 rounded-bl-[8px] border-b border-l border-border-overlap"
               />
             ) : null}
-            <ChevronDownIcon
+            <AngleDownIcon
               className={cn(
                 'size-3 shrink-0 text-grayscale-opacity-700 transition-transform',
                 !open && '-rotate-90',

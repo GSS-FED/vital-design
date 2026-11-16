@@ -35,7 +35,7 @@ import {
   ToolbarGroup,
   ToolbarSpacer,
 } from '@/components/toolbar/Toolbar';
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
+import { AngleDownIcon } from '@/icons/AngleDownIcon';
 import { EllipsisIcon } from '@/icons/EllipsisIcon';
 import { GearIcon } from '@/icons/GearIcon';
 import { cn } from '@/lib/utils';
@@ -466,7 +466,7 @@ function GroupingMenu({
         }
       >
         分群：{groupLabel}
-        <ChevronDownIcon data-icon="inline-end" />
+        <AngleDownIcon data-icon="inline-end" />
       </PopoverTrigger>
       <PopoverContent align="end" className="w-60">
         <div className="flex flex-col gap-3">

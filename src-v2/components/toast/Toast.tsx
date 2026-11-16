@@ -3,7 +3,7 @@
  * anchoredToastManager) and the hook (useToast) alongside components so
  * registry consumers get everything in a single file.
  */
-import { CloseIcon } from '@/icons/CloseIcon';
+import { XmarkIcon } from '@/icons/XmarkIcon';
 import { cn } from '@/lib/utils';
 import { Toast as BaseToast } from '@base-ui/react/toast';
 import type {
@@ -355,7 +355,7 @@ const ToastClose = function ToastClose({
       )}
       {...props}
     >
-      {children ?? <CloseIcon className="size-5" />}
+      {children ?? <XmarkIcon className="size-5" />}
     </BaseToast.Close>
   );
 };

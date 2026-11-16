@@ -32,7 +32,7 @@ export const ui = [
     ],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/icon-disabled',
+      '@vital-design/icon-ban',
       '@vital-design/icon-user',
       '@vital-design/vital-theme',
     ],
@@ -98,8 +98,10 @@ export const ui = [
       '@vital-design/utils',
       '@vital-design/button',
       '@vital-design/button-group',
-      '@vital-design/icon-chevron-down-solid',
-      '@vital-design/icon-chevron-up-solid',
+      '@vital-design/icon-angle-down',
+      '@vital-design/icon-angle-down-solid',
+      '@vital-design/icon-angle-up',
+      '@vital-design/icon-angle-up-solid',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -137,7 +139,7 @@ export const ui = [
     dependencies: ['class-variance-authority', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/icon-close',
+      '@vital-design/icon-xmark',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -227,7 +229,7 @@ export const ui = [
     dependencies: ['class-variance-authority', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/icon-close',
+      '@vital-design/icon-xmark',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -262,7 +264,7 @@ export const ui = [
     dependencies: ['cn'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/icon-spinner',
+      '@vital-design/icon-spinner-third',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -299,7 +301,7 @@ export const ui = [
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/input-group',
-      '@vital-design/icon-search',
+      '@vital-design/icon-magnifying-glass',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -470,8 +472,8 @@ export const ui = [
       '@vital-design/utils',
       '@vital-design/icon-check',
       '@vital-design/icon-check-solid',
-      '@vital-design/icon-chevron-down',
-      '@vital-design/icon-chevron-up',
+      '@vital-design/icon-angle-down',
+      '@vital-design/icon-angle-up',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -490,10 +492,10 @@ export const ui = [
     dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/icon-chevron-down',
-      '@vital-design/icon-chevron-up',
+      '@vital-design/icon-angle-down',
+      '@vital-design/icon-angle-up',
       '@vital-design/icon-clear',
-      '@vital-design/icon-search',
+      '@vital-design/icon-magnifying-glass',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -513,11 +515,11 @@ export const ui = [
       '@vital-design/utils',
       '@vital-design/icon-check',
       '@vital-design/icon-check-solid',
-      '@vital-design/icon-chevron-down',
-      '@vital-design/icon-chevron-up',
+      '@vital-design/icon-angle-down',
+      '@vital-design/icon-angle-up',
       '@vital-design/icon-clear',
-      '@vital-design/icon-close',
-      '@vital-design/icon-search',
+      '@vital-design/icon-xmark',
+      '@vital-design/icon-magnifying-glass',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -541,7 +543,7 @@ export const ui = [
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-angle-left',
-      '@vital-design/icon-search',
+      '@vital-design/icon-magnifying-glass',
       '@vital-design/spinner',
       '@vital-design/vital-theme',
     ],
@@ -597,7 +599,7 @@ export const ui = [
     dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/icon-close',
+      '@vital-design/icon-xmark',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -640,7 +642,7 @@ export const ui = [
     ],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/icon-close',
+      '@vital-design/icon-xmark',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -735,7 +737,7 @@ export const ui = [
       '@vital-design/popover',
       '@vital-design/icon-angles-left',
       '@vital-design/icon-angles-right',
-      '@vital-design/icon-chevron-down',
+      '@vital-design/icon-angle-down',
       '@vital-design/icon-angle-left',
       '@vital-design/icon-angle-right',
       '@vital-design/vital-theme',
@@ -792,7 +794,7 @@ export const ui = [
     dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/icon-close',
+      '@vital-design/icon-xmark',
       '@vital-design/vital-theme',
     ],
     files: [
@@ -876,8 +878,8 @@ export const ui = [
     dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/icon-chevron-down',
-      '@vital-design/icon-chevron-up',
+      '@vital-design/icon-caret-down',
+      '@vital-design/icon-caret-up',
       '@vital-design/vital-theme',
     ],
     files: [

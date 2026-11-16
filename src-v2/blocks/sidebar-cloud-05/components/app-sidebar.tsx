@@ -27,11 +27,11 @@ import {
   useSidebar,
 } from '@/components/sidebar/Sidebar';
 import { BellIcon } from '@/icons/BellIcon';
-import { CalendarIcon } from '@/icons/CalendarIcon';
+import { CalendarDaysIcon } from '@/icons/CalendarDaysIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
-import { SearchIcon } from '@/icons/SearchIcon';
 import { UserIcon } from '@/icons/UserIcon';
 import { cn } from '@/lib/utils';
 import cloudImage from '@/public/images/cloud.jpg';
@@ -66,8 +66,8 @@ const data = {
           icon: <PanelLeftIcon />,
           isActive: true,
         },
-        { title: 'Inbox', icon: <SearchIcon /> },
-        { title: 'Calendar', icon: <CalendarIcon /> },
+        { title: 'Inbox', icon: <MagnifyingGlassIcon /> },
+        { title: 'Calendar', icon: <CalendarDaysIcon /> },
         { title: 'Approvals', icon: <CheckIcon /> },
       ],
     },
@@ -128,7 +128,7 @@ function HeaderActions() {
         theme="default"
         className={headerActionButtonClass}
       >
-        <SearchIcon data-icon />
+        <MagnifyingGlassIcon data-icon />
       </Button>
       <Button
         variant="ghost"

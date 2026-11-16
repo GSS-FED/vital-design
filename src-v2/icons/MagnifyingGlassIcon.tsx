@@ -1,6 +1,8 @@
 import type { SVGProps } from 'react';
 
-export const SearchIcon = (props: SVGProps<SVGSVGElement>) => (
+export const MagnifyingGlassIcon = (
+  props: SVGProps<SVGSVGElement>,
+) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="currentColor"

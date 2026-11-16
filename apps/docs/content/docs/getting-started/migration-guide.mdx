@@ -143,18 +143,18 @@ Button no longer owns icons or loading state. Move icons and spinners into `chil
 ```tsx
 // v0
 import { Button } from '@fed/vital-design';
-import { SearchIcon } from './icons/SearchIcon';
+import { MagnifyingGlassIcon } from './icons/MagnifyingGlassIcon';
 
-<Button icon={<SearchIcon />} iconPlacement="left">
+<Button icon={<MagnifyingGlassIcon />} iconPlacement="left">
   Search
 </Button>;
 
 // v1
 import { Button } from '@/components/ui/Button';
-import { SearchIcon } from '@/components/icons/SearchIcon';
+import { MagnifyingGlassIcon } from '@/components/icons/MagnifyingGlassIcon';
 
 <Button>
-  <SearchIcon data-icon="inline-start" />
+  <MagnifyingGlassIcon data-icon="inline-start" />
   Search
 </Button>;
 ```
@@ -182,11 +182,11 @@ Icon-only buttons now use size variants instead of empty children or icon props:
 
 ```tsx
 <Button size="icon-md" aria-label="Search">
-  <SearchIcon data-icon="inline-start" />
+  <MagnifyingGlassIcon data-icon="inline-start" />
 </Button>
 
 <Button size="icon-lg" aria-label="Search">
-  <SearchIcon data-icon="inline-start" />
+  <MagnifyingGlassIcon data-icon="inline-start" />
 </Button>
 ```
 

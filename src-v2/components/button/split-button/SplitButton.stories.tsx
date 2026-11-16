@@ -1,5 +1,5 @@
 import { SplitButton } from '@/components/button/split-button/SplitButton';
-import { SearchIcon } from '@/icons';
+import { MagnifyingGlassIcon } from '@/icons';
 import { type Meta, type StoryObj } from '@storybook/react';
 
 type Story = StoryObj<typeof SplitButton>;
@@ -40,7 +40,7 @@ export const WithIcon: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <SplitButton open={false} theme="primary">
-      <SearchIcon data-icon="inline-start" />
+      <MagnifyingGlassIcon data-icon="inline-start" />
       Search
     </SplitButton>
   ),

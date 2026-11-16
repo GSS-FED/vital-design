@@ -111,6 +111,6 @@ registryDependencies: ['button'];
 
 - 新元件預設透過 registry 分發；不要假設會同步進入 legacy npm package（`src/`）
 - 確保元件使用 `import type` 語法
-- 避免 barrel import（特別是 icons，需指定完整路徑如 `@/icons/SearchIcon`）
+- 避免 barrel import（特別是 icons，需指定完整路徑如 `@/icons/MagnifyingGlassIcon`）
 - 元件自己的 Props 型別放在元件 `.tsx` 檔，不要額外分發 `types.ts`
 - 列出所有必要的依賴

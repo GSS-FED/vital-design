@@ -11,7 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/popover/Popover';
-import { CalendarIcon } from '@/icons/CalendarIcon';
+import { CalendarDaysIcon } from '@/icons/CalendarDaysIcon';
 import { addDays, format } from 'date-fns';
 import { useState } from 'react';
 import { type DateRange, defaultDateLib } from 'react-day-picker';
@@ -113,7 +113,7 @@ export function CalendarDatePickerPreview() {
                   className="cursor-pointer"
                 />
                 <InputGroupAddon align="inline-end">
-                  <CalendarIcon className="size-4 text-grayscale-opacity-500" />
+                  <CalendarDaysIcon className="size-4 text-grayscale-opacity-500" />
                 </InputGroupAddon>
               </InputGroup>
             }

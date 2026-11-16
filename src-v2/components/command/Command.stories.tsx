@@ -1,5 +1,5 @@
+import { AngleDownIcon } from '@/icons/AngleDownIcon';
 import { AngleRightIcon } from '@/icons/AngleRightIcon';
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import {
@@ -233,7 +233,7 @@ export const HierarchicalPicker: Story = {
             {value?.label ?? 'Select location'}
           </span>
           <span className="flex h-5 w-5 shrink-0 items-center justify-center text-grayscale-opacity-700">
-            <ChevronDownIcon className="size-3.5" />
+            <AngleDownIcon className="size-3.5" />
           </span>
         </PopoverTrigger>
         <PopoverContent

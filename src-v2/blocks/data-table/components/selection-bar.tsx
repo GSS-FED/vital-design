@@ -1,4 +1,4 @@
-import { CloseIcon } from '@/icons/CloseIcon';
+import { XmarkIcon } from '@/icons/XmarkIcon';
 import { useLayoutEffect, useRef, useState } from 'react';
 
 type Counts = { selected: number; total: number };
@@ -125,7 +125,7 @@ export function SelectionBar({
               onClick={onClear}
               className="flex size-5 cursor-pointer items-center justify-center text-white/85 hover:text-white focus-visible:shadow-focus-primary focus-visible:outline-none"
             >
-              <CloseIcon className="size-3" />
+              <XmarkIcon className="size-3" />
             </button>
           </span>
         </div>

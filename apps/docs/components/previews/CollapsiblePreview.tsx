@@ -6,7 +6,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/collapsible/Collapsible';
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
+import { AngleDownIcon } from '@/icons/AngleDownIcon';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 export function CollapsiblePreview() {
@@ -23,7 +23,7 @@ export function CollapsiblePreview() {
               <span className="flex-1 text-left">
                 Can I use this in my project?
               </span>
-              <ChevronDownIcon
+              <AngleDownIcon
                 data-icon="inline-end"
                 className="transition-transform duration-150"
               />
@@ -61,7 +61,7 @@ export function CollapsibleProductDetailsPreview() {
                 className="w-full justify-between"
               >
                 <span>Show details</span>
-                <ChevronDownIcon data-icon="inline-end" />
+                <AngleDownIcon data-icon="inline-end" />
               </Button>
             }
           />

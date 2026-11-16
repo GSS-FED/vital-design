@@ -1,7 +1,7 @@
+import { AngleDownIcon } from '@/icons/AngleDownIcon';
+import { AngleUpIcon } from '@/icons/AngleUpIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { CheckSolidIcon } from '@/icons/CheckSolidIcon';
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
-import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
 import { cn } from '@/lib/utils';
 import { Select as BaseSelect } from '@base-ui/react/select';
 import type {
@@ -97,10 +97,10 @@ const SelectTrigger = function SelectTrigger({
         render={
           <span className="flex h-5 w-5 shrink-0 items-center justify-center text-grayscale-opacity-700">
             <span className="block group-data-[popup-open]:hidden">
-              <ChevronDownIcon className="size-5" />
+              <AngleDownIcon className="size-5" />
             </span>
             <span className="hidden group-data-[popup-open]:block">
-              <ChevronUpIcon className="size-5" />
+              <AngleUpIcon className="size-5" />
             </span>
           </span>
         }
@@ -381,7 +381,7 @@ const SelectScrollUpButton = function SelectScrollUpButton({
       )}
       {...props}
     >
-      <ChevronUpIcon className="size-5" />
+      <AngleUpIcon className="size-5" />
     </BaseSelect.ScrollUpArrow>
   );
 };
@@ -407,7 +407,7 @@ const SelectScrollDownButton = function SelectScrollDownButton({
       )}
       {...props}
     >
-      <ChevronDownIcon className="size-5" />
+      <AngleDownIcon className="size-5" />
     </BaseSelect.ScrollDownArrow>
   );
 };

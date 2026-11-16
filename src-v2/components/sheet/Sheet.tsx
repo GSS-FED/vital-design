@@ -1,4 +1,4 @@
-import { CloseIcon } from '@/icons/CloseIcon';
+import { XmarkIcon } from '@/icons/XmarkIcon';
 import { cn } from '@/lib/utils';
 import { Dialog as BaseDialog } from '@base-ui/react/dialog';
 import { createContext, useContext } from 'react';
@@ -154,7 +154,7 @@ const SheetContent = function SheetContent({
             aria-label={closeLabel}
             className="absolute right-3 top-3 inline-flex h-6 w-6 cursor-pointer items-center justify-center rounded-(--radius-xs) text-grayscale-opacity-600 transition-colors duration-150 hover:bg-grayscale-opacity-100 hover:text-grayscale-opacity-900 focus-visible:shadow-focus-primary focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60 data-disabled:cursor-not-allowed data-disabled:opacity-60"
           >
-            <CloseIcon className="size-[22px]" />
+            <XmarkIcon className="size-[22px]" />
           </BaseDialog.Close>
         ) : null}
       </BaseDialog.Popup>

@@ -1,4 +1,4 @@
-import { CloseIcon } from '@/icons/CloseIcon';
+import { XmarkIcon } from '@/icons/XmarkIcon';
 import { cn } from '@/lib/utils';
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox';
 import type {
@@ -120,7 +120,7 @@ const ChipRemove = function ComboboxChipRemove({
       )}
       {...props}
     >
-      {children ?? <CloseIcon />}
+      {children ?? <XmarkIcon />}
     </BaseCombobox.ChipRemove>
   );
 };

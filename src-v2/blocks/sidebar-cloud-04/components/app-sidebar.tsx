@@ -24,12 +24,12 @@ import {
   SidebarTrigger,
   useSidebar,
 } from '@/components/sidebar/Sidebar';
-import { CalendarIcon } from '@/icons/CalendarIcon';
+import { CalendarDaysIcon } from '@/icons/CalendarDaysIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
 import { InfoIcon } from '@/icons/InfoIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
-import { SearchIcon } from '@/icons/SearchIcon';
 import { ShieldCheckIcon } from '@/icons/ShieldCheckIcon';
 import { SquareArrowOutUpRightIcon } from '@/icons/SquareArrowOutUpRightIcon';
 import { UserIcon } from '@/icons/UserIcon';
@@ -67,8 +67,8 @@ const data = {
           icon: <PanelLeftIcon />,
           isActive: true,
         },
-        { title: 'Inbox', icon: <SearchIcon /> },
-        { title: 'Calendar', icon: <CalendarIcon /> },
+        { title: 'Inbox', icon: <MagnifyingGlassIcon /> },
+        { title: 'Calendar', icon: <CalendarDaysIcon /> },
         { title: 'Approvals', icon: <CheckIcon /> },
       ],
     },

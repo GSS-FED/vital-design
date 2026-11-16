@@ -1,4 +1,4 @@
-import { DisabledIcon } from '@/icons/DisabledIcon';
+import { BanIcon } from '@/icons/BanIcon';
 import { UserIcon } from '@/icons/UserIcon';
 import { type CvaProps, cn } from '@/lib/utils';
 import { Avatar as BaseAvatar } from '@base-ui/react/avatar';
@@ -360,7 +360,7 @@ function Avatar(props: AvatarProps) {
             '[&_svg]:absolute [&_svg]:inset-1/2 [&_svg]:w-3/4 [&_svg]:-translate-x-1/2 [&_svg]:-translate-y-1/2',
           )}
         >
-          <DisabledIcon />
+          <BanIcon />
         </span>
       )}
     </AvatarRoot>

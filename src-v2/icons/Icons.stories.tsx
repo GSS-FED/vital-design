@@ -1,29 +1,28 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentType, SVGProps } from 'react';
+import { AngleDownIcon } from './AngleDownIcon';
+import { AngleDownSolidIcon } from './AngleDownSolidIcon';
 import { AngleLeftIcon } from './AngleLeftIcon';
 import { AngleLeftSolidIcon } from './AngleLeftSolidIcon';
-import { AngleLeftToLineSolidIcon } from './AngleLeftToLineSolidIcon';
+import { AngleLeftToLineIcon } from './AngleLeftToLineIcon';
 import { AngleRightIcon } from './AngleRightIcon';
 import { AngleRightSolidIcon } from './AngleRightSolidIcon';
-import { AngleRightToLineSolidIcon } from './AngleRightToLineSolidIcon';
+import { AngleRightToLineIcon } from './AngleRightToLineIcon';
+import { AngleUpIcon } from './AngleUpIcon';
+import { AngleUpSolidIcon } from './AngleUpSolidIcon';
 import { AnglesLeftIcon } from './AnglesLeftIcon';
 import { AnglesRightIcon } from './AnglesRightIcon';
+import { BanIcon } from './BanIcon';
 import { BarsIcon } from './BarsIcon';
 import { BellIcon } from './BellIcon';
-import { CalendarIcon } from './CalendarIcon';
+import { CalendarDaysIcon } from './CalendarDaysIcon';
 import { CaretDownIcon } from './CaretDownIcon';
 import { CaretUpIcon } from './CaretUpIcon';
 import { CheckIcon } from './CheckIcon';
 import { CheckSolidIcon } from './CheckSolidIcon';
-import { ChevronDownIcon } from './ChevronDownIcon';
-import { ChevronDownSolidIcon } from './ChevronDownSolidIcon';
-import { ChevronUpIcon } from './ChevronUpIcon';
-import { ChevronUpSolidIcon } from './ChevronUpSolidIcon';
 import { CircleUserIcon } from './CircleUserIcon';
 import { ClearIcon } from './ClearIcon';
 import { ClockIcon } from './ClockIcon';
-import { CloseIcon } from './CloseIcon';
-import { DisabledIcon } from './DisabledIcon';
 import { EllipsisIcon } from './EllipsisIcon';
 import { EyeIcon } from './EyeIcon';
 import { EyeSlashIcon } from './EyeSlashIcon';
@@ -33,19 +32,20 @@ import { HomeIcon } from './HomeIcon';
 import { InboxIcon } from './InboxIcon';
 import { InfoIcon } from './InfoIcon';
 import { LifeRingIcon } from './LifeRingIcon';
+import { MagnifyingGlassIcon } from './MagnifyingGlassIcon';
 import { MinusIcon } from './MinusIcon';
 import { MinusSolidIcon } from './MinusSolidIcon';
 import { PanelLeftIcon } from './PanelLeftIcon';
 import { PlanetRingedIcon } from './PlanetRingedIcon';
 import { PlusIcon } from './PlusIcon';
-import { SearchIcon } from './SearchIcon';
 import { ShieldCheckIcon } from './ShieldCheckIcon';
 import { SidebarIcon } from './SidebarIcon';
-import { SpinnerIcon } from './SpinnerIcon';
+import { SpinnerThirdIcon } from './SpinnerThirdIcon';
 import { SquareArrowOutUpRightIcon } from './SquareArrowOutUpRightIcon';
 import { ThumbtackIcon } from './ThumbtackIcon';
 import { ThumbtackSolidIcon } from './ThumbtackSolidIcon';
 import { UserIcon } from './UserIcon';
+import { XmarkIcon } from './XmarkIcon';
 
 type IconEntry = {
   name: string;
@@ -53,36 +53,29 @@ type IconEntry = {
 };
 
 const icons: IconEntry[] = [
+  { name: 'AngleDownIcon', Icon: AngleDownIcon },
+  { name: 'AngleDownSolidIcon', Icon: AngleDownSolidIcon },
   { name: 'AngleLeftIcon', Icon: AngleLeftIcon },
   { name: 'AngleLeftSolidIcon', Icon: AngleLeftSolidIcon },
-  {
-    name: 'AngleLeftToLineSolidIcon',
-    Icon: AngleLeftToLineSolidIcon,
-  },
+  { name: 'AngleLeftToLineIcon', Icon: AngleLeftToLineIcon },
   { name: 'AngleRightIcon', Icon: AngleRightIcon },
   { name: 'AngleRightSolidIcon', Icon: AngleRightSolidIcon },
-  {
-    name: 'AngleRightToLineSolidIcon',
-    Icon: AngleRightToLineSolidIcon,
-  },
+  { name: 'AngleRightToLineIcon', Icon: AngleRightToLineIcon },
+  { name: 'AngleUpIcon', Icon: AngleUpIcon },
+  { name: 'AngleUpSolidIcon', Icon: AngleUpSolidIcon },
   { name: 'AnglesLeftIcon', Icon: AnglesLeftIcon },
   { name: 'AnglesRightIcon', Icon: AnglesRightIcon },
+  { name: 'BanIcon', Icon: BanIcon },
   { name: 'BarsIcon', Icon: BarsIcon },
   { name: 'BellIcon', Icon: BellIcon },
-  { name: 'CalendarIcon', Icon: CalendarIcon },
+  { name: 'CalendarDaysIcon', Icon: CalendarDaysIcon },
   { name: 'CaretDownIcon', Icon: CaretDownIcon },
   { name: 'CaretUpIcon', Icon: CaretUpIcon },
   { name: 'CheckIcon', Icon: CheckIcon },
   { name: 'CheckSolidIcon', Icon: CheckSolidIcon },
-  { name: 'ChevronDownIcon', Icon: ChevronDownIcon },
-  { name: 'ChevronDownSolidIcon', Icon: ChevronDownSolidIcon },
-  { name: 'ChevronUpIcon', Icon: ChevronUpIcon },
-  { name: 'ChevronUpSolidIcon', Icon: ChevronUpSolidIcon },
   { name: 'CircleUserIcon', Icon: CircleUserIcon },
   { name: 'ClearIcon', Icon: ClearIcon },
   { name: 'ClockIcon', Icon: ClockIcon },
-  { name: 'CloseIcon', Icon: CloseIcon },
-  { name: 'DisabledIcon', Icon: DisabledIcon },
   { name: 'EllipsisIcon', Icon: EllipsisIcon },
   { name: 'EyeIcon', Icon: EyeIcon },
   { name: 'EyeSlashIcon', Icon: EyeSlashIcon },
@@ -92,15 +85,15 @@ const icons: IconEntry[] = [
   { name: 'InboxIcon', Icon: InboxIcon },
   { name: 'InfoIcon', Icon: InfoIcon },
   { name: 'LifeRingIcon', Icon: LifeRingIcon },
+  { name: 'MagnifyingGlassIcon', Icon: MagnifyingGlassIcon },
   { name: 'MinusIcon', Icon: MinusIcon },
   { name: 'MinusSolidIcon', Icon: MinusSolidIcon },
   { name: 'PanelLeftIcon', Icon: PanelLeftIcon },
   { name: 'PlanetRingedIcon', Icon: PlanetRingedIcon },
   { name: 'PlusIcon', Icon: PlusIcon },
-  { name: 'SearchIcon', Icon: SearchIcon },
   { name: 'ShieldCheckIcon', Icon: ShieldCheckIcon },
   { name: 'SidebarIcon', Icon: SidebarIcon },
-  { name: 'SpinnerIcon', Icon: SpinnerIcon },
+  { name: 'SpinnerThirdIcon', Icon: SpinnerThirdIcon },
   {
     name: 'SquareArrowOutUpRightIcon',
     Icon: SquareArrowOutUpRightIcon,
@@ -108,6 +101,7 @@ const icons: IconEntry[] = [
   { name: 'ThumbtackIcon', Icon: ThumbtackIcon },
   { name: 'ThumbtackSolidIcon', Icon: ThumbtackSolidIcon },
   { name: 'UserIcon', Icon: UserIcon },
+  { name: 'XmarkIcon', Icon: XmarkIcon },
 ];
 
 const meta: Meta = {
@@ -152,11 +146,11 @@ export const Sizes: Story = {
   render: function Render() {
     return (
       <div className="flex items-end gap-4 text-grayscale-opacity-800">
-        <SearchIcon className="size-3" />
-        <SearchIcon className="size-4" />
-        <SearchIcon className="size-5" />
-        <SearchIcon className="size-6" />
-        <SearchIcon className="size-8" />
+        <MagnifyingGlassIcon className="size-3" />
+        <MagnifyingGlassIcon className="size-4" />
+        <MagnifyingGlassIcon className="size-5" />
+        <MagnifyingGlassIcon className="size-6" />
+        <MagnifyingGlassIcon className="size-8" />
       </div>
     );
   },
@@ -180,8 +174,8 @@ export const Spinner: Story = {
   render: function Render() {
     return (
       <div className="flex items-center gap-4">
-        <SpinnerIcon className="size-6 animate-spin text-primary-500" />
-        <SpinnerIcon className="size-6 text-grayscale-opacity-500" />
+        <SpinnerThirdIcon className="size-6 animate-spin text-primary-500" />
+        <SpinnerThirdIcon className="size-6 text-grayscale-opacity-500" />
       </div>
     );
   },

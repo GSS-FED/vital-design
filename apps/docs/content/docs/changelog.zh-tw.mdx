@@ -9,24 +9,44 @@ description: Vittal Design registry、元件與文件裡，會影響安裝或用
 
 新的紀錄在上面。標題用變更上線的月份。只記會影響你怎麼安裝或使用 registry 的變更：新元件、破壞性用法、token，以及安裝步驟。
 
-## 2026 年 11 月 — Angle 圖示取代左右 chevron
+## 2026 年 11 月 — Icon 改用設計的命名與 20×20 frame
 
-**破壞性變更：** 左右 chevron 改用設計師的命名，舊的 registry item 已移除。`icon-chevron-up` 與 `icon-chevron-down` 保留。
+**破壞性變更：** icon 名稱改成跟設計的 icon 清單一致，舊的 registry item 已移除。
 
-| 舊 item                                   | 新 item                           |
-| ----------------------------------------- | --------------------------------- |
-| `@vital-design/icon-chevron-left`         | `@vital-design/icon-angle-left`   |
-| `@vital-design/icon-chevron-right`        | `@vital-design/icon-angle-right`  |
-| `@vital-design/icon-chevron-double-left`  | `@vital-design/icon-angles-left`  |
-| `@vital-design/icon-chevron-double-right` | `@vital-design/icon-angles-right` |
+| 舊 item                                   | 新 item                               |
+| ----------------------------------------- | ------------------------------------- |
+| `@vital-design/icon-chevron-left`         | `@vital-design/icon-angle-left`       |
+| `@vital-design/icon-chevron-right`        | `@vital-design/icon-angle-right`      |
+| `@vital-design/icon-chevron-double-left`  | `@vital-design/icon-angles-left`      |
+| `@vital-design/icon-chevron-double-right` | `@vital-design/icon-angles-right`     |
+| `@vital-design/icon-chevron-down`         | `@vital-design/icon-angle-down`       |
+| `@vital-design/icon-chevron-up`           | `@vital-design/icon-angle-up`         |
+| `@vital-design/icon-close`                | `@vital-design/icon-xmark`            |
+| `@vital-design/icon-disabled`             | `@vital-design/icon-ban`              |
+| `@vital-design/icon-calendar`             | `@vital-design/icon-calendar-days`    |
+| `@vital-design/icon-search`               | `@vital-design/icon-magnifying-glass` |
+| `@vital-design/icon-spinner`              | `@vital-design/icon-spinner-third`    |
 
-把 import 改成 `AngleLeftIcon`、`AngleRightIcon`、`AnglesLeftIcon` 與 `AnglesRightIcon`。重新安裝用到舊圖示的元件：`calendar`、`command`、`dropdown-menu` 與 `sidebar-cloud-06`。
+把 import 改成新的元件名稱：`AngleLeftIcon`、`AngleRightIcon`、`AnglesLeftIcon`、`AnglesRightIcon`、`AngleDownIcon`、`AngleUpIcon`、`XmarkIcon`、`BanIcon`、`CalendarDaysIcon`、`MagnifyingGlassIcon`、`SpinnerThirdIcon`。重新安裝用到的元件；原本依賴舊 item 的元件，現在都改依賴新 item。
 
-```bash
-npx shadcn@latest add @vital-design/calendar @vital-design/command @vital-design/dropdown-menu @vital-design/sidebar-cloud-06
-```
+新的 icon item：`icon-angle-down-solid`、`icon-angle-up-solid`、`icon-angle-left-solid`、`icon-angle-right-solid`、`icon-angle-left-to-line`、`icon-angle-right-to-line`、`icon-check-solid`、`icon-minus-solid`、`icon-bars`、`icon-circle-user`、`icon-home`、`icon-inbox`、`icon-life-ring`、`icon-planet-ringed`、`icon-sidebar`、`icon-thumbtack`、`icon-thumbtack-solid`。見 [Icons → Regular 與 Solid](/zh-tw/docs/components/icons#regular-and-solid)。
 
-新的圖示 item：`icon-angle-left-solid`、`icon-angle-right-solid`、`icon-angle-left-to-line-solid`、`icon-angle-right-to-line-solid`、`icon-bars`、`icon-circle-user`、`icon-home`、`icon-inbox`、`icon-life-ring`、`icon-planet-ringed`、`icon-sidebar`、`icon-thumbtack` 與 `icon-thumbtack-solid`。見 [Icons → Regular 與 Solid](/zh-tw/docs/components/icons#regular-and-solid)。
+所有 icon 現在都是四周留白的 20×20 frame，`size-*` 設定的是 frame 大小，不是圖形大小。元件裡的 icon 改照 Figma frame：`Button` 裡的 icon（`data-icon`）是 18px（`md`、`icon-md`）與 20px（`lg`、`icon-lg`），沒有 margin；`Sidebar` 選單 icon 是 20px。有自訂 icon 尺寸的話，請照新的 frame 檢查。
+
+依設計清單調整的元件：
+
+- `checkbox` 改用 `CheckSolidIcon` 與 `MinusSolidIcon`。
+- `number-input` 的加減鈕改用 `CaretUpIcon` 與 `CaretDownIcon`。
+- `split-button` 在白底主題用 regular angle，在色底主題用 solid angle。
+
+**暫用圖。** 下列 icon 的名稱與尺寸不會再變，但圖形是暫用版，等設計畫好正式版後只會換 SVG：
+
+- 設計稿用的是 Font Awesome Pro，先沿用 Vittal 原本的圖：`MagnifyingGlassIcon`、`PlusIcon`、`SpinnerThirdIcon`、`ShieldCheckIcon`、`SquareArrowOutUpRightIcon`。
+- Font Awesome Free 的形狀，還沒重繪：`ClockIcon`、`FlagIcon`、`UserIcon`、`EllipsisIcon`。
+- 設計稿裡還沒有：`InfoIcon`、`ClearIcon`、`PanelLeftIcon`。
+- 依 solid 設計畫成 regular 線寬：`AngleLeftToLineIcon`、`AngleRightToLineIcon`。
+- 已畫好但設計尚未確認：`XmarkIcon`、`BellIcon`，以及 angle、angles 與 sidebar block 用的 icon。
+
 ## 2026 年 11 月 — 邊框 token
 
 `--border` 改為 0.08 的細線（`grayscale-opacity-200`），也就是 Figma 分隔線用的顏色。原本是實色 `#DEDEE2`。新增的 `--border-overlap` 保留實色 `#DEDEE2`，給會相疊或交叉的邊線使用；半透明的線疊在一起會變深。用法是 `border-border-overlap`。
@@ -58,8 +78,6 @@ npx shadcn@latest add @vital-design/data-table
 
 - **Dialog：** popup 的最大高度改為跟隨所在的 viewport（`max-h-full`），不再用 `calc(100vh-2rem)`。在行動瀏覽器上，網址列顯示時 `100vh` 比可視區域高，較高的 dialog 會被工具列蓋住，底部間距也會消失。現在會保留 viewport 的 1rem padding，內容在內部捲動。若你曾自行加上 `max-h-[calc(100dvh-…)]` 來繞過這個問題，可以拿掉。重新安裝 `dialog` 才會拿到這次變更。
 - **Sheet：** `top` 與 `bottom` sheet 的上限改為 `80dvh`（原本是 `80vh`），與 `left`、`right` sheet 已在使用的 `h-dvh` 一致。重新安裝 `sheet` 才會拿到這次變更。
-
-所有 icon 現在都是四周留白的 20×20 frame，`size-*` 設定的是 frame 大小，不是圖形大小。元件裡的 icon 改照 Figma frame：`Button` 裡的 icon（`data-icon`）是 18px（`md`、`icon-md`）與 20px（`lg`、`icon-lg`），沒有 margin；`Sidebar` 選單 icon 是 20px。有自訂 icon 尺寸的話，請照新的 frame 檢查。重新安裝 `button`、`sidebar` 與用到的元件，才會拿到新尺寸。
 
 ## 2026 年 10 月 — React 19
 
@@ -101,11 +119,14 @@ npx shadcn@latest add @vital-design/icon-caret-down
 
 ### 資料表格
 
-Candidate Tree 與 ESG Emission Tree 資料表格區塊可以調整欄寬。拖曳標題邊緣。`columnResizeMode` 預設是 `onChange`。欄位很多、又有釘選欄的寬表，用 `onEnd`，放開才更新欄寬。
+[Data Table group 01](/zh-tw/docs/blocks/data-table-group-01) 與 [group 02](/zh-tw/docs/blocks/data-table-group-02) 可以調整欄寬。拖曳標題邊緣。`columnResizeMode` 預設是 `onChange`。欄位很多、又有釘選欄的寬表，用 `onEnd`，放開才更新欄寬。
 
-ESG Emission Tree 的排序圖示從 chevron up 換成這一對 caret，並移除 `@vital-design/icon-chevron-up`。`@vital-design/icon-chevron-down` 仍用於列的軌道。排序標籤會截斷，欄變窄時 caret 仍然看得到。
+兩個 block 都要重新安裝。Group 02 的排序圖示從 chevron up 換成這一對 caret，並移除 `@vital-design/icon-chevron-up`。`@vital-design/icon-chevron-down` 仍用於列的軌道。排序標籤會截斷，欄變窄時 caret 仍然看得到。
 
-這兩個區塊後來已由 [Data Table](/zh-tw/docs/blocks/data-table) 取代。
+```bash
+npx shadcn@latest add @vital-design/data-table-group-01
+npx shadcn@latest add @vital-design/data-table-group-02
+```
 
 ## 2026 年 9 月 — Registry 上線 vittal.design
 
@@ -136,7 +157,7 @@ Registry URL：`https://vittal.design/r/{name}.json`
 ### 區塊
 
 - Cloud Sidebar：[flat](/zh-tw/docs/blocks/sidebar/cloud/flat)、[inline submenus](/zh-tw/docs/blocks/sidebar/cloud/inline-submenus)、[collapsible submenus](/zh-tw/docs/blocks/sidebar/cloud/collapsible-submenus)、[dropdown submenus](/zh-tw/docs/blocks/sidebar/cloud/dropdown-submenus)、[secondary nav](/zh-tw/docs/blocks/sidebar/cloud/secondary-nav)、[header actions](/zh-tw/docs/blocks/sidebar/cloud/header-actions)
-- Data Table：candidate tree、ESG emission tree、editable cells（後來已由 [Data Table](/zh-tw/docs/blocks/data-table) 取代）
+- Data Table：[group 01](/zh-tw/docs/blocks/data-table-group-01)、[group 02](/zh-tw/docs/blocks/data-table-group-02)、[group 04](/zh-tw/docs/blocks/data-table-group-04)
 
 ### 設計變數
 

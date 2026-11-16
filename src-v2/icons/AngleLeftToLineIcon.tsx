@@ -1,6 +1,8 @@
 import type { SVGProps } from 'react';
 
-export const CloseIcon = (props: SVGProps<SVGSVGElement>) => (
+export const AngleLeftToLineIcon = (
+  props: SVGProps<SVGSVGElement>,
+) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -15,7 +17,7 @@ export const CloseIcon = (props: SVGProps<SVGSVGElement>) => (
       stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
-      d="M14 6L10 10M10 10L6 14M10 10L6 6M10 10L14 14"
+      d="M6.01465 5.5V14.5M13.9819 5.8335L9.81519 10.0002L13.9819 14.1668"
     />
   </svg>
 );

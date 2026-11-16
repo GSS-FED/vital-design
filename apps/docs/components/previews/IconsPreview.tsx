@@ -1,29 +1,28 @@
 'use client';
 
+import { AngleDownIcon } from '@/icons/AngleDownIcon';
+import { AngleDownSolidIcon } from '@/icons/AngleDownSolidIcon';
 import { AngleLeftIcon } from '@/icons/AngleLeftIcon';
 import { AngleLeftSolidIcon } from '@/icons/AngleLeftSolidIcon';
-import { AngleLeftToLineSolidIcon } from '@/icons/AngleLeftToLineSolidIcon';
+import { AngleLeftToLineIcon } from '@/icons/AngleLeftToLineIcon';
 import { AngleRightIcon } from '@/icons/AngleRightIcon';
 import { AngleRightSolidIcon } from '@/icons/AngleRightSolidIcon';
-import { AngleRightToLineSolidIcon } from '@/icons/AngleRightToLineSolidIcon';
+import { AngleRightToLineIcon } from '@/icons/AngleRightToLineIcon';
+import { AngleUpIcon } from '@/icons/AngleUpIcon';
+import { AngleUpSolidIcon } from '@/icons/AngleUpSolidIcon';
 import { AnglesLeftIcon } from '@/icons/AnglesLeftIcon';
 import { AnglesRightIcon } from '@/icons/AnglesRightIcon';
+import { BanIcon } from '@/icons/BanIcon';
 import { BarsIcon } from '@/icons/BarsIcon';
 import { BellIcon } from '@/icons/BellIcon';
-import { CalendarIcon } from '@/icons/CalendarIcon';
+import { CalendarDaysIcon } from '@/icons/CalendarDaysIcon';
 import { CaretDownIcon } from '@/icons/CaretDownIcon';
 import { CaretUpIcon } from '@/icons/CaretUpIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { CheckSolidIcon } from '@/icons/CheckSolidIcon';
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
-import { ChevronDownSolidIcon } from '@/icons/ChevronDownSolidIcon';
-import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
-import { ChevronUpSolidIcon } from '@/icons/ChevronUpSolidIcon';
 import { CircleUserIcon } from '@/icons/CircleUserIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
 import { ClockIcon } from '@/icons/ClockIcon';
-import { CloseIcon } from '@/icons/CloseIcon';
-import { DisabledIcon } from '@/icons/DisabledIcon';
 import { EllipsisIcon } from '@/icons/EllipsisIcon';
 import { EyeIcon } from '@/icons/EyeIcon';
 import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
@@ -33,19 +32,20 @@ import { HomeIcon } from '@/icons/HomeIcon';
 import { InboxIcon } from '@/icons/InboxIcon';
 import { InfoIcon } from '@/icons/InfoIcon';
 import { LifeRingIcon } from '@/icons/LifeRingIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { MinusIcon } from '@/icons/MinusIcon';
 import { MinusSolidIcon } from '@/icons/MinusSolidIcon';
 import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
 import { PlanetRingedIcon } from '@/icons/PlanetRingedIcon';
 import { PlusIcon } from '@/icons/PlusIcon';
-import { SearchIcon } from '@/icons/SearchIcon';
 import { ShieldCheckIcon } from '@/icons/ShieldCheckIcon';
 import { SidebarIcon } from '@/icons/SidebarIcon';
-import { SpinnerIcon } from '@/icons/SpinnerIcon';
+import { SpinnerThirdIcon } from '@/icons/SpinnerThirdIcon';
 import { SquareArrowOutUpRightIcon } from '@/icons/SquareArrowOutUpRightIcon';
 import { ThumbtackIcon } from '@/icons/ThumbtackIcon';
 import { ThumbtackSolidIcon } from '@/icons/ThumbtackSolidIcon';
 import { UserIcon } from '@/icons/UserIcon';
+import { XmarkIcon } from '@/icons/XmarkIcon';
 import type { ComponentType, SVGProps } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
@@ -55,36 +55,29 @@ type IconEntry = {
 };
 
 const icons: IconEntry[] = [
+  { name: 'AngleDownIcon', Icon: AngleDownIcon },
+  { name: 'AngleDownSolidIcon', Icon: AngleDownSolidIcon },
   { name: 'AngleLeftIcon', Icon: AngleLeftIcon },
   { name: 'AngleLeftSolidIcon', Icon: AngleLeftSolidIcon },
-  {
-    name: 'AngleLeftToLineSolidIcon',
-    Icon: AngleLeftToLineSolidIcon,
-  },
+  { name: 'AngleLeftToLineIcon', Icon: AngleLeftToLineIcon },
   { name: 'AngleRightIcon', Icon: AngleRightIcon },
   { name: 'AngleRightSolidIcon', Icon: AngleRightSolidIcon },
-  {
-    name: 'AngleRightToLineSolidIcon',
-    Icon: AngleRightToLineSolidIcon,
-  },
+  { name: 'AngleRightToLineIcon', Icon: AngleRightToLineIcon },
+  { name: 'AngleUpIcon', Icon: AngleUpIcon },
+  { name: 'AngleUpSolidIcon', Icon: AngleUpSolidIcon },
   { name: 'AnglesLeftIcon', Icon: AnglesLeftIcon },
   { name: 'AnglesRightIcon', Icon: AnglesRightIcon },
+  { name: 'BanIcon', Icon: BanIcon },
   { name: 'BarsIcon', Icon: BarsIcon },
   { name: 'BellIcon', Icon: BellIcon },
-  { name: 'CalendarIcon', Icon: CalendarIcon },
+  { name: 'CalendarDaysIcon', Icon: CalendarDaysIcon },
   { name: 'CaretDownIcon', Icon: CaretDownIcon },
   { name: 'CaretUpIcon', Icon: CaretUpIcon },
   { name: 'CheckIcon', Icon: CheckIcon },
   { name: 'CheckSolidIcon', Icon: CheckSolidIcon },
-  { name: 'ChevronDownIcon', Icon: ChevronDownIcon },
-  { name: 'ChevronDownSolidIcon', Icon: ChevronDownSolidIcon },
-  { name: 'ChevronUpIcon', Icon: ChevronUpIcon },
-  { name: 'ChevronUpSolidIcon', Icon: ChevronUpSolidIcon },
   { name: 'CircleUserIcon', Icon: CircleUserIcon },
   { name: 'ClearIcon', Icon: ClearIcon },
   { name: 'ClockIcon', Icon: ClockIcon },
-  { name: 'CloseIcon', Icon: CloseIcon },
-  { name: 'DisabledIcon', Icon: DisabledIcon },
   { name: 'EllipsisIcon', Icon: EllipsisIcon },
   { name: 'EyeIcon', Icon: EyeIcon },
   { name: 'EyeSlashIcon', Icon: EyeSlashIcon },
@@ -94,15 +87,15 @@ const icons: IconEntry[] = [
   { name: 'InboxIcon', Icon: InboxIcon },
   { name: 'InfoIcon', Icon: InfoIcon },
   { name: 'LifeRingIcon', Icon: LifeRingIcon },
+  { name: 'MagnifyingGlassIcon', Icon: MagnifyingGlassIcon },
   { name: 'MinusIcon', Icon: MinusIcon },
   { name: 'MinusSolidIcon', Icon: MinusSolidIcon },
   { name: 'PanelLeftIcon', Icon: PanelLeftIcon },
   { name: 'PlanetRingedIcon', Icon: PlanetRingedIcon },
   { name: 'PlusIcon', Icon: PlusIcon },
-  { name: 'SearchIcon', Icon: SearchIcon },
   { name: 'ShieldCheckIcon', Icon: ShieldCheckIcon },
   { name: 'SidebarIcon', Icon: SidebarIcon },
-  { name: 'SpinnerIcon', Icon: SpinnerIcon },
+  { name: 'SpinnerThirdIcon', Icon: SpinnerThirdIcon },
   {
     name: 'SquareArrowOutUpRightIcon',
     Icon: SquareArrowOutUpRightIcon,
@@ -110,6 +103,7 @@ const icons: IconEntry[] = [
   { name: 'ThumbtackIcon', Icon: ThumbtackIcon },
   { name: 'ThumbtackSolidIcon', Icon: ThumbtackSolidIcon },
   { name: 'UserIcon', Icon: UserIcon },
+  { name: 'XmarkIcon', Icon: XmarkIcon },
 ];
 
 export function IconsGalleryPreview() {
@@ -142,11 +136,11 @@ export function IconsGalleryPreview() {
 export function IconSizesPreview() {
   return (
     <ComponentPreview name="IconSizesPreview">
-      <SearchIcon className="size-3" />
-      <SearchIcon className="size-4" />
-      <SearchIcon className="size-5" />
-      <SearchIcon className="size-6" />
-      <SearchIcon className="size-8" />
+      <MagnifyingGlassIcon className="size-3" />
+      <MagnifyingGlassIcon className="size-4" />
+      <MagnifyingGlassIcon className="size-5" />
+      <MagnifyingGlassIcon className="size-6" />
+      <MagnifyingGlassIcon className="size-8" />
     </ComponentPreview>
   );
 }
@@ -166,8 +160,8 @@ export function IconColorsPreview() {
 export function IconSpinnerPreview() {
   return (
     <ComponentPreview name="IconSpinnerPreview">
-      <SpinnerIcon className="size-6 animate-spin text-primary-500" />
-      <SpinnerIcon className="size-6 text-grayscale-opacity-500" />
+      <SpinnerThirdIcon className="size-6 animate-spin text-primary-500" />
+      <SpinnerThirdIcon className="size-6 text-grayscale-opacity-500" />
     </ComponentPreview>
   );
 }

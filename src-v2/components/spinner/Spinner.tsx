@@ -1,4 +1,4 @@
-import { SpinnerIcon } from '@/icons/SpinnerIcon';
+import { SpinnerThirdIcon } from '@/icons/SpinnerThirdIcon';
 import { cn } from '@/lib/utils';
 import type { ComponentProps } from 'react';
 
@@ -6,7 +6,7 @@ export type SpinnerProps = ComponentProps<'svg'>;
 
 function Spinner({ className, ...props }: SpinnerProps) {
   return (
-    <SpinnerIcon
+    <SpinnerThirdIcon
       role="status"
       aria-label="Loading"
       aria-hidden={false}

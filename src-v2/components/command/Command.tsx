@@ -1,6 +1,6 @@
 import { Spinner } from '@/components/spinner/Spinner';
 import { AngleLeftIcon } from '@/icons/AngleLeftIcon';
-import { SearchIcon } from '@/icons/SearchIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { cn } from '@/lib/utils';
 import { Command as CommandPrimitive } from 'cmdk';
 import type {
@@ -66,7 +66,7 @@ const CommandInput = function CommandInput({
           data-slot="command-input-prefix"
           className="flex shrink-0 items-center text-grayscale-opacity-500"
         >
-          <SearchIcon className="size-4.5" />
+          <MagnifyingGlassIcon className="size-4.5" />
         </span>
       )}
       <CommandPrimitive.Input

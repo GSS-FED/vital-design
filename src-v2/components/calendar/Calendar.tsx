@@ -5,11 +5,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/popover/Popover';
+import { AngleDownIcon } from '@/icons/AngleDownIcon';
 import { AngleLeftIcon } from '@/icons/AngleLeftIcon';
 import { AngleRightIcon } from '@/icons/AngleRightIcon';
 import { AnglesLeftIcon } from '@/icons/AnglesLeftIcon';
 import { AnglesRightIcon } from '@/icons/AnglesRightIcon';
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
 import { cn } from '@/lib/utils';
 import * as React from 'react';
 import {
@@ -192,7 +192,7 @@ function CalendarChevron(props: CalendarChevronProps) {
     );
   }
   return (
-    <ChevronDownIcon className={cn('size-5', className)} {...rest} />
+    <AngleDownIcon className={cn('size-5', className)} {...rest} />
   );
 }
 

@@ -24,9 +24,9 @@ Import each icon from its dedicated file. Barrel imports
 that registry consumers only pull in the icons they actually use.
 
 ```tsx
-import { SearchIcon } from '@/icons/SearchIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 
-<SearchIcon className="size-4 text-grayscale-opacity-700" />;
+<MagnifyingGlassIcon className="size-4 text-grayscale-opacity-700" />;
 ```
 
 Available icons:
@@ -34,28 +34,28 @@ Available icons:
 ```ts
 import { AngleLeftIcon } from '@/icons/AngleLeftIcon';
 import { AngleLeftSolidIcon } from '@/icons/AngleLeftSolidIcon';
-import { AngleLeftToLineSolidIcon } from '@/icons/AngleLeftToLineSolidIcon';
+import { AngleLeftToLineIcon } from '@/icons/AngleLeftToLineIcon';
 import { AngleRightIcon } from '@/icons/AngleRightIcon';
 import { AngleRightSolidIcon } from '@/icons/AngleRightSolidIcon';
-import { AngleRightToLineSolidIcon } from '@/icons/AngleRightToLineSolidIcon';
+import { AngleRightToLineIcon } from '@/icons/AngleRightToLineIcon';
 import { AnglesLeftIcon } from '@/icons/AnglesLeftIcon';
 import { AnglesRightIcon } from '@/icons/AnglesRightIcon';
 import { BarsIcon } from '@/icons/BarsIcon';
 import { BellIcon } from '@/icons/BellIcon';
-import { CalendarIcon } from '@/icons/CalendarIcon';
+import { CalendarDaysIcon } from '@/icons/CalendarDaysIcon';
 import { CaretDownIcon } from '@/icons/CaretDownIcon';
 import { CaretUpIcon } from '@/icons/CaretUpIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { CheckSolidIcon } from '@/icons/CheckSolidIcon';
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
-import { ChevronDownSolidIcon } from '@/icons/ChevronDownSolidIcon';
-import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
-import { ChevronUpSolidIcon } from '@/icons/ChevronUpSolidIcon';
+import { AngleDownIcon } from '@/icons/AngleDownIcon';
+import { AngleDownSolidIcon } from '@/icons/AngleDownSolidIcon';
+import { AngleUpIcon } from '@/icons/AngleUpIcon';
+import { AngleUpSolidIcon } from '@/icons/AngleUpSolidIcon';
 import { CircleUserIcon } from '@/icons/CircleUserIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
 import { ClockIcon } from '@/icons/ClockIcon';
-import { CloseIcon } from '@/icons/CloseIcon';
-import { DisabledIcon } from '@/icons/DisabledIcon';
+import { XmarkIcon } from '@/icons/XmarkIcon';
+import { BanIcon } from '@/icons/BanIcon';
 import { EllipsisIcon } from '@/icons/EllipsisIcon';
 import { EyeIcon } from '@/icons/EyeIcon';
 import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
@@ -70,10 +70,10 @@ import { MinusSolidIcon } from '@/icons/MinusSolidIcon';
 import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
 import { PlanetRingedIcon } from '@/icons/PlanetRingedIcon';
 import { PlusIcon } from '@/icons/PlusIcon';
-import { SearchIcon } from '@/icons/SearchIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { ShieldCheckIcon } from '@/icons/ShieldCheckIcon';
 import { SidebarIcon } from '@/icons/SidebarIcon';
-import { SpinnerIcon } from '@/icons/SpinnerIcon';
+import { SpinnerThirdIcon } from '@/icons/SpinnerThirdIcon';
 import { SquareArrowOutUpRightIcon } from '@/icons/SquareArrowOutUpRightIcon';
 import { ThumbtackIcon } from '@/icons/ThumbtackIcon';
 import { ThumbtackSolidIcon } from '@/icons/ThumbtackSolidIcon';
@@ -97,11 +97,11 @@ SVG fills the container set by width/height.
 <IconSizesPreview />
 
 ```tsx
-<SearchIcon className="size-3" />
-<SearchIcon className="size-4" />
-<SearchIcon className="size-5" />
-<SearchIcon className="size-6" />
-<SearchIcon className="size-8" />
+<MagnifyingGlassIcon className="size-3" />
+<MagnifyingGlassIcon className="size-4" />
+<MagnifyingGlassIcon className="size-5" />
+<MagnifyingGlassIcon className="size-6" />
+<MagnifyingGlassIcon className="size-8" />
 ```
 
 ## Colors
@@ -119,17 +119,17 @@ applies.
 <FlagIcon className="size-5 text-grayscale-opacity-700" />
 ```
 
-## SpinnerIcon
+## SpinnerThirdIcon
 
-`SpinnerIcon` renders the static glyph. Add Tailwind's `animate-spin`
+`SpinnerThirdIcon` renders the static glyph. Add Tailwind's `animate-spin`
 utility when you need rotation, or use the `Spinner` component for
 loading status UI.
 
 <IconSpinnerPreview />
 
 ```tsx
-<SpinnerIcon className="size-6 animate-spin text-primary-500" />
-<SpinnerIcon className="size-6 text-grayscale-opacity-500" />
+<SpinnerThirdIcon className="size-6 animate-spin text-primary-500" />
+<SpinnerThirdIcon className="size-6 text-grayscale-opacity-500" />
 ```
 
 ## Props

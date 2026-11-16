@@ -11,9 +11,9 @@ const iconGroups = [
   { name: 'icon-bars', title: 'Bars Icon', files: ['BarsIcon'] },
   { name: 'icon-bell', title: 'Bell Icon', files: ['BellIcon'] },
   {
-    name: 'icon-calendar',
-    title: 'Calendar Icon',
-    files: ['CalendarIcon'],
+    name: 'icon-calendar-days',
+    title: 'Calendar Days Icon',
+    files: ['CalendarDaysIcon'],
   },
   {
     name: 'icon-caret-down',
@@ -32,24 +32,24 @@ const iconGroups = [
     files: ['CheckSolidIcon'],
   },
   {
-    name: 'icon-chevron-down',
-    title: 'Chevron Down Icon',
-    files: ['ChevronDownIcon'],
+    name: 'icon-angle-down',
+    title: 'Angle Down Icon',
+    files: ['AngleDownIcon'],
   },
   {
-    name: 'icon-chevron-down-solid',
-    title: 'Chevron Down Solid Icon',
-    files: ['ChevronDownSolidIcon'],
+    name: 'icon-angle-down-solid',
+    title: 'Angle Down Solid Icon',
+    files: ['AngleDownSolidIcon'],
   },
   {
-    name: 'icon-chevron-up',
-    title: 'Chevron Up Icon',
-    files: ['ChevronUpIcon'],
+    name: 'icon-angle-up',
+    title: 'Angle Up Icon',
+    files: ['AngleUpIcon'],
   },
   {
-    name: 'icon-chevron-up-solid',
-    title: 'Chevron Up Solid Icon',
-    files: ['ChevronUpSolidIcon'],
+    name: 'icon-angle-up-solid',
+    title: 'Angle Up Solid Icon',
+    files: ['AngleUpSolidIcon'],
   },
   {
     name: 'icon-circle-user',
@@ -67,9 +67,9 @@ const iconGroups = [
     files: ['AngleLeftSolidIcon'],
   },
   {
-    name: 'icon-angle-left-to-line-solid',
-    title: 'Angle Left To Line Solid Icon',
-    files: ['AngleLeftToLineSolidIcon'],
+    name: 'icon-angle-left-to-line',
+    title: 'Angle Left To Line Icon',
+    files: ['AngleLeftToLineIcon'],
   },
   {
     name: 'icon-angle-right',
@@ -82,9 +82,9 @@ const iconGroups = [
     files: ['AngleRightSolidIcon'],
   },
   {
-    name: 'icon-angle-right-to-line-solid',
-    title: 'Angle Right To Line Solid Icon',
-    files: ['AngleRightToLineSolidIcon'],
+    name: 'icon-angle-right-to-line',
+    title: 'Angle Right To Line Icon',
+    files: ['AngleRightToLineIcon'],
   },
   {
     name: 'icon-angles-left',
@@ -98,11 +98,11 @@ const iconGroups = [
   },
   { name: 'icon-clear', title: 'Clear Icon', files: ['ClearIcon'] },
   { name: 'icon-clock', title: 'Clock Icon', files: ['ClockIcon'] },
-  { name: 'icon-close', title: 'Close Icon', files: ['CloseIcon'] },
+  { name: 'icon-xmark', title: 'Xmark Icon', files: ['XmarkIcon'] },
   {
-    name: 'icon-disabled',
-    title: 'Disabled Icon',
-    files: ['DisabledIcon'],
+    name: 'icon-ban',
+    title: 'Ban Icon',
+    files: ['BanIcon'],
   },
   {
     name: 'icon-ellipsis',
@@ -143,9 +143,9 @@ const iconGroups = [
   },
   { name: 'icon-plus', title: 'Plus Icon', files: ['PlusIcon'] },
   {
-    name: 'icon-search',
-    title: 'Search Icon',
-    files: ['SearchIcon'],
+    name: 'icon-magnifying-glass',
+    title: 'Magnifying Glass Icon',
+    files: ['MagnifyingGlassIcon'],
   },
   {
     name: 'icon-shield-check',
@@ -158,9 +158,9 @@ const iconGroups = [
     files: ['SidebarIcon'],
   },
   {
-    name: 'icon-spinner',
-    title: 'Spinner Icon',
-    files: ['SpinnerIcon'],
+    name: 'icon-spinner-third',
+    title: 'Spinner Third Icon',
+    files: ['SpinnerThirdIcon'],
   },
   {
     name: 'icon-square-arrow-out-up-right',
