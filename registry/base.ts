@@ -21,14 +21,37 @@ const iconGroups = [
     files: ['CalendarDaysIcon'],
   },
   {
-    name: 'icon-caret-down',
-    title: 'Caret Down Icon',
-    files: ['CaretDownIcon'],
+    name: 'icon-caret-down-solid',
+    title: 'Caret Down Solid Icon',
+    files: ['CaretDownSolidIcon'],
   },
   {
+    name: 'icon-caret-up-solid',
+    title: 'Caret Up Solid Icon',
+    files: ['CaretUpSolidIcon'],
+  },
+  {
+    name: 'icon-caret-left-solid',
+    title: 'Caret Left Solid Icon',
+    files: ['CaretLeftSolidIcon'],
+  },
+  {
+    name: 'icon-caret-right-solid',
+    title: 'Caret Right Solid Icon',
+    files: ['CaretRightSolidIcon'],
+  },
+  // Deprecated alias of icon-caret-down-solid, kept because it shipped before
+  // the Solid suffix. Installs both files; CaretDownIcon re-exports the solid one.
+  {
+    name: 'icon-caret-down',
+    title: 'Caret Down Icon (deprecated)',
+    files: ['CaretDownIcon', 'CaretDownSolidIcon'],
+  },
+  // Deprecated alias of icon-caret-up-solid (see icon-caret-down).
+  {
     name: 'icon-caret-up',
-    title: 'Caret Up Icon',
-    files: ['CaretUpIcon'],
+    title: 'Caret Up Icon (deprecated)',
+    files: ['CaretUpIcon', 'CaretUpSolidIcon'],
   },
   { name: 'icon-check', title: 'Check Icon', files: ['CheckIcon'] },
   {
@@ -102,16 +125,6 @@ const iconGroups = [
     files: ['AnglesRightIcon'],
   },
   { name: 'icon-clear', title: 'Clear Icon', files: ['ClearIcon'] },
-  {
-    name: 'icon-caret-left',
-    title: 'Caret Left Icon',
-    files: ['CaretLeftIcon'],
-  },
-  {
-    name: 'icon-caret-right',
-    title: 'Caret Right Icon',
-    files: ['CaretRightIcon'],
-  },
   { name: 'icon-clock', title: 'Clock Icon', files: ['ClockIcon'] },
   { name: 'icon-xmark', title: 'Xmark Icon', files: ['XmarkIcon'] },
   {

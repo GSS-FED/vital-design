@@ -1,5 +1,5 @@
-import { CaretDownIcon } from '@/icons/CaretDownIcon';
-import { CaretUpIcon } from '@/icons/CaretUpIcon';
+import { CaretDownSolidIcon } from '@/icons/CaretDownSolidIcon';
+import { CaretUpSolidIcon } from '@/icons/CaretUpSolidIcon';
 import { cn } from '@/lib/utils';
 import { NumberField as BaseNumberField } from '@base-ui/react/number-field';
 import type {
@@ -111,7 +111,7 @@ const NumberInputIncrement = function NumberInputIncrement({
       )}
       {...props}
     >
-      {children ?? <CaretUpIcon className="size-3.75" />}
+      {children ?? <CaretUpSolidIcon className="size-3.75" />}
     </BaseNumberField.Increment>
   );
 };
@@ -135,7 +135,7 @@ const NumberInputDecrement = function NumberInputDecrement({
       className={cn(stepperBaseClasses, className)}
       {...props}
     >
-      {children ?? <CaretDownIcon className="size-3.75" />}
+      {children ?? <CaretDownSolidIcon className="size-3.75" />}
     </BaseNumberField.Decrement>
   );
 };

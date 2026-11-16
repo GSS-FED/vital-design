@@ -54,6 +54,8 @@ description: >
 
 - 位置：`src-v2/icons/_source/custom/<名稱>.svg`，名稱用 Figma 名稱去掉 `fa-`。
 - Solid：`<名稱>-solid.svg`，會產生 `<Name>SolidIcon`。Regular 不加後綴。
+- **只有純填色 Solid 的 icon 也要加 `-solid`**（例如 `caret-down-solid.svg` → `CaretDownSolidIcon`）。沒有後綴的名稱保留給 Regular，名稱才看得出樣式；設計之後若畫 Regular 版，可以直接用 `CaretDownIcon`，不用改名。
+- 已經上 main（vittal.design/r）的 icon 要改名時：舊名稱加進 `scripts/build-icons.ts` 的 `DEPRECATED_ALIASES`（`icons:build` 會產生 `@deprecated` 的轉出檔並放進 barrel），`registry/base.ts` 保留舊 item、`files` 同時列舊名與新名，並在 changelog（en、zh-TW）記錄。只在分支上、還沒上 main 的直接改名。
 - **名稱以 Notion 為準**（設計會議 2026-11-16 決議）：檔名用 Notion 的 icon 名稱，Regular／Solid 也照 Notion 的「樣式」欄。Figma 名稱不同時（例如 Figma `chevron-down`、Notion `angle-down`）以 Notion 為準。
 - **換既有 icon 的圖時，覆蓋原本的檔案，不要改名**。改名對 registry 使用者是 breaking change，要先跟設計和 maintainer 確認。
 

@@ -878,8 +878,8 @@ export const ui = [
     dependencies: ['@base-ui/react', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
-      '@vital-design/icon-caret-down',
-      '@vital-design/icon-caret-up',
+      '@vital-design/icon-caret-down-solid',
+      '@vital-design/icon-caret-up-solid',
       '@vital-design/vital-theme',
     ],
     files: [

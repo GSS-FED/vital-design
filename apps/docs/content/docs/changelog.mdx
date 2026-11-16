@@ -28,18 +28,20 @@ Newest entries are at the top. Headings use the month the change shipped. We onl
 
 Update imports to the new component names: `AngleLeftIcon`, `AngleRightIcon`, `AnglesLeftIcon`, `AnglesRightIcon`, `AngleDownIcon`, `AngleUpIcon`, `XmarkIcon`, `BanIcon`, `CalendarDaysIcon`, `MagnifyingGlassIcon`. Reinstall the components you use; every component that depended on a renamed item now depends on the new one.
 
-New icon items: `icon-angle-down-solid`, `icon-angle-up-solid`, `icon-angle-left-solid`, `icon-angle-right-solid`, `icon-angle-left-to-line`, `icon-angle-right-to-line`, `icon-check-solid`, `icon-minus-solid`, `icon-bars`, `icon-circle-user`, `icon-home`, `icon-inbox`, `icon-life-ring`, `icon-planet-ringed`, `icon-sidebar`, `icon-thumbtack`, `icon-thumbtack-solid`, `icon-bell-slash`, `icon-caret-left`, `icon-caret-right`, `icon-note`, `icon-placeholder`, `icon-placeholder-solid`. `PlaceholderIcon` is the design's `*icons`: a stand-in for a slot that takes any icon. See [Icons → Regular and Solid](/docs/components/icons#regular-and-solid).
+The carets take the `Solid` suffix, because a plain name means the Regular style: `CaretDownIcon` and `CaretUpIcon` are now `CaretDownSolidIcon` and `CaretUpSolidIcon` (`@vital-design/icon-caret-down-solid`, `@vital-design/icon-caret-up-solid`). The old names and registry items still work but are deprecated; `CaretDownIcon` re-exports `CaretDownSolidIcon`. Switch to the new names.
+
+New icon items: `icon-angle-down-solid`, `icon-angle-up-solid`, `icon-angle-left-solid`, `icon-angle-right-solid`, `icon-angle-left-to-line`, `icon-angle-right-to-line`, `icon-check-solid`, `icon-minus-solid`, `icon-bars`, `icon-circle-user`, `icon-home`, `icon-inbox`, `icon-life-ring`, `icon-planet-ringed`, `icon-sidebar`, `icon-thumbtack`, `icon-thumbtack-solid`, `icon-bell-slash`, `icon-caret-left-solid`, `icon-caret-right-solid`, `icon-note`, `icon-placeholder`, `icon-placeholder-solid`. `PlaceholderIcon` is the design's `*icons`: a stand-in for a slot that takes any icon. See [Icons → Regular and Solid](/docs/components/icons#regular-and-solid).
 
 Every icon now uses a 20×20 frame with padding, so a `size-*` class sets the frame, not the glyph. Components size icons to the Figma frame: icons inside `Button` (`data-icon`) are 18px (`md`, `icon-md`) and 20px (`lg`, `icon-lg`) with no margin, and `Sidebar` menu icons are 20px. If you set your own icon sizes, check them against the new frames.
 
 Component changes that follow the design list:
 
 - `checkbox` uses `CheckSolidIcon` and `MinusSolidIcon`.
-- `number-input` steppers use `CaretUpIcon` and `CaretDownIcon`.
+- `number-input` steppers use `CaretUpSolidIcon` and `CaretDownSolidIcon`.
 - `split-button` uses the regular angle on white themes and the solid angle on coloured themes.
 - The angle, angles, and angle-to-line icons use the redrawn design artwork, so the glyph is 10px tall in the 20px frame instead of 8.3px. This shows in `calendar` and `split-button`.
 - `EllipsisIcon` no longer has a built-in 0.55 fill opacity; it takes the text color like every other icon. In `breadcrumb` the collapsed ellipsis is now `grayscale-500`, the same as the other inactive items. If you added `[fill-opacity:1]` to undo it, remove it.
-- `data-table` group rows use a 20px `CaretDownIcon` (rotated when collapsed), and the popover option check uses `CheckSolidIcon` like `checkbox`. The selection bar's close icon is 20px and the add-row plus is 18px.
+- `data-table` group rows use a 20px `CaretDownSolidIcon` (rotated when collapsed), and the popover option check uses `CheckSolidIcon` like `checkbox`. The selection bar's close icon is 20px and the add-row plus is 18px.
 
 **Temporary artwork.** These icons keep their names and sizes, but the artwork is a placeholder until the design team draws the final version. Only the SVG will change:
 

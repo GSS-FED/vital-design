@@ -1,6 +1,8 @@
 import type { SVGProps } from 'react';
 
-export const CaretLeftIcon = (props: SVGProps<SVGSVGElement>) => (
+export const CaretLeftSolidIcon = (
+  props: SVGProps<SVGSVGElement>,
+) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

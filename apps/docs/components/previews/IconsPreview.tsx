@@ -17,10 +17,10 @@ import { BarsIcon } from '@/icons/BarsIcon';
 import { BellIcon } from '@/icons/BellIcon';
 import { BellSlashIcon } from '@/icons/BellSlashIcon';
 import { CalendarDaysIcon } from '@/icons/CalendarDaysIcon';
-import { CaretDownIcon } from '@/icons/CaretDownIcon';
-import { CaretLeftIcon } from '@/icons/CaretLeftIcon';
-import { CaretRightIcon } from '@/icons/CaretRightIcon';
-import { CaretUpIcon } from '@/icons/CaretUpIcon';
+import { CaretDownSolidIcon } from '@/icons/CaretDownSolidIcon';
+import { CaretLeftSolidIcon } from '@/icons/CaretLeftSolidIcon';
+import { CaretRightSolidIcon } from '@/icons/CaretRightSolidIcon';
+import { CaretUpSolidIcon } from '@/icons/CaretUpSolidIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { CheckSolidIcon } from '@/icons/CheckSolidIcon';
 import { CircleUserIcon } from '@/icons/CircleUserIcon';
@@ -78,10 +78,10 @@ const icons: IconEntry[] = [
   { name: 'BellIcon', Icon: BellIcon },
   { name: 'BellSlashIcon', Icon: BellSlashIcon },
   { name: 'CalendarDaysIcon', Icon: CalendarDaysIcon },
-  { name: 'CaretDownIcon', Icon: CaretDownIcon },
-  { name: 'CaretUpIcon', Icon: CaretUpIcon },
-  { name: 'CaretLeftIcon', Icon: CaretLeftIcon },
-  { name: 'CaretRightIcon', Icon: CaretRightIcon },
+  { name: 'CaretDownSolidIcon', Icon: CaretDownSolidIcon },
+  { name: 'CaretUpSolidIcon', Icon: CaretUpSolidIcon },
+  { name: 'CaretLeftSolidIcon', Icon: CaretLeftSolidIcon },
+  { name: 'CaretRightSolidIcon', Icon: CaretRightSolidIcon },
   { name: 'CheckIcon', Icon: CheckIcon },
   { name: 'CheckSolidIcon', Icon: CheckSolidIcon },
   { name: 'CircleUserIcon', Icon: CircleUserIcon },

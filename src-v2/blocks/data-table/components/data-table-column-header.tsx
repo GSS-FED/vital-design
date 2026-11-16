@@ -1,5 +1,5 @@
-import { CaretDownIcon } from '@/icons/CaretDownIcon';
-import { CaretUpIcon } from '@/icons/CaretUpIcon';
+import { CaretDownSolidIcon } from '@/icons/CaretDownSolidIcon';
+import { CaretUpSolidIcon } from '@/icons/CaretUpSolidIcon';
 import { cn } from '@/lib/utils';
 import type { Column } from '@tanstack/react-table';
 import type { ReactNode } from 'react';
@@ -45,7 +45,7 @@ export function DataTableColumnHeader<TData, TValue>({
             'opacity-0 group-hover/th:opacity-100 group-focus-visible/sort:opacity-100',
         )}
       >
-        <CaretUpIcon
+        <CaretUpSolidIcon
           className={cn(
             '-mb-1 size-3.75 shrink-0',
             sort === 'asc'
@@ -53,7 +53,7 @@ export function DataTableColumnHeader<TData, TValue>({
               : 'text-grayscale-opacity-400',
           )}
         />
-        <CaretDownIcon
+        <CaretDownSolidIcon
           className={cn(
             '-mt-1 size-3.75 shrink-0',
             sort === 'desc'

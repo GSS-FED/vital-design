@@ -322,14 +322,71 @@
       ]
     },
     {
+      "name": "icon-caret-down-solid",
+      "type": "registry:ui",
+      "title": "Caret Down Solid Icon",
+      "description": "Caret Down Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CaretDownSolidIcon.tsx",
+          "target": "src/components/icons/CaretDownSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-caret-up-solid",
+      "type": "registry:ui",
+      "title": "Caret Up Solid Icon",
+      "description": "Caret Up Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CaretUpSolidIcon.tsx",
+          "target": "src/components/icons/CaretUpSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-caret-left-solid",
+      "type": "registry:ui",
+      "title": "Caret Left Solid Icon",
+      "description": "Caret Left Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CaretLeftSolidIcon.tsx",
+          "target": "src/components/icons/CaretLeftSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-caret-right-solid",
+      "type": "registry:ui",
+      "title": "Caret Right Solid Icon",
+      "description": "Caret Right Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CaretRightSolidIcon.tsx",
+          "target": "src/components/icons/CaretRightSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-caret-down",
       "type": "registry:ui",
-      "title": "Caret Down Icon",
-      "description": "Caret Down Icon component",
+      "title": "Caret Down Icon (deprecated)",
+      "description": "Caret Down Icon (deprecated) component",
       "files": [
         {
           "path": "src-v2/icons/CaretDownIcon.tsx",
           "target": "src/components/icons/CaretDownIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CaretDownSolidIcon.tsx",
+          "target": "src/components/icons/CaretDownSolidIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -337,12 +394,17 @@
     {
       "name": "icon-caret-up",
       "type": "registry:ui",
-      "title": "Caret Up Icon",
-      "description": "Caret Up Icon component",
+      "title": "Caret Up Icon (deprecated)",
+      "description": "Caret Up Icon (deprecated) component",
       "files": [
         {
           "path": "src-v2/icons/CaretUpIcon.tsx",
           "target": "src/components/icons/CaretUpIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CaretUpSolidIcon.tsx",
+          "target": "src/components/icons/CaretUpSolidIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -551,32 +613,6 @@
         {
           "path": "src-v2/icons/ClearIcon.tsx",
           "target": "src/components/icons/ClearIcon.tsx",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "icon-caret-left",
-      "type": "registry:ui",
-      "title": "Caret Left Icon",
-      "description": "Caret Left Icon component",
-      "files": [
-        {
-          "path": "src-v2/icons/CaretLeftIcon.tsx",
-          "target": "src/components/icons/CaretLeftIcon.tsx",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "icon-caret-right",
-      "type": "registry:ui",
-      "title": "Caret Right Icon",
-      "description": "Caret Right Icon component",
-      "files": [
-        {
-          "path": "src-v2/icons/CaretRightIcon.tsx",
-          "target": "src/components/icons/CaretRightIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -972,6 +1008,26 @@
           "type": "registry:ui"
         },
         {
+          "path": "src-v2/icons/CaretDownSolidIcon.tsx",
+          "target": "src/components/icons/CaretDownSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CaretUpSolidIcon.tsx",
+          "target": "src/components/icons/CaretUpSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CaretLeftSolidIcon.tsx",
+          "target": "src/components/icons/CaretLeftSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CaretRightSolidIcon.tsx",
+          "target": "src/components/icons/CaretRightSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src-v2/icons/CaretDownIcon.tsx",
           "target": "src/components/icons/CaretDownIcon.tsx",
           "type": "registry:ui"
@@ -1059,16 +1115,6 @@
         {
           "path": "src-v2/icons/ClearIcon.tsx",
           "target": "src/components/icons/ClearIcon.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src-v2/icons/CaretLeftIcon.tsx",
-          "target": "src/components/icons/CaretLeftIcon.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src-v2/icons/CaretRightIcon.tsx",
-          "target": "src/components/icons/CaretRightIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -2191,8 +2237,8 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-caret-down",
-        "@vital-design/icon-caret-up",
+        "@vital-design/icon-caret-down-solid",
+        "@vital-design/icon-caret-up-solid",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -2250,8 +2296,8 @@
         "@vital-design/table",
         "@vital-design/tag",
         "@vital-design/toolbar",
-        "@vital-design/icon-caret-down",
-        "@vital-design/icon-caret-up",
+        "@vital-design/icon-caret-down-solid",
+        "@vital-design/icon-caret-up-solid",
         "@vital-design/icon-check-solid",
         "@vital-design/icon-angle-down",
         "@vital-design/icon-xmark",

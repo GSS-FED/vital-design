@@ -1,18 +1,4 @@
-import type { SVGProps } from 'react';
+import { CaretDownSolidIcon } from './CaretDownSolidIcon';
 
-export const CaretDownIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 20 20"
-    width="1em"
-    height="1em"
-    aria-hidden="true"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M14.2489 7.33C14.8524 7.33 15.1676 8.02842 14.8035 8.47962L14.7497 8.53912L10.4997 12.7891C10.3777 12.9111 10.2155 12.9843 10.0433 12.9952C9.87116 13.006 9.70099 12.9536 9.5647 12.8479L9.49812 12.7891L5.24812 8.53912L5.18933 8.47254L5.15108 8.418L5.11283 8.35L5.10078 8.3245L5.08166 8.27704L5.05899 8.20054L5.05191 8.163L5.04483 8.1205L5.04199 8.08012V7.99654L5.04553 7.95546L5.05191 7.91296L5.05899 7.87613L5.08166 7.79963L5.10078 7.75217L5.15037 7.65867L5.19641 7.59492L5.24812 7.53754L5.3147 7.47875L5.36924 7.4405L5.43724 7.40225L5.46274 7.39021L5.5102 7.37108L5.5867 7.34842L5.62424 7.34133L5.66674 7.33425L5.70712 7.33142L14.2489 7.33Z"
-    />
-  </svg>
-);
+/** @deprecated Use `CaretDownSolidIcon`. */
+export const CaretDownIcon = CaretDownSolidIcon;

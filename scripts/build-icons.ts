@@ -181,6 +181,31 @@ const svgrConfig: Config = {
 
 type Entry = { svgPath: string; svgFile: string; component: string };
 
+/**
+ * Old component names that already shipped in the registry. Each is
+ * generated as a deprecated re-export of its replacement, so code that
+ * still imports the old name keeps working.
+ */
+const DEPRECATED_ALIASES: Record<string, string> = {
+  CaretDownIcon: 'CaretDownSolidIcon',
+  CaretUpIcon: 'CaretUpSolidIcon',
+};
+
+async function writeAliases(): Promise<string[]> {
+  const names = Object.keys(DEPRECATED_ALIASES).sort();
+  for (const alias of names) {
+    const target = DEPRECATED_ALIASES[alias];
+    await writeFile(
+      join(OUT_DIR, `${alias}.tsx`),
+      `import { ${target} } from './${target}';\n\n` +
+        `/** @deprecated Use \`${target}\`. */\n` +
+        `export const ${alias} = ${target};\n`,
+      'utf8',
+    );
+  }
+  return names;
+}
+
 async function listSources(): Promise<Entry[]> {
   const entries: Entry[] = [];
   for (const folder of SOURCE_FOLDERS) {
@@ -218,12 +243,13 @@ async function generateIcon(entry: Entry): Promise<Entry | null> {
   return entry;
 }
 
-async function writeBarrels(entries: Entry[]) {
-  const sorted = [...entries].sort((a, b) =>
-    a.component.localeCompare(b.component),
-  );
+async function writeBarrels(entries: Entry[], aliases: string[]) {
+  const sorted = [
+    ...entries.map((e) => e.component),
+    ...aliases,
+  ].sort((a, b) => a.localeCompare(b));
   const indexLines = sorted.map(
-    (e) => `export { ${e.component} } from './${e.component}';`,
+    (name) => `export { ${name} } from './${name}';`,
   );
   await writeFile(
     join(OUT_DIR, 'index.tsx'),
@@ -241,10 +267,14 @@ async function main() {
   const generated = (
     await Promise.all(entries.map(generateIcon))
   ).filter((entry): entry is Entry => entry != null);
-  await writeBarrels(generated);
+  const aliases = await writeAliases();
+  await writeBarrels(generated, aliases);
   console.log(`Generated ${generated.length} icons:`);
   for (const entry of generated) {
     console.log(`  src-v2/icons/${entry.component}.tsx`);
+  }
+  for (const alias of aliases) {
+    console.log(`  src-v2/icons/${alias}.tsx (deprecated alias)`);
   }
   console.log(`  src-v2/icons/index.tsx`);
 }
