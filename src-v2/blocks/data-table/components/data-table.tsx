@@ -50,6 +50,7 @@ import {
 import {
   getLeafColumnsInDisplayOrder,
   getPinningStyles,
+  pinShadowVars,
 } from './pinning';
 import { ResizeHandle } from './resize-handle';
 import {
@@ -549,18 +550,47 @@ export function DataTable<TData extends { id: string }>({
   const containerRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
   const [viewportWidth, setViewportWidth] = useState(0);
+  // Sides where columns are scrolled out of view, for the pinned shadows.
+  const [hiddenEdges, setHiddenEdges] = useState({
+    start: false,
+    end: false,
+  });
 
   useLayoutEffect(() => {
     const element = containerRef.current;
     if (!element) return;
+    const updateEdges = () => {
+      const start = element.scrollLeft > 0;
+      const end =
+        element.scrollLeft + element.clientWidth <
+        element.scrollWidth - 1;
+      setHiddenEdges((prev) =>
+        prev.start === start && prev.end === end
+          ? prev
+          : { start, end },
+      );
+    };
     const update = () => {
       setViewportWidth(element.clientWidth);
+      updateEdges();
     };
     update();
-    if (typeof ResizeObserver === 'undefined') return;
-    const observer = new ResizeObserver(update);
-    observer.observe(element);
-    return () => observer.disconnect();
+    element.addEventListener('scroll', updateEdges, {
+      passive: true,
+    });
+    // The table's own width changes with column sizes and visibility.
+    const observer =
+      typeof ResizeObserver === 'undefined'
+        ? null
+        : new ResizeObserver(update);
+    observer?.observe(element);
+    if (element.firstElementChild) {
+      observer?.observe(element.firstElementChild);
+    }
+    return () => {
+      element.removeEventListener('scroll', updateEdges);
+      observer?.disconnect();
+    };
   }, []);
 
   const updateRow = useCallback(
@@ -719,6 +749,7 @@ export function DataTable<TData extends { id: string }>({
         style={{
           width: table.getTotalSize(),
           minWidth: '100%',
+          ...pinShadowVars(hiddenEdges),
         }}
       >
         <colgroup>

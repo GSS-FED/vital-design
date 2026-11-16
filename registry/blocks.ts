@@ -50,6 +50,7 @@ export const blocks: VitalRegistryItem[] = [
       '@vital-design/icon-chevron-down',
       '@vital-design/icon-close',
       '@vital-design/icon-ellipsis',
+      '@vital-design/icon-gear',
       '@vital-design/icon-plus',
       '@vital-design/vital-theme',
     ],

@@ -25,6 +25,7 @@ export type RegistryItemName =
   | 'icon-eye'
   | 'icon-eye-slash'
   | 'icon-flag'
+  | 'icon-gear'
   | 'icon-info'
   | 'icon-minus'
   | 'icon-panel-left'

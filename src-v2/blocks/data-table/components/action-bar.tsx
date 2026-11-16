@@ -37,6 +37,7 @@ import {
 } from '@/components/toolbar/Toolbar';
 import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
 import { EllipsisIcon } from '@/icons/EllipsisIcon';
+import { GearIcon } from '@/icons/GearIcon';
 import { cn } from '@/lib/utils';
 import type { VisibilityState } from '@tanstack/react-table';
 import {
@@ -247,12 +248,12 @@ function ColumnVisibilityPopover({
           <Button
             variant="ghost"
             theme="default"
-            className="h-8 rounded-full px-3 font-normal"
+            className="h-8 rounded-full px-3 font-normal has-[_[data-icon=inline-start]]:pl-2.5 [&_[data-icon]]:m-0 [&_[data-icon]]:size-4.5"
           />
         }
       >
+        <GearIcon data-icon="inline-start" />
         顯示欄位
-        <ChevronDownIcon data-icon="inline-end" />
       </PopoverTrigger>
       <PopoverContent
         align="end"

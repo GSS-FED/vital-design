@@ -24,7 +24,7 @@ npx shadcn@latest add @vital-design/avatar
 
 ## November 2026 — Data Table block
 
-**Breaking.** The three data table blocks are replaced by one generic block, `@vital-design/data-table`. You pass it your own `data` and `columns`; it groups rows by any field, up to two levels, with a 新增 row per group. It also has search, sorting, resizable and reorderable columns, row selection with a floating action bar, and inline and popover cell editing. A review-task example shows how to wire it up.
+**Breaking.** The three data table blocks are replaced by one generic block, `@vital-design/data-table`. You pass it your own `data` and `columns`; it groups rows by any field, up to two levels, with a 新增 row per group. It also has search, sorting, resizable and reorderable columns, row selection with a floating action bar, and inline and popover cell editing. The checkbox and actions columns stay pinned and cast a shadow while other columns scroll under them. A review-task example shows how to wire it up. The block uses the new `@vital-design/icon-gear`.
 
 These ids are retired and leave the registry: `@vital-design/data-table-group-01` (candidate tree), `@vital-design/data-table-group-02` (ESG emission tree), and `@vital-design/data-table-group-04` (editable cells). Copies you already installed keep working, since a block is your own code. To move over, install the new block and port your columns and rows; grouping by a field replaces the fixed tree rows. Not carried over yet: a row count in group headers, more than one left-pinned column, and `columnResizeMode="onEnd"`.
 

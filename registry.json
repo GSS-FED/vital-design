@@ -517,6 +517,19 @@
       ]
     },
     {
+      "name": "icon-gear",
+      "type": "registry:ui",
+      "title": "Gear Icon",
+      "description": "Gear Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/GearIcon.tsx",
+          "target": "src/components/icons/GearIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-info",
       "type": "registry:ui",
       "title": "Info Icon",
@@ -732,6 +745,11 @@
         {
           "path": "src-v2/icons/FlagIcon.tsx",
           "target": "src/components/icons/FlagIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/GearIcon.tsx",
+          "target": "src/components/icons/GearIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -1820,6 +1838,7 @@
         "@vital-design/icon-chevron-down",
         "@vital-design/icon-close",
         "@vital-design/icon-ellipsis",
+        "@vital-design/icon-gear",
         "@vital-design/icon-plus",
         "@vital-design/vital-theme"
       ],
