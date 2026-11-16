@@ -17,6 +17,7 @@ export { EllipsisIcon } from './EllipsisIcon';
 export { EyeIcon } from './EyeIcon';
 export { EyeSlashIcon } from './EyeSlashIcon';
 export { FlagIcon } from './FlagIcon';
+export { GearIcon } from './GearIcon';
 export { InfoIcon } from './InfoIcon';
 export { MinusIcon } from './MinusIcon';
 export { PanelLeftIcon } from './PanelLeftIcon';

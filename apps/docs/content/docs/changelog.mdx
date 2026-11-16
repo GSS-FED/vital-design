@@ -9,6 +9,31 @@ That package is built from `src/` and stays available for existing apps. New wor
 
 Newest entries are at the top. Headings use the month the change shipped. We only record changes that affect how you install or use the registry — new components, breaking usage, tokens, and install steps.
 
+## November 2026 — Border tokens
+
+`--border` is now the 0.08 hairline (`grayscale-opacity-200`), the line Figma uses for dividers. It was a solid `#DEDEE2`. A new `--border-overlap` token keeps the solid `#DEDEE2` for edges that stack or cross, where a translucent line would darken. Use it with `border-border-overlap`.
+
+The theme also sets a default border color, so a bare `border`, `border-t`, or `border-b` draws the `--border` hairline. Before, Tailwind v4 drew it in the text color.
+
+Avatar, `AvatarGroupCount`, and the group rails in the Data Table block move to `--border-overlap`, so they look the same as before. The Dialog footer divider and any `border-border` you use for dividers get lighter. A `FieldLabel` that wraps a `Field` (the choice-card layout) draws its outline with a bare `border`, so it also goes from the text color to the hairline. Reinstall the theme and these items:
+
+```bash
+npx shadcn@latest add @vital-design/vital-theme
+npx shadcn@latest add @vital-design/avatar
+```
+
+## November 2026 — Data Table block
+
+**Breaking.** The three data table blocks are replaced by one generic block, `@vital-design/data-table`. You pass it your own `data` and `columns`; it groups rows by any field, up to two levels, with a 新增 row per group. It also has search, sorting, resizable and reorderable columns, row selection with a floating action bar, and inline and popover cell editing. The checkbox and actions columns stay pinned and cast a shadow while other columns scroll under them. A review-task example shows how to wire it up. The block uses the new `@vital-design/icon-gear`.
+
+These ids are retired and leave the registry: `@vital-design/data-table-group-01` (candidate tree), `@vital-design/data-table-group-02` (ESG emission tree), and `@vital-design/data-table-group-04` (editable cells). Copies you already installed keep working, since a block is your own code. To move over, install the new block and port your columns and rows; grouping by a field replaces the fixed tree rows. Not carried over yet: a row count in group headers, more than one left-pinned column, and `columnResizeMode="onEnd"`.
+
+```bash
+npx shadcn@latest add @vital-design/data-table
+```
+
+See [Data Table](/docs/blocks/data-table).
+
 ## November 2026 — Dialog and Sheet heights on mobile
 
 ### Components
@@ -56,14 +81,11 @@ npx shadcn@latest add @vital-design/icon-caret-down
 
 ### Data tables
 
-[Data Table group 01](/docs/blocks/data-table-group-01) and [group 02](/docs/blocks/data-table-group-02) can resize columns. Drag the header edge. `columnResizeMode` defaults to `onChange`. Use `onEnd` on a wide table with many pinned columns so the columns stay put until you release.
+The Candidate Tree and ESG Emission Tree data table blocks can resize columns. Drag the header edge. `columnResizeMode` defaults to `onChange`. Use `onEnd` on a wide table with many pinned columns so the columns stay put until you release.
 
-Reinstall both blocks. Group 02 also swaps its sort icon from chevron up to the caret pair, and drops `@vital-design/icon-chevron-up`. `@vital-design/icon-chevron-down` stays for the row rail. The sort label truncates so the caret stays visible when a column gets narrow.
+ESG Emission Tree also swaps its sort icon from chevron up to the caret pair, and drops `@vital-design/icon-chevron-up`. `@vital-design/icon-chevron-down` stays for the row rail. The sort label truncates so the caret stays visible when a column gets narrow.
 
-```bash
-npx shadcn@latest add @vital-design/data-table-group-01
-npx shadcn@latest add @vital-design/data-table-group-02
-```
+Both blocks have since been replaced by [Data Table](/docs/blocks/data-table).
 
 ## September 2026 — Registry on vittal.design
 
@@ -94,7 +116,7 @@ Registry URL: `https://vittal.design/r/{name}.json`
 ### Blocks
 
 - Cloud Sidebar: [flat](/docs/blocks/sidebar/cloud/flat), [inline submenus](/docs/blocks/sidebar/cloud/inline-submenus), [collapsible submenus](/docs/blocks/sidebar/cloud/collapsible-submenus), [dropdown submenus](/docs/blocks/sidebar/cloud/dropdown-submenus), [secondary nav](/docs/blocks/sidebar/cloud/secondary-nav), [header actions](/docs/blocks/sidebar/cloud/header-actions)
-- Data Table: [group 01](/docs/blocks/data-table-group-01), [group 02](/docs/blocks/data-table-group-02), [group 04](/docs/blocks/data-table-group-04)
+- Data Table: candidate tree, ESG emission tree, editable cells (since replaced by [Data Table](/docs/blocks/data-table))
 
 ### Tokens
 

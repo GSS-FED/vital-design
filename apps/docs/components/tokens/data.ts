@@ -249,7 +249,16 @@ export const semanticStatusTokens: ColorEntry[] = [
 
 // Form-related — borders, input strokes, focus rings.
 export const semanticFormTokens: ColorEntry[] = [
-  { name: '--border', value: '#DEDEE2', utility: 'border-border' },
+  {
+    name: '--border',
+    value: 'rgba(35, 35, 50, 0.08)',
+    utility: 'border-border',
+  },
+  {
+    name: '--border-overlap',
+    value: '#DEDEE2',
+    utility: 'border-border-overlap',
+  },
   { name: '--input', value: '#DEDEE2', utility: 'border-input' },
   { name: '--ring', value: '#0E86FE', utility: 'ring-ring' },
 ];

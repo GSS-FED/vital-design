@@ -59,7 +59,8 @@ export function BlockName({
 //   ],
 //   files: [
 //     {
-//       path: 'src-v2/blocks/block-name/BlockName.tsx',
+//       path: 'src-v2/blocks/block-name/components/BlockName.tsx',
+//       target: 'src/blocks/block-name/BlockName.tsx',
 //       type: 'registry:component',
 //     },
 //   ],

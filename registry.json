@@ -183,7 +183,6 @@
           "destructive-700": "#852D00",
           "destructive-800": "#521C00",
           "destructive-900": "#1F0B00",
-          "border": "#DEDEE2",
           "background": "#FFFFFF",
           "foreground": "#232332",
           "card": "#FFFFFF",
@@ -206,6 +205,8 @@
           "info-foreground": "#FFFFFF",
           "warning": "#FFA700",
           "warning-foreground": "#232332",
+          "border": "rgba(35, 35, 50, 0.08)",
+          "border-overlap": "#DEDEE2",
           "input": "#DEDEE2",
           "ring": "#0E86FE",
           "chart-1": "#0E86FE",
@@ -233,6 +234,9 @@
         "@layer base": {
           "*, *::before, *::after": {
             "box-sizing": "border-box"
+          },
+          "*, ::after, ::before, ::backdrop, ::file-selector-button": {
+            "border-color": "var(--border, currentColor)"
           }
         }
       }
@@ -513,6 +517,19 @@
       ]
     },
     {
+      "name": "icon-gear",
+      "type": "registry:ui",
+      "title": "Gear Icon",
+      "description": "Gear Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/GearIcon.tsx",
+          "target": "src/components/icons/GearIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-info",
       "type": "registry:ui",
       "title": "Info Icon",
@@ -728,6 +745,11 @@
         {
           "path": "src-v2/icons/FlagIcon.tsx",
           "target": "src/components/icons/FlagIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/GearIcon.tsx",
+          "target": "src/components/icons/GearIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -1783,10 +1805,10 @@
       ]
     },
     {
-      "name": "data-table-group-01",
+      "name": "data-table",
       "type": "registry:block",
-      "title": "Data Table — Candidate Tree",
-      "description": "Grouped tree-style data table with selectable rows, column pinning, action bar, and filter dropdown",
+      "title": "Data Table",
+      "description": "Generic data table on TanStack Table: grouping up to two levels with add rows per group, search, sortable and resizable columns, column visibility and drag reordering, row selection with a floating action bar, and inline and popover cell editors. Ships with a review-task example; replace columns.tsx and data.ts with your own rows.",
       "categories": [
         "data-table"
       ],
@@ -1798,168 +1820,97 @@
         "@vital-design/utils",
         "@vital-design/avatar",
         "@vital-design/button",
+        "@vital-design/calendar",
         "@vital-design/card",
         "@vital-design/checkbox",
         "@vital-design/dropdown-menu",
-        "@vital-design/progress",
+        "@vital-design/editable",
+        "@vital-design/popover",
         "@vital-design/search-bar",
-        "@vital-design/table",
-        "@vital-design/tag",
-        "@vital-design/toolbar",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-ellipsis",
-        "@vital-design/vital-theme"
-      ],
-      "files": [
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-01/DataTableGroup01.tsx",
-          "target": "src/blocks/data-table-group-01/DataTableGroup01.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-01/action-bar.tsx",
-          "target": "src/blocks/data-table-group-01/action-bar.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-01/columns.tsx",
-          "target": "src/blocks/data-table-group-01/columns.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-01/data.ts",
-          "target": "src/blocks/data-table-group-01/data.ts",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-01/pinning.ts",
-          "target": "src/blocks/data-table-group-01/pinning.ts",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-01/resize-handle.tsx",
-          "target": "src/blocks/data-table-group-01/resize-handle.tsx",
-          "type": "registry:block"
-        }
-      ]
-    },
-    {
-      "name": "data-table-group-02",
-      "type": "registry:block",
-      "title": "Data Table — ESG Emission Tree",
-      "description": "Expandable tree data table with sticky rail, sortable headers, selection, action bar, and inline switch toggles",
-      "categories": [
-        "data-table"
-      ],
-      "dependencies": [
-        "@tanstack/react-table",
-        "cn"
-      ],
-      "registryDependencies": [
-        "@vital-design/utils",
-        "@vital-design/avatar",
-        "@vital-design/badge",
-        "@vital-design/button",
-        "@vital-design/card",
-        "@vital-design/checkbox",
-        "@vital-design/dropdown-menu",
-        "@vital-design/search-bar",
+        "@vital-design/select",
         "@vital-design/switch",
         "@vital-design/table",
         "@vital-design/tag",
         "@vital-design/toolbar",
         "@vital-design/icon-caret-down",
         "@vital-design/icon-caret-up",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-ellipsis",
-        "@vital-design/vital-theme"
-      ],
-      "files": [
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-02/DataTableGroup02.tsx",
-          "target": "src/blocks/data-table-group-02/DataTableGroup02.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-02/action-bar.tsx",
-          "target": "src/blocks/data-table-group-02/action-bar.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-02/columns.tsx",
-          "target": "src/blocks/data-table-group-02/columns.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-02/data-table-column-header.tsx",
-          "target": "src/blocks/data-table-group-02/data-table-column-header.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-02/data.ts",
-          "target": "src/blocks/data-table-group-02/data.ts",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-02/pinning.ts",
-          "target": "src/blocks/data-table-group-02/pinning.ts",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-02/resize-handle.tsx",
-          "target": "src/blocks/data-table-group-02/resize-handle.tsx",
-          "type": "registry:block"
-        },
-        {
-          "path": "src-v2/blocks/data-table/data-table-group-02/table-rail.tsx",
-          "target": "src/blocks/data-table-group-02/table-rail.tsx",
-          "type": "registry:block"
-        }
-      ]
-    },
-    {
-      "name": "data-table-group-04",
-      "type": "registry:block",
-      "title": "Data Table — Editable Cells",
-      "description": "Editable data table with inline text cells, popover pickers, tag multi-select, and date selection",
-      "categories": [
-        "data-table"
-      ],
-      "dependencies": [
-        "@tanstack/react-table",
-        "cn"
-      ],
-      "registryDependencies": [
-        "@vital-design/utils",
-        "@vital-design/avatar",
-        "@vital-design/calendar",
-        "@vital-design/card",
-        "@vital-design/editable",
-        "@vital-design/popover",
-        "@vital-design/table",
-        "@vital-design/tag",
         "@vital-design/icon-check",
+        "@vital-design/icon-chevron-down",
+        "@vital-design/icon-close",
+        "@vital-design/icon-ellipsis",
+        "@vital-design/icon-gear",
+        "@vital-design/icon-plus",
         "@vital-design/vital-theme"
       ],
       "files": [
         {
-          "path": "src-v2/blocks/data-table/data-table-group-04/DataTableGroup04.tsx",
-          "target": "src/blocks/data-table-group-04/DataTableGroup04.tsx",
+          "path": "src-v2/blocks/data-table/components/data-table.tsx",
+          "target": "src/blocks/data-table/data-table.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-04/columns.tsx",
-          "target": "src/blocks/data-table-group-04/columns.tsx",
+          "path": "src-v2/blocks/data-table/components/review-task-table.tsx",
+          "target": "src/blocks/data-table/review-task-table.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-04/data.ts",
-          "target": "src/blocks/data-table-group-04/data.ts",
+          "path": "src-v2/blocks/data-table/components/columns.tsx",
+          "target": "src/blocks/data-table/columns.tsx",
           "type": "registry:block"
         },
         {
-          "path": "src-v2/blocks/data-table/data-table-group-04/popover-edit.tsx",
-          "target": "src/blocks/data-table-group-04/popover-edit.tsx",
+          "path": "src-v2/blocks/data-table/components/data.ts",
+          "target": "src/blocks/data-table/data.ts",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/group-tree.ts",
+          "target": "src/blocks/data-table/group-tree.ts",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/action-bar.tsx",
+          "target": "src/blocks/data-table/action-bar.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/add-row.tsx",
+          "target": "src/blocks/data-table/add-row.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/data-table-column-header.tsx",
+          "target": "src/blocks/data-table/data-table-column-header.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/group-row.tsx",
+          "target": "src/blocks/data-table/group-row.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/pinning.ts",
+          "target": "src/blocks/data-table/pinning.ts",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/popover-edit.tsx",
+          "target": "src/blocks/data-table/popover-edit.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/resize-handle.tsx",
+          "target": "src/blocks/data-table/resize-handle.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/select-column.tsx",
+          "target": "src/blocks/data-table/select-column.tsx",
+          "type": "registry:block"
+        },
+        {
+          "path": "src-v2/blocks/data-table/components/selection-bar.tsx",
+          "target": "src/blocks/data-table/selection-bar.tsx",
           "type": "registry:block"
         }
       ]

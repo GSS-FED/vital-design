@@ -232,7 +232,7 @@ describe('Avatar', () => {
     );
     expect(screen.getByTestId('avatar-group-count')).toHaveClass(
       'size-10',
-      'border-border',
+      'border-border-overlap',
       'bg-background',
       'text-grayscale-opacity-700',
       'group-has-data-[size=xl]/avatar-group:size-[60px]',

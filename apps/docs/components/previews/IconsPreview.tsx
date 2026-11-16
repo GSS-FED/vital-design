@@ -19,6 +19,7 @@ import { EllipsisIcon } from '@/icons/EllipsisIcon';
 import { EyeIcon } from '@/icons/EyeIcon';
 import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
+import { GearIcon } from '@/icons/GearIcon';
 import { InfoIcon } from '@/icons/InfoIcon';
 import { MinusIcon } from '@/icons/MinusIcon';
 import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
@@ -56,6 +57,7 @@ const icons: IconEntry[] = [
   { name: 'EyeIcon', Icon: EyeIcon },
   { name: 'EyeSlashIcon', Icon: EyeSlashIcon },
   { name: 'FlagIcon', Icon: FlagIcon },
+  { name: 'GearIcon', Icon: GearIcon },
   { name: 'InfoIcon', Icon: InfoIcon },
   { name: 'MinusIcon', Icon: MinusIcon },
   { name: 'PanelLeftIcon', Icon: PanelLeftIcon },

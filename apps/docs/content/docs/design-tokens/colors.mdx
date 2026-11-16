@@ -134,9 +134,11 @@ Feedback colors paired with foreground for legible content.
 
 ### Form
 
-Borders, input strokes, and focus rings. `border` is the canonical
-solid divider; `input` matches it by default but can be themed
-independently; `ring` paints focus outlines.
+Borders, input strokes, and focus rings. `border` is the 0.08 hairline
+for dividers and single edges, and it is also the default color of a bare
+`border` class. `border-overlap` is solid, for edges that stack or cross,
+such as avatar outlines in a group or tree rails, where a translucent line
+would darken. `input` strokes form fields; `ring` paints focus outlines.
 
 <ColorPalette tokens={semanticFormTokens} columns={3} />
 

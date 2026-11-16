@@ -11,4 +11,16 @@
   *::after {
     box-sizing: border-box;
   }
+
+  /* Tailwind v4 draws a bare `border` in currentColor. Default to the
+     --border hairline, so a border class without a color reads as a
+     divider. Edges that stack or cross use border-border-overlap instead.
+     Classes that set a color still win. */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--border, currentColor);
+  }
 }

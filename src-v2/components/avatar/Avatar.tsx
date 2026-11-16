@@ -57,7 +57,7 @@ const avatarVariants = cva(
       {
         color: 'default',
         bordered: true,
-        class: 'border-border',
+        class: 'border-border-overlap',
       },
       {
         color: 'tiffany',
@@ -296,7 +296,7 @@ function AvatarGroupCount({
     <div
       data-slot="avatar-group-count"
       className={cn(
-        'relative isolate inline-flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-background font-sans text-xl leading-none text-grayscale-opacity-700 ring-2 ring-background',
+        'relative isolate inline-flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border-overlap bg-background font-sans text-xl leading-none text-grayscale-opacity-700 ring-2 ring-background',
         'group-has-data-[size=xs]/avatar-group:size-6 group-has-data-[size=xs]/avatar-group:text-xs group-has-data-[size=xs]/avatar-group:[&>svg]:size-2.5',
         'group-has-data-[size=sm]/avatar-group:size-8 group-has-data-[size=sm]/avatar-group:text-base group-has-data-[size=sm]/avatar-group:[&>svg]:size-3',
         'group-has-data-[size=lg]/avatar-group:size-12 group-has-data-[size=lg]/avatar-group:text-2xl group-has-data-[size=lg]/avatar-group:[&>svg]:size-4.5',

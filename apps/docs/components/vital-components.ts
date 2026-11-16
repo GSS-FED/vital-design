@@ -239,6 +239,4 @@ export {
 } from '../../../src-v2/components/resizable/Resizable';
 
 // Blocks
-export { DataTableGroup01 } from '../../../src-v2/blocks/data-table/data-table-group-01/DataTableGroup01';
-export { DataTableGroup02 } from '../../../src-v2/blocks/data-table/data-table-group-02/DataTableGroup02';
-export { DataTableGroup04 } from '../../../src-v2/blocks/data-table/data-table-group-04/DataTableGroup04';
+export { ReviewTaskTable } from '../../../src-v2/blocks/data-table/components/review-task-table';

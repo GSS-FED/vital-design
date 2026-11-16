@@ -82,7 +82,7 @@ pnpm docs:start            # 啟動生產環境文件站
 ### 元件庫（根目錄）
 
 - `src-v2/components/` - UI 元件
-- `src-v2/blocks/` - 複合區塊
+- `src-v2/blocks/<name>/components/` - 複合區塊裡會進 registry 的檔案；stories 與 tests 放在該 block 根目錄。文件頁用家族資料夾（`blocks/sidebar/cloud/`）；只有一個 block 的家族直接放 `blocks/<name>.mdx`（如 `blocks/data-table.mdx`）
 - `src-v2/hooks/` - React Hooks
 - `src-v2/icons/` - SVG 圖示
 - `src-v2/lib/` - 工具函數與共用型別（`utils.ts`：`cn()`、`CvaProps`）

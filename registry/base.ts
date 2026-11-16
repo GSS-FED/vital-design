@@ -75,6 +75,7 @@ const iconGroups = [
     files: ['EyeSlashIcon'],
   },
   { name: 'icon-flag', title: 'Flag Icon', files: ['FlagIcon'] },
+  { name: 'icon-gear', title: 'Gear Icon', files: ['GearIcon'] },
   { name: 'icon-info', title: 'Info Icon', files: ['InfoIcon'] },
   { name: 'icon-minus', title: 'Minus Icon', files: ['MinusIcon'] },
   {
@@ -146,6 +147,9 @@ export const base = [
       '@layer base': {
         '*, *::before, *::after': {
           'box-sizing': 'border-box',
+        },
+        '*, ::after, ::before, ::backdrop, ::file-selector-button': {
+          'border-color': 'var(--border, currentColor)',
         },
       },
     },

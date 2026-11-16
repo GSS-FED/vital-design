@@ -9,6 +9,31 @@ description: Vittal Design registry、元件與文件裡，會影響安裝或用
 
 新的紀錄在上面。標題用變更上線的月份。只記會影響你怎麼安裝或使用 registry 的變更：新元件、破壞性用法、token，以及安裝步驟。
 
+## 2026 年 11 月 — 邊框 token
+
+`--border` 改為 0.08 的細線（`grayscale-opacity-200`），也就是 Figma 分隔線用的顏色。原本是實色 `#DEDEE2`。新增的 `--border-overlap` 保留實色 `#DEDEE2`，給會相疊或交叉的邊線使用；半透明的線疊在一起會變深。用法是 `border-border-overlap`。
+
+Theme 也設定了預設邊框色，沒有指定顏色的 `border`、`border-t`、`border-b` 會畫出 `--border` 細線。以前 Tailwind v4 會用文字顏色畫。
+
+Avatar、`AvatarGroupCount` 與 Data Table 區塊的群組軌道改用 `--border-overlap`，外觀和以前一樣。Dialog 頁尾的分隔線，以及你拿來當分隔線的 `border-border`，會變淡。包住 `Field` 的 `FieldLabel`（選項卡片版型）用沒有顏色的 `border` 畫外框，也會從文字顏色變成細線。請重新安裝 theme 與這些項目：
+
+```bash
+npx shadcn@latest add @vital-design/vital-theme
+npx shadcn@latest add @vital-design/avatar
+```
+
+## 2026 年 11 月 — Data Table 區塊
+
+**破壞性變更。** 三個資料表格區塊改由一個通用區塊 `@vital-design/data-table` 取代。你傳入自己的 `data` 與 `columns`；它可以依任何欄位分群，最多兩層，每個群組都有新增列。另外有搜尋、排序、可調整寬度與順序的欄位、含浮動工具列的列選取，以及行內與 popover 儲存格編輯。勾選欄與操作欄固定在兩側，其他欄位捲到下方時會出現陰影。附上的覆核任務範例示範怎麼接起來。區塊用到新的 `@vital-design/icon-gear`。
+
+以下 id 已停用並從 registry 移除：`@vital-design/data-table-group-01`（candidate tree）、`@vital-design/data-table-group-02`（ESG emission tree）與 `@vital-design/data-table-group-04`（editable cells）。已經安裝的副本仍可使用，因為 block 是你自己的程式碼。要換過來，請安裝新區塊並把你的欄位與資料搬進去；用欄位分群取代固定的樹狀列。尚未搬過來的功能：群組標題的筆數、多於一個的左側釘選欄，以及 `columnResizeMode="onEnd"`。
+
+```bash
+npx shadcn@latest add @vital-design/data-table
+```
+
+見 [Data Table](/zh-tw/docs/blocks/data-table)。
+
 ## 2026 年 11 月 — 行動裝置上的 Dialog 與 Sheet 高度
 
 ### 元件
@@ -56,14 +81,11 @@ npx shadcn@latest add @vital-design/icon-caret-down
 
 ### 資料表格
 
-[Data Table group 01](/zh-tw/docs/blocks/data-table-group-01) 與 [group 02](/zh-tw/docs/blocks/data-table-group-02) 可以調整欄寬。拖曳標題邊緣。`columnResizeMode` 預設是 `onChange`。欄位很多、又有釘選欄的寬表，用 `onEnd`，放開才更新欄寬。
+Candidate Tree 與 ESG Emission Tree 資料表格區塊可以調整欄寬。拖曳標題邊緣。`columnResizeMode` 預設是 `onChange`。欄位很多、又有釘選欄的寬表，用 `onEnd`，放開才更新欄寬。
 
-兩個 block 都要重新安裝。Group 02 的排序圖示從 chevron up 換成這一對 caret，並移除 `@vital-design/icon-chevron-up`。`@vital-design/icon-chevron-down` 仍用於列的軌道。排序標籤會截斷，欄變窄時 caret 仍然看得到。
+ESG Emission Tree 的排序圖示從 chevron up 換成這一對 caret，並移除 `@vital-design/icon-chevron-up`。`@vital-design/icon-chevron-down` 仍用於列的軌道。排序標籤會截斷，欄變窄時 caret 仍然看得到。
 
-```bash
-npx shadcn@latest add @vital-design/data-table-group-01
-npx shadcn@latest add @vital-design/data-table-group-02
-```
+這兩個區塊後來已由 [Data Table](/zh-tw/docs/blocks/data-table) 取代。
 
 ## 2026 年 9 月 — Registry 上線 vittal.design
 
@@ -94,7 +116,7 @@ Registry URL：`https://vittal.design/r/{name}.json`
 ### 區塊
 
 - Cloud Sidebar：[flat](/zh-tw/docs/blocks/sidebar/cloud/flat)、[inline submenus](/zh-tw/docs/blocks/sidebar/cloud/inline-submenus)、[collapsible submenus](/zh-tw/docs/blocks/sidebar/cloud/collapsible-submenus)、[dropdown submenus](/zh-tw/docs/blocks/sidebar/cloud/dropdown-submenus)、[secondary nav](/zh-tw/docs/blocks/sidebar/cloud/secondary-nav)、[header actions](/zh-tw/docs/blocks/sidebar/cloud/header-actions)
-- Data Table：[group 01](/zh-tw/docs/blocks/data-table-group-01)、[group 02](/zh-tw/docs/blocks/data-table-group-02)、[group 04](/zh-tw/docs/blocks/data-table-group-04)
+- Data Table：candidate tree、ESG emission tree、editable cells（後來已由 [Data Table](/zh-tw/docs/blocks/data-table) 取代）
 
 ### 設計變數
 

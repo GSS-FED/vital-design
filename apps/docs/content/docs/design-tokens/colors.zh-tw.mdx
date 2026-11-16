@@ -111,7 +111,7 @@ primitive  →  semantic  →  component
 
 ### 表單
 
-框線、輸入框線條與焦點環。`border` 是標準的實心分隔；`input` 預設與它相同，但可以分開調整主題；`ring` 畫焦點外框。
+框線、輸入框線條與焦點環。`border` 是 0.08 的細線，用於分隔線與單邊框，也是沒有指定顏色的 `border` class 的預設色。`border-overlap` 是實色，用於會相疊或交叉的邊線，例如群組中的 avatar 外框或樹狀軌道；半透明的線在那裡會變深。`input` 畫表單欄位的線條；`ring` 畫焦點外框。
 
 <ColorPalette tokens={semanticFormTokens} columns={3} />
 
