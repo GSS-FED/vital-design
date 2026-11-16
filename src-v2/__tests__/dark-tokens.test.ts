@@ -1,8 +1,27 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import { describe, expect, it } from 'vitest';
-import { vitalThemeCssVars } from '../../registry/vital-theme-vars';
+
+// Read the theme the way consumers install it. Importing
+// registry/vital-theme-vars.ts would pull a tsconfig.node file into the root
+// project and fail `tsc` with TS6305.
+const registry = JSON.parse(
+  fs.readFileSync(
+    path.resolve(__dirname, '../../registry.json'),
+    'utf8',
+  ),
+) as {
+  items: {
+    name: string;
+    cssVars?: Record<'light' | 'dark', Record<string, string>>;
+  }[];
+};
+const theme = registry.items.find(
+  (item) => item.name === 'vital-theme',
+);
 
 describe('dark color tokens', () => {
-  const { light, dark } = vitalThemeCssVars;
+  const { light, dark } = theme!.cssVars!;
 
   it('keeps light values and only overrides existing names', () => {
     expect(light['primary-500']).toBe('#0E86FE');
@@ -12,9 +31,7 @@ describe('dark color tokens', () => {
     for (const name of Object.keys(dark)) {
       expect(name.startsWith('dark-')).toBe(false);
       expect(light).toHaveProperty(name);
-      expect(dark[name as keyof typeof dark]).not.toBe(
-        light[name as keyof typeof light],
-      );
+      expect(dark[name]).not.toBe(light[name]);
     }
   });
 

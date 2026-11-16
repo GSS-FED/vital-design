@@ -2,7 +2,7 @@ import {
   DocsContainer,
   type DocsContainerProps,
 } from '@storybook/blocks';
-import { useEffect, useState } from 'react';
+import { type PropsWithChildren, useEffect, useState } from 'react';
 import { addons } from 'storybook/internal/preview-api';
 import {
   storybookThemeVars,
@@ -12,7 +12,7 @@ import {
 export function ThemedDocsContainer({
   children,
   context,
-}: DocsContainerProps) {
+}: PropsWithChildren<DocsContainerProps>) {
   const [theme, setTheme] = useState(() =>
     storybookThemeVars(themeFromSearch(window.location.search)),
   );
