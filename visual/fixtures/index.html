@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Vital Design fixtures</title>
+    <style>
+      /* Same layouts as Storybook's iframe (parameters.layout). */
+      body.layout-padded {
+        margin: 0;
+        padding: 1rem;
+        box-sizing: border-box;
+      }
+      body.layout-fullscreen {
+        margin: 0;
+        padding: 0;
+      }
+      body.layout-centered {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        min-height: 100vh;
+      }
+      body.layout-centered #root {
+        box-sizing: border-box;
+        margin: auto;
+        padding: 1rem;
+        max-height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./main.tsx"></script>
+  </body>
+</html>

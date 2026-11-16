@@ -32,7 +32,7 @@ describe('Calendar', () => {
   });
 
   it('calls onSelect with the clicked date in single mode', () => {
-    const onSelect = vi.fn<[Date | undefined], void>();
+    const onSelect = vi.fn<(value: Date | undefined) => void>();
     render(
       <Calendar
         mode="single"
@@ -107,7 +107,7 @@ describe('Calendar', () => {
   });
 
   it('jumps a full year when the year nav is clicked', () => {
-    const onMonthChange = vi.fn<[Date], void>();
+    const onMonthChange = vi.fn<(value: Date) => void>();
     render(
       <Calendar
         mode="single"
@@ -127,7 +127,7 @@ describe('Calendar', () => {
   });
 
   it('clamps year jumps to endMonth', () => {
-    const onMonthChange = vi.fn<[Date], void>();
+    const onMonthChange = vi.fn<(value: Date) => void>();
     render(
       <Calendar
         mode="single"

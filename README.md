@@ -36,10 +36,10 @@ npx shadcn@latest add @vital-design/button
 
 ### 環境要求
 
-- Node.js >=20.18.1（開發 / registry build）
+- Node.js >=22.12（開發 / registry build；見 `.nvmrc`）
 - pnpm 10+
 
-> `>=20.18.1` 是本 repo 開發與 registry build 的工具鏈需求；已發布套件的使用端需求仍以套件的 peer dependencies 與實際 runtime 為準。
+> `>=22.12` 是本 repo 開發與 registry build 的工具鏈需求；已發布套件的使用端需求仍以套件的 peer dependencies 與實際 runtime 為準。
 
 ### 常用指令
 
@@ -50,7 +50,9 @@ npx shadcn@latest add @vital-design/button
 | `pnpm run build`                  | 編譯、打包到 `dist` 資料夾                                           |
 | `pnpm run lint`                   | 以 Oxlint 檢查程式碼                                                 |
 | `pnpm run format`                 | 以 Prettier 整理程式碼                                               |
-| `pnpm run test`                   | 執行所有測試案例                                                     |
+| `pnpm run test`                   | 執行單元測試（Vitest `unit` project，jsdom）                         |
+| `pnpm run test:visual`            | 視覺回歸：在 Chromium 截每個 src-v2 story 與文件範例並比對 baseline  |
+| `pnpm run fixtures:dev`           | 開啟 fixture app：一個 story / 範例一個 URL                          |
 | `pnpm run test:coverage`          | 計算測試覆蓋率                                                       |
 | `pnpm run test:watch`             | 監測到檔案變更時重新執行相關測試案例                                 |
 | `pnpm run storybook:build`        | 把 Storybook 打包成靜態網頁                                          |

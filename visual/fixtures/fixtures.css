@@ -1,0 +1,4 @@
+@import '../../src-v2/styles/globals.css';
+
+/* Vite's root is visual/fixtures; scan the repo like Storybook does. */
+@source '../..';

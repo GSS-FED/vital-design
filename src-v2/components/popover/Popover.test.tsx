@@ -30,11 +30,14 @@ const statusPayload: SharedTriggerPayload = {
   label: '審核中',
 };
 
-const ResizeObserverMock = vi.fn(() => ({
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-  disconnect: vi.fn(),
-}));
+// A class, not an arrow function: the mock is called with `new`.
+const ResizeObserverMock = vi.fn(
+  class {
+    observe = vi.fn();
+    unobserve = vi.fn();
+    disconnect = vi.fn();
+  },
+);
 
 vi.stubGlobal('ResizeObserver', ResizeObserverMock);
 
@@ -119,7 +122,8 @@ describe('Popover', () => {
   });
 
   it('fires onOpenChange when state changes', async () => {
-    const onOpenChange = vi.fn<[boolean, unknown], void>();
+    const onOpenChange =
+      vi.fn<(value: boolean, details: unknown) => void>();
 
     render(
       <Popover onOpenChange={onOpenChange}>
