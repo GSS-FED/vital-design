@@ -12,11 +12,11 @@ export const ui = [
       '@vital-design/utils',
       '@vital-design/vital-theme',
       '@vital-design/dropdown-menu',
-      '@vital-design/icon-chevron-left',
-      '@vital-design/icon-chevron-right',
+      '@vital-design/icon-angle-left-solid',
+      '@vital-design/icon-angle-left-to-line',
+      '@vital-design/icon-angle-right-solid',
+      '@vital-design/icon-angle-right-to-line',
       '@vital-design/icon-ellipsis',
-      '@vital-design/icon-page-first',
-      '@vital-design/icon-page-last',
     ],
     files: [
       {

@@ -41,8 +41,6 @@ export type RegistryItemName =
   | 'icon-info'
   | 'icon-minus'
   | 'icon-minus-solid'
-  | 'icon-page-first'
-  | 'icon-page-last'
   | 'icon-panel-left'
   | 'icon-note'
   | 'icon-placeholder'

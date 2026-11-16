@@ -800,32 +800,6 @@
       ]
     },
     {
-      "name": "icon-page-first",
-      "type": "registry:ui",
-      "title": "Page First Icon",
-      "description": "Page First Icon component",
-      "files": [
-        {
-          "path": "src-v2/icons/PageFirstIcon.tsx",
-          "target": "src/components/icons/PageFirstIcon.tsx",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "icon-page-last",
-      "type": "registry:ui",
-      "title": "Page Last Icon",
-      "description": "Page Last Icon component",
-      "files": [
-        {
-          "path": "src-v2/icons/PageLastIcon.tsx",
-          "target": "src/components/icons/PageLastIcon.tsx",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
       "name": "icon-panel-left",
       "type": "registry:ui",
       "title": "Panel Left Icon",
@@ -1214,16 +1188,6 @@
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/PageFirstIcon.tsx",
-          "target": "src/components/icons/PageFirstIcon.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src-v2/icons/PageLastIcon.tsx",
-          "target": "src/components/icons/PageLastIcon.tsx",
-          "type": "registry:ui"
-        },
-        {
           "path": "src-v2/icons/PanelLeftIcon.tsx",
           "target": "src/components/icons/PanelLeftIcon.tsx",
           "type": "registry:ui"
@@ -1332,11 +1296,11 @@
         "@vital-design/utils",
         "@vital-design/vital-theme",
         "@vital-design/dropdown-menu",
-        "@vital-design/icon-chevron-left",
-        "@vital-design/icon-chevron-right",
-        "@vital-design/icon-ellipsis",
-        "@vital-design/icon-page-first",
-        "@vital-design/icon-page-last"
+        "@vital-design/icon-angle-left-solid",
+        "@vital-design/icon-angle-left-to-line",
+        "@vital-design/icon-angle-right-solid",
+        "@vital-design/icon-angle-right-to-line",
+        "@vital-design/icon-ellipsis"
       ],
       "files": [
         {

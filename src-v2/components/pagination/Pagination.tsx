@@ -6,11 +6,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/dropdown-menu/DropdownMenu';
-import { ChevronLeftIcon } from '@/icons/ChevronLeftIcon';
-import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
+import { AngleLeftSolidIcon } from '@/icons/AngleLeftSolidIcon';
+import { AngleLeftToLineIcon } from '@/icons/AngleLeftToLineIcon';
+import { AngleRightSolidIcon } from '@/icons/AngleRightSolidIcon';
+import { AngleRightToLineIcon } from '@/icons/AngleRightToLineIcon';
 import { EllipsisIcon } from '@/icons/EllipsisIcon';
-import { PageFirstIcon } from '@/icons/PageFirstIcon';
-import { PageLastIcon } from '@/icons/PageLastIcon';
 import { cn } from '@/lib/utils';
 import { useRender } from '@base-ui/react/use-render';
 import type { ComponentProps, MouseEvent, ReactNode } from 'react';
@@ -118,9 +118,9 @@ const PaginationPrevious = function PaginationPrevious({
       className={cn('me-1', className)}
       {...props}
     >
-      <ChevronLeftIcon
+      <AngleLeftSolidIcon
         data-slot="pagination-icon"
-        className="size-3 rtl:rotate-180"
+        className="size-[18px] rtl:rotate-180"
       />
       {children}
     </PaginationLink>
@@ -142,9 +142,9 @@ const PaginationNext = function PaginationNext({
       {...props}
     >
       {children}
-      <ChevronRightIcon
+      <AngleRightSolidIcon
         data-slot="pagination-icon"
-        className="size-3 rtl:rotate-180"
+        className="size-[18px] rtl:rotate-180"
       />
     </PaginationLink>
   );
@@ -162,7 +162,7 @@ const PaginationFirst = function PaginationFirst({
       data-slot="pagination-first"
       {...props}
     >
-      <PageFirstIcon
+      <AngleLeftToLineIcon
         data-slot="pagination-icon"
         className="size-[18px] rtl:rotate-180"
       />
@@ -184,7 +184,7 @@ const PaginationLast = function PaginationLast({
       {...props}
     >
       {children}
-      <PageLastIcon
+      <AngleRightToLineIcon
         data-slot="pagination-icon"
         className="size-[18px] rtl:rotate-180"
       />
@@ -221,7 +221,7 @@ const PaginationEllipsis = function PaginationEllipsis({
           className,
         )}
       >
-        <EllipsisIcon className="size-[18px] [&_path]:[fill-opacity:1]" />
+        <EllipsisIcon className="size-[18px]" />
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="center"
