@@ -120,7 +120,7 @@ export function AddRow({
               style={{ left: indent }}
             />
           ) : null}
-          <PlusIcon className="size-3 shrink-0" />
+          <PlusIcon className="size-4.5 shrink-0" />
           {text}
         </button>
       </TableCell>

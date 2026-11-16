@@ -125,7 +125,7 @@ export function SelectionBar({
               onClick={onClear}
               className="flex size-5 cursor-pointer items-center justify-center text-white/85 hover:text-white focus-visible:shadow-focus-primary focus-visible:outline-none"
             >
-              <XmarkIcon className="size-3" />
+              <XmarkIcon className="size-5" />
             </button>
           </span>
         </div>

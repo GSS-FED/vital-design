@@ -46,7 +46,7 @@ export const blocks: VitalRegistryItem[] = [
       '@vital-design/toolbar',
       '@vital-design/icon-caret-down',
       '@vital-design/icon-caret-up',
-      '@vital-design/icon-check',
+      '@vital-design/icon-check-solid',
       '@vital-design/icon-angle-down',
       '@vital-design/icon-xmark',
       '@vital-design/icon-ellipsis',
