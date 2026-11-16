@@ -138,8 +138,8 @@ const SheetContent = function SheetContent({
         data-side={side}
         className={cn(
           'fixed z-[9999] box-border flex flex-col gap-4 bg-white p-6 font-sans text-grayscale-opacity-800 shadow-top-level outline-none transition-transform duration-300 ease-in-out',
-          'data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:max-h-[80vh] data-[side=top]:border-b data-[side=top]:border-grayscale-opacity-200 data-[side=top]:data-starting-style:-translate-y-full data-[side=top]:data-ending-style:-translate-y-full',
-          'data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:max-h-[80vh] data-[side=bottom]:border-t data-[side=bottom]:border-grayscale-opacity-200 data-[side=bottom]:data-starting-style:translate-y-full data-[side=bottom]:data-ending-style:translate-y-full',
+          'data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:max-h-[80dvh] data-[side=top]:border-b data-[side=top]:border-grayscale-opacity-200 data-[side=top]:data-starting-style:-translate-y-full data-[side=top]:data-ending-style:-translate-y-full',
+          'data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:max-h-[80dvh] data-[side=bottom]:border-t data-[side=bottom]:border-grayscale-opacity-200 data-[side=bottom]:data-starting-style:translate-y-full data-[side=bottom]:data-ending-style:translate-y-full',
           'data-[side=left]:inset-y-0 data-[side=left]:left-0 data-[side=left]:h-dvh data-[side=left]:w-3/4 data-[side=left]:max-w-md data-[side=left]:border-r data-[side=left]:border-grayscale-opacity-200 data-[side=left]:data-starting-style:-translate-x-full data-[side=left]:data-ending-style:-translate-x-full',
           'data-[side=right]:inset-y-0 data-[side=right]:right-0 data-[side=right]:h-dvh data-[side=right]:w-3/4 data-[side=right]:max-w-md data-[side=right]:border-l data-[side=right]:border-grayscale-opacity-200 data-[side=right]:data-starting-style:translate-x-full data-[side=right]:data-ending-style:translate-x-full',
           className,

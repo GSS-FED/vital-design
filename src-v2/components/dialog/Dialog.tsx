@@ -34,7 +34,7 @@ function mergeClassName<State>(
 }
 
 const dialogPopupVariants = cva(
-  'box-border flex w-full max-h-[calc(100vh-2rem)] flex-col overflow-hidden rounded-[var(--radius-sm)] bg-white font-sans text-grayscale-opacity-800 shadow-top-level outline-none duration-150 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95',
+  'box-border flex w-full max-h-full min-h-0 flex-col overflow-hidden rounded-[var(--radius-sm)] bg-white font-sans text-grayscale-opacity-800 shadow-top-level outline-none duration-150 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95',
   {
     variants: {
       size: {

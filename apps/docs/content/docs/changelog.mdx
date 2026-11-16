@@ -9,6 +9,13 @@ That package is built from `src/` and stays available for existing apps. New wor
 
 Newest entries are at the top. Headings use the month the change shipped. We only record changes that affect how you install or use the registry — new components, breaking usage, tokens, and install steps.
 
+## November 2026 — Dialog and Sheet heights on mobile
+
+### Components
+
+- **Dialog:** the popup's max height now follows the viewport it sits in (`max-h-full`) instead of `calc(100vh-2rem)`. On mobile browsers, `100vh` is taller than the visible area while the address bar shows, so a tall dialog ran under the toolbar and lost its bottom spacing. It now keeps the viewport's 1rem padding and scrolls inside. If you added your own `max-h-[calc(100dvh-…)]` to work around this, you can drop it. Reinstall `dialog` to pick this up.
+- **Sheet:** `top` and `bottom` sheets cap at `80dvh` instead of `80vh`, to match the `h-dvh` that `left` and `right` sheets already use. Reinstall `sheet` to pick this up.
+
 ## October 2026 — React 19
 
 The registry and the docs site are developed and tested on React 19. New projects should use React 19. See [Installation](/docs/getting-started/installation).
