@@ -2,8 +2,6 @@
 
 建立一個由多個 Vital Design 元件組成的複合 UI 區塊。
 
-> 目前 stable 版本可能沒有任何正式 block 檔案可供比對。請把這份指令視為未來新增 block 的現行流程，不需先恢復舊 block 或解開註解。
-
 ## 使用方式
 
 ```
@@ -23,8 +21,8 @@
 
 3. **檢查目前 blocks 目錄**
 
-   - 若 `src-v2/blocks/` 已有正式 block，參考相近案例的結構與命名
-   - 若目前沒有既有 block，直接依組合指南與 template 建立
+   - 參考 `src-v2/blocks/` 既有正式 block（如 `sidebar-cloud-01`..`06`、`data-table/data-table-group-01`、`02`、`04`）的結構與命名
+   - 依組合指南與 `block-template.tsx` 建立新 block
 
 4. **建立 block 檔案**
 

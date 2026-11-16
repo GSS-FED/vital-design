@@ -1,8 +1,8 @@
 // Block 結構模板
 // 替換 BlockName、block-name、props 定義與 JSX 內容
-import ComponentA from '@/components/component-a/ComponentA';
-import ComponentB from '@/components/component-b/ComponentB';
-import { cn } from '@/utils/cn';
+import { ComponentA } from '@/components/component-a/ComponentA';
+import { ComponentB } from '@/components/component-b/ComponentB';
+import { cn } from '@/lib/utils';
 import type { ReactNode } from 'react';
 
 export type BlockNameProps = {
@@ -55,6 +55,7 @@ export function BlockName({
 //     '@vital-design/utils',
 //     '@vital-design/component-a',
 //     '@vital-design/component-b',
+//     '@vital-design/vital-theme',
 //   ],
 //   files: [
 //     {

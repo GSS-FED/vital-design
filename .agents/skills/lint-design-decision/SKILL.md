@@ -1,12 +1,6 @@
 ---
 name: lint-design-decision
-description: >
-  Use when triaging `pnpm run lint:design` / `lint:design:audit` findings
-  (@shadcn/lint: no-restyle, no-raw-colors, no-unknown-classes,
-  require-static-classes) and deciding whether to change code or change the
-  lint policy (contracts / ignoreImports / allow). Triggered by "lint:design
-  warnings", "no-restyle", "should this be a contract or a fix", "shadcn lint
-  說這裡不行", "要改 code 還是改 config".
+description: "Triages pnpm run lint:design and lint:design:audit findings (@shadcn/lint: no-restyle, no-raw-colors, no-unknown-classes, require-static-classes) to decide whether to fix component/caller code or update the lint policy (contracts, ignoreImports, allow). Use when asked about lint:design warnings, no-restyle findings, or whether a style override should be a contract or a code fix."
 allowed-tools: Read, Edit, Bash
 ---
 

@@ -1,6 +1,6 @@
 'use client';
 
-import ComponentName from '@/components/component-name/ComponentName';
+import { ComponentName } from '@/components/component-name/ComponentName';
 import { useState } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 

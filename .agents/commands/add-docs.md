@@ -46,11 +46,13 @@
 
 7. **Changelog**（使用者可見的變更才寫）
 
-   - 新元件、breaking 用法、token、安裝方式：在 `apps/docs/content/docs/changelog.mdx` 最上方補一則
+   - 新元件、breaking 用法、token、安裝方式：在 `apps/docs/content/docs/changelog.mdx` 最上方補一則，並同步更新 `changelog.zh-tw.mdx`
    - 不要寫內部 refactor / CI；不要用 npm 版號
 
 8. **驗證文件站**
    ```bash
+   pnpm run lint:design
+   pnpm docs:lint
    pnpm docs:build
    ```
 

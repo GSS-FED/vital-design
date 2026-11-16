@@ -1,7 +1,6 @@
 ---
 name: build-shadcn-ui
-description: >
-  Use when building, refactoring, or reviewing Vital Design `src-v2` components to match the repo's shadcn-like library style: Base UI wrappers, compound components, `data-slot` contracts, registry-ready imports, Tailwind v4 classes, docs/stories/tests, and API cleanup for Select, Combobox, Cascader, inputs, buttons, tags, or new UI components.
+description: "Builds, refactors, or reviews Vital Design src-v2 components to match the library's shadcn-style architecture: Base UI wrappers, compound components, React 19 ref props, data-slot contracts, CvaProps variant types, registry-ready imports, Tailwind v4 tokens, and docs/stories/tests."
 ---
 
 # Build Shadcn UI
@@ -11,9 +10,9 @@ Build Vital Design components as registry-ready primitives first. Prefer thin, c
 ## Workflow
 
 1. Read the closest existing component before editing.
-   - Base UI wrappers: `src-v2/components/select/Select.tsx`, `src-v2/components/combobox/Combobox.tsx`.
+   - Base UI wrappers: `src-v2/components/select/Select.tsx`, `src-v2/components/combobox/Combobox.tsx`, `src-v2/components/dialog/Dialog.tsx`.
    - Compound layout: `src-v2/components/button/button-group/ButtonGroup.tsx`, `src-v2/components/input/input-group/InputGroup.tsx`.
-   - Command/list internals: `src-v2/components/command/Command.tsx`, `src-v2/components/cascader/Cascader.tsx`.
+   - Command/list internals: `src-v2/components/command/Command.tsx`, `src-v2/components/autocomplete/Autocomplete.tsx`.
 
 2. Pick the primitive boundary.
    - Use `@base-ui/react` for interactive primitives when available.
@@ -21,6 +20,7 @@ Build Vital Design components as registry-ready primitives first. Prefer thin, c
 
 3. Shape the public API.
    - Start from `ComponentPropsWithoutRef<typeof BaseX.Part>` and omit only props you must own.
+   - Accept `ref` directly from props (`ref?: Ref<ComponentRef<typeof BaseX.Part>>` or `Ref<HTML...Element>`); do not use `forwardRef` or deprecated `ElementRef`.
    - Do not invent state props unless the component owns real behavior.
    - Keep compatibility props only when they protect existing usage; map them to native/base attrs.
 
@@ -66,6 +66,8 @@ Build Vital Design components as registry-ready primitives first. Prefer thin, c
 
 ```bash
 pnpm exec vitest run src-v2/components/<component>/<Component>.test.tsx
+pnpm run lint
+pnpm run lint:design
 pnpm run build
 ```
 

@@ -1,6 +1,6 @@
 ---
 name: use-vital-design
-description: "Use when composing UI from Vital Design v2: installing registry components, building app UI with them, or restyling an existing app onto Vital Design."
+description: "Installs and composes React UI from the Vital Design (Vittal Design) v2 registry (@vital-design on vittal.design). Use when adding @vital-design components or blocks, building screens or forms with Vital Design primitives, or migrating an existing React or Bootstrap app to Vital Design. Do not use when authoring components inside the @fed/vital-design source repository."
 allowed-tools: Read, Write, Edit, Bash
 ---
 
@@ -10,13 +10,14 @@ Guide for assembling Vital Design in a **consumer** app (copied registry compone
 
 ## Invariants
 
-1. **Consumer imports.** Import each primitive and icon from the exact file the CLI wrote (typically `@/components/ui/Button`, `@/components/icons/SearchIcon`).
+1. **Consumer imports.** Import each primitive, block, and icon via named export from the exact file the CLI wrote (typically `@/components/ui/Button`, `@/components/icons/SearchIcon`, `@/blocks/sidebar-cloud-01/app-sidebar`). Never use default imports or icon barrel imports.
 
    ```typescript
    import { SearchIcon } from '@/components/icons/SearchIcon';
+   import { Button } from '@/components/ui/Button';
    ```
 
-2. **Icon slots.** Icons are Button/SplitButton children marked with `data-icon`.
+2. **Icon slots & sizing.** Icons and `<Spinner />` are `Button` / `LinkButton` / `SplitButton` children marked with `data-icon="inline-start"` or `data-icon="inline-end"`. Never pass `color`, `opacity`, or `fillOpacity` props to icons; style with Tailwind `size-*` and `text-*`.
 
    ```tsx
    <Button>
@@ -25,7 +26,7 @@ Guide for assembling Vital Design in a **consumer** app (copied registry compone
    </Button>
    ```
 
-3. **Token color.** Layout/chrome uses token utilities (`bg-primary-500`, `text-grayscale-opacity-900`, `border-grayscale-opacity-200`) merged with `cn(...)`. Button/SplitButton **color** is the primitive `theme` prop (`primary`, `default`, `success`, …). Ghost without `theme` is primary; pass `theme="default"` for a quiet action.
+3. **Token color & Button props.** Layout/chrome uses token utilities (`bg-primary-500`, `text-grayscale-opacity-900`, `border-grayscale-opacity-200`) merged with `cn(...)`. `Button` / `LinkButton` / `SplitButton` color is `theme` (`'primary' | 'default' | 'success' | 'info' | 'warning' | 'alarm' | 'dangerous'`), `variant` is `'default' | 'text' | 'ghost'` (`text` and `ghost` do not accept `dangerous`; use `alarm`), and `size` is `'md' | 'lg' | 'icon-md' | 'icon-lg'`. Ghost without `theme` is primary; pass `theme="default"` for a quiet neutral action.
 
 ## Workflow
 
@@ -195,7 +196,7 @@ A registry add can append Vital's `@theme inline` token definitions after existi
 
 `Button` with `nativeButton={false} render={<Link href="…" />}` adds `role="button"` and drops the link role. Do not use it for navigation.
 
-**DropdownMenuTrigger** takes its visible control through `render`:
+**Triggers use `render`, not `asChild`.** Pass the visible control to `DialogTrigger`, `DropdownMenuTrigger`, `PopoverTrigger`, `TooltipTrigger`, `SheetTrigger`, and `CollapsibleTrigger` through `render`:
 
 ```tsx
 <DropdownMenuTrigger
@@ -229,11 +230,16 @@ A registry add can append Vital's `@theme inline` token definitions after existi
 </ButtonGroup>
 ```
 
-**`Select`** takes `items` (`{ label, value }[]`) so the closed trigger shows the selected label rather than the raw value.
+**Selection vs. action menus**:
+- **`Select`** takes `items` (`{ label, value }[]`) so the closed trigger shows the selected label rather than the raw value.
+- **`Combobox`** is a searchable input picker for single or multi-select values; **`Autocomplete`** is a free-form text input with filtered suggestions.
+- **`DropdownMenuItem`** closes on pick (use for commands). `DropdownMenuRadioItem` / `CheckboxItem` stay open; for bound form values use `Select` or `Combobox`.
 
-**`DropdownMenuItem`** closes on pick (use for commands). `DropdownMenuRadioItem` / `CheckboxItem` stay open; for bound values use `Select` / `Combobox`.
-
-**Vital `Checkbox`** is controlled with `checked` (`boolean`) and `onCheckedChange` (`(checked: boolean) => void`). Mixed state is a separate prop, `indeterminate` (`boolean`); `aria-checked` is then `"mixed"`. Do not pass `'indeterminate'` as `checked`.
+**Form & control callbacks**:
+- **`Input` and `Textarea`** forward the DOM change event to `onChange`.
+- **`PasswordInput` and `SearchBar`** call `onChange` with `(value: string)` (not a DOM event); `SearchBar` also fires `onSearch?: (value: string) => void` on Enter or icon click.
+- **`NumberInput`** uses `value` (`number | null`) and `onValueChange` (`(value: number | null, eventDetails) => void`).
+- **`Checkbox` and `Switch`** are controlled with `checked` (`boolean`) and `onCheckedChange` (`(checked: boolean) => void`). On `Checkbox`, mixed state is a separate `indeterminate` (`boolean`) prop (`aria-checked="mixed"`); do not pass `'indeterminate'` as `checked`.
 
 ```tsx
 <Checkbox
@@ -254,7 +260,9 @@ Re-read every file this run created or edited against Invariants 1–3. Run the 
 ## Pointers
 
 - Recipes and registry ids: [composition-guide.md](./composition-guide.md)
+- Bootstrap migration: [migrating-from-bootstrap.md](./migrating-from-bootstrap.md)
 - Catalog: `https://vittal.design/llms.txt`
+- Registry manifest: `https://vittal.design/r/registry.json`
 - Item source/API: `https://vittal.design/r/{name}.json`
 - Rendered docs (browser): `https://vittal.design/docs/components/{name}`
 - Tailwind setup: `https://vittal.design/docs/getting-started/tailwind-setup`

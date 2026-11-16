@@ -1,10 +1,6 @@
 ---
 name: check-quality
-description: >
-  Use when the developer asks to check code quality, run tests, validate the
-  registry, or ensure everything is working. Triggered by "/check-quality",
-  "有問題嗎", "幫我檢查品質", "run the tests", "check if everything is ok",
-  "run quality checks", "validate registry", "確認測試通過".
+description: "Runs the full Vital Design quality gate: TypeScript typecheck, Oxlint (repo, design lint, and docs), Vitest tests, registry validation, library and docs builds, and AI workflow doc consistency checks. Use when asked to check code quality, run tests, validate the registry, or verify everything works (e.g. '/check-quality', '有問題嗎', '幫我檢查品質', 'run quality checks', 'validate registry')."
 allowed-tools: Read, Write, Edit, Bash
 ---
 
@@ -19,9 +15,10 @@ allowed-tools: Read, Write, Edit, Bash
    pnpm exec tsc --noEmit
    ```
 
-2. **Oxlint 檢查**（max-warnings: 0，任何警告都失敗）
+2. **Oxlint 與設計系統檢查**（max-warnings: 0，任何警告都失敗）
    ```bash
    pnpm run lint
+   pnpm run lint:design
    pnpm docs:lint
    ```
 

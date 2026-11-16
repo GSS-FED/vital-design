@@ -1,11 +1,6 @@
 ---
 name: add-registry
-description: >
-  Use ONLY when explicitly asked to add a component or block to the registry.
-  This skill has side effects (modifies registry/ TypeScript files and runs build commands).
-  Triggered by "/add-registry <name>", "把 <name> 加入 registry", or
-  "add <name> to registry". Do NOT auto-trigger — always wait for explicit
-  user instruction before modifying registry files.
+description: "Adds a Vital Design v2 component, block, or hook to registry/*.ts and builds the shadcn registry output (registry.json and public/r/*.json). Use ONLY when explicitly asked to add an item to the registry (e.g. '/add-registry <name>', '把 <name> 加入 registry', 'add <name> to registry'). Do not trigger automatically without explicit user instruction."
 allowed-tools: Read, Write, Edit, Bash
 ---
 

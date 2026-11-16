@@ -7,6 +7,43 @@ const OPTIONAL_URLS = new Set([
 
 const SKIP_URLS = new Set(['/llms.txt']);
 
+const PAGE_REGISTRY_ITEMS: Record<string, string[]> = {
+  '/docs/getting-started/design-lint': ['vital-design-lint'],
+  '/docs/components/icons': ['icon-<name>', 'vital-icons'],
+  '/docs/components/input': [
+    'input',
+    'password-input',
+    'input-group',
+  ],
+  '/docs/blocks/sidebar/cloud/flat': ['sidebar-cloud-01'],
+  '/docs/blocks/sidebar/cloud/inline-submenus': ['sidebar-cloud-02'],
+  '/docs/blocks/sidebar/cloud/dropdown-submenus': [
+    'sidebar-cloud-03',
+  ],
+  '/docs/blocks/sidebar/cloud/secondary-nav': ['sidebar-cloud-04'],
+  '/docs/blocks/sidebar/cloud/header-actions': ['sidebar-cloud-05'],
+  '/docs/blocks/sidebar/cloud/collapsible-submenus': [
+    'sidebar-cloud-06',
+  ],
+};
+
+function registryItemsForUrl(url: string): string[] {
+  const mapped = PAGE_REGISTRY_ITEMS[url];
+  if (mapped) return mapped;
+
+  if (url.startsWith('/docs/components/')) {
+    const slug = url.slice('/docs/components/'.length);
+    if (slug && !slug.includes('/')) return [slug];
+  }
+
+  if (url.startsWith('/docs/blocks/')) {
+    const slug = url.slice('/docs/blocks/'.length);
+    if (slug && !slug.includes('/')) return [slug];
+  }
+
+  return [];
+}
+
 type TreePage = {
   type: 'page';
   name: ReactNode;
@@ -48,9 +85,15 @@ function formatLink(
   const name = asText(page.name);
   const title =
     prefix.length > 0 ? `${prefix.join(' / ')} / ${name}` : name;
+  const items = registryItemsForUrl(page.url);
+  const registryTag =
+    items.length > 0
+      ? `(${items.map((item) => `\`@vital-design/${item}\``).join(', ')})`
+      : '';
   const description = descriptions.get(page.url);
-  return description
-    ? `- [${title}](${page.url}): ${description}`
+  const detail = [registryTag, description].filter(Boolean).join(' ');
+  return detail
+    ? `- [${title}](${page.url}): ${detail}`
     : `- [${title}](${page.url})`;
 }
 
@@ -140,22 +183,44 @@ export function buildLlmsIndex(): string {
       else links.push(line);
     }
     collectPages(node.children, [], descriptions, links, optional);
+    if (heading === 'Registry') {
+      links.push(
+        '- [Registry Manifest](/r/registry.json): Machine-readable JSON catalog of all UI components, blocks, hooks, icons, and theme items.',
+        '- [Item JSON Endpoint](/r/button.json): Pattern `/r/{name}.json` returning exact TypeScript source, prop types, variants, and `registryDependencies` for any item.',
+        '- [Base Bundle](/r/vital-design-base.json): (`@vital-design/vital-design-base`) One-command setup installing `vital-theme`, `utils`, and `vital-icons`.',
+        '- [Theme Tokens](/r/vital-theme.json): (`@vital-design/vital-theme`) CSS variables and Tailwind v4 `@theme` tokens.',
+        '- [Design Lint Policy](/r/vital-design-lint.json): (`@vital-design/vital-design-lint`) Oxlint + `@shadcn/lint` policy enforcing Vital Design theme tokens.',
+        '- [Hooks — useDebounceValue](/r/use-debounce-value.json): (`@vital-design/use-debounce-value`) Debounce value hook with configurable delay.',
+        '- [Hooks — useIsMobile](/r/use-is-mobile.json): (`@vital-design/use-is-mobile`) Viewport mobile breakpoint (768px) hook.',
+      );
+    }
     if (links.length > 0) sections.push({ heading, links });
   }
 
   const parts = [
     '# Vittal Design',
     '',
-    '> React 19 component library with TypeScript and Tailwind CSS 4.',
-    '> New work lives in `src-v2/` and is installed from the shadcn-compatible registry.',
+    '> React 19 component library built with TypeScript, Tailwind CSS 4, and Base UI primitives.',
+    '> New components and blocks live in `src-v2/` and are distributed via a shadcn-compatible registry (`@vital-design`).',
     '',
-    'Important notes:',
+    '## Agent Guide',
     '',
-    '- Install components with `npx shadcn@latest add @vital-design/<name>`.',
-    '  Registry: `https://vittal.design/r/{name}.json`',
-    '- `@fed/vital-design` on npm is the legacy `src/` surface. Do not use it for new components.',
-    '- Import icons from exact paths (`@/icons/SearchIcon`), not a barrel.',
-    '- `Button` / `SplitButton` take icons as children with `data-icon="inline-start"` or `data-icon="inline-end"`. There is no `icon` prop.',
+    '- **Install via shadcn CLI**: Add `"@vital-design": "https://vittal.design/r/{name}.json"` under `"registries"` in `components.json`, start the loaded global CSS file with `@import \'tailwindcss\';` and `@import \'tw-animate-css\';`, then run `npx shadcn@latest add --yes @vital-design/<name>`.',
+    '- **Source of truth for props & source code**: Fetch `/r/{name}.json` (e.g. `https://vittal.design/r/button.json`) for the exact TypeScript source, exported parts, `data-slot` attributes, CVA variants, and dependencies. Fetch `https://vittal.design/r/registry.json` to list every published item and `icon-*` glyph.',
+    '- **Legacy package boundary**: `@fed/vital-design` on npm is the legacy v1 (`src/`) surface. Do not use it for new components.',
+    '- **Named exports & exact paths**: All v2 components and icons use named exports. Import from exact file paths — consumer apps: `@/components/ui/<PascalName>` and `@/components/icons/<IconName>`; library repo (`src-v2/`): `@/components/<dir>/<PascalName>` and `@/icons/<IconName>`. Never use barrel imports.',
+    '- **Base UI `render` prop (no `asChild`)**: Triggers (`DialogTrigger`, `DropdownMenuTrigger`, `PopoverTrigger`, `TooltipTrigger`, `SheetTrigger`, `CollapsibleTrigger`) and `LinkButton` take `render={<Element />}` instead of Radix `asChild`.',
+    '- **Button, LinkButton, and SplitButton**:',
+    '  - Pass icons or `<Spinner />` as children marked with `data-icon="inline-start"` or `data-icon="inline-end"`. There is no `icon` prop.',
+    '  - Sizes are `md`, `lg`, `icon-md`, and `icon-lg`.',
+    '  - Color is controlled by `theme` (`primary`, `default`, `success`, `info`, `warning`, `alarm`, `dangerous`), while `variant` is `default`, `text`, or `ghost` (`text` and `ghost` do not accept `dangerous`; use `alarm`). `variant="ghost"` defaults to `theme="primary"`; pass `theme="default"` for a quiet neutral action.',
+    '  - Use `LinkButton` (from `Button.tsx`) for links styled as buttons (`<LinkButton variant="text" render={<Link href="/settings" />}>`). Never use `<Button nativeButton={false} render={<a />}>`, which adds `role="button"`.',
+    '  - `SplitButton` has no built-in menu (`open` + `splitOnClick`). For an action with a menu, compose `ButtonGroup` + `Button` + `DropdownMenu` with the trigger rendered as an `icon-md` `Button`.',
+    '- **Selection & form callbacks**:',
+    '  - Selection split: `Select` = flat single/multi value picker (pass `items={{ label, value }[]}` so the closed trigger renders labels), `Combobox` = searchable value picker, `Autocomplete` = free-form text input with suggestions, `Command` + `Popover` = hierarchical path picker or command palette, `DropdownMenu` = action menu (closes on pick).',
+    "  - `Checkbox` uses `checked: boolean`, `indeterminate: boolean`, and `onCheckedChange: (checked: boolean) => void` (never pass `'indeterminate'` to `checked`).",
+    '  - `PasswordInput` and `SearchBar` pass `(value: string)` to `onChange`; `Input` and `Textarea` pass the DOM change event; `NumberInput` uses `value: number | null` and `onValueChange`.',
+    '- **Tokens & styling**: Use Vital Design token utilities (`bg-primary-500`, `text-grayscale-opacity-900`, `border-grayscale-opacity-200`) merged with `cn()`. Target internal parts via `data-slot`.',
     '',
   ];
 

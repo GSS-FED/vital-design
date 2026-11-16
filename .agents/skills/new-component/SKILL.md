@@ -1,11 +1,6 @@
 ---
 name: new-component
-description: >
-  Use when the developer asks to create a new atomic UI component.
-  Triggered by requests like "建一個 Badge 元件", "新增 Alert 元件",
-  "create a new component called Tooltip", "我需要一個 Progress 元件",
-  "/new-component Badge". Do NOT use for composite blocks containing
-  multiple components — use create-block instead.
+description: "Creates a new atomic UI component in src-v2/components/ with TypeScript types, Vitest tests, and Storybook stories. Use when asked to create a new atomic UI component (e.g. '建一個 Badge 元件', '新增 Alert 元件', 'create a new component called Tooltip', '/new-component Badge'). Do not use for composite blocks combining multiple components — use create-block instead."
 allowed-tools: Read, Write, Edit, Bash
 ---
 
@@ -42,12 +37,13 @@ allowed-tools: Read, Write, Edit, Bash
 7. **驗證**
    ```bash
    pnpm run lint
+   pnpm run lint:design
    pnpm run test
    ```
 
 ## 結構規則
 
-- 會轉發 DOM `ref` 的元件從 props 接收 `ref`，不要用 `forwardRef`
+- 會轉發 DOM `ref` 的元件從 props 接收 `ref`（搭配 `Ref<ComponentRef<...>>` 或 `Ref<HTML...Element>`），不要用 `forwardRef` 或已棄用的 `ElementRef`
 - 使用 named export，不要 default export
 - 使用 CVA 管理 variants（參考 component-template.tsx）；公開 props 用 `CvaProps`，不要 export `xVariants` helper
 - 使用 `cn()` 合併類名（`@/lib/utils`）
