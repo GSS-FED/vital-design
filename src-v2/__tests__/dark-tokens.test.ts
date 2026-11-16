@@ -38,6 +38,7 @@ describe('dark color tokens', () => {
     );
     expect(dark.border).toBe('rgba(255, 255, 255, 0.08)');
     expect(dark['border-overlap']).toBe('#444447');
+    expect(dark.input).toBe('#444447');
   });
 
   it('leaves tokens without a dark source on the light value', () => {
@@ -45,7 +46,6 @@ describe('dark color tokens', () => {
     expect(light['destructive-500']).toBe('#EB5000');
     expect(dark['success-500']).toBeUndefined();
     expect(dark['primary-foreground']).toBeUndefined();
-    expect(dark.input).toBeUndefined();
     expect(dark['avatar-tiffany-fg']).toBeUndefined();
     expect(dark['tag-teal-solid']).toBeUndefined();
   });

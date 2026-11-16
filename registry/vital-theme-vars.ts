@@ -288,6 +288,7 @@ export const vitalThemeCssVars = {
     'warning-foreground': '#FFFFFF',
     border: 'rgba(255, 255, 255, 0.08)',
     'border-overlap': '#444447',
+    input: '#444447',
     ring: '#33CFFF',
     'chart-1': '#33CFFF',
     sidebar: '#2A2A2D',

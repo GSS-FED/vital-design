@@ -89,6 +89,7 @@
     "$type": "color",
     "background": { "$value": "#232327" },
     "card": { "$value": "#232327" },
-    "popover": { "$value": "#232327" }
+    "popover": { "$value": "#232327" },
+    "input": { "$value": "#444447" }
   }
 }

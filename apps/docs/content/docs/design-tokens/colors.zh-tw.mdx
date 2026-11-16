@@ -50,8 +50,8 @@ primitive  →  semantic  →  component
 
 - **Primitive 色階**的暗色值來自 `tokens/dark/colors.json`。`text-grayscale-opacity-800`、`bg-primary-500` 這類色階 class 會自動切換。
 - **引用色階的語意 token** 會用暗色色階重算：`primary` → `primary.500`、`foreground` → `grayscale-opacity.900`、`border` → `grayscale-opacity.200`。
-- **少數語意 token 有自己的暗色值**，寫在 `tokens/dark/colors.json`：`background`、`card`、`popover`（`#232327`）。
-- **以下維持亮色值：** 寫死白色的 `*-foreground`、`input`、下方的 avatar 與 tag 色盤，以及[效果](/zh-tw/docs/design-tokens/effects)頁的陰影與漸層 token。
+- **少數語意 token 有自己的暗色值**，寫在 `tokens/dark/colors.json`：`background`、`card`、`popover`（`#232327`），以及 `input`（`#444447`）。
+- **以下維持亮色值：** 寫死白色的 `*-foreground`、下方的 avatar 與 tag 色盤，以及[效果](/zh-tw/docs/design-tokens/effects)頁的陰影與漸層 token。
 
 `.dark` 的祖先元素會套用 `background` 和 `foreground`，所以放在頁面上的文字會用暗色文字色。
 
