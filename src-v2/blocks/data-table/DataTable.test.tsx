@@ -401,7 +401,7 @@ describe('DataTable', () => {
     ).not.toBeInTheDocument();
 
     fireEvent.click(
-      within(toolbar).getByRole('button', { name: '分群' }),
+      within(toolbar).getByRole('button', { name: '分群：無' }),
     );
     const groupField = screen.getByRole('combobox', { name: '分群' });
     const subgroupField = screen.getByRole('combobox', {
@@ -432,7 +432,7 @@ describe('DataTable', () => {
     expect(screen.getByText('溫室氣體盤查')).toBeInTheDocument();
 
     fireEvent.click(
-      within(toolbar).getByRole('button', { name: '分群' }),
+      within(toolbar).getByRole('button', { name: '分群：專案' }),
     );
     const subgroup = screen.getByRole('combobox', { name: '子分群' });
     fireEvent.click(subgroup);
@@ -448,7 +448,7 @@ describe('DataTable', () => {
       within(subgroupList).getByRole('option', { name: '狀態' }),
     );
     expect(
-      within(toolbar).getByRole('button', { name: '分群' }),
+      within(toolbar).getByRole('button', { name: '分群：專案' }),
     ).toBeInTheDocument();
 
     const statusGroup = screen.getByRole('button', {
@@ -1000,7 +1000,7 @@ describe('DataTable', () => {
 
     fireEvent.click(
       within(screen.getByRole('toolbar')).getByRole('button', {
-        name: '分群',
+        name: '分群：無',
       }),
     );
     fireEvent.click(screen.getByRole('combobox', { name: '分群' }));
@@ -1192,7 +1192,7 @@ describe('DataTable', () => {
     );
 
     expect(
-      screen.getByRole('button', { name: '分群' }),
+      screen.getByRole('button', { name: '分群：狀態' }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: '新增任務' }),
@@ -1203,7 +1203,7 @@ describe('DataTable', () => {
     renderTable();
     const user = userEvent.setup();
 
-    fireEvent.click(screen.getByRole('button', { name: '分群' }));
+    fireEvent.click(screen.getByRole('button', { name: '分群：無' }));
     fireEvent.click(screen.getByRole('combobox', { name: '分群' }));
     await user.click(
       await screen.findByRole('option', { name: '專案' }),
@@ -1346,7 +1346,7 @@ describe('DataTable grouping keys', () => {
       screen.queryByRole('button', { name: '環境盤查' }),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: '分群' }),
+      screen.getByRole('button', { name: '分群：無' }),
     ).toBeInTheDocument();
     expect(
       screen.queryByRole('button', { name: '子分群' }),
@@ -1396,7 +1396,9 @@ describe('DataTable grouping keys', () => {
 
     // Only keys in groupingConfig are offered in the menu.
     const user = userEvent.setup();
-    await user.click(screen.getByRole('button', { name: '分群' }));
+    await user.click(
+      screen.getByRole('button', { name: '分群：Team' }),
+    );
     await user.click(screen.getByRole('combobox', { name: '分群' }));
     expect(
       await screen.findByRole('option', { name: 'Team' }),

@@ -442,6 +442,9 @@ function GroupingMenu({
   onSubgroupChange: (id: string | null) => void;
 }) {
   const subFields = fields.filter((field) => field.id !== groupKey);
+  // The trigger names the first level, as in Figma: 分群：專案 / 分群：無.
+  const groupLabel =
+    fields.find((field) => field.id === groupKey)?.label ?? '無';
   const [open, setOpen] = useState(false);
   const choosing = useRef(false);
 
@@ -458,11 +461,11 @@ function GroupingMenu({
           <Button
             variant="ghost"
             theme="default"
-            className="h-8 rounded-full px-3 font-normal"
+            className="h-8 rounded-full px-3 font-normal has-[_[data-icon=inline-end]]:pr-2.5"
           />
         }
       >
-        分群
+        分群：{groupLabel}
         <ChevronDownIcon data-icon="inline-end" />
       </PopoverTrigger>
       <PopoverContent align="end" className="w-60">
