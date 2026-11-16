@@ -16,5 +16,8 @@ export function baseOptions(locale: DocsLocale): BaseLayoutProps {
           : '/docs/getting-started',
     },
     githubUrl: 'https://github.com/GSS-FED/vital-design',
+    themeSwitch: {
+      mode: 'light-dark',
+    },
   };
 }

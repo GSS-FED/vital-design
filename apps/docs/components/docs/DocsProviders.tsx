@@ -34,7 +34,8 @@ export function DocsProviders({
         SearchDialog: DocsSearchDialog,
       }}
       theme={{
-        enabled: false,
+        defaultTheme: 'light',
+        enableSystem: false,
       }}
     >
       {children}
