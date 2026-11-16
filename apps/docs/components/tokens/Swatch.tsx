@@ -1,29 +1,56 @@
 import type { ReactNode } from 'react';
+import { vitalThemeCssVars } from '../../../../registry/vital-theme-vars';
 
 type ColorEntry = {
   name: string;
-  value?: string;
   utility?: string;
 };
 
-export function ColorSwatch({ name, value, utility }: ColorEntry) {
+const { light, dark } = vitalThemeCssVars;
+const lightValues: Record<string, string> = light;
+const darkValues: Record<string, string> = dark;
+
+// `dark` only lists values that differ from light.
+function themeValues(name: string) {
+  const key = name.replace(/^--/, '');
+  const lightValue = lightValues[key];
+  return { lightValue, darkValue: darkValues[key] ?? lightValue };
+}
+
+// Each chip sits on its own mode's page color, so translucent values read
+// the way they render, whatever theme the docs page is in.
+function ModeChip({
+  paper,
+  value,
+}: {
+  paper: string;
+  value: string;
+}) {
   return (
-    <div className="flex items-center gap-3 rounded-md border border-grayscale-opacity-200 bg-background p-3">
-      <div
-        className="size-10 shrink-0 rounded-md border border-grayscale-opacity-300/60"
-        style={{ background: `var(${name})` }}
-      />
-      <div className="min-w-0 flex-1">
-        <div className="font-mono text-xs text-grayscale-opacity-900">
-          {name}
+    <div className="h-10 flex-1" style={{ backgroundColor: paper }}>
+      <div className="size-full" style={{ background: value }} />
+    </div>
+  );
+}
+
+export function ColorSwatch({ name, utility }: ColorEntry) {
+  const { lightValue, darkValue } = themeValues(name);
+  return (
+    <div className="flex flex-col gap-2 rounded-md border border-grayscale-opacity-200 bg-background p-3">
+      <div className="flex overflow-hidden rounded-md border border-grayscale-opacity-300/60">
+        <ModeChip paper={light.background} value={lightValue} />
+        <ModeChip paper={dark.background} value={darkValue} />
+      </div>
+      <div className="min-w-0 font-mono text-xs [overflow-wrap:anywhere]">
+        <div className="text-grayscale-opacity-900">{name}</div>
+        <div className="text-grayscale-opacity-600">
+          L {lightValue}
         </div>
-        {value ? (
-          <div className="font-mono text-xs text-grayscale-opacity-600">
-            {value}
-          </div>
-        ) : null}
+        <div className="text-grayscale-opacity-600">
+          D {darkValue}
+        </div>
         {utility ? (
-          <div className="font-mono text-[11px] text-grayscale-opacity-500">
+          <div className="text-[11px] text-grayscale-opacity-500">
             {utility}
           </div>
         ) : null}
