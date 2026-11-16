@@ -24,8 +24,10 @@ description: >
 - **不要匯出 component**：它已經 outline + flatten 成填色形狀，線寬資訊不見了。
 - **例外：純填色的 Solid icon**（例如 `caret-*`）本來就沒有線寬，Figma component 就是最終形狀，可以直接匯出 component 的 20×20 frame，不算暫用版。前提是不是 Font Awesome Pro 才有的圖（見下方「暫用版」）。
 - 名稱帶 `fa-` 的是還沒重繪的 Font Awesome 原版，沒有 SVG 欄，不能直接用。
-- 規格：20×20 viewBox、`stroke-linecap/linejoin="round"`；Regular `stroke-width="1.3"`，Solid `1.75`，少數 Solid 是填色（例如 angle-\*-to-line）。匯出後對一下這些值，不對就回報設計。
-- 已知 Figma 錯誤：Solid 欄 `angle-right`、`angle-right-to-line` 的 SVG frame 名稱誤標成 `angle-left…`。以圖形為準。
+- 規格：20×20 viewBox、`stroke-linecap/linejoin="round"`；Regular `stroke-width="1.3"`，Solid `1.75`，少數 Solid 是純填色（例如 caret-\*）。匯出後對一下這些值，不對就回報設計（例如 Solid `*icons` 是 1.6）。
+- 不要保留 `fill-opacity`／`opacity`：顏色與深淺一律由元件的 `text-*` 決定（`ellipsis` 原本帶 0.55，已拿掉）。
+- 名稱對照：Figma／Notion 的 `*icons`（可替換 icon 的示意）在 repo 叫 `placeholder`（`PlaceholderIcon`、`PlaceholderSolidIcon`）。
+- 已知 Figma 錯誤：Solid 欄 `angle-right`、Regular 欄 `angle-right-to-line` 的 SVG frame 名稱誤標成 `angle-left…`。以圖形為準。
 
 ### Agent：用 Figma MCP 匯出
 

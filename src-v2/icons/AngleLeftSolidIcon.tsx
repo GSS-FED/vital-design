@@ -17,7 +17,7 @@ export const AngleLeftSolidIcon = (
       stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
-      d="M12.0964 5.8335L7.92969 10.0002L12.0964 14.1668"
+      d="M12 5L7 10L12 15"
     />
   </svg>
 );

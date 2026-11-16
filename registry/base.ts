@@ -11,6 +11,11 @@ const iconGroups = [
   { name: 'icon-bars', title: 'Bars Icon', files: ['BarsIcon'] },
   { name: 'icon-bell', title: 'Bell Icon', files: ['BellIcon'] },
   {
+    name: 'icon-bell-slash',
+    title: 'Bell Slash Icon',
+    files: ['BellSlashIcon'],
+  },
+  {
     name: 'icon-calendar-days',
     title: 'Calendar Days Icon',
     files: ['CalendarDaysIcon'],
@@ -97,6 +102,16 @@ const iconGroups = [
     files: ['AnglesRightIcon'],
   },
   { name: 'icon-clear', title: 'Clear Icon', files: ['ClearIcon'] },
+  {
+    name: 'icon-caret-left',
+    title: 'Caret Left Icon',
+    files: ['CaretLeftIcon'],
+  },
+  {
+    name: 'icon-caret-right',
+    title: 'Caret Right Icon',
+    files: ['CaretRightIcon'],
+  },
   { name: 'icon-clock', title: 'Clock Icon', files: ['ClockIcon'] },
   { name: 'icon-xmark', title: 'Xmark Icon', files: ['XmarkIcon'] },
   {
@@ -140,6 +155,17 @@ const iconGroups = [
     name: 'icon-planet-ringed',
     title: 'Planet Ringed Icon',
     files: ['PlanetRingedIcon'],
+  },
+  { name: 'icon-note', title: 'Note Icon', files: ['NoteIcon'] },
+  {
+    name: 'icon-placeholder',
+    title: 'Placeholder Icon',
+    files: ['PlaceholderIcon'],
+  },
+  {
+    name: 'icon-placeholder-solid',
+    title: 'Placeholder Solid Icon',
+    files: ['PlaceholderSolidIcon'],
   },
   { name: 'icon-plus', title: 'Plus Icon', files: ['PlusIcon'] },
   {

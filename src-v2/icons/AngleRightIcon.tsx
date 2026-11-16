@@ -15,7 +15,7 @@ export const AngleRightIcon = (props: SVGProps<SVGSVGElement>) => (
       stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
-      d="M7.91699 14.1668L12.0837 10.0002L7.91699 5.8335"
+      d="M8 15L13 10L8 5"
     />
   </svg>
 );

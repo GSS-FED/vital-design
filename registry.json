@@ -296,6 +296,19 @@
       ]
     },
     {
+      "name": "icon-bell-slash",
+      "type": "registry:ui",
+      "title": "Bell Slash Icon",
+      "description": "Bell Slash Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/BellSlashIcon.tsx",
+          "target": "src/components/icons/BellSlashIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-calendar-days",
       "type": "registry:ui",
       "title": "Calendar Days Icon",
@@ -543,6 +556,32 @@
       ]
     },
     {
+      "name": "icon-caret-left",
+      "type": "registry:ui",
+      "title": "Caret Left Icon",
+      "description": "Caret Left Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CaretLeftIcon.tsx",
+          "target": "src/components/icons/CaretLeftIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-caret-right",
+      "type": "registry:ui",
+      "title": "Caret Right Icon",
+      "description": "Caret Right Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CaretRightIcon.tsx",
+          "target": "src/components/icons/CaretRightIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-clock",
       "type": "registry:ui",
       "title": "Clock Icon",
@@ -751,6 +790,45 @@
       ]
     },
     {
+      "name": "icon-note",
+      "type": "registry:ui",
+      "title": "Note Icon",
+      "description": "Note Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/NoteIcon.tsx",
+          "target": "src/components/icons/NoteIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-placeholder",
+      "type": "registry:ui",
+      "title": "Placeholder Icon",
+      "description": "Placeholder Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/PlaceholderIcon.tsx",
+          "target": "src/components/icons/PlaceholderIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-placeholder-solid",
+      "type": "registry:ui",
+      "title": "Placeholder Solid Icon",
+      "description": "Placeholder Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/PlaceholderSolidIcon.tsx",
+          "target": "src/components/icons/PlaceholderSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-plus",
       "type": "registry:ui",
       "title": "Plus Icon",
@@ -884,6 +962,11 @@
           "type": "registry:ui"
         },
         {
+          "path": "src-v2/icons/BellSlashIcon.tsx",
+          "target": "src/components/icons/BellSlashIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src-v2/icons/CalendarDaysIcon.tsx",
           "target": "src/components/icons/CalendarDaysIcon.tsx",
           "type": "registry:ui"
@@ -979,6 +1062,16 @@
           "type": "registry:ui"
         },
         {
+          "path": "src-v2/icons/CaretLeftIcon.tsx",
+          "target": "src/components/icons/CaretLeftIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CaretRightIcon.tsx",
+          "target": "src/components/icons/CaretRightIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src-v2/icons/ClockIcon.tsx",
           "target": "src/components/icons/ClockIcon.tsx",
           "type": "registry:ui"
@@ -1056,6 +1149,21 @@
         {
           "path": "src-v2/icons/PlanetRingedIcon.tsx",
           "target": "src/components/icons/PlanetRingedIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/NoteIcon.tsx",
+          "target": "src/components/icons/NoteIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/PlaceholderIcon.tsx",
+          "target": "src/components/icons/PlaceholderIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/PlaceholderSolidIcon.tsx",
+          "target": "src/components/icons/PlaceholderSolidIcon.tsx",
           "type": "registry:ui"
         },
         {

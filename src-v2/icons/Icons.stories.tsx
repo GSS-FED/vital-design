@@ -15,8 +15,11 @@ import { AnglesRightIcon } from './AnglesRightIcon';
 import { BanIcon } from './BanIcon';
 import { BarsIcon } from './BarsIcon';
 import { BellIcon } from './BellIcon';
+import { BellSlashIcon } from './BellSlashIcon';
 import { CalendarDaysIcon } from './CalendarDaysIcon';
 import { CaretDownIcon } from './CaretDownIcon';
+import { CaretLeftIcon } from './CaretLeftIcon';
+import { CaretRightIcon } from './CaretRightIcon';
 import { CaretUpIcon } from './CaretUpIcon';
 import { CheckIcon } from './CheckIcon';
 import { CheckSolidIcon } from './CheckSolidIcon';
@@ -35,7 +38,10 @@ import { LifeRingIcon } from './LifeRingIcon';
 import { MagnifyingGlassIcon } from './MagnifyingGlassIcon';
 import { MinusIcon } from './MinusIcon';
 import { MinusSolidIcon } from './MinusSolidIcon';
+import { NoteIcon } from './NoteIcon';
 import { PanelLeftIcon } from './PanelLeftIcon';
+import { PlaceholderIcon } from './PlaceholderIcon';
+import { PlaceholderSolidIcon } from './PlaceholderSolidIcon';
 import { PlanetRingedIcon } from './PlanetRingedIcon';
 import { PlusIcon } from './PlusIcon';
 import { ShieldCheckIcon } from './ShieldCheckIcon';
@@ -68,9 +74,12 @@ const icons: IconEntry[] = [
   { name: 'BanIcon', Icon: BanIcon },
   { name: 'BarsIcon', Icon: BarsIcon },
   { name: 'BellIcon', Icon: BellIcon },
+  { name: 'BellSlashIcon', Icon: BellSlashIcon },
   { name: 'CalendarDaysIcon', Icon: CalendarDaysIcon },
   { name: 'CaretDownIcon', Icon: CaretDownIcon },
   { name: 'CaretUpIcon', Icon: CaretUpIcon },
+  { name: 'CaretLeftIcon', Icon: CaretLeftIcon },
+  { name: 'CaretRightIcon', Icon: CaretRightIcon },
   { name: 'CheckIcon', Icon: CheckIcon },
   { name: 'CheckSolidIcon', Icon: CheckSolidIcon },
   { name: 'CircleUserIcon', Icon: CircleUserIcon },
@@ -88,7 +97,10 @@ const icons: IconEntry[] = [
   { name: 'MagnifyingGlassIcon', Icon: MagnifyingGlassIcon },
   { name: 'MinusIcon', Icon: MinusIcon },
   { name: 'MinusSolidIcon', Icon: MinusSolidIcon },
+  { name: 'NoteIcon', Icon: NoteIcon },
   { name: 'PanelLeftIcon', Icon: PanelLeftIcon },
+  { name: 'PlaceholderIcon', Icon: PlaceholderIcon },
+  { name: 'PlaceholderSolidIcon', Icon: PlaceholderSolidIcon },
   { name: 'PlanetRingedIcon', Icon: PlanetRingedIcon },
   { name: 'PlusIcon', Icon: PlusIcon },
   { name: 'ShieldCheckIcon', Icon: ShieldCheckIcon },

@@ -17,7 +17,7 @@ export const AngleLeftToLineIcon = (
       stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
-      d="M6.01465 5.5V14.5M13.9819 5.8335L9.81519 10.0002L13.9819 14.1668"
+      d="M5.5 4.5V15.5M14.5 5L9.5 10L14.5 15"
     />
   </svg>
 );

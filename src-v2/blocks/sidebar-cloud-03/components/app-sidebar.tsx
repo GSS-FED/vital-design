@@ -260,7 +260,7 @@ function NavMain() {
                         {item.icon}
                         <span>{item.title}</span>
                         <span className="ml-auto shrink-0 group-data-[collapsible=icon]:hidden">
-                          <EllipsisIcon className="size-5 text-grayscale-700 [&_path]:[fill-opacity:1]" />
+                          <EllipsisIcon className="size-5 text-grayscale-700" />
                         </span>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent

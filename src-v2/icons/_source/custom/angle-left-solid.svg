@@ -1,3 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-  <path d="M12.0964 5.8335L7.92969 10.0002L12.0964 14.1668" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" stroke="#232332"/>
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icons/Solid/angle-left">
+<path id="Icon_svg" d="M12 5L7 10L12 15" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" stroke="#232332"/>
+</g>
 </svg>
