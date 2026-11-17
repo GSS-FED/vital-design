@@ -58,6 +58,7 @@ allowed-tools: Read, Write, Edit, Bash
    - `apps/docs/content/docs/components/meta.json`
    - `apps/docs/content/docs/blocks/meta.json`
    - 若該資料夾已有 `meta.zh-tw.json`，`pages` 陣列要與英文檔保持相同順序
+   - 新元件也要放進元件總覽：在 `apps/docs/content/docs/components/index.mdx` 與 `index.zh-tw.mdx` 的分組加上 slug，並在 `apps/docs/components/showcase/ComponentGallery.tsx` 的 `previews` 加一張縮圖（沒有縮圖會 build 失敗）
 
 7. **繁體中文（可選，英文寫完再加）**
    - 英文 MDX 是準稿。要翻譯時，在同一路徑加 `名稱.zh-tw.mdx`（資料夾首頁是 `index.zh-tw.mdx`）
