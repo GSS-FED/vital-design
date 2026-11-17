@@ -3,110 +3,62 @@ title: Tabs
 description: Switch between related panels with underline or pill tab styles.
 ---
 
-import {
-  TabsBorderedPreview,
-  TabsPillPreview,
-  TabsPreview,
-  TabsSlidingIndicatorPreview,
-  TabsVerticalPreview,
-} from '~/components/previews/TabsPreview';
+import { TabsBorderedExample } from '@/components/tabs/examples/TabsBorderedExample';
+import { TabsExample } from '@/components/tabs/examples/TabsExample';
+import { TabsPillExample } from '@/components/tabs/examples/TabsPillExample';
+import { TabsSlidingIndicatorExample } from '@/components/tabs/examples/TabsSlidingIndicatorExample';
+import { TabsVerticalBorderedExample } from '@/components/tabs/examples/TabsVerticalBorderedExample';
+import { TabsWithBadgesExample } from '@/components/tabs/examples/TabsWithBadgesExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Preview
 
-<TabsPreview />
+<ComponentPreview name="TabsExample" align="start">
+  <TabsExample />
+</ComponentPreview>
 
 ## Usage
 
 The active underline renders per trigger and grows from width 0, so no
 extra element is needed.
 
-```tsx
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/Tabs';
-
-<Tabs defaultValue="overview">
-  <TabsList>
-    <TabsTrigger value="overview">Overview</TabsTrigger>
-    <TabsTrigger value="activity">Activity</TabsTrigger>
-    <TabsTrigger value="settings">Settings</TabsTrigger>
-  </TabsList>
-  <TabsContent value="overview">Overview content</TabsContent>
-  <TabsContent value="activity">Activity content</TabsContent>
-  <TabsContent value="settings">Settings content</TabsContent>
-</Tabs>;
-```
-
 ## Bordered
-
-<TabsBorderedPreview />
 
 Use `bordered` on `TabsList` when the underline tabs need a rail border.
 
-```tsx
-<Tabs defaultValue="overview">
-  <TabsList bordered>
-    <TabsTrigger value="overview">Overview</TabsTrigger>
-    <TabsTrigger value="activity">Activity</TabsTrigger>
-  </TabsList>
-</Tabs>
-```
+<ComponentPreview name="TabsBorderedExample" align="start">
+  <TabsBorderedExample />
+</ComponentPreview>
 
 ## Sliding indicator
-
-<TabsSlidingIndicatorPreview />
 
 By default the active underline grows from width 0 under each tab. Render
 `TabsIndicator` inside `TabsList` to opt into a single bar that slides between
 tabs instead — adding it disables the per-tab grow highlight.
 
-```tsx
-import {
-  Tabs,
-  TabsIndicator,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/Tabs';
+<ComponentPreview name="TabsSlidingIndicatorExample" align="start">
+  <TabsSlidingIndicatorExample />
+</ComponentPreview>
 
-<Tabs defaultValue="overview">
-  <TabsList bordered>
-    <TabsTrigger value="overview">Overview</TabsTrigger>
-    <TabsTrigger value="activity">Activity</TabsTrigger>
-    <TabsIndicator />
-  </TabsList>
-</Tabs>;
-```
+## With Badges
+
+Put a `Badge` after the label to show a count or a status dot.
+
+<ComponentPreview name="TabsWithBadgesExample" align="start">
+  <TabsWithBadgesExample />
+</ComponentPreview>
 
 ## Pill
 
-<TabsPillPreview />
-
-```tsx
-<Tabs defaultValue="overview" variant="pill">
-  <TabsList>
-    <TabsTrigger value="overview">Overview</TabsTrigger>
-    <TabsTrigger value="activity">Activity</TabsTrigger>
-  </TabsList>
-</Tabs>
-```
+<ComponentPreview name="TabsPillExample" align="start">
+  <TabsPillExample />
+</ComponentPreview>
 
 ## Vertical
 
-<TabsVerticalPreview />
-
-```tsx
-<Tabs defaultValue="overview" orientation="vertical">
-  <TabsList bordered>
-    <TabsTrigger value="overview">Overview</TabsTrigger>
-    <TabsTrigger value="activity">Activity</TabsTrigger>
-  </TabsList>
-  <TabsContent value="overview">Overview content</TabsContent>
-  <TabsContent value="activity">Activity content</TabsContent>
-</Tabs>
-```
+<ComponentPreview name="TabsVerticalBorderedExample" align="start">
+  <TabsVerticalBorderedExample />
+</ComponentPreview>
 
 ## Props
 

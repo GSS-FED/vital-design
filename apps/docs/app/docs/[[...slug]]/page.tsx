@@ -36,10 +36,6 @@ import {
   ChipStatesPreview,
 } from '~/components/previews/ChipPreview';
 import {
-  CollapsiblePreview,
-  CollapsibleProductDetailsPreview,
-} from '~/components/previews/CollapsiblePreview';
-import {
   ComboboxMultiplePreview,
   ComboboxPreview,
 } from '~/components/previews/ComboboxPreview';
@@ -47,8 +43,6 @@ import {
   DialogPreview,
   DialogSizesPreview,
 } from '~/components/previews/DialogPreview';
-import { PaginationMorePagesPreview } from '~/components/previews/PaginationMorePagesPreview';
-import { PaginationPreview } from '~/components/previews/PaginationPreview';
 import {
   ScrollAreaFadePreview,
   ScrollAreaPreview,
@@ -74,12 +68,6 @@ import {
   SplitButtonPreview,
 } from '~/components/previews/SplitButtonPreview';
 import { TablePaginationPreview } from '~/components/previews/TablePaginationPreview';
-import {
-  TabsBorderedPreview,
-  TabsPillPreview,
-  TabsPreview,
-  TabsVerticalPreview,
-} from '~/components/previews/TabsPreview';
 import {
   TagColorsPreview,
   TagPreview,
@@ -215,14 +203,10 @@ export async function DocsContentPage({
             CalendarDatePickerPreview,
             ChipPreview,
             ChipStatesPreview,
-            CollapsiblePreview,
-            CollapsibleProductDetailsPreview,
             ComboboxPreview,
             ComboboxMultiplePreview,
             DialogPreview,
             DialogSizesPreview,
-            PaginationPreview,
-            PaginationMorePagesPreview,
             SheetPreview,
             SheetSidesPreview,
             SheetNonModalPreview,
@@ -240,10 +224,6 @@ export async function DocsContentPage({
             TagColorsPreview,
             TagSolidPreview,
             TagRemovablePreview,
-            TabsPreview,
-            TabsBorderedPreview,
-            TabsPillPreview,
-            TabsVerticalPreview,
             ScrollAreaPreview,
             ScrollAreaFadePreview,
             SplitButtonPreview,
