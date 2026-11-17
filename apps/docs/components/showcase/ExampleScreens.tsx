@@ -71,7 +71,16 @@ import {
 } from '@/components/select/Select';
 import { Separator } from '@/components/separator/Separator';
 import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
   SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/sidebar/Sidebar';
@@ -91,8 +100,23 @@ import {
   TooltipTrigger,
 } from '@/components/tooltip/Tooltip';
 import { BellIcon } from '@/icons/BellIcon';
+import { CalendarDaysIcon } from '@/icons/CalendarDaysIcon';
+import { CheckIcon } from '@/icons/CheckIcon';
+import { FlagIcon } from '@/icons/FlagIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
+import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
 import { PlusIcon } from '@/icons/PlusIcon';
-import { type CSSProperties, useMemo, useState } from 'react';
+import { UserIcon } from '@/icons/UserIcon';
+import logoHorizontalImage from '@/public/images/vital-logo-text-h.svg';
+import logoMarkImage from '@/public/images/vital-logo.svg';
+import Image from 'next/image';
+import {
+  type CSSProperties,
+  type ReactNode,
+  useMemo,
+  useState,
+  useSyncExternalStore,
+} from 'react';
 
 // The sidebar is fixed to the viewport by default; pin it inside the frame
 // the same way the sidebar block previews do.
@@ -104,6 +128,98 @@ const APP_FRAME =
   '[&_[data-slot=sidebar-container]]:!inset-y-0 ' +
   '[&_[data-slot=sidebar-container]]:!h-full ' +
   '[&_[data-slot=sidebar-container]]:!max-h-full';
+
+// next-themes puts `.dark` on <html>. Watch the class instead of importing
+// next-themes, which is only a dependency of fumadocs-ui.
+function subscribeToTheme(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class'],
+  });
+  return () => observer.disconnect();
+}
+
+function useDarkMode() {
+  return useSyncExternalStore(
+    subscribeToTheme,
+    () => document.documentElement.classList.contains('dark'),
+    () => false,
+  );
+}
+
+const navGroups: {
+  label?: string;
+  items: { title: string; icon: ReactNode; isActive?: boolean }[];
+}[] = [
+  {
+    items: [
+      { title: 'Dashboard', icon: <PanelLeftIcon />, isActive: true },
+      { title: 'Inbox', icon: <MagnifyingGlassIcon /> },
+      { title: 'Calendar', icon: <CalendarDaysIcon /> },
+      { title: 'Approvals', icon: <CheckIcon /> },
+    ],
+  },
+  {
+    label: 'Workspace',
+    items: [
+      { title: 'Projects', icon: <FlagIcon /> },
+      { title: 'Clients', icon: <UserIcon /> },
+      { title: 'Reports', icon: <FlagIcon /> },
+    ],
+  },
+];
+
+// The Cloud sidebar's frosted image stays light, so dark mode uses the plain
+// Sidebar with the same navigation.
+function PlainSidebar() {
+  return (
+    <Sidebar collapsible="icon">
+      <SidebarHeader className="p-4 group-data-[collapsible=icon]:p-3!">
+        <Image
+          src={logoHorizontalImage}
+          alt="Brand"
+          width={124}
+          height={28}
+          unoptimized
+          className="h-7 w-auto object-contain object-left group-data-[collapsible=icon]:hidden"
+        />
+        <Image
+          src={logoMarkImage}
+          alt="Brand"
+          width={32}
+          height={32}
+          unoptimized
+          className="hidden size-8 object-contain group-data-[collapsible=icon]:block"
+        />
+      </SidebarHeader>
+      <SidebarContent>
+        {navGroups.map((group) => (
+          <SidebarGroup key={group.label ?? 'main'}>
+            {group.label ? (
+              <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+            ) : null}
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {group.items.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton
+                      isActive={item.isActive}
+                      tooltip={item.title}
+                    >
+                      {item.icon}
+                      <span>{item.title}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
+      </SidebarContent>
+    </Sidebar>
+  );
+}
 
 const providerStyle = {
   '--sidebar-width': '200px',
@@ -140,6 +256,7 @@ function StatCard({
 }
 
 export function TasksScreen() {
+  const dark = useDarkMode();
   return (
     <div className={APP_FRAME}>
       <SidebarProvider
@@ -148,7 +265,11 @@ export function TasksScreen() {
         className="h-full min-h-0 w-full"
         style={providerStyle}
       >
-        <CloudSidebar collapsible="icon" />
+        {dark ? (
+          <PlainSidebar />
+        ) : (
+          <CloudSidebar collapsible="icon" />
+        )}
         <SidebarInset className="min-w-0 overflow-y-auto">
           <header className="flex h-14 shrink-0 items-center gap-3 border-b border-grayscale-opacity-200 px-4">
             <SidebarTrigger className="md:hidden" />
