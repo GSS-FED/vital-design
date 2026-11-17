@@ -556,7 +556,7 @@ const previews: Record<string, ReactNode> = {
   ),
   sidebar: (
     <div className="flex h-32 w-64 overflow-hidden rounded-(--radius-sm) border border-grayscale-opacity-200 bg-background">
-      <div className="flex w-24 flex-col gap-1 border-r border-grayscale-opacity-200 bg-grayscale-opacity-50 p-2 text-xs text-grayscale-opacity-700">
+      <div className="flex w-24 flex-col gap-1 border-r border-grayscale-opacity-200 bg-grayscale-opacity-100 p-2 text-xs text-grayscale-opacity-700">
         <div className="flex items-center gap-1.5 rounded-(--radius-sm) bg-background px-1.5 py-1 font-medium shadow-(--shadow-base)">
           <HomeIcon className="size-3.5" /> Home
         </div>
@@ -743,7 +743,7 @@ export function ComponentGallery({
           >
             <div
               inert
-              className="flex h-44 items-center justify-center overflow-hidden bg-grayscale-opacity-50 p-4"
+              className="flex h-44 items-center justify-center overflow-hidden bg-grayscale-opacity-100 p-4"
             >
               {previews[slug]}
             </div>
