@@ -72,6 +72,29 @@ export const blocks: VitalRegistryItem[] = [
     ],
   },
   {
+    name: 'table-pagination',
+    type: 'registry:block',
+    title: 'Table Pagination',
+    description:
+      'Single-row table footer with page controls, a page jump, rows per page, and the current range. Hides the jump field and page-size select when the row is too narrow.',
+    categories: ['table', 'navigation'],
+    dependencies: ['cn'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/input',
+      '@vital-design/pagination',
+      '@vital-design/select',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/blocks/table-pagination/components/table-pagination.tsx',
+        target: 'src/blocks/table-pagination/table-pagination.tsx',
+        type: 'registry:component',
+      },
+    ],
+  },
+  {
     name: 'sidebar-cloud-01',
     type: 'registry:block',
     title: 'Sidebar — Cloud Flat',

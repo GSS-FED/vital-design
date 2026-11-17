@@ -1,0 +1,53 @@
+---
+title: Table Pagination
+description: Single-row table footer with page controls, a page jump, and rows per page.
+---
+
+import { TablePaginationPreview } from '~/components/previews/TablePaginationPreview';
+
+## Preview
+
+<TablePaginationPreview />
+
+## When to use
+
+Use this block for the Vital table footer: page controls, a jump field, a page-size select, and the current range, in one row. When the row is too narrow, the jump field and the page-size select hide. The page controls and the range stay visible.
+
+[Pagination](/docs/components/pagination) stays the primitive. Build a different footer from those parts when this row does not fit.
+
+## Usage
+
+Own `page`, `pageSize`, and `total` in the screen. Reset the page when the page size changes.
+
+```tsx
+import { TablePagination } from '@/blocks/table-pagination/table-pagination';
+import { useState } from 'react';
+
+export function OrdersFooter() {
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+
+  return (
+    <TablePagination
+      page={page}
+      pageSize={pageSize}
+      total={91}
+      onPageChange={setPage}
+      onPageSizeChange={(nextPageSize) => {
+        setPageSize(nextPageSize);
+        setPage(1);
+      }}
+    />
+  );
+}
+```
+
+`pagination`, `jump`, and `summary` replace those regions. The block does not render the table. Place it under [Table](/docs/components/table).
+
+## Installation
+
+```bash
+npx shadcn@latest add @vital-design/table-pagination
+```
+
+This installs `src/blocks/table-pagination/table-pagination.tsx` and its Pagination, Input, and Select dependencies.
