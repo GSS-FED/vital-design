@@ -442,7 +442,7 @@ export function SettingsScreen() {
 
   return (
     <ToastProvider toastManager={manager} position="top-right">
-      <div className="w-full rounded-xl border border-grayscale-opacity-200 bg-grayscale-opacity-50 p-6">
+      <div className="w-full rounded-xl border border-grayscale-opacity-200 bg-grayscale-opacity-100 p-6">
         <div className="mb-6">
           <h2 className="text-xl font-semibold text-grayscale-opacity-900">
             帳號設定
