@@ -37,6 +37,15 @@ export {
   CardHeader,
   CardTitle,
 } from '../../../src-v2/components/card/Card';
+export {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '../../../src-v2/components/breadcrumb/Breadcrumb';
 export { Chip } from '../../../src-v2/components/chip/Chip';
 export {
   Editable,

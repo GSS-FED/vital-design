@@ -1,5 +1,16 @@
-import { render, screen } from '@testing-library/react';
-import { expect, it } from 'vitest';
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
+import { expect, it, vi } from 'vitest';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '../dropdown-menu/DropdownMenu';
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -9,6 +20,17 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from './Breadcrumb';
+
+// A class, not an arrow function: the mock is called with `new`.
+const ResizeObserverMock = vi.fn(
+  class {
+    observe = vi.fn();
+    unobserve = vi.fn();
+    disconnect = vi.fn();
+  },
+);
+
+vi.stubGlobal('ResizeObserver', ResizeObserverMock);
 
 function renderBreadcrumb(size?: 'sm' | 'lg') {
   return render(
@@ -49,7 +71,7 @@ it('renders links as anchors with muted and hover styles', () => {
   expect(link).toHaveAttribute('data-slot', 'breadcrumb-link');
   expect(link).toHaveClass(
     'text-grayscale-500',
-    'hover:text-primary-500',
+    'hover:text-primary-400',
   );
 });
 
@@ -129,13 +151,72 @@ it('allows overriding the separator content', () => {
 });
 
 it('renders an ellipsis with an accessible label', () => {
-  render(<BreadcrumbEllipsis data-testid="ellipsis" />);
+  render(
+    <button type="button">
+      <BreadcrumbEllipsis data-testid="ellipsis" />
+    </button>,
+  );
 
-  const ellipsis = screen.getByTestId('ellipsis');
-  expect(ellipsis).toHaveAttribute(
+  expect(screen.getByTestId('ellipsis')).toHaveAttribute(
     'data-slot',
     'breadcrumb-ellipsis',
   );
-  expect(ellipsis).toHaveAttribute('aria-hidden', 'true');
+  expect(
+    screen.getByRole('button', { name: 'More' }),
+  ).toBeInTheDocument();
   expect(screen.getByText('More')).toHaveClass('sr-only');
+});
+
+it('opens hidden levels from an ellipsis menu', async () => {
+  render(
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/projects">Projects</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={
+                <BreadcrumbLink
+                  render={<button type="button" />}
+                  aria-label="Show hidden pages"
+                />
+              }
+            >
+              <BreadcrumbEllipsis />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem render={<a href="/website" />}>
+                Website
+              </DropdownMenuItem>
+              <DropdownMenuItem render={<a href="/analytics" />}>
+                Analytics
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbPage>Settings</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>,
+  );
+
+  const trigger = screen.getByRole('button', {
+    name: 'Show hidden pages',
+  });
+  expect(trigger).toHaveClass('hover:text-primary-400');
+  fireEvent.click(trigger);
+
+  await waitFor(() => {
+    expect(
+      screen.getByRole('menuitem', { name: 'Website' }),
+    ).toHaveAttribute('href', '/website');
+  });
+  expect(
+    screen.getByRole('menuitem', { name: 'Analytics' }),
+  ).toHaveAttribute('href', '/analytics');
 });
