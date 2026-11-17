@@ -1,8 +1,32 @@
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/dropdown-menu/DropdownMenu';
 import { FlagIcon } from '@/icons/FlagIcon';
-import { render, screen } from '@testing-library/react';
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { SplitButton } from './SplitButton';
+
+// A class, not an arrow function: the mock is called with `new`.
+vi.stubGlobal(
+  'ResizeObserver',
+  vi.fn(
+    class {
+      observe = vi.fn();
+      unobserve = vi.fn();
+      disconnect = vi.fn();
+    },
+  ),
+);
+window.HTMLElement.prototype.scrollIntoView = vi.fn();
 
 describe('Basic Functionality', () => {
   it('renders children correctly', () => {
@@ -286,4 +310,57 @@ describe('Theme', () => {
       );
     },
   );
+});
+
+describe('splitRender', () => {
+  it('makes the chevron a menu trigger while the main button keeps its action', async () => {
+    const onClick = vi.fn();
+    render(
+      <DropdownMenu>
+        <SplitButton
+          onClick={onClick}
+          splitRender={<DropdownMenuTrigger />}
+        >
+          Save
+        </SplitButton>
+        <DropdownMenuContent>
+          <DropdownMenuItem>Save as draft</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>,
+    );
+    const chevron = screen.getByRole('button', {
+      name: 'More options',
+    });
+    expect(chevron).toHaveAttribute('aria-haspopup', 'menu');
+    expect(chevron).toHaveAttribute('data-slot', 'button');
+
+    fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+
+    fireEvent.click(chevron);
+    await waitFor(() => {
+      expect(screen.getByRole('menu')).toBeInTheDocument();
+    });
+    expect(chevron).toHaveAttribute('aria-expanded', 'true');
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('names the chevron with splitLabel', () => {
+    const { rerender } = render(
+      <SplitButton splitLabel="更多動作">Save</SplitButton>,
+    );
+    expect(
+      screen.getByRole('button', { name: '更多動作' }),
+    ).toBeInTheDocument();
+
+    rerender(
+      <SplitButton open splitLabel="更多動作">
+        Save
+      </SplitButton>,
+    );
+    expect(
+      screen.getByRole('button', { name: '更多動作' }),
+    ).toBeInTheDocument();
+  });
 });

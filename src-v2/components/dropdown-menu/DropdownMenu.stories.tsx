@@ -1,5 +1,5 @@
 import { type Meta, type StoryObj } from '@storybook/react';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { CheckIcon } from '../../icons/CheckIcon';
 import { MagnifyingGlassIcon } from '../../icons/MagnifyingGlassIcon';
 import { Button } from '../button/Button';
@@ -187,31 +187,19 @@ export const WithSubmenu: Story = {
 };
 
 export const WithSplitButtonTrigger: Story = {
-  render: () => {
-    const ControlledSplit = () => {
-      const [open, setOpen] = useState(false);
-      const anchorRef = useRef<HTMLDivElement>(null);
-
-      return (
-        <DropdownMenu open={open} onOpenChange={setOpen}>
-          <div ref={anchorRef} className="inline-flex">
-            <SplitButton
-              open={open}
-              onClick={() => alert('Save')}
-              splitOnClick={() => setOpen((prev) => !prev)}
-            >
-              Save
-            </SplitButton>
-          </div>
-          <DropdownMenuContent anchor={anchorRef}>
-            <DropdownMenuItem>Save as draft</DropdownMenuItem>
-            <DropdownMenuItem>Save and publish</DropdownMenuItem>
-            <DropdownMenuItem>Save as template</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    };
-
-    return <ControlledSplit />;
-  },
+  render: () => (
+    <DropdownMenu>
+      <SplitButton
+        onClick={() => alert('Save')}
+        splitRender={<DropdownMenuTrigger />}
+      >
+        Save
+      </SplitButton>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem>Save as draft</DropdownMenuItem>
+        <DropdownMenuItem>Save and publish</DropdownMenuItem>
+        <DropdownMenuItem>Save as template</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  ),
 };

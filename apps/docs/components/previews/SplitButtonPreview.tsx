@@ -1,24 +1,34 @@
 'use client';
 
 import { SplitButton } from '@/components/button/split-button/SplitButton';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/dropdown-menu/DropdownMenu';
 import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { useState } from 'react';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 export function SplitButtonPreview() {
-  const [open, setOpen] = useState(false);
   return (
     <ComponentPreview name="SplitButtonPreview">
-      <SplitButton
-        theme="primary"
-        size="lg"
-        open={open}
-        onClick={() => {}}
-        splitOnClick={() => setOpen((v) => !v)}
-      >
-        <MagnifyingGlassIcon data-icon="inline-start" />
-        Submit
-      </SplitButton>
+      <DropdownMenu>
+        <SplitButton
+          theme="primary"
+          size="lg"
+          onClick={() => {}}
+          splitRender={<DropdownMenuTrigger />}
+        >
+          <MagnifyingGlassIcon data-icon="inline-start" />
+          Save
+        </SplitButton>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem>Save as draft</DropdownMenuItem>
+          <DropdownMenuItem>Save and publish</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </ComponentPreview>
   );
 }

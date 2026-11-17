@@ -1,4 +1,5 @@
 import { Button } from '@/components/button/Button';
+import type { ButtonProps } from '@/components/button/Button';
 import {
   ButtonGroup,
   ButtonGroupSeparator,
@@ -144,8 +145,22 @@ export type SplitButtonProps = {
   disabled?: boolean;
   focusableWhenDisabled?: boolean;
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
-  open: boolean;
+  /**
+   * Shows the chevron in its open state. Optional when `splitRender` is a
+   * popup trigger, which reports its own open state.
+   */
+  open?: boolean;
   splitOnClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  /**
+   * Renders the chevron segment as another element, such as
+   * `<DropdownMenuTrigger />`, so it opens a popup and anchors it.
+   */
+  splitRender?: ButtonProps['render'];
+  /**
+   * Accessible name of the chevron segment. Defaults to `More options`, or to
+   * `Expand options` / `Collapse options` when `open` is set.
+   */
+  splitLabel?: string;
 } & CvaProps<SplitButtonVariants> &
   Omit<ComponentPropsWithoutRef<'div'>, 'onClick'>;
 
@@ -167,19 +182,16 @@ export function SplitButton(props: SplitButtonProps) {
     open,
     size = 'md',
     splitOnClick,
+    splitLabel,
+    splitRender,
     style,
     theme = 'default',
     ...groupProps
   } = props;
 
   const solid = LIGHT_SEPARATOR_THEMES.has(theme);
-  const ChevronIcon = open
-    ? solid
-      ? AngleUpSolidIcon
-      : AngleUpIcon
-    : solid
-      ? AngleDownSolidIcon
-      : AngleDownIcon;
+  const DownIcon = solid ? AngleDownSolidIcon : AngleDownIcon;
+  const UpIcon = solid ? AngleUpSolidIcon : AngleUpIcon;
   const splitSize = size === 'lg' ? 'icon-lg' : 'icon-md';
 
   return (
@@ -221,10 +233,28 @@ export function SplitButton(props: SplitButtonProps) {
           disabled={disabled}
           focusableWhenDisabled={focusableWhenDisabled}
           onClick={splitOnClick}
-          aria-label={open ? 'Collapse options' : 'Expand options'}
-          className="pl-1 pr-2"
+          render={splitRender}
+          aria-label={
+            splitLabel ??
+            (open === undefined
+              ? 'More options'
+              : open
+                ? 'Collapse options'
+                : 'Expand options')
+          }
+          {...(open ? { 'data-popup-open': '' } : {})}
+          className="group/split pl-1 pr-2"
         >
-          <ChevronIcon aria-hidden="true" data-icon="inline-end" />
+          <DownIcon
+            aria-hidden="true"
+            data-icon="inline-end"
+            className="group-data-[popup-open]/split:hidden"
+          />
+          <UpIcon
+            aria-hidden="true"
+            data-icon="inline-end"
+            className="hidden group-data-[popup-open]/split:block"
+          />
         </Button>
       </ButtonGroup>
     </div>
