@@ -31,12 +31,12 @@ const Breadcrumb = function Breadcrumb({
 };
 
 const breadcrumbListVariants = cva(
-  'flex flex-wrap items-center gap-2 break-words font-sans text-grayscale-500',
+  'flex flex-wrap items-center gap-1 break-words font-sans text-grayscale-500',
   {
     variants: {
       size: {
         sm: 'text-sm leading-5 font-normal',
-        lg: 'text-xl leading-8 font-medium [&_[data-slot=breadcrumb-separator]]:w-6',
+        lg: 'text-xl leading-8 font-medium [&_[data-slot=breadcrumb-ellipsis]>svg]:size-6 [&_[data-slot=breadcrumb-separator]>svg]:size-6',
       },
     },
     defaultVariants: {
@@ -157,7 +157,7 @@ const BreadcrumbSeparator = function BreadcrumbSeparator({
       aria-hidden="true"
       data-slot="breadcrumb-separator"
       className={cn(
-        'inline-flex w-5 items-center justify-center text-grayscale-500 [&>svg]:size-2.75',
+        'inline-flex items-center justify-center text-grayscale-500 [&>svg]:size-4',
         className,
       )}
       {...props}
@@ -183,7 +183,7 @@ const BreadcrumbEllipsis = function BreadcrumbEllipsis({
       ref={ref}
       data-slot="breadcrumb-ellipsis"
       className={cn(
-        'inline-flex size-5 items-center justify-center text-grayscale-500 [&>svg]:size-3.5',
+        'inline-flex items-center justify-center text-grayscale-500 [&>svg]:size-5',
         className,
       )}
       {...props}
