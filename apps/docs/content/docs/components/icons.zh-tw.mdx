@@ -3,18 +3,19 @@ title: Icons
 description: Vittal Design 元件共用的內建 SVG 圖示集。
 ---
 
-import {
-  IconColorsPreview,
-  IconSizesPreview,
-  IconSpinnerPreview,
-  IconsGalleryPreview,
-} from '~/components/previews/IconsPreview';
+import { IconsColorsExample } from '@/icons/examples/IconsColorsExample';
+import { IconsGalleryExample } from '@/icons/examples/IconsGalleryExample';
+import { IconsSizesExample } from '@/icons/examples/IconsSizesExample';
+import { IconsSpinnerExample } from '@/icons/examples/IconsSpinnerExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 圖庫 [#gallery]
 
 所有圖示都是 inline SVG，並繼承 `currentColor`，所以會跟著容器的文字顏色。
 
-<IconsGalleryPreview />
+<ComponentPreview name="IconsGalleryExample" align="stretch">
+  <IconsGalleryExample />
+</ComponentPreview>
 
 ## 用法 [#usage]
 
@@ -85,40 +86,25 @@ import { UserIcon } from '@/icons/UserIcon';
 
 用 Tailwind 的 `size-*` utility 控制尺寸。每個圖示 SVG 會填滿 width / height 設定的容器。
 
-<IconSizesPreview />
-
-```tsx
-<MagnifyingGlassIcon className="size-3" />
-<MagnifyingGlassIcon className="size-4" />
-<MagnifyingGlassIcon className="size-5" />
-<MagnifyingGlassIcon className="size-6" />
-<MagnifyingGlassIcon className="size-8" />
-```
+<ComponentPreview name="IconsSizesExample">
+  <IconsSizesExample />
+</ComponentPreview>
 
 ## 顏色 [#colors]
 
 圖示繼承 `currentColor`，任何 Tailwind 文字顏色 utility 都適用。
 
-<IconColorsPreview />
-
-```tsx
-<FlagIcon className="size-5 text-primary-500" />
-<FlagIcon className="size-5 text-success-500" />
-<FlagIcon className="size-5 text-warning-500" />
-<FlagIcon className="size-5 text-destructive-500" />
-<FlagIcon className="size-5 text-grayscale-opacity-700" />
-```
+<ComponentPreview name="IconsColorsExample">
+  <IconsColorsExample />
+</ComponentPreview>
 
 ## SpinnerIcon
 
 `SpinnerIcon` 渲染靜態圖形。需要旋轉時加上 Tailwind 的 `animate-spin`，或用 `Spinner` 做載入狀態。
 
-<IconSpinnerPreview />
-
-```tsx
-<SpinnerIcon className="size-6 animate-spin text-primary-500" />
-<SpinnerIcon className="size-6 text-grayscale-opacity-500" />
-```
+<ComponentPreview name="IconsSpinnerExample">
+  <IconsSpinnerExample />
+</ComponentPreview>
 
 ## 屬性 [#props]
 

@@ -3,19 +3,20 @@ title: Icons
 description: Built-in SVG icon set used across Vittal Design components.
 ---
 
-import {
-  IconColorsPreview,
-  IconSizesPreview,
-  IconSpinnerPreview,
-  IconsGalleryPreview,
-} from '~/components/previews/IconsPreview';
+import { IconsColorsExample } from '@/icons/examples/IconsColorsExample';
+import { IconsGalleryExample } from '@/icons/examples/IconsGalleryExample';
+import { IconsSizesExample } from '@/icons/examples/IconsSizesExample';
+import { IconsSpinnerExample } from '@/icons/examples/IconsSpinnerExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Gallery
 
 All icons render as inline SVGs that inherit `currentColor`, so they
 adapt to the text color of their container.
 
-<IconsGalleryPreview />
+<ComponentPreview name="IconsGalleryExample" align="stretch">
+  <IconsGalleryExample />
+</ComponentPreview>
 
 ## Usage
 
@@ -94,30 +95,18 @@ stroke or a filled shape, for example `AngleLeftIcon` and
 Control the icon size with Tailwind's `size-*` utility — each icon
 SVG fills the container set by width/height.
 
-<IconSizesPreview />
-
-```tsx
-<MagnifyingGlassIcon className="size-3" />
-<MagnifyingGlassIcon className="size-4" />
-<MagnifyingGlassIcon className="size-5" />
-<MagnifyingGlassIcon className="size-6" />
-<MagnifyingGlassIcon className="size-8" />
-```
+<ComponentPreview name="IconsSizesExample">
+  <IconsSizesExample />
+</ComponentPreview>
 
 ## Colors
 
 Icons inherit `currentColor`, so any Tailwind text color utility
 applies.
 
-<IconColorsPreview />
-
-```tsx
-<FlagIcon className="size-5 text-primary-500" />
-<FlagIcon className="size-5 text-success-500" />
-<FlagIcon className="size-5 text-warning-500" />
-<FlagIcon className="size-5 text-destructive-500" />
-<FlagIcon className="size-5 text-grayscale-opacity-700" />
-```
+<ComponentPreview name="IconsColorsExample">
+  <IconsColorsExample />
+</ComponentPreview>
 
 ## SpinnerIcon
 
@@ -125,12 +114,9 @@ applies.
 utility when you need rotation, or use the `Spinner` component for
 loading status UI.
 
-<IconSpinnerPreview />
-
-```tsx
-<SpinnerIcon className="size-6 animate-spin text-primary-500" />
-<SpinnerIcon className="size-6 text-grayscale-opacity-500" />
-```
+<ComponentPreview name="IconsSpinnerExample">
+  <IconsSpinnerExample />
+</ComponentPreview>
 
 ## Props
 
