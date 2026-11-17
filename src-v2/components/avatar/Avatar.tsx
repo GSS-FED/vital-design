@@ -1,4 +1,4 @@
-import { DisabledIcon } from '@/icons/DisabledIcon';
+import { BanIcon } from '@/icons/BanIcon';
 import { UserIcon } from '@/icons/UserIcon';
 import { type CvaProps, cn } from '@/lib/utils';
 import { Avatar as BaseAvatar } from '@base-ui/react/avatar';
@@ -20,11 +20,11 @@ const avatarVariants = cva(
   {
     variants: {
       size: {
-        xs: 'w-6 text-xs [&_[data-slot=avatar-placeholder-icon]]:size-2.5',
-        sm: 'w-8 text-base [&_[data-slot=avatar-placeholder-icon]]:size-3',
-        md: 'w-10 text-xl [&_[data-slot=avatar-placeholder-icon]]:size-4',
-        lg: 'w-12 text-2xl [&_[data-slot=avatar-placeholder-icon]]:size-4.5',
-        xl: 'w-[60px] text-[32px] [&_[data-slot=avatar-placeholder-icon]]:size-6',
+        xs: 'w-6 text-xs [&_[data-slot=avatar-placeholder-icon]]:size-4',
+        sm: 'w-8 text-base [&_[data-slot=avatar-placeholder-icon]]:size-5',
+        md: 'w-10 text-xl [&_[data-slot=avatar-placeholder-icon]]:size-6',
+        lg: 'w-12 text-2xl [&_[data-slot=avatar-placeholder-icon]]:size-7',
+        xl: 'w-[60px] text-[32px] [&_[data-slot=avatar-placeholder-icon]]:size-[38px]',
       },
       color: {
         default: 'bg-grayscale-opacity-100',
@@ -360,7 +360,7 @@ function Avatar(props: AvatarProps) {
             '[&_svg]:absolute [&_svg]:inset-1/2 [&_svg]:w-3/4 [&_svg]:-translate-x-1/2 [&_svg]:-translate-y-1/2',
           )}
         >
-          <DisabledIcon />
+          <BanIcon />
         </span>
       )}
     </AvatarRoot>

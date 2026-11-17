@@ -1,4 +1,4 @@
-import { CloseIcon } from '@/icons/CloseIcon';
+import { XmarkIcon } from '@/icons/XmarkIcon';
 import { type CvaProps, cn } from '@/lib/utils';
 import { Dialog as BaseDialog } from '@base-ui/react/dialog';
 import type {
@@ -239,7 +239,11 @@ const DialogClose = function DialogClose({
       }
       {...props}
     >
-      {hasChildren || hasCustomRender ? children : <CloseIcon />}
+      {hasChildren || hasCustomRender ? (
+        children
+      ) : (
+        <XmarkIcon className="size-[22px]" />
+      )}
     </BaseDialog.Close>
   );
 };

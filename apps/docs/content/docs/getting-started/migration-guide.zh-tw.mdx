@@ -141,18 +141,18 @@ Button 不再自己管圖示或載入狀態。把圖示與 spinner 放進 `child
 ```tsx
 // v0
 import { Button } from '@fed/vital-design';
-import { SearchIcon } from './icons/SearchIcon';
+import { MagnifyingGlassIcon } from './icons/MagnifyingGlassIcon';
 
-<Button icon={<SearchIcon />} iconPlacement="left">
+<Button icon={<MagnifyingGlassIcon />} iconPlacement="left">
   Search
 </Button>;
 
 // v1
 import { Button } from '@/components/ui/Button';
-import { SearchIcon } from '@/components/icons/SearchIcon';
+import { MagnifyingGlassIcon } from '@/components/icons/MagnifyingGlassIcon';
 
 <Button>
-  <SearchIcon data-icon="inline-start" />
+  <MagnifyingGlassIcon data-icon="inline-start" />
   Search
 </Button>;
 ```
@@ -180,11 +180,11 @@ import { Spinner } from '@/components/ui/Spinner';
 
 ```tsx
 <Button size="icon-md" aria-label="Search">
-  <SearchIcon data-icon="inline-start" />
+  <MagnifyingGlassIcon data-icon="inline-start" />
 </Button>
 
 <Button size="icon-lg" aria-label="Search">
-  <SearchIcon data-icon="inline-start" />
+  <MagnifyingGlassIcon data-icon="inline-start" />
 </Button>
 ```
 

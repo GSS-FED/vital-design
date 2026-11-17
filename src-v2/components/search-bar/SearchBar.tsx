@@ -3,7 +3,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from '@/components/input/input-group/InputGroup';
-import { SearchIcon } from '@/icons/SearchIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { cn } from '@/lib/utils';
 import { cva } from 'class-variance-authority';
 import { useRef } from 'react';
@@ -129,7 +129,7 @@ const SearchBar = function SearchBar({
           clickable: isSearchIconClickable && !disabled,
         })}
       >
-        <SearchIcon className="size-4.5" />
+        <MagnifyingGlassIcon className="size-4.5" />
       </InputGroupAddon>
 
       <InputGroupInput

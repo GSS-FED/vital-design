@@ -270,6 +270,19 @@
       ]
     },
     {
+      "name": "icon-bars",
+      "type": "registry:ui",
+      "title": "Bars Icon",
+      "description": "Bars Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/BarsIcon.tsx",
+          "target": "src/components/icons/BarsIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-bell",
       "type": "registry:ui",
       "title": "Bell Icon",
@@ -283,14 +296,79 @@
       ]
     },
     {
-      "name": "icon-calendar",
+      "name": "icon-bell-slash",
       "type": "registry:ui",
-      "title": "Calendar Icon",
-      "description": "Calendar Icon component",
+      "title": "Bell Slash Icon",
+      "description": "Bell Slash Icon component",
       "files": [
         {
-          "path": "src-v2/icons/CalendarIcon.tsx",
-          "target": "src/components/icons/CalendarIcon.tsx",
+          "path": "src-v2/icons/BellSlashIcon.tsx",
+          "target": "src/components/icons/BellSlashIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-calendar-days",
+      "type": "registry:ui",
+      "title": "Calendar Days Icon",
+      "description": "Calendar Days Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CalendarDaysIcon.tsx",
+          "target": "src/components/icons/CalendarDaysIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-caret-down-solid",
+      "type": "registry:ui",
+      "title": "Caret Down Solid Icon",
+      "description": "Caret Down Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CaretDownSolidIcon.tsx",
+          "target": "src/components/icons/CaretDownSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-caret-up-solid",
+      "type": "registry:ui",
+      "title": "Caret Up Solid Icon",
+      "description": "Caret Up Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CaretUpSolidIcon.tsx",
+          "target": "src/components/icons/CaretUpSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-caret-left-solid",
+      "type": "registry:ui",
+      "title": "Caret Left Solid Icon",
+      "description": "Caret Left Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CaretLeftSolidIcon.tsx",
+          "target": "src/components/icons/CaretLeftSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-caret-right-solid",
+      "type": "registry:ui",
+      "title": "Caret Right Solid Icon",
+      "description": "Caret Right Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CaretRightSolidIcon.tsx",
+          "target": "src/components/icons/CaretRightSolidIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -298,12 +376,17 @@
     {
       "name": "icon-caret-down",
       "type": "registry:ui",
-      "title": "Caret Down Icon",
-      "description": "Caret Down Icon component",
+      "title": "Caret Down Icon (deprecated)",
+      "description": "Caret Down Icon (deprecated) component",
       "files": [
         {
           "path": "src-v2/icons/CaretDownIcon.tsx",
           "target": "src/components/icons/CaretDownIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CaretDownSolidIcon.tsx",
+          "target": "src/components/icons/CaretDownSolidIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -311,12 +394,17 @@
     {
       "name": "icon-caret-up",
       "type": "registry:ui",
-      "title": "Caret Up Icon",
-      "description": "Caret Up Icon component",
+      "title": "Caret Up Icon (deprecated)",
+      "description": "Caret Up Icon (deprecated) component",
       "files": [
         {
           "path": "src-v2/icons/CaretUpIcon.tsx",
           "target": "src/components/icons/CaretUpIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CaretUpSolidIcon.tsx",
+          "target": "src/components/icons/CaretUpSolidIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -335,79 +423,183 @@
       ]
     },
     {
-      "name": "icon-chevron-down",
+      "name": "icon-check-solid",
       "type": "registry:ui",
-      "title": "Chevron Down Icon",
-      "description": "Chevron Down Icon component",
+      "title": "Check Solid Icon",
+      "description": "Check Solid Icon component",
       "files": [
         {
-          "path": "src-v2/icons/ChevronDownIcon.tsx",
-          "target": "src/components/icons/ChevronDownIcon.tsx",
+          "path": "src-v2/icons/CheckSolidIcon.tsx",
+          "target": "src/components/icons/CheckSolidIcon.tsx",
           "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "icon-chevron-up",
+      "name": "icon-angle-down",
       "type": "registry:ui",
-      "title": "Chevron Up Icon",
-      "description": "Chevron Up Icon component",
+      "title": "Angle Down Icon",
+      "description": "Angle Down Icon component",
       "files": [
         {
-          "path": "src-v2/icons/ChevronUpIcon.tsx",
-          "target": "src/components/icons/ChevronUpIcon.tsx",
+          "path": "src-v2/icons/AngleDownIcon.tsx",
+          "target": "src/components/icons/AngleDownIcon.tsx",
           "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "icon-chevron-left",
+      "name": "icon-angle-down-solid",
       "type": "registry:ui",
-      "title": "Chevron Left Icon",
-      "description": "Chevron Left Icon component",
+      "title": "Angle Down Solid Icon",
+      "description": "Angle Down Solid Icon component",
       "files": [
         {
-          "path": "src-v2/icons/ChevronLeftIcon.tsx",
-          "target": "src/components/icons/ChevronLeftIcon.tsx",
+          "path": "src-v2/icons/AngleDownSolidIcon.tsx",
+          "target": "src/components/icons/AngleDownSolidIcon.tsx",
           "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "icon-chevron-right",
+      "name": "icon-angle-up",
       "type": "registry:ui",
-      "title": "Chevron Right Icon",
-      "description": "Chevron Right Icon component",
+      "title": "Angle Up Icon",
+      "description": "Angle Up Icon component",
       "files": [
         {
-          "path": "src-v2/icons/ChevronRightIcon.tsx",
-          "target": "src/components/icons/ChevronRightIcon.tsx",
+          "path": "src-v2/icons/AngleUpIcon.tsx",
+          "target": "src/components/icons/AngleUpIcon.tsx",
           "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "icon-chevron-double-left",
+      "name": "icon-angle-up-solid",
       "type": "registry:ui",
-      "title": "Chevron Double Left Icon",
-      "description": "Chevron Double Left Icon component",
+      "title": "Angle Up Solid Icon",
+      "description": "Angle Up Solid Icon component",
       "files": [
         {
-          "path": "src-v2/icons/ChevronDoubleLeftIcon.tsx",
-          "target": "src/components/icons/ChevronDoubleLeftIcon.tsx",
+          "path": "src-v2/icons/AngleUpSolidIcon.tsx",
+          "target": "src/components/icons/AngleUpSolidIcon.tsx",
           "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "icon-chevron-double-right",
+      "name": "icon-circle-user",
       "type": "registry:ui",
-      "title": "Chevron Double Right Icon",
-      "description": "Chevron Double Right Icon component",
+      "title": "Circle User Icon",
+      "description": "Circle User Icon component",
       "files": [
         {
-          "path": "src-v2/icons/ChevronDoubleRightIcon.tsx",
-          "target": "src/components/icons/ChevronDoubleRightIcon.tsx",
+          "path": "src-v2/icons/CircleUserIcon.tsx",
+          "target": "src/components/icons/CircleUserIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-angle-left",
+      "type": "registry:ui",
+      "title": "Angle Left Icon",
+      "description": "Angle Left Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/AngleLeftIcon.tsx",
+          "target": "src/components/icons/AngleLeftIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-angle-left-solid",
+      "type": "registry:ui",
+      "title": "Angle Left Solid Icon",
+      "description": "Angle Left Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/AngleLeftSolidIcon.tsx",
+          "target": "src/components/icons/AngleLeftSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-angle-left-to-line",
+      "type": "registry:ui",
+      "title": "Angle Left To Line Icon",
+      "description": "Angle Left To Line Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/AngleLeftToLineIcon.tsx",
+          "target": "src/components/icons/AngleLeftToLineIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-angle-right",
+      "type": "registry:ui",
+      "title": "Angle Right Icon",
+      "description": "Angle Right Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/AngleRightIcon.tsx",
+          "target": "src/components/icons/AngleRightIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-angle-right-solid",
+      "type": "registry:ui",
+      "title": "Angle Right Solid Icon",
+      "description": "Angle Right Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/AngleRightSolidIcon.tsx",
+          "target": "src/components/icons/AngleRightSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-angle-right-to-line",
+      "type": "registry:ui",
+      "title": "Angle Right To Line Icon",
+      "description": "Angle Right To Line Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/AngleRightToLineIcon.tsx",
+          "target": "src/components/icons/AngleRightToLineIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-angles-left",
+      "type": "registry:ui",
+      "title": "Angles Left Icon",
+      "description": "Angles Left Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/AnglesLeftIcon.tsx",
+          "target": "src/components/icons/AnglesLeftIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-angles-right",
+      "type": "registry:ui",
+      "title": "Angles Right Icon",
+      "description": "Angles Right Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/AnglesRightIcon.tsx",
+          "target": "src/components/icons/AnglesRightIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -439,27 +631,27 @@
       ]
     },
     {
-      "name": "icon-close",
+      "name": "icon-xmark",
       "type": "registry:ui",
-      "title": "Close Icon",
-      "description": "Close Icon component",
+      "title": "Xmark Icon",
+      "description": "Xmark Icon component",
       "files": [
         {
-          "path": "src-v2/icons/CloseIcon.tsx",
-          "target": "src/components/icons/CloseIcon.tsx",
+          "path": "src-v2/icons/XmarkIcon.tsx",
+          "target": "src/components/icons/XmarkIcon.tsx",
           "type": "registry:ui"
         }
       ]
     },
     {
-      "name": "icon-disabled",
+      "name": "icon-ban",
       "type": "registry:ui",
-      "title": "Disabled Icon",
-      "description": "Disabled Icon component",
+      "title": "Ban Icon",
+      "description": "Ban Icon component",
       "files": [
         {
-          "path": "src-v2/icons/DisabledIcon.tsx",
-          "target": "src/components/icons/DisabledIcon.tsx",
+          "path": "src-v2/icons/BanIcon.tsx",
+          "target": "src/components/icons/BanIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -530,6 +722,32 @@
       ]
     },
     {
+      "name": "icon-home",
+      "type": "registry:ui",
+      "title": "Home Icon",
+      "description": "Home Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/HomeIcon.tsx",
+          "target": "src/components/icons/HomeIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-inbox",
+      "type": "registry:ui",
+      "title": "Inbox Icon",
+      "description": "Inbox Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/InboxIcon.tsx",
+          "target": "src/components/icons/InboxIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-info",
       "type": "registry:ui",
       "title": "Info Icon",
@@ -538,6 +756,19 @@
         {
           "path": "src-v2/icons/InfoIcon.tsx",
           "target": "src/components/icons/InfoIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-life-ring",
+      "type": "registry:ui",
+      "title": "Life Ring Icon",
+      "description": "Life Ring Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/LifeRingIcon.tsx",
+          "target": "src/components/icons/LifeRingIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -556,6 +787,19 @@
       ]
     },
     {
+      "name": "icon-minus-solid",
+      "type": "registry:ui",
+      "title": "Minus Solid Icon",
+      "description": "Minus Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/MinusSolidIcon.tsx",
+          "target": "src/components/icons/MinusSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-panel-left",
       "type": "registry:ui",
       "title": "Panel Left Icon",
@@ -564,6 +808,58 @@
         {
           "path": "src-v2/icons/PanelLeftIcon.tsx",
           "target": "src/components/icons/PanelLeftIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-planet-ringed",
+      "type": "registry:ui",
+      "title": "Planet Ringed Icon",
+      "description": "Planet Ringed Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/PlanetRingedIcon.tsx",
+          "target": "src/components/icons/PlanetRingedIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-note",
+      "type": "registry:ui",
+      "title": "Note Icon",
+      "description": "Note Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/NoteIcon.tsx",
+          "target": "src/components/icons/NoteIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-placeholder",
+      "type": "registry:ui",
+      "title": "Placeholder Icon",
+      "description": "Placeholder Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/PlaceholderIcon.tsx",
+          "target": "src/components/icons/PlaceholderIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-placeholder-solid",
+      "type": "registry:ui",
+      "title": "Placeholder Solid Icon",
+      "description": "Placeholder Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/PlaceholderSolidIcon.tsx",
+          "target": "src/components/icons/PlaceholderSolidIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -582,14 +878,14 @@
       ]
     },
     {
-      "name": "icon-search",
+      "name": "icon-magnifying-glass",
       "type": "registry:ui",
-      "title": "Search Icon",
-      "description": "Search Icon component",
+      "title": "Magnifying Glass Icon",
+      "description": "Magnifying Glass Icon component",
       "files": [
         {
-          "path": "src-v2/icons/SearchIcon.tsx",
-          "target": "src/components/icons/SearchIcon.tsx",
+          "path": "src-v2/icons/MagnifyingGlassIcon.tsx",
+          "target": "src/components/icons/MagnifyingGlassIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -603,6 +899,19 @@
         {
           "path": "src-v2/icons/ShieldCheckIcon.tsx",
           "target": "src/components/icons/ShieldCheckIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar Icon",
+      "description": "Sidebar Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/SidebarIcon.tsx",
+          "target": "src/components/icons/SidebarIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -634,6 +943,32 @@
       ]
     },
     {
+      "name": "icon-thumbtack",
+      "type": "registry:ui",
+      "title": "Thumbtack Icon",
+      "description": "Thumbtack Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ThumbtackIcon.tsx",
+          "target": "src/components/icons/ThumbtackIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-thumbtack-solid",
+      "type": "registry:ui",
+      "title": "Thumbtack Solid Icon",
+      "description": "Thumbtack Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ThumbtackSolidIcon.tsx",
+          "target": "src/components/icons/ThumbtackSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "icon-user",
       "type": "registry:ui",
       "title": "User Icon",
@@ -653,13 +988,43 @@
       "description": "Custom SVG icon components",
       "files": [
         {
+          "path": "src-v2/icons/BarsIcon.tsx",
+          "target": "src/components/icons/BarsIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src-v2/icons/BellIcon.tsx",
           "target": "src/components/icons/BellIcon.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/CalendarIcon.tsx",
-          "target": "src/components/icons/CalendarIcon.tsx",
+          "path": "src-v2/icons/BellSlashIcon.tsx",
+          "target": "src/components/icons/BellSlashIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CalendarDaysIcon.tsx",
+          "target": "src/components/icons/CalendarDaysIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CaretDownSolidIcon.tsx",
+          "target": "src/components/icons/CaretDownSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CaretUpSolidIcon.tsx",
+          "target": "src/components/icons/CaretUpSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CaretLeftSolidIcon.tsx",
+          "target": "src/components/icons/CaretLeftSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CaretRightSolidIcon.tsx",
+          "target": "src/components/icons/CaretRightSolidIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -678,33 +1043,73 @@
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/ChevronDownIcon.tsx",
-          "target": "src/components/icons/ChevronDownIcon.tsx",
+          "path": "src-v2/icons/CheckSolidIcon.tsx",
+          "target": "src/components/icons/CheckSolidIcon.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/ChevronUpIcon.tsx",
-          "target": "src/components/icons/ChevronUpIcon.tsx",
+          "path": "src-v2/icons/AngleDownIcon.tsx",
+          "target": "src/components/icons/AngleDownIcon.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/ChevronLeftIcon.tsx",
-          "target": "src/components/icons/ChevronLeftIcon.tsx",
+          "path": "src-v2/icons/AngleDownSolidIcon.tsx",
+          "target": "src/components/icons/AngleDownSolidIcon.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/ChevronRightIcon.tsx",
-          "target": "src/components/icons/ChevronRightIcon.tsx",
+          "path": "src-v2/icons/AngleUpIcon.tsx",
+          "target": "src/components/icons/AngleUpIcon.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/ChevronDoubleLeftIcon.tsx",
-          "target": "src/components/icons/ChevronDoubleLeftIcon.tsx",
+          "path": "src-v2/icons/AngleUpSolidIcon.tsx",
+          "target": "src/components/icons/AngleUpSolidIcon.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/ChevronDoubleRightIcon.tsx",
-          "target": "src/components/icons/ChevronDoubleRightIcon.tsx",
+          "path": "src-v2/icons/CircleUserIcon.tsx",
+          "target": "src/components/icons/CircleUserIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/AngleLeftIcon.tsx",
+          "target": "src/components/icons/AngleLeftIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/AngleLeftSolidIcon.tsx",
+          "target": "src/components/icons/AngleLeftSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/AngleLeftToLineIcon.tsx",
+          "target": "src/components/icons/AngleLeftToLineIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/AngleRightIcon.tsx",
+          "target": "src/components/icons/AngleRightIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/AngleRightSolidIcon.tsx",
+          "target": "src/components/icons/AngleRightSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/AngleRightToLineIcon.tsx",
+          "target": "src/components/icons/AngleRightToLineIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/AnglesLeftIcon.tsx",
+          "target": "src/components/icons/AnglesLeftIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/AnglesRightIcon.tsx",
+          "target": "src/components/icons/AnglesRightIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -718,13 +1123,13 @@
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/CloseIcon.tsx",
-          "target": "src/components/icons/CloseIcon.tsx",
+          "path": "src-v2/icons/XmarkIcon.tsx",
+          "target": "src/components/icons/XmarkIcon.tsx",
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/DisabledIcon.tsx",
-          "target": "src/components/icons/DisabledIcon.tsx",
+          "path": "src-v2/icons/BanIcon.tsx",
+          "target": "src/components/icons/BanIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -753,8 +1158,23 @@
           "type": "registry:ui"
         },
         {
+          "path": "src-v2/icons/HomeIcon.tsx",
+          "target": "src/components/icons/HomeIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/InboxIcon.tsx",
+          "target": "src/components/icons/InboxIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src-v2/icons/InfoIcon.tsx",
           "target": "src/components/icons/InfoIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/LifeRingIcon.tsx",
+          "target": "src/components/icons/LifeRingIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -763,8 +1183,33 @@
           "type": "registry:ui"
         },
         {
+          "path": "src-v2/icons/MinusSolidIcon.tsx",
+          "target": "src/components/icons/MinusSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src-v2/icons/PanelLeftIcon.tsx",
           "target": "src/components/icons/PanelLeftIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/PlanetRingedIcon.tsx",
+          "target": "src/components/icons/PlanetRingedIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/NoteIcon.tsx",
+          "target": "src/components/icons/NoteIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/PlaceholderIcon.tsx",
+          "target": "src/components/icons/PlaceholderIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/PlaceholderSolidIcon.tsx",
+          "target": "src/components/icons/PlaceholderSolidIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -773,13 +1218,18 @@
           "type": "registry:ui"
         },
         {
-          "path": "src-v2/icons/SearchIcon.tsx",
-          "target": "src/components/icons/SearchIcon.tsx",
+          "path": "src-v2/icons/MagnifyingGlassIcon.tsx",
+          "target": "src/components/icons/MagnifyingGlassIcon.tsx",
           "type": "registry:ui"
         },
         {
           "path": "src-v2/icons/ShieldCheckIcon.tsx",
           "target": "src/components/icons/ShieldCheckIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/SidebarIcon.tsx",
+          "target": "src/components/icons/SidebarIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -790,6 +1240,16 @@
         {
           "path": "src-v2/icons/SquareArrowOutUpRightIcon.tsx",
           "target": "src/components/icons/SquareArrowOutUpRightIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/ThumbtackIcon.tsx",
+          "target": "src/components/icons/ThumbtackIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/ThumbtackSolidIcon.tsx",
+          "target": "src/components/icons/ThumbtackSolidIcon.tsx",
           "type": "registry:ui"
         },
         {
@@ -854,7 +1314,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-disabled",
+        "@vital-design/icon-ban",
         "@vital-design/icon-user",
         "@vital-design/vital-theme"
       ],
@@ -920,8 +1380,10 @@
         "@vital-design/utils",
         "@vital-design/button",
         "@vital-design/button-group",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-chevron-up",
+        "@vital-design/icon-angle-down",
+        "@vital-design/icon-angle-down-solid",
+        "@vital-design/icon-angle-up",
+        "@vital-design/icon-angle-up-solid",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -942,8 +1404,8 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-check",
-        "@vital-design/icon-minus",
+        "@vital-design/icon-check-solid",
+        "@vital-design/icon-minus-solid",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -964,7 +1426,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-close",
+        "@vital-design/icon-xmark",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1066,7 +1528,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-close",
+        "@vital-design/icon-xmark",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1147,7 +1609,7 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/input-group",
-        "@vital-design/icon-search",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1335,8 +1797,9 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-check",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-chevron-up",
+        "@vital-design/icon-check-solid",
+        "@vital-design/icon-angle-down",
+        "@vital-design/icon-angle-up",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1357,10 +1820,10 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-chevron-up",
+        "@vital-design/icon-angle-down",
+        "@vital-design/icon-angle-up",
         "@vital-design/icon-clear",
-        "@vital-design/icon-search",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1382,11 +1845,12 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-check",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-chevron-up",
+        "@vital-design/icon-check-solid",
+        "@vital-design/icon-angle-down",
+        "@vital-design/icon-angle-up",
         "@vital-design/icon-clear",
-        "@vital-design/icon-close",
-        "@vital-design/icon-search",
+        "@vital-design/icon-xmark",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1411,8 +1875,8 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-chevron-left",
-        "@vital-design/icon-search",
+        "@vital-design/icon-angle-left",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/spinner",
         "@vital-design/vital-theme"
       ],
@@ -1474,7 +1938,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-close",
+        "@vital-design/icon-xmark",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1496,7 +1960,7 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/icon-check",
-        "@vital-design/icon-chevron-right",
+        "@vital-design/icon-angle-right",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1518,7 +1982,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-close",
+        "@vital-design/icon-xmark",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1621,11 +2085,11 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/popover",
-        "@vital-design/icon-chevron-double-left",
-        "@vital-design/icon-chevron-double-right",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-chevron-left",
-        "@vital-design/icon-chevron-right",
+        "@vital-design/icon-angles-left",
+        "@vital-design/icon-angles-right",
+        "@vital-design/icon-angle-down",
+        "@vital-design/icon-angle-left",
+        "@vital-design/icon-angle-right",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1685,7 +2149,7 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-close",
+        "@vital-design/icon-xmark",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1773,8 +2237,8 @@
       ],
       "registryDependencies": [
         "@vital-design/utils",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-chevron-up",
+        "@vital-design/icon-caret-down-solid",
+        "@vital-design/icon-caret-up-solid",
         "@vital-design/vital-theme"
       ],
       "files": [
@@ -1832,11 +2296,11 @@
         "@vital-design/table",
         "@vital-design/tag",
         "@vital-design/toolbar",
-        "@vital-design/icon-caret-down",
-        "@vital-design/icon-caret-up",
-        "@vital-design/icon-check",
-        "@vital-design/icon-chevron-down",
-        "@vital-design/icon-close",
+        "@vital-design/icon-caret-down-solid",
+        "@vital-design/icon-caret-up-solid",
+        "@vital-design/icon-check-solid",
+        "@vital-design/icon-angle-down",
+        "@vital-design/icon-xmark",
         "@vital-design/icon-ellipsis",
         "@vital-design/icon-gear",
         "@vital-design/icon-plus",
@@ -1931,11 +2395,11 @@
       "registryDependencies": [
         "@vital-design/utils",
         "@vital-design/sidebar",
-        "@vital-design/icon-calendar",
+        "@vital-design/icon-calendar-days",
         "@vital-design/icon-check",
         "@vital-design/icon-flag",
         "@vital-design/icon-panel-left",
-        "@vital-design/icon-search",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/icon-user",
         "@vital-design/vital-theme"
       ],
@@ -1970,11 +2434,11 @@
         "@vital-design/sidebar",
         "@vital-design/avatar",
         "@vital-design/dropdown-menu",
-        "@vital-design/icon-calendar",
+        "@vital-design/icon-calendar-days",
         "@vital-design/icon-check",
         "@vital-design/icon-flag",
         "@vital-design/icon-panel-left",
-        "@vital-design/icon-search",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/icon-user",
         "@vital-design/vital-theme"
       ],
@@ -2009,13 +2473,13 @@
         "@vital-design/sidebar",
         "@vital-design/button",
         "@vital-design/dropdown-menu",
-        "@vital-design/icon-calendar",
+        "@vital-design/icon-calendar-days",
         "@vital-design/icon-check",
         "@vital-design/icon-ellipsis",
         "@vital-design/icon-flag",
         "@vital-design/icon-panel-left",
         "@vital-design/icon-plus",
-        "@vital-design/icon-search",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/icon-user",
         "@vital-design/vital-theme"
       ],
@@ -2050,12 +2514,12 @@
         "@vital-design/sidebar",
         "@vital-design/avatar",
         "@vital-design/dropdown-menu",
-        "@vital-design/icon-calendar",
+        "@vital-design/icon-calendar-days",
         "@vital-design/icon-check",
         "@vital-design/icon-flag",
         "@vital-design/icon-info",
         "@vital-design/icon-panel-left",
-        "@vital-design/icon-search",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/icon-shield-check",
         "@vital-design/icon-square-arrow-out-up-right",
         "@vital-design/icon-user",
@@ -2095,11 +2559,11 @@
         "@vital-design/button",
         "@vital-design/dropdown-menu",
         "@vital-design/icon-bell",
-        "@vital-design/icon-calendar",
+        "@vital-design/icon-calendar-days",
         "@vital-design/icon-check",
         "@vital-design/icon-flag",
         "@vital-design/icon-panel-left",
-        "@vital-design/icon-search",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/icon-user",
         "@vital-design/vital-theme"
       ],
@@ -2135,12 +2599,12 @@
         "@vital-design/avatar",
         "@vital-design/collapsible",
         "@vital-design/dropdown-menu",
-        "@vital-design/icon-calendar",
+        "@vital-design/icon-calendar-days",
         "@vital-design/icon-check",
-        "@vital-design/icon-chevron-right",
+        "@vital-design/icon-angle-right",
         "@vital-design/icon-flag",
         "@vital-design/icon-panel-left",
-        "@vital-design/icon-search",
+        "@vital-design/icon-magnifying-glass",
         "@vital-design/icon-user",
         "@vital-design/vital-theme"
       ],

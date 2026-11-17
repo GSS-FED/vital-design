@@ -7,11 +7,11 @@ import {
 } from '@/components/button/Button';
 import { Spinner } from '@/components/spinner/Spinner';
 import {
-  ChevronDownIcon,
-  ChevronUpIcon,
-  CloseIcon,
+  AngleDownIcon,
+  AngleUpIcon,
   FlagIcon,
-  SearchIcon,
+  MagnifyingGlassIcon,
+  XmarkIcon,
 } from '@/icons';
 import { type Meta, type StoryObj } from '@storybook/react';
 import React from 'react';
@@ -93,11 +93,11 @@ export const WithIcons: Story = {
       </Button>
       <Button theme="default">
         Download
-        <ChevronDownIcon data-icon="inline-end" />
+        <AngleDownIcon data-icon="inline-end" />
       </Button>
       <Button variant="text" theme="primary">
         Search
-        <SearchIcon data-icon="inline-end" />
+        <MagnifyingGlassIcon data-icon="inline-end" />
       </Button>
     </Row>
   ),
@@ -108,13 +108,13 @@ export const IconOnly: Story = {
   render: () => (
     <Row>
       <Button size="icon-md" theme="default" aria-label="Close">
-        <CloseIcon data-icon="inline-start" />
+        <XmarkIcon data-icon="inline-start" />
       </Button>
       <Button size="icon-md" theme="primary" aria-label="Search">
-        <SearchIcon data-icon="inline-start" />
+        <MagnifyingGlassIcon data-icon="inline-start" />
       </Button>
       <Button size="icon-lg" theme="primary" aria-label="Expand">
-        <ChevronUpIcon data-icon="inline-start" />
+        <AngleUpIcon data-icon="inline-start" />
       </Button>
     </Row>
   ),
@@ -281,7 +281,7 @@ export const LinkButtonStory: Story = {
       </LinkButton>
       <LinkButton href="#more" variant="text" theme="primary">
         了解更多
-        <ChevronDownIcon data-icon="inline-end" />
+        <AngleDownIcon data-icon="inline-end" />
       </LinkButton>
     </Row>
   ),

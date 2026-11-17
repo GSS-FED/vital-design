@@ -360,7 +360,7 @@ const SidebarTrigger = function SidebarTrigger({
       }}
       {...props}
     >
-      <PanelLeftIcon className="size-4" />
+      <PanelLeftIcon className="size-5" />
       <span className="sr-only">Toggle Sidebar</span>
     </button>
   );
@@ -680,7 +680,7 @@ const SidebarMenuItem = function SidebarMenuItem({
 
 const sidebarMenuButtonVariants = cva(
   // Icon-collapse: hide label spans only — not Avatar (Base UI root is often <span data-slot=avatar>)
-  'peer/menu-button relative flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm text-grayscale-800 ring-sidebar-ring outline-hidden transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:p-2! hover:bg-grayscale-200 focus-visible:ring-2 active:bg-grayscale-200 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-grayscale-200 data-[active=true]:font-medium data-popup-open:bg-grayscale-200 [&>span:last-child]:truncate group-data-[collapsible=icon]:[&>span:not([data-slot=avatar])]:hidden [&>svg]:size-4 [&>svg]:shrink-0',
+  'peer/menu-button relative flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm text-grayscale-800 ring-sidebar-ring outline-hidden transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:p-1.5! hover:bg-grayscale-200 focus-visible:ring-2 active:bg-grayscale-200 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-grayscale-200 data-[active=true]:font-medium data-popup-open:bg-grayscale-200 [&>span:last-child]:truncate group-data-[collapsible=icon]:[&>span:not([data-slot=avatar])]:hidden [&>svg]:size-5 [&>svg]:shrink-0',
   {
     variants: {
       variant: {
@@ -964,7 +964,7 @@ const SidebarMenuSubButton = function SidebarMenuSubButton({
       {
         type: render ? undefined : 'button',
         className: cn(
-          'flex h-7 w-full min-w-0 -translate-x-px cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 text-grayscale-800 ring-sidebar-ring outline-hidden hover:bg-grayscale-200 focus-visible:ring-2 active:bg-grayscale-200 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
+          'flex h-7 w-full min-w-0 -translate-x-px cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 text-grayscale-800 ring-sidebar-ring outline-hidden hover:bg-grayscale-200 focus-visible:ring-2 active:bg-grayscale-200 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-5 [&>svg]:shrink-0',
           'data-[active=true]:bg-grayscale-200 data-[active=true]:font-medium',
           size === 'sm' && 'text-xs',
           size === 'md' && 'text-sm',

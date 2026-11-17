@@ -46,6 +46,7 @@ pnpm docs:start            # 啟動生產環境文件站
 | `/add-docs`      | `add-docs`      | 為元件或 block 建立文件頁面  |
 | `/create-block`  | `create-block`  | 建立複合 UI 區塊             |
 | `/check-quality` | `check-quality` | 執行程式碼與文件一致性檢查   |
+| `/add-icon`      | `add-icon`      | 從 Figma 新增或更新 icon     |
 
 ## AI Skills
 
@@ -58,6 +59,7 @@ pnpm docs:start            # 啟動生產環境文件站
 | `build-shadcn-ui`      | 以 Base UI + Tailwind v4 + `data-slot` 建立或重構 `src-v2` 元件 |
 | `check-quality`        | 檢查型別、lint、測試、registry 與文件同步狀態                   |
 | `lint-design-decision` | 判讀 `lint:design` 結果：改 code 還是改 lint policy（contract） |
+| `add-icon`             | 從 Figma「SVG」欄匯出 icon、`icons:build`、元件用 frame 尺寸    |
 
 ## Tech Stack
 
@@ -161,8 +163,8 @@ pnpm docs:start            # 啟動生產環境文件站
 
 ## Known Gotchas
 
-- **Icon 系統**：icon 真實 source 是 `src-v2/icons/_source/*.svg`，分 `custom/` 與 `fontawesome/` 兩個 folder（FA 限 Free CC BY 4.0，附 `CREDITS.md`）。`.tsx` 由 `pnpm run icons:build`（SVGR）產生，**不要手改**——改 SVG 然後重跑。所有 icon API 統一為 `SVGProps<SVGSVGElement>`，預設 `width="1em" height="1em"` 與 `aria-hidden="true"`。filled source 生成 `fill="currentColor"`；root 同時有 `fill="none"` 與 `stroke` 的 stroke source 生成 `fill="none"`（呼叫端不必再傳 `fill-none`）。尺寸用 Tailwind `size-N`（或父層 `text-N` 經 `1em` 繼承），顏色用 `text-*` utility，**禁止 `color` / `opacity` / `fillOpacity` props**。需要動畫的 spinner 用 `<Spinner />` wrapper（含 `animate-spin` 與 `role="status"`），不要直接用 `SpinnerIcon`。每個 icon 各自一個檔案、各自一個 registry item（含 chevron 6 個方向），import 走精確路徑（例：`@/icons/ChevronDownIcon`），不使用 barrel。
-- **Icon 導入**：元件源碼禁止 barrel import，需指定完整路徑（例：`@/icons/SearchIcon`）；registry 安裝時 icons 會落在 `src/components/icons/*`，元件 registryDependencies 應列精確的 `@vital-design/icon-*`，不要用整包 `@vital-design/vital-icons`；stories/test 不走 registry 分發，不受此限
+- **Icon 系統**：icon 真實 source 是 `src-v2/icons/_source/*.svg`，分 `custom/` 與 `fontawesome/` 兩個 folder（FA 限 Free CC BY 4.0，附 `CREDITS.md`）。`.tsx` 由 `pnpm run icons:build`（SVGR）產生，**不要手改**——改 SVG 然後重跑。所有 icon API 統一為 `SVGProps<SVGSVGElement>`，預設 `width="1em" height="1em"` 與 `aria-hidden="true"`。`icons:build` 把所有非 `none` 的 `fill` / `stroke` 顏色改成 `currentColor`，`none` 保持 `none`；根節點沒寫 `fill` 時補 `currentColor`（SVG 預設黑色填色）。每個有 stroke 的形狀都帶同一個 `stroke-width` 時，提到根節點（呼叫端可用 `strokeWidth` 一次覆寫）；`stroke-linecap` / `stroke-linejoin` 留在原位。形狀自己和祖先都沒有 fill / stroke 會讓 build 失敗（避免 icon 渲染成空白）。**Figma → VD**：照 `add-icon` skill（`.agents/skills/add-icon/SKILL.md`）。重點：只匯出 Figma Icons 頁左側「SVG」欄（20×20，Regular 線寬 1.3、Solid 1.75），不要匯出 outline 過的 component；換圖時覆蓋原檔、不改名；元件裡的 icon class 用 Figma frame 尺寸。尺寸用 Tailwind `size-N`（或父層 `text-N` 經 `1em` 繼承），顏色用 `text-*` utility，**禁止 `color` / `opacity` / `fillOpacity` props**。需要動畫的 spinner 用 `<Spinner />` wrapper（含 `animate-spin` 與 `role="status"`），不要直接用 `SpinnerIcon`。每個 icon 各自一個檔案、各自一個 registry item（名稱跟設計的 Notion icon 清單一致，例如 angle-down、xmark、ban、calendar-days、magnifying-glass），import 走精確路徑（例：`@/icons/AngleDownIcon`），不使用 barrel。
+- **Icon 導入**：元件源碼禁止 barrel import，需指定完整路徑（例：`@/icons/MagnifyingGlassIcon`）；registry 安裝時 icons 會落在 `src/components/icons/*`，元件 registryDependencies 應列精確的 `@vital-design/icon-*`，不要用整包 `@vital-design/vital-icons`；stories/test 不走 registry 分發，不受此限
 - **Colors**：元件一律使用 CSS variables（`var(--primary-500)`）或 Tailwind utility class
 - **Shadows**：同上，使用 `var(--shadow-emphasis)` 等 CSS variables
 - **Registry 依賴**：`registryDependencies` 必須加 `@vital-design/` 前綴

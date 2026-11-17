@@ -1,7 +1,7 @@
 import { Spinner } from '@/components/spinner/Spinner';
 import { CheckIcon } from '@/icons/CheckIcon';
-import { CloseIcon } from '@/icons/CloseIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
+import { XmarkIcon } from '@/icons/XmarkIcon';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { useMemo, useRef, useState } from 'react';
 import { Button } from '../button/Button';
@@ -26,7 +26,7 @@ const STATUSES: ToastStatus[] = [
 const STATUS_ICON_NODE: Record<ToastStatus, React.ReactNode> = {
   success: <CheckIcon className="size-5" />,
   warning: <FlagIcon className="size-5" />,
-  error: <CloseIcon className="size-5" />,
+  error: <XmarkIcon className="size-5" />,
   info: <FlagIcon className="size-5" />,
   loading: <Spinner className="size-5" />,
 };
@@ -432,7 +432,7 @@ function TwoChannelsScene() {
                 type: 'error',
                 title: 'Connection lost',
                 data: {
-                  icon: <CloseIcon className="size-5" />,
+                  icon: <XmarkIcon className="size-5" />,
                 },
               })
             }

@@ -1,7 +1,7 @@
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
-import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
+import { AngleDownIcon } from '@/icons/AngleDownIcon';
+import { AngleUpIcon } from '@/icons/AngleUpIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
-import { SearchIcon } from '@/icons/SearchIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { cn } from '@/lib/utils';
 import { Autocomplete as BaseAutocomplete } from '@base-ui/react/autocomplete';
 import type {
@@ -105,13 +105,13 @@ const Trigger = function AutocompleteTrigger({
     >
       {children ?? (
         <>
-          <ChevronDownIcon
+          <AngleDownIcon
             data-slot="autocomplete-trigger-icon-down"
-            className="block size-3.5 group-data-[popup-open]:hidden"
+            className="block size-5 group-data-[popup-open]:hidden"
           />
-          <ChevronUpIcon
+          <AngleUpIcon
             data-slot="autocomplete-trigger-icon-up"
-            className="hidden size-3.5 group-data-[popup-open]:block"
+            className="hidden size-5 group-data-[popup-open]:block"
           />
         </>
       )}
@@ -141,7 +141,7 @@ const Icon = function AutocompleteIcon({
       )}
       {...props}
     >
-      {children ?? <SearchIcon className="size-4.5" />}
+      {children ?? <MagnifyingGlassIcon className="size-4.5" />}
     </BaseAutocomplete.Icon>
   );
 };

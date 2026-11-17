@@ -3,7 +3,7 @@ title: SplitButton
 description: A split action built from ButtonGroup with a primary action and a separate toggle trigger.
 ---
 
-import { SearchIcon } from '@/icons/SearchIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import {
   SplitButtonDefaultPreview,
   SplitButtonPreview,
@@ -32,7 +32,7 @@ function SaveButton() {
       onClick={() => handleSave()}
       splitOnClick={() => setOpen((v) => !v)}
     >
-      <SearchIcon data-icon="inline-start" />
+      <MagnifyingGlassIcon data-icon="inline-start" />
       Save
     </SplitButton>
   );

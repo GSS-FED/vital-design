@@ -7,7 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/popover/Popover';
-import { CheckIcon } from '@/icons/CheckIcon';
+import { CheckSolidIcon } from '@/icons/CheckSolidIcon';
 import { cn } from '@/lib/utils';
 import { type ComponentProps, type ReactNode, useState } from 'react';
 
@@ -67,7 +67,9 @@ function OptionCheck({ checked }: { checked: boolean }) {
         checked && 'border-primary-500 bg-primary-500',
       )}
     >
-      {checked ? <CheckIcon className="size-2.5" /> : null}
+      {checked ? (
+        <CheckSolidIcon className="size-4 shrink-0" />
+      ) : null}
     </span>
   );
 }

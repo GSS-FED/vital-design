@@ -9,6 +9,47 @@ That package is built from `src/` and stays available for existing apps. New wor
 
 Newest entries are at the top. Headings use the month the change shipped. We only record changes that affect how you install or use the registry — new components, breaking usage, tokens, and install steps.
 
+## November 2026 — Icons use the design names and 20×20 frames
+
+**Breaking:** icon names now match the design team's icon list. The old registry items are removed.
+
+| Old item                                  | New item                              |
+| ----------------------------------------- | ------------------------------------- |
+| `@vital-design/icon-chevron-left`         | `@vital-design/icon-angle-left`       |
+| `@vital-design/icon-chevron-right`        | `@vital-design/icon-angle-right`      |
+| `@vital-design/icon-chevron-double-left`  | `@vital-design/icon-angles-left`      |
+| `@vital-design/icon-chevron-double-right` | `@vital-design/icon-angles-right`     |
+| `@vital-design/icon-chevron-down`         | `@vital-design/icon-angle-down`       |
+| `@vital-design/icon-chevron-up`           | `@vital-design/icon-angle-up`         |
+| `@vital-design/icon-close`                | `@vital-design/icon-xmark`            |
+| `@vital-design/icon-disabled`             | `@vital-design/icon-ban`              |
+| `@vital-design/icon-calendar`             | `@vital-design/icon-calendar-days`    |
+| `@vital-design/icon-search`               | `@vital-design/icon-magnifying-glass` |
+
+Update imports to the new component names: `AngleLeftIcon`, `AngleRightIcon`, `AnglesLeftIcon`, `AnglesRightIcon`, `AngleDownIcon`, `AngleUpIcon`, `XmarkIcon`, `BanIcon`, `CalendarDaysIcon`, `MagnifyingGlassIcon`. Reinstall the components you use; every component that depended on a renamed item now depends on the new one.
+
+The carets take the `Solid` suffix, because a plain name means the Regular style: `CaretDownIcon` and `CaretUpIcon` are now `CaretDownSolidIcon` and `CaretUpSolidIcon` (`@vital-design/icon-caret-down-solid`, `@vital-design/icon-caret-up-solid`). The old names and registry items still work but are deprecated; `CaretDownIcon` re-exports `CaretDownSolidIcon`. Switch to the new names.
+
+New icon items: `icon-angle-down-solid`, `icon-angle-up-solid`, `icon-angle-left-solid`, `icon-angle-right-solid`, `icon-angle-left-to-line`, `icon-angle-right-to-line`, `icon-check-solid`, `icon-minus-solid`, `icon-bars`, `icon-circle-user`, `icon-home`, `icon-inbox`, `icon-life-ring`, `icon-planet-ringed`, `icon-sidebar`, `icon-thumbtack`, `icon-thumbtack-solid`, `icon-bell-slash`, `icon-caret-left-solid`, `icon-caret-right-solid`, `icon-note`, `icon-placeholder`, `icon-placeholder-solid`. `PlaceholderIcon` is the design's `*icons`: a stand-in for a slot that takes any icon. See [Icons → Regular and Solid](/docs/components/icons#regular-and-solid).
+
+Every icon now uses a 20×20 frame with padding, so a `size-*` class sets the frame, not the glyph. Components size icons to the Figma frame: icons inside `Button` (`data-icon`) are 18px (`md`, `icon-md`) and 20px (`lg`, `icon-lg`) with no margin, and `Sidebar` menu icons are 20px. If you set your own icon sizes, check them against the new frames.
+
+Component changes that follow the design list:
+
+- `checkbox` uses `CheckSolidIcon` and `MinusSolidIcon`.
+- `number-input` steppers use `CaretUpSolidIcon` and `CaretDownSolidIcon`.
+- `split-button` uses the regular angle on white themes and the solid angle on coloured themes.
+- The angle, angles, and angle-to-line icons use the redrawn design artwork, so the glyph is 10px tall in the 20px frame instead of 8.3px. This shows in `calendar` and `split-button`.
+- `EllipsisIcon` no longer has a built-in 0.55 fill opacity; it takes the text color like every other icon. In `breadcrumb` the collapsed ellipsis is now `grayscale-500`, the same as the other inactive items. If you added `[fill-opacity:1]` to undo it, remove it.
+- `data-table` group rows use a 20px `CaretDownSolidIcon` (rotated when collapsed), and the popover option check uses `CheckSolidIcon` like `checkbox`. The selection bar's close icon is 20px and the add-row plus is 18px.
+
+**Temporary artwork.** These icons keep their names and sizes, but the artwork is a placeholder until the design team draws the final version. Only the SVG will change:
+
+- Font Awesome Pro in the design file, so the previous Vittal artwork is used instead: `MagnifyingGlassIcon`, `PlusIcon`, `SpinnerIcon`, `ShieldCheckIcon`, `SquareArrowOutUpRightIcon`.
+- Font Awesome Free shapes not yet redrawn: `ClockIcon`, `FlagIcon`, `UserIcon`, `EllipsisIcon`.
+- Not in the design file yet: `InfoIcon`, `ClearIcon`, `PanelLeftIcon`.
+- Drawn by design but not yet confirmed: `XmarkIcon`, `AngleLeftIcon`, `AngleRightIcon` (and their Solid versions), `AnglesLeftIcon`, `AnglesRightIcon`, `CircleUserIcon`, `ThumbtackSolidIcon`.
+
 ## November 2026 — Border tokens
 
 `--border` is now the 0.08 hairline (`grayscale-opacity-200`), the line Figma uses for dividers. It was a solid `#DEDEE2`. A new `--border-overlap` token keeps the solid `#DEDEE2` for edges that stack or cross, where a translucent line would darken. Use it with `border-border-overlap`.
@@ -81,11 +122,14 @@ npx shadcn@latest add @vital-design/icon-caret-down
 
 ### Data tables
 
-The Candidate Tree and ESG Emission Tree data table blocks can resize columns. Drag the header edge. `columnResizeMode` defaults to `onChange`. Use `onEnd` on a wide table with many pinned columns so the columns stay put until you release.
+[Data Table group 01](/docs/blocks/data-table-group-01) and [group 02](/docs/blocks/data-table-group-02) can resize columns. Drag the header edge. `columnResizeMode` defaults to `onChange`. Use `onEnd` on a wide table with many pinned columns so the columns stay put until you release.
 
-ESG Emission Tree also swaps its sort icon from chevron up to the caret pair, and drops `@vital-design/icon-chevron-up`. `@vital-design/icon-chevron-down` stays for the row rail. The sort label truncates so the caret stays visible when a column gets narrow.
+Reinstall both blocks. Group 02 also swaps its sort icon from chevron up to the caret pair, and drops `@vital-design/icon-chevron-up`. `@vital-design/icon-chevron-down` stays for the row rail. The sort label truncates so the caret stays visible when a column gets narrow.
 
-Both blocks have since been replaced by [Data Table](/docs/blocks/data-table).
+```bash
+npx shadcn@latest add @vital-design/data-table-group-01
+npx shadcn@latest add @vital-design/data-table-group-02
+```
 
 ## September 2026 — Registry on vittal.design
 
@@ -116,7 +160,7 @@ Registry URL: `https://vittal.design/r/{name}.json`
 ### Blocks
 
 - Cloud Sidebar: [flat](/docs/blocks/sidebar/cloud/flat), [inline submenus](/docs/blocks/sidebar/cloud/inline-submenus), [collapsible submenus](/docs/blocks/sidebar/cloud/collapsible-submenus), [dropdown submenus](/docs/blocks/sidebar/cloud/dropdown-submenus), [secondary nav](/docs/blocks/sidebar/cloud/secondary-nav), [header actions](/docs/blocks/sidebar/cloud/header-actions)
-- Data Table: candidate tree, ESG emission tree, editable cells (since replaced by [Data Table](/docs/blocks/data-table))
+- Data Table: [group 01](/docs/blocks/data-table-group-01), [group 02](/docs/blocks/data-table-group-02), [group 04](/docs/blocks/data-table-group-04)
 
 ### Tokens
 

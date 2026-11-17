@@ -10,10 +10,10 @@ Guide for assembling Vital Design in a **consumer** app (copied registry compone
 
 ## Invariants
 
-1. **Consumer imports.** Import each primitive, block, and icon via named export from the exact file the CLI wrote (typically `@/components/ui/Button`, `@/components/icons/SearchIcon`, `@/blocks/sidebar-cloud-01/app-sidebar`). Never use default imports or icon barrel imports.
+1. **Consumer imports.** Import each primitive, block, and icon via named export from the exact file the CLI wrote (typically `@/components/ui/Button`, `@/components/icons/MagnifyingGlassIcon`, `@/blocks/sidebar-cloud-01/app-sidebar`). Never use default imports or icon barrel imports.
 
    ```typescript
-   import { SearchIcon } from '@/components/icons/SearchIcon';
+   import { MagnifyingGlassIcon } from '@/components/icons/MagnifyingGlassIcon';
    import { Button } from '@/components/ui/Button';
    ```
 
@@ -21,7 +21,7 @@ Guide for assembling Vital Design in a **consumer** app (copied registry compone
 
    ```tsx
    <Button>
-     <SearchIcon data-icon="inline-start" />
+     <MagnifyingGlassIcon data-icon="inline-start" />
      Search
    </Button>
    ```
@@ -153,7 +153,7 @@ The icon set is small (a few dozen glyphs), so list what is published before map
 curl -s https://vittal.design/r/registry.json | python3 -c "import json,sys; print(' '.join(i['name'] for i in json.load(sys.stdin)['items']))"
 ```
 
-Map each old glyph to a listed name (dismiss is `icon-close`, reveal is `icon-eye` / `icon-eye-slash`). A glyph with no match becomes a text label or CSS shape inside the Vital component.
+Map each old glyph to a listed name (dismiss is `icon-xmark`, reveal is `icon-eye` / `icon-eye-slash`). A glyph with no match becomes a text label or CSS shape inside the Vital component.
 
 When restyling an app built on Bootstrap, also read [migrating-from-bootstrap.md](./migrating-from-bootstrap.md).
 
@@ -217,7 +217,7 @@ A registry add can append Vital's `@theme inline` token definitions after existi
     <DropdownMenuTrigger
       render={
         <Button size="icon-md" aria-label="More actions">
-          <ChevronDownIcon data-icon="inline-end" />
+          <AngleDownIcon data-icon="inline-end" />
         </Button>
       }
     />

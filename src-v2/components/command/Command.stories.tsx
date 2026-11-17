@@ -1,5 +1,5 @@
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
-import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
+import { AngleDownIcon } from '@/icons/AngleDownIcon';
+import { AngleRightIcon } from '@/icons/AngleRightIcon';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import {
@@ -233,7 +233,7 @@ export const HierarchicalPicker: Story = {
             {value?.label ?? 'Select location'}
           </span>
           <span className="flex h-5 w-5 shrink-0 items-center justify-center text-grayscale-opacity-700">
-            <ChevronDownIcon className="size-3.5" />
+            <AngleDownIcon className="size-3.5" />
           </span>
         </PopoverTrigger>
         <PopoverContent
@@ -284,7 +284,7 @@ export const HierarchicalPicker: Story = {
                     </span>
                     {item.hasChildren ? (
                       <span className="ml-auto flex shrink-0 text-grayscale-opacity-500">
-                        <ChevronRightIcon className="size-5" />
+                        <AngleRightIcon className="size-5" />
                       </span>
                     ) : null}
                   </CommandItem>

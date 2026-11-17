@@ -218,7 +218,7 @@ const THEME_CLASSES: Record<Theme, string> = {
 ```tsx
 // 設定容器文字顏色
 <div className="text-grayscale-opacity-500">
-  <ChevronDownIcon className="size-3.5" />  {/* 自動繼承顏色 */}
+  <AngleDownIcon className="size-3.5" />  {/* 自動繼承顏色 */}
 </div>
 ```
 

@@ -1,4 +1,4 @@
-import { CloseIcon } from '@/icons/CloseIcon';
+import { XmarkIcon } from '@/icons/XmarkIcon';
 import { cn } from '@/lib/utils';
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox';
 import type {
@@ -115,12 +115,12 @@ const ChipRemove = function ComboboxChipRemove({
       className={cn(
         '-mr-2.5 grid h-5 w-5 shrink-0 cursor-pointer place-content-center rounded-r-full text-white outline-none',
         'transition-colors duration-100 hover:bg-white/20',
-        '[&_svg]:size-2.25',
+        '[&_svg]:size-4',
         className,
       )}
       {...props}
     >
-      {children ?? <CloseIcon />}
+      {children ?? <XmarkIcon />}
     </BaseCombobox.ChipRemove>
   );
 };

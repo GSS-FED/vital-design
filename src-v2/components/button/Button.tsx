@@ -14,8 +14,8 @@ const BUTTON_BASE_CLASSES = [
   'relative isolate inline-flex w-fit items-center justify-center overflow-hidden font-sans box-border select-none',
   'transition-all duration-150 ease-in-out',
   'cursor-pointer disabled:pointer-events-none disabled:cursor-not-allowed data-[disabled]:cursor-not-allowed',
-  '[&_[data-icon]]:relative [&_[data-icon]]:z-[2] [&_[data-icon]]:m-0.75 [&_[data-icon]]:pointer-events-none [&_[data-icon]]:shrink-0',
-  '[&_[data-icon]]:size-3 data-[size=lg]:[&_[data-icon]]:size-3.5 data-[size=icon-lg]:[&_[data-icon]]:size-3.5',
+  '[&_[data-icon]]:relative [&_[data-icon]]:z-[2] [&_[data-icon]]:pointer-events-none [&_[data-icon]]:shrink-0',
+  '[&_[data-icon]]:size-4.5 data-[size=lg]:[&_[data-icon]]:size-5 data-[size=icon-lg]:[&_[data-icon]]:size-5',
 ] as const;
 
 const OVERLAY_CLASSES = [

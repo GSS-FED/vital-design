@@ -1,6 +1,6 @@
 import { Spinner } from '@/components/spinner/Spinner';
-import { ChevronLeftIcon } from '@/icons/ChevronLeftIcon';
-import { SearchIcon } from '@/icons/SearchIcon';
+import { AngleLeftIcon } from '@/icons/AngleLeftIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { cn } from '@/lib/utils';
 import { Command as CommandPrimitive } from 'cmdk';
 import type {
@@ -66,7 +66,7 @@ const CommandInput = function CommandInput({
           data-slot="command-input-prefix"
           className="flex shrink-0 items-center text-grayscale-opacity-500"
         >
-          <SearchIcon className="size-[13px]" />
+          <MagnifyingGlassIcon className="size-4.5" />
         </span>
       )}
       <CommandPrimitive.Input
@@ -322,7 +322,7 @@ const CommandBackButton = function CommandBackButton({
         data-slot="command-back-button-icon"
         className="flex shrink-0 items-center"
       >
-        {icon ?? <ChevronLeftIcon />}
+        {icon ?? <AngleLeftIcon />}
       </span>
       <span
         data-slot="command-back-button-label"

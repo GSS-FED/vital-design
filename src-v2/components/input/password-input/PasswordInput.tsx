@@ -106,7 +106,11 @@ export function PasswordInput({
           disabled={disabled}
           onClick={() => setPasswordVisible((visible) => !visible)}
         >
-          {passwordVisible ? <EyeIcon /> : <EyeSlashIcon />}
+          {passwordVisible ? (
+            <EyeIcon className="size-5" />
+          ) : (
+            <EyeSlashIcon className="size-5" />
+          )}
         </VisibilityToggle>
       </InputGroupAddon>
     </InputGroup>

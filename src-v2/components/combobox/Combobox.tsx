@@ -1,8 +1,9 @@
+import { AngleDownIcon } from '@/icons/AngleDownIcon';
+import { AngleUpIcon } from '@/icons/AngleUpIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
-import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
+import { CheckSolidIcon } from '@/icons/CheckSolidIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
-import { SearchIcon } from '@/icons/SearchIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { cn } from '@/lib/utils';
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox';
 import type {
@@ -133,10 +134,10 @@ const Trigger = function ComboboxTrigger({
       {children}
       <span className="flex h-5 w-5 shrink-0 items-center justify-center text-grayscale-opacity-700">
         <span className="block group-data-[popup-open]:hidden">
-          <ChevronDownIcon className="size-3.5" />
+          <AngleDownIcon className="size-5" />
         </span>
         <span className="hidden group-data-[popup-open]:block">
-          <ChevronUpIcon className="size-3.5" />
+          <AngleUpIcon className="size-5" />
         </span>
       </span>
     </BaseCombobox.Trigger>
@@ -309,7 +310,7 @@ const SearchBar = function ComboboxSearchBar({
         )}
       >
         <span className="flex shrink-0 items-center [&_svg]:fill-grayscale-opacity-500 group-focus-within:[&_svg]:fill-primary-500">
-          <SearchIcon className="size-4.5" />
+          <MagnifyingGlassIcon className="size-4.5" />
         </span>
         <BaseCombobox.Input
           ref={ref}
@@ -398,7 +399,7 @@ const ItemCheck = function ComboboxItemCheck({
       )}
       {...props}
     >
-      {children ?? <CheckIcon className="size-3" />}
+      {children ?? <CheckIcon className="size-4" />}
     </BaseCombobox.ItemIndicator>
   );
 };
@@ -427,7 +428,7 @@ const ItemCheckbox = function ComboboxItemCheckbox({
       {...props}
     >
       <BaseCombobox.ItemIndicator data-slot="combobox-item-indicator">
-        {children ?? <CheckIcon className="size-2.5" />}
+        {children ?? <CheckSolidIcon className="size-4 shrink-0" />}
       </BaseCombobox.ItemIndicator>
     </span>
   );

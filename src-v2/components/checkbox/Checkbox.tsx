@@ -1,5 +1,5 @@
-import { CheckIcon } from '@/icons/CheckIcon';
-import { MinusIcon } from '@/icons/MinusIcon';
+import { CheckSolidIcon } from '@/icons/CheckSolidIcon';
+import { MinusSolidIcon } from '@/icons/MinusSolidIcon';
 import { cn } from '@/lib/utils';
 import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
 import type { ComponentRef, Ref } from 'react';
@@ -36,13 +36,13 @@ const Checkbox = function Checkbox({
         data-slot="checkbox-indicator"
         className="inline-flex size-full items-center justify-center text-white data-checked:[&_[data-slot=checkbox-check]]:block data-indeterminate:[&_[data-slot=checkbox-minus]]:block"
       >
-        <CheckIcon
+        <CheckSolidIcon
           data-slot="checkbox-check"
-          className="hidden h-2.25 w-3"
+          className="hidden size-4 shrink-0"
         />
-        <MinusIcon
+        <MinusSolidIcon
           data-slot="checkbox-minus"
-          className="hidden h-0.75 w-2.5"
+          className="hidden size-4 shrink-0"
         />
       </BaseCheckbox.Indicator>
     </BaseCheckbox.Root>

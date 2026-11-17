@@ -21,44 +21,65 @@ import {
 每個圖示從自己的檔案引入。元件源碼不允許 barrel import（`@/icons`），registry 的使用者就只會帶入實際用到的圖示。
 
 ```tsx
-import { SearchIcon } from '@/icons/SearchIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 
-<SearchIcon className="size-4 text-grayscale-opacity-700" />;
+<MagnifyingGlassIcon className="size-4 text-grayscale-opacity-700" />;
 ```
 
 可用的圖示：
 
 ```ts
+import { AngleLeftIcon } from '@/icons/AngleLeftIcon';
+import { AngleLeftSolidIcon } from '@/icons/AngleLeftSolidIcon';
+import { AngleLeftToLineIcon } from '@/icons/AngleLeftToLineIcon';
+import { AngleRightIcon } from '@/icons/AngleRightIcon';
+import { AngleRightSolidIcon } from '@/icons/AngleRightSolidIcon';
+import { AngleRightToLineIcon } from '@/icons/AngleRightToLineIcon';
+import { AnglesLeftIcon } from '@/icons/AnglesLeftIcon';
+import { AnglesRightIcon } from '@/icons/AnglesRightIcon';
+import { BarsIcon } from '@/icons/BarsIcon';
 import { BellIcon } from '@/icons/BellIcon';
-import { CalendarIcon } from '@/icons/CalendarIcon';
-import { CaretDownIcon } from '@/icons/CaretDownIcon';
-import { CaretUpIcon } from '@/icons/CaretUpIcon';
+import { CalendarDaysIcon } from '@/icons/CalendarDaysIcon';
+import { CaretDownSolidIcon } from '@/icons/CaretDownSolidIcon';
+import { CaretUpSolidIcon } from '@/icons/CaretUpSolidIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
-import { ChevronDoubleLeftIcon } from '@/icons/ChevronDoubleLeftIcon';
-import { ChevronDoubleRightIcon } from '@/icons/ChevronDoubleRightIcon';
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
-import { ChevronLeftIcon } from '@/icons/ChevronLeftIcon';
-import { ChevronRightIcon } from '@/icons/ChevronRightIcon';
-import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
+import { CheckSolidIcon } from '@/icons/CheckSolidIcon';
+import { AngleDownIcon } from '@/icons/AngleDownIcon';
+import { AngleDownSolidIcon } from '@/icons/AngleDownSolidIcon';
+import { AngleUpIcon } from '@/icons/AngleUpIcon';
+import { AngleUpSolidIcon } from '@/icons/AngleUpSolidIcon';
+import { CircleUserIcon } from '@/icons/CircleUserIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
 import { ClockIcon } from '@/icons/ClockIcon';
-import { CloseIcon } from '@/icons/CloseIcon';
-import { DisabledIcon } from '@/icons/DisabledIcon';
+import { XmarkIcon } from '@/icons/XmarkIcon';
+import { BanIcon } from '@/icons/BanIcon';
 import { EllipsisIcon } from '@/icons/EllipsisIcon';
 import { EyeIcon } from '@/icons/EyeIcon';
 import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
 import { GearIcon } from '@/icons/GearIcon';
+import { HomeIcon } from '@/icons/HomeIcon';
+import { InboxIcon } from '@/icons/InboxIcon';
 import { InfoIcon } from '@/icons/InfoIcon';
+import { LifeRingIcon } from '@/icons/LifeRingIcon';
 import { MinusIcon } from '@/icons/MinusIcon';
+import { MinusSolidIcon } from '@/icons/MinusSolidIcon';
 import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
+import { PlanetRingedIcon } from '@/icons/PlanetRingedIcon';
 import { PlusIcon } from '@/icons/PlusIcon';
-import { SearchIcon } from '@/icons/SearchIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { ShieldCheckIcon } from '@/icons/ShieldCheckIcon';
+import { SidebarIcon } from '@/icons/SidebarIcon';
 import { SpinnerIcon } from '@/icons/SpinnerIcon';
 import { SquareArrowOutUpRightIcon } from '@/icons/SquareArrowOutUpRightIcon';
+import { ThumbtackIcon } from '@/icons/ThumbtackIcon';
+import { ThumbtackSolidIcon } from '@/icons/ThumbtackSolidIcon';
 import { UserIcon } from '@/icons/UserIcon';
 ```
+
+## Regular 與 Solid [#regular-and-solid]
+
+圖示跟著 Figma 圖庫分成兩種粗細。Regular 沒有後綴，線寬 1.3。Solid 名稱以 `Solid` 結尾，線寬 1.75 或是填色形狀，例如 `AngleLeftIcon` 與 `AngleLeftSolidIcon`。依照 Figma 設計標的名稱（`Icons/Regular/…` 或 `Icons/Solid/…`）挑選，不要改用 `strokeWidth` 把 Regular 加粗。
 
 ## 尺寸 [#sizes]
 
@@ -67,11 +88,11 @@ import { UserIcon } from '@/icons/UserIcon';
 <IconSizesPreview />
 
 ```tsx
-<SearchIcon className="size-3" />
-<SearchIcon className="size-4" />
-<SearchIcon className="size-5" />
-<SearchIcon className="size-6" />
-<SearchIcon className="size-8" />
+<MagnifyingGlassIcon className="size-3" />
+<MagnifyingGlassIcon className="size-4" />
+<MagnifyingGlassIcon className="size-5" />
+<MagnifyingGlassIcon className="size-6" />
+<MagnifyingGlassIcon className="size-8" />
 ```
 
 ## 顏色 [#colors]

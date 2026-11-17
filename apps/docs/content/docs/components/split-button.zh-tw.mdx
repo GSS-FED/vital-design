@@ -3,7 +3,7 @@ title: SplitButton
 description: 由 ButtonGroup 組成的分割動作，含主要動作與獨立的切換觸發。
 ---
 
-import { SearchIcon } from '@/icons/SearchIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import {
   SplitButtonDefaultPreview,
   SplitButtonPreview,
@@ -32,7 +32,7 @@ function SaveButton() {
       onClick={() => handleSave()}
       splitOnClick={() => setOpen((v) => !v)}
     >
-      <SearchIcon data-icon="inline-start" />
+      <MagnifyingGlassIcon data-icon="inline-start" />
       Save
     </SplitButton>
   );

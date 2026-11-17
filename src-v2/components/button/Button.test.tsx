@@ -221,7 +221,7 @@ describe('Button', () => {
     expect(button).toHaveClass(
       'h-8',
       'px-3',
-      'data-[size=icon-lg]:[&_[data-icon]]:size-3.5',
+      'data-[size=icon-lg]:[&_[data-icon]]:size-5',
     );
   });
 
@@ -262,7 +262,7 @@ describe('Button', () => {
     expect(
       screen.getByRole('status', { name: 'Loading' }),
     ).toHaveAttribute('data-icon', 'inline-start');
-    expect(button).toHaveClass('[&_[data-icon]]:size-3');
+    expect(button).toHaveClass('[&_[data-icon]]:size-4.5');
   });
 
   it('applies custom className and styles', () => {

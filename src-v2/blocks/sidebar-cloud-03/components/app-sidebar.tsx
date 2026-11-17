@@ -21,13 +21,13 @@ import {
   SidebarTrigger,
   useSidebar,
 } from '@/components/sidebar/Sidebar';
-import { CalendarIcon } from '@/icons/CalendarIcon';
+import { CalendarDaysIcon } from '@/icons/CalendarDaysIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { EllipsisIcon } from '@/icons/EllipsisIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
 import { PlusIcon } from '@/icons/PlusIcon';
-import { SearchIcon } from '@/icons/SearchIcon';
 import { UserIcon } from '@/icons/UserIcon';
 import { cn } from '@/lib/utils';
 import cloudImage from '@/public/images/cloud.jpg';
@@ -59,8 +59,8 @@ const data = {
           icon: <PanelLeftIcon />,
           isActive: true,
         },
-        { title: 'Inbox', icon: <SearchIcon /> },
-        { title: 'Calendar', icon: <CalendarIcon /> },
+        { title: 'Inbox', icon: <MagnifyingGlassIcon /> },
+        { title: 'Calendar', icon: <CalendarDaysIcon /> },
         { title: 'Approvals', icon: <CheckIcon /> },
       ],
     },
@@ -260,7 +260,7 @@ function NavMain() {
                         {item.icon}
                         <span>{item.title}</span>
                         <span className="ml-auto shrink-0 group-data-[collapsible=icon]:hidden">
-                          <EllipsisIcon className="size-5 text-grayscale-700 [&_path]:[fill-opacity:1]" />
+                          <EllipsisIcon className="size-5 text-grayscale-700" />
                         </span>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent

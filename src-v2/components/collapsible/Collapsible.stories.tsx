@@ -1,5 +1,5 @@
 import { Button } from '@/components/button/Button';
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
+import { AngleDownIcon } from '@/icons/AngleDownIcon';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import {
@@ -36,7 +36,7 @@ export const Default: Story = {
               <span className="flex-1 text-left">
                 Can I use this in my project?
               </span>
-              <ChevronDownIcon
+              <AngleDownIcon
                 data-icon="inline-end"
                 className="transition-transform duration-150"
               />
@@ -75,7 +75,7 @@ export const ProductDetails: Story = {
                 className="w-full justify-between"
               >
                 <span>Show details</span>
-                <ChevronDownIcon data-icon="inline-end" />
+                <AngleDownIcon data-icon="inline-end" />
               </Button>
             }
           />

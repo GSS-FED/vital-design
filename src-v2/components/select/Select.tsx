@@ -1,6 +1,7 @@
+import { AngleDownIcon } from '@/icons/AngleDownIcon';
+import { AngleUpIcon } from '@/icons/AngleUpIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
-import { ChevronUpIcon } from '@/icons/ChevronUpIcon';
+import { CheckSolidIcon } from '@/icons/CheckSolidIcon';
 import { cn } from '@/lib/utils';
 import { Select as BaseSelect } from '@base-ui/react/select';
 import type {
@@ -96,10 +97,10 @@ const SelectTrigger = function SelectTrigger({
         render={
           <span className="flex h-5 w-5 shrink-0 items-center justify-center text-grayscale-opacity-700">
             <span className="block group-data-[popup-open]:hidden">
-              <ChevronDownIcon className="size-3.5" />
+              <AngleDownIcon className="size-5" />
             </span>
             <span className="hidden group-data-[popup-open]:block">
-              <ChevronUpIcon className="size-3.5" />
+              <AngleUpIcon className="size-5" />
             </span>
           </span>
         }
@@ -299,7 +300,7 @@ const SelectItemCheck = function SelectItemCheck({
       )}
       {...props}
     >
-      {children ?? <CheckIcon className="size-3" />}
+      {children ?? <CheckIcon className="size-4" />}
     </BaseSelect.ItemIndicator>
   );
 };
@@ -329,7 +330,7 @@ const SelectItemCheckbox = function SelectItemCheckbox({
       {...props}
     >
       <BaseSelect.ItemIndicator data-slot="select-item-indicator">
-        {children ?? <CheckIcon className="size-2.5" />}
+        {children ?? <CheckSolidIcon className="size-4 shrink-0" />}
       </BaseSelect.ItemIndicator>
     </span>
   );
@@ -380,7 +381,7 @@ const SelectScrollUpButton = function SelectScrollUpButton({
       )}
       {...props}
     >
-      <ChevronUpIcon className="size-3.5" />
+      <AngleUpIcon className="size-5" />
     </BaseSelect.ScrollUpArrow>
   );
 };
@@ -406,7 +407,7 @@ const SelectScrollDownButton = function SelectScrollDownButton({
       )}
       {...props}
     >
-      <ChevronDownIcon className="size-3.5" />
+      <AngleDownIcon className="size-5" />
     </BaseSelect.ScrollDownArrow>
   );
 };

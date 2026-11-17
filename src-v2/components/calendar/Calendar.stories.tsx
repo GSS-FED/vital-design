@@ -8,7 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/popover/Popover';
-import { CalendarIcon } from '@/icons/CalendarIcon';
+import { CalendarDaysIcon } from '@/icons/CalendarDaysIcon';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { addDays, format } from 'date-fns';
 import { useState } from 'react';
@@ -167,7 +167,7 @@ export const InsideDatePicker: Story = {
                   className="cursor-pointer"
                 />
                 <InputGroupAddon align="inline-end">
-                  <CalendarIcon className="size-4 text-grayscale-opacity-500" />
+                  <CalendarDaysIcon className="size-4 text-grayscale-opacity-500" />
                 </InputGroupAddon>
               </InputGroup>
             }

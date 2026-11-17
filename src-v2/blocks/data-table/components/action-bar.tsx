@@ -35,7 +35,7 @@ import {
   ToolbarGroup,
   ToolbarSpacer,
 } from '@/components/toolbar/Toolbar';
-import { ChevronDownIcon } from '@/icons/ChevronDownIcon';
+import { AngleDownIcon } from '@/icons/AngleDownIcon';
 import { EllipsisIcon } from '@/icons/EllipsisIcon';
 import { GearIcon } from '@/icons/GearIcon';
 import { cn } from '@/lib/utils';
@@ -248,7 +248,7 @@ function ColumnVisibilityPopover({
           <Button
             variant="ghost"
             theme="default"
-            className="h-8 rounded-full px-3 font-normal has-[_[data-icon=inline-start]]:pl-2.5 [&_[data-icon]]:m-0 [&_[data-icon]]:size-4.5"
+            className="h-8 rounded-full px-3 font-normal has-[_[data-icon=inline-start]]:pl-2.5"
           />
         }
       >
@@ -466,7 +466,7 @@ function GroupingMenu({
         }
       >
         分群：{groupLabel}
-        <ChevronDownIcon data-icon="inline-end" />
+        <AngleDownIcon data-icon="inline-end" />
       </PopoverTrigger>
       <PopoverContent align="end" className="w-60">
         <div className="flex flex-col gap-3">

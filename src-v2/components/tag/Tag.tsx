@@ -1,4 +1,4 @@
-import { CloseIcon } from '@/icons/CloseIcon';
+import { XmarkIcon } from '@/icons/XmarkIcon';
 import { type CvaProps, cn } from '@/lib/utils';
 import { type VariantProps, cva } from 'class-variance-authority';
 import type { CSSProperties, ReactNode } from 'react';
@@ -278,10 +278,10 @@ export function Tag(props: TagProps) {
             'before:content-[""] before:absolute before:inset-0',
             'before:pointer-events-none before:transition-colors before:duration-100',
             'hover:before:bg-white/20',
-            '[&_svg]:size-2.25',
+            '[&_svg]:size-4',
           )}
         >
-          <CloseIcon />
+          <XmarkIcon />
         </button>
       )}
     </div>

@@ -8,13 +8,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/dropdown-menu/DropdownMenu';
-import { CalendarIcon } from '@/icons/CalendarIcon';
+import { CalendarDaysIcon } from '@/icons/CalendarDaysIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { ClockIcon } from '@/icons/ClockIcon';
 import { EllipsisIcon } from '@/icons/EllipsisIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
-import { SearchIcon } from '@/icons/SearchIcon';
 import { UserIcon } from '@/icons/UserIcon';
 import { type Meta, type StoryObj } from '@storybook/react';
 import { type ReactNode } from 'react';
@@ -165,8 +165,8 @@ const DEMO_NAV: { label: string; items: DemoNavItem[] }[] = [
     label: 'Overview',
     items: [
       { label: 'Dashboard', icon: <PanelLeftIcon />, isActive: true },
-      { label: 'Inbox', icon: <SearchIcon /> },
-      { label: 'Calendar', icon: <CalendarIcon /> },
+      { label: 'Inbox', icon: <MagnifyingGlassIcon /> },
+      { label: 'Calendar', icon: <CalendarDaysIcon /> },
       { label: 'Approvals', icon: <CheckIcon /> },
     ],
   },
@@ -186,7 +186,7 @@ const DEMO_NAV: { label: string; items: DemoNavItem[] }[] = [
       { label: 'Invoices', icon: <ClockIcon /> },
       { label: 'Reports', icon: <EllipsisIcon /> },
       { label: 'Documents', icon: <FlagIcon /> },
-      { label: 'Analytics', icon: <SearchIcon /> },
+      { label: 'Analytics', icon: <MagnifyingGlassIcon /> },
     ],
   },
   {

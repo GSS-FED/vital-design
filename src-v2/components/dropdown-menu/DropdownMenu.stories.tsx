@@ -1,7 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { useRef, useState } from 'react';
 import { CheckIcon } from '../../icons/CheckIcon';
-import { SearchIcon } from '../../icons/SearchIcon';
+import { MagnifyingGlassIcon } from '../../icons/MagnifyingGlassIcon';
 import { Button } from '../button/Button';
 import { SplitButton } from '../button/split-button/SplitButton';
 import {
@@ -50,7 +50,10 @@ export const WithIcons: Story = {
       <DropdownMenuTrigger render={<Button>Quick actions</Button>} />
       <DropdownMenuContent>
         <DropdownMenuItem>
-          <SearchIcon data-icon="inline-start" className="size-3.5" />
+          <MagnifyingGlassIcon
+            data-icon="inline-start"
+            className="size-3.5"
+          />
           <span>Search</span>
         </DropdownMenuItem>
         <DropdownMenuItem>
