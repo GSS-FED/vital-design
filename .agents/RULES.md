@@ -10,7 +10,8 @@
 src-v2/components/component-name/
 ├── ComponentName.tsx         # 主要元件實作（Props 類型 inline export 於此）
 ├── ComponentName.test.tsx    # Vitest 測試
-└── ComponentName.stories.tsx # Storybook stories
+├── ComponentName.vrt.test.tsx # 互動後狀態的截圖（需要時）
+└── examples/                 # 文件範例，每檔一個 <Name><Variant>Example（見 add-docs skill）
 ```
 
 > 元件 Props 類型一律放在主要 `.tsx` 檔頂部並 export。避免新增 component-level `types.ts`，因為 registry 安裝時會變成 shared lib 檔案；跨檔案需要共用型別時，從元件檔本身 import type。

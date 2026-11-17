@@ -18,4 +18,4 @@
 4. `pnpm run icons:build`
 5. 新 icon：登記到 `registry/base.ts`、`registry/types.ts`、gallery 與 icons 文件
 6. 元件裡的 icon class 用 Figma frame 尺寸
-7. `pnpm run registry:build && pnpm run registry:validate`，Storybook 截 before／after
+7. `pnpm run registry:build && pnpm run registry:validate`，`pnpm run test:visual` 比對 before／after

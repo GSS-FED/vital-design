@@ -44,7 +44,7 @@ allowed-tools: Read, Write, Edit, Bash
 
 - 目錄：`src-v2/blocks/<block-name>/`（kebab-case），與 Sidebar、Data Table blocks 相同
 - 可安裝的檔案：`components/<entry-name>.tsx`（kebab-case，如 `components/data-table.tsx`；其餘檔案同樣 kebab-case）
-- Stories：`<BlockName>.stories.tsx`；tests：`<BlockName>.test.tsx`（都在 block 根目錄）
+- 文件範例：`examples/<BlockName>Example.tsx`（Code tab 會把 `@/blocks/<name>/components/<file>` 改成安裝後的 `@/blocks/<name>/<file>`）；tests：`<BlockName>.test.tsx`，互動後狀態的截圖 `<BlockName>.vrt.test.tsx`（都在 block 根目錄）
 - Export：`export function <BlockName>`（named export）
 
 ## Import 規則

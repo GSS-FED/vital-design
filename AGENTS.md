@@ -10,19 +10,19 @@
 ```bash
 # 元件庫
 pnpm install               # 安裝依賴
-pnpm run dev               # Storybook (port 6006)
+pnpm run dev               # v1（src/）的 Storybook (port 6006)；v2 用 docs:dev 或 fixtures:dev
 pnpm run build             # 建置元件庫
 pnpm run test              # 執行測試
 pnpm run test:coverage     # 計算測試覆蓋率
 pnpm run test:watch        # 監測檔案變更時重新執行測試
-pnpm run test:visual       # 視覺回歸：Vitest browser mode 截每個 src-v2 story / 文件範例（baseline 在 visual/__baseline__，不進 git）
+pnpm run test:visual       # 視覺回歸：Vitest browser mode 截每個 src-v2 文件範例與 vrt 測試（baseline 在 visual/__baseline__，不進 git）
 pnpm run test:visual:update # 重新產生視覺 baseline
-pnpm run fixtures:dev      # Fixture app：一個 story / 範例一個 URL，隔離開發用（不需 Storybook）
+pnpm run fixtures:dev      # Fixture app：一個文件範例一個 URL，隔離開發用
 pnpm run lint              # Oxlint 檢查（.oxlintrc.json，含 type-aware 規則）
 pnpm run lint:design       # @shadcn/lint 設計系統規則（.oxlintrc.shadcn.json extends vital-design.lint.json；先重建 CSS tokens）；CI 的 lint-design-job：error 失敗、warning 進 MR 的 Code Quality
 pnpm run lint:design:audit # 對 blocks 跑 no-restyle，定期找跨 block 重複的覆寫（非 gate）
 pnpm run format            # Prettier 格式化
-pnpm run storybook:build   # 把 Storybook 打包成靜態網頁
+pnpm run storybook:build   # 把 v1 Storybook 打包成靜態網頁（不進 CI）
 pnpm run icons:build       # 從 src-v2/icons/_source/*.svg 重新產生 icon .tsx
 pnpm run tokens:build      # 重建所有 token 平台（generated.css + vital-theme-vars.ts）
 pnpm run tokens:build:css  # 僅重建 CSS tokens
@@ -71,7 +71,7 @@ pnpm changelog:build       # 重組 changelog 頁（docs dev/build 會自動跑�
 - **Tailwind CSS 4** - 樣式框架
 - **Vite 6** - 建置工具（Node 22，見 `.nvmrc`）
 - **Vitest** + **Testing Library** - 測試（`unit` project 用 jsdom；`visual` project 用 browser mode 跑截圖）
-- **Storybook 8** - 元件文件
+- **Storybook 8** - 只給 v1（`src/`）在本機看，不進 CI；v2 的範例在文件站
 - **Base UI** - `src-v2/` 預設的無障礙 primitive library
 
 ### 文件站（apps/docs/）
@@ -86,7 +86,7 @@ pnpm changelog:build       # 重組 changelog 頁（docs dev/build 會自動跑�
 ### 元件庫（根目錄）
 
 - `src-v2/components/` - UI 元件
-- `src-v2/blocks/<name>/components/` - 複合區塊裡會進 registry 的檔案；stories 與 tests 放在該 block 根目錄。文件頁用家族資料夾（`blocks/sidebar/cloud/`）；只有一個 block 的家族直接放 `blocks/<name>.mdx`（如 `blocks/data-table.mdx`）
+- `src-v2/blocks/<name>/components/` - 複合區塊裡會進 registry 的檔案；範例在 `examples/`，tests 放在該 block 根目錄。文件頁用家族資料夾（`blocks/sidebar/cloud/`）；只有一個 block 的家族直接放 `blocks/<name>.mdx`（如 `blocks/data-table.mdx`）
 - `src-v2/hooks/` - React Hooks
 - `src-v2/icons/` - SVG 圖示
 - `src-v2/lib/` - 工具函數與共用型別（`utils.ts`：`cn()`、`CvaProps`）
@@ -179,11 +179,11 @@ pnpm changelog:build       # 重組 changelog 頁（docs dev/build 會自動跑�
 - **Select family**：v2 public selection components are split by interaction: `Select` = flat dropdown for single or multiple values, `Combobox` = searchable input picker, `Command` + `Popover` = hierarchical path picker recipe, `DropdownMenu` = action menu (no value binding). `Command` is also public — a primitive for command palettes, custom searchable popups, and paged hierarchical pickers.
 - **Item**：display row primitive for media/title/description/actions. Use `size="list"` for select/list row density. Do not add search, loading, paging, or selection state to `Item`; use picker/menu/command primitives for those.
 - **Separator**：shared divider primitive. Prefer it over hand-rolled `div role="separator"` in new `src-v2` components.
-- **Pagination**：`Pagination` + `PaginationContent` / `PaginationItem` / `PaginationLink` 與方向 parts 組合；預設保留 anchor 語意，client-side 換頁用 `render={<button type="button" />}`。頁碼、總頁數、跳頁與每頁筆數由使用端管理，表格組合見 Storybook。Registry 安裝 `@vital-design/pagination`；文件 `/docs/components/pagination` 含互動 preview。
+- **Pagination**：`Pagination` + `PaginationContent` / `PaginationItem` / `PaginationLink` 與方向 parts 組合；預設保留 anchor 語意，client-side 換頁用 `render={<button type="button" />}`。頁碼、總頁數、跳頁與每頁筆數由使用端管理，表格組合見 table-pagination block。Registry 安裝 `@vital-design/pagination`；文件 `/docs/components/pagination` 含互動 preview。
 - **cn() 依賴**：registry 需列出 `cn`（取代舊的 clsx + tailwind-merge）
-- **文件範例（單一來源）**：v2 的 story 正逐元件轉成文件範例，轉完的元件沒有 `*.stories.tsx`。範例在 `src-v2/components/<name>/examples/*.tsx`（icon 在 `src-v2/icons/examples/`），每檔一個 `export function <Name><Variant>Example`，import 走 repo 路徑。en 與 zh-TW 的 MDX 直接 import 並包 `<ComponentPreview name="<export 名稱>">`；Code tab 由 `previews:sources` 讀整個檔並改寫成 registry 安裝路徑，不手寫 code fence。靜態狀態放一個 `<Name>StatesExample`；打開或互動後的狀態與文件不需要的邊界狀況寫在 `<Name>.vrt.test.tsx`。範例截圖 ID 沿用被取代 story 的 ID（`SelectMultipleExample` → `v2-components-select--multiple`；標題不是 `Components/<資料夾>` 的記在 `manifest.ts` 的 `titles`），story 與範例 ID 重複時 manifest 會報錯。流程見 `add-docs` skill
+- **文件範例（單一來源）**：v2 沒有 Storybook story，每個元件只維護文件範例與測試。範例在 `src-v2/components/<name>/examples/*.tsx`（icon 在 `src-v2/icons/examples/`），每檔一個 `export function <Name><Variant>Example`，import 走 repo 路徑。en 與 zh-TW 的 MDX 直接 import 並包 `<ComponentPreview name="<export 名稱>">`；Code tab 由 `previews:sources` 讀整個檔並改寫成 registry 安裝路徑，不手寫 code fence。靜態狀態放一個 `<Name>StatesExample`；打開或互動後的狀態與文件不需要的邊界狀況寫在 `<Name>.vrt.test.tsx`。範例截圖 ID 沿用原本 story 的 ID 格式（`SelectMultipleExample` → `v2-components-select--multiple`；標題不是 `Components/<資料夾>` 的記在 `manifest.ts` 的 `titles`），兩個範例 ID 重複時 manifest 會報錯。流程見 `add-docs` skill
 - **文件站 Preview 元件（舊寫法）**：`apps/docs/components/previews/` 的元件必須有 `'use client'`，因為 MDX 頁面是 RSC，不能直接傳 inline function prop（如 `onChange={() => {}}`）
-- **視覺回歸（Vitest browser mode）**：`vite.config.ts` 分兩個 project：`unit`（jsdom，`pnpm run test`）與 `visual`（Chromium，`pnpm run test:visual`）。`visual/fixtures.test.tsx` 依 `visual/fixtures/manifest.ts` 產生的清單（Storybook 格式的 ID）截每個 src-v2 story 與 `src-v2/**/examples/*.tsx`；`visual/capture.ts` 只截有畫出東西的範圍（含 portal 出去的 popup），所以圖檔就是元件大小。需要互動後狀態（打開選單等）時，在元件旁加 `<Name>.vrt.test.tsx`：render → 操作 → `expect(await renderedRegion()).toMatchScreenshot()`。`visual/setup.ts` 固定 Date、擋外部網路。Baseline 寫到 `visual/__baseline__/`，CI 的 `visual-baseline` 在 develop/main 產生、`visual-diff` 比對並附 Vitest HTML 報告與 JUnit；目標分支沒有 baseline（stacked MR）時，`visual-diff` 先截 MR 的 diff base 當 baseline，報告只含這個 MR 的變更。Fixture app（`pnpm run fixtures:dev`）用同一份清單；`visual/fixtures/playground/*.tsx`（gitignore，default export 一個元件）會列在首頁，給臨時試東西用。
+- **視覺回歸（Vitest browser mode）**：`vite.config.ts` 分兩個 project：`unit`（jsdom，`pnpm run test`）與 `visual`（Chromium，`pnpm run test:visual`）。`visual/fixtures.test.tsx` 依 `visual/fixtures/manifest.ts` 產生的清單（沿用 Storybook 格式的 ID）截每個 `src-v2/**/examples/*.tsx`，亮色與暗色各一張；`visual/capture.ts` 只截有畫出東西的範圍（含 portal 出去的 popup），所以圖檔就是元件大小。需要互動後狀態（打開選單等）時，在元件旁加 `<Name>.vrt.test.tsx`：render → 操作 → `expect(await renderedRegion()).toMatchScreenshot()`。`visual/setup.ts` 固定 Date、擋外部網路。Baseline 寫到 `visual/__baseline__/`，CI 的 `visual-baseline` 在 develop/main 產生、`visual-diff` 比對並附 Vitest HTML 報告與 JUnit；目標分支沒有 baseline（stacked MR）時，`visual-diff` 先截 MR 的 diff base 當 baseline，報告只含這個 MR 的變更。Fixture app（`pnpm run fixtures:dev`）用同一份清單；`visual/fixtures/playground/*.tsx`（gitignore，default export 一個元件）會列在首頁，給臨時試東西用。
 - **文件站 .next 快取**：修改 `apps/docs/source.config.ts` 後，須執行 `rm -rf apps/docs/.next` 再重建，否則 source config hash 不符導致新頁面 404
 - **文件站 `/llms.txt`**：`output: 'export'` 下必須用 `dynamic = 'force-static'` 的 Route Handler（`apps/docs/app/llms.txt/route.ts`），build 後輸出 `apps/docs/out/llms.txt`。Sidebar 用 `content/docs/meta.json` 的 `[llms.txt](/llms.txt)`（Fumadocs 15.7 無 `external:` 前綴，same-origin 連結要在 layout 把該 node 標 `external: true` 才會整頁開檔）。產生器須跳過 `/llms.txt`，避免 index 自連。不要加 `.md` rewrite／middleware（靜態 export 不支援）
 - **文件站繁體中文**：英文留在 `/docs/...`，繁中在 `/zh-tw/docs/...`。不要加 middleware，也不要做 `/en` 前綴（靜態輸出沒有 rewrite）。內容用 dot parser：`page.mdx` 是英文，`page.zh-tw.mdx` 是繁中；`meta.zh-tw.json` 只翻譯顯示名，`pages` 陣列與英文相同。缺中文檔時同一個中文網址顯示英文，並標「尚未翻譯」。站內連結在中文檔寫 `/zh-tw/docs/...`。prop、程式碼、CLI、registry 名稱維持英文。新頁面先寫英文；改了已有中文檔的使用者可見文句時，同一份變更更新 `.zh-tw.mdx`。`/llms.txt` 維持英文索引
@@ -193,7 +193,7 @@ pnpm changelog:build       # 重組 changelog 頁（docs dev/build 會自動跑�
 - **src-v2-only 套件位置**：僅供 `src-v2/`、docs、registry 或 stories 使用的套件，根目錄 `package.json` 請維持在 `devDependencies`，避免 legacy npm package 對外安裝額外 runtime dependency；registry 安裝所需套件則由 `registry/*.ts` 的 `dependencies` 個別宣告
 - **src-v2/styles 邊界**：`src-v2/styles/` 是 registry / docs 內部使用的 theme 資產，不是 npm package 的公開匯出；不要在 `package.json` exports 中暴露它
 - **data-slot**：三層合約 — (1) 會 render 可樣式化 DOM 的 exported part 必須有 slot；(2) Trigger 禁止 passthrough，須 wrapper（`DialogTrigger` 為範本）；(3) 僅 Provider / 純 state Root / bare Portal 可豁免。命名：root `button`、subpart `select-trigger`。詳見 `.agents/RULES.md` 與 docs Tailwind setup。
-- **MR preview**：所有 MR（含疊在其他分支上的 stacked MR），在 GitLab 有 `CLOUDFLARE_API_TOKEN` 與 `CLOUDFLARE_ACCOUNT_ID` 時，會把 Storybook 靜態檔上傳到 Cloudflare Pages（`mr-<編號>`），視覺比對有報告時另傳一份 Vitest HTML 報告（`mr-<編號>-diff`）。MR 有改到 `apps/docs/` 時，另外上傳文件站（`mr-<編號>-docs`，`pnpm docs:build`，不要設 `GITHUB_PAGES`）。網址掛在各自的 MR environment。這兩個變數不要設成 Protected，否則未受保護的支援分支拿不到。預覽網址是公開的。
+- **MR preview**：所有 MR（含疊在其他分支上的 stacked MR），在 GitLab 有 `CLOUDFLARE_API_TOKEN` 與 `CLOUDFLARE_ACCOUNT_ID` 時，視覺比對有報告時會把 Vitest HTML 報告上傳到 Cloudflare Pages（`mr-<編號>-diff`）。MR 有改到 `apps/docs/`、`src-v2/`、`registry/` 或 `tokens/` 時，上傳文件站（`mr-<編號>-docs`，`pnpm docs:build`，不要設 `GITHUB_PAGES`）。網址掛在各自的 MR environment。這兩個變數不要設成 Protected，否則未受保護的支援分支拿不到。預覽網址是公開的。
 
 ## Registry
 
