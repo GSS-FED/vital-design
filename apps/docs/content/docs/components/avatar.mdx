@@ -3,41 +3,30 @@ title: Avatar
 description: Display a user's profile picture with fallback to initials or a default icon, available in 12 color variants.
 ---
 
+import { AvatarAllSizesExample } from '@/components/avatar/examples/AvatarAllSizesExample';
+import { AvatarBorderExample } from '@/components/avatar/examples/AvatarBorderExample';
+import { AvatarColorsExample } from '@/components/avatar/examples/AvatarColorsExample';
+import { AvatarCompoundExample } from '@/components/avatar/examples/AvatarCompoundExample';
+import { AvatarDisabledExample } from '@/components/avatar/examples/AvatarDisabledExample';
+import { AvatarExample } from '@/components/avatar/examples/AvatarExample';
+import { AvatarFallbackExample } from '@/components/avatar/examples/AvatarFallbackExample';
+import { AvatarGroupExample } from '@/components/avatar/examples/AvatarGroupExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarGroup,
-  AvatarGroupCount,
-  AvatarImage,
-  AvatarRoot,
-} from '~/components/vital-components';
 
 ## Preview
 
-<ComponentPreview>
-  <Avatar name="Arthur Lu" color="blue" size="lg" />
-  <Avatar name="Sean Chen" color="tiffany" size="lg" />
-  <Avatar name="Jane Doe" color="pink" size="lg" />
-  <Avatar color="purple" size="lg" />
+<ComponentPreview name="AvatarExample">
+  <AvatarExample />
 </ComponentPreview>
 
 ## Usage
 
-```tsx
-import { Avatar } from '@/components/ui/Avatar';
-
-<Avatar name="Arthur Lu" color="blue" size="md" />;
-```
+When `src` is provided, the image is displayed. While it loads, or if it fails, the avatar shows `fallback`, the initials from `name`, or a default icon.
 
 ## Sizes
 
-<ComponentPreview>
-  <Avatar name="A" size="xs" color="blue" />
-  <Avatar name="A" size="sm" color="blue" />
-  <Avatar name="A" size="md" color="blue" />
-  <Avatar name="A" size="lg" color="blue" />
-  <Avatar name="A" size="xl" color="blue" />
+<ComponentPreview name="AvatarAllSizesExample">
+  <AvatarAllSizesExample />
 </ComponentPreview>
 
 | Size | Dimensions           |
@@ -50,107 +39,47 @@ import { Avatar } from '@/components/ui/Avatar';
 
 ## Color Variants
 
-<ComponentPreview>
-  <Avatar fallback="TI" color="tiffany" size="md" />
-  <Avatar fallback="GR" color="green" size="md" />
-  <Avatar fallback="OR" color="orange" size="md" />
-  <Avatar fallback="PK" color="pink" size="md" />
-  <Avatar fallback="BL" color="blue" size="md" />
-  <Avatar fallback="SK" color="sky" size="md" />
-  <Avatar fallback="PU" color="purple" size="md" />
-  <Avatar fallback="LG" color="light-gold" size="md" />
-  <Avatar fallback="SA" color="salmon" size="md" />
-  <Avatar fallback="IC" color="ice" size="md" />
-  <Avatar fallback="LV" color="lavender" size="md" />
+<ComponentPreview name="AvatarColorsExample">
+  <AvatarColorsExample />
+</ComponentPreview>
+
+## Fallback
+
+Without `fallback` or `name`, the avatar shows the default person icon. `fallback` takes precedence over `name`. With only `name`, the avatar shows the first letters of up to two words.
+
+<ComponentPreview name="AvatarFallbackExample">
+  <AvatarFallbackExample />
 </ComponentPreview>
 
 ## Group
 
 Use `AvatarGroup` to stack multiple avatars. Add `AvatarGroupCount` at the end when the list is truncated.
 
-<ComponentPreview>
-  <AvatarGroup>
-    <Avatar name="Arthur Lu" color="green" />
-    <Avatar name="Dover Shen" color="blue" />
-    <Avatar name="Luka Jung" color="ice" />
-    <AvatarGroupCount>+3</AvatarGroupCount>
-  </AvatarGroup>
+<ComponentPreview name="AvatarGroupExample">
+  <AvatarGroupExample />
 </ComponentPreview>
-
-```tsx
-<AvatarGroup>
-  <Avatar name="Arthur Lu" color="green" />
-  <Avatar name="Dover Shen" color="blue" />
-  <Avatar name="Luka Jung" color="ice" />
-  <AvatarGroupCount>+3</AvatarGroupCount>
-</AvatarGroup>
-```
 
 ## Compound Parts
 
-<ComponentPreview>
-  <AvatarRoot color="blue" size="lg">
-    <AvatarImage
-      src="https://i.pravatar.cc/150?img=1"
-      alt="Arthur Lu"
-    />
-    <AvatarFallback color="blue">AL</AvatarFallback>
-  </AvatarRoot>
-  <AvatarRoot color="tiffany" size="lg">
-    <AvatarImage src="broken-url" alt="Sean Chen" />
-    <AvatarFallback color="tiffany">SC</AvatarFallback>
-  </AvatarRoot>
+Use `AvatarRoot`, `AvatarImage`, and `AvatarFallback` when you need full control over the image and fallback content. The second avatar's image fails to load, so its fallback shows.
+
+<ComponentPreview name="AvatarCompoundExample">
+  <AvatarCompoundExample />
 </ComponentPreview>
-
-```tsx
-<AvatarRoot color="blue" size="lg">
-  <AvatarImage src="https://example.com/photo.jpg" alt="Arthur Lu" />
-  <AvatarFallback color="blue">AL</AvatarFallback>
-</AvatarRoot>
-```
-
-## With Image
-
-When `src` is provided, the image is displayed. Falls back to initials from `name` if the image fails to load.
-
-<ComponentPreview>
-  <Avatar
-    src="https://i.pravatar.cc/150?img=1"
-    name="Arthur Lu"
-    size="lg"
-  />
-  <Avatar src="broken-url" name="Fallback" color="blue" size="lg" />
-</ComponentPreview>
-
-```tsx
-<Avatar
-  src="https://example.com/photo.jpg"
-  name="Arthur Lu"
-  size="lg"
-/>
-```
 
 ## Bordered
 
-<ComponentPreview>
-  <Avatar name="Bo" color="tiffany" size="lg" bordered />
-  <Avatar name="Bo" color="blue" size="lg" bordered />
-  <Avatar name="Bo" color="pink" size="lg" bordered />
-</ComponentPreview>
+`bordered` is `true` by default. Set `bordered={false}` to remove the colored border ring.
 
-```tsx
-<Avatar name="Arthur Lu" color="blue" bordered />
-```
+<ComponentPreview name="AvatarBorderExample">
+  <AvatarBorderExample />
+</ComponentPreview>
 
 ## Disabled
 
-<ComponentPreview>
-  <Avatar name="DI" color="blue" size="lg" disabled />
+<ComponentPreview name="AvatarDisabledExample">
+  <AvatarDisabledExample />
 </ComponentPreview>
-
-```tsx
-<Avatar name="Arthur Lu" color="blue" disabled />
-```
 
 ## Props
 

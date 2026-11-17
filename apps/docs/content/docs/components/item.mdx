@@ -3,65 +3,22 @@ title: Item
 description: Content rows with media, title, description, and actions.
 ---
 
+import { ItemDescriptionRowsExample } from '@/components/item/examples/ItemDescriptionRowsExample';
+import { ItemExample } from '@/components/item/examples/ItemExample';
+import { ItemGroupedRowsExample } from '@/components/item/examples/ItemGroupedRowsExample';
+import { ItemIconRowsExample } from '@/components/item/examples/ItemIconRowsExample';
+import { ItemImageRowsExample } from '@/components/item/examples/ItemImageRowsExample';
+import { ItemLinkExample } from '@/components/item/examples/ItemLinkExample';
+import { ItemSizesExample } from '@/components/item/examples/ItemSizesExample';
+import { ItemTextRowsExample } from '@/components/item/examples/ItemTextRowsExample';
+import { ItemVariantsExample } from '@/components/item/examples/ItemVariantsExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import {
-  Button,
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemDescription,
-  ItemFooter,
-  ItemGroup,
-  ItemHeader,
-  ItemMedia,
-  ItemSeparator,
-  ItemTitle,
-} from '~/components/vital-components';
 
 ## Preview
 
-<ComponentPreview centered={false}>
-  <Item variant="outline" className="w-96">
-    <ItemMedia variant="icon">OK</ItemMedia>
-    <ItemContent>
-      <ItemTitle>Profile verified</ItemTitle>
-      <ItemDescription>
-        Your profile has been verified.
-      </ItemDescription>
-    </ItemContent>
-    <ItemActions>
-      <Button size="md" theme="default">
-        Action
-      </Button>
-    </ItemActions>
-  </Item>
+<ComponentPreview name="ItemExample">
+  <ItemExample />
 </ComponentPreview>
-
-## Usage
-
-```tsx
-import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemDescription,
-  ItemMedia,
-  ItemTitle,
-} from '@/components/ui/Item';
-
-<Item>
-  <ItemMedia variant="icon">
-    <Icon />
-  </ItemMedia>
-  <ItemContent>
-    <ItemTitle>Title</ItemTitle>
-    <ItemDescription>Description</ItemDescription>
-  </ItemContent>
-  <ItemActions>
-    <Button>Action</Button>
-  </ItemActions>
-</Item>;
-```
 
 ## Composition
 
@@ -81,156 +38,58 @@ Use `Item` for display rows. Use `size="list"` when the row should match picker/
 
 ## Variants
 
-<ComponentPreview centered={false}>
-  <div className="flex w-96 flex-col gap-3">
-    <Item>
-      <ItemContent>
-        <ItemTitle>Default</ItemTitle>
-        <ItemDescription>Transparent background.</ItemDescription>
-      </ItemContent>
-    </Item>
-    <Item variant="outline">
-      <ItemContent>
-        <ItemTitle>Outline</ItemTitle>
-        <ItemDescription>
-          Bordered row for clear grouping.
-        </ItemDescription>
-      </ItemContent>
-    </Item>
-    <Item variant="muted">
-      <ItemContent>
-        <ItemTitle>Muted</ItemTitle>
-        <ItemDescription>
-          Soft background for secondary content.
-        </ItemDescription>
-      </ItemContent>
-    </Item>
-  </div>
+<ComponentPreview name="ItemVariantsExample">
+  <ItemVariantsExample />
 </ComponentPreview>
 
 ## Sizes
 
-<ComponentPreview centered={false}>
-  <div className="flex w-96 flex-col gap-3">
-    <Item variant="outline" size="default">
-      <ItemContent>
-        <ItemTitle>Default</ItemTitle>
-        <ItemDescription>Standard spacing.</ItemDescription>
-      </ItemContent>
-    </Item>
-    <Item variant="outline" size="sm">
-      <ItemContent>
-        <ItemTitle>Small</ItemTitle>
-        <ItemDescription>Compact spacing.</ItemDescription>
-      </ItemContent>
-    </Item>
-    <Item variant="outline" size="xs">
-      <ItemContent>
-        <ItemTitle>Extra small</ItemTitle>
-        <ItemDescription>Dense row spacing.</ItemDescription>
-      </ItemContent>
-    </Item>
-    <Item variant="outline" size="list">
-      <ItemContent>
-        <ItemTitle>List</ItemTitle>
-        <ItemDescription>Picker row spacing.</ItemDescription>
-      </ItemContent>
-    </Item>
-  </div>
+<ComponentPreview name="ItemSizesExample">
+  <ItemSizesExample />
 </ComponentPreview>
 
 ## List Rows
 
-`size="list"` follows the select-option row pattern: text-sm, compact padding, hover, active, current, and disabled states.
+`size="list"` follows the select-option row pattern: text-sm, compact padding, hover, active, current, and disabled states. Picker and menu primitives set `data-highlighted`, `data-active`, `data-current`, and `data-disabled`; the examples set them directly to show each state.
 
-<ComponentPreview centered={false}>
-  <ItemGroup className="w-96">
-    <Item size="list">
-      <ItemContent>
-        <ItemTitle>Option</ItemTitle>
-      </ItemContent>
-    </Item>
-    <Item size="list" data-highlighted>
-      <ItemMedia variant="image">
-        <span className="grid size-full place-content-center rounded-full border border-primary-200 bg-primary-50 text-sm text-primary-500">
-          VD
-        </span>
-      </ItemMedia>
-      <ItemContent>
-        <ItemTitle>Hover row</ItemTitle>
-        <ItemDescription>Secondary text</ItemDescription>
-      </ItemContent>
-    </Item>
-    <Item size="list" data-active>
-      <ItemContent>
-        <ItemTitle>Active row</ItemTitle>
-      </ItemContent>
-      <ItemActions>
-        <span aria-hidden>&gt;</span>
-      </ItemActions>
-    </Item>
-    <Item size="list" data-current>
-      <ItemContent>
-        <ItemTitle>Current row</ItemTitle>
-        <ItemDescription>Current row description</ItemDescription>
-      </ItemContent>
-      <ItemActions>
-        <span aria-hidden>&gt;</span>
-      </ItemActions>
-    </Item>
-    <Item size="list" data-disabled>
-      <ItemContent>
-        <ItemTitle>Disabled row</ItemTitle>
-      </ItemContent>
-    </Item>
-  </ItemGroup>
+<ComponentPreview name="ItemTextRowsExample">
+  <ItemTextRowsExample />
+</ComponentPreview>
+
+### With Description
+
+<ComponentPreview name="ItemDescriptionRowsExample">
+  <ItemDescriptionRowsExample />
+</ComponentPreview>
+
+### With Icons
+
+Use `ItemMedia variant="icon"` for a leading icon and `ItemActions` for a trailing one.
+
+<ComponentPreview name="ItemIconRowsExample">
+  <ItemIconRowsExample />
+</ComponentPreview>
+
+### With Images
+
+<ComponentPreview name="ItemImageRowsExample">
+  <ItemImageRowsExample />
 </ComponentPreview>
 
 ## Group
 
-<ComponentPreview centered={false}>
-  <ItemGroup className="w-96 rounded border border-grayscale-opacity-300">
-    <Item>
-      <ItemMedia>
-        <span className="grid size-8 place-content-center rounded-full bg-grayscale-opacity-200 text-xs font-medium">
-          AL
-        </span>
-      </ItemMedia>
-      <ItemContent>
-        <ItemTitle>Alex Lin</ItemTitle>
-        <ItemDescription>alex.lin@vikosmos.com</ItemDescription>
-      </ItemContent>
-    </Item>
-    <ItemSeparator />
-    <Item>
-      <ItemMedia>
-        <span className="grid size-8 place-content-center rounded-full bg-grayscale-opacity-200 text-xs font-medium">
-          JC
-        </span>
-      </ItemMedia>
-      <ItemContent>
-        <ItemTitle>Jamie Chen</ItemTitle>
-        <ItemDescription>jamie.chen@vikosmos.com</ItemDescription>
-      </ItemContent>
-    </Item>
-  </ItemGroup>
+Wrap rows in `ItemGroup` and divide them with `ItemSeparator`.
+
+<ComponentPreview name="ItemGroupedRowsExample">
+  <ItemGroupedRowsExample />
 </ComponentPreview>
 
 ## Link
 
-<ComponentPreview centered={false}>
-  <Item
-    render={<a href="/docs" />}
-    variant="outline"
-    className="w-96"
-  >
-    <ItemContent>
-      <ItemTitle>Documentation</ItemTitle>
-      <ItemDescription>
-        Learn how to install registry items.
-      </ItemDescription>
-    </ItemContent>
-  </Item>
+Pass `render={<a href="..." />}` to render the row as a link.
+
+<ComponentPreview name="ItemLinkExample">
+  <ItemLinkExample />
 </ComponentPreview>
 
 ## Props

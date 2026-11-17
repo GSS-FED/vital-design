@@ -3,37 +3,15 @@ title: Scroll Area
 description: Scrollable viewport with optional edge fade.
 ---
 
+import { ScrollAreaFadeEdgesExample } from '@/components/scroll-area/examples/ScrollAreaFadeEdgesExample';
+import { ScrollAreaVerticalExample } from '@/components/scroll-area/examples/ScrollAreaVerticalExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import {
-  ScrollAreaFadePreview,
-  ScrollAreaPreview,
-} from '~/components/previews/ScrollAreaPreview';
 
 ## Preview
 
-<ComponentPreview centered={false}>
-  <ScrollAreaPreview />
+<ComponentPreview name="ScrollAreaVerticalExample" align="start">
+  <ScrollAreaVerticalExample />
 </ComponentPreview>
-
-## Usage
-
-```tsx
-import {
-  ScrollArea,
-  ScrollAreaScrollbar,
-  ScrollAreaThumb,
-  ScrollAreaViewport,
-} from '@/components/ui/ScrollArea';
-
-<ScrollArea className="h-64 w-80">
-  <ScrollAreaViewport className="h-full">
-    <div>Scrollable content</div>
-  </ScrollAreaViewport>
-  <ScrollAreaScrollbar>
-    <ScrollAreaThumb />
-  </ScrollAreaScrollbar>
-</ScrollArea>;
-```
 
 ## Edge Fade
 
@@ -41,8 +19,8 @@ Use `fadeEdges` on the viewport when the edge fade should be CSS-driven.
 Set `overflowEdgeThreshold` on `ScrollArea` to tune when Base UI exposes
 the overflow CSS variables.
 
-<ComponentPreview centered={false}>
-  <ScrollAreaFadePreview />
+<ComponentPreview name="ScrollAreaFadeEdgesExample" align="start">
+  <ScrollAreaFadeEdgesExample />
 </ComponentPreview>
 
 ## Select Composition

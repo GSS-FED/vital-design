@@ -3,65 +3,22 @@ title: Item
 description: 含媒體、標題、說明與動作的內容列。
 ---
 
+import { ItemDescriptionRowsExample } from '@/components/item/examples/ItemDescriptionRowsExample';
+import { ItemExample } from '@/components/item/examples/ItemExample';
+import { ItemGroupedRowsExample } from '@/components/item/examples/ItemGroupedRowsExample';
+import { ItemIconRowsExample } from '@/components/item/examples/ItemIconRowsExample';
+import { ItemImageRowsExample } from '@/components/item/examples/ItemImageRowsExample';
+import { ItemLinkExample } from '@/components/item/examples/ItemLinkExample';
+import { ItemSizesExample } from '@/components/item/examples/ItemSizesExample';
+import { ItemTextRowsExample } from '@/components/item/examples/ItemTextRowsExample';
+import { ItemVariantsExample } from '@/components/item/examples/ItemVariantsExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import {
-  Button,
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemDescription,
-  ItemFooter,
-  ItemGroup,
-  ItemHeader,
-  ItemMedia,
-  ItemSeparator,
-  ItemTitle,
-} from '~/components/vital-components';
 
 ## 預覽 [#preview]
 
-<ComponentPreview centered={false}>
-  <Item variant="outline" className="w-96">
-    <ItemMedia variant="icon">OK</ItemMedia>
-    <ItemContent>
-      <ItemTitle>Profile verified</ItemTitle>
-      <ItemDescription>
-        Your profile has been verified.
-      </ItemDescription>
-    </ItemContent>
-    <ItemActions>
-      <Button size="md" theme="default">
-        Action
-      </Button>
-    </ItemActions>
-  </Item>
+<ComponentPreview name="ItemExample">
+  <ItemExample />
 </ComponentPreview>
-
-## 用法 [#usage]
-
-```tsx
-import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemDescription,
-  ItemMedia,
-  ItemTitle,
-} from '@/components/ui/Item';
-
-<Item>
-  <ItemMedia variant="icon">
-    <Icon />
-  </ItemMedia>
-  <ItemContent>
-    <ItemTitle>Title</ItemTitle>
-    <ItemDescription>Description</ItemDescription>
-  </ItemContent>
-  <ItemActions>
-    <Button>Action</Button>
-  </ItemActions>
-</Item>;
-```
 
 ## 組合 [#composition]
 
@@ -81,156 +38,58 @@ ItemGroup
 
 ## 變體 [#variants]
 
-<ComponentPreview centered={false}>
-  <div className="flex w-96 flex-col gap-3">
-    <Item>
-      <ItemContent>
-        <ItemTitle>Default</ItemTitle>
-        <ItemDescription>Transparent background.</ItemDescription>
-      </ItemContent>
-    </Item>
-    <Item variant="outline">
-      <ItemContent>
-        <ItemTitle>Outline</ItemTitle>
-        <ItemDescription>
-          Bordered row for clear grouping.
-        </ItemDescription>
-      </ItemContent>
-    </Item>
-    <Item variant="muted">
-      <ItemContent>
-        <ItemTitle>Muted</ItemTitle>
-        <ItemDescription>
-          Soft background for secondary content.
-        </ItemDescription>
-      </ItemContent>
-    </Item>
-  </div>
+<ComponentPreview name="ItemVariantsExample">
+  <ItemVariantsExample />
 </ComponentPreview>
 
 ## 尺寸 [#sizes]
 
-<ComponentPreview centered={false}>
-  <div className="flex w-96 flex-col gap-3">
-    <Item variant="outline" size="default">
-      <ItemContent>
-        <ItemTitle>Default</ItemTitle>
-        <ItemDescription>Standard spacing.</ItemDescription>
-      </ItemContent>
-    </Item>
-    <Item variant="outline" size="sm">
-      <ItemContent>
-        <ItemTitle>Small</ItemTitle>
-        <ItemDescription>Compact spacing.</ItemDescription>
-      </ItemContent>
-    </Item>
-    <Item variant="outline" size="xs">
-      <ItemContent>
-        <ItemTitle>Extra small</ItemTitle>
-        <ItemDescription>Dense row spacing.</ItemDescription>
-      </ItemContent>
-    </Item>
-    <Item variant="outline" size="list">
-      <ItemContent>
-        <ItemTitle>List</ItemTitle>
-        <ItemDescription>Picker row spacing.</ItemDescription>
-      </ItemContent>
-    </Item>
-  </div>
+<ComponentPreview name="ItemSizesExample">
+  <ItemSizesExample />
 </ComponentPreview>
 
 ## 清單列 [#list-rows]
 
-`size="list"` 沿用選項列：`text-sm`、緊湊間距，以及 hover、active、current、disabled 狀態。
+`size="list"` 沿用選項列：`text-sm`、緊湊間距，以及 hover、active、current、disabled 狀態。選擇器與選單 primitive 會設定 `data-highlighted`、`data-active`、`data-current` 與 `data-disabled`；範例直接設定這些屬性來呈現各狀態。
 
-<ComponentPreview centered={false}>
-  <ItemGroup className="w-96">
-    <Item size="list">
-      <ItemContent>
-        <ItemTitle>Option</ItemTitle>
-      </ItemContent>
-    </Item>
-    <Item size="list" data-highlighted>
-      <ItemMedia variant="image">
-        <span className="grid size-full place-content-center rounded-full border border-primary-200 bg-primary-50 text-sm text-primary-500">
-          VD
-        </span>
-      </ItemMedia>
-      <ItemContent>
-        <ItemTitle>Hover row</ItemTitle>
-        <ItemDescription>Secondary text</ItemDescription>
-      </ItemContent>
-    </Item>
-    <Item size="list" data-active>
-      <ItemContent>
-        <ItemTitle>Active row</ItemTitle>
-      </ItemContent>
-      <ItemActions>
-        <span aria-hidden>&gt;</span>
-      </ItemActions>
-    </Item>
-    <Item size="list" data-current>
-      <ItemContent>
-        <ItemTitle>Current row</ItemTitle>
-        <ItemDescription>Current row description</ItemDescription>
-      </ItemContent>
-      <ItemActions>
-        <span aria-hidden>&gt;</span>
-      </ItemActions>
-    </Item>
-    <Item size="list" data-disabled>
-      <ItemContent>
-        <ItemTitle>Disabled row</ItemTitle>
-      </ItemContent>
-    </Item>
-  </ItemGroup>
+<ComponentPreview name="ItemTextRowsExample">
+  <ItemTextRowsExample />
+</ComponentPreview>
+
+### 加上說明 [#with-description]
+
+<ComponentPreview name="ItemDescriptionRowsExample">
+  <ItemDescriptionRowsExample />
+</ComponentPreview>
+
+### 加上圖示 [#with-icons]
+
+前置圖示用 `ItemMedia variant="icon"`，尾端圖示放在 `ItemActions`。
+
+<ComponentPreview name="ItemIconRowsExample">
+  <ItemIconRowsExample />
+</ComponentPreview>
+
+### 加上圖片 [#with-images]
+
+<ComponentPreview name="ItemImageRowsExample">
+  <ItemImageRowsExample />
 </ComponentPreview>
 
 ## 群組 [#group]
 
-<ComponentPreview centered={false}>
-  <ItemGroup className="w-96 rounded border border-grayscale-opacity-300">
-    <Item>
-      <ItemMedia>
-        <span className="grid size-8 place-content-center rounded-full bg-grayscale-opacity-200 text-xs font-medium">
-          AL
-        </span>
-      </ItemMedia>
-      <ItemContent>
-        <ItemTitle>Alex Lin</ItemTitle>
-        <ItemDescription>alex.lin@vikosmos.com</ItemDescription>
-      </ItemContent>
-    </Item>
-    <ItemSeparator />
-    <Item>
-      <ItemMedia>
-        <span className="grid size-8 place-content-center rounded-full bg-grayscale-opacity-200 text-xs font-medium">
-          JC
-        </span>
-      </ItemMedia>
-      <ItemContent>
-        <ItemTitle>Jamie Chen</ItemTitle>
-        <ItemDescription>jamie.chen@vikosmos.com</ItemDescription>
-      </ItemContent>
-    </Item>
-  </ItemGroup>
+用 `ItemGroup` 包住多列，並用 `ItemSeparator` 分隔。
+
+<ComponentPreview name="ItemGroupedRowsExample">
+  <ItemGroupedRowsExample />
 </ComponentPreview>
 
 ## 連結 [#link]
 
-<ComponentPreview centered={false}>
-  <Item
-    render={<a href="/docs" />}
-    variant="outline"
-    className="w-96"
-  >
-    <ItemContent>
-      <ItemTitle>Documentation</ItemTitle>
-      <ItemDescription>
-        Learn how to install registry items.
-      </ItemDescription>
-    </ItemContent>
-  </Item>
+傳入 `render={<a href="..." />}`，讓整列渲染成連結。
+
+<ComponentPreview name="ItemLinkExample">
+  <ItemLinkExample />
 </ComponentPreview>
 
 ## 屬性 [#props]
@@ -246,9 +105,9 @@ ItemGroup
 
 ### ItemMedia
 
-| Prop      | Type                             | Default     | 說明             |
-| --------- | -------------------------------- | ----------- | ---------------- |
-| `variant` | `'default' \| 'icon' \| 'image'` | `'default'` | 媒體的呈現方式   |
+| Prop      | Type                             | Default     | 說明           |
+| --------- | -------------------------------- | ----------- | -------------- |
+| `variant` | `'default' \| 'icon' \| 'image'` | `'default'` | 媒體的呈現方式 |
 
 ### 部分 [#parts]
 

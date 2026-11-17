@@ -3,71 +3,49 @@ title: Badge
 description: Small status indicator pill with semantic color variants and number or text content.
 ---
 
+import { BadgeAllVariantsExample } from '@/components/badge/examples/BadgeAllVariantsExample';
+import { BadgeDotExample } from '@/components/badge/examples/BadgeDotExample';
+import { BadgeExample } from '@/components/badge/examples/BadgeExample';
+import { BadgeTextExample } from '@/components/badge/examples/BadgeTextExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import { Badge } from '~/components/vital-components';
 
 ## Preview
 
-<ComponentPreview>
-  <Badge>3</Badge>
-  <Badge variant="success">5</Badge>
-  <Badge variant="warning">12</Badge>
-  <Badge variant="destructive">99+</Badge>
-  <Badge variant="info">1</Badge>
+<ComponentPreview name="BadgeExample">
+  <BadgeExample />
 </ComponentPreview>
-
-## Usage
-
-```tsx
-import { Badge } from '@/components/ui/Badge';
-
-<Badge variant="destructive">99+</Badge>;
-```
 
 ## Variants
 
-<ComponentPreview>
-  <Badge variant="primary">1</Badge>
-  <Badge variant="success">1</Badge>
-  <Badge variant="warning">1</Badge>
-  <Badge variant="destructive">1</Badge>
-  <Badge variant="info">1</Badge>
+Each column shows one `variant` in every size and type: `lg` number, `lg` text, `md` number, `md` text, and the `sm` dot.
+
+<ComponentPreview name="BadgeAllVariantsExample">
+  <BadgeAllVariantsExample />
 </ComponentPreview>
 
 ## Sizes
 
-`sm` renders an empty dot. `md` and `lg` accept content.
+`lg` is the default. `md` is a smaller pill. `sm` renders an empty dot and ignores `children`.
 
-<ComponentPreview>
-  <Badge size="sm" variant="destructive" />
-  <Badge size="md">3</Badge>
-  <Badge size="lg">12</Badge>
+<ComponentPreview name="BadgeDotExample">
+  <BadgeDotExample />
 </ComponentPreview>
 
 ## Type: Number vs Text
 
-<ComponentPreview>
-  <Badge size="md" type="number">
-    9
-  </Badge>
-  <Badge size="md" type="text">
-    NEW
-  </Badge>
-  <Badge size="lg" type="number">
-    99+
-  </Badge>
-  <Badge size="lg" type="text">
-    BETA
-  </Badge>
+`type="number"` (default) suits counts. `type="text"` adjusts padding and font size for short words.
+
+<ComponentPreview name="BadgeTextExample">
+  <BadgeTextExample />
 </ComponentPreview>
 
 ## Props
 
-| Prop        | Type                                                            | Default     | Description                          |
-| ----------- | --------------------------------------------------------------- | ----------- | ------------------------------------ |
+| Prop        | Type                                                             | Default     | Description                          |
+| ----------- | ---------------------------------------------------------------- | ----------- | ------------------------------------ |
 | `variant`   | `'primary' \| 'success' \| 'warning' \| 'destructive' \| 'info'` | `'primary'` | Color variant                        |
-| `size`      | `'sm' \| 'md' \| 'lg'`                                          | `'lg'`      | Badge size; `sm` is an empty dot     |
-| `type`      | `'number' \| 'text'`                                            | `'number'`  | Adjusts padding/typography for label |
-| `children`  | `ReactNode`                                                     | —           | Badge content (ignored when `sm`)    |
-| `className` | `string`                                                        | —           | Additional CSS classes               |
-| `style`     | `CSSProperties`                                                 | —           | Inline styles                        |
+| `size`      | `'sm' \| 'md' \| 'lg'`                                           | `'lg'`      | Badge size; `sm` is an empty dot     |
+| `type`      | `'number' \| 'text'`                                             | `'number'`  | Adjusts padding/typography for label |
+| `children`  | `ReactNode`                                                      | —           | Badge content (ignored when `sm`)    |
+| `className` | `string`                                                         | —           | Additional CSS classes               |
+| `style`     | `CSSProperties`                                                  | —           | Inline styles                        |

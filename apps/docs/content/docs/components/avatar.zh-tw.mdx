@@ -3,186 +3,115 @@ title: Avatar
 description: 顯示使用者頭像；圖片載入失敗時改為姓名縮寫或預設圖示，有 12 種色彩變體。
 ---
 
+import { AvatarAllSizesExample } from '@/components/avatar/examples/AvatarAllSizesExample';
+import { AvatarBorderExample } from '@/components/avatar/examples/AvatarBorderExample';
+import { AvatarColorsExample } from '@/components/avatar/examples/AvatarColorsExample';
+import { AvatarCompoundExample } from '@/components/avatar/examples/AvatarCompoundExample';
+import { AvatarDisabledExample } from '@/components/avatar/examples/AvatarDisabledExample';
+import { AvatarExample } from '@/components/avatar/examples/AvatarExample';
+import { AvatarFallbackExample } from '@/components/avatar/examples/AvatarFallbackExample';
+import { AvatarGroupExample } from '@/components/avatar/examples/AvatarGroupExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarGroup,
-  AvatarGroupCount,
-  AvatarImage,
-  AvatarRoot,
-} from '~/components/vital-components';
 
 ## 預覽 [#preview]
 
-<ComponentPreview>
-  <Avatar name="Arthur Lu" color="blue" size="lg" />
-  <Avatar name="Sean Chen" color="tiffany" size="lg" />
-  <Avatar name="Jane Doe" color="pink" size="lg" />
-  <Avatar color="purple" size="lg" />
+<ComponentPreview name="AvatarExample">
+  <AvatarExample />
 </ComponentPreview>
 
 ## 用法 [#usage]
 
-```tsx
-import { Avatar } from '@/components/ui/Avatar';
-
-<Avatar name="Arthur Lu" color="blue" size="md" />;
-```
+有提供 `src` 時顯示圖片。圖片載入中或載入失敗時，依序顯示 `fallback`、`name` 產生的姓名縮寫，或預設圖示。
 
 ## 尺寸 [#sizes]
 
-<ComponentPreview>
-  <Avatar name="A" size="xs" color="blue" />
-  <Avatar name="A" size="sm" color="blue" />
-  <Avatar name="A" size="md" color="blue" />
-  <Avatar name="A" size="lg" color="blue" />
-  <Avatar name="A" size="xl" color="blue" />
+<ComponentPreview name="AvatarAllSizesExample">
+  <AvatarAllSizesExample />
 </ComponentPreview>
 
-| 尺寸 | 寬高                 |
-| ---- | -------------------- |
-| `xs` | 24 × 24 px           |
-| `sm` | 32 × 32 px           |
+| 尺寸 | 寬高               |
+| ---- | ------------------ |
+| `xs` | 24 × 24 px         |
+| `sm` | 32 × 32 px         |
 | `md` | 40 × 40 px（預設） |
-| `lg` | 48 × 48 px           |
-| `xl` | 60 × 60 px           |
+| `lg` | 48 × 48 px         |
+| `xl` | 60 × 60 px         |
 
 ## 色彩變體 [#color-variants]
 
-<ComponentPreview>
-  <Avatar fallback="TI" color="tiffany" size="md" />
-  <Avatar fallback="GR" color="green" size="md" />
-  <Avatar fallback="OR" color="orange" size="md" />
-  <Avatar fallback="PK" color="pink" size="md" />
-  <Avatar fallback="BL" color="blue" size="md" />
-  <Avatar fallback="SK" color="sky" size="md" />
-  <Avatar fallback="PU" color="purple" size="md" />
-  <Avatar fallback="LG" color="light-gold" size="md" />
-  <Avatar fallback="SA" color="salmon" size="md" />
-  <Avatar fallback="IC" color="ice" size="md" />
-  <Avatar fallback="LV" color="lavender" size="md" />
+<ComponentPreview name="AvatarColorsExample">
+  <AvatarColorsExample />
+</ComponentPreview>
+
+## Fallback [#fallback]
+
+沒有傳 `fallback` 也沒有傳 `name` 時，顯示預設人像圖示。`fallback` 優先於 `name`。只傳 `name` 時，顯示最多兩個字的開頭字母。
+
+<ComponentPreview name="AvatarFallbackExample">
+  <AvatarFallbackExample />
 </ComponentPreview>
 
 ## 群組 [#group]
 
 用 `AvatarGroup` 把多個頭像疊在一起。清單被截斷時，在最後加上 `AvatarGroupCount`。
 
-<ComponentPreview>
-  <AvatarGroup>
-    <Avatar name="Arthur Lu" color="green" />
-    <Avatar name="Dover Shen" color="blue" />
-    <Avatar name="Luka Jung" color="ice" />
-    <AvatarGroupCount>+3</AvatarGroupCount>
-  </AvatarGroup>
+<ComponentPreview name="AvatarGroupExample">
+  <AvatarGroupExample />
 </ComponentPreview>
-
-```tsx
-<AvatarGroup>
-  <Avatar name="Arthur Lu" color="green" />
-  <Avatar name="Dover Shen" color="blue" />
-  <Avatar name="Luka Jung" color="ice" />
-  <AvatarGroupCount>+3</AvatarGroupCount>
-</AvatarGroup>
-```
 
 ## 複合部分 [#compound-parts]
 
-<ComponentPreview>
-  <AvatarRoot color="blue" size="lg">
-    <AvatarImage
-      src="https://i.pravatar.cc/150?img=1"
-      alt="Arthur Lu"
-    />
-    <AvatarFallback color="blue">AL</AvatarFallback>
-  </AvatarRoot>
-  <AvatarRoot color="tiffany" size="lg">
-    <AvatarImage src="broken-url" alt="Sean Chen" />
-    <AvatarFallback color="tiffany">SC</AvatarFallback>
-  </AvatarRoot>
+需要完全控制圖片與 fallback 內容時，改用 `AvatarRoot`、`AvatarImage` 與 `AvatarFallback`。第二個頭像的圖片載入失敗，所以顯示 fallback。
+
+<ComponentPreview name="AvatarCompoundExample">
+  <AvatarCompoundExample />
 </ComponentPreview>
-
-```tsx
-<AvatarRoot color="blue" size="lg">
-  <AvatarImage src="https://example.com/photo.jpg" alt="Arthur Lu" />
-  <AvatarFallback color="blue">AL</AvatarFallback>
-</AvatarRoot>
-```
-
-## 加上圖片 [#with-image]
-
-有提供 `src` 時顯示圖片。圖片載入失敗時，改用 `name` 產生的姓名縮寫。
-
-<ComponentPreview>
-  <Avatar
-    src="https://i.pravatar.cc/150?img=1"
-    name="Arthur Lu"
-    size="lg"
-  />
-  <Avatar src="broken-url" name="Fallback" color="blue" size="lg" />
-</ComponentPreview>
-
-```tsx
-<Avatar
-  src="https://example.com/photo.jpg"
-  name="Arthur Lu"
-  size="lg"
-/>
-```
 
 ## 邊框 [#bordered]
 
-<ComponentPreview>
-  <Avatar name="Bo" color="tiffany" size="lg" bordered />
-  <Avatar name="Bo" color="blue" size="lg" bordered />
-  <Avatar name="Bo" color="pink" size="lg" bordered />
-</ComponentPreview>
+`bordered` 預設為 `true`。設成 `bordered={false}` 可以拿掉有顏色的邊框環。
 
-```tsx
-<Avatar name="Arthur Lu" color="blue" bordered />
-```
+<ComponentPreview name="AvatarBorderExample">
+  <AvatarBorderExample />
+</ComponentPreview>
 
 ## 停用 [#disabled]
 
-<ComponentPreview>
-  <Avatar name="DI" color="blue" size="lg" disabled />
+<ComponentPreview name="AvatarDisabledExample">
+  <AvatarDisabledExample />
 </ComponentPreview>
-
-```tsx
-<Avatar name="Arthur Lu" color="blue" disabled />
-```
 
 ## 屬性 [#props]
 
-| Prop                    | Type                                                                                                                                        | Default     | 說明                                     |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ----------------------------------------------- |
-| `name`                  | `string`                                                                                                                                    | —           | 用來產生 fallback 用的姓名縮寫              |
+| Prop                    | Type                                                                                                                                        | Default     | 說明                             |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | -------------------------------- |
+| `name`                  | `string`                                                                                                                                    | —           | 用來產生 fallback 用的姓名縮寫   |
 | `src`                   | `string`                                                                                                                                    | —           | 圖片 URL；載入失敗時改用姓名縮寫 |
-| `alt`                   | `string`                                                                                                                                    | —           | 圖片的替代文字                          |
-| `size`                  | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                                                                                                      | `'md'`      | Avatar 尺寸                               |
-| `color`                 | `'default' \| 'tiffany' \| 'green' \| 'orange' \| 'pink' \| 'blue' \| 'sky' \| 'purple' \| 'light-gold' \| 'salmon' \| 'ice' \| 'lavender'` | `'default'` | 背景與文字的色彩變體               |
-| `bordered`              | `boolean`                                                                                                                                   | `true`      | 加上有顏色的邊框環                      |
-| `disabled`              | `boolean`                                                                                                                                   | `false`     | 套用停用遮罩                        |
-| `fallback`              | `ReactNode`                                                                                                                                 | —           | 自訂 fallback 元素                         |
-| `onClick`               | `(event: MouseEvent) => void`                                                                                                               | —           | 點擊處理函式                                   |
-| `onLoadingStatusChange` | `(status: 'idle' \| 'loading' \| 'loaded' \| 'error') => void`                                                                              | —           | 圖片載入狀態的 callback                      |
-| `style`                 | `CSSProperties`                                                                                                                             | —           | 行內樣式                                   |
-| `className`             | `string`                                                                                                                                    | —           | 根元素的 class 名稱                         |
+| `alt`                   | `string`                                                                                                                                    | —           | 圖片的替代文字                   |
+| `size`                  | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                                                                                                      | `'md'`      | Avatar 尺寸                      |
+| `color`                 | `'default' \| 'tiffany' \| 'green' \| 'orange' \| 'pink' \| 'blue' \| 'sky' \| 'purple' \| 'light-gold' \| 'salmon' \| 'ice' \| 'lavender'` | `'default'` | 背景與文字的色彩變體             |
+| `bordered`              | `boolean`                                                                                                                                   | `true`      | 加上有顏色的邊框環               |
+| `disabled`              | `boolean`                                                                                                                                   | `false`     | 套用停用遮罩                     |
+| `fallback`              | `ReactNode`                                                                                                                                 | —           | 自訂 fallback 元素               |
+| `onClick`               | `(event: MouseEvent) => void`                                                                                                               | —           | 點擊處理函式                     |
+| `onLoadingStatusChange` | `(status: 'idle' \| 'loading' \| 'loaded' \| 'error') => void`                                                                              | —           | 圖片載入狀態的 callback          |
+| `style`                 | `CSSProperties`                                                                                                                             | —           | 行內樣式                         |
+| `className`             | `string`                                                                                                                                    | —           | 根元素的 class 名稱              |
 
 ## AvatarGroup 屬性 [#avatargroup-props]
 
-| Prop        | Type            | Default | 說明                |
-| ----------- | --------------- | ------- | -------------------------- |
-| `children`  | `ReactNode`     | —       | Avatar 項目與數量     |
+| Prop        | Type            | Default | 說明                 |
+| ----------- | --------------- | ------- | -------------------- |
+| `children`  | `ReactNode`     | —       | Avatar 項目與數量    |
 | `className` | `string`        | —       | 額外的 CSS class     |
-| `style`     | `CSSProperties` | —       | 行內樣式              |
+| `style`     | `CSSProperties` | —       | 行內樣式             |
 | `...props`  | `div` props     | —       | 轉送的原生 div props |
 
 ## AvatarGroupCount 屬性 [#avatargroupcount-props]
 
-| Prop        | Type            | Default | 說明                |
-| ----------- | --------------- | ------- | -------------------------- |
-| `children`  | `ReactNode`     | —       | 數量標籤或圖示        |
+| Prop        | Type            | Default | 說明                 |
+| ----------- | --------------- | ------- | -------------------- |
+| `children`  | `ReactNode`     | —       | 數量標籤或圖示       |
 | `className` | `string`        | —       | 額外的 CSS class     |
-| `style`     | `CSSProperties` | —       | 行內樣式              |
+| `style`     | `CSSProperties` | —       | 行內樣式             |
 | `...props`  | `div` props     | —       | 轉送的原生 div props |

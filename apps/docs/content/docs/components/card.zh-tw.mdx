@@ -3,95 +3,52 @@ title: Card
 description: 可組合的卡片表面，包含標題列、標題、說明、動作、內容與頁尾這些 slot。
 ---
 
+import { CardBasicExample } from '@/components/card/examples/CardBasicExample';
+import { CardHeaderOnlyExample } from '@/components/card/examples/CardHeaderOnlyExample';
+import { CardWithActionExample } from '@/components/card/examples/CardWithActionExample';
+import { CardWithFooterExample } from '@/components/card/examples/CardWithFooterExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '~/components/vital-components';
 
 ## 預覽 [#preview]
 
-<ComponentPreview centered={false}>
-  <Card className="w-80">
-    <CardHeader>
-      <CardTitle>Project Alpha</CardTitle>
-      <CardDescription>Last updated 2 days ago.</CardDescription>
-    </CardHeader>
-    <CardContent>
-      Track progress, owners, and review status in one place.
-    </CardContent>
-  </Card>
+<ComponentPreview name="CardBasicExample">
+  <CardBasicExample />
 </ComponentPreview>
-
-## 用法 [#usage]
-
-```tsx
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/Card';
-
-<Card>
-  <CardHeader>
-    <CardTitle>Project Alpha</CardTitle>
-    <CardDescription>Last updated 2 days ago.</CardDescription>
-  </CardHeader>
-  <CardContent>Body content goes here.</CardContent>
-</Card>;
-```
 
 ## 附動作 [#with-action]
 
 `CardAction` 會自動放在標題列尾端的 slot。
 
-<ComponentPreview centered={false}>
-  <Card className="w-80">
-    <CardHeader>
-      <CardTitle>Quarterly review</CardTitle>
-      <CardDescription>Owners must submit by Friday.</CardDescription>
-      <CardAction>
-        <span className="text-sm text-primary-500">Edit</span>
-      </CardAction>
-    </CardHeader>
-    <CardContent>Three pending submissions.</CardContent>
-  </Card>
+<ComponentPreview name="CardWithActionExample">
+  <CardWithActionExample />
 </ComponentPreview>
 
 ## 附頁尾 [#with-footer]
 
 在頁尾或內容加上分隔 class（`border-t`），分隔線才會出現。
 
-<ComponentPreview centered={false}>
-  <Card className="w-80">
-    <CardHeader className="border-b">
-      <CardTitle>Sprint 24</CardTitle>
-      <CardDescription>2 weeks remaining</CardDescription>
-    </CardHeader>
-    <CardContent>8 of 12 tasks complete.</CardContent>
-    <CardFooter className="border-t">
-      <span className="text-sm text-grayscale-opacity-600">Updated 1h ago</span>
-    </CardFooter>
-  </Card>
+<ComponentPreview name="CardWithFooterExample">
+  <CardWithFooterExample />
+</ComponentPreview>
+
+## 只有標題列 [#header-only]
+
+卡片可以只放 `CardHeader`，例如當作精簡的群組摘要。
+
+<ComponentPreview name="CardHeaderOnlyExample">
+  <CardHeaderOnlyExample />
 </ComponentPreview>
 
 ## 複合部分 [#compound-parts]
 
-| 部分              | 說明                                                                                          |
-| ----------------- | ---------------------------------------------------------------------------------------------------- |
-| `Card`            | 根表面 — 圓角白底，加上強調陰影                                         |
-| `CardHeader`      | 以 grid 自動排列標題、說明與動作的標題列                                        |
-| `CardTitle`       | 主要標題 slot（`text-base`、`font-medium`）                                                    |
-| `CardDescription` | 次要文字 slot（`text-sm`、grayscale-opacity-600）                                                       |
-| `CardAction`      | 標題列尾端 slot（例如選單按鈕）；有這個部分才顯示，標題列會改成兩欄   |
-| `CardContent`     | 內文區，預設有 padding                                                                     |
-| `CardFooter`      | 頁尾區，flex 排列                                                                       |
+| 部分              | 說明                                                                |
+| ----------------- | ------------------------------------------------------------------- |
+| `Card`            | 根表面 — 圓角白底，加上強調陰影                                     |
+| `CardHeader`      | 以 grid 自動排列標題、說明與動作的標題列                            |
+| `CardTitle`       | 主要標題 slot（`text-base`、`font-medium`）                         |
+| `CardDescription` | 次要文字 slot（`text-sm`、grayscale-opacity-600）                   |
+| `CardAction`      | 標題列尾端 slot（例如選單按鈕）；有這個部分才顯示，標題列會改成兩欄 |
+| `CardContent`     | 內文區，預設有 padding                                              |
+| `CardFooter`      | 頁尾區，flex 排列                                                   |
 
 所有部分都接受原生 `div` props（`className`、`style`、`...rest`），並轉送 `ref`。

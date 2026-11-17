@@ -3,33 +3,29 @@ title: Separator
 description: Horizontal or vertical divider.
 ---
 
+import { SeparatorHorizontalExample } from '@/components/separator/examples/SeparatorHorizontalExample';
+import { SeparatorInListExample } from '@/components/separator/examples/SeparatorInListExample';
+import { SeparatorVerticalExample } from '@/components/separator/examples/SeparatorVerticalExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import { Separator } from '~/components/vital-components';
 
 ## Preview
 
-<ComponentPreview centered={false}>
-  <div className="w-80">
-    <Separator />
-  </div>
+<ComponentPreview name="SeparatorHorizontalExample" align="start">
+  <SeparatorHorizontalExample />
 </ComponentPreview>
-
-## Usage
-
-```tsx
-import { Separator } from '@/components/ui/Separator';
-
-<Separator />;
-```
 
 ## Vertical
 
-<ComponentPreview centered={false}>
-  <div className="flex h-16 items-stretch gap-4">
-    <span className="text-sm text-grayscale-opacity-700">Left</span>
-    <Separator orientation="vertical" />
-    <span className="text-sm text-grayscale-opacity-700">Right</span>
-  </div>
+<ComponentPreview name="SeparatorVerticalExample" align="start">
+  <SeparatorVerticalExample />
+</ComponentPreview>
+
+## In a List
+
+Separate stacked rows with a horizontal `Separator`.
+
+<ComponentPreview name="SeparatorInListExample" align="start">
+  <SeparatorInListExample />
 </ComponentPreview>
 
 ## Props
