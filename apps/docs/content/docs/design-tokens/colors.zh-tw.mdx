@@ -29,7 +29,7 @@ import {
 
 ## 概覽
 
-Vittal Design 的語意層沿用 [shadcn/ui](https://ui.shadcn.com/docs/theming) 的命名。顏色定義在 `tokens/`（Style Dictionary），建置成 `src-v2/styles/tokens/generated.css` 裡 `:root` 上的 CSS custom properties，再經 `@theme inline`（`--color-*`）交給 Tailwind。
+Vittal Design 的語意層沿用 [shadcn/ui](https://ui.shadcn.com/docs/theming) 的命名。顏色定義在 `tokens/`（Style Dictionary），建置成 `src-v2/styles/tokens/generated.css` 裡 `:root` 上的 CSS custom properties，暗色值寫在 `.dark`，再經 `@theme inline`（`--color-*`）交給 Tailwind。
 
 ```ts
 // 3 layers, generated from tokens/*.json by Style Dictionary
@@ -39,6 +39,30 @@ primitive  →  semantic  →  component
 - **Primitive 色階**（`--primary-50…900`、`--grayscale-100…900`、`--grayscale-opacity-100…900`、`--success-100…900` 等）是內部基礎。圖表、插圖，或需要指定某一階色調時再用。Tailwind utility：`bg-primary-500`、`text-grayscale-700`。
 - **語意 token**（`--background`、`--primary`、`--card`、`--destructive` 等）是公開 API。它們描述用途，並搭配 `-foreground`，讓表面上的內容看得清楚。Tailwind utility：`bg-primary text-primary-foreground`。
 - **元件 token**（`--avatar-*-fg`、`--tag-*-solid`）是特定元件使用的封閉色盤。
+
+## 暗色模式 [#dark-mode]
+
+在祖先元素加上 `class="dark"`，通常是 `<html>`。使用 [next-themes](https://github.com/pacocoursey/next-themes) 時設定 `attribute="class"`。theme 不會跟著 `prefers-color-scheme` 切換。重新安裝 `@vital-design/vital-theme`，`cssVars.dark` 才會寫進應用的樣式表。
+
+這一頁每個色票都列出兩個值：**L** 是亮色值，**D** 是暗色值。每一格都畫在該模式的頁面底色上，半透明的顏色會和實際畫面一樣。
+
+### `.dark` 底下會改變的 [#what-changes-under-dark]
+
+- **Primitive 色階**的暗色值來自 `tokens/dark/colors.json`。`text-grayscale-opacity-800`、`bg-primary-500` 這類色階 class 會自動切換。
+- **引用色階的語意 token** 會用暗色色階重算：`primary` → `primary.500`、`foreground` → `grayscale-opacity.900`、`border` → `grayscale-opacity.200`。
+- **少數語意 token 有自己的暗色值**，寫在 `tokens/dark/colors.json`：`background`、`card`、`popover`（`#232327`），以及 `input`（`#444447`）。
+- **以下維持亮色值：** 寫死白色的 `*-foreground`、下方的 avatar 與 tag 色盤，以及[效果](/zh-tw/docs/design-tokens/effects)頁的陰影與漸層 token。
+
+`.dark` 的祖先元素會套用 `background` 和 `foreground`，所以放在頁面上的文字會用暗色文字色。
+
+### 讓元件在兩種模式都正確 [#writing-components-for-both-modes]
+
+- 紙面用 `bg-background`，不要用 `bg-white`。
+- 底色在暗色會變淺時（例如 `bg-grayscale-700`、`bg-grayscale-opacity-700`），字用 `text-background`，讓字跟著變深。Tag、Tooltip、solid Toast 都這樣做。
+- 子元素要淡化父層字色時，用 `text-current/90`，不要用 `text-white/90`。
+- `bg-white` 和 `text-white` 維持白色。只用在必須保持白色的標記（例如開關、滑桿和單選的圓點），以及兩種模式都不變的飽和底色上的字。
+- 某一階在某個模式對比不足時，用 `dark:` variant 換另一階。資料表格的選取工具列用的是 `text-info-400 dark:text-info-200`。
+- 不要用 `bg-[#f8f8f9]` 這類任意值寫死顏色，改用最接近的色階。
 
 ## Primary
 
@@ -146,7 +170,7 @@ Vittal Design 獨有、shadcn 沒有對應的 token。為了和生態一致，�
 
 ## Avatar 色盤
 
-每個具名 avatar 顏色有三個 token：`fg`（文字 / 縮寫）、`border`、`bg`。由 `AvatarRoot color="…"` 使用。
+每個具名 avatar 顏色有三個 token：`fg`（文字 / 縮寫）、`border`、`bg`。由 `AvatarRoot color="…"` 使用。這些 token 只有亮色值，所以在 `.dark` 底下 avatar 的顏色不變。
 
 <AvatarPalette tokens={avatarTokens} />
 
@@ -158,7 +182,7 @@ color: var(--avatar-tiffany-fg);
 
 ## Tag 色盤
 
-每個具名 tag 顏色有 `solid`（文字 / 圖示）與 `tint`（背景）。由 `Tag color="…"` 使用。
+每個具名 tag 顏色有 `solid`（文字 / 圖示）與 `tint`（背景）。由 `Tag color="…"` 使用。這些 token 只有亮色值，所以在 `.dark` 底下 tag 的顏色不變。
 
 <TagPalette tokens={tagTokens} />
 

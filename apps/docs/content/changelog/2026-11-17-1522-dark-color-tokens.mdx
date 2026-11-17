@@ -1,0 +1,41 @@
+---
+title: Dark color tokens
+---
+
+Reinstall the theme to pick up dark colors:
+
+```bash
+npx shadcn@latest add @vital-design/vital-theme
+```
+
+Light values stay on `:root`. The same custom properties change when an ancestor has `class="dark"`. `prefers-color-scheme` does not switch them. See [Colors → Dark mode](/docs/design-tokens/colors#dark-mode).
+
+Primitive scales, and semantic aliases that point at those scales, have dark values. `background`, `card`, and `popover` are `#232327`, and `input` is `#444447`. The `.dark` ancestor uses that paper and the dark foreground. `border` and `border-overlap` alias scales, so they follow them: white at 0.08 and `#444447`.
+
+**Scale classes switch too.** Under `.dark`, a scale class such as `bg-grayscale-50` or `text-primary-500` resolves to that scale's dark value. This is part of the theme's contract, so a scale class in your own code changes with the mode. Fixed Tailwind colors and arbitrary values do not: `bg-white` stays white and is reserved for marks such as switch thumbs, and `text-white` stays white.
+
+Components used to paint their paper with `bg-white`, which stays white in dark mode. They now use `bg-background`, and some also fix text that was hard to read on dark paper. Reinstall the theme and the items you use:
+
+```bash
+npx shadcn@latest add @vital-design/vital-theme
+npx shadcn@latest add @vital-design/alert @vital-design/autocomplete @vital-design/button @vital-design/calendar
+npx shadcn@latest add @vital-design/card @vital-design/checkbox @vital-design/combobox @vital-design/command
+npx shadcn@latest add @vital-design/dialog @vital-design/dropdown-menu @vital-design/field @vital-design/input
+npx shadcn@latest add @vital-design/input-group @vital-design/item @vital-design/number-input @vital-design/pagination
+npx shadcn@latest add @vital-design/popover @vital-design/radio-group @vital-design/resizable @vital-design/select
+npx shadcn@latest add @vital-design/sheet @vital-design/split-button @vital-design/table @vital-design/tag
+npx shadcn@latest add @vital-design/textarea @vital-design/time-picker @vital-design/toast @vital-design/toolbar
+npx shadcn@latest add @vital-design/tooltip
+npx shadcn@latest add @vital-design/data-table @vital-design/sidebar-cloud-01 @vital-design/sidebar-cloud-02 @vital-design/sidebar-cloud-03
+npx shadcn@latest add @vital-design/sidebar-cloud-04 @vital-design/sidebar-cloud-05 @vital-design/sidebar-cloud-06
+```
+
+The theme also adds a `dark:` variant that matches inside a `.dark` ancestor.
+
+Known limitations, still waiting on design:
+
+- `warning-foreground` follows the grayscale ink, so it turns white under `.dark`, and text on warning fills loses contrast. The other white foregrounds, such as `primary-foreground`, stay white.
+- Avatar and Tag palettes, shadows, and gradients have no dark values.
+- Solid buttons keep white text.
+- The frosted backdrop in the sidebar-cloud blocks stays light, so their menu text is hard to read in dark mode.
+- The info Tooltip and info Toast keep their current dark backgrounds.

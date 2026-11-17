@@ -125,7 +125,7 @@ export function IconsGalleryPreview() {
         {icons.map(({ name, Icon }) => (
           <div
             key={name}
-            className="flex min-w-0 flex-col items-center justify-center gap-2 rounded-md border border-grayscale-opacity-200 bg-white px-2 py-4 text-grayscale-opacity-800"
+            className="flex min-w-0 flex-col items-center justify-center gap-2 rounded-md border border-grayscale-opacity-200 bg-background px-2 py-4 text-grayscale-opacity-800"
           >
             <Icon className="size-6" />
             {/* One line so the name copies cleanly. text-fit shrinks long names to

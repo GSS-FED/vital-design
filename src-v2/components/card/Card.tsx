@@ -17,7 +17,7 @@ const Card = function Card({
       ref={ref}
       data-slot="card"
       className={cn(
-        'flex flex-col rounded bg-white font-sans text-grayscale-opacity-800 shadow-emphasis',
+        'flex flex-col rounded bg-background font-sans text-grayscale-opacity-800 shadow-emphasis',
         className,
       )}
       {...props}

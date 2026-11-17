@@ -5,6 +5,17 @@ import '@fontsource/roboto/500.css';
 import type { Decorator, Preview } from '@storybook/react';
 import { Agentation } from 'agentation';
 import '../src-v2/styles/globals.css';
+import { ThemedDocsContainer } from './docs-container';
+
+// Class on <html> so portaled layers inherit the same variables.
+// Default stays light; visual baselines do not opt into dark.
+const withColorTheme: Decorator = (Story, context) => {
+  document.documentElement.classList.toggle(
+    'dark',
+    context.globals.theme === 'dark',
+  );
+  return <Story />;
+};
 
 // Show the Agentation toolbar in the story canvas during local dev only.
 // Skip the `docs` view mode so autodocs pages (many stories at once) don't
@@ -18,10 +29,28 @@ const withAgentation: Decorator = (Story, context) => (
 );
 
 const preview: Preview = {
-  decorators: [withAgentation],
+  globalTypes: {
+    theme: {
+      description: 'Color theme',
+      toolbar: {
+        title: 'Theme',
+        icon: 'circlehollow',
+        items: [
+          { value: 'light', icon: 'sun', title: 'Light' },
+          { value: 'dark', icon: 'moon', title: 'Dark' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+  initialGlobals: {
+    theme: 'light',
+  },
+  decorators: [withColorTheme, withAgentation],
   parameters: {
     controls: { exclude: ['style', 'className'] },
     docs: {
+      container: ThemedDocsContainer,
       toc: true, //Enables the table of contents
     },
     options: {

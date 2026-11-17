@@ -552,7 +552,7 @@ export function ActionBar({
   return (
     <Toolbar
       size="sm"
-      className="h-12 flex-nowrap gap-6 overflow-x-auto overflow-y-hidden rounded bg-white px-3 py-2"
+      className="h-12 flex-nowrap gap-6 overflow-x-auto overflow-y-hidden rounded bg-background px-3 py-2"
     >
       <SearchBar
         ref={searchRef}

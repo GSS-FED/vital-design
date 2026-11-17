@@ -131,7 +131,7 @@ export function TablePreview() {
     <ComponentPreview name="TablePreview" centered={false}>
       <Table
         striped
-        containerClassName="max-w-5xl rounded-(--radius-sm) border border-grayscale-opacity-300 bg-white shadow-(--shadow-base)"
+        containerClassName="max-w-5xl rounded-(--radius-sm) border border-grayscale-opacity-300 bg-background shadow-(--shadow-base)"
       >
         <TableHeader>
           <TableRow>

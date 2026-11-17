@@ -32,8 +32,8 @@ import {
 Vittal Design follows the [shadcn/ui](https://ui.shadcn.com/docs/theming)
 naming convention for its semantic layer. Colors are defined under
 `tokens/` (Style Dictionary), built into `src-v2/styles/tokens/generated.css`
-as CSS custom properties on `:root`, and exposed to Tailwind via
-`@theme inline` (`--color-*`).
+as CSS custom properties on `:root`, with dark overrides on `.dark`,
+and exposed to Tailwind via `@theme inline` (`--color-*`).
 
 ```ts
 // 3 layers, generated from tokens/*.json by Style Dictionary
@@ -51,6 +51,53 @@ primitive  →  semantic  →  component
   surface. Tailwind utility: `bg-primary text-primary-foreground`.
 - **Component tokens** (`--avatar-*-fg`, `--tag-*-solid`) — closed
   palettes used by specific components.
+
+## Dark mode
+
+Add `class="dark"` to an ancestor, usually `<html>`. With
+[next-themes](https://github.com/pacocoursey/next-themes), set
+`attribute="class"`. The theme does not follow
+`prefers-color-scheme`. Reinstall `@vital-design/vital-theme` so
+`cssVars.dark` is written into the app stylesheet.
+
+Every color swatch on this page shows two values: **L** is the light
+value and **D** is the dark value. Each chip is drawn on its own
+mode's page color, so translucent values look the way they render.
+
+### What changes under `.dark`
+
+- **Primitive scales** take their dark values from
+  `tokens/dark/colors.json`. A scale class such as
+  `text-grayscale-opacity-800` or `bg-primary-500` switches on its own.
+- **Semantic tokens that alias a scale** are rebuilt from the dark
+  scale: `primary` → `primary.500`, `foreground` →
+  `grayscale-opacity.900`, `border` → `grayscale-opacity.200`.
+- **A few semantic tokens set their own dark value** in
+  `tokens/dark/colors.json`: `background`, `card`, and `popover`
+  (`#232327`), and `input` (`#444447`).
+- **These keep their light value:** literal `*-foreground` whites,
+  the avatar and tag palettes below, and the shadow and
+  gradient tokens on [Effects](/docs/design-tokens/effects).
+
+The `.dark` ancestor paints `background` and `foreground`, so text
+that sits on the page uses the dark ink.
+
+### Writing components for both modes
+
+- Paper uses `bg-background`, not `bg-white`.
+- When a fill turns light in dark mode, such as `bg-grayscale-700` or
+  `bg-grayscale-opacity-700`, put `text-background` on it so the text
+  turns dark with it. Tag, Tooltip, and solid Toast do this.
+- Child elements that fade the parent's text color use
+  `text-current/90`, not `text-white/90`.
+- `bg-white` and `text-white` stay white. Use them for marks that must
+  stay white, such as switch, slider, and radio thumbs, and for text on
+  saturated fills that keep one value in both modes.
+- When a step lacks contrast in one mode, pick another step with the
+  `dark:` variant. The data table selection bar uses
+  `text-info-400 dark:text-info-200`.
+- Don't hardcode colors with arbitrary values such as
+  `bg-[#f8f8f9]`. Use the nearest scale step.
 
 ## Primary
 
@@ -183,6 +230,8 @@ its extensions).
 
 Each named avatar color exposes three tokens — `fg` (text /
 initials), `border`, and `bg`. Used by `AvatarRoot color="…"`.
+These tokens have light values only, so avatars keep the same colors
+under `.dark`.
 
 <AvatarPalette tokens={avatarTokens} />
 
@@ -195,7 +244,8 @@ color: var(--avatar-tiffany-fg);
 ## Tag Palette
 
 Each named tag color exposes `solid` (text / icon) and `tint`
-(background). Used by `Tag color="…"`.
+(background). Used by `Tag color="…"`. These tokens have light
+values only, so tags keep the same colors under `.dark`.
 
 <TagPalette tokens={tagTokens} />
 

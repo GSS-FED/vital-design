@@ -45,7 +45,7 @@ export function ComponentPreview({
   if (!entry) {
     return (
       <div
-        className={`not-prose my-6 flex flex-wrap gap-4 rounded-xl border border-grayscale-opacity-200 bg-white p-8 ${minHeight} ${alignClass[resolvedAlign]} ${className ?? ''}`}
+        className={`not-prose my-6 flex flex-wrap gap-4 rounded-xl border border-grayscale-opacity-200 bg-background p-8 ${minHeight} ${alignClass[resolvedAlign]} ${className ?? ''}`}
       >
         {children}
       </div>
@@ -61,20 +61,20 @@ export function ComponentPreview({
         <BaseTabs.List className="inline-flex w-fit items-center gap-1 rounded-lg bg-grayscale-opacity-100 p-1 text-sm">
           <BaseTabs.Tab
             value="preview"
-            className="cursor-pointer rounded-md px-3 py-1 font-medium text-grayscale-opacity-700 outline-none transition-colors hover:text-grayscale-opacity-900 data-[active]:bg-white data-[active]:text-grayscale-opacity-900 data-[active]:shadow-sm"
+            className="cursor-pointer rounded-md px-3 py-1 font-medium text-grayscale-opacity-700 outline-none transition-colors hover:text-grayscale-opacity-900 data-[active]:bg-background data-[active]:text-grayscale-opacity-900 data-[active]:shadow-sm"
           >
             Preview
           </BaseTabs.Tab>
           <BaseTabs.Tab
             value="code"
-            className="cursor-pointer rounded-md px-3 py-1 font-medium text-grayscale-opacity-700 outline-none transition-colors hover:text-grayscale-opacity-900 data-[active]:bg-white data-[active]:text-grayscale-opacity-900 data-[active]:shadow-sm"
+            className="cursor-pointer rounded-md px-3 py-1 font-medium text-grayscale-opacity-700 outline-none transition-colors hover:text-grayscale-opacity-900 data-[active]:bg-background data-[active]:text-grayscale-opacity-900 data-[active]:shadow-sm"
           >
             Code
           </BaseTabs.Tab>
         </BaseTabs.List>
       </BaseTabs.Root>
 
-      <div className="relative overflow-hidden rounded-xl border border-grayscale-opacity-200 bg-white">
+      <div className="relative overflow-hidden rounded-xl border border-grayscale-opacity-200 bg-background">
         {tab === 'preview' ? (
           <div
             className={`flex flex-wrap gap-4 p-8 ${minHeight} ${alignClass[resolvedAlign]} ${className ?? ''}`}

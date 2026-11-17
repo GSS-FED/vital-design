@@ -40,8 +40,8 @@ const splitButtonGroupVariants = cva(
         info: 'bg-info-500',
         warning: 'bg-warning-500',
         alarm: 'bg-destructive-500',
-        default: 'bg-white',
-        dangerous: 'bg-white',
+        default: 'bg-background',
+        dangerous: 'bg-background',
       },
       disabled: {
         true: 'opacity-60',

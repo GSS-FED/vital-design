@@ -30,7 +30,7 @@ it('applies variant + size classes', () => {
   expect(el).toHaveClass(
     'border-b',
     'border-grayscale-opacity-200',
-    'bg-white',
+    'bg-background',
   );
   expect(el).toHaveClass('px-3', 'py-2');
 });

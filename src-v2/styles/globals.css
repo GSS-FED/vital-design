@@ -4,6 +4,7 @@
 
 /* ===== Custom Variant ===== */
 @custom-variant not-disabled (&:not(:disabled));
+@custom-variant dark (&:is(.dark *));
 
 @layer base {
   *,
@@ -22,5 +23,10 @@
   ::backdrop,
   ::file-selector-button {
     border-color: var(--border, currentColor);
+  }
+
+  .dark {
+    background-color: var(--background);
+    color: var(--foreground);
   }
 }

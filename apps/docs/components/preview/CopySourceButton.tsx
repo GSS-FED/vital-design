@@ -14,7 +14,7 @@ export function CopySourceButton({ source }: { source: string }) {
           setTimeout(() => setCopied(false), 1500);
         });
       }}
-      className="absolute right-2 top-2 z-10 inline-flex h-7 items-center gap-1 rounded-md border border-grayscale-opacity-200 bg-white px-2 text-xs font-medium text-grayscale-opacity-700 shadow-sm transition-colors hover:bg-grayscale-100"
+      className="absolute right-2 top-2 z-10 inline-flex h-7 items-center gap-1 rounded-md border border-grayscale-opacity-200 bg-background px-2 text-xs font-medium text-grayscale-opacity-700 shadow-sm transition-colors hover:bg-grayscale-100"
       aria-label="Copy source"
     >
       {copied ? (

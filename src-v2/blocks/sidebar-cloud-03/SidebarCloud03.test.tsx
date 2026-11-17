@@ -45,7 +45,7 @@ function renderCloud(
     >
       <CloudSidebar {...sidebar} />
       {inset ? (
-        <SidebarInset className="bg-white">{inset}</SidebarInset>
+        <SidebarInset className="bg-background">{inset}</SidebarInset>
       ) : null}
     </SidebarProvider>,
   );

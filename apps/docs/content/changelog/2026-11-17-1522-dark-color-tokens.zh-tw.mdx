@@ -1,0 +1,41 @@
+---
+title: 暗色顏色 token
+---
+
+重新安裝 theme，取得暗色值：
+
+```bash
+npx shadcn@latest add @vital-design/vital-theme
+```
+
+亮色值留在 `:root`。祖先元素有 `class="dark"` 時，同一組 custom properties 會換成暗色值；`prefers-color-scheme` 不會切換它們。請看[顏色 → 暗色模式](/zh-tw/docs/design-tokens/colors#dark-mode)。
+
+Primitive 色階，以及引用這些色階的語意 token，都有暗色值。`background`、`card`、`popover` 是 `#232327`，`input` 是 `#444447`。`.dark` 的祖先元素會套用這個紙面色和暗色文字色。`border` 和 `border-overlap` 引用色階，會跟著切換：暗色下分別是白色 0.08 和 `#444447`。
+
+**色階 class 也會切換。** 在 `.dark` 底下，`bg-grayscale-50`、`text-primary-500` 這類色階 class 會變成該色階的暗色值。這是 theme 合約的一部分，所以你自己程式碼裡的色階 class 也會跟著模式改變。Tailwind 固定色和任意值不會：`bg-white` 仍是白色，只留給開關圓點這類標記；`text-white` 也仍是白色。
+
+元件原本用 `bg-white` 畫紙面，暗色下仍是白的。現在改用 `bg-background`，有些元件也一併修正了在暗色紙面上看不清楚的文字。請重新安裝 theme 和你用到的項目：
+
+```bash
+npx shadcn@latest add @vital-design/vital-theme
+npx shadcn@latest add @vital-design/alert @vital-design/autocomplete @vital-design/button @vital-design/calendar
+npx shadcn@latest add @vital-design/card @vital-design/checkbox @vital-design/combobox @vital-design/command
+npx shadcn@latest add @vital-design/dialog @vital-design/dropdown-menu @vital-design/field @vital-design/input
+npx shadcn@latest add @vital-design/input-group @vital-design/item @vital-design/number-input @vital-design/pagination
+npx shadcn@latest add @vital-design/popover @vital-design/radio-group @vital-design/resizable @vital-design/select
+npx shadcn@latest add @vital-design/sheet @vital-design/split-button @vital-design/table @vital-design/tag
+npx shadcn@latest add @vital-design/textarea @vital-design/time-picker @vital-design/toast @vital-design/toolbar
+npx shadcn@latest add @vital-design/tooltip
+npx shadcn@latest add @vital-design/data-table @vital-design/sidebar-cloud-01 @vital-design/sidebar-cloud-02 @vital-design/sidebar-cloud-03
+npx shadcn@latest add @vital-design/sidebar-cloud-04 @vital-design/sidebar-cloud-05 @vital-design/sidebar-cloud-06
+```
+
+Theme 也新增了 `dark:` variant，在 `.dark` 祖先元素底下生效。
+
+已知限制，還在等設計確認：
+
+- `warning-foreground` 跟著灰階文字色切換，暗色下會變白，警告色底上的文字對比不足。其他白色的 foreground（例如 `primary-foreground`）維持白色。
+- Avatar 和 Tag 色盤、陰影、漸層沒有暗色值。
+- 實心按鈕的文字維持白色。
+- sidebar-cloud 區塊的霧面背景維持淺色，暗色下選單文字不易閱讀。
+- 資訊色的 Tooltip 和 Toast 維持目前的暗色底色。

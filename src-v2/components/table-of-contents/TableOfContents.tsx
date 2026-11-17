@@ -142,7 +142,7 @@ const TableOfContents = function TableOfContents({
         data-state={open ? 'open' : 'closed'}
         style={{ width: 232, maxHeight: 556 }}
         className={cn(
-          'absolute top-0 z-10 flex-col overflow-hidden rounded bg-white px-4 py-3 shadow-emphasis',
+          'absolute top-0 z-10 flex-col overflow-hidden rounded bg-background px-4 py-3 shadow-emphasis',
           open ? 'flex' : 'hidden',
           isRight ? 'right-0' : 'left-0',
         )}
@@ -180,7 +180,7 @@ const TableOfContents = function TableOfContents({
         <div
           aria-hidden
           data-slot="toc-panel-fade"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-4 bg-linear-to-t from-white to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-4 bg-linear-to-t from-background to-transparent"
         />
       </div>
     </nav>

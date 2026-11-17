@@ -87,7 +87,7 @@ const Chip = function ComboboxChip({
       ref={ref}
       data-slot="combobox-chip"
       className={cn(
-        'inline-flex h-5 min-w-0 max-w-full shrink-0 items-center gap-1 overflow-hidden rounded-full bg-grayscale-700 px-2.5 text-xs leading-5 text-white outline-none',
+        'inline-flex h-5 min-w-0 max-w-full shrink-0 items-center gap-1 overflow-hidden rounded-full bg-grayscale-opacity-700 px-2.5 text-xs leading-5 text-background outline-none',
         'data-[disabled]:opacity-50',
         className,
       )}
@@ -113,8 +113,8 @@ const ChipRemove = function ComboboxChipRemove({
       ref={ref}
       data-slot="combobox-chip-remove"
       className={cn(
-        '-mr-2.5 grid h-5 w-5 shrink-0 cursor-pointer place-content-center rounded-r-full text-white outline-none',
-        'transition-colors duration-100 hover:bg-white/20',
+        '-mr-2.5 grid h-5 w-5 shrink-0 cursor-pointer place-content-center rounded-r-full outline-none',
+        'transition-colors duration-100 hover:bg-background/20',
         '[&_svg]:size-4',
         className,
       )}

@@ -219,7 +219,7 @@ describe('Theme', () => {
     );
     const group = screen.getByRole('group');
     expect(group).toHaveClass(
-      'bg-white',
+      'bg-background',
       'border',
       'border-grayscale-opacity-300',
     );
@@ -237,7 +237,7 @@ describe('Theme', () => {
       </SplitButton>,
     );
     expect(screen.getByRole('group')).toHaveClass(
-      'bg-white',
+      'bg-background',
       'border',
       'border-grayscale-opacity-300',
       'shadow-base',
@@ -269,7 +269,7 @@ describe('Theme', () => {
   it('defaults to the default theme with a separator', () => {
     render(<SplitButton open={false}>Button</SplitButton>);
     expect(screen.getByRole('separator')).toBeInTheDocument();
-    expect(screen.getByRole('group')).toHaveClass('bg-white');
+    expect(screen.getByRole('group')).toHaveClass('bg-background');
   });
 
   it('paints a white surface for the dangerous theme', () => {
@@ -279,7 +279,7 @@ describe('Theme', () => {
       </SplitButton>,
     );
     expect(screen.getByRole('group')).toHaveClass(
-      'bg-white',
+      'bg-background',
       'border',
       'border-grayscale-opacity-300',
     );
