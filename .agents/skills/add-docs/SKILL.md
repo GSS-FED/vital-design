@@ -67,7 +67,9 @@ allowed-tools: Read, Write, Edit, Bash
    - 不要只新增中文檔而沒有英文檔
 
 8. **Changelog**（使用者可見的變更才寫）
-   - 新元件、breaking 用法、token、安裝方式：在 `apps/docs/content/docs/changelog.mdx` 最上方補一則（當月 `## Month YYYY` 標題下），並同步更新 `changelog.zh-tw.mdx`
+   - 新元件、breaking 用法、token、安裝方式：`pnpm changelog:new <slug>` 會在 `apps/docs/content/changelog/` 建立 `.mdx` 與 `.zh-tw.mdx` 一對檔，改 frontmatter 的 `title`、把註解換成內容，兩種語言都要寫。月份標題（`##`）與這則的標題（`###`）由 build 產生，內文的小標用 `####`（例如 `#### Components`）
+   - 不要改 `apps/docs/content/docs/changelog*.mdx`，那是 `pnpm changelog:build` 產生的檔案
+   - 同一個 MR 後續要修改這則，就改同一對檔，不要再新增
    - 不要寫內部 refactor / CI；不要用 npm 版號或 semantic-release 輸出
 
 9. **驗證**

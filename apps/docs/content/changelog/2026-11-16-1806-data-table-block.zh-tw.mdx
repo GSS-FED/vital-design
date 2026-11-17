@@ -1,0 +1,13 @@
+---
+title: Data Table 區塊
+---
+
+**破壞性變更。** 三個資料表格區塊改由一個通用區塊 `@vital-design/data-table` 取代。你傳入自己的 `data` 與 `columns`；它可以依任何欄位分群，最多兩層，每個群組都有新增列。另外有搜尋、排序、可調整寬度與順序的欄位、含浮動工具列的列選取，以及行內與 popover 儲存格編輯。勾選欄與操作欄固定在兩側，其他欄位捲到下方時會出現陰影。附上的覆核任務範例示範怎麼接起來。區塊用到新的 `@vital-design/icon-gear`。
+
+以下 id 已停用並從 registry 移除：`@vital-design/data-table-group-01`（candidate tree）、`@vital-design/data-table-group-02`（ESG emission tree）與 `@vital-design/data-table-group-04`（editable cells）。已經安裝的副本仍可使用，因為 block 是你自己的程式碼。要換過來，請安裝新區塊並把你的欄位與資料搬進去；用欄位分群取代固定的樹狀列。尚未搬過來的功能：群組標題的筆數、多於一個的左側釘選欄，以及 `columnResizeMode="onEnd"`。
+
+```bash
+npx shadcn@latest add @vital-design/data-table
+```
+
+見 [Data Table](/zh-tw/docs/blocks/data-table)。

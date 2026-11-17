@@ -1,0 +1,42 @@
+---
+title: Icon 改用設計的命名與 20×20 frame
+---
+
+**破壞性變更：** icon 名稱改成跟設計的 icon 清單一致，舊的 registry item 已移除。
+
+| 舊 item                                   | 新 item                               |
+| ----------------------------------------- | ------------------------------------- |
+| `@vital-design/icon-chevron-left`         | `@vital-design/icon-angle-left`       |
+| `@vital-design/icon-chevron-right`        | `@vital-design/icon-angle-right`      |
+| `@vital-design/icon-chevron-double-left`  | `@vital-design/icon-angles-left`      |
+| `@vital-design/icon-chevron-double-right` | `@vital-design/icon-angles-right`     |
+| `@vital-design/icon-chevron-down`         | `@vital-design/icon-angle-down`       |
+| `@vital-design/icon-chevron-up`           | `@vital-design/icon-angle-up`         |
+| `@vital-design/icon-close`                | `@vital-design/icon-xmark`            |
+| `@vital-design/icon-disabled`             | `@vital-design/icon-ban`              |
+| `@vital-design/icon-calendar`             | `@vital-design/icon-calendar-days`    |
+| `@vital-design/icon-search`               | `@vital-design/icon-magnifying-glass` |
+
+把 import 改成新的元件名稱：`AngleLeftIcon`、`AngleRightIcon`、`AnglesLeftIcon`、`AnglesRightIcon`、`AngleDownIcon`、`AngleUpIcon`、`XmarkIcon`、`BanIcon`、`CalendarDaysIcon`、`MagnifyingGlassIcon`。重新安裝用到的元件；原本依賴舊 item 的元件，現在都改依賴新 item。
+
+caret 加上 `Solid` 後綴，因為沒有後綴的名稱代表 Regular：`CaretDownIcon`、`CaretUpIcon` 改成 `CaretDownSolidIcon`、`CaretUpSolidIcon`（`@vital-design/icon-caret-down-solid`、`@vital-design/icon-caret-up-solid`）。舊名稱與舊 registry item 仍可使用但已棄用，`CaretDownIcon` 只是轉出 `CaretDownSolidIcon`。請改用新名稱。
+
+新的 icon item：`icon-angle-down-solid`、`icon-angle-up-solid`、`icon-angle-left-solid`、`icon-angle-right-solid`、`icon-angle-left-to-line`、`icon-angle-right-to-line`、`icon-check-solid`、`icon-minus-solid`、`icon-bars`、`icon-circle-user`、`icon-home`、`icon-inbox`、`icon-life-ring`、`icon-planet-ringed`、`icon-sidebar`、`icon-thumbtack`、`icon-thumbtack-solid`、`icon-bell-slash`、`icon-caret-left-solid`、`icon-caret-right-solid`、`icon-note`、`icon-placeholder`、`icon-placeholder-solid`。`PlaceholderIcon` 是設計稿的 `*icons`，表示這個位置可以放任何 icon。見 [Icons → Regular 與 Solid](/zh-tw/docs/components/icons#regular-and-solid)。
+
+所有 icon 現在都是四周留白的 20×20 frame，`size-*` 設定的是 frame 大小，不是圖形大小。元件裡的 icon 改照 Figma frame：`Button` 裡的 icon（`data-icon`）是 18px（`md`、`icon-md`）與 20px（`lg`、`icon-lg`），沒有 margin；`Sidebar` 選單 icon 是 20px。有自訂 icon 尺寸的話，請照新的 frame 檢查。
+
+依設計清單調整的元件：
+
+- `checkbox` 改用 `CheckSolidIcon` 與 `MinusSolidIcon`。
+- `number-input` 的加減鈕改用 `CaretUpSolidIcon` 與 `CaretDownSolidIcon`。
+- `split-button` 在白底主題用 regular angle，在色底主題用 solid angle。
+- angle、angles 與 angle-to-line 改用設計重畫的圖，圖形在 20px frame 裡從 8.3px 高變成 10px，`calendar` 與 `split-button` 看得出來。
+- `EllipsisIcon` 拿掉內建的 0.55 填色透明度，跟其他 icon 一樣吃文字顏色。`breadcrumb` 收合的 ellipsis 現在是 `grayscale-500`，跟其他非目前的項目一樣。如果你加了 `[fill-opacity:1]` 蓋回來，可以拿掉。
+- `data-table` 的群組列改用 20px 的 `CaretDownSolidIcon`（收合時旋轉），popover 選項的勾改用 `CheckSolidIcon`，跟 `checkbox` 一致。浮動工具列的關閉 icon 是 20px，新增列的加號是 18px。
+
+**暫用圖。** 下列 icon 的名稱與尺寸不會再變，但圖形是暫用版，等設計畫好正式版後只會換 SVG：
+
+- 設計稿用的是 Font Awesome Pro，先沿用 Vittal 原本的圖：`MagnifyingGlassIcon`、`PlusIcon`、`SpinnerIcon`、`ShieldCheckIcon`、`SquareArrowOutUpRightIcon`。
+- Font Awesome Free 的形狀，還沒重繪：`ClockIcon`、`FlagIcon`、`UserIcon`、`EllipsisIcon`。
+- 設計稿裡還沒有：`InfoIcon`、`ClearIcon`、`PanelLeftIcon`。
+- 設計已畫好但尚未確認：`XmarkIcon`、`AngleLeftIcon`、`AngleRightIcon`（含 Solid）、`AnglesLeftIcon`、`AnglesRightIcon`、`CircleUserIcon`、`ThumbtackSolidIcon`。

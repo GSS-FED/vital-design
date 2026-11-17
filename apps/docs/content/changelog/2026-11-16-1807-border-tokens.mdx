@@ -1,0 +1,14 @@
+---
+title: Border tokens
+---
+
+`--border` is now the 0.08 hairline (`grayscale-opacity-200`), the line Figma uses for dividers. It was a solid `#DEDEE2`. A new `--border-overlap` token keeps the solid `#DEDEE2` for edges that stack or cross, where a translucent line would darken. Use it with `border-border-overlap`.
+
+The theme also sets a default border color, so a bare `border`, `border-t`, or `border-b` draws the `--border` hairline. Before, Tailwind v4 drew it in the text color.
+
+Avatar, `AvatarGroupCount`, and the group rails in the Data Table block move to `--border-overlap`, so they look the same as before. The Dialog footer divider and any `border-border` you use for dividers get lighter. A `FieldLabel` that wraps a `Field` (the choice-card layout) draws its outline with a bare `border`, so it also goes from the text color to the hairline. Reinstall the theme and these items:
+
+```bash
+npx shadcn@latest add @vital-design/vital-theme
+npx shadcn@latest add @vital-design/avatar
+```

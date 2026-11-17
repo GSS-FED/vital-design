@@ -47,7 +47,7 @@
 
 7. **Changelog**（使用者可見的變更才寫）
 
-   - 新元件、breaking 用法、token、安裝方式：在 `apps/docs/content/docs/changelog.mdx` 最上方補一則，並同步更新 `changelog.zh-tw.mdx`
+   - 新元件、breaking 用法、token、安裝方式：用 `pnpm changelog:new <slug>` 在 `apps/docs/content/changelog/` 建立 en 與 zh-TW 一對檔並寫好兩種語言（不要改產生出來的 `content/docs/changelog*.mdx`）
    - 不要寫內部 refactor / CI；不要用 npm 版號
 
 8. **驗證文件站**

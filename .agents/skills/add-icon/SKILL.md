@@ -87,7 +87,7 @@ pnpm run icons:build
 - `registry/base.ts` 的 `iconGroups` 加 `icon-<名稱>`，`registry/types.ts` 的 `RegistryItemName` 也加。
 - Gallery 與清單：`src-v2/icons/Icons.stories.tsx`、`apps/docs/components/previews/IconsPreview.tsx`、`apps/docs/content/docs/components/icons.mdx` 與 `icons.zh-tw.mdx`。
 - 元件改用新 icon 時，更新 `registry/ui.ts` 該元件的 `registryDependencies`（精確的 `@vital-design/icon-*`）。
-- 使用者看得到的變更寫進 `apps/docs/content/docs/changelog.mdx` 與 `changelog.zh-tw.mdx`。
+- 使用者看得到的變更用 `pnpm changelog:new <slug>` 在 `apps/docs/content/changelog/` 新增一則（en 與 zh-TW 兩個檔）。
 
 ## 6. 在元件裡用 Figma 的 frame 尺寸
 
