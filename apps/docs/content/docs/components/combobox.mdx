@@ -3,14 +3,17 @@ title: Combobox
 description: An input picker for searching and selecting one or many options.
 ---
 
-import {
-  ComboboxMultiplePreview,
-  ComboboxPreview,
-} from '~/components/previews/ComboboxPreview';
+import { ComboboxExample } from '@/components/combobox/examples/ComboboxExample';
+import { ComboboxMultipleExample } from '@/components/combobox/examples/ComboboxMultipleExample';
+import { ComboboxStatesExample } from '@/components/combobox/examples/ComboboxStatesExample';
+import { ComboboxTagPickerWithFooterExample } from '@/components/combobox/examples/ComboboxTagPickerWithFooterExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Preview
 
-<ComboboxPreview />
+<ComponentPreview name="ComboboxExample" align="start">
+  <ComboboxExample />
+</ComponentPreview>
 
 ## Usage
 
@@ -18,122 +21,39 @@ Use `Combobox` when the picker renders an input: search, autocomplete, or remova
 
 Keep `Combobox` as the root when the popup is a searchable value picker. If only the trigger changes, customize `ComboboxTrigger`; do not wrap the combobox in `DropdownMenu`.
 
-```tsx
-import {
-  Combobox,
-  ComboboxContent,
-  ComboboxHeader,
-  ComboboxItem,
-  ComboboxItemCheck,
-  ComboboxItemCheckbox,
-  ComboboxItemText,
-  ComboboxList,
-  ComboboxSearchBar,
-  ComboboxTagsValue,
-  ComboboxTrigger,
-  ComboboxValue,
-} from '@/components/ui/Combobox';
-
-const options = [
-  { label: 'Taiwan', value: 'tw' },
-  { label: 'Japan', value: 'jp' },
-];
-
-function itemToStringLabel(item: (typeof options)[number] | null) {
-  return item?.label ?? '';
-}
-
-function itemToStringValue(item: (typeof options)[number] | null) {
-  return item?.value ?? '';
-}
-
-const [value, setValue] = useState<(typeof options)[number] | null>(
-  null,
-);
-
-<Combobox
-  items={options}
-  itemToStringLabel={itemToStringLabel}
-  itemToStringValue={itemToStringValue}
-  value={value}
-  onValueChange={setValue}
->
-  <ComboboxTrigger className="w-60" aria-label="Open countries">
-    <ComboboxValue placeholder="Search countries" />
-  </ComboboxTrigger>
-  <ComboboxContent emptyText="No results">
-    <ComboboxHeader>
-      <ComboboxSearchBar placeholder="Search countries" />
-    </ComboboxHeader>
-    <ComboboxList>
-      {(item) => (
-        <ComboboxItem key={item.value} value={item}>
-          <ComboboxItemText>{item.label}</ComboboxItemText>
-          <ComboboxItemCheck />
-        </ComboboxItem>
-      )}
-    </ComboboxList>
-  </ComboboxContent>
-</Combobox>;
-```
-
 ## Multiple
 
-<ComboboxMultiplePreview />
+Add `multiple` and render the selection with `ComboboxTagsValue`. `maxDisplayCount` collapses the rest into a `+N` chip.
 
-```tsx
-const frameworks = [
-  { label: 'React', value: 'react' },
-  { label: 'Vue', value: 'vue' },
-  { label: 'Angular', value: 'angular' },
-  { label: 'Svelte', value: 'svelte' },
-];
+<ComponentPreview name="ComboboxMultipleExample" align="start">
+  <ComboboxMultipleExample />
+</ComponentPreview>
 
-const [value, setValue] = useState<typeof frameworks>([]);
+## Tag Picker with Footer
 
-<Combobox
-  multiple
-  items={frameworks}
-  itemToStringLabel={itemToStringLabel}
-  itemToStringValue={itemToStringValue}
-  value={value}
-  onValueChange={setValue}
+A tag picker composed from existing parts: read-only pills and `ComboboxOverflowChip` in the trigger, removable `ComboboxChip`s with a `ComboboxInput` in the popup header, and a `Button` footer. The input lives inside the popup; the trigger stays the anchor.
+
+<ComponentPreview
+  name="ComboboxTagPickerWithFooterExample"
+  align="start"
 >
-  <ComboboxTrigger
-    nativeButton={false}
-    render={<div />}
-    className="w-72"
-    aria-label="Open frameworks"
-  >
-    <ComboboxTagsValue
-      maxDisplayCount={2}
-      placeholder="Search frameworks"
-    />
-  </ComboboxTrigger>
-  <ComboboxContent emptyText="No results">
-    <ComboboxHeader>
-      <ComboboxSearchBar placeholder="Search frameworks" />
-    </ComboboxHeader>
-    <ComboboxList>
-      {(item) => (
-        <ComboboxItem key={item.value} value={item}>
-          <ComboboxItemCheckbox />
-          <ComboboxItemText>{item.label}</ComboboxItemText>
-        </ComboboxItem>
-      )}
-    </ComboboxList>
-  </ComboboxContent>
-</Combobox>;
-```
+  <ComboboxTagPickerWithFooterExample />
+</ComponentPreview>
+
+## States
+
+<ComponentPreview name="ComboboxStatesExample">
+  <ComboboxStatesExample />
+</ComponentPreview>
 
 ## When to Choose What
 
-| Need                                 | Use            |
-| ------------------------------------ | -------------- |
-| Flat single or multiple value picker | `Select`       |
-| Searchable picker or tag picker      | `Combobox`     |
+| Need                                 | Use                   |
+| ------------------------------------ | --------------------- |
+| Flat single or multiple value picker | `Select`              |
+| Searchable picker or tag picker      | `Combobox`            |
 | Hierarchical path picker             | `Command` + `Popover` |
-| Command menu with callbacks          | `DropdownMenu` |
+| Command menu with callbacks          | `DropdownMenu`        |
 
 Use named exports for shadcn-style imports:
 

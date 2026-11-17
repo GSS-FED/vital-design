@@ -3,42 +3,29 @@ title: Popover
 description: 錨在觸發元素上的浮動面板，用來放內容較豐富的提示、個人資料卡與情境覆蓋層。
 ---
 
-import { PopoverPreview } from '~/components/previews/PopoverPreview';
+import { PopoverExample } from '@/components/popover/examples/PopoverExample';
+import { PopoverMultipleTriggersExample } from '@/components/popover/examples/PopoverMultipleTriggersExample';
+import { PopoverRichContentExample } from '@/components/popover/examples/PopoverRichContentExample';
+import { PopoverSidePlacementExample } from '@/components/popover/examples/PopoverSidePlacementExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<PopoverPreview />
+<ComponentPreview name="PopoverExample">
+  <PopoverExample />
+</ComponentPreview>
 
 ## 用法 [#usage]
 
 `Popover` 是 Base UI Popover 的薄樣式包裝。觸發器是 render prop：透過 `render` 傳入任何元素，popover 會自動接上開啟狀態、焦點與 ARIA 屬性。
 
-```tsx
-import { Button } from '@/components/ui/Button';
-import {
-  Popover,
-  PopoverContent,
-  PopoverDescription,
-  PopoverTitle,
-  PopoverTrigger,
-} from '@/components/ui/Popover';
-
-<Popover>
-  <PopoverTrigger
-    render={<Button>View details</Button>}
-  />
-  <PopoverContent className="w-72">
-    <PopoverTitle>Popover title</PopoverTitle>
-    <PopoverDescription className="mt-1">
-      Short text describing the panel contents.
-    </PopoverDescription>
-  </PopoverContent>
-</Popover>;
-```
-
 ## 位置 [#placement]
 
 `PopoverContent` 接受 `side`（`top` | `right` | `bottom` | `left`）、`align`（`start` | `center` | `end`）與 `sideOffset` 來定位。預設是 `align='start'`、`sideOffset=4`。
+
+<ComponentPreview name="PopoverSidePlacementExample">
+  <PopoverSidePlacementExample />
+</ComponentPreview>
 
 ```tsx
 <PopoverContent side="top" align="center" sideOffset={8}>
@@ -46,27 +33,43 @@ import {
 </PopoverContent>
 ```
 
+## 豐富內容 [#rich-content]
+
+彈出層可以放任何內容。把 `PopoverTitle`、`PopoverDescription` 和自己的標記組在一起，做成個人資料卡之類的摘要。
+
+<ComponentPreview name="PopoverRichContentExample">
+  <PopoverRichContentExample />
+</ComponentPreview>
+
+## 多個觸發器 [#multiple-triggers]
+
+一個 `Popover` root 可以服務多個觸發器。每個 `PopoverTrigger` 傳一個 `payload`，再用 root 傳給函式 children 的 `payload` 渲染內容。彈出層會移到開啟它的那個觸發器旁。
+
+<ComponentPreview name="PopoverMultipleTriggersExample">
+  <PopoverMultipleTriggersExample />
+</ComponentPreview>
+
 ## 何時使用 [#when-to-use]
 
-| 需求                               | 元件                  |
-| ---------------------------------- | --------------------- |
-| 內容較豐富的短覆蓋層               | `Popover`             |
-| 動作選單（每一項觸發 callback）    | `DropdownMenu`        |
-| 值選擇器（選取綁定到值）           | `Select` / `Combobox` |
-| 階層路徑選擇器                     | `Command` + `Popover` |
-| 可搜尋的命令面板                   | `Command`             |
+| 需求                            | 元件                  |
+| ------------------------------- | --------------------- |
+| 內容較豐富的短覆蓋層            | `Popover`             |
+| 動作選單（每一項觸發 callback） | `DropdownMenu`        |
+| 值選擇器（選取綁定到值）        | `Select` / `Combobox` |
+| 階層路徑選擇器                  | `Command` + `Popover` |
+| 可搜尋的命令面板                | `Command`             |
 
 `Popover` 是單純的浮動面板，內容自己放。動作選單優先用 `DropdownMenu`；值選擇器優先用對應的元件。
 
 ## 匯出 [#exports]
 
-| 匯出                 | 說明                              |
-| -------------------- | --------------------------------- |
-| `Popover`            | Root；管理開啟狀態                |
-| `PopoverTrigger`     | render prop 觸發器                |
+| 匯出                 | 說明                               |
+| -------------------- | ---------------------------------- |
+| `Popover`            | Root；管理開啟狀態                 |
+| `PopoverTrigger`     | render prop 觸發器                 |
 | `PopoverContent`     | Portal + Positioner + Popup 的組合 |
-| `PopoverPortal`      | Portal 目標（很少直接使用）       |
-| `PopoverArrow`       | 可選的指向箭頭                    |
-| `PopoverClose`       | 關閉按鈕 slot                     |
-| `PopoverTitle`       | 給彈出層用的無障礙標題            |
-| `PopoverDescription` | 給彈出層用的無障礙說明            |
+| `PopoverPortal`      | Portal 目標（很少直接使用）        |
+| `PopoverArrow`       | 可選的指向箭頭                     |
+| `PopoverClose`       | 關閉按鈕 slot                      |
+| `PopoverTitle`       | 給彈出層用的無障礙標題             |
+| `PopoverDescription` | 給彈出層用的無障礙說明             |

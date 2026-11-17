@@ -3,14 +3,17 @@ title: Combobox
 description: 可搜尋並選取一個或多個選項的輸入選擇器。
 ---
 
-import {
-  ComboboxMultiplePreview,
-  ComboboxPreview,
-} from '~/components/previews/ComboboxPreview';
+import { ComboboxExample } from '@/components/combobox/examples/ComboboxExample';
+import { ComboboxMultipleExample } from '@/components/combobox/examples/ComboboxMultipleExample';
+import { ComboboxStatesExample } from '@/components/combobox/examples/ComboboxStatesExample';
+import { ComboboxTagPickerWithFooterExample } from '@/components/combobox/examples/ComboboxTagPickerWithFooterExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<ComboboxPreview />
+<ComponentPreview name="ComboboxExample" align="start">
+  <ComboboxExample />
+</ComponentPreview>
 
 ## 用法 [#usage]
 
@@ -18,122 +21,39 @@ import {
 
 彈出層是可搜尋的值選擇器時，以 `Combobox` 為 root。如果只改觸發器，自訂 `ComboboxTrigger`；不要把 combobox 包進 `DropdownMenu`。
 
-```tsx
-import {
-  Combobox,
-  ComboboxContent,
-  ComboboxHeader,
-  ComboboxItem,
-  ComboboxItemCheck,
-  ComboboxItemCheckbox,
-  ComboboxItemText,
-  ComboboxList,
-  ComboboxSearchBar,
-  ComboboxTagsValue,
-  ComboboxTrigger,
-  ComboboxValue,
-} from '@/components/ui/Combobox';
-
-const options = [
-  { label: 'Taiwan', value: 'tw' },
-  { label: 'Japan', value: 'jp' },
-];
-
-function itemToStringLabel(item: (typeof options)[number] | null) {
-  return item?.label ?? '';
-}
-
-function itemToStringValue(item: (typeof options)[number] | null) {
-  return item?.value ?? '';
-}
-
-const [value, setValue] = useState<(typeof options)[number] | null>(
-  null,
-);
-
-<Combobox
-  items={options}
-  itemToStringLabel={itemToStringLabel}
-  itemToStringValue={itemToStringValue}
-  value={value}
-  onValueChange={setValue}
->
-  <ComboboxTrigger className="w-60" aria-label="Open countries">
-    <ComboboxValue placeholder="Search countries" />
-  </ComboboxTrigger>
-  <ComboboxContent emptyText="No results">
-    <ComboboxHeader>
-      <ComboboxSearchBar placeholder="Search countries" />
-    </ComboboxHeader>
-    <ComboboxList>
-      {(item) => (
-        <ComboboxItem key={item.value} value={item}>
-          <ComboboxItemText>{item.label}</ComboboxItemText>
-          <ComboboxItemCheck />
-        </ComboboxItem>
-      )}
-    </ComboboxList>
-  </ComboboxContent>
-</Combobox>;
-```
-
 ## 多選 [#multiple]
 
-<ComboboxMultiplePreview />
+加上 `multiple`，並用 `ComboboxTagsValue` 顯示已選的值。`maxDisplayCount` 會把其餘的收成一個 `+N` chip。
 
-```tsx
-const frameworks = [
-  { label: 'React', value: 'react' },
-  { label: 'Vue', value: 'vue' },
-  { label: 'Angular', value: 'angular' },
-  { label: 'Svelte', value: 'svelte' },
-];
+<ComponentPreview name="ComboboxMultipleExample" align="start">
+  <ComboboxMultipleExample />
+</ComponentPreview>
 
-const [value, setValue] = useState<typeof frameworks>([]);
+## 附 footer 的標籤選擇器 [#tag-picker-with-footer]
 
-<Combobox
-  multiple
-  items={frameworks}
-  itemToStringLabel={itemToStringLabel}
-  itemToStringValue={itemToStringValue}
-  value={value}
-  onValueChange={setValue}
+用既有的 parts 組出標籤選擇器：觸發器裡放唯讀標籤與 `ComboboxOverflowChip`，彈出層 header 放可移除的 `ComboboxChip` 與 `ComboboxInput`，底部放 `Button`。輸入框在彈出層裡，觸發器仍是定位錨點。
+
+<ComponentPreview
+  name="ComboboxTagPickerWithFooterExample"
+  align="start"
 >
-  <ComboboxTrigger
-    nativeButton={false}
-    render={<div />}
-    className="w-72"
-    aria-label="Open frameworks"
-  >
-    <ComboboxTagsValue
-      maxDisplayCount={2}
-      placeholder="Search frameworks"
-    />
-  </ComboboxTrigger>
-  <ComboboxContent emptyText="No results">
-    <ComboboxHeader>
-      <ComboboxSearchBar placeholder="Search frameworks" />
-    </ComboboxHeader>
-    <ComboboxList>
-      {(item) => (
-        <ComboboxItem key={item.value} value={item}>
-          <ComboboxItemCheckbox />
-          <ComboboxItemText>{item.label}</ComboboxItemText>
-        </ComboboxItem>
-      )}
-    </ComboboxList>
-  </ComboboxContent>
-</Combobox>;
-```
+  <ComboboxTagPickerWithFooterExample />
+</ComponentPreview>
+
+## 狀態 [#states]
+
+<ComponentPreview name="ComboboxStatesExample">
+  <ComboboxStatesExample />
+</ComponentPreview>
 
 ## 怎麼選 [#when-to-choose-what]
 
-| 需求                                 | 使用            |
-| ------------------------------------ | -------------- |
-| 平面的單選或多選值選擇器             | `Select`       |
-| 可搜尋的選擇器或標籤選擇器           | `Combobox`     |
-| 階層路徑選擇器                       | `Command` + `Popover` |
-| 帶 callback 的命令選單               | `DropdownMenu` |
+| 需求                       | 使用                  |
+| -------------------------- | --------------------- |
+| 平面的單選或多選值選擇器   | `Select`              |
+| 可搜尋的選擇器或標籤選擇器 | `Combobox`            |
+| 階層路徑選擇器             | `Command` + `Popover` |
+| 帶 callback 的命令選單     | `DropdownMenu`        |
 
 具名匯出給 shadcn 風格的 import 使用：
 
@@ -180,10 +100,10 @@ combobox 清單的彈出層搜尋輸入。它渲染 `BaseCombobox.Input`，所�
 
 ### ComboboxContent
 
-| Prop            | Type        | Default | 說明                  |
-| --------------- | ----------- | ------- | --------------------- |
-| `emptyText`     | `ReactNode` | —       | 空狀態內容            |
-| `listClassName` | `string`    | —       | 清單元素的 class      |
+| Prop            | Type        | Default | 說明             |
+| --------------- | ----------- | ------- | ---------------- |
+| `emptyText`     | `ReactNode` | —       | 空狀態內容       |
+| `listClassName` | `string`    | —       | 清單元素的 class |
 
 ### ComboboxItem
 

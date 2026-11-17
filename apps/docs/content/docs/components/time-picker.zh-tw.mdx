@@ -3,122 +3,54 @@ title: Time Picker
 description: 三欄時間選擇器（時、分、秒），點一下就選取，並使用 CSS scroll-snap。
 ---
 
-import {
-  TimePickerCustomHeightPreview,
-  TimePickerHoursMinutesPreview,
-  TimePickerInPopoverPreview,
-  TimePickerPreview,
-  TimePickerStepsPreview,
-} from '~/components/previews/TimePickerPreview';
+import { TimePickerCustomHeightExample } from '@/components/time-picker/examples/TimePickerCustomHeightExample';
+import { TimePickerExample } from '@/components/time-picker/examples/TimePickerExample';
+import { TimePickerHoursMinutesOnlyExample } from '@/components/time-picker/examples/TimePickerHoursMinutesOnlyExample';
+import { TimePickerInsideTimePickerExample } from '@/components/time-picker/examples/TimePickerInsideTimePickerExample';
+import { TimePickerStepsExample } from '@/components/time-picker/examples/TimePickerStepsExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<TimePickerPreview />
+<ComponentPreview name="TimePickerExample">
+  <TimePickerExample />
+</ComponentPreview>
 
 ## 用法 [#usage]
 
 `TimePicker` 接受 `Date`，也送出 `Date`。只會改時、分、秒；`value` 的日期部分會保留。
 
-```tsx
-import { TimePicker } from '@/components/ui/TimePicker';
-import { useState } from 'react';
-
-function Demo() {
-  const [value, setValue] = useState<Date>(new Date());
-  return <TimePicker value={value} onValueChange={setValue} />;
-}
-```
-
 ## 只顯示時與分 [#hours-and-minutes-only]
 
-<TimePickerHoursMinutesPreview />
-
-```tsx
-<TimePicker value={value} onValueChange={setValue} showSeconds={false} />
-```
+<ComponentPreview name="TimePickerHoursMinutesOnlyExample">
+  <TimePickerHoursMinutesOnlyExample />
+</ComponentPreview>
 
 隱藏的秒不會從底層 `Date` 消失。它們會保留 `value` 上原本的秒（`value` 是 `undefined` 時為 `0`）。可以自由切換 `showSeconds`，不會丟掉資料。
 
 ## 自訂間隔 [#custom-steps]
 
-<TimePickerStepsPreview />
+<ComponentPreview name="TimePickerStepsExample">
+  <TimePickerStepsExample />
+</ComponentPreview>
 
-用 `hourStep`、`minuteStep`、`secondStep` 讓每一欄少顯示幾列。
-
-```tsx
-<TimePicker
-  value={value}
-  onValueChange={setValue}
-  hourStep={1}
-  minuteStep={15}
-  showSeconds={false}
-/>
-```
+用 `hourStep`、`minuteStep`、`secondStep` 讓每一欄少顯示幾列。這裡用 `minuteStep={15}`。
 
 ## 自訂高度 [#custom-height]
 
-<TimePickerCustomHeightPreview />
+<ComponentPreview name="TimePickerCustomHeightExample">
+  <TimePickerCustomHeightExample />
+</ComponentPreview>
 
-預設欄高是 300px。用 `className` 覆寫：
-
-```tsx
-<TimePicker className="h-60" value={value} onValueChange={setValue} />
-```
+預設欄高是 300px。用 `className` 覆寫，這裡用 `h-60`。
 
 ## 時間選擇器（Popover + TimePicker） [#time-picker-popover--timepicker]
 
 沒有獨立的 root 元件。用 `Popover`、`TimePicker` 和輸入框風格的觸發器組出來：
 
-<TimePickerInPopoverPreview />
-
-```tsx
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from '@/components/ui/InputGroup';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/Popover';
-import { TimePicker } from '@/components/ui/TimePicker';
-import { ClockIcon } from '@/components/icons/ClockIcon';
-import { format } from 'date-fns';
-import { useState } from 'react';
-
-function TimeInput() {
-  const [value, setValue] = useState<Date>();
-  const [open, setOpen] = useState(false);
-
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger
-        render={
-          <InputGroup className="cursor-pointer">
-            <InputGroupInput
-              readOnly
-              value={value ? format(value, 'HH:mm') : ''}
-              placeholder="Pick a time"
-              className="cursor-pointer"
-            />
-            <InputGroupAddon align="inline-end">
-              <ClockIcon className="size-4" />
-            </InputGroupAddon>
-          </InputGroup>
-        }
-      />
-      <PopoverContent className="p-0" sideOffset={8}>
-        <TimePicker
-          value={value}
-          onValueChange={setValue}
-          showSeconds={false}
-        />
-      </PopoverContent>
-    </Popover>
-  );
-}
-```
+<ComponentPreview name="TimePickerInsideTimePickerExample">
+  <TimePickerInsideTimePickerExample />
+</ComponentPreview>
 
 ## 行為 [#behavior]
 
@@ -143,13 +75,13 @@ const [value, setValue] = useState<Date>();
 
 ## Props [#props]
 
-| Prop            | Type                    | Default | 說明                                                                                      |
-| --------------- | ----------------------- | ------- | ----------------------------------------------------------------------------------------- |
-| `value`         | `Date`                  | —       | 目前時間。只呈現時／分／秒；送出時保留日期部分。                                          |
-| `onValueChange` | `(value: Date) => void` | —       | 以帶有所選時間的新 `Date` 呼叫。日期部分沿用 `value`，否則設為今天。                      |
-| `showSeconds`   | `boolean`               | `true`  | `false` 時隱藏秒欄。                                                                      |
-| `hourStep`      | `number`                | `1`     | 小時值的間隔（例如 `2` → `0, 2, 4, …, 22`）。                                             |
-| `minuteStep`    | `number`                | `1`     | 分鐘值的間隔。                                                                            |
-| `secondStep`    | `number`                | `1`     | 秒值的間隔。                                                                              |
-| `disabled`      | `boolean`               | `false` | 停用所有互動。                                                                            |
-| `className`     | `string`                | —       | root 上的額外 class。用來覆寫高度（例如 `h-60`）。                                        |
+| Prop            | Type                    | Default | 說明                                                                 |
+| --------------- | ----------------------- | ------- | -------------------------------------------------------------------- |
+| `value`         | `Date`                  | —       | 目前時間。只呈現時／分／秒；送出時保留日期部分。                     |
+| `onValueChange` | `(value: Date) => void` | —       | 以帶有所選時間的新 `Date` 呼叫。日期部分沿用 `value`，否則設為今天。 |
+| `showSeconds`   | `boolean`               | `true`  | `false` 時隱藏秒欄。                                                 |
+| `hourStep`      | `number`                | `1`     | 小時值的間隔（例如 `2` → `0, 2, 4, …, 22`）。                        |
+| `minuteStep`    | `number`                | `1`     | 分鐘值的間隔。                                                       |
+| `secondStep`    | `number`                | `1`     | 秒值的間隔。                                                         |
+| `disabled`      | `boolean`               | `false` | 停用所有互動。                                                       |
+| `className`     | `string`                | —       | root 上的額外 class。用來覆寫高度（例如 `h-60`）。                   |

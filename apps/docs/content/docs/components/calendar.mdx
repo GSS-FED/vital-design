@@ -3,73 +3,46 @@ title: Calendar
 description: Date picker calendar built on react-day-picker. Single, range, and multi-select modes with full classNames and components overrides.
 ---
 
-import {
-  CalendarDatePickerPreview,
-  CalendarDropdownCaptionPreview,
-  CalendarLocaleFormatterPreview,
-  CalendarLocalePreview,
-  CalendarPreview,
-  CalendarRangePreview,
-} from '~/components/previews/CalendarPreview';
+import { CalendarDisabledExample } from '@/components/calendar/examples/CalendarDisabledExample';
+import { CalendarDropdownCaptionExample } from '@/components/calendar/examples/CalendarDropdownCaptionExample';
+import { CalendarExample } from '@/components/calendar/examples/CalendarExample';
+import { CalendarInsideDatePickerExample } from '@/components/calendar/examples/CalendarInsideDatePickerExample';
+import { CalendarLocaleExample } from '@/components/calendar/examples/CalendarLocaleExample';
+import { CalendarLocaleWithFormatterExample } from '@/components/calendar/examples/CalendarLocaleWithFormatterExample';
+import { CalendarRangeExample } from '@/components/calendar/examples/CalendarRangeExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Preview
 
-<CalendarPreview />
+<ComponentPreview name="CalendarExample">
+  <CalendarExample />
+</ComponentPreview>
 
 ## Usage
 
-```tsx
-import { Calendar } from '@/components/ui/Calendar';
-import { useState } from 'react';
-
-function Demo() {
-  const [date, setDate] = useState<Date | undefined>(new Date());
-  return (
-    <Calendar mode="single" selected={date} onSelect={setDate} />
-  );
-}
-```
+Control the selection with `selected` and `onSelect`; their shape follows `mode`. The calendar opens on the current month. Pass `defaultMonth` to open on another one.
 
 ## Range Selection
 
-<CalendarRangePreview />
+<ComponentPreview name="CalendarRangeExample">
+  <CalendarRangeExample />
+</ComponentPreview>
 
-```tsx
-import { Calendar } from '@/components/ui/Calendar';
-import { addDays } from 'date-fns';
-import { useState } from 'react';
-import type { DateRange } from 'react-day-picker';
+## Disabled Dates
 
-function RangeDemo() {
-  const [range, setRange] = useState<DateRange | undefined>({
-    from: new Date(),
-    to: addDays(new Date(), 8),
-  });
-  return (
-    <Calendar
-      mode="range"
-      selected={range}
-      onSelect={setRange}
-      numberOfMonths={2}
-    />
-  );
-}
-```
+Pass one or more react-day-picker [matchers](https://daypicker.dev/selections/disabling-dates) to `disabled`. Here only the days from December 25 to January 8 can be picked.
+
+<ComponentPreview name="CalendarDisabledExample">
+  <CalendarDisabledExample />
+</ComponentPreview>
 
 ## Year/Month Dropdown Caption
 
-<CalendarDropdownCaptionPreview />
+<ComponentPreview name="CalendarDropdownCaptionExample">
+  <CalendarDropdownCaptionExample />
+</ComponentPreview>
 
 Pass `captionLayout="dropdown"` (or `"dropdown-months"` / `"dropdown-years"`) and bound the navigable range with `startMonth` / `endMonth`. The month picker is a 3-column grid and the year picker a scrollable list (Vittal `Popover`s, not native selects); the year picker centers the current year on open. Override `components={{ MonthsDropdown, YearsDropdown }}` to customize. To translate the dropdown labels, pass a `locale` (see [Localization](#localization)); to change their _format_, override `formatMonthDropdown`.
-
-```tsx
-<Calendar
-  mode="single"
-  captionLayout="dropdown"
-  startMonth={new Date(2000, 0)}
-  endMonth={new Date(2030, 11)}
-/>
-```
 
 ## Localization
 
@@ -80,40 +53,19 @@ Pass `captionLayout="dropdown"` (or `"dropdown-months"` / `"dropdown-years"`) an
 
 ### Locale
 
-<CalendarLocalePreview />
+<ComponentPreview name="CalendarLocaleExample">
+  <CalendarLocaleExample />
+</ComponentPreview>
 
-```tsx
-import { Calendar } from '@/components/ui/Calendar';
-import { zhTW } from 'react-day-picker/locale';
-
-<Calendar mode="single" locale={zhTW} />;
-```
-
-The locale alone gives CJK weekday labels (`日 一 二 …`) and a `YYYY年M月` caption — no hand-written formatters.
+The locale alone gives CJK weekday labels (`一 二 三 …`), a Monday week start, and Chinese month names in the dropdown (`一月`) — no hand-written formatters.
 
 ### Locale + formatter
 
 Layer a formatter on top of the locale to reshape an already-localized value. The `dateLib` argument passed to each formatter carries the active locale, so format **through it** to stay localized. Here the month dropdown shows the short month (`1月`, `2月` …) instead of the locale default full name (`一月`):
 
-<CalendarLocaleFormatterPreview />
-
-```tsx
-import { Calendar } from '@/components/ui/Calendar';
-import { defaultDateLib } from 'react-day-picker';
-import { zhTW } from 'react-day-picker/locale';
-
-<Calendar
-  mode="single"
-  locale={zhTW}
-  captionLayout="dropdown"
-  startMonth={new Date(2000, 0)}
-  endMonth={new Date(2030, 11)}
-  formatters={{
-    formatMonthDropdown: (month, dateLib) =>
-      (dateLib ?? defaultDateLib).format(month, 'LLL'),
-  }}
-/>;
-```
+<ComponentPreview name="CalendarLocaleWithFormatterExample">
+  <CalendarLocaleWithFormatterExample />
+</ComponentPreview>
 
 ## Navigation
 
@@ -121,61 +73,11 @@ The header ships with year-jump arrows (`«` `»`) flanking the single-month ste
 
 ## Date Picker (Popover + Calendar)
 
-There is no separate `DatePicker` component — compose `Popover`, `Calendar`, and an input-style trigger:
+There is no separate `DatePicker` component — compose `Popover`, `Calendar`, and an input-style trigger. `defaultMonth={date}` reopens the calendar on the picked month:
 
-<CalendarDatePickerPreview />
-
-```tsx
-import { CalendarDaysIcon } from '@/components/icons/CalendarDaysIcon';
-import { Calendar } from '@/components/ui/Calendar';
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from '@/components/ui/InputGroup';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/Popover';
-import { format } from 'date-fns';
-import { useState } from 'react';
-
-function DatePicker() {
-  const [date, setDate] = useState<Date | undefined>();
-  const [open, setOpen] = useState(false);
-
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger
-        render={
-          <InputGroup className="cursor-pointer">
-            <InputGroupInput
-              readOnly
-              value={date ? format(date, 'yyyy/MM/dd') : ''}
-              placeholder="Pick a date"
-              className="cursor-pointer"
-            />
-            <InputGroupAddon align="inline-end">
-              <CalendarDaysIcon className="size-4" />
-            </InputGroupAddon>
-          </InputGroup>
-        }
-      />
-      <PopoverContent className="p-0" sideOffset={8}>
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={(next) => {
-            setDate(next);
-            if (next) setOpen(false);
-          }}
-        />
-      </PopoverContent>
-    </Popover>
-  );
-}
-```
+<ComponentPreview name="CalendarInsideDatePickerExample">
+  <CalendarInsideDatePickerExample />
+</ComponentPreview>
 
 ## Props
 

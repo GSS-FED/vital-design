@@ -18,27 +18,6 @@ import type { FC } from 'react';
 import { MdxPre } from '~/components/docs/MdxPre';
 import { TitleActions } from '~/components/docs/TitleActions';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import {
-  CalendarDatePickerPreview,
-  CalendarDropdownCaptionPreview,
-  CalendarLocaleFormatterPreview,
-  CalendarLocalePreview,
-  CalendarPreview,
-  CalendarRangePreview,
-} from '~/components/previews/CalendarPreview';
-import {
-  ComboboxMultiplePreview,
-  ComboboxPreview,
-} from '~/components/previews/ComboboxPreview';
-import {
-  DialogPreview,
-  DialogSizesPreview,
-} from '~/components/previews/DialogPreview';
-import {
-  SheetNonModalPreview,
-  SheetPreview,
-  SheetSidesPreview,
-} from '~/components/previews/SheetPreview';
 import { SidebarCloud01Preview } from '~/components/previews/SidebarCloud01Preview';
 import { SidebarCloud02Preview } from '~/components/previews/SidebarCloud02Preview';
 import { SidebarCloud03Preview } from '~/components/previews/SidebarCloud03Preview';
@@ -50,18 +29,7 @@ import {
   SidebarInsetPreview,
   SidebarPreview,
 } from '~/components/previews/SidebarPreview';
-import {
-  SplitButtonDefaultPreview,
-  SplitButtonPreview,
-} from '~/components/previews/SplitButtonPreview';
 import { TablePaginationPreview } from '~/components/previews/TablePaginationPreview';
-import {
-  TimePickerCustomHeightPreview,
-  TimePickerHoursMinutesPreview,
-  TimePickerInPopoverPreview,
-  TimePickerPreview,
-  TimePickerStepsPreview,
-} from '~/components/previews/TimePickerPreview';
 import { type DocsLocale } from '~/lib/i18n';
 import { source } from '~/lib/source';
 import { hasZhTranslation } from '~/lib/translation-file';
@@ -173,19 +141,6 @@ export async function DocsContentPage({
             Tabs,
             TypeTable,
             ComponentPreview,
-            CalendarPreview,
-            CalendarRangePreview,
-            CalendarDropdownCaptionPreview,
-            CalendarLocalePreview,
-            CalendarLocaleFormatterPreview,
-            CalendarDatePickerPreview,
-            ComboboxPreview,
-            ComboboxMultiplePreview,
-            DialogPreview,
-            DialogSizesPreview,
-            SheetPreview,
-            SheetSidesPreview,
-            SheetNonModalPreview,
             SidebarPreview,
             SidebarInsetPreview,
             SidebarFloatingPreview,
@@ -196,13 +151,6 @@ export async function DocsContentPage({
             SidebarCloud05Preview,
             SidebarCloud06Preview,
             TablePaginationPreview,
-            SplitButtonPreview,
-            SplitButtonDefaultPreview,
-            TimePickerPreview,
-            TimePickerHoursMinutesPreview,
-            TimePickerStepsPreview,
-            TimePickerCustomHeightPreview,
-            TimePickerInPopoverPreview,
           }}
         />
       </DocsBody>

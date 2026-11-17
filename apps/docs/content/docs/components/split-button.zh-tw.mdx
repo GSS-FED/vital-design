@@ -3,51 +3,33 @@ title: SplitButton
 description: 由 ButtonGroup 組成的分割動作，含主要動作與獨立的切換觸發。
 ---
 
-import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
-import {
-  SplitButtonDefaultPreview,
-  SplitButtonPreview,
-  SplitButtonSizesPreview,
-} from '~/components/previews/SplitButtonPreview';
+import { SplitButtonControlledChevronExample } from '@/components/button/split-button/examples/SplitButtonControlledChevronExample';
+import { SplitButtonExample } from '@/components/button/split-button/examples/SplitButtonExample';
+import { SplitButtonSizesExample } from '@/components/button/split-button/examples/SplitButtonSizesExample';
+import { SplitButtonStatesExample } from '@/components/button/split-button/examples/SplitButtonStatesExample';
+import { SplitButtonThemesExample } from '@/components/button/split-button/examples/SplitButtonThemesExample';
+import { SplitButtonWithIconExample } from '@/components/button/split-button/examples/SplitButtonWithIconExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<SplitButtonPreview />
+<ComponentPreview name="SplitButtonExample">
+  <SplitButtonExample />
+</ComponentPreview>
 
 ## 用法 [#usage]
 
 把 `SplitButton` 放進 `DropdownMenu`，並傳入 `splitRender={<DropdownMenuTrigger />}`。箭頭就會成為選單的觸發器：負責開關選單、定位、鍵盤操作，選單開著時箭頭會朝上。主要按鈕仍執行自己的 `onClick`。
 
-圖示要另外安裝或引入，不要跟 SplitButton 放在一起。
-
-```tsx
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/DropdownMenu';
-import { SplitButton } from '@/components/ui/SplitButton';
-
-<DropdownMenu>
-  <SplitButton
-    theme="primary"
-    onClick={save}
-    splitRender={<DropdownMenuTrigger />}
-  >
-    <MagnifyingGlassIcon data-icon="inline-start" />
-    Save
-  </SplitButton>
-  <DropdownMenuContent align="end">
-    <DropdownMenuItem onClick={saveDraft}>Save as draft</DropdownMenuItem>
-    <DropdownMenuItem onClick={saveAndPublish}>
-      Save and publish
-    </DropdownMenuItem>
-  </DropdownMenuContent>
-</DropdownMenu>;
-```
-
 選單錨定在箭頭上。設定 `align="end"`，選單右緣就會和整個 SplitButton 的右緣對齊。
+
+## 搭配圖示 [#with-icon]
+
+把圖示當作 children 傳入，並加上 `data-icon="inline-start"`。圖示要另外安裝或引入，不要跟 SplitButton 放在一起。
+
+<ComponentPreview name="SplitButtonWithIconExample">
+  <SplitButtonWithIconExample />
+</ComponentPreview>
 
 ## 箭頭名稱 [#chevron-label]
 
@@ -63,47 +45,33 @@ import { SplitButton } from '@/components/ui/SplitButton';
 
 如果彈出的不是 `DropdownMenu`，可以用 `open` 和 `splitOnClick` 自行控制箭頭。`open` 會讓箭頭朝上，並把名稱切換成 `Expand options` 或 `Collapse options`。
 
-```tsx
-const [open, setOpen] = useState(false);
+<ComponentPreview name="SplitButtonControlledChevronExample">
+  <SplitButtonControlledChevronExample />
+</ComponentPreview>
 
-<SplitButton
-  open={open}
-  onClick={save}
-  splitOnClick={() => setOpen((v) => !v)}
->
-  Save
-</SplitButton>;
-```
+## 主題 [#themes]
 
-## 預設主題 [#default-theme]
+`theme` 的值與 `Button` 相同。
 
-<SplitButtonDefaultPreview />
-
-```tsx
-<SplitButton
-  theme="default"
-  open={open}
-  onClick={handleAction}
-  splitOnClick={toggleOpen}
->
-  Action
-</SplitButton>
-```
+<ComponentPreview name="SplitButtonThemesExample">
+  <SplitButtonThemesExample />
+</ComponentPreview>
 
 ## 尺寸 [#sizes]
 
 `size="lg"` 會加上主題陰影，hover 時上浮；`size="md"` 是沒有陰影的精簡尺寸。
 
-<SplitButtonSizesPreview />
+<ComponentPreview name="SplitButtonSizesExample">
+  <SplitButtonSizesExample />
+</ComponentPreview>
 
-```tsx
-<SplitButton size="md" theme="primary" open={open} {...handlers}>
-  Medium
-</SplitButton>
-<SplitButton size="lg" theme="primary" open={open} {...handlers}>
-  Large
-</SplitButton>
-```
+## 狀態 [#states]
+
+`open` 讓箭頭呈現開啟狀態。`disabled` 會停用兩個區塊；加上 `focusableWhenDisabled` 可以讓它們留在 Tab 順序裡。
+
+<ComponentPreview name="SplitButtonStatesExample">
+  <SplitButtonStatesExample />
+</ComponentPreview>
 
 ## 屬性 [#props]
 
