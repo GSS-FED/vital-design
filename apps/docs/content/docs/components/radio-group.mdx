@@ -3,95 +3,43 @@ title: RadioGroup
 description: A single-selection group of radio buttons.
 ---
 
-import {
-  RadioGroupPreview,
-  RadioGroupVerticalPreview,
-} from '~/components/previews/RadioGroupPreview';
+import { RadioGroupCompoundItemsExample } from '@/components/radio-group/examples/RadioGroupCompoundItemsExample';
+import { RadioGroupExample } from '@/components/radio-group/examples/RadioGroupExample';
+import { RadioGroupStatesExample } from '@/components/radio-group/examples/RadioGroupStatesExample';
+import { RadioGroupVerticalExample } from '@/components/radio-group/examples/RadioGroupVerticalExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Preview
 
-<RadioGroupPreview />
+<ComponentPreview name="RadioGroupExample">
+  <RadioGroupExample />
+</ComponentPreview>
 
 ## Usage
 
-```tsx
-import { Label } from '@/components/ui/Label';
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from '@/components/ui/RadioGroup';
-import { useState } from 'react';
-
-const options = [
-  { label: 'Option A', value: 'a' },
-  { label: 'Option B', value: 'b' },
-  { label: 'Option C', value: 'c' },
-];
-
-function Form() {
-  const [value, setValue] = useState('a');
-
-  return (
-    <RadioGroup value={value} onValueChange={setValue}>
-      {options.map((option) => (
-        <div key={option.value} className="flex items-center gap-2">
-          <RadioGroupItem id={option.value} value={option.value} />
-          <Label htmlFor={option.value}>{option.label}</Label>
-        </div>
-      ))}
-    </RadioGroup>
-  );
-}
-```
+Wrap each `RadioGroupItem` and its `FieldLabel` in a horizontal `Field`, and pair the label's `htmlFor` with the item `id`. `RadioGroup` stacks items vertically by default; pass layout classes such as `flex flex-wrap gap-4` to put them in a row.
 
 ## Compound Items
 
-Use `RadioGroupItem` when an option needs custom layout or extra text.
+Use `FieldContent` with a `FieldLabel` and `FieldDescription` when an option needs extra text.
 
-```tsx
-import { Label } from '@/components/ui/Label';
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from '@/components/ui/RadioGroup';
-
-<RadioGroup value={value} onValueChange={setValue}>
-  <div className="flex items-center gap-2">
-    <RadioGroupItem id="basic" value="basic" />
-    <Label htmlFor="basic">Basic</Label>
-  </div>
-  <div className="flex items-center gap-2">
-    <RadioGroupItem id="pro" value="pro" />
-    <Label htmlFor="pro">
-      <span>
-        <span className="block">Pro</span>
-        <span className="block text-grayscale-opacity-500">
-          Recommended for teams
-        </span>
-      </span>
-    </Label>
-  </div>
-</RadioGroup>;
-```
+<ComponentPreview name="RadioGroupCompoundItemsExample">
+  <RadioGroupCompoundItemsExample />
+</ComponentPreview>
 
 ## Vertical Layout
 
-<RadioGroupVerticalPreview />
+<ComponentPreview name="RadioGroupVerticalExample">
+  <RadioGroupVerticalExample />
+</ComponentPreview>
 
-```tsx
-<RadioGroup
-  className="flex flex-col gap-4"
-  value={value}
-  onValueChange={setValue}
->
-  {options.map((option) => (
-    <div key={option.value} className="flex items-center gap-2">
-      <RadioGroupItem id={option.value} value={option.value} />
-      <Label htmlFor={option.value}>{option.label}</Label>
-    </div>
-  ))}
-</RadioGroup>
-```
+## States
+
+Disable an item with `disabled` on `RadioGroupItem` and put `data-disabled` on its `Field` so the label dims too. Mark an invalid item with `aria-invalid`. Long labels wrap and stay aligned with the radio button.
+
+<ComponentPreview name="RadioGroupStatesExample">
+  <RadioGroupStatesExample />
+</ComponentPreview>
 
 ## Props
 

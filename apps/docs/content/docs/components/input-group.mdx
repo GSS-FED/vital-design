@@ -1,0 +1,89 @@
+---
+title: InputGroup
+description: A composable input shell for prefixes, suffixes, inline text, and actions around an input or textarea.
+---
+
+import { InputGroupBlockAddonExample } from '@/components/input/input-group/examples/InputGroupBlockAddonExample';
+import { InputGroupExample } from '@/components/input/input-group/examples/InputGroupExample';
+import { InputGroupStatesExample } from '@/components/input/input-group/examples/InputGroupStatesExample';
+import { InputGroupTextareaExample } from '@/components/input/input-group/examples/InputGroupTextareaExample';
+import { InputGroupWithTextExample } from '@/components/input/input-group/examples/InputGroupWithTextExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+
+## Preview
+
+<ComponentPreview name="InputGroupExample">
+  <InputGroupExample />
+</ComponentPreview>
+
+## Installation
+
+After [configuring the registry](/docs/getting-started/installation), install InputGroup:
+
+```bash
+npx shadcn@latest add @vital-design/input-group
+```
+
+## Usage
+
+`InputGroup` draws the border, focus, disabled, and invalid states around one control (`InputGroupInput` or `InputGroupTextarea`). Put icons, text, and buttons in `InputGroupAddon`; clicking an addon outside a button focuses the control.
+
+Use it when you build your own input layout. [SearchBar](/docs/components/search-bar) and [PasswordInput](/docs/components/input#password-input) are preset wrappers built on `InputGroup`; use them when they fit.
+
+## With Text
+
+Use `InputGroupText` for static prefixes and suffixes such as a protocol, unit, or currency.
+
+<ComponentPreview name="InputGroupWithTextExample">
+  <InputGroupWithTextExample />
+</ComponentPreview>
+
+## Textarea
+
+<ComponentPreview name="InputGroupTextareaExample">
+  <InputGroupTextareaExample />
+</ComponentPreview>
+
+## Block Addon
+
+Set `align="block-start"` or `align="block-end"` to place an addon above or below the control.
+
+<ComponentPreview name="InputGroupBlockAddonExample">
+  <InputGroupBlockAddonExample />
+</ComponentPreview>
+
+## States
+
+Disable the control with `disabled` on `InputGroupInput`; the group and its addons follow. Mark an invalid value with `aria-invalid` on the control.
+
+<ComponentPreview name="InputGroupStatesExample">
+  <InputGroupStatesExample />
+</ComponentPreview>
+
+## Parts
+
+| Part                 | Description                                           |
+| -------------------- | ----------------------------------------------------- |
+| `InputGroup`         | Visual shell with focus, disabled, and invalid states |
+| `InputGroupInput`    | Single-line input control                             |
+| `InputGroupTextarea` | Multiline textarea control                            |
+| `InputGroupAddon`    | Prefix or suffix slot                                 |
+| `InputGroupButton`   | Small action button inside an addon                   |
+| `InputGroupText`     | Static text inside an addon                           |
+
+## Props
+
+### InputGroupAddon
+
+| Prop    | Type                                                             | Default          | Description                             |
+| ------- | ---------------------------------------------------------------- | ---------------- | --------------------------------------- |
+| `align` | `'inline-start' \| 'inline-end' \| 'block-start' \| 'block-end'` | `'inline-start'` | Where the addon sits around the control |
+
+### InputGroupButton
+
+| Prop   | Type                                     | Default    | Description                         |
+| ------ | ---------------------------------------- | ---------- | ----------------------------------- |
+| `size` | `'xs' \| 'sm' \| 'icon-xs' \| 'icon-sm'` | `'xs'`     | Button size; `icon-*` for icon-only |
+| `type` | `'button' \| 'submit' \| 'reset'`        | `'button'` | Native button type                  |
+
+`InputGroupButton` also accepts `Button` props except `variant` and `size`; `theme` cannot be `dangerous`. `InputGroupInput` accepts `Input` props, and `InputGroupTextarea` accepts `Textarea` props.

@@ -28,6 +28,10 @@ const globKey = (path: string) => relative(here, path);
 // under src-v2.
 const titles: Record<string, string> = {
   icons: 'Icons/Gallery',
+  'components/input/input': 'Components/Input/Input',
+  'components/input/input-group': 'Components/Input/InputGroup',
+  'components/input/number-input': 'Components/Input/NumberInput',
+  'components/input/password-input': 'Components/Input/PasswordInput',
 };
 
 const toPascal = (name: string) =>

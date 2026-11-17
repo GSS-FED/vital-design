@@ -3,47 +3,36 @@ title: Switch
 description: 用來切換布林開／關設定的開關。
 ---
 
-import {
-  SwitchDisabledPreview,
-  SwitchInvalidPreview,
-  SwitchPreview,
-} from '~/components/previews/SwitchPreview';
+import { SwitchExample } from '@/components/switch/examples/SwitchExample';
+import { SwitchStatesExample } from '@/components/switch/examples/SwitchStatesExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<SwitchPreview />
+<ComponentPreview name="SwitchExample">
+  <SwitchExample />
+</ComponentPreview>
 
 ## 用法 [#usage]
 
-```tsx
-import { Switch } from '@/components/ui/Switch';
-import { useState } from 'react';
-
-function NotificationSetting() {
-  const [enabled, setEnabled] = useState(false);
-
-  return <Switch checked={enabled} onCheckedChange={setEnabled} />;
-}
-```
+開關要有看得到的標籤：放進水平的 `Field`，搭配 `htmlFor` 對到開關 `id` 的 `FieldLabel`。沒有可見標籤時，傳入 `aria-label`。
 
 ## 狀態 [#states]
 
-<SwitchDisabledPreview />
+停用狀態同時接受 `checked={false}` 與 `checked={true}`。使用 `aria-invalid` 套用無效樣式。
 
-停用狀態同時接受 `checked={false}` 與 `checked={true}`。
-
-<SwitchInvalidPreview />
-
-使用 `aria-invalid` 套用無效樣式。
+<ComponentPreview name="SwitchStatesExample">
+  <SwitchStatesExample />
+</ComponentPreview>
 
 ## 屬性 [#props]
 
-| Prop              | Type                         | Default | 說明                         |
-| ----------------- | ---------------------------- | ------- | ---------------------------- |
-| `checked`         | `boolean`                    | —       | 控制開關狀態                 |
-| `defaultChecked`  | `boolean`                    | `false` | 設定非受控的初始狀態         |
-| `onCheckedChange` | `(checked: boolean) => void` | —       | 切換時呼叫                   |
-| `disabled`        | `boolean`                    | `false` | 停用互動                     |
-| `aria-invalid`    | `boolean`                    | —       | 套用無效樣式                 |
-| `className`       | `string`                     | —       | 額外的 CSS class             |
-| `...props`        | `BaseSwitch.Root.Props`      | —       | 傳給 Base UI root            |
+| Prop              | Type                         | Default | 說明                 |
+| ----------------- | ---------------------------- | ------- | -------------------- |
+| `checked`         | `boolean`                    | —       | 控制開關狀態         |
+| `defaultChecked`  | `boolean`                    | `false` | 設定非受控的初始狀態 |
+| `onCheckedChange` | `(checked: boolean) => void` | —       | 切換時呼叫           |
+| `disabled`        | `boolean`                    | `false` | 停用互動             |
+| `aria-invalid`    | `boolean`                    | —       | 套用無效樣式         |
+| `className`       | `string`                     | —       | 額外的 CSS class     |
+| `...props`        | `BaseSwitch.Root.Props`      | —       | 傳給 Base UI root    |

@@ -3,64 +3,36 @@ title: Label
 description: Accessible label text associated with a form control.
 ---
 
+import { LabelRequiredExample } from '@/components/label/examples/LabelRequiredExample';
+import { LabelWithDisabledInputExample } from '@/components/label/examples/LabelWithDisabledInputExample';
+import { LabelWithInputExample } from '@/components/label/examples/LabelWithInputExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import { Input, Label } from '~/components/vital-components';
 
 ## Preview
 
-<ComponentPreview>
-  <Label htmlFor="email">Email</Label>
+<ComponentPreview name="LabelWithInputExample">
+  <LabelWithInputExample />
 </ComponentPreview>
 
 ## Usage
 
-```tsx
-import { Label } from '@/components/ui/Label';
-
-<Label htmlFor="email">Email</Label>;
-```
+Pair `htmlFor` with the control's `id` so clicking the label focuses the control. For a label with a description or error message, use [Field](/docs/components/field).
 
 ## Required
 
 `required` adds the Vittal Design required dot to the label. Keep the actual required state on the control too.
 
-<ComponentPreview centered={false}>
-  <div className="flex w-80 flex-col gap-2">
-    <Label htmlFor="required-email" required>
-      Email
-    </Label>
-    <Input
-      id="required-email"
-      placeholder="name@example.com"
-      required
-    />
-  </div>
+<ComponentPreview name="LabelRequiredExample">
+  <LabelRequiredExample />
 </ComponentPreview>
 
-```tsx
-<div className="flex flex-col gap-2">
-  <Label htmlFor="email" required>
-    Email
-  </Label>
-  <Input id="email" placeholder="name@example.com" required />
-</div>
-```
+## With Disabled Input
 
-## With Input
+Disabling the input doesn't change the label. To dim the label with the control, use [Field](/docs/components/field) with `data-disabled`.
 
-<ComponentPreview centered={false}>
-  <div className="flex w-80 flex-col gap-2">
-    <Label htmlFor="email-input">Email</Label>
-    <Input id="email-input" placeholder="name@example.com" />
-  </div>
+<ComponentPreview name="LabelWithDisabledInputExample">
+  <LabelWithDisabledInputExample />
 </ComponentPreview>
-
-```tsx
-<div className="flex flex-col gap-2">
-  <Label htmlFor="email">Email</Label>
-  <Input id="email" placeholder="name@example.com" />
-</div>
-```
 
 ## Props
 

@@ -32,10 +32,6 @@ import {
   CalendarRangePreview,
 } from '~/components/previews/CalendarPreview';
 import {
-  CheckboxPreview,
-  CheckboxStatesPreview,
-} from '~/components/previews/CheckboxPreview';
-import {
   ChipPreview,
   ChipStatesPreview,
 } from '~/components/previews/ChipPreview';
@@ -54,17 +50,9 @@ import {
 import { PaginationMorePagesPreview } from '~/components/previews/PaginationMorePagesPreview';
 import { PaginationPreview } from '~/components/previews/PaginationPreview';
 import {
-  RadioGroupPreview,
-  RadioGroupVerticalPreview,
-} from '~/components/previews/RadioGroupPreview';
-import {
   ScrollAreaFadePreview,
   ScrollAreaPreview,
 } from '~/components/previews/ScrollAreaPreview';
-import {
-  SearchBarDisabledPreview,
-  SearchBarPreview,
-} from '~/components/previews/SearchBarPreview';
 import {
   SheetNonModalPreview,
   SheetPreview,
@@ -82,22 +70,9 @@ import {
   SidebarPreview,
 } from '~/components/previews/SidebarPreview';
 import {
-  SliderDisabledPreview,
-  SliderMinMaxPreview,
-  SliderPreview,
-  SliderRangePreview,
-  SliderStepPreview,
-  SliderVerticalPreview,
-} from '~/components/previews/SliderPreview';
-import {
   SplitButtonDefaultPreview,
   SplitButtonPreview,
 } from '~/components/previews/SplitButtonPreview';
-import {
-  SwitchDisabledPreview,
-  SwitchInvalidPreview,
-  SwitchPreview,
-} from '~/components/previews/SwitchPreview';
 import { TablePaginationPreview } from '~/components/previews/TablePaginationPreview';
 import {
   TabsBorderedPreview,
@@ -260,14 +235,7 @@ export async function DocsContentPage({
             SidebarCloud04Preview,
             SidebarCloud05Preview,
             SidebarCloud06Preview,
-            SwitchPreview,
             TablePaginationPreview,
-            SwitchDisabledPreview,
-            SwitchInvalidPreview,
-            CheckboxPreview,
-            CheckboxStatesPreview,
-            RadioGroupPreview,
-            RadioGroupVerticalPreview,
             TagPreview,
             TagColorsPreview,
             TagSolidPreview,
@@ -276,18 +244,10 @@ export async function DocsContentPage({
             TabsBorderedPreview,
             TabsPillPreview,
             TabsVerticalPreview,
-            SearchBarPreview,
-            SearchBarDisabledPreview,
             ScrollAreaPreview,
             ScrollAreaFadePreview,
             SplitButtonPreview,
             SplitButtonDefaultPreview,
-            SliderPreview,
-            SliderRangePreview,
-            SliderDisabledPreview,
-            SliderStepPreview,
-            SliderMinMaxPreview,
-            SliderVerticalPreview,
             TimePickerPreview,
             TimePickerHoursMinutesPreview,
             TimePickerStepsPreview,
