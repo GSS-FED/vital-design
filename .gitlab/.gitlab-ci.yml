@@ -35,14 +35,17 @@ variables:
   CLOUDFLARE_PAGES_PROJECT: "vital-design-preview"
 
 # MR pipelines for unprotected branches do not receive protected variables.
+# Any target branch, so every MR in a stack gets its preview on its first
+# pipeline instead of waiting for GitLab to retarget it to main.
 .cloudflare-mr: &cloudflare-mr
-  if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CLOUDFLARE_API_TOKEN && $CLOUDFLARE_ACCOUNT_ID && ($CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main")'
+  if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CLOUDFLARE_API_TOKEN && $CLOUDFLARE_ACCOUNT_ID'
 
 .visual-changes: &visual-changes
   - src-v2/**/*
   - tokens/**/*
   - visual/**/*
   - vite.config.ts
+  - .gitlab/.gitlab-ci.yml
 
 # Docs preview only. Component work already has the Storybook URL.
 .docs-changes: &docs-changes
@@ -61,12 +64,40 @@ test-job:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - if: '$CI_COMMIT_BRANCH'
 
+# Errors fail the job (unknown classes, raw colors). Warnings (no-restyle,
+# require-static-classes) do not: they are design questions that stay open
+# until someone decides on code or policy, so the job publishes them as a
+# Code Quality report for the MR widget instead.
+lint-design-job:
+  stage: test
+  script:
+    - pnpm run lint:design > lint-design.log 2>&1 || status=$?
+    - cat lint-design.log
+    - pnpm exec oxlint -c .oxlintrc.shadcn.json --disable-nested-config --format gitlab src-v2 apps/docs/components > gl-code-quality-report.json || true
+    # "[@shadcn/lint] ..." means the plugin could not read part of the
+    # project (e.g. no oxc-parser binding, so wrappers and variants are not
+    # followed) and checked less than it should, while still passing.
+    - |
+      if grep -F '[@shadcn/lint]' lint-design.log; then
+        echo "lint:design ran in a degraded mode; fix the setup above."
+        exit 1
+      fi
+    - exit ${status:-0}
+  artifacts:
+    when: always
+    reports:
+      codequality: gl-code-quality-report.json
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH'
+
 # ── Visual regression ─────────────────────────────────────────────────────────
 # Vitest browser mode (`visual` project in vite.config.ts). Baselines are not
 # committed. Each push to develop/main screenshots every src-v2 story and docs
 # example and keeps the images as an artifact; MR pipelines download the
-# target branch's baseline, list results in the MR (JUnit) and attach the
-# Vitest HTML report (Diff / Reference / Actual / Slider per failure).
+# target branch's baseline (stacked MRs build one from their diff base), list
+# results in the MR (JUnit) and attach the Vitest HTML report (Diff /
+# Reference / Actual / Slider per failure).
 
 visual-baseline:
   stage: test
@@ -85,6 +116,9 @@ visual-diff:
   stage: test
   image: ${PLAYWRIGHT_IMAGE}
   script:
+    # Only develop/main push a baseline. A stacked MR targets a feature
+    # branch, which has none, so screenshot the MR's diff base instead: the
+    # report then shows this MR's changes, matching its Changes tab.
     - |
       if curl --fail --silent --show-error --location \
         --header "JOB-TOKEN: ${CI_JOB_TOKEN}" \
@@ -92,8 +126,13 @@ visual-diff:
         "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/jobs/artifacts/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}/raw/vitest-baseline.tgz?job=visual-baseline"; then
         tar -xzf vitest-baseline.tgz -C visual
       else
-        echo "No vitest-baseline artifact on ${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}; skipping."
-        exit 0
+        echo "No vitest-baseline artifact on ${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}; building one from ${CI_MERGE_REQUEST_DIFF_BASE_SHA}."
+        git fetch --quiet --depth=1 origin "${CI_MERGE_REQUEST_DIFF_BASE_SHA}"
+        git checkout --quiet --force "${CI_MERGE_REQUEST_DIFF_BASE_SHA}"
+        pnpm install --frozen-lockfile
+        pnpm run test:visual:update
+        git checkout --quiet --force "${CI_COMMIT_SHA}"
+        pnpm install --frozen-lockfile
       fi
     - pnpm run visual:prepare
     # The HTML reporter always writes to .vitest/; rename it after the run,
@@ -110,7 +149,7 @@ visual-diff:
       junit: visual-junit.xml
   allow_failure: true
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && ($CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main")'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes: *visual-changes
 
 # ── Cloudflare Pages previews ─────────────────────────────────────────────────
