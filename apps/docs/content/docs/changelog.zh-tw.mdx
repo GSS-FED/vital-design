@@ -16,6 +16,15 @@ description: Vittal Design registry、元件與文件裡，會影響安裝或用
 - **Tag：** 不再渲染 `role="option"` 與 `aria-selected`。可點擊且設定 `selected` 的 Tag，現在會在按鈕上設定 `aria-pressed`。如果測試用 `getByRole('option')` 找 Tag，請改用文字或 `data-slot="tag"` 查詢。重新安裝 `tag` 才會套用。
 - **Data Table：** 標籤編輯器的選項改用 `Tag` 顯示，跟儲存格裡的標籤一樣，不再是純文字。重新安裝 `data-table` 才會套用。
 
+## 2026 年 11 月 — Pagination
+
+- **[Pagination](/zh-tw/docs/components/pagination)：** 新增可組合的頁碼連結、首末頁與前後頁按鈕、停用狀態，以及可開啟隱藏頁碼選單的省略號。導覽用 anchor；原地換頁用 `render` 組合原生按鈕。安裝 `@vital-design/pagination` 時會一併安裝它用到的 angle 圖示。
+- **[Table Pagination](/zh-tw/docs/blocks/table-pagination)：** 單列的表格頁尾，含頁碼、跳頁、每頁筆數與目前範圍。列太窄時會隱藏跳頁和每頁筆數。
+
+```bash
+npx shadcn@latest add @vital-design/pagination @vital-design/table-pagination
+```
+
 ## 2026 年 11 月 — Breadcrumb
 
 ### 元件

@@ -2,6 +2,30 @@ import type { VitalRegistryItem } from './types';
 
 export const ui = [
   {
+    name: 'pagination',
+    type: 'registry:ui',
+    title: 'Pagination',
+    description:
+      'Composable pagination with page links, first/last navigation, and ellipsis',
+    dependencies: ['@base-ui/react', 'cn'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+      '@vital-design/dropdown-menu',
+      '@vital-design/icon-angle-left-solid',
+      '@vital-design/icon-angle-left-to-line',
+      '@vital-design/icon-angle-right-solid',
+      '@vital-design/icon-angle-right-to-line',
+      '@vital-design/icon-ellipsis',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/pagination/Pagination.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
     name: 'alert',
     type: 'registry:ui',
     title: 'Alert',

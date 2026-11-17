@@ -1,4 +1,4 @@
 {
   "title": "Blocks",
-  "pages": ["sidebar", "data-table"]
+  "pages": ["sidebar", "data-table", "table-pagination"]
 }

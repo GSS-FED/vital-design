@@ -1,0 +1,53 @@
+---
+title: Table Pagination
+description: 單列的表格頁尾，含頁碼、跳頁與每頁筆數。
+---
+
+import { TablePaginationPreview } from '~/components/previews/TablePaginationPreview';
+
+## 預覽 [#preview]
+
+<TablePaginationPreview />
+
+## 何時使用 [#when-to-use]
+
+表格頁尾要用 Vital 的單列排法時用這個 block：頁碼、跳頁、每頁筆數，以及目前範圍。列太窄時會隱藏跳頁和每頁筆數。頁碼與筆數範圍仍留在畫面上。
+
+[Pagination](/docs/components/pagination) 仍是零件。這個列不合適時，用那些零件自己組。
+
+## 用法 [#usage]
+
+`page`、`pageSize`、`total` 由畫面管理。每頁筆數改變時把頁碼設回第 1 頁。
+
+```tsx
+import { TablePagination } from '@/blocks/table-pagination/table-pagination';
+import { useState } from 'react';
+
+export function OrdersFooter() {
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+
+  return (
+    <TablePagination
+      page={page}
+      pageSize={pageSize}
+      total={91}
+      onPageChange={setPage}
+      onPageSizeChange={(nextPageSize) => {
+        setPageSize(nextPageSize);
+        setPage(1);
+      }}
+    />
+  );
+}
+```
+
+`pagination`、`jump`、`summary` 可整段換掉。這個 block 不渲染表格。把它放在 [Table](/zh-tw/docs/components/table) 下面。
+
+## 安裝 [#installation]
+
+```bash
+npx shadcn@latest add @vital-design/table-pagination
+```
+
+會安裝 `src/blocks/table-pagination/table-pagination.tsx`，以及 Pagination、Input、Select 依賴。

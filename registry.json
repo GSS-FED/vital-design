@@ -1284,6 +1284,32 @@
       ]
     },
     {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Composable pagination with page links, first/last navigation, and ellipsis",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/vital-theme",
+        "@vital-design/dropdown-menu",
+        "@vital-design/icon-angle-left-solid",
+        "@vital-design/icon-angle-left-to-line",
+        "@vital-design/icon-angle-right-solid",
+        "@vital-design/icon-angle-right-to-line",
+        "@vital-design/icon-ellipsis"
+      ],
+      "files": [
+        {
+          "path": "src-v2/components/pagination/Pagination.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "alert",
       "type": "registry:ui",
       "title": "Alert",
@@ -2399,6 +2425,33 @@
           "path": "src-v2/blocks/data-table/components/selection-bar.tsx",
           "target": "src/blocks/data-table/selection-bar.tsx",
           "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "table-pagination",
+      "type": "registry:block",
+      "title": "Table Pagination",
+      "description": "Single-row table footer with page controls, a page jump, rows per page, and the current range. Hides the jump field and page-size select when the row is too narrow.",
+      "categories": [
+        "table",
+        "navigation"
+      ],
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@vital-design/utils",
+        "@vital-design/input",
+        "@vital-design/pagination",
+        "@vital-design/select",
+        "@vital-design/vital-theme"
+      ],
+      "files": [
+        {
+          "path": "src-v2/blocks/table-pagination/components/table-pagination.tsx",
+          "target": "src/blocks/table-pagination/table-pagination.tsx",
+          "type": "registry:component"
         }
       ]
     },

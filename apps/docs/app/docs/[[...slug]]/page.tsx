@@ -51,6 +51,8 @@ import {
   DialogPreview,
   DialogSizesPreview,
 } from '~/components/previews/DialogPreview';
+import { PaginationMorePagesPreview } from '~/components/previews/PaginationMorePagesPreview';
+import { PaginationPreview } from '~/components/previews/PaginationPreview';
 import {
   RadioGroupPreview,
   RadioGroupVerticalPreview,
@@ -100,6 +102,7 @@ import {
   SwitchInvalidPreview,
   SwitchPreview,
 } from '~/components/previews/SwitchPreview';
+import { TablePaginationPreview } from '~/components/previews/TablePaginationPreview';
 import {
   TabsBorderedPreview,
   TabsPillPreview,
@@ -241,6 +244,8 @@ export async function DocsContentPage({
             ComboboxMultiplePreview,
             DialogPreview,
             DialogSizesPreview,
+            PaginationPreview,
+            PaginationMorePagesPreview,
             SelectPreview,
             SelectMultiplePreview,
             SheetPreview,
@@ -256,6 +261,7 @@ export async function DocsContentPage({
             SidebarCloud05Preview,
             SidebarCloud06Preview,
             SwitchPreview,
+            TablePaginationPreview,
             SwitchDisabledPreview,
             SwitchInvalidPreview,
             CheckboxPreview,
