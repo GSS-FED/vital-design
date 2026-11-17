@@ -40,10 +40,10 @@
    - `apps/docs/content/docs/components/meta.json`
    - `apps/docs/content/docs/blocks/meta.json`
 
-6. **Changelog**（使用者可見的變更才寫）
+6. **Changelog**（只寫給元件庫使用者，規則見 AGENTS.md「AI 行為指引」）
 
-   - changelog 是給元件庫使用者看的：只改文件頁、範例、截圖或開發工具（例如把 story 轉成範例）不寫
-   - 新元件、breaking 用法、token、安裝方式：用 `pnpm changelog:new <slug>` 在 `apps/docs/content/changelog/` 建立 en 與 zh-TW 一對檔並寫好兩種語言（不要改產生出來的 `content/docs/changelog*.mdx`）
+   - 只改文件頁、範例、截圖、測試或開發工具（例如補文件、把 story 轉成範例）**不寫**
+   - 同一個 MR 也改了元件、block、icon、token 或安裝方式時才寫：用 `pnpm changelog:new <slug>` 在 `apps/docs/content/changelog/` 建立 en 與 zh-TW 一對檔並寫好兩種語言（不要改產生出來的 `content/docs/changelog*.mdx`）
    - 不要寫內部 refactor / CI；不要用 npm 版號
 
 7. **驗證文件站**

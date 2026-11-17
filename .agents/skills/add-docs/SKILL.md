@@ -1,6 +1,6 @@
 ---
 name: add-docs
-description: "Creates or updates a Fumadocs documentation page, docs example files (also used as visual-regression screenshots), navigation metadata, and changelog entry for a Vital Design component or block. Use when asked to write or add documentation for a component or block, or to add or change an example on an existing docs page (e.g. '幫 Button 補文件', 'add docs for X', 'write docs page for X', '建立 Switch 的 docs 頁面', '幫 X 加一個範例', '/add-docs <name>'). Do not use for creating the component itself — use new-component or create-block instead."
+description: "Creates or updates a Fumadocs documentation page, docs example files (also used as visual-regression screenshots), navigation metadata, and (only when the library itself changes) a changelog entry for a Vital Design component or block. Use when asked to write or add documentation for a component or block, or to add or change an example on an existing docs page (e.g. '幫 Button 補文件', 'add docs for X', 'write docs page for X', '建立 Switch 的 docs 頁面', '幫 X 加一個範例', '/add-docs <name>'). Do not use for creating the component itself — use new-component or create-block instead."
 allowed-tools: Read, Write, Edit, Bash
 ---
 
@@ -63,9 +63,9 @@ allowed-tools: Read, Write, Edit, Bash
    - 這個資料夾已經有中文檔時，改了英文裡使用者看得到的文句，就在同一份變更更新對應的 `.zh-tw.mdx`。還沒有中文檔就不用補
    - 不要只新增中文檔而沒有英文檔
 
-8. **Changelog**（使用者可見的變更才寫）
-   - 新元件、breaking 用法、token、安裝方式：`pnpm changelog:new <slug>` 會在 `apps/docs/content/changelog/` 建立 `.mdx` 與 `.zh-tw.mdx` 一對檔，改 frontmatter 的 `title`、把註解換成內容，兩種語言都要寫。月份標題（`##`）與這則的標題（`###`）由 build 產生，內文的小標用 `####`（例如 `#### Components`）
-   - changelog 是給元件庫使用者看的：只改文件頁、範例、截圖或開發工具（例如把 story 轉成範例）不寫
+8. **Changelog**（只寫給元件庫使用者，規則見 AGENTS.md「AI 行為指引」）
+   - 只改文件頁、範例、截圖、測試或開發工具（例如補文件、把 story 轉成範例）**不寫**。add-docs 的工作多半屬於這類
+   - 同一個 MR 也改了元件、block、icon、token 或安裝方式時才寫：`pnpm changelog:new <slug>` 會在 `apps/docs/content/changelog/` 建立 `.mdx` 與 `.zh-tw.mdx` 一對檔，改 frontmatter 的 `title`、把註解換成內容，兩種語言都要寫。月份標題（`##`）與這則的標題（`###`）由 build 產生，內文的小標用 `####`（例如 `#### Components`）
    - 不要改 `apps/docs/content/docs/changelog*.mdx`，那是 `pnpm changelog:build` 產生的檔案
    - 同一個 MR 後續要修改這則，就改同一對檔，不要再新增
    - 不要寫內部 refactor / CI；不要用 npm 版號或 semantic-release 輸出

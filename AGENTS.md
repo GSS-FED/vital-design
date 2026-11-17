@@ -107,7 +107,7 @@ pnpm changelog:build       # 重組 changelog 頁（docs dev/build 會自動跑�
 - `apps/docs/components/previews/` - 互動 preview 元件（`'use client'`，含 useState）
 - `apps/docs/components/vital-components.ts` - `'use client'` barrel，MDX 頁面可直接 import 元件做靜態 preview（無需 state 時使用）
 - `apps/docs/content/docs/` - MDX 文件內容（changelog.mdx 由 `content/changelog/` 產生、components/、blocks/、getting-started/、design-tokens/、registry/）
-- `apps/docs/content/changelog/` - 文件站 changelog（給元件庫使用者：registry 元件、token、安裝方式的變更；只改文件頁、範例或開發工具不寫）。一則一對檔：`YYYY-MM-DD-HHmm-<slug>.mdx` + `.zh-tw.mdx`，用 `pnpm changelog:new <slug>` 建立；frontmatter 只有 `title`。頁面依檔名的月份分組（`## Month YYYY`），組內每則是 `### title`、依檔名時間新的在上；內文的小標從 `####` 開始。`apps/docs/scripts/changelog.mts` 在 docs dev/build 前把它們組成 `content/docs/changelog.mdx` 與 `changelog.zh-tw.mdx`（gitignore，勿手改），缺任一語言就 build 失敗。這樣每個 MR 只新增檔案，不會在頁首互相衝突。不要接 semantic-release 或 npm 版號
+- `apps/docs/content/changelog/` - 文件站 changelog（只寫給元件庫使用者，規則見「AI 行為指引」）。一則一對檔：`YYYY-MM-DD-HHmm-<slug>.mdx` + `.zh-tw.mdx`，用 `pnpm changelog:new <slug>` 建立；frontmatter 只有 `title`。頁面依檔名的月份分組（`## Month YYYY`），組內每則是 `### title`、依檔名時間新的在上；內文的小標從 `####` 開始。`apps/docs/scripts/changelog.mts` 在 docs dev/build 前把它們組成 `content/docs/changelog.mdx` 與 `changelog.zh-tw.mdx`（gitignore，勿手改），缺任一語言就 build 失敗。這樣每個 MR 只新增檔案，不會在頁首互相衝突。不要接 semantic-release 或 npm 版號
 - `apps/docs/source.config.ts` - Fumadocs MDX 設定（rehype-pretty-code）
 - `apps/docs/app/api/search/route.ts` - Orama 全文搜尋 API
 - 路徑別名：`@/` → `src-v2/`（元件庫），`~/` → `apps/docs/`（文件站）
@@ -158,6 +158,7 @@ pnpm changelog:build       # 重組 changelog 頁（docs dev/build 會自動跑�
 - 不要修改 Prettier/Oxlint 設定
 - 新元件必須遵循現有結構模式
 - 任何結構性變動後（新增/刪除元件、修改 registry 結構、調整路徑或命名規範）須同步檢查並更新 `AGENTS.md`、`.agents/RULES.md`、`.agents/commands/`、`.agents/skills/` 中的相關說明
+- **Changelog 只寫給元件庫使用者**（安裝 registry 的人）：只有改到他們裝進專案的東西才寫，也就是元件、block、icon、hook 的新增、行為或 API 變更，token、主題與安裝方式。只改文件頁、文件範例、截圖、測試、CI、agent 文件（`AGENTS.md`、`.agents/`）或開發工具（Storybook、fixture app、腳本）的 MR **不加** changelog，即使文件站看得到差異。拿不準時不寫，在 MR 描述說明
 - `.agents/` 是 AI workflow 文件唯一來源；`.claude` 是指向 `.agents` 的 symlink，不要分開維護兩份
 
 詳細開發規範見 `.agents/RULES.md`
