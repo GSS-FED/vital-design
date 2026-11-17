@@ -46,6 +46,7 @@ Recipes and registry ids for consumer assembly.
 | `SplitButton`   | `split-button`   | Action + chevron segment                             | Primary action with a menu (`splitRender`)               |
 | `Switch`        | `switch`         | Boolean on/off toggle                                | Settings rows, inline table toggles                      |
 | `Table`         | `table`          | Semantic table primitives (`striped` optional)       | Data tables, static comparison tables                    |
+| `TableOfContents` | `table-of-contents` | Section rail that expands into the heading list on hover/focus | In-page navigation beside long content |
 | `Tabs`          | `tabs`           | Tabbed panel switcher (`underline` or `pill`)        | Detail views, segmented page sections                    |
 | `Tag`           | `tag`            | Status or category label (solid/tint, removable)     | Row status, role badges, categories                      |
 | `Textarea`      | `textarea`       | Multi-line text input                                | Comments, descriptions                                   |
