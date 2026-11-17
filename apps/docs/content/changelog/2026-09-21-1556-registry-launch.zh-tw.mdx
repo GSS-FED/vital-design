@@ -1,0 +1,42 @@
+---
+title: Registry 上線 vittal.design
+---
+
+文件站與相容 shadcn 的 registry 現在一起發佈在 [vittal.design](https://vittal.design)。這一則是當時可用內容的快照。之後的紀錄只列有變更的部分。
+
+#### 安裝
+
+加入 registry，再用 shadcn CLI 安裝項目。見 [安裝](/zh-tw/docs/getting-started/installation)。
+
+```bash
+npx shadcn@latest add @vital-design/button
+```
+
+Registry URL：`https://vittal.design/r/{name}.json`
+
+#### 元件
+
+**基礎：** [Alert](/zh-tw/docs/components/alert)、[Avatar](/zh-tw/docs/components/avatar)、[Badge](/zh-tw/docs/components/badge)、[Button](/zh-tw/docs/components/button)、[Button Group](/zh-tw/docs/components/button-group)、[Chip](/zh-tw/docs/components/chip)、[Icons](/zh-tw/docs/components/icons)、[Item](/zh-tw/docs/components/item)、[Label](/zh-tw/docs/components/label)、[Separator](/zh-tw/docs/components/separator)、[Skeleton](/zh-tw/docs/components/skeleton)、[Spinner](/zh-tw/docs/components/spinner)、[Split Button](/zh-tw/docs/components/split-button)、[Tag](/zh-tw/docs/components/tag)
+
+**輸入：** [Checkbox](/zh-tw/docs/components/checkbox)、[Editable](/zh-tw/docs/components/editable)、[Field](/zh-tw/docs/components/field)、[Input](/zh-tw/docs/components/input)、[Number Input](/zh-tw/docs/components/number-input)、[Radio Group](/zh-tw/docs/components/radio-group)、[Search Bar](/zh-tw/docs/components/search-bar)、[Slider](/zh-tw/docs/components/slider)、[Switch](/zh-tw/docs/components/switch)、[Textarea](/zh-tw/docs/components/textarea)
+
+**選擇器與選單：** [Autocomplete](/zh-tw/docs/components/autocomplete)、[Calendar](/zh-tw/docs/components/calendar)、[Combobox](/zh-tw/docs/components/combobox)、[Command](/zh-tw/docs/components/command)、[Dropdown Menu](/zh-tw/docs/components/dropdown-menu)、[Popover](/zh-tw/docs/components/popover)、[Select](/zh-tw/docs/components/select)、[Time Picker](/zh-tw/docs/components/time-picker)
+
+**覆蓋層與回饋：** [Dialog](/zh-tw/docs/components/dialog)、[Sheet](/zh-tw/docs/components/sheet)、[Toast](/zh-tw/docs/components/toast)、[Tooltip](/zh-tw/docs/components/tooltip)
+
+**版面與資料：** [Card](/zh-tw/docs/components/card)、[Collapsible](/zh-tw/docs/components/collapsible)、[Progress](/zh-tw/docs/components/progress)、[Resizable](/zh-tw/docs/components/resizable)、[Scroll Area](/zh-tw/docs/components/scroll-area)、[Sidebar](/zh-tw/docs/components/sidebar)、[Table](/zh-tw/docs/components/table)、[Tabs](/zh-tw/docs/components/tabs)、[Toolbar](/zh-tw/docs/components/toolbar)
+
+#### 區塊
+
+- Cloud Sidebar：[flat](/zh-tw/docs/blocks/sidebar/cloud/flat)、[inline submenus](/zh-tw/docs/blocks/sidebar/cloud/inline-submenus)、[collapsible submenus](/zh-tw/docs/blocks/sidebar/cloud/collapsible-submenus)、[dropdown submenus](/zh-tw/docs/blocks/sidebar/cloud/dropdown-submenus)、[secondary nav](/zh-tw/docs/blocks/sidebar/cloud/secondary-nav)、[header actions](/zh-tw/docs/blocks/sidebar/cloud/header-actions)
+- Data Table：[group 01](/zh-tw/docs/blocks/data-table-group-01)、[group 02](/zh-tw/docs/blocks/data-table-group-02)、[group 04](/zh-tw/docs/blocks/data-table-group-04)
+
+#### 設計變數
+
+[色彩](/zh-tw/docs/design-tokens/colors)、[字體](/zh-tw/docs/design-tokens/typography)、[圓角](/zh-tw/docs/design-tokens/radius) 與 [效果](/zh-tw/docs/design-tokens/effects) 隨 registry 主題以 CSS 變數提供。
+
+#### 平台
+
+- 元件使用 **Base UI** primitive 與 **Tailwind CSS 4**
+- 樣式隔離遵循 [Tailwind CSS 設定](/zh-tw/docs/getting-started/tailwind-setup) 裡的 `data-slot` 約定
+- Agent 索引：[llms.txt](/llms.txt)

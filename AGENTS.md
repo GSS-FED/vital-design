@@ -35,6 +35,8 @@ pnpm docs:dev              # Fumadocs dev server (port 3000)
 pnpm docs:lint             # 檢查 docs app 的 Oxlint 與 Next.js 規則（apps/docs/.oxlintrc.json）
 pnpm docs:build            # 建置文件站靜態頁面（含 registry JSON → /r）
 pnpm docs:start            # 啟動生產環境文件站
+pnpm changelog:new <slug>  # 新增一則 changelog（en + zh-TW 兩個檔）
+pnpm changelog:build       # 重組 changelog 頁（docs dev/build 會自動跑）
 ```
 
 ## AI Commands
@@ -103,8 +105,8 @@ pnpm docs:start            # 啟動生產環境文件站
 - `apps/docs/app/llms.txt/route.ts` - 靜態 `/llms.txt`（llmstxt.org 目錄，由 `apps/docs/lib/llms.ts` 從 page tree 產生；sidebar 連結在 `content/docs/meta.json`）
 - `apps/docs/components/previews/` - 互動 preview 元件（`'use client'`，含 useState）
 - `apps/docs/components/vital-components.ts` - `'use client'` barrel，MDX 頁面可直接 import 元件做靜態 preview（無需 state 時使用）
-- `apps/docs/content/docs/` - MDX 文件內容（changelog.mdx、components/、blocks/、getting-started/、design-tokens/、registry/）
-- `apps/docs/content/docs/changelog.mdx` - 文件站 changelog（registry / docs 的使用者可見變更；日期標題、新的在上。不要接 semantic-release 或 npm 版號）
+- `apps/docs/content/docs/` - MDX 文件內容（changelog.mdx 由 `content/changelog/` 產生、components/、blocks/、getting-started/、design-tokens/、registry/）
+- `apps/docs/content/changelog/` - 文件站 changelog（registry / docs 的使用者可見變更）。一則一對檔：`YYYY-MM-DD-HHmm-<slug>.mdx` + `.zh-tw.mdx`，用 `pnpm changelog:new <slug>` 建立；frontmatter 只有 `title`。頁面依檔名的月份分組（`## Month YYYY`），組內每則是 `### title`、依檔名時間新的在上；內文的小標從 `####` 開始。`apps/docs/scripts/changelog.mts` 在 docs dev/build 前把它們組成 `content/docs/changelog.mdx` 與 `changelog.zh-tw.mdx`（gitignore，勿手改），缺任一語言就 build 失敗。這樣每個 MR 只新增檔案，不會在頁首互相衝突。不要接 semantic-release 或 npm 版號
 - `apps/docs/source.config.ts` - Fumadocs MDX 設定（rehype-pretty-code）
 - `apps/docs/app/api/search/route.ts` - Orama 全文搜尋 API
 - 路徑別名：`@/` → `src-v2/`（元件庫），`~/` → `apps/docs/`（文件站）

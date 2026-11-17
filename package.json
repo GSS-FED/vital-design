@@ -41,6 +41,8 @@
     "docs:dev": "pnpm --filter @fed/vital-docs dev",
     "docs:dev:portless": "cd apps/docs && portless",
     "docs:lint": "pnpm --filter @fed/vital-docs lint",
+    "changelog:new": "pnpm --filter @fed/vital-docs changelog:new",
+    "changelog:build": "pnpm --filter @fed/vital-docs changelog:build",
     "docs:copy-registry": "mkdir -p apps/docs/public/r && cp public/r/*.json apps/docs/public/r/",
     "docs:build": "pnpm run registry:build && pnpm run docs:copy-registry && pnpm --filter @fed/vital-docs build",
     "docs:start": "npx serve apps/docs/out"

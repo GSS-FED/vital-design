@@ -199,7 +199,13 @@ export async function DocsContentPage({
 
   return (
     <DocsPage
-      toc={data.toc}
+      toc={
+        // Changelog: list only months (##) and entries (###), not the
+        // #### sections inside each entry.
+        slug?.join('/') === 'changelog'
+          ? data.toc.filter((item) => item.depth <= 3)
+          : data.toc
+      }
       full={data.full}
       footer={{ items: neighbours }}
     >

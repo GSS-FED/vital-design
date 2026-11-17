@@ -1,0 +1,40 @@
+---
+title: Table 斑馬紋與欄寬調整
+---
+
+#### Table
+
+[Table](/zh-tw/docs/components/table) 可以替表身列上斑馬紋。`striped` 畫偶數列。`striped="odd"` 畫另一組列。在 table 上設定 `--table-stripe` 與 `--table-row-hover` 可改顏色。
+
+重新安裝 table 才會拿到這次變更：
+
+```bash
+npx shadcn@latest add @vital-design/table
+```
+
+**破壞性變更：** hover、展開與選取列的背景不再使用 `bg-grayscale-opacity-100`。它們改讀 `--table-row-hover`。沒有開啟 `striped` 時，這個變數仍退回 `--grayscale-opacity-100`，所以預設外觀不變。
+
+- `hover:bg-grayscale-opacity-100` → `hover:bg-[var(--table-row-hover,var(--grayscale-opacity-100))]`
+- `data-[state=selected]:bg-grayscale-opacity-100` → `data-[state=selected]:bg-[var(--table-row-hover,var(--grayscale-opacity-100))]`
+
+`TableHead` 現在是 `position: relative`。絕對定位的子元素會對齊標題儲存格。如果你的元素原本對齊儲存格外面的祖先，請改對齊這個儲存格。
+
+#### Icons
+
+Caret up 與 caret down 是新的 registry icon。見 [Icons](/zh-tw/docs/components/icons)。
+
+```bash
+npx shadcn@latest add @vital-design/icon-caret-up
+npx shadcn@latest add @vital-design/icon-caret-down
+```
+
+#### 資料表格
+
+[Data Table group 01](/zh-tw/docs/blocks/data-table-group-01) 與 [group 02](/zh-tw/docs/blocks/data-table-group-02) 可以調整欄寬。拖曳標題邊緣。`columnResizeMode` 預設是 `onChange`。欄位很多、又有釘選欄的寬表，用 `onEnd`，放開才更新欄寬。
+
+兩個 block 都要重新安裝。Group 02 的排序圖示從 chevron up 換成這一對 caret，並移除 `@vital-design/icon-chevron-up`。`@vital-design/icon-chevron-down` 仍用於列的軌道。排序標籤會截斷，欄變窄時 caret 仍然看得到。
+
+```bash
+npx shadcn@latest add @vital-design/data-table-group-01
+npx shadcn@latest add @vital-design/data-table-group-02
+```

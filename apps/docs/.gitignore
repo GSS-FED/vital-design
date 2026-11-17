@@ -18,3 +18,5 @@ dist/
 .env.local
 .env.*.local
 components/previews/__sources__.ts
+content/docs/changelog.mdx
+content/docs/changelog.zh-tw.mdx
