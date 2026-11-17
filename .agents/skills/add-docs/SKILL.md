@@ -40,7 +40,6 @@ allowed-tools: Read, Write, Edit, Bash
    - 靜態狀態（disabled、invalid、loading、長文字）集中在一個 `<Name>StatesExample`，放在頁面的「States」章節
    - 範例同時是視覺回歸截圖：ID 是 `v2-components-<name>--<variant>`（`<Name>Example` → `default`），跟被取代的 story 同名就會沿用它的 baseline。不要用亂數、`Date.now()` 或遠端圖片
    - 打開或互動後才看得到的狀態（選單展開、hover 後）不寫成範例，寫在 `<Name>.vrt.test.tsx`：render 範例 → 操作 → `expect(await renderedRegion()).toMatchScreenshot('<name>-<state>')`。文件不需要的邊界狀況（超長清單、窄寬度）也在同一個檔裡 inline render
-   - 轉換既有元件時：刪掉被範例取代的 story（manifest 遇到重複 ID 會報錯）與 `apps/docs/components/previews/<Name>Preview.tsx`，並移除 `page.tsx` 的對應註冊
    - 純靜態、只有一兩行的展示仍可直接在 MDX 用 `~/components/vital-components` 包 `<ComponentPreview>`（沒有 Code tab）
 
 5. **建立 MDX 文件頁面**
@@ -103,7 +102,7 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 `name` 是範例的 export 名稱，Code tab 依它找原始碼。
 
-`apps/docs/components/previews/*Preview.tsx` 是還沒轉成範例的舊寫法，不要新增。
+不要在 `apps/docs/components/previews/` 新增 preview 元件，也不要寫 Storybook story；範例檔就是唯一來源。
 
 ## 參考範本
 

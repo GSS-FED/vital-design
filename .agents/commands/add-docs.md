@@ -26,7 +26,7 @@
    - `src-v2/components/<name>/examples/<Name><Variant>Example.tsx`，一個檔案一個 `export function`，加上 `'use client'`，import 用 repo 路徑
    - 靜態狀態集中在一個 `<Name>StatesExample`（文件的「States」章節）；打開或互動後的狀態寫在 `<Name>.vrt.test.tsx` 截圖
    - MDX 直接 import 範例並包 `<ComponentPreview name="<export 名稱>">`；Code tab 由 `previews:sources` 讀整個檔並改成 registry 安裝路徑，不要另寫 code fence
-   - 範例也是視覺回歸截圖，跟被取代的 story 同名就沿用 baseline；轉換時刪掉該 story 與 `apps/docs/components/previews/<Name>Preview.tsx`（及 `page.tsx` 註冊）
+   - 範例也是視覺回歸截圖，ID 由 `visual/fixtures/manifest.ts` 依資料夾與 export 名稱產生
    - 純靜態、一兩行的展示可直接從 `~/components/vital-components` 匯入，不另建範例
 
 4. **建立或更新 MDX 文件**
@@ -56,6 +56,6 @@
 ## 關鍵規則
 
 - 範例檔必須加 `'use client'`
-- 不要新增 `apps/docs/components/previews/*Preview.tsx`（舊寫法，逐步轉成範例）
+- 不要新增 `apps/docs/components/previews/*Preview.tsx` 或 Storybook story；範例檔是唯一來源
 - en 與 zh-TW 的 MDX import 同一個範例檔
 - 互動範例要能展示真實狀態變化，不只是一個靜態 render
