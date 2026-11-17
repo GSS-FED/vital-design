@@ -13,7 +13,7 @@ export const fixtures = manifestJson as FixtureEntry[];
 // Keys match FixtureEntry.file (paths relative to this folder).
 const modules = {
   ...import.meta.glob('../../src-v2/**/*.stories.tsx'),
-  ...import.meta.glob('../../src-v2/components/*/examples/*.tsx'),
+  ...import.meta.glob('../../src-v2/**/examples/*.tsx'),
 } as Record<string, () => Promise<Record<string, unknown>>>;
 
 export async function loadFixture(
