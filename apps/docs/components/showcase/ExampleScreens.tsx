@@ -97,7 +97,7 @@ import { type CSSProperties, useMemo, useState } from 'react';
 // The sidebar is fixed to the viewport by default; pin it inside the frame
 // the same way the sidebar block previews do.
 const APP_FRAME =
-  'relative h-[760px] w-full overflow-hidden rounded-xl border border-grayscale-opacity-200 bg-white ' +
+  'relative h-[760px] w-full overflow-hidden rounded-xl border border-grayscale-opacity-200 bg-background ' +
   '[&_[data-slot=sidebar-wrapper]]:h-full ' +
   '[&_[data-slot=sidebar-wrapper]]:min-h-0 ' +
   '[&_[data-slot=sidebar-container]]:!absolute ' +

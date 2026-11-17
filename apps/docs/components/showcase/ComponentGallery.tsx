@@ -140,7 +140,7 @@ function Surface({
   return (
     <div
       className={cn(
-        'rounded-(--radius-md) border border-grayscale-opacity-200 bg-white p-3 text-sm text-grayscale-opacity-800 shadow-(--shadow-emphasis)',
+        'rounded-(--radius-md) border border-grayscale-opacity-200 bg-background p-3 text-sm text-grayscale-opacity-800 shadow-(--shadow-emphasis)',
         className,
       )}
     >
@@ -290,7 +290,7 @@ const previews: Record<string, ReactNode> = {
   ),
   combobox: (
     <div className="flex w-52 flex-col gap-1">
-      <div className="flex h-8 items-center justify-between rounded-(--radius-sm) border border-grayscale-opacity-300 bg-white px-2.5 text-sm text-grayscale-opacity-800">
+      <div className="flex h-8 items-center justify-between rounded-(--radius-sm) border border-grayscale-opacity-300 bg-background px-2.5 text-sm text-grayscale-opacity-800">
         Taiwan
         <AngleDownIcon className="size-4 text-grayscale-opacity-500" />
       </div>
@@ -524,7 +524,7 @@ const previews: Record<string, ReactNode> = {
   ),
   select: (
     <div className="flex w-48 flex-col gap-1">
-      <div className="flex h-8 items-center justify-between rounded-(--radius-sm) border border-grayscale-opacity-300 bg-white px-2.5 text-sm text-grayscale-opacity-800">
+      <div className="flex h-8 items-center justify-between rounded-(--radius-sm) border border-grayscale-opacity-300 bg-background px-2.5 text-sm text-grayscale-opacity-800">
         Weekly
         <AngleDownIcon className="size-4 text-grayscale-opacity-500" />
       </div>
@@ -545,7 +545,7 @@ const previews: Record<string, ReactNode> = {
   ),
   sheet: (
     <div className="relative h-32 w-64 overflow-hidden rounded-(--radius-sm) border border-grayscale-opacity-200 bg-grayscale-opacity-100">
-      <div className="absolute inset-y-0 right-0 w-36 border-l border-grayscale-opacity-200 bg-white p-3 shadow-(--shadow-emphasis)">
+      <div className="absolute inset-y-0 right-0 w-36 border-l border-grayscale-opacity-200 bg-background p-3 shadow-(--shadow-emphasis)">
         <div className="text-sm font-semibold text-grayscale-opacity-900">
           Edit profile
         </div>
@@ -555,9 +555,9 @@ const previews: Record<string, ReactNode> = {
     </div>
   ),
   sidebar: (
-    <div className="flex h-32 w-64 overflow-hidden rounded-(--radius-sm) border border-grayscale-opacity-200 bg-white">
+    <div className="flex h-32 w-64 overflow-hidden rounded-(--radius-sm) border border-grayscale-opacity-200 bg-background">
       <div className="flex w-24 flex-col gap-1 border-r border-grayscale-opacity-200 bg-grayscale-opacity-50 p-2 text-xs text-grayscale-opacity-700">
-        <div className="flex items-center gap-1.5 rounded-(--radius-sm) bg-white px-1.5 py-1 font-medium shadow-(--shadow-base)">
+        <div className="flex items-center gap-1.5 rounded-(--radius-sm) bg-background px-1.5 py-1 font-medium shadow-(--shadow-base)">
           <HomeIcon className="size-3.5" /> Home
         </div>
         <div className="flex items-center gap-1.5 px-1.5 py-1">
@@ -611,7 +611,7 @@ const previews: Record<string, ReactNode> = {
   ),
   table: (
     <Zoom scale={0.75}>
-      <Table containerClassName="w-80 rounded-(--radius-sm) border border-grayscale-opacity-300 bg-white">
+      <Table containerClassName="w-80 rounded-(--radius-sm) border border-grayscale-opacity-300 bg-background">
         <TableHeader>
           <TableRow>
             <TableHead>Task</TableHead>
@@ -667,7 +667,7 @@ const previews: Record<string, ReactNode> = {
     />
   ),
   'time-picker': (
-    <div className="flex h-8 w-40 items-center justify-between rounded-(--radius-sm) border border-grayscale-opacity-300 bg-white px-2.5 text-sm text-grayscale-opacity-800">
+    <div className="flex h-8 w-40 items-center justify-between rounded-(--radius-sm) border border-grayscale-opacity-300 bg-background px-2.5 text-sm text-grayscale-opacity-800">
       09:30
       <ClockIcon className="size-4 text-grayscale-opacity-500" />
     </div>
@@ -699,7 +699,7 @@ const previews: Record<string, ReactNode> = {
   ),
   tooltip: (
     <div className="flex flex-col items-center gap-1.5">
-      <div className="rounded-(--radius-sm) bg-grayscale-opacity-900 px-2 py-1 text-xs text-white">
+      <div className="rounded-(--radius-sm) bg-grayscale-700 px-2 py-1 text-xs text-background">
         提示文字
       </div>
       <Button theme="default">Hover me</Button>
@@ -739,7 +739,7 @@ export function ComponentGallery({
         return (
           <div
             key={slug}
-            className="group relative flex flex-col overflow-hidden rounded-xl border border-grayscale-opacity-200 bg-white transition-shadow hover:border-grayscale-opacity-300 hover:shadow-(--shadow-base) has-[a:focus-visible]:border-primary-500 has-[a:focus-visible]:shadow-(--shadow-focus-ring-primary)"
+            className="group relative flex flex-col overflow-hidden rounded-xl border border-grayscale-opacity-200 bg-background transition-shadow hover:border-grayscale-opacity-300 hover:shadow-(--shadow-base) has-[a:focus-visible]:border-primary-500 has-[a:focus-visible]:shadow-(--shadow-focus-ring-primary)"
           >
             <div
               inert
