@@ -7,6 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/popover/Popover';
+import { Tag } from '@/components/tag/Tag';
 import { CheckSolidIcon } from '@/icons/CheckSolidIcon';
 import { cn } from '@/lib/utils';
 import { type ComponentProps, type ReactNode, useState } from 'react';
@@ -154,8 +155,7 @@ export function TagsEditor({
               className={OPTION}
             >
               <OptionCheck checked={checked} />
-              {/* Plain text: Tag renders role="option" itself. */}
-              {tag.label}
+              <Tag color="default">{tag.label}</Tag>
             </button>
           </li>
         );

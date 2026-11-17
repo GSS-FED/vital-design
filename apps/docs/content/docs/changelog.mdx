@@ -14,6 +14,7 @@ Newest entries are at the top. Headings use the month the change shipped. We onl
 ### Components
 
 - **Tag:** no longer renders `role="option"` or `aria-selected`. A clickable Tag with `selected` now sets `aria-pressed` on its button. If your tests find Tags with `getByRole('option')`, query by text or `data-slot="tag"` instead. Reinstall `tag` to pick this up.
+- **Data Table:** the tags editor shows each choice as a `Tag`, the same pill as the cell, instead of plain text. Reinstall `data-table` to pick this up.
 
 ## November 2026 — Breadcrumb
 
