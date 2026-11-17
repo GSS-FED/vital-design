@@ -3,11 +3,12 @@ title: Sidebar
 description: Application sidebar with structure, behavior, and a basic neutral default skin. Product-specific looks live on blocks.
 ---
 
-import {
-  SidebarFloatingPreview,
-  SidebarInsetPreview,
-  SidebarPreview,
-} from '~/components/previews/SidebarPreview';
+import { SidebarCollapsibleOffcanvasExample } from '@/components/sidebar/examples/SidebarCollapsibleOffcanvasExample';
+import { SidebarExample } from '@/components/sidebar/examples/SidebarExample';
+import { SidebarFloatingExample } from '@/components/sidebar/examples/SidebarFloatingExample';
+import { SidebarInsetExample } from '@/components/sidebar/examples/SidebarInsetExample';
+import { SidebarRightSideExample } from '@/components/sidebar/examples/SidebarRightSideExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Preview
 
@@ -20,7 +21,9 @@ import {
 >
 > Header / Footer “sticky” is **flex pin**: siblings of `SidebarContent`, not inside it. Only `SidebarContent` scrolls.
 
-<SidebarPreview />
+<ComponentPreview name="SidebarExample">
+  <SidebarExample />
+</ComponentPreview>
 
 ## Installation
 
@@ -101,15 +104,33 @@ export function AppLayout({
 - `icon` — collapses to an icon rail; menu labels hide; `tooltip` shows on hover
 - `none` — fixed width, not collapsible
 
+With `offcanvas`, the trigger slides the whole panel out of view:
+
+<ComponentPreview name="SidebarCollapsibleOffcanvasExample">
+  <SidebarCollapsibleOffcanvasExample />
+</ComponentPreview>
+
 ## Variants
 
 ### Inset
 
-<SidebarInsetPreview />
+<ComponentPreview name="SidebarInsetExample">
+  <SidebarInsetExample />
+</ComponentPreview>
 
 ### Floating
 
-<SidebarFloatingPreview />
+<ComponentPreview name="SidebarFloatingExample">
+  <SidebarFloatingExample />
+</ComponentPreview>
+
+## Right side
+
+Set `side="right"` to dock the sidebar on the right. Put the `SidebarTrigger` at the end of the header so it sits next to the panel.
+
+<ComponentPreview name="SidebarRightSideExample">
+  <SidebarRightSideExample />
+</ComponentPreview>
 
 ## Controlled state
 

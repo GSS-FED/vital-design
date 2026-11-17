@@ -32,6 +32,19 @@ const titles: Record<string, string> = {
   'components/input/input-group': 'Components/Input/InputGroup',
   'components/input/number-input': 'Components/Input/NumberInput',
   'components/input/password-input': 'Components/Input/PasswordInput',
+  'blocks/data-table': 'Blocks/DataTable',
+  'blocks/sidebar-cloud-01': 'Blocks/Sidebar/Cloud/01 - Flat',
+  'blocks/sidebar-cloud-02':
+    'Blocks/Sidebar/Cloud/02 - Inline Submenus',
+  'blocks/sidebar-cloud-03':
+    'Blocks/Sidebar/Cloud/03 - Dropdown Submenus',
+  'blocks/sidebar-cloud-04':
+    'Blocks/Sidebar/Cloud/04 - Secondary Nav',
+  'blocks/sidebar-cloud-05':
+    'Blocks/Sidebar/Cloud/05 - Header Actions',
+  'blocks/sidebar-cloud-06':
+    'Blocks/Sidebar/Cloud/06 - Collapsible Submenus',
+  'blocks/table-pagination': 'Blocks/Table Pagination',
 };
 
 const toPascal = (name: string) =>

@@ -1,0 +1,77 @@
+---
+title: Table of Contents
+description: A compact rail of section ticks that expands into the full list of headings on hover or focus.
+---
+
+import { TableOfContentsControlledExample } from '@/components/table-of-contents/examples/TableOfContentsControlledExample';
+import { TableOfContentsExample } from '@/components/table-of-contents/examples/TableOfContentsExample';
+import { TableOfContentsLeftExample } from '@/components/table-of-contents/examples/TableOfContentsLeftExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+
+## Preview
+
+<ComponentPreview name="TableOfContentsExample" minHeight="min-h-0">
+  <TableOfContentsExample />
+</ComponentPreview>
+
+## Usage
+
+Pass the page's headings as `items`. Each item renders a tick on the rail: level 1 is the longest, level 3 the shortest. The active item's tick turns primary.
+
+At rest only the rail shows. Hovering it, or moving keyboard focus into it, opens a panel with every label; the panel closes when the pointer or focus leaves. You don't need to pass `expanded` for this.
+
+Each item links to `#<id>` unless you give it an `href`. Clicking an item makes it active; set the starting one with `defaultValue`.
+
+## Left Side
+
+Set `side="left"` when the rail sits on the left of the content. The ticks align left and the panel opens to the right.
+
+<ComponentPreview
+  name="TableOfContentsLeftExample"
+  align="start"
+  minHeight="min-h-0"
+>
+  <TableOfContentsLeftExample />
+</ComponentPreview>
+
+## Controlled
+
+Pass `value` and `onValueChange` to own the active item, for example to follow the section in view as the page scrolls. Clicking an item calls `onValueChange`; the active item only moves when you update `value`.
+
+<ComponentPreview
+  name="TableOfContentsControlledExample"
+  minHeight="min-h-0"
+>
+  <TableOfContentsControlledExample />
+</ComponentPreview>
+
+## Always Open or Closed
+
+`expanded` overrides hover and focus: `expanded` keeps the panel open, `expanded={false}` keeps it closed. Leave it unset for the default behavior.
+
+## Props
+
+`TableOfContents` renders a `<nav>` and accepts its props.
+
+| Prop            | Type                    | Default               | Description                                                    |
+| --------------- | ----------------------- | --------------------- | -------------------------------------------------------------- |
+| `items`         | `TableOfContentsItem[]` | -                     | Headings to list, in page order                                |
+| `value`         | `string`                | -                     | Controlled active item id                                      |
+| `defaultValue`  | `string`                | -                     | Initial active item id when uncontrolled                       |
+| `onValueChange` | `(id: string) => void`  | -                     | Called when an item is clicked                                 |
+| `side`          | `'left' \| 'right'`     | `'right'`             | Which side of the content the rail sits on                     |
+| `expanded`      | `boolean`               | -                     | Forces the panel open or closed; unset follows hover and focus |
+| `aria-label`    | `string`                | `'Table of contents'` | Name of the navigation landmark                                |
+
+### TableOfContentsItem
+
+| Field   | Type          | Default | Description                               |
+| ------- | ------------- | ------- | ----------------------------------------- |
+| `id`    | `string`      | -       | Unique id, and the default link target    |
+| `label` | `string`      | -       | Text in the panel and the link name       |
+| `level` | `1 \| 2 \| 3` | `1`     | Heading depth; sets tick width and indent |
+| `href`  | `string`      | `#<id>` | Link target                               |
+
+## Accessibility
+
+The component is a `navigation` landmark named by `aria-label`. The rail links are the accessible surface: each is named by its item's label, and the active one has `aria-current="location"`. The expanded panel is visual only and hidden from assistive technology, so screen reader and keyboard users get one link per heading.

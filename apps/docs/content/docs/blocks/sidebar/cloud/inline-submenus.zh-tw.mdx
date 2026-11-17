@@ -3,11 +3,15 @@ title: Inline Submenus
 description: 含子選單的側邊欄。Cloud 產品側邊欄，含毛玻璃、行內巢狀導覽、primary 文字狀態、作用中邊緣軌道與圓點收合控制。
 ---
 
-import { SidebarCloud02Preview } from '~/components/previews/SidebarCloud02Preview';
+import { SidebarCloud02Example } from '@/blocks/sidebar-cloud-02/examples/SidebarCloud02Example';
+import { SidebarCloud02FloatingExample } from '@/blocks/sidebar-cloud-02/examples/SidebarCloud02FloatingExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<SidebarCloud02Preview />
+<ComponentPreview name="SidebarCloud02Example">
+  <SidebarCloud02Example />
+</ComponentPreview>
 
 ## 安裝 [#installation]
 
@@ -17,7 +21,7 @@ npx shadcn@latest add @vital-design/sidebar-cloud-02
 
 會安裝 **`app-sidebar.tsx`** 與 `src/public/images/cloud.jpg`（由元件引入）。它依賴 `@vital-design/sidebar`，再加上 avatar、dropdown-menu，以及範例樹裡用到的 icon。在應用裡自己組 `SidebarProvider` 與 `SidebarInset`。
 
-> **素材：** 毛玻璃照片會被引入並一起安裝。範例 logo / avatar 用公開路徑（`/images/vital-logo-text-h.svg`、`/images/vital-logo.svg`、`/images/ray.jpg`），只有 Storybook 與 Fumadocs 的預覽有這些檔；registry 不會安裝。
+> **素材：** 毛玻璃照片會被引入並一起安裝。範例 logo / avatar 用公開路徑（`/images/vital-logo-text-h.svg`、`/images/vital-logo.svg`、`/images/ray.jpg`），只有文件範例有這些檔；registry 不會安裝。
 
 ## 何時使用 [#when-to-use]
 
@@ -29,6 +33,14 @@ npx shadcn@latest add @vital-design/sidebar-cloud-02
 - 範例帳號頁尾（avatar 加 dropdown）在同一個檔案 — 安裝後再改
 - 用 `variant="sidebar"` 或 `floating`。不要用 `inset` — 毛玻璃照片塞不進 inset 的內距，也不適合沒有圓角的角落。
 
+## 浮動 [#floating]
+
+傳入 `variant="floating"`，面板會變成四周留空的圓角面板。
+
+<ComponentPreview name="SidebarCloud02FloatingExample">
+  <SidebarCloud02FloatingExample />
+</ComponentPreview>
+
 ## 組合 [#composition]
 
 `CloudSidebar` 是套了外觀的 `Sidebar`（`ComponentProps<typeof Sidebar>`）。範例頁首、導覽與頁尾都組在那個檔案**裡面**，所以 `<CloudSidebar />` 會跟這個預覽一樣。
@@ -39,7 +51,7 @@ import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from '@/components/sidebar/Sidebar';
+} from '@/components/ui/Sidebar';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

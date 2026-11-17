@@ -3,11 +3,15 @@ title: Header Actions
 description: 含純標誌 logo、頁首搜尋與通知，以及帳號頁尾的 Cloud 側邊欄。
 ---
 
-import { SidebarCloud05Preview } from '~/components/previews/SidebarCloud05Preview';
+import { SidebarCloud05Example } from '@/blocks/sidebar-cloud-05/examples/SidebarCloud05Example';
+import { SidebarCloud05FloatingExample } from '@/blocks/sidebar-cloud-05/examples/SidebarCloud05FloatingExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<SidebarCloud05Preview />
+<ComponentPreview name="SidebarCloud05Example">
+  <SidebarCloud05Example />
+</ComponentPreview>
 
 ## 安裝 [#installation]
 
@@ -17,7 +21,7 @@ npx shadcn@latest add @vital-design/sidebar-cloud-05
 
 會安裝 **`app-sidebar.tsx`** 與 `src/public/images/cloud.jpg`（由元件引入）。它依賴 `@vital-design/sidebar`，再加上 button、badge、avatar、dropdown-menu，以及範例樹裡用到的 icon。在應用裡自己組 `SidebarProvider` 與 `SidebarInset`。
 
-> **素材：** 毛玻璃照片會被引入並一起安裝。範例 logo / avatar 用公開路徑（`/images/vital-logo.svg`、`/images/ray.jpg`），只有 Storybook 與 Fumadocs 的預覽有這些檔；registry 不會安裝。
+> **素材：** 毛玻璃照片會被引入並一起安裝。範例 logo / avatar 用公開路徑（`/images/vital-logo.svg`、`/images/ray.jpg`），只有文件範例有這些檔；registry 不會安裝。
 
 ## 何時使用 [#when-to-use]
 
@@ -25,6 +29,14 @@ npx shadcn@latest add @vital-design/sidebar-cloud-05
 - 側邊欄收成 icon 時，這些動作會隱藏
 - **帳號頁尾**含 avatar dropdown；主選單是**扁平**的（沒有子選單，也沒有次要導覽）
 - 用 `variant="sidebar"` 或 `floating`。不要用 `inset` — 毛玻璃照片塞不進 inset 的內距，也不適合沒有圓角的角落。
+
+## 浮動 [#floating]
+
+傳入 `variant="floating"`，面板會變成四周留空的圓角面板。
+
+<ComponentPreview name="SidebarCloud05FloatingExample">
+  <SidebarCloud05FloatingExample />
+</ComponentPreview>
 
 ## 組合 [#composition]
 
@@ -36,7 +48,7 @@ import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from '@/components/sidebar/Sidebar';
+} from '@/components/ui/Sidebar';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

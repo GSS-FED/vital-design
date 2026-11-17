@@ -3,11 +3,15 @@ title: Inline Submenus
 description: A sidebar with submenus. Cloud product sidebar panel with frosted glass, inline nested nav, primary text states, active edge rail, and a bullet collapse control.
 ---
 
-import { SidebarCloud02Preview } from '~/components/previews/SidebarCloud02Preview';
+import { SidebarCloud02Example } from '@/blocks/sidebar-cloud-02/examples/SidebarCloud02Example';
+import { SidebarCloud02FloatingExample } from '@/blocks/sidebar-cloud-02/examples/SidebarCloud02FloatingExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Preview
 
-<SidebarCloud02Preview />
+<ComponentPreview name="SidebarCloud02Example">
+  <SidebarCloud02Example />
+</ComponentPreview>
 
 ## Installation
 
@@ -17,7 +21,7 @@ npx shadcn@latest add @vital-design/sidebar-cloud-02
 
 Installs **`app-sidebar.tsx`** and `src/public/images/cloud.jpg` (imported by the component). It depends on `@vital-design/sidebar` plus avatar, dropdown-menu, and the icons used in the sample tree. Compose `SidebarProvider` and `SidebarInset` in the app.
 
-> **Assets:** The frost photo is imported and shipped. Sample logos / avatar use public paths (`/images/vital-logo-text-h.svg`, `/images/vital-logo.svg`, `/images/ray.jpg`) that Storybook and Fumadocs provide for previews only; they are not installed by the registry.
+> **Assets:** The frost photo is imported and shipped. Sample logos / avatar use public paths (`/images/vital-logo-text-h.svg`, `/images/vital-logo.svg`, `/images/ray.jpg`) that only the docs examples provide; they are not installed by the registry.
 
 ## When to use
 
@@ -29,6 +33,14 @@ Installs **`app-sidebar.tsx`** and `src/public/images/cloud.jpg` (imported by th
 - Sample account footer (avatar + dropdown) lives in the same file — edit after install
 - Use `variant="sidebar"` or `floating`. Skip `inset` — the frost photo does not fit inset padding and unrounded corners.
 
+## Floating
+
+Pass `variant="floating"` for a rounded panel with a gap around it.
+
+<ComponentPreview name="SidebarCloud02FloatingExample">
+  <SidebarCloud02FloatingExample />
+</ComponentPreview>
+
 ## Composition
 
 `CloudSidebar` is a skinned `Sidebar` (`ComponentProps<typeof Sidebar>`). Sample header, nav, and footer are composed **inside** that file, so `<CloudSidebar />` matches this preview.
@@ -39,7 +51,7 @@ import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from '@/components/sidebar/Sidebar';
+} from '@/components/ui/Sidebar';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

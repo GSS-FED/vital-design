@@ -3,11 +3,15 @@ title: Flat
 description: 基本的 Cloud 側邊欄。毛玻璃外觀、沒有子選單的扁平導覽、沒有帳號頁尾。
 ---
 
-import { SidebarCloud01Preview } from '~/components/previews/SidebarCloud01Preview';
+import { SidebarCloud01Example } from '@/blocks/sidebar-cloud-01/examples/SidebarCloud01Example';
+import { SidebarCloud01FloatingExample } from '@/blocks/sidebar-cloud-01/examples/SidebarCloud01FloatingExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<SidebarCloud01Preview />
+<ComponentPreview name="SidebarCloud01Example">
+  <SidebarCloud01Example />
+</ComponentPreview>
 
 ## 安裝 [#installation]
 
@@ -17,7 +21,7 @@ npx shadcn@latest add @vital-design/sidebar-cloud-01
 
 會安裝 **`app-sidebar.tsx`** 與 `src/public/images/cloud.jpg`（由元件引入）。它依賴 `@vital-design/sidebar`，以及範例樹裡用到的 icon。在應用裡自己組 `SidebarProvider` 與 `SidebarInset`。
 
-> **素材：** 毛玻璃照片會被引入並一起安裝。範例 logo 用公開路徑（`/images/vital-logo-text-h.svg`、`/images/vital-logo.svg`），只有 Storybook 與 Fumadocs 的預覽有這些檔；registry 不會安裝。
+> **素材：** 毛玻璃照片會被引入並一起安裝。範例 logo 用公開路徑（`/images/vital-logo-text-h.svg`、`/images/vital-logo.svg`），只有文件範例有這些檔；registry 不會安裝。
 
 ## 何時使用 [#when-to-use]
 
@@ -25,6 +29,14 @@ npx shadcn@latest add @vital-design/sidebar-cloud-01
 - **沒有子選單** — 只有扁平導覽（Projects 是單一項目，不是父層）
 - 沒有帳號 / 使用者頁尾 — 只留下釘住的圓點收合控制
 - 用 `variant="sidebar"` 或 `floating`。不要用 `inset` — 毛玻璃照片塞不進 inset 的內距，也不適合沒有圓角的角落。
+
+## 浮動 [#floating]
+
+傳入 `variant="floating"`，面板會變成四周留空的圓角面板。
+
+<ComponentPreview name="SidebarCloud01FloatingExample">
+  <SidebarCloud01FloatingExample />
+</ComponentPreview>
 
 ## 組合 [#composition]
 
@@ -36,7 +48,7 @@ import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from '@/components/sidebar/Sidebar';
+} from '@/components/ui/Sidebar';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

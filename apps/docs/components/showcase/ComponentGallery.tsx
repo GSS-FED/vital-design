@@ -97,6 +97,7 @@ import {
 } from '@/components/slider/Slider';
 import { Spinner } from '@/components/spinner/Spinner';
 import { Switch } from '@/components/switch/Switch';
+import { TableOfContents } from '@/components/table-of-contents/TableOfContents';
 import {
   Table,
   TableBody,
@@ -651,6 +652,21 @@ const previews: Record<string, ReactNode> = {
       </Table>
     </Zoom>
   ),
+  'table-of-contents': (
+    <TableOfContents
+      defaultValue="install"
+      items={[
+        { id: 'introduction', label: 'Introduction', level: 1 },
+        { id: 'getting-started', label: 'Getting started', level: 2 },
+        { id: 'install', label: 'Install', level: 3 },
+        { id: 'configure', label: 'Configure', level: 3 },
+        { id: 'theme', label: 'Theme', level: 3 },
+        { id: 'components', label: 'Components', level: 1 },
+        { id: 'inputs', label: 'Inputs', level: 2 },
+        { id: 'button', label: 'Button', level: 3 },
+      ]}
+    />
+  ),
   tabs: (
     <Tabs defaultValue="overview" className="w-60">
       <TabsList>
@@ -727,6 +743,7 @@ const previews: Record<string, ReactNode> = {
 // Matches each page's frontmatter title, which is what the sidebar shows.
 const titles: Record<string, string> = {
   'scroll-area': 'Scroll Area',
+  'table-of-contents': 'Table of Contents',
   'time-picker': 'Time Picker',
 };
 

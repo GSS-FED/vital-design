@@ -3,11 +3,15 @@ title: Flat
 description: Base cloud sidebar. Frosted glass skin, flat nav with no submenus, no account footer.
 ---
 
-import { SidebarCloud01Preview } from '~/components/previews/SidebarCloud01Preview';
+import { SidebarCloud01Example } from '@/blocks/sidebar-cloud-01/examples/SidebarCloud01Example';
+import { SidebarCloud01FloatingExample } from '@/blocks/sidebar-cloud-01/examples/SidebarCloud01FloatingExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Preview
 
-<SidebarCloud01Preview />
+<ComponentPreview name="SidebarCloud01Example">
+  <SidebarCloud01Example />
+</ComponentPreview>
 
 ## Installation
 
@@ -17,7 +21,7 @@ npx shadcn@latest add @vital-design/sidebar-cloud-01
 
 Installs **`app-sidebar.tsx`** and `src/public/images/cloud.jpg` (imported by the component). It depends on `@vital-design/sidebar` and the icons used in the sample tree. Compose `SidebarProvider` and `SidebarInset` in the app.
 
-> **Assets:** The frost photo is imported and shipped. Sample logos use public paths (`/images/vital-logo-text-h.svg`, `/images/vital-logo.svg`) that Storybook and Fumadocs provide for previews only; they are not installed by the registry.
+> **Assets:** The frost photo is imported and shipped. Sample logos use public paths (`/images/vital-logo-text-h.svg`, `/images/vital-logo.svg`) that only the docs examples provide; they are not installed by the registry.
 
 ## When to use
 
@@ -25,6 +29,14 @@ Installs **`app-sidebar.tsx`** and `src/public/images/cloud.jpg` (imported by th
 - **No submenus** — flat nav only (Projects is a single item, not a parent)
 - No account / user footer — only the bullet collapse control stays docked
 - Use `variant="sidebar"` or `floating`. Skip `inset` — the frost photo does not fit inset padding and unrounded corners.
+
+## Floating
+
+Pass `variant="floating"` for a rounded panel with a gap around it.
+
+<ComponentPreview name="SidebarCloud01FloatingExample">
+  <SidebarCloud01FloatingExample />
+</ComponentPreview>
 
 ## Composition
 
@@ -36,7 +48,7 @@ import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from '@/components/sidebar/Sidebar';
+} from '@/components/ui/Sidebar';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

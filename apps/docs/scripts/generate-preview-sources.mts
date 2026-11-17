@@ -33,6 +33,11 @@ const toInstalledImports = (code: string) =>
     .replace(
       /(['"])@\/icons\/([^'"]+)\1/g,
       '$1@/components/icons/$2$1',
+    )
+    // Blocks install to src/blocks/<name>/<file> (registry/blocks.ts).
+    .replace(
+      /(['"])@\/blocks\/([^/'"]+)\/components\/([^'"]+)\1/g,
+      '$1@/blocks/$2/$3$1',
     );
 
 const srcDir = join(__dirname, '..', '..', '..', 'src-v2');
