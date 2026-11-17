@@ -95,7 +95,7 @@ const PaginationLink = function PaginationLink({
         'hover:bg-grayscale-opacity-200 focus-visible:shadow-focus-primary',
         '[&_[data-slot=pagination-icon]]:shrink-0',
         isActive &&
-          'bg-grayscale-opacity-600 text-white hover:bg-grayscale-opacity-600',
+          'bg-grayscale-opacity-600 text-background hover:bg-grayscale-opacity-600',
         disabled &&
           'cursor-not-allowed text-grayscale-opacity-300 hover:bg-transparent',
         className,
