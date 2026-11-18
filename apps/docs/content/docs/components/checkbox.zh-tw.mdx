@@ -3,70 +3,46 @@ title: Checkbox
 description: 支援已核取、未核取與不確定狀態的核取方塊。以 Base UI 處理無障礙。
 ---
 
-import {
-  CheckboxPreview,
-  CheckboxStatesPreview,
-} from '~/components/previews/CheckboxPreview';
+import { CheckboxExample } from '@/components/checkbox/examples/CheckboxExample';
+import { CheckboxIndeterminateExample } from '@/components/checkbox/examples/CheckboxIndeterminateExample';
+import { CheckboxStatesExample } from '@/components/checkbox/examples/CheckboxStatesExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<CheckboxPreview />
+<ComponentPreview name="CheckboxExample">
+  <CheckboxExample />
+</ComponentPreview>
 
 ## 用法 [#usage]
 
-```tsx
-import { Checkbox } from '@/components/ui/Checkbox';
-import { Label } from '@/components/ui/Label';
-import { useState } from 'react';
-
-function Agreement() {
-  const [checked, setChecked] = useState(false);
-
-  return (
-    <div className="flex items-center gap-2">
-      <Checkbox
-        id="terms"
-        checked={checked}
-        onCheckedChange={setChecked}
-      />
-      <Label htmlFor="terms">I accept the terms and conditions</Label>
-    </div>
-  );
-}
-```
+把 `Checkbox` 和它的 `FieldLabel` 放進水平的 `Field`，並把標籤的 `htmlFor` 對到 checkbox 的 `id`。這樣點整列都會切換 checkbox，也會顯示 hover 外框。
 
 ## 狀態 [#states]
 
-<CheckboxStatesPreview />
+用 `aria-invalid` 標示無效的 checkbox。在 `Field` 加上 `data-disabled`，checkbox 停用時標籤才會一起變淡。
+
+<ComponentPreview name="CheckboxStatesExample">
+  <CheckboxStatesExample />
+</ComponentPreview>
 
 `indeterminate` 狀態適合「全選」：只選了一部分項目時使用。
 
 ## 不確定狀態範例 [#indeterminate-pattern]
 
-```tsx
-const allChecked = items.every((i) => i.checked);
-const someChecked = items.some((i) => i.checked);
-
-<div className="flex items-center gap-2">
-  <Checkbox
-    id="select-all"
-    checked={allChecked}
-    indeterminate={!allChecked && someChecked}
-    onCheckedChange={(checked) => setAll(checked)}
-  />
-  <Label htmlFor="select-all">Select all</Label>
-</div>;
-```
+<ComponentPreview name="CheckboxIndeterminateExample">
+  <CheckboxIndeterminateExample />
+</ComponentPreview>
 
 ## 屬性 [#props]
 
-| Prop              | Type             | Default | 說明                       |
-| ----------------- | ---------------- | ------- | -------------------------- |
-| `checked`         | `boolean`        | —       | 受控的核取狀態             |
-| `defaultChecked`  | `boolean`        | `false` | 初始核取狀態               |
-| `indeterminate`   | `boolean`        | `false` | 顯示混合狀態               |
-| `onCheckedChange` | Base UI callback | —       | 核取狀態變更時呼叫         |
-| `disabled`        | `boolean`        | `false` | 停用互動                   |
-| `required`        | `boolean`        | `false` | 把 checkbox 標成必填       |
-| `className`       | `string`         | —       | 額外的 CSS class           |
-| `style`           | `CSSProperties`  | —       | 行內樣式                   |
+| Prop              | Type             | Default | 說明                 |
+| ----------------- | ---------------- | ------- | -------------------- |
+| `checked`         | `boolean`        | —       | 受控的核取狀態       |
+| `defaultChecked`  | `boolean`        | `false` | 初始核取狀態         |
+| `indeterminate`   | `boolean`        | `false` | 顯示混合狀態         |
+| `onCheckedChange` | Base UI callback | —       | 核取狀態變更時呼叫   |
+| `disabled`        | `boolean`        | `false` | 停用互動             |
+| `required`        | `boolean`        | `false` | 把 checkbox 標成必填 |
+| `className`       | `string`         | —       | 額外的 CSS class     |
+| `style`           | `CSSProperties`  | —       | 行內樣式             |

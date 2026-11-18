@@ -46,6 +46,12 @@ import {
   FieldDescription,
   FieldLabel,
 } from '@/components/field/Field';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupText,
+} from '@/components/input/input-group/InputGroup';
 import { Input } from '@/components/input/input/Input';
 import {
   NumberInput,
@@ -403,6 +409,17 @@ const previews: Record<string, ReactNode> = {
     </div>
   ),
   input: <Input className="w-56" placeholder="Enter text..." />,
+  'input-group': (
+    <InputGroup className="w-56">
+      <InputGroupAddon>
+        <MagnifyingGlassIcon className="size-4.5" />
+      </InputGroupAddon>
+      <InputGroupInput aria-label="Search" placeholder="Search..." />
+      <InputGroupAddon align="inline-end">
+        <InputGroupText>⌘K</InputGroupText>
+      </InputGroupAddon>
+    </InputGroup>
+  ),
   item: (
     <Item variant="outline" className="w-64">
       <ItemMedia variant="icon">

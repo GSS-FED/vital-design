@@ -3,38 +3,27 @@ title: Switch
 description: A toggle control for boolean on/off settings.
 ---
 
-import {
-  SwitchDisabledPreview,
-  SwitchInvalidPreview,
-  SwitchPreview,
-} from '~/components/previews/SwitchPreview';
+import { SwitchExample } from '@/components/switch/examples/SwitchExample';
+import { SwitchStatesExample } from '@/components/switch/examples/SwitchStatesExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Preview
 
-<SwitchPreview />
+<ComponentPreview name="SwitchExample">
+  <SwitchExample />
+</ComponentPreview>
 
 ## Usage
 
-```tsx
-import { Switch } from '@/components/ui/Switch';
-import { useState } from 'react';
-
-function NotificationSetting() {
-  const [enabled, setEnabled] = useState(false);
-
-  return <Switch checked={enabled} onCheckedChange={setEnabled} />;
-}
-```
+Give the switch a visible label: put it in a horizontal `Field` with a `FieldLabel` whose `htmlFor` matches the switch `id`. Without a visible label, pass `aria-label`.
 
 ## States
 
-<SwitchDisabledPreview />
+The disabled state accepts both `checked={false}` and `checked={true}`. Use `aria-invalid` for invalid styling.
 
-The disabled state accepts both `checked={false}` and `checked={true}`.
-
-<SwitchInvalidPreview />
-
-Use `aria-invalid` for invalid styling.
+<ComponentPreview name="SwitchStatesExample">
+  <SwitchStatesExample />
+</ComponentPreview>
 
 ## Props
 

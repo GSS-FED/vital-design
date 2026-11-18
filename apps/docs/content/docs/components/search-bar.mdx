@@ -3,30 +3,27 @@ title: SearchBar
 description: A search input with an icon. Supports instant onChange and explicit onSearch (Enter / icon click).
 ---
 
-import {
-  SearchBarDisabledPreview,
-  SearchBarPreview,
-} from '~/components/previews/SearchBarPreview';
+import { SearchBarExample } from '@/components/search-bar/examples/SearchBarExample';
+import { SearchBarStatesExample } from '@/components/search-bar/examples/SearchBarStatesExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Preview
 
-<SearchBarPreview />
+<ComponentPreview name="SearchBarExample">
+  <SearchBarExample />
+</ComponentPreview>
 
 ## Usage
 
-```tsx
-import { SearchBar } from '@/components/ui/SearchBar';
+`onChange` fires on every keystroke with the current value. `onSearch` fires when the user presses Enter, or clicks the search icon when `isSearchIconClickable` is set. The example above shows the last submitted query.
 
-<SearchBar
-  placeholder="Search users..."
-  onChange={(value) => setQuery(value)}
-  onSearch={(value) => fetchResults(value)}
-/>;
-```
+## States
 
-## Disabled
+Use `disabled` to disable the search bar. Long values truncate with an ellipsis.
 
-<SearchBarDisabledPreview />
+<ComponentPreview name="SearchBarStatesExample">
+  <SearchBarStatesExample />
+</ComponentPreview>
 
 ## Props
 

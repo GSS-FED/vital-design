@@ -3,137 +3,57 @@ title: Slider
 description: Select a numeric value or range from a bounded scale.
 ---
 
-import {
-  SliderDisabledPreview,
-  SliderMinMaxPreview,
-  SliderPreview,
-  SliderRangePreview,
-  SliderStepPreview,
-  SliderVerticalPreview,
-} from '~/components/previews/SliderPreview';
+import { SliderDisabledExample } from '@/components/slider/examples/SliderDisabledExample';
+import { SliderMinMaxExample } from '@/components/slider/examples/SliderMinMaxExample';
+import { SliderRangeExample } from '@/components/slider/examples/SliderRangeExample';
+import { SliderStepExample } from '@/components/slider/examples/SliderStepExample';
+import { SliderVerticalExample } from '@/components/slider/examples/SliderVerticalExample';
+import { SliderWithLabelAndValueExample } from '@/components/slider/examples/SliderWithLabelAndValueExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Preview
 
-<SliderPreview />
+<ComponentPreview name="SliderWithLabelAndValueExample">
+  <SliderWithLabelAndValueExample />
+</ComponentPreview>
 
 ## Usage
 
-```tsx
-import {
-  Slider,
-  SliderControl,
-  SliderIndicator,
-  SliderLabel,
-  SliderThumb,
-  SliderTrack,
-  SliderValue,
-} from '@/components/ui/Slider';
-import { useState } from 'react';
-
-function VolumeSlider() {
-  const [value, setValue] = useState(50);
-
-  return (
-    <Slider
-      value={value}
-      onValueChange={(nextValue) => {
-        if (typeof nextValue === 'number') {
-          setValue(nextValue);
-        }
-      }}
-    >
-      <div className="mb-2 flex items-center justify-between">
-        <SliderLabel>Volume</SliderLabel>
-        <SliderValue />
-      </div>
-      <SliderControl>
-        <SliderTrack>
-          <SliderIndicator />
-        </SliderTrack>
-        <SliderThumb />
-      </SliderControl>
-    </Slider>
-  );
-}
-```
+Compose `SliderControl`, `SliderTrack`, `SliderIndicator`, and one `SliderThumb` per value inside `Slider`. Add `SliderLabel` and `SliderValue` to show what the slider controls and its current value. A single value is a `number`; `onValueChange` receives a `number` or an array depending on the value shape, so narrow it before storing it.
 
 ## Range
 
 Use an array value and render one thumb for each value.
 
-<SliderRangePreview />
-
-```tsx
-const [value, setValue] = useState<readonly number[]>([20, 80]);
-
-<Slider
-  value={value}
-  onValueChange={(nextValue) => {
-    if (Array.isArray(nextValue)) {
-      setValue(nextValue);
-    }
-  }}
->
-  <SliderControl>
-    <SliderTrack>
-      <SliderIndicator />
-    </SliderTrack>
-    <SliderThumb index={0} />
-    <SliderThumb index={1} />
-  </SliderControl>
-</Slider>;
-```
+<ComponentPreview name="SliderRangeExample">
+  <SliderRangeExample />
+</ComponentPreview>
 
 ## Disabled
 
-<SliderDisabledPreview />
+<ComponentPreview name="SliderDisabledExample">
+  <SliderDisabledExample />
+</ComponentPreview>
 
 ## Step
 
 Step values render tick dots on the track.
 
-<SliderStepPreview />
-
-```tsx
-<Slider defaultValue={40} step={10}>
-  <SliderControl>
-    <SliderTrack>
-      <SliderIndicator />
-    </SliderTrack>
-    <SliderThumb />
-  </SliderControl>
-</Slider>
-```
+<ComponentPreview name="SliderStepExample">
+  <SliderStepExample />
+</ComponentPreview>
 
 ## Min And Max
 
-<SliderMinMaxPreview />
-
-```tsx
-<Slider defaultValue={20} min={-40} max={40} step={20}>
-  <SliderControl>
-    <SliderTrack>
-      <SliderIndicator />
-    </SliderTrack>
-    <SliderThumb />
-  </SliderControl>
-</Slider>
-```
+<ComponentPreview name="SliderMinMaxExample">
+  <SliderMinMaxExample />
+</ComponentPreview>
 
 ## Vertical
 
-<SliderVerticalPreview />
-
-```tsx
-<Slider defaultValue={60} orientation="vertical">
-  <SliderControl>
-    <SliderTrack>
-      <SliderIndicator />
-    </SliderTrack>
-    <SliderThumb />
-  </SliderControl>
-</Slider>
-```
+<ComponentPreview name="SliderVerticalExample">
+  <SliderVerticalExample />
+</ComponentPreview>
 
 ## Props
 

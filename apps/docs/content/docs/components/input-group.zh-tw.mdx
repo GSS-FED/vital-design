@@ -1,0 +1,89 @@
+---
+title: InputGroup
+description: 可組合的輸入外框，在 input 或 textarea 周圍放前綴、後綴、文字與動作。
+---
+
+import { InputGroupBlockAddonExample } from '@/components/input/input-group/examples/InputGroupBlockAddonExample';
+import { InputGroupExample } from '@/components/input/input-group/examples/InputGroupExample';
+import { InputGroupStatesExample } from '@/components/input/input-group/examples/InputGroupStatesExample';
+import { InputGroupTextareaExample } from '@/components/input/input-group/examples/InputGroupTextareaExample';
+import { InputGroupWithTextExample } from '@/components/input/input-group/examples/InputGroupWithTextExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+
+## 預覽 [#preview]
+
+<ComponentPreview name="InputGroupExample">
+  <InputGroupExample />
+</ComponentPreview>
+
+## 安裝 [#installation]
+
+[設定好 registry](/zh-tw/docs/getting-started/installation) 後，安裝 InputGroup：
+
+```bash
+npx shadcn@latest add @vital-design/input-group
+```
+
+## 用法 [#usage]
+
+`InputGroup` 為一個控制項（`InputGroupInput` 或 `InputGroupTextarea`）畫出框線，以及焦點、停用與無效狀態。圖示、文字與按鈕放在 `InputGroupAddon`；點 addon 裡按鈕以外的地方會讓控制項取得焦點。
+
+要自己組輸入框版面時用它。[SearchBar](/zh-tw/docs/components/search-bar) 與 [PasswordInput](/zh-tw/docs/components/input#password-input) 是建立在 `InputGroup` 上的現成 wrapper，合用時直接用它們。
+
+## 搭配文字 [#with-text]
+
+協定、單位或幣別這類固定的前綴與後綴，用 `InputGroupText`。
+
+<ComponentPreview name="InputGroupWithTextExample">
+  <InputGroupWithTextExample />
+</ComponentPreview>
+
+## Textarea [#textarea]
+
+<ComponentPreview name="InputGroupTextareaExample">
+  <InputGroupTextareaExample />
+</ComponentPreview>
+
+## 區塊 addon [#block-addon]
+
+設定 `align="block-start"` 或 `align="block-end"`，把 addon 放在控制項上方或下方。
+
+<ComponentPreview name="InputGroupBlockAddonExample">
+  <InputGroupBlockAddonExample />
+</ComponentPreview>
+
+## 狀態 [#states]
+
+在 `InputGroupInput` 加 `disabled` 停用控制項，外框與 addon 會跟著變；值不合法時在控制項加 `aria-invalid`。
+
+<ComponentPreview name="InputGroupStatesExample">
+  <InputGroupStatesExample />
+</ComponentPreview>
+
+## 部件 [#parts]
+
+| 部件                 | 說明                             |
+| -------------------- | -------------------------------- |
+| `InputGroup`         | 帶焦點、停用與無效狀態的視覺外框 |
+| `InputGroupInput`    | 單行輸入控制項                   |
+| `InputGroupTextarea` | 多行 textarea 控制項             |
+| `InputGroupAddon`    | 前綴或後綴插槽                   |
+| `InputGroupButton`   | addon 裡的小型動作按鈕           |
+| `InputGroupText`     | addon 裡的靜態文字               |
+
+## 屬性 [#props]
+
+### InputGroupAddon
+
+| Prop    | Type                                                             | Default          | 說明                     |
+| ------- | ---------------------------------------------------------------- | ---------------- | ------------------------ |
+| `align` | `'inline-start' \| 'inline-end' \| 'block-start' \| 'block-end'` | `'inline-start'` | addon 在控制項周圍的位置 |
+
+### InputGroupButton
+
+| Prop   | Type                                     | Default    | 說明                            |
+| ------ | ---------------------------------------- | ---------- | ------------------------------- |
+| `size` | `'xs' \| 'sm' \| 'icon-xs' \| 'icon-sm'` | `'xs'`     | 按鈕尺寸；只有圖示時用 `icon-*` |
+| `type` | `'button' \| 'submit' \| 'reset'`        | `'button'` | 原生 button type                |
+
+`InputGroupButton` 也接受 `Button` 除了 `variant` 與 `size` 以外的 props，`theme` 不能是 `dangerous`。`InputGroupInput` 接受 `Input` 的 props，`InputGroupTextarea` 接受 `Textarea` 的 props。
