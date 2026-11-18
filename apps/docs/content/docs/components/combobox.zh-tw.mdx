@@ -97,10 +97,24 @@ combobox 清單的彈出層搜尋輸入。它渲染 `BaseCombobox.Input`，所�
 
 ### ComboboxContent
 
-| Prop            | Type        | Default | 說明             |
-| --------------- | ----------- | ------- | ---------------- |
-| `emptyText`     | `ReactNode` | —       | 空狀態內容       |
-| `listClassName` | `string`    | —       | 清單元素的 class |
+| Prop                    | Type                                                   | Default                        | 說明                                     |
+| ----------------------- | ------------------------------------------------------ | ------------------------------ | ---------------------------------------- |
+| `emptyText`             | `ReactNode`                                            | —                              | 空狀態內容                               |
+| `listClassName`         | `string`                                               | —                              | 清單元素的 class                         |
+| `align`                 | `'start' \| 'center' \| 'end'`                         | `'start'`                      | 相對錨點的對齊                           |
+| `alignOffset`           | `number`                                               | `0`                            | 沿對齊軸的偏移                           |
+| `side`                  | `'top' \| 'right' \| 'bottom' \| 'left' \| …`          | `'bottom'`                     | 偏好出現在錨點的哪一側                   |
+| `sideOffset`            | `number`                                               | `4`                            | 與錨點的距離                             |
+| `anchor`                | `RefObject \| Element \| …`                            | —                              | 自訂定位錨點（預設是觸發器）             |
+| `arrowPadding`          | `number`                                               | `5`                            | 箭頭與彈出層邊緣的最小距離               |
+| `collisionAvoidance`    | `{ side?, align?, fallbackAxisSide? }`                 | `{ fallbackAxisSide: 'none' }` | 遇到碰撞時彈出層怎麼翻轉或位移           |
+| `collisionBoundary`     | `'clipping-ancestors' \| Element \| Element[] \| Rect` | `'clipping-ancestors'`         | 彈出層要留在裡面的範圍                   |
+| `collisionPadding`      | `number \| { top?, right?, bottom?, left? }`           | `5`                            | 與碰撞邊界保留的距離                     |
+| `disableAnchorTracking` | `boolean`                                              | `false`                        | 不再跟著錨點的版面位移更新位置           |
+| `positionMethod`        | `'absolute' \| 'fixed'`                                | `'absolute'`                   | positioner 的 CSS `position`             |
+| `sticky`                | `boolean`                                              | `false`                        | 錨點捲出畫面後，彈出層仍留在畫面內       |
+| `portalContainer`       | `HTMLElement \| ShadowRoot \| RefObject \| null`       | —                              | 自訂 portal 容器（預設 `document.body`） |
+| `keepMounted`           | `boolean`                                              | `false`                        | 關閉時仍把彈出層留在 DOM                 |
 
 ### ComboboxItem
 

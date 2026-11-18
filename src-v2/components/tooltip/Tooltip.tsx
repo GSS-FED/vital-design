@@ -110,31 +110,66 @@ export type TooltipContentProps = ComponentPropsWithoutRef<
 > &
   Pick<
     TooltipPositionerProps,
-    'align' | 'alignOffset' | 'side' | 'sideOffset'
-  > & {
+    | 'align'
+    | 'alignOffset'
+    | 'anchor'
+    | 'arrowPadding'
+    | 'collisionAvoidance'
+    | 'collisionBoundary'
+    | 'collisionPadding'
+    | 'disableAnchorTracking'
+    | 'positionMethod'
+    | 'side'
+    | 'sideOffset'
+    | 'sticky'
+  > &
+  Pick<TooltipPortalProps, 'keepMounted'> & {
     arrow?: boolean;
     positionerClassName?: string;
+    /** Custom portal container. Defaults to `document.body`. */
+    portalContainer?: TooltipPortalProps['container'];
   };
 
 const TooltipContent = function TooltipContent({
   align = 'center',
   alignOffset,
+  anchor,
   arrow = true,
+  arrowPadding,
   children,
   className,
+  collisionAvoidance,
+  collisionBoundary,
+  collisionPadding,
+  disableAnchorTracking,
+  keepMounted,
+  portalContainer,
+  positionMethod,
   positionerClassName,
   side = 'top',
   sideOffset = 8,
+  sticky,
   ref,
   ...props
 }: Omit<TooltipContentProps, 'ref'> & {
   ref?: Ref<ComponentRef<typeof BaseTooltip.Popup>>;
 }) {
   return (
-    <BaseTooltip.Portal>
+    <BaseTooltip.Portal
+      container={portalContainer}
+      keepMounted={keepMounted}
+    >
       <TooltipPositioner
         align={align}
         alignOffset={alignOffset}
+        anchor={anchor}
+        arrowPadding={arrowPadding}
+        collisionAvoidance={collisionAvoidance}
+        collisionBoundary={collisionBoundary}
+        collisionPadding={collisionPadding}
+        disableAnchorTracking={disableAnchorTracking}
+        positionMethod={positionMethod}
+        sticky={sticky}
         side={side}
         sideOffset={sideOffset}
         className={positionerClassName}

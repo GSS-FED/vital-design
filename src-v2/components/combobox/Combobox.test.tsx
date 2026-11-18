@@ -162,4 +162,35 @@ describe('Combobox', () => {
       expect.any(Object),
     );
   });
+
+  it('keeps the closed content mounted inside portalContainer', () => {
+    const portalContainer = document.createElement('div');
+    document.body.appendChild(portalContainer);
+
+    try {
+      render(
+        <Combobox items={['Apple', 'Banana']}>
+          <ComboboxTrigger aria-label="Open options">
+            <ComboboxValue placeholder="Search options" />
+          </ComboboxTrigger>
+          <ComboboxContent
+            keepMounted
+            portalContainer={portalContainer}
+          >
+            <ComboboxHeader>Kept header</ComboboxHeader>
+          </ComboboxContent>
+        </Combobox>,
+      );
+
+      expect(
+        queryByAttribute(
+          'data-slot',
+          portalContainer,
+          'combobox-content',
+        ),
+      ).toContainElement(screen.getByText('Kept header'));
+    } finally {
+      portalContainer.remove();
+    }
+  });
 });

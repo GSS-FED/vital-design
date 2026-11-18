@@ -115,14 +115,26 @@ export type SelectContentProps = ComponentPropsWithoutRef<
   Pick<
     ComponentPropsWithoutRef<typeof BaseSelect.Positioner>,
     | 'align'
+    | 'alignItemWithTrigger'
     | 'alignOffset'
+    | 'anchor'
+    | 'arrowPadding'
+    | 'collisionAvoidance'
+    | 'collisionBoundary'
+    | 'collisionPadding'
+    | 'disableAnchorTracking'
+    | 'positionMethod'
     | 'side'
     | 'sideOffset'
-    | 'alignItemWithTrigger'
+    | 'sticky'
   > & {
     listClassName?: SelectListProps['className'];
     listRender?: SelectListProps['render'];
     listWrapper?: (list: ReactNode) => ReactNode;
+    /** Custom portal container. Defaults to `document.body`. */
+    portalContainer?: ComponentPropsWithoutRef<
+      typeof BaseSelect.Portal
+    >['container'];
     showScrollButtons?: boolean;
   };
 
@@ -130,25 +142,42 @@ const SelectContent = function SelectContent({
   align = 'start',
   alignItemWithTrigger = false,
   alignOffset,
+  anchor,
+  arrowPadding,
   children,
   className,
+  collisionAvoidance,
+  collisionBoundary,
+  collisionPadding,
+  disableAnchorTracking,
   listClassName,
   listRender,
   listWrapper,
+  portalContainer,
+  positionMethod,
   showScrollButtons = true,
   side,
   sideOffset = 4,
+  sticky,
   ref,
   ...props
 }: Omit<SelectContentProps, 'ref'> & {
   ref?: Ref<ComponentRef<typeof BaseSelect.Popup>>;
 }) {
   return (
-    <BaseSelect.Portal>
+    <BaseSelect.Portal container={portalContainer}>
       <BaseSelect.Positioner
         align={align}
         alignItemWithTrigger={alignItemWithTrigger}
         alignOffset={alignOffset}
+        anchor={anchor}
+        arrowPadding={arrowPadding}
+        collisionAvoidance={collisionAvoidance}
+        collisionBoundary={collisionBoundary}
+        collisionPadding={collisionPadding}
+        disableAnchorTracking={disableAnchorTracking}
+        positionMethod={positionMethod}
+        sticky={sticky}
         side={side}
         sideOffset={sideOffset}
         className="z-9999"

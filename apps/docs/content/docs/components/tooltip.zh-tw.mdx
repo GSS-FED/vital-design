@@ -93,14 +93,24 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 `TooltipContent` 會把 children 用 portal 送出，以 Base UI 定位，並加上有樣式的彈出層與可選箭頭。
 
-| Prop                  | Type                                                                       | Default    | 說明                         |
-| --------------------- | -------------------------------------------------------------------------- | ---------- | ---------------------------- |
-| `side`                | `'top' \| 'right' \| 'bottom' \| 'left' \| 'inline-start' \| 'inline-end'` | `'top'`    | 相對於 trigger 的側邊        |
-| `sideOffset`          | `number`                                                                   | `8`        | 與 trigger 的距離（px）      |
-| `align`               | `'start' \| 'center' \| 'end'`                                             | `'center'` | 沿側邊的對齊                 |
-| `alignOffset`         | `number`                                                                   | `0`        | 沿對齊軸的偏移               |
-| `arrow`               | `boolean`                                                                  | `true`     | 是否渲染箭頭                 |
-| `positionerClassName` | `string`                                                                   | —          | 內層 positioner 元素的 class |
+| Prop                    | Type                                                                       | Default                       | 說明                                     |
+| ----------------------- | -------------------------------------------------------------------------- | ----------------------------- | ---------------------------------------- |
+| `side`                  | `'top' \| 'right' \| 'bottom' \| 'left' \| 'inline-start' \| 'inline-end'` | `'top'`                       | 相對於 trigger 的側邊                    |
+| `sideOffset`            | `number`                                                                   | `8`                           | 與 trigger 的距離（px）                  |
+| `align`                 | `'start' \| 'center' \| 'end'`                                             | `'center'`                    | 沿側邊的對齊                             |
+| `alignOffset`           | `number`                                                                   | `0`                           | 沿對齊軸的偏移                           |
+| `arrow`                 | `boolean`                                                                  | `true`                        | 是否渲染箭頭                             |
+| `positionerClassName`   | `string`                                                                   | —                             | 內層 positioner 元素的 class             |
+| `anchor`                | `RefObject \| Element \| …`                                                | —                             | 自訂定位錨點（預設是觸發器）             |
+| `arrowPadding`          | `number`                                                                   | `5`                           | 箭頭與彈出層邊緣的最小距離               |
+| `collisionAvoidance`    | `{ side?, align?, fallbackAxisSide? }`                                     | `{ fallbackAxisSide: 'end' }` | 遇到碰撞時彈出層怎麼翻轉或位移           |
+| `collisionBoundary`     | `'clipping-ancestors' \| Element \| Element[] \| Rect`                     | `'clipping-ancestors'`        | 彈出層要留在裡面的範圍                   |
+| `collisionPadding`      | `number \| { top?, right?, bottom?, left? }`                               | `5`                           | 與碰撞邊界保留的距離                     |
+| `disableAnchorTracking` | `boolean`                                                                  | `false`                       | 不再跟著錨點的版面位移更新位置           |
+| `positionMethod`        | `'absolute' \| 'fixed'`                                                    | `'absolute'`                  | positioner 的 CSS `position`             |
+| `sticky`                | `boolean`                                                                  | `false`                       | 錨點捲出畫面後，彈出層仍留在畫面內       |
+| `portalContainer`       | `HTMLElement \| ShadowRoot \| RefObject \| null`                           | —                             | 自訂 portal 容器（預設 `document.body`） |
+| `keepMounted`           | `boolean`                                                                  | `false`                       | 關閉時仍把彈出層留在 DOM                 |
 
 ### Tooltip 部分 [#tooltip-parts]
 

@@ -1,0 +1,14 @@
+---
+title: Portal container and positioning props on popup content
+---
+
+#### Components
+
+- **Tooltip, Select, Combobox, Autocomplete, Dropdown Menu:** `TooltipContent`, `SelectContent`, `ComboboxContent`, `AutocompleteContent`, `DropdownMenuContent`, and `DropdownMenuSubContent` now take the same portal and positioning props as `PopoverContent`:
+
+  - `portalContainer` renders the popup inside another node, such as a CSS-scoped root, instead of `document.body`.
+  - `anchor` positions the popup against an element other than the trigger.
+  - `collisionBoundary`, `collisionPadding`, `collisionAvoidance`, `positionMethod`, `sticky`, `arrowPadding`, and `disableAnchorTracking` go to the positioner.
+  - `keepMounted` goes to the portal. `SelectContent` doesn't have it, because Base UI's Select portal doesn't accept it.
+
+  All are optional; leaving them out keeps the current behavior. `DropdownMenuSubContent` used to pass `anchor` to the popup element; it now positions the submenu. Reinstall `tooltip`, `select`, `combobox`, `autocomplete`, or `dropdown-menu` to pick this up.

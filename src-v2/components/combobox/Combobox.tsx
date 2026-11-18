@@ -179,7 +179,22 @@ export type ComboboxContentProps = Omit<
 > &
   Pick<
     ComponentPropsWithoutRef<typeof BaseCombobox.Positioner>,
-    'align' | 'alignOffset' | 'side' | 'sideOffset'
+    | 'align'
+    | 'alignOffset'
+    | 'anchor'
+    | 'arrowPadding'
+    | 'collisionAvoidance'
+    | 'collisionBoundary'
+    | 'collisionPadding'
+    | 'disableAnchorTracking'
+    | 'positionMethod'
+    | 'side'
+    | 'sideOffset'
+    | 'sticky'
+  > &
+  Pick<
+    ComponentPropsWithoutRef<typeof BaseCombobox.Portal>,
+    'keepMounted'
   > & {
     children?:
       | ReactNode
@@ -188,27 +203,52 @@ export type ComboboxContentProps = Omit<
         >['children'];
     emptyText?: ReactNode;
     listClassName?: string;
+    /** Custom portal container. Defaults to `document.body`. */
+    portalContainer?: ComponentPropsWithoutRef<
+      typeof BaseCombobox.Portal
+    >['container'];
   };
 
 const Content = function ComboboxContent({
   align = 'start',
   alignOffset,
+  anchor,
+  arrowPadding,
   children,
   className,
+  collisionAvoidance,
+  collisionBoundary,
+  collisionPadding,
+  disableAnchorTracking,
   emptyText,
+  keepMounted,
   listClassName,
+  portalContainer,
+  positionMethod,
   side,
   sideOffset = 4,
+  sticky,
   ref,
   ...props
 }: Omit<ComboboxContentProps, 'ref'> & {
   ref?: Ref<ComponentRef<typeof BaseCombobox.Popup>>;
 }) {
   return (
-    <BaseCombobox.Portal>
+    <BaseCombobox.Portal
+      container={portalContainer}
+      keepMounted={keepMounted}
+    >
       <BaseCombobox.Positioner
         align={align}
         alignOffset={alignOffset}
+        anchor={anchor}
+        arrowPadding={arrowPadding}
+        collisionAvoidance={collisionAvoidance}
+        collisionBoundary={collisionBoundary}
+        collisionPadding={collisionPadding}
+        disableAnchorTracking={disableAnchorTracking}
+        positionMethod={positionMethod}
+        sticky={sticky}
         side={side}
         sideOffset={sideOffset}
         className="z-9999"

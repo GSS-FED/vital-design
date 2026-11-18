@@ -273,4 +273,36 @@ describe('Select', () => {
 
     expect(apple).toHaveAttribute('data-highlighted');
   });
+
+  it('portals content into portalContainer when provided', () => {
+    const portalContainer = document.createElement('div');
+    document.body.appendChild(portalContainer);
+
+    try {
+      render(
+        <Select items={fruitItems} defaultOpen>
+          <SelectTrigger placeholder="Select a fruit" />
+          <SelectContent portalContainer={portalContainer}>
+            {fruitItems.map((item) => (
+              <SelectItem key={item.value} value={item.value}>
+                <SelectItemText>{item.label}</SelectItemText>
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>,
+      );
+
+      expect(
+        queryByAttribute(
+          'data-slot',
+          portalContainer,
+          'select-content',
+        ),
+      ).toContainElement(
+        screen.getByRole('option', { name: 'Apple' }),
+      );
+    } finally {
+      portalContainer.remove();
+    }
+  });
 });

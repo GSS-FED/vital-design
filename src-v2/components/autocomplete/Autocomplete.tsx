@@ -253,8 +253,20 @@ export type AutocompleteContentProps = Omit<
 > &
   Pick<
     AutocompletePositionerProps,
-    'align' | 'alignOffset' | 'side' | 'sideOffset'
-  > & {
+    | 'align'
+    | 'alignOffset'
+    | 'anchor'
+    | 'arrowPadding'
+    | 'collisionAvoidance'
+    | 'collisionBoundary'
+    | 'collisionPadding'
+    | 'disableAnchorTracking'
+    | 'positionMethod'
+    | 'side'
+    | 'sideOffset'
+    | 'sticky'
+  > &
+  Pick<AutocompletePortalProps, 'keepMounted'> & {
     children?:
       | ReactNode
       | ComponentPropsWithoutRef<
@@ -262,29 +274,49 @@ export type AutocompleteContentProps = Omit<
         >['children'];
     emptyText?: ReactNode;
     listClassName?: string;
+    /** Custom portal container. Defaults to `document.body`. */
+    portalContainer?: AutocompletePortalProps['container'];
     positionerClassName?: string;
   };
 
 const Content = function AutocompleteContent({
   align = 'start',
   alignOffset,
+  anchor,
+  arrowPadding,
   children,
   className,
+  collisionAvoidance,
+  collisionBoundary,
+  collisionPadding,
+  disableAnchorTracking,
   emptyText,
+  keepMounted,
   listClassName,
+  portalContainer,
+  positionMethod,
   positionerClassName,
   side,
   sideOffset = 4,
+  sticky,
   ref,
   ...props
 }: Omit<AutocompleteContentProps, 'ref'> & {
   ref?: Ref<ComponentRef<typeof BaseAutocomplete.Popup>>;
 }) {
   return (
-    <Portal>
+    <Portal container={portalContainer} keepMounted={keepMounted}>
       <Positioner
         align={align}
         alignOffset={alignOffset}
+        anchor={anchor}
+        arrowPadding={arrowPadding}
+        collisionAvoidance={collisionAvoidance}
+        collisionBoundary={collisionBoundary}
+        collisionPadding={collisionPadding}
+        disableAnchorTracking={disableAnchorTracking}
+        positionMethod={positionMethod}
+        sticky={sticky}
         side={side}
         sideOffset={sideOffset}
         className={positionerClassName}

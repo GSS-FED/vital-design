@@ -70,8 +70,20 @@ export type DropdownMenuContentProps = ComponentPropsWithoutRef<
 > &
   Pick<
     ComponentPropsWithoutRef<typeof BaseMenu.Positioner>,
-    'align' | 'alignOffset' | 'anchor' | 'side' | 'sideOffset'
-  > & {
+    | 'align'
+    | 'alignOffset'
+    | 'anchor'
+    | 'arrowPadding'
+    | 'collisionAvoidance'
+    | 'collisionBoundary'
+    | 'collisionPadding'
+    | 'disableAnchorTracking'
+    | 'positionMethod'
+    | 'side'
+    | 'sideOffset'
+    | 'sticky'
+  > &
+  Pick<DropdownMenuPortalProps, 'keepMounted'> & {
     positionerClassName?: string;
     /** Custom portal container. Defaults to `document.body`. */
     portalContainer?: DropdownMenuPortalProps['container'];
@@ -81,23 +93,41 @@ const DropdownMenuContent = function DropdownMenuContent({
   align = 'start',
   alignOffset,
   anchor,
+  arrowPadding,
   children,
   className,
+  collisionAvoidance,
+  collisionBoundary,
+  collisionPadding,
+  disableAnchorTracking,
+  keepMounted,
   portalContainer,
+  positionMethod,
   positionerClassName,
   side = 'bottom',
   sideOffset = 4,
+  sticky,
   ref,
   ...props
 }: Omit<DropdownMenuContentProps, 'ref'> & {
   ref?: Ref<ComponentRef<typeof BaseMenu.Popup>>;
 }) {
   return (
-    <BaseMenu.Portal container={portalContainer}>
+    <BaseMenu.Portal
+      container={portalContainer}
+      keepMounted={keepMounted}
+    >
       <BaseMenu.Positioner
         align={align}
         alignOffset={alignOffset}
         anchor={anchor}
+        arrowPadding={arrowPadding}
+        collisionAvoidance={collisionAvoidance}
+        collisionBoundary={collisionBoundary}
+        collisionPadding={collisionPadding}
+        disableAnchorTracking={disableAnchorTracking}
+        positionMethod={positionMethod}
+        sticky={sticky}
         side={side}
         sideOffset={sideOffset}
         className={cn('z-9999', positionerClassName)}
@@ -123,22 +153,42 @@ export type DropdownMenuSubContentProps = DropdownMenuContentProps;
 const DropdownMenuSubContent = function DropdownMenuSubContent({
   align = 'start',
   alignOffset,
+  anchor,
+  arrowPadding,
   children,
   className,
+  collisionAvoidance,
+  collisionBoundary,
+  collisionPadding,
+  disableAnchorTracking,
+  keepMounted,
   portalContainer,
+  positionMethod,
   positionerClassName,
   side = 'right',
   sideOffset = 4,
+  sticky,
   ref,
   ...props
 }: Omit<DropdownMenuSubContentProps, 'ref'> & {
   ref?: Ref<ComponentRef<typeof BaseMenu.Popup>>;
 }) {
   return (
-    <BaseMenu.Portal container={portalContainer}>
+    <BaseMenu.Portal
+      container={portalContainer}
+      keepMounted={keepMounted}
+    >
       <BaseMenu.Positioner
         align={align}
         alignOffset={alignOffset}
+        anchor={anchor}
+        arrowPadding={arrowPadding}
+        collisionAvoidance={collisionAvoidance}
+        collisionBoundary={collisionBoundary}
+        collisionPadding={collisionPadding}
+        disableAnchorTracking={disableAnchorTracking}
+        positionMethod={positionMethod}
+        sticky={sticky}
         side={side}
         sideOffset={sideOffset}
         className={cn('z-9999', positionerClassName)}

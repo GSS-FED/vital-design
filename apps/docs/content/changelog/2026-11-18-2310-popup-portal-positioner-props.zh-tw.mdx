@@ -1,0 +1,14 @@
+---
+title: 彈出內容的 portal 容器與定位 props
+---
+
+#### 元件
+
+- **Tooltip、Select、Combobox、Autocomplete、Dropdown Menu：** `TooltipContent`、`SelectContent`、`ComboboxContent`、`AutocompleteContent`、`DropdownMenuContent` 與 `DropdownMenuSubContent` 現在和 `PopoverContent` 接受同一組 portal 與定位 props：
+
+  - `portalContainer` 把彈出層放進別的節點（例如 CSS scope 根節點），而不是 `document.body`。
+  - `anchor` 讓彈出層對齊觸發器以外的元素。
+  - `collisionBoundary`、`collisionPadding`、`collisionAvoidance`、`positionMethod`、`sticky`、`arrowPadding`、`disableAnchorTracking` 轉給 positioner。
+  - `keepMounted` 轉給 portal。`SelectContent` 沒有這個 prop，因為 Base UI 的 Select portal 不接受。
+
+  全部都是選填，不傳時行為和現在一樣。`DropdownMenuSubContent` 以前會把 `anchor` 傳到 popup 元素上，現在改用來定位子選單。重新安裝 `tooltip`、`select`、`combobox`、`autocomplete` 或 `dropdown-menu` 即可套用。

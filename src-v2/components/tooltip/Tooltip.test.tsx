@@ -132,4 +132,35 @@ describe('Tooltip', () => {
 
     expect(content).toHaveAttribute('data-side', 'bottom');
   });
+
+  it('keeps the closed tooltip mounted inside portalContainer', () => {
+    const portalContainer = document.createElement('div');
+    document.body.appendChild(portalContainer);
+
+    try {
+      render(
+        <TooltipProvider delay={0}>
+          <Tooltip>
+            <TooltipTrigger render={<Button>Trigger</Button>} />
+            <TooltipContent
+              keepMounted
+              portalContainer={portalContainer}
+            >
+              Scoped tip
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>,
+      );
+
+      expect(
+        queryByAttribute(
+          'data-slot',
+          portalContainer,
+          'tooltip-content',
+        ),
+      ).toContainElement(screen.getByText('Scoped tip'));
+    } finally {
+      portalContainer.remove();
+    }
+  });
 });
