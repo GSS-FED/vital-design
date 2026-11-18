@@ -10,6 +10,7 @@ import './fixtures/fixtures.css';
 declare module 'vitest/browser' {
   interface BrowserCommands {
     blockExternalRequests: () => Promise<void>;
+    resetPointer: () => Promise<void>;
   }
 }
 
@@ -25,7 +26,8 @@ beforeAll(() => commands.blockExternalRequests());
 // A fixed "now" keeps relative dates stable. Only Date is faked: real
 // timers let delayed UI (e.g. AvatarFallback delay) settle before the
 // screenshot stabilizes.
-beforeEach(() => {
+beforeEach(async () => {
+  await commands.resetPointer();
   vi.useFakeTimers({
     now: new Date('2026-01-01T00:00:00Z'),
     toFake: ['Date'],

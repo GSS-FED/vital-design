@@ -86,6 +86,12 @@ export default defineConfig({
               },
             ],
             commands: {
+              // Interaction tests leave the mouse wherever they last
+              // clicked or hovered; screenshots render at the same spot, so
+              // the next test could capture a hovered control.
+              async resetPointer({ page }) {
+                await page.mouse.move(0, 0);
+              },
               async blockExternalRequests({ context }) {
                 await context.route(
                   (url) =>
