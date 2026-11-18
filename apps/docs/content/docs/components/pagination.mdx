@@ -3,12 +3,17 @@ title: Pagination
 description: Composable page navigation with page links, first and last controls, and ellipsis.
 ---
 
-import { PaginationMorePagesPreview } from '~/components/previews/PaginationMorePagesPreview';
-import { PaginationPreview } from '~/components/previews/PaginationPreview';
+import { PaginationExample } from '@/components/pagination/examples/PaginationExample';
+import { PaginationLinksExample } from '@/components/pagination/examples/PaginationLinksExample';
+import { PaginationMorePagesExample } from '@/components/pagination/examples/PaginationMorePagesExample';
+import { PaginationStatesExample } from '@/components/pagination/examples/PaginationStatesExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Preview
 
-<PaginationPreview />
+<ComponentPreview name="PaginationExample">
+  <PaginationExample />
+</ComponentPreview>
 
 ## Installation
 
@@ -24,76 +29,13 @@ The registry also installs the theme, utilities, and the five icons used by Pagi
 
 Compose a navigation landmark, a list, and a list item for each control. `PaginationLink` renders an anchor by default. Set `isActive` on the current page to add `aria-current="page"`.
 
-```tsx
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/Pagination';
-
-<Pagination>
-  <PaginationContent>
-    <PaginationItem>
-      <PaginationPrevious href="?page=1" />
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationLink href="?page=1">1</PaginationLink>
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationLink href="?page=2" isActive>
-        2
-      </PaginationLink>
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationLink href="?page=3">3</PaginationLink>
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationNext href="?page=3" />
-    </PaginationItem>
-  </PaginationContent>
-</Pagination>;
-```
+<ComponentPreview name="PaginationLinksExample">
+  <PaginationLinksExample />
+</ComponentPreview>
 
 ## Client-side Pagination
 
-For in-place updates, use `render` to compose a native button and keep the current page in your own state. Buttons retain their native Enter and Space behaviour. The basic preview above uses this pattern.
-
-```tsx
-'use client';
-
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-} from '@/components/ui/Pagination';
-import { useState } from 'react';
-
-function Example() {
-  const [page, setPage] = useState(1);
-
-  return (
-    <Pagination>
-      <PaginationContent>
-        {[1, 2, 3].map((value) => (
-          <PaginationItem key={value}>
-            <PaginationLink
-              render={<button type="button" />}
-              isActive={page === value}
-              onClick={() => setPage(value)}
-            >
-              {value}
-            </PaginationLink>
-          </PaginationItem>
-        ))}
-      </PaginationContent>
-    </Pagination>
-  );
-}
-```
+For in-place updates, use `render` to compose a native button and keep the current page in your own state. Buttons retain their native Enter and Space behaviour. The preview at the top uses this pattern; its Code tab shows the full example.
 
 Pagination does not calculate page ranges, load data, or own a current-page state. Keep the page count, visible page numbers, and data updates together in the consuming screen.
 
@@ -101,7 +43,9 @@ Pagination does not calculate page ranges, load data, or own a current-page stat
 
 Use `PaginationEllipsis` for gaps in the visible range. Pass the hidden page numbers and `onPageSelect`. It renders the same button as the other page controls and opens a menu of those pages. This example keeps the current group of five pages visible. Choosing a page inside that group does not move the group. When ellipses appear on both sides, the first and last page numbers stay in those menus; the icon buttons still jump to those pages. Three-digit page numbers expand to fit.
 
-<PaginationMorePagesPreview />
+<ComponentPreview name="PaginationMorePagesExample">
+  <PaginationMorePagesExample />
+</ComponentPreview>
 
 The preview's Code tab includes its page-range calculation. The calculation stays outside the Pagination primitive.
 
@@ -127,6 +71,14 @@ The preview's Code tab includes its page-range calculation. The calculation stay
 ```
 
 Use `disabled` to block click and middle-click activation and remove a control from the tab order. A disabled default anchor also loses its `href` and retains its link semantics with `aria-disabled`. Setting only `aria-disabled` forwards that attribute without blocking activation.
+
+## States
+
+With a single page, every directional control is disabled. In a right-to-left layout, the directional icons mirror.
+
+<ComponentPreview name="PaginationStatesExample">
+  <PaginationStatesExample />
+</ComponentPreview>
 
 ## Labels and Router Links
 

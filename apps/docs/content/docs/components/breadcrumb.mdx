@@ -3,124 +3,19 @@ title: Breadcrumb
 description: A trail of links that shows where the current page sits in the site hierarchy.
 ---
 
+import { BreadcrumbCollapsedExample } from '@/components/breadcrumb/examples/BreadcrumbCollapsedExample';
+import { BreadcrumbDropdownExample } from '@/components/breadcrumb/examples/BreadcrumbDropdownExample';
+import { BreadcrumbExample } from '@/components/breadcrumb/examples/BreadcrumbExample';
+import { BreadcrumbSizesExample } from '@/components/breadcrumb/examples/BreadcrumbSizesExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import {
-  Breadcrumb,
-  BreadcrumbEllipsis,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '~/components/vital-components';
 
 ## Preview
 
-<ComponentPreview>
-  <Breadcrumb>
-    <BreadcrumbList>
-      <BreadcrumbItem>
-        <BreadcrumbLink href="#projects">Projects</BreadcrumbLink>
-      </BreadcrumbItem>
-      <BreadcrumbSeparator />
-      <BreadcrumbItem>
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            render={
-              <BreadcrumbLink
-                render={<button type="button" />}
-                aria-label="Show hidden pages"
-                className="inline-flex items-center data-[popup-open]:text-primary-400"
-              />
-            }
-          >
-            <BreadcrumbEllipsis className="text-inherit" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" sideOffset={10}>
-            <DropdownMenuItem render={<a href="#website" />}>
-              Website
-            </DropdownMenuItem>
-            <DropdownMenuItem render={<a href="#analytics" />}>
-              Analytics
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </BreadcrumbItem>
-      <BreadcrumbSeparator />
-      <BreadcrumbItem>
-        <BreadcrumbLink href="#reports">Reports</BreadcrumbLink>
-      </BreadcrumbItem>
-      <BreadcrumbSeparator />
-      <BreadcrumbItem>
-        <BreadcrumbPage>Settings</BreadcrumbPage>
-      </BreadcrumbItem>
-    </BreadcrumbList>
-  </Breadcrumb>
+<ComponentPreview name="BreadcrumbExample">
+  <BreadcrumbExample />
 </ComponentPreview>
 
 ## Usage
-
-```tsx
-import {
-  Breadcrumb,
-  BreadcrumbEllipsis,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/Breadcrumb';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/DropdownMenu';
-
-<Breadcrumb>
-  <BreadcrumbList>
-    <BreadcrumbItem>
-      <BreadcrumbLink href="/projects">Projects</BreadcrumbLink>
-    </BreadcrumbItem>
-    <BreadcrumbSeparator />
-    <BreadcrumbItem>
-      <DropdownMenu>
-        <DropdownMenuTrigger
-          render={
-            <BreadcrumbLink
-              render={<button type="button" />}
-              aria-label="Show hidden pages"
-              className="inline-flex items-center data-[popup-open]:text-primary-400"
-            />
-          }
-        >
-          <BreadcrumbEllipsis className="text-inherit" />
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="start" sideOffset={10}>
-          <DropdownMenuItem render={<a href="/projects/website" />}>
-            Website
-          </DropdownMenuItem>
-          <DropdownMenuItem render={<a href="/projects/analytics" />}>
-            Analytics
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </BreadcrumbItem>
-    <BreadcrumbSeparator />
-    <BreadcrumbItem>
-      <BreadcrumbLink href="/projects/reports">Reports</BreadcrumbLink>
-    </BreadcrumbItem>
-    <BreadcrumbSeparator />
-    <BreadcrumbItem>
-      <BreadcrumbPage>Settings</BreadcrumbPage>
-    </BreadcrumbItem>
-  </BreadcrumbList>
-</Breadcrumb>;
-```
 
 Use `BreadcrumbPage` for the current page. It is not a link and sets `aria-current="page"`.
 
@@ -142,60 +37,17 @@ import { Link } from 'react-router-dom';
 
 Set `size` on `BreadcrumbList`. The default is `sm`.
 
-<ComponentPreview>
-  <div className="flex flex-col gap-6">
-    <Breadcrumb>
-      <BreadcrumbList size="lg">
-        <BreadcrumbItem>
-          <BreadcrumbLink href="#">Projects</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage>Settings</BreadcrumbPage>
-        </BreadcrumbItem>
-      </BreadcrumbList>
-    </Breadcrumb>
-    <Breadcrumb>
-      <BreadcrumbList size="sm">
-        <BreadcrumbItem>
-          <BreadcrumbLink href="#">Projects</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage>Settings</BreadcrumbPage>
-        </BreadcrumbItem>
-      </BreadcrumbList>
-    </Breadcrumb>
-  </div>
+<ComponentPreview name="BreadcrumbSizesExample">
+  <BreadcrumbSizesExample />
 </ComponentPreview>
 
 ## Collapsed Items
 
 Use `BreadcrumbEllipsis` in place of the levels you hide on a deep path.
 
-<ComponentPreview>
-  <Breadcrumb>
-    <BreadcrumbList>
-      <BreadcrumbItem>
-        <BreadcrumbLink href="#">Projects</BreadcrumbLink>
-      </BreadcrumbItem>
-      <BreadcrumbSeparator />
-      <BreadcrumbItem>
-        <BreadcrumbEllipsis />
-      </BreadcrumbItem>
-      <BreadcrumbSeparator />
-      <BreadcrumbItem>
-        <BreadcrumbPage>Settings</BreadcrumbPage>
-      </BreadcrumbItem>
-    </BreadcrumbList>
-  </Breadcrumb>
+<ComponentPreview name="BreadcrumbCollapsedExample">
+  <BreadcrumbCollapsedExample />
 </ComponentPreview>
-
-```tsx
-<BreadcrumbItem>
-  <BreadcrumbEllipsis />
-</BreadcrumbItem>
-```
 
 ## Dropdown
 
@@ -203,80 +55,20 @@ Put `BreadcrumbEllipsis` inside a [`DropdownMenu`](/docs/components/dropdown-men
 
 Render the trigger as a `BreadcrumbLink` with `render={<button type="button" />}`, so it keeps the link's color, hover, and focus styles. `BreadcrumbEllipsis` only announces "More", so give the trigger a name that says what it opens. Render each hidden level as a link.
 
-<ComponentPreview>
-  <Breadcrumb>
-    <BreadcrumbList>
-      <BreadcrumbItem>
-        <BreadcrumbLink href="#projects">Projects</BreadcrumbLink>
-      </BreadcrumbItem>
-      <BreadcrumbSeparator />
-      <BreadcrumbItem>
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            render={
-              <BreadcrumbLink
-                render={<button type="button" />}
-                aria-label="Show hidden pages"
-                className="inline-flex items-center data-[popup-open]:text-primary-400"
-              />
-            }
-          >
-            <BreadcrumbEllipsis className="text-inherit" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" sideOffset={10}>
-            <DropdownMenuItem render={<a href="#website" />}>
-              Website
-            </DropdownMenuItem>
-            <DropdownMenuItem render={<a href="#analytics" />}>
-              Analytics
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </BreadcrumbItem>
-      <BreadcrumbSeparator />
-      <BreadcrumbItem>
-        <BreadcrumbPage>Settings</BreadcrumbPage>
-      </BreadcrumbItem>
-    </BreadcrumbList>
-  </Breadcrumb>
+<ComponentPreview name="BreadcrumbDropdownExample">
+  <BreadcrumbDropdownExample />
 </ComponentPreview>
-
-```tsx
-<BreadcrumbItem>
-  <DropdownMenu>
-    <DropdownMenuTrigger
-      render={
-        <BreadcrumbLink
-          render={<button type="button" />}
-          aria-label="Show hidden pages"
-          className="inline-flex items-center data-[popup-open]:text-primary-400"
-        />
-      }
-    >
-      <BreadcrumbEllipsis className="text-inherit" />
-    </DropdownMenuTrigger>
-    <DropdownMenuContent align="start" sideOffset={10}>
-      <DropdownMenuItem render={<a href="/projects/website" />}>
-        Website
-      </DropdownMenuItem>
-      <DropdownMenuItem render={<a href="/projects/analytics" />}>
-        Analytics
-      </DropdownMenuItem>
-    </DropdownMenuContent>
-  </DropdownMenu>
-</BreadcrumbItem>
-```
 
 ## Parts
 
-| Part                  | Element | Description                                                        |
-| --------------------- | ------- | ------------------------------------------------------------------ |
-| `Breadcrumb`          | `nav`   | Navigation landmark. `aria-label` defaults to `breadcrumb`         |
-| `BreadcrumbList`      | `ol`    | Ordered list of levels. Takes `size`: `'sm'` (default) or `'lg'`   |
-| `BreadcrumbItem`      | `li`    | One level                                                          |
-| `BreadcrumbLink`      | `a`     | Link to a parent level. Takes `render` for router links            |
-| `BreadcrumbPage`      | `span`  | Current page, with `aria-current="page"`                           |
-| `BreadcrumbSeparator` | `li`    | Divider between levels. Pass `children` to replace the chevron     |
+| Part                  | Element | Description                                                                                                       |
+| --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
+| `Breadcrumb`          | `nav`   | Navigation landmark. `aria-label` defaults to `breadcrumb`                                                        |
+| `BreadcrumbList`      | `ol`    | Ordered list of levels. Takes `size`: `'sm'` (default) or `'lg'`                                                  |
+| `BreadcrumbItem`      | `li`    | One level                                                                                                         |
+| `BreadcrumbLink`      | `a`     | Link to a parent level. Takes `render` for router links                                                           |
+| `BreadcrumbPage`      | `span`  | Current page, with `aria-current="page"`                                                                          |
+| `BreadcrumbSeparator` | `li`    | Divider between levels. Pass `children` to replace the chevron                                                    |
 | `BreadcrumbEllipsis`  | `span`  | Marks hidden levels. Pass `children` to replace the icon. Put it in a `DropdownMenu` trigger to open those levels |
 
 Each part also accepts the props of its element.

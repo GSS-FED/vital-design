@@ -3,111 +3,48 @@ title: Button
 description: Trigger actions with default, text, and ghost variants, multiple themes, and icon support.
 ---
 
-import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
+import { ButtonDefaultButtonExample } from '@/components/button/examples/ButtonDefaultButtonExample';
+import { ButtonExample } from '@/components/button/examples/ButtonExample';
+import { ButtonGhostButtonExample } from '@/components/button/examples/ButtonGhostButtonExample';
+import { ButtonIconOnlyExample } from '@/components/button/examples/ButtonIconOnlyExample';
+import { ButtonLinkExample } from '@/components/button/examples/ButtonLinkExample';
+import { ButtonLoadingWithSpinnerExample } from '@/components/button/examples/ButtonLoadingWithSpinnerExample';
+import { ButtonSizesExample } from '@/components/button/examples/ButtonSizesExample';
+import { ButtonStatesExample } from '@/components/button/examples/ButtonStatesExample';
+import { ButtonTextButtonExample } from '@/components/button/examples/ButtonTextButtonExample';
+import { ButtonWithIconsExample } from '@/components/button/examples/ButtonWithIconsExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import {
-  Button,
-  LinkButton,
-  Spinner,
-} from '~/components/vital-components';
 
 ## Preview
 
-<ComponentPreview>
-  <Button theme="primary" size="lg">
-    Primary
-  </Button>
-  <Button theme="default" size="lg">
-    Default
-  </Button>
-  <Button theme="success" size="lg">
-    Success
-  </Button>
-  <Button theme="alarm" size="lg">
-    Alarm
-  </Button>
+<ComponentPreview name="ButtonExample">
+  <ButtonExample />
 </ComponentPreview>
 
 ## Usage
 
-```tsx
-import { Button } from '@/components/ui/Button';
-
-<Button theme="primary" size="lg">
-  Click me
-</Button>;
-```
+Pick a `variant` for the emphasis and a `theme` for the color. Put icons and
+spinners in as children; the label sizes are `md` and `lg`.
 
 ## Variants
 
 ### Default
 
 The `default` variant renders a solid background button. It is the
-default rendering style.
+default rendering style. Each column shows one theme at `lg` and `md`,
+enabled and disabled.
 
-<ComponentPreview>
-  <Button variant="default" theme="primary">
-    Primary
-  </Button>
-  <Button variant="default" theme="default">
-    Default
-  </Button>
-  <Button variant="default" theme="success">
-    Success
-  </Button>
-  <Button variant="default" theme="info">
-    Info
-  </Button>
-  <Button variant="default" theme="warning">
-    Warning
-  </Button>
-  <Button variant="default" theme="alarm">
-    Alarm
-  </Button>
-  <Button variant="default" theme="dangerous">
-    Dangerous
-  </Button>
+<ComponentPreview name="ButtonDefaultButtonExample">
+  <ButtonDefaultButtonExample />
 </ComponentPreview>
-
-```tsx
-<Button variant="default" theme="primary">Primary</Button>
-<Button variant="default" theme="default">Default</Button>
-<Button variant="default" theme="success">Success</Button>
-<Button variant="default" theme="info">Info</Button>
-<Button variant="default" theme="warning">Warning</Button>
-<Button variant="default" theme="alarm">Alarm</Button>
-<Button variant="default" theme="dangerous">Dangerous</Button>
-```
 
 ### Text
 
 The `text` variant renders a transparent background button. Available for all themes except `dangerous`.
 
-<ComponentPreview>
-  <Button variant="text" theme="primary">
-    Primary
-  </Button>
-  <Button variant="text" theme="default">
-    Default
-  </Button>
-  <Button variant="text" theme="success">
-    Success
-  </Button>
-  <Button variant="text" theme="info">
-    Info
-  </Button>
-  <Button variant="text" theme="warning">
-    Warning
-  </Button>
-  <Button variant="text" theme="alarm">
-    Alarm
-  </Button>
+<ComponentPreview name="ButtonTextButtonExample">
+  <ButtonTextButtonExample />
 </ComponentPreview>
-
-```tsx
-<Button variant="text" theme="primary">Primary</Button>
-<Button variant="text" theme="default">Default</Button>
-```
 
 ### Ghost
 
@@ -115,108 +52,50 @@ The `ghost` variant renders a transparent button that surfaces a
 background on hover. Use it inside popovers, toolbars, and split-button
 menus where the surrounding chrome provides the affordance.
 
-<ComponentPreview>
-  <Button variant="ghost" theme="primary">
-    Primary
-  </Button>
-  <Button variant="ghost" theme="default">
-    Default
-  </Button>
+<ComponentPreview name="ButtonGhostButtonExample">
+  <ButtonGhostButtonExample />
 </ComponentPreview>
-
-```tsx
-<Button variant="ghost" theme="default">
-  Default
-</Button>
-```
 
 ### Sizes
 
-<ComponentPreview>
-  <Button theme="primary" size="md">
-    Medium
-  </Button>
-  <Button theme="primary" size="lg">
-    Large
-  </Button>
-  <Button theme="primary" size="icon-md" aria-label="Search">
-    <MagnifyingGlassIcon data-icon="inline-start" />
-  </Button>
+<ComponentPreview name="ButtonSizesExample">
+  <ButtonSizesExample />
 </ComponentPreview>
-
-```tsx
-<Button size="md">Medium</Button>
-<Button size="lg">Large</Button>
-<Button size="icon-md" aria-label="Search">
-  <MagnifyingGlassIcon data-icon="inline-start" />
-</Button>
-```
 
 ### Icons
 
-Use `data-icon="inline-start"` or `data-icon="inline-end"` on child icons. For icon-only buttons, use `size="icon-md"` or `size="icon-lg"`.
+Use `data-icon="inline-start"` or `data-icon="inline-end"` on child icons.
 Install or import the icon or spinner separately from the button.
 
-<ComponentPreview>
-  <Button theme="primary" size="lg">
-    <MagnifyingGlassIcon data-icon="inline-start" />
-    Search
-  </Button>
-  <Button theme="default" size="lg">
-    Search
-    <MagnifyingGlassIcon data-icon="inline-end" />
-  </Button>
+<ComponentPreview name="ButtonWithIconsExample">
+  <ButtonWithIconsExample />
 </ComponentPreview>
 
-```tsx
-<Button theme="primary">
-  <MagnifyingGlassIcon data-icon="inline-start" />
-  Search
-</Button>
-<Button theme="default">
-  Search
-  <MagnifyingGlassIcon data-icon="inline-end" />
-</Button>
-```
+### Icon Only
+
+For icon-only buttons, use `size="icon-md"` or `size="icon-lg"` and give the
+button an `aria-label`.
+
+<ComponentPreview name="ButtonIconOnlyExample">
+  <ButtonIconOnlyExample />
+</ComponentPreview>
 
 ### Loading State
 
 Render a spinner as a child icon and disable the button while work is in flight.
 
-<ComponentPreview>
-  <Button theme="primary" size="lg" disabled>
-    <Spinner data-icon="inline-start" />
-    Saving
-  </Button>
-  <Button theme="default" size="lg" disabled>
-    Loading
-    <Spinner data-icon="inline-end" />
-  </Button>
+<ComponentPreview name="ButtonLoadingWithSpinnerExample">
+  <ButtonLoadingWithSpinnerExample />
 </ComponentPreview>
 
-```tsx
-<Button theme="primary" disabled>
-  <Spinner data-icon="inline-start" />
-  Saving
-</Button>
-```
+### States
 
-### Disabled
+Disable a button with `disabled`. Add `focusableWhenDisabled` to keep it in the
+tab order, for example when a tooltip explains why it is disabled.
 
-<ComponentPreview>
-  <Button theme="primary" size="lg" disabled>
-    Disabled
-  </Button>
-  <Button variant="text" theme="primary" size="lg" disabled>
-    Disabled
-  </Button>
+<ComponentPreview name="ButtonStatesExample">
+  <ButtonStatesExample />
 </ComponentPreview>
-
-```tsx
-<Button theme="primary" disabled>
-  Disabled
-</Button>
-```
 
 ### Link
 
@@ -227,26 +106,17 @@ screen readers announce it as a link and `getByRole('link')` finds it.
 Do not use `<Button nativeButton={false} render={<a />}>` for links: Base UI
 adds `role="button"` to every non-`<button>` element.
 
-<ComponentPreview>
-  <LinkButton href="#link" size="lg">
-    Log in
-  </LinkButton>
-  <LinkButton href="#link" theme="default" size="lg">
-    Docs
-  </LinkButton>
-  <LinkButton href="#link" variant="text" theme="primary" size="lg">
-    Learn more
-  </LinkButton>
+<ComponentPreview name="ButtonLinkExample">
+  <ButtonLinkExample />
 </ComponentPreview>
+
+For router links, pass the link element through `render`:
 
 ```tsx
 import { LinkButton } from '@/components/ui/Button';
 import Link from 'next/link';
 
-<LinkButton href="/login">Log in</LinkButton>
-
-// Router links: pass the link element through `render`
-<LinkButton render={<Link href="/login" />}>Log in</LinkButton>
+<LinkButton render={<Link href="/login" />}>Log in</LinkButton>;
 ```
 
 ## Props

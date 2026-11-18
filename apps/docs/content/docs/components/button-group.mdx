@@ -3,125 +3,49 @@ title: ButtonGroup
 description: A composable layout primitive for grouped button controls.
 ---
 
+import { ButtonGroupExample } from '@/components/button/button-group/examples/ButtonGroupExample';
+import { ButtonGroupNestedExample } from '@/components/button/button-group/examples/ButtonGroupNestedExample';
+import { ButtonGroupVerticalExample } from '@/components/button/button-group/examples/ButtonGroupVerticalExample';
+import { ButtonGroupWithSeparatorExample } from '@/components/button/button-group/examples/ButtonGroupWithSeparatorExample';
+import { ButtonGroupWithTextExample } from '@/components/button/button-group/examples/ButtonGroupWithTextExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import {
-  Button,
-  ButtonGroup,
-  ButtonGroupSeparator,
-  ButtonGroupText,
-} from '~/components/vital-components';
 
 ## Preview
 
-<ComponentPreview>
-  <ButtonGroup>
-    <Button theme="default">Save</Button>
-    <Button theme="default">More</Button>
-  </ButtonGroup>
+<ComponentPreview name="ButtonGroupExample">
+  <ButtonGroupExample />
 </ComponentPreview>
 
 ## Usage
 
-```tsx
-import { Button } from '@/components/ui/Button';
-import { ButtonGroup } from '@/components/ui/ButtonGroup';
-
-<ButtonGroup>
-  <Button theme="default">Save</Button>
-  <Button theme="default">More</Button>
-</ButtonGroup>;
-```
+Wrap `Button`s in `ButtonGroup` to join them into one control. The group only
+handles layout; each button keeps its own `variant`, `theme`, and `size`.
 
 ## With Separator
 
-<ComponentPreview>
-  <ButtonGroup>
-    <Button theme="default">Archive</Button>
-    <ButtonGroupSeparator />
-    <Button theme="default">Snooze</Button>
-  </ButtonGroup>
+<ComponentPreview name="ButtonGroupWithSeparatorExample">
+  <ButtonGroupWithSeparatorExample />
 </ComponentPreview>
-
-```tsx
-import { Button } from '@/components/ui/Button';
-import {
-  ButtonGroup,
-  ButtonGroupSeparator,
-} from '@/components/ui/ButtonGroup';
-
-<ButtonGroup>
-  <Button theme="default">Archive</Button>
-  <ButtonGroupSeparator />
-  <Button theme="default">Snooze</Button>
-</ButtonGroup>;
-```
 
 ## With Text
 
-<ComponentPreview>
-  <ButtonGroup>
-    <ButtonGroupText>Status</ButtonGroupText>
-    <Button theme="default">Publish</Button>
-  </ButtonGroup>
+<ComponentPreview name="ButtonGroupWithTextExample">
+  <ButtonGroupWithTextExample />
 </ComponentPreview>
-
-```tsx
-import {
-  ButtonGroup,
-  ButtonGroupText,
-} from '@/components/ui/ButtonGroup';
-
-<ButtonGroup>
-  <ButtonGroupText>Status</ButtonGroupText>
-  <Button theme="default">Publish</Button>
-</ButtonGroup>;
-```
 
 ## Vertical
 
-<ComponentPreview>
-  <ButtonGroup orientation="vertical" className="w-[160px]">
-    <Button theme="default">Action A</Button>
-    <Button theme="default">Action B</Button>
-  </ButtonGroup>
+<ComponentPreview name="ButtonGroupVerticalExample">
+  <ButtonGroupVerticalExample />
 </ComponentPreview>
-
-```tsx
-import { Button } from '@/components/ui/Button';
-import { ButtonGroup } from '@/components/ui/ButtonGroup';
-
-<ButtonGroup orientation="vertical" className="w-[160px]">
-  <Button theme="default">Action A</Button>
-  <Button theme="default">Action B</Button>
-</ButtonGroup>;
-```
 
 ## Nested
 
 A nested group stays joined inside, and is spaced apart from its siblings.
 
-<ComponentPreview>
-  <ButtonGroup>
-    <ButtonGroup>
-      <Button theme="default">Back</Button>
-      <Button theme="default">Next</Button>
-    </ButtonGroup>
-    <Button theme="default">Submit</Button>
-  </ButtonGroup>
+<ComponentPreview name="ButtonGroupNestedExample">
+  <ButtonGroupNestedExample />
 </ComponentPreview>
-
-```tsx
-import { Button } from '@/components/ui/Button';
-import { ButtonGroup } from '@/components/ui/ButtonGroup';
-
-<ButtonGroup>
-  <ButtonGroup>
-    <Button theme="default">Back</Button>
-    <Button theme="default">Next</Button>
-  </ButtonGroup>
-  <Button theme="default">Submit</Button>
-</ButtonGroup>;
-```
 
 ## Props
 

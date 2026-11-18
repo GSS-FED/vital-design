@@ -3,115 +3,67 @@ title: Tabs
 description: 用底線或膠囊頁籤，在相關面板之間切換。
 ---
 
-import {
-  TabsBorderedPreview,
-  TabsPillPreview,
-  TabsPreview,
-  TabsSlidingIndicatorPreview,
-  TabsVerticalPreview,
-} from '~/components/previews/TabsPreview';
+import { TabsBorderedExample } from '@/components/tabs/examples/TabsBorderedExample';
+import { TabsExample } from '@/components/tabs/examples/TabsExample';
+import { TabsPillExample } from '@/components/tabs/examples/TabsPillExample';
+import { TabsSlidingIndicatorExample } from '@/components/tabs/examples/TabsSlidingIndicatorExample';
+import { TabsVerticalBorderedExample } from '@/components/tabs/examples/TabsVerticalBorderedExample';
+import { TabsWithBadgesExample } from '@/components/tabs/examples/TabsWithBadgesExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<TabsPreview />
+<ComponentPreview name="TabsExample" align="start">
+  <TabsExample />
+</ComponentPreview>
 
 ## 用法 [#usage]
 
 作用中的底線畫在每個 trigger 上，並從寬度 0 長出來，所以不用額外元素。
 
-```tsx
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/Tabs';
-
-<Tabs defaultValue="overview">
-  <TabsList>
-    <TabsTrigger value="overview">Overview</TabsTrigger>
-    <TabsTrigger value="activity">Activity</TabsTrigger>
-    <TabsTrigger value="settings">Settings</TabsTrigger>
-  </TabsList>
-  <TabsContent value="overview">Overview content</TabsContent>
-  <TabsContent value="activity">Activity content</TabsContent>
-  <TabsContent value="settings">Settings content</TabsContent>
-</Tabs>;
-```
-
 ## 框線 [#bordered]
-
-<TabsBorderedPreview />
 
 底線頁籤需要一條軌道框線時，在 `TabsList` 上加 `bordered`。
 
-```tsx
-<Tabs defaultValue="overview">
-  <TabsList bordered>
-    <TabsTrigger value="overview">Overview</TabsTrigger>
-    <TabsTrigger value="activity">Activity</TabsTrigger>
-  </TabsList>
-</Tabs>
-```
+<ComponentPreview name="TabsBorderedExample" align="start">
+  <TabsBorderedExample />
+</ComponentPreview>
 
 ## 滑動指示器 [#sliding-indicator]
 
-<TabsSlidingIndicatorPreview />
-
 預設時，作用中的底線會在每個頁籤下方從寬度 0 長出。若要改成單一根橫條在頁籤之間滑動，把 `TabsIndicator` 放進 `TabsList`。加上它之後，每個頁籤各自長出的高亮會關掉。
 
-```tsx
-import {
-  Tabs,
-  TabsIndicator,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/Tabs';
+<ComponentPreview name="TabsSlidingIndicatorExample" align="start">
+  <TabsSlidingIndicatorExample />
+</ComponentPreview>
 
-<Tabs defaultValue="overview">
-  <TabsList bordered>
-    <TabsTrigger value="overview">Overview</TabsTrigger>
-    <TabsTrigger value="activity">Activity</TabsTrigger>
-    <TabsIndicator />
-  </TabsList>
-</Tabs>;
-```
+## 加上徽章 [#with-badges]
+
+在文字後面放 `Badge`，顯示數量或狀態圓點。
+
+<ComponentPreview name="TabsWithBadgesExample" align="start">
+  <TabsWithBadgesExample />
+</ComponentPreview>
 
 ## 膠囊 [#pill]
 
-<TabsPillPreview />
-
-```tsx
-<Tabs defaultValue="overview" variant="pill">
-  <TabsList>
-    <TabsTrigger value="overview">Overview</TabsTrigger>
-    <TabsTrigger value="activity">Activity</TabsTrigger>
-  </TabsList>
-</Tabs>
-```
+<ComponentPreview name="TabsPillExample" align="start">
+  <TabsPillExample />
+</ComponentPreview>
 
 ## 垂直 [#vertical]
 
-<TabsVerticalPreview />
-
-```tsx
-<Tabs defaultValue="overview" orientation="vertical">
-  <TabsList bordered>
-    <TabsTrigger value="overview">Overview</TabsTrigger>
-    <TabsTrigger value="activity">Activity</TabsTrigger>
-  </TabsList>
-  <TabsContent value="overview">Overview content</TabsContent>
-  <TabsContent value="activity">Activity content</TabsContent>
-</Tabs>
-```
+<ComponentPreview name="TabsVerticalBorderedExample" align="start">
+  <TabsVerticalBorderedExample />
+</ComponentPreview>
 
 ## 屬性 [#props]
 
-| Part            | Prop          | Type                         | Default        | 說明                                           |
-| --------------- | ------------- | ---------------------------- | -------------- | ---------------------------------------------- |
-| `Tabs`          | `variant`     | `'underline' \| 'pill'`      | `'underline'`  | 頁籤 trigger 的視覺樣式                        |
-| `Tabs`          | `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | 排列方向，來自 Base UI Tabs                    |
-| `TabsList`      | `bordered`    | `boolean`                    | `false`        | 加上底線軌道的框線                             |
-| `TabsTrigger`   | `value`       | `string`                     | —              | 對應頁籤面板的值                               |
-| `TabsContent`   | `value`       | `string`                     | —              | 對應頁籤 trigger 的面板值                      |
-| `TabsIndicator` | —             | —                            | —              | 可選的滑動底線；會關掉每個頁籤各自長出的高亮   |
+| Part            | Prop          | Type                         | Default        | 說明                                         |
+| --------------- | ------------- | ---------------------------- | -------------- | -------------------------------------------- |
+| `Tabs`          | `variant`     | `'underline' \| 'pill'`      | `'underline'`  | 頁籤 trigger 的視覺樣式                      |
+| `Tabs`          | `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | 排列方向，來自 Base UI Tabs                  |
+| `TabsList`      | `bordered`    | `boolean`                    | `false`        | 加上底線軌道的框線                           |
+| `TabsTrigger`   | `value`       | `string`                     | —              | 對應頁籤面板的值                             |
+| `TabsContent`   | `value`       | `string`                     | —              | 對應頁籤 trigger 的面板值                    |
+| `TabsIndicator` | —             | —                            | —              | 可選的滑動底線；會關掉每個頁籤各自長出的高亮 |
