@@ -3,8 +3,10 @@ title: Popover
 description: 錨在觸發元素上的浮動面板，用來放內容較豐富的提示、個人資料卡與情境覆蓋層。
 ---
 
+import { PopoverAnchorExample } from '@/components/popover/examples/PopoverAnchorExample';
 import { PopoverExample } from '@/components/popover/examples/PopoverExample';
 import { PopoverMultipleTriggersExample } from '@/components/popover/examples/PopoverMultipleTriggersExample';
+import { PopoverPortalContainerExample } from '@/components/popover/examples/PopoverPortalContainerExample';
 import { PopoverRichContentExample } from '@/components/popover/examples/PopoverRichContentExample';
 import { PopoverSidePlacementExample } from '@/components/popover/examples/PopoverSidePlacementExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
@@ -49,6 +51,24 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
   <PopoverMultipleTriggersExample />
 </ComponentPreview>
 
+## 自訂錨點 [#custom-anchor]
+
+傳 `anchor` 可以讓彈出層對齊觸發器以外的元素。沒有觸發器的 popover（例如從選單項目或列表列的操作開出來）需要它：自己控制 `open`，再把 `anchor` 指到要對齊的元素。`anchor` 接受元素、ref、virtual element，或回傳其中之一的函式。
+
+<ComponentPreview name="PopoverAnchorExample">
+  <PopoverAnchorExample />
+</ComponentPreview>
+
+## Portal 容器 [#portal-container]
+
+`PopoverContent` 預設 portal 到 `document.body`。傳 `portalContainer`（元素或 ref）可以改把彈出層放進別的節點。
+
+<ComponentPreview name="PopoverPortalContainerExample">
+  <PopoverPortalContainerExample />
+</ComponentPreview>
+
+popover 必須留在 CSS scope 根節點內時，用 `portalContainer`。樣式寫在 scope 選擇器底下時，彈出層被 portal 到 `document.body` 就套不到。body portal 弄壞堆疊或裁切時也有用（Dialog、transform、全螢幕、Shadow DOM）。
+
 ## 何時使用 [#when-to-use]
 
 | 需求                            | 元件                  |
@@ -61,15 +81,40 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 `Popover` 是單純的浮動面板，內容自己放。動作選單優先用 `DropdownMenu`；值選擇器優先用對應的元件。
 
+## Props [#props]
+
+### PopoverContent
+
+`PopoverContent` 是 Portal + Positioner + Popup 的組合。定位 props 會轉給 Positioner；popup 接受一般的 Base UI Popover Popup props。
+
+| Prop                    | Type                                                   | Default                       | 說明                                     |
+| ----------------------- | ------------------------------------------------------ | ----------------------------- | ---------------------------------------- |
+| `align`                 | `'start' \| 'center' \| 'end'`                         | `'start'`                     | 相對錨點的對齊                           |
+| `alignOffset`           | `number`                                               | -                             | 沿對齊軸的偏移                           |
+| `side`                  | `'top' \| 'right' \| 'bottom' \| 'left' \| …`          | `'bottom'`                    | 偏好出現在錨點的哪一側                   |
+| `sideOffset`            | `number`                                               | `4`                           | 與錨點的距離                             |
+| `positionerClassName`   | `string`                                               | -                             | Positioner wrapper 上的 class            |
+| `className`             | `string`                                               | -                             | popup 上的額外 class                     |
+| `anchor`                | `RefObject \| Element \| …`                            | -                             | 自訂定位錨點（預設是觸發器）             |
+| `arrowPadding`          | `number`                                               | `5`                           | 箭頭與彈出層邊緣的最小距離               |
+| `collisionAvoidance`    | `{ side?, align?, fallbackAxisSide? }`                 | `{ fallbackAxisSide: 'end' }` | 遇到碰撞時彈出層怎麼翻轉或位移           |
+| `collisionBoundary`     | `'clipping-ancestors' \| Element \| Element[] \| Rect` | `'clipping-ancestors'`        | 彈出層要留在裡面的範圍                   |
+| `collisionPadding`      | `number \| { top?, right?, bottom?, left? }`           | `5`                           | 與碰撞邊界保留的距離                     |
+| `disableAnchorTracking` | `boolean`                                              | `false`                       | 不再跟著錨點的版面位移更新位置           |
+| `positionMethod`        | `'absolute' \| 'fixed'`                                | `'absolute'`                  | positioner 的 CSS `position`             |
+| `sticky`                | `boolean`                                              | `false`                       | 錨點捲出畫面後，彈出層仍留在畫面內       |
+| `portalContainer`       | `HTMLElement \| ShadowRoot \| RefObject \| null`       | -                             | 自訂 portal 容器（預設 `document.body`） |
+| `keepMounted`           | `boolean`                                              | `false`                       | 關閉時仍把彈出層留在 DOM                 |
+
 ## 匯出 [#exports]
 
-| 匯出                 | 說明                               |
-| -------------------- | ---------------------------------- |
-| `Popover`            | Root；管理開啟狀態                 |
-| `PopoverTrigger`     | render prop 觸發器                 |
-| `PopoverContent`     | Portal + Positioner + Popup 的組合 |
-| `PopoverPortal`      | Portal 目標（很少直接使用）        |
-| `PopoverArrow`       | 可選的指向箭頭                     |
-| `PopoverClose`       | 關閉按鈕 slot                      |
-| `PopoverTitle`       | 給彈出層用的無障礙標題             |
-| `PopoverDescription` | 給彈出層用的無障礙說明             |
+| 匯出                 | 說明                                                                   |
+| -------------------- | ---------------------------------------------------------------------- |
+| `Popover`            | Root；管理開啟狀態                                                     |
+| `PopoverTrigger`     | render prop 觸發器                                                     |
+| `PopoverContent`     | Portal + Positioner + Popup 的組合；支援 `anchor` 與 `portalContainer` |
+| `PopoverPortal`      | Portal 目標（很少直接使用）                                            |
+| `PopoverArrow`       | 可選的指向箭頭                                                         |
+| `PopoverClose`       | 關閉按鈕 slot                                                          |
+| `PopoverTitle`       | 給彈出層用的無障礙標題                                                 |
+| `PopoverDescription` | 給彈出層用的無障礙說明                                                 |

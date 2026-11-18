@@ -1,0 +1,8 @@
+---
+title: Popover anchor, portal container, and positioning props
+---
+
+#### Components
+
+- **Popover:** `PopoverContent` accepts `anchor`, so a popover can be positioned against an element other than its trigger, or opened with no trigger at all. It also accepts `portalContainer`, like `DropdownMenuContent`, to render the popup inside a scoped root instead of `document.body`. If you patched these props into your copy, you can drop the patch. See [Custom Anchor](/docs/components/popover#custom-anchor) and [Portal Container](/docs/components/popover#portal-container).
+- `PopoverContent` also passes `collisionBoundary`, `collisionPadding`, `collisionAvoidance`, `positionMethod`, `sticky`, `arrowPadding`, and `disableAnchorTracking` to the positioner, and `keepMounted` to the portal. All are optional; leaving them out keeps the current behavior. Reinstall `popover` to pick this up.

@@ -1,0 +1,8 @@
+---
+title: Popover 錨點、portal 容器與定位 props
+---
+
+#### 元件
+
+- **Popover：** `PopoverContent` 新增 `anchor`，popover 可以對齊觸發器以外的元素，也可以完全不用觸發器開啟。另外比照 `DropdownMenuContent` 新增 `portalContainer`，可以把彈出層放進 scope 根節點，而不是 `document.body`。如果你在自己的副本補過這兩個 prop，可以拿掉。見[自訂錨點](/zh-tw/docs/components/popover#custom-anchor)與 [Portal 容器](/zh-tw/docs/components/popover#portal-container)。
+- `PopoverContent` 也會把 `collisionBoundary`、`collisionPadding`、`collisionAvoidance`、`positionMethod`、`sticky`、`arrowPadding`、`disableAnchorTracking` 轉給 positioner，`keepMounted` 轉給 portal。全部都是選填，不傳時行為和現在一樣。重新安裝 `popover` 即可套用。
