@@ -15,32 +15,42 @@ const copyLabels = {
   },
 } as const;
 
+// Fetches the page's .md file (scripts/markdown.ts) on click. Passing the
+// pending text to ClipboardItem keeps the click's user activation in
+// Safari, which rejects writeText after an await.
+function copyMarkdown(markdownUrl: string) {
+  const text = fetch(markdownUrl).then((res) => {
+    if (!res.ok) throw new Error(`${markdownUrl}: ${res.status}`);
+    return res.text();
+  });
+  return navigator.clipboard.write([
+    new ClipboardItem({ 'text/plain': text }),
+  ]);
+}
+
 export function TitleActions({
-  rawMarkdown,
+  markdownUrl,
   registryUrl,
   locale = 'en',
 }: {
-  rawMarkdown?: string;
+  markdownUrl: string;
   registryUrl?: string;
   locale?: keyof typeof copyLabels;
 }) {
-  if (!rawMarkdown && !registryUrl) return null;
   const labels = copyLabels[locale];
 
   return (
     <div className="not-prose -mt-2 mb-6 flex flex-wrap items-center gap-2">
-      {rawMarkdown ? (
-        <CopyButton
-          value={rawMarkdown}
-          label={labels.markdown}
-          copiedLabel={labels.copied}
-        >
-          <CopyIcon className="size-3.5" />
-        </CopyButton>
-      ) : null}
+      <CopyButton
+        copy={() => copyMarkdown(markdownUrl)}
+        label={labels.markdown}
+        copiedLabel={labels.copied}
+      >
+        <CopyIcon className="size-3.5" />
+      </CopyButton>
       {registryUrl ? (
         <CopyButton
-          value={registryUrl}
+          copy={() => navigator.clipboard.writeText(registryUrl)}
           label={labels.registry}
           copiedLabel={labels.copied}
         >
@@ -52,12 +62,12 @@ export function TitleActions({
 }
 
 function CopyButton({
-  value,
+  copy,
   label,
   copiedLabel,
   children,
 }: {
-  value: string;
+  copy: () => Promise<void>;
   label: string;
   copiedLabel: string;
   children: ReactNode;
@@ -68,7 +78,7 @@ function CopyButton({
     <button
       type="button"
       onClick={() => {
-        void navigator.clipboard.writeText(value).then(() => {
+        void copy().then(() => {
           setCopied(true);
           setTimeout(() => setCopied(false), 1500);
         });
