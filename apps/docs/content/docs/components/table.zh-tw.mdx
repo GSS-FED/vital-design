@@ -3,42 +3,24 @@ title: Table
 description: 語意化的 <table> primitive，用 VD token 做靜態表格與自訂組合。
 ---
 
-import { TablePreview } from '~/components/previews/TablePreview';
+import { TableBasicExample } from '@/components/table/examples/TableBasicExample';
+import { TableExample } from '@/components/table/examples/TableExample';
+import { TableSelectedRowExample } from '@/components/table/examples/TableSelectedRowExample';
+import { TableStripedExample } from '@/components/table/examples/TableStripedExample';
+import { TableWithFooterExample } from '@/components/table/examples/TableWithFooterExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<TablePreview />
+<ComponentPreview name="TableExample" align="start">
+  <TableExample />
+</ComponentPreview>
 
-## 用法 [#usage]
+## 基本 [#basic]
 
-```tsx
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/Table';
-
-<Table>
-  <TableCaption>A list of your recent invoices.</TableCaption>
-  <TableHeader>
-    <TableRow>
-      <TableHead>Invoice</TableHead>
-      <TableHead className="text-right">Amount</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell className="font-medium">INV001</TableCell>
-      <TableCell className="text-right">$250.00</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>;
-```
+<ComponentPreview name="TableBasicExample" align="start">
+  <TableBasicExample />
+</ComponentPreview>
 
 ## 何時使用 [#when-to-use]
 
@@ -47,16 +29,16 @@ import {
 
 ## 部分 [#parts]
 
-| 部分           | 元素        | 說明                                                                                                                       |
-| -------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `Table`        | `<table>`   | 包在捲動容器裡。用 `containerClassName` 調外框樣式，用 `containerRef` 拿到這個容器。                                       |
-| `TableHeader`  | `<thead>`   | 每個子 `<tr>` 加上底邊框線。                                                                                               |
-| `TableBody`    | `<tbody>`   | 拿掉最後一列的框線。                                                                                                       |
-| `TableFooter`  | `<tfoot>`   | 淡背景，上方有框線。                                                                                                       |
-| `TableRow`     | `<tr>`      | 有 hover、`aria-expanded` 與 `data-state="selected"` 的樣式。                                                              |
-| `TableHead`    | `<th>`      | 緊密的表頭儲存格，右側有框線。`position: relative`，所以邊緣覆層（例如欄寬把手）可以對齊它。                               |
-| `TableCell`    | `<td>`      | 緊密的表身儲存格，右側有框線。                                                                                             |
-| `TableCaption` | `<caption>` | 淡色，上方有間距。                                                                                                         |
+| 部分           | 元素        | 說明                                                                                         |
+| -------------- | ----------- | -------------------------------------------------------------------------------------------- |
+| `Table`        | `<table>`   | 包在捲動容器裡。用 `containerClassName` 調外框樣式，用 `containerRef` 拿到這個容器。         |
+| `TableHeader`  | `<thead>`   | 每個子 `<tr>` 加上底邊框線。                                                                 |
+| `TableBody`    | `<tbody>`   | 拿掉最後一列的框線。                                                                         |
+| `TableFooter`  | `<tfoot>`   | 淡背景，上方有框線。                                                                         |
+| `TableRow`     | `<tr>`      | 有 hover、`aria-expanded` 與 `data-state="selected"` 的樣式。                                |
+| `TableHead`    | `<th>`      | 緊密的表頭儲存格，右側有框線。`position: relative`，所以邊緣覆層（例如欄寬把手）可以對齊它。 |
+| `TableCell`    | `<td>`      | 緊密的表身儲存格，右側有框線。                                                               |
+| `TableCaption` | `<caption>` | 淡色，上方有間距。                                                                           |
 
 ## 捲動容器 [#scroll-container]
 
@@ -70,7 +52,7 @@ const containerRef = useRef<HTMLDivElement>(null);
 
 因為容器設了 `overflow-x`，瀏覽器也會把 `overflow-y` 算成 `auto`。再把它放進另一個捲動區域，就會變成兩個捲動區；要由外層負責捲動時，傳 `containerClassName="overflow-x-visible"` 關掉這個行為。
 
-## 斑馬紋列 [#striped-rows斑馬紋]
+## 斑馬紋列 [#striped-rows]
 
 `Table` 的 `striped` prop 會為 `<tbody>` 的隔行加上底色。`true` 等同 `'even'`（第 2、4… 列上色）；用 `'odd'` 讓第 1、3… 列上色。
 
@@ -97,6 +79,16 @@ const containerRef = useRef<HTMLDivElement>(null);
 
 Hover 與 selected 永遠蓋過斑馬紋底色，因此開啟 `striped` 時 hover 會自動加深一階以維持對比。
 
+<ComponentPreview name="TableStripedExample" align="start">
+  <TableStripedExample />
+</ComponentPreview>
+
+## 加上表尾 [#with-footer]
+
+<ComponentPreview name="TableWithFooterExample" align="start">
+  <TableWithFooterExample />
+</ComponentPreview>
+
 ## 選取列狀態 [#selected-row-state]
 
 在列上加 `data-state="selected"` 來醒目顯示。
@@ -104,3 +96,7 @@ Hover 與 selected 永遠蓋過斑馬紋底色，因此開啟 `striped` 時 hove
 ```tsx
 <TableRow data-state="selected">…</TableRow>
 ```
+
+<ComponentPreview name="TableSelectedRowExample" align="start">
+  <TableSelectedRowExample />
+</ComponentPreview>

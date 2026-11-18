@@ -3,52 +3,59 @@ title: Tag
 description: 用來分類、表示狀態與篩選的標籤。支援 12 種顏色、兩種變體，以及可選的移除動作。
 ---
 
-import {
-  TagColorsPreview,
-  TagPreview,
-  TagRemovablePreview,
-  TagSolidPreview,
-} from '~/components/previews/TagPreview';
+import { TagClickableAndRemovableExample } from '@/components/tag/examples/TagClickableAndRemovableExample';
+import { TagClickableExample } from '@/components/tag/examples/TagClickableExample';
+import { TagColorsExample } from '@/components/tag/examples/TagColorsExample';
+import { TagExample } from '@/components/tag/examples/TagExample';
+import { TagRemovableExample } from '@/components/tag/examples/TagRemovableExample';
+import { TagSelectedExample } from '@/components/tag/examples/TagSelectedExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<TagPreview />
-
-## 用法 [#usage]
-
-```tsx
-import { Tag } from '@/components/ui/Tag';
-
-<Tag color="blue" colorVariant="tint">Design</Tag>
-<Tag color="green" colorVariant="solid">Active</Tag>
-```
+<ComponentPreview name="TagExample">
+  <TagExample />
+</ComponentPreview>
 
 ## 色彩 [#colors]
 
-`tint` 變體的 12 種顏色：
+12 種顏色的 `tint` 變體（第一列）與預設的 `solid` 變體（第二列）：
 
-<TagColorsPreview />
+<ComponentPreview name="TagColorsExample">
+  <TagColorsExample />
+</ComponentPreview>
 
-`solid` 變體也有這 12 種顏色：
+## 可點擊 [#clickable]
 
-<TagSolidPreview />
+傳入 `onClick` 時，標籤文字會渲染成按鈕，滑過時有覆蓋效果。
+
+<ComponentPreview name="TagClickableExample">
+  <TagClickableExample />
+</ComponentPreview>
 
 ## 可移除 [#removable]
 
 Tag 可以用 `removable` 與 `onRemove` 加上移除按鈕：
 
-<TagRemovablePreview />
+<ComponentPreview name="TagRemovableExample">
+  <TagRemovableExample />
+</ComponentPreview>
 
-```tsx
-<Tag
-  color="blue"
-  colorVariant="tint"
-  removable
-  onRemove={() => removeTag(id)}
->
-  React
-</Tag>
-```
+## 可點擊又可移除 [#clickable-and-removable]
+
+`onClick` 與 `onRemove` 可以同時使用。點移除按鈕不會觸發 `onClick`。
+
+<ComponentPreview name="TagClickableAndRemovableExample">
+  <TagClickableAndRemovableExample />
+</ComponentPreview>
+
+## 已選取 [#selected]
+
+`selected` 會畫出主色外框。搭配 `onClick` 時也會設定 `aria-pressed`，讓 tag 當成切換按鈕使用。
+
+<ComponentPreview name="TagSelectedExample">
+  <TagSelectedExample />
+</ComponentPreview>
 
 ## 屬性 [#props]
 
@@ -56,7 +63,7 @@ Tag 可以用 `removable` 與 `onRemove` 加上移除按鈕：
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------ |
 | `children`     | `ReactNode`                                                                                                                     | —           | **必填。** Tag 內容                                    |
 | `color`        | `'default' \| 'teal' \| 'olive' \| 'brown' \| 'rose' \| 'indigo' \| 'blue' \| 'green' \| 'gold' \| 'red' \| 'purple' \| 'navy'` | `'default'` | Tag 顏色                                               |
-| `colorVariant` | `'solid' \| 'tint'`                                                                                                             | `'tint'`    | 色彩樣式變體                                           |
+| `colorVariant` | `'solid' \| 'tint'`                                                                                                             | `'solid'`   | 色彩樣式變體                                           |
 | `icon`         | `ReactNode`                                                                                                                     | —           | 渲染在標籤前的圖示                                     |
 | `removable`    | `boolean`                                                                                                                       | `false`     | 顯示移除（×）按鈕                                      |
 | `selected`     | `boolean`                                                                                                                       | `false`     | 套用選取樣式。搭配 `onClick` 時也會設定 `aria-pressed` |

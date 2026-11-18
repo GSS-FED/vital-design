@@ -3,52 +3,59 @@ title: Tag
 description: A label component for categorization, status, and filtering. Supports 12 colors, two variants, and optional remove action.
 ---
 
-import {
-  TagColorsPreview,
-  TagPreview,
-  TagRemovablePreview,
-  TagSolidPreview,
-} from '~/components/previews/TagPreview';
+import { TagClickableAndRemovableExample } from '@/components/tag/examples/TagClickableAndRemovableExample';
+import { TagClickableExample } from '@/components/tag/examples/TagClickableExample';
+import { TagColorsExample } from '@/components/tag/examples/TagColorsExample';
+import { TagExample } from '@/components/tag/examples/TagExample';
+import { TagRemovableExample } from '@/components/tag/examples/TagRemovableExample';
+import { TagSelectedExample } from '@/components/tag/examples/TagSelectedExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Preview
 
-<TagPreview />
-
-## Usage
-
-```tsx
-import { Tag } from '@/components/ui/Tag';
-
-<Tag color="blue" colorVariant="tint">Design</Tag>
-<Tag color="green" colorVariant="solid">Active</Tag>
-```
+<ComponentPreview name="TagExample">
+  <TagExample />
+</ComponentPreview>
 
 ## Colors
 
-All 12 available colors in `tint` variant:
+All 12 colors in the `tint` variant (first row) and the default `solid` variant (second row):
 
-<TagColorsPreview />
+<ComponentPreview name="TagColorsExample">
+  <TagColorsExample />
+</ComponentPreview>
 
-All 12 colors are also available in `solid` variant:
+## Clickable
 
-<TagSolidPreview />
+With `onClick`, the tag label renders as a button with a hover overlay.
+
+<ComponentPreview name="TagClickableExample">
+  <TagClickableExample />
+</ComponentPreview>
 
 ## Removable
 
 Tags can include a remove button via `removable` + `onRemove`:
 
-<TagRemovablePreview />
+<ComponentPreview name="TagRemovableExample">
+  <TagRemovableExample />
+</ComponentPreview>
 
-```tsx
-<Tag
-  color="blue"
-  colorVariant="tint"
-  removable
-  onRemove={() => removeTag(id)}
->
-  React
-</Tag>
-```
+## Clickable and Removable
+
+`onClick` and `onRemove` can be combined. Clicking the remove button does not trigger `onClick`.
+
+<ComponentPreview name="TagClickableAndRemovableExample">
+  <TagClickableAndRemovableExample />
+</ComponentPreview>
+
+## Selected
+
+`selected` draws a focus-colored outline. With `onClick`, it also sets `aria-pressed`, so the tag works as a toggle.
+
+<ComponentPreview name="TagSelectedExample">
+  <TagSelectedExample />
+</ComponentPreview>
 
 ## Props
 
@@ -56,7 +63,7 @@ Tags can include a remove button via `removable` + `onRemove`:
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------ |
 | `children`     | `ReactNode`                                                                                                                     | —           | **Required.** Tag content                                          |
 | `color`        | `'default' \| 'teal' \| 'olive' \| 'brown' \| 'rose' \| 'indigo' \| 'blue' \| 'green' \| 'gold' \| 'red' \| 'purple' \| 'navy'` | `'default'` | Tag color                                                          |
-| `colorVariant` | `'solid' \| 'tint'`                                                                                                             | `'tint'`    | Color style variant                                                |
+| `colorVariant` | `'solid' \| 'tint'`                                                                                                             | `'solid'`   | Color style variant                                                |
 | `icon`         | `ReactNode`                                                                                                                     | —           | Icon rendered before the label                                     |
 | `removable`    | `boolean`                                                                                                                       | `false`     | Shows a remove (×) button                                          |
 | `selected`     | `boolean`                                                                                                                       | `false`     | Applies selected styling. With `onClick`, also sets `aria-pressed` |

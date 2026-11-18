@@ -3,35 +3,34 @@ title: Chip
 description: 可切換的膠囊，用來做篩選、標籤與多選。
 ---
 
-import {
-  ChipPreview,
-  ChipStatesPreview,
-} from '~/components/previews/ChipPreview';
+import { ChipExample } from '@/components/chip/examples/ChipExample';
+import { ChipIconExample } from '@/components/chip/examples/ChipIconExample';
+import { ChipStatesExample } from '@/components/chip/examples/ChipStatesExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<ChipPreview />
+<ComponentPreview name="ChipExample">
+  <ChipExample />
+</ComponentPreview>
 
 ## 用法 [#usage]
 
-```tsx
-import { Chip } from '@/components/ui/Chip';
-import { useState } from 'react';
+`Chip` 是受控元件：把 `selected` 放在 state，並在 `onChange` 更新它；`onChange` 會收到下一個選取值。
 
-function FilterChips() {
-  const [active, setActive] = useState(false);
+## 加上圖示 [#with-icon]
 
-  return (
-    <Chip selected={active} onChange={setActive}>
-      Filter
-    </Chip>
-  );
-}
-```
+把圖示傳給 `icon`，會顯示在文字前面。
+
+<ComponentPreview name="ChipIconExample">
+  <ChipIconExample />
+</ComponentPreview>
 
 ## 狀態 [#states]
 
-<ChipStatesPreview />
+<ComponentPreview name="ChipStatesExample">
+  <ChipStatesExample />
+</ComponentPreview>
 
 `selected` 為 `true` 時，chip 以主色藍底與藍字渲染。為 `false` 時，以灰階樣式渲染。
 
@@ -58,11 +57,11 @@ const [selected, setSelected] = useState('All');
 
 ## 屬性 [#props]
 
-| Prop        | Type                          | Default | 說明                                     |
-| ----------- | ----------------------------- | ------- | ----------------------------------------------- |
-| `children`  | `ReactNode`                   | —       | Chip 標籤內容                              |
-| `selected`  | `boolean`                     | —       | **必填。** 控制選取狀態       |
-| `onChange`  | `(selected: boolean) => void` | —       | **必填。** 點擊 chip 時呼叫   |
-| `icon`      | `ReactNode`                   | —       | 渲染在標籤左側的選用圖示 |
-| `className` | `string`                      | —       | 額外的 CSS class                          |
-| `style`     | `CSSProperties`               | —       | 行內樣式                                   |
+| Prop        | Type                          | Default | 說明                        |
+| ----------- | ----------------------------- | ------- | --------------------------- |
+| `children`  | `ReactNode`                   | —       | Chip 標籤內容               |
+| `selected`  | `boolean`                     | —       | **必填。** 控制選取狀態     |
+| `onChange`  | `(selected: boolean) => void` | —       | **必填。** 點擊 chip 時呼叫 |
+| `icon`      | `ReactNode`                   | —       | 渲染在標籤左側的選用圖示    |
+| `className` | `string`                      | —       | 額外的 CSS class            |
+| `style`     | `CSSProperties`               | —       | 行內樣式                    |

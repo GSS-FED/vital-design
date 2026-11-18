@@ -3,136 +3,57 @@ title: Progress
 description: 進度 primitive 與分段狀態指示。
 ---
 
+import { ProgressCustomSegmentsExample } from '@/components/progress/examples/ProgressCustomSegmentsExample';
+import { ProgressExample } from '@/components/progress/examples/ProgressExample';
+import { ProgressSegmentsExample } from '@/components/progress/examples/ProgressSegmentsExample';
+import { ProgressWithLabelExample } from '@/components/progress/examples/ProgressWithLabelExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import {
-  Progress,
-  ProgressIndicator,
-  ProgressLabel,
-  ProgressRoot,
-  ProgressSegment,
-  ProgressSegments,
-  ProgressTrack,
-  ProgressValue,
-} from '~/components/vital-components';
 
 ## 預覽 [#preview]
 
-<ComponentPreview centered={false}>
-  <Progress aria-label="Upload progress" value={64} />
+<ComponentPreview name="ProgressExample" align="start">
+  <ProgressExample />
 </ComponentPreview>
 
 ## 加上標籤 [#with-label]
 
-<ComponentPreview centered={false}>
-  <ProgressRoot value={42} className="w-80">
-    <div className="flex items-center gap-3">
-      <ProgressLabel>Export data</ProgressLabel>
-      <ProgressValue />
-    </div>
-    <ProgressTrack>
-      <ProgressIndicator />
-    </ProgressTrack>
-  </ProgressRoot>
+<ComponentPreview name="ProgressWithLabelExample" align="start">
+  <ProgressWithLabelExample />
 </ComponentPreview>
 
 ## 區段 [#segments]
 
-<ComponentPreview centered={false}>
-  <div className="flex flex-col gap-6">
-    <ProgressSegments
-      aria-label="Monthly status"
-      className="w-[118px] gap-0.5"
-    >
-      <ProgressSegment className="w-2 bg-success-500" />
-      <ProgressSegment className="w-2 bg-warning-500" />
-      <ProgressSegment className="w-2 bg-grayscale-opacity-600" />
-      <ProgressSegment className="w-2 bg-destructive-500" />
-      {Array.from({ length: 8 }).map((_, index) => (
-        <ProgressSegment
-          key={index}
-          className="w-2"
-          data-state="inactive"
-        />
-      ))}
-    </ProgressSegments>
-    <ProgressSegments
-      aria-label="Quarterly status"
-      className="w-[118px] gap-[3px]"
-    >
-      <ProgressSegment className="flex-1 bg-success-500" />
-      <ProgressSegment className="flex-1 bg-warning-500" />
-      <ProgressSegment className="flex-1 bg-grayscale-opacity-600" />
-      <ProgressSegment className="flex-1" data-state="inactive" />
-    </ProgressSegments>
-  </div>
+<ComponentPreview name="ProgressSegmentsExample" align="start">
+  <ProgressSegmentsExample />
 </ComponentPreview>
 
 ## 相連區段 [#connected-segments]
 
-<ComponentPreview centered={false}>
-  <ProgressSegments
-    aria-label="Review status"
-    className="w-[118px] gap-0"
-    joint="connected"
-  >
-    <ProgressSegment className="flex-1 bg-grayscale-opacity-600" />
-    <ProgressSegment className="flex-1 bg-warning-500" />
-  </ProgressSegments>
+<ComponentPreview name="ProgressCustomSegmentsExample" align="start">
+  <ProgressCustomSegmentsExample />
 </ComponentPreview>
-
-## 用法 [#usage]
-
-```tsx
-import { Progress } from '@/components/ui/Progress';
-
-<Progress aria-label="Upload progress" value={64} />;
-```
-
-```tsx
-import {
-  ProgressSegment,
-  ProgressSegments,
-} from '@/components/ui/Progress';
-
-<ProgressSegments aria-label="Monthly status" className="gap-0.5">
-  <ProgressSegment className="w-2 bg-success-500" />
-  <ProgressSegment className="w-2 bg-warning-500" />
-  <ProgressSegment className="w-2" data-state="inactive" />
-</ProgressSegments>;
-```
-
-```tsx
-<ProgressSegments
-  aria-label="Review status"
-  className="w-[118px] gap-0"
-  joint="connected"
->
-  <ProgressSegment className="flex-1 bg-grayscale-opacity-600" />
-  <ProgressSegment className="flex-1 bg-warning-500" />
-</ProgressSegments>
-```
 
 ## 部分 [#parts]
 
-| 部分                | 元素  | 說明                                                                        |
-| ------------------- | -------- | ---------------------------------------------------------------------------- |
-| `Progress`          | `<div>`  | 含軌道與指示器的簡寫根。                                     |
-| `ProgressRoot`      | `<div>`  | Base UI 的 progress 根。                                                       |
-| `ProgressTrack`     | `<div>`  | 視覺軌道。                                                                |
-| `ProgressIndicator` | `<div>`  | 填滿的進度指示器。                                                   |
-| `ProgressLabel`     | `<span>` | 連到 progress 根的標籤。                                           |
-| `ProgressValue`     | `<span>` | 從 progress context 取出的格式化數值。                                   |
+| 部分                | 元素     | 說明                                                     |
+| ------------------- | -------- | -------------------------------------------------------- |
+| `Progress`          | `<div>`  | 含軌道與指示器的簡寫根。                                 |
+| `ProgressRoot`      | `<div>`  | Base UI 的 progress 根。                                 |
+| `ProgressTrack`     | `<div>`  | 視覺軌道。                                               |
+| `ProgressIndicator` | `<div>`  | 填滿的進度指示器。                                       |
+| `ProgressLabel`     | `<span>` | 連到 progress 根的標籤。                                 |
+| `ProgressValue`     | `<span>` | 從 progress context 取出的格式化數值。                   |
 | `ProgressSegments`  | `<div>`  | 精簡的分段狀態顯示。寬度、間距、數量與顏色由呼叫端決定。 |
-| `ProgressSegment`   | `<span>` | 單一狀態區段。                                                   |
+| `ProgressSegment`   | `<span>` | 單一狀態區段。                                           |
 
 ## 屬性 [#props]
 
-| Prop        | Type                      | Default    | 說明                                            |
-| ----------- | ------------------------- | ---------- | ------------------------------------------------------ |
-| `value`     | `number` or `null`        | —          | 目前的進度值。                                |
-| `min`       | `number`                  | `0`        | 最小值。                                         |
-| `max`       | `number`                  | `100`      | 最大值。                                         |
-| `className` | `string`                  | —          | 額外的 CSS class。                                |
+| Prop        | Type                      | Default    | 說明                                           |
+| ----------- | ------------------------- | ---------- | ---------------------------------------------- |
+| `value`     | `number` or `null`        | —          | 目前的進度值。                                 |
+| `min`       | `number`                  | `0`        | 最小值。                                       |
+| `max`       | `number`                  | `100`      | 最大值。                                       |
+| `className` | `string`                  | —          | 額外的 CSS class。                             |
 | `joint`     | `separate` or `connected` | `separate` | 區段邊緣的行為。`gap-0` 的長條用 `connected`。 |
 
 ## 區段版面 [#segment-layout]

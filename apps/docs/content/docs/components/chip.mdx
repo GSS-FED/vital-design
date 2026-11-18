@@ -3,35 +3,34 @@ title: Chip
 description: A toggleable pill component for filters, tags, and multi-select options.
 ---
 
-import {
-  ChipPreview,
-  ChipStatesPreview,
-} from '~/components/previews/ChipPreview';
+import { ChipExample } from '@/components/chip/examples/ChipExample';
+import { ChipIconExample } from '@/components/chip/examples/ChipIconExample';
+import { ChipStatesExample } from '@/components/chip/examples/ChipStatesExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Preview
 
-<ChipPreview />
+<ComponentPreview name="ChipExample">
+  <ChipExample />
+</ComponentPreview>
 
 ## Usage
 
-```tsx
-import { Chip } from '@/components/ui/Chip';
-import { useState } from 'react';
+`Chip` is controlled: keep `selected` in state and update it from `onChange`, which receives the next selected value.
 
-function FilterChips() {
-  const [active, setActive] = useState(false);
+## With Icon
 
-  return (
-    <Chip selected={active} onChange={setActive}>
-      Filter
-    </Chip>
-  );
-}
-```
+Pass an icon to `icon` to render it before the label.
+
+<ComponentPreview name="ChipIconExample">
+  <ChipIconExample />
+</ComponentPreview>
 
 ## States
 
-<ChipStatesPreview />
+<ComponentPreview name="ChipStatesExample">
+  <ChipStatesExample />
+</ComponentPreview>
 
 When `selected` is `true`, the chip renders with a primary blue background and text. When `false`, it renders with a grayscale style.
 

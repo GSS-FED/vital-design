@@ -19,11 +19,6 @@ import { MdxPre } from '~/components/docs/MdxPre';
 import { TitleActions } from '~/components/docs/TitleActions';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 import {
-  AlertCustomContentPreview,
-  AlertPreview,
-  AlertWithIconPreview,
-} from '~/components/previews/AlertPreview';
-import {
   CalendarDatePickerPreview,
   CalendarDropdownCaptionPreview,
   CalendarLocaleFormatterPreview,
@@ -32,10 +27,6 @@ import {
   CalendarRangePreview,
 } from '~/components/previews/CalendarPreview';
 import {
-  ChipPreview,
-  ChipStatesPreview,
-} from '~/components/previews/ChipPreview';
-import {
   ComboboxMultiplePreview,
   ComboboxPreview,
 } from '~/components/previews/ComboboxPreview';
@@ -43,10 +34,6 @@ import {
   DialogPreview,
   DialogSizesPreview,
 } from '~/components/previews/DialogPreview';
-import {
-  ScrollAreaFadePreview,
-  ScrollAreaPreview,
-} from '~/components/previews/ScrollAreaPreview';
 import {
   SheetNonModalPreview,
   SheetPreview,
@@ -68,12 +55,6 @@ import {
   SplitButtonPreview,
 } from '~/components/previews/SplitButtonPreview';
 import { TablePaginationPreview } from '~/components/previews/TablePaginationPreview';
-import {
-  TagColorsPreview,
-  TagPreview,
-  TagRemovablePreview,
-  TagSolidPreview,
-} from '~/components/previews/TagPreview';
 import {
   TimePickerCustomHeightPreview,
   TimePickerHoursMinutesPreview,
@@ -192,17 +173,12 @@ export async function DocsContentPage({
             Tabs,
             TypeTable,
             ComponentPreview,
-            AlertPreview,
-            AlertWithIconPreview,
-            AlertCustomContentPreview,
             CalendarPreview,
             CalendarRangePreview,
             CalendarDropdownCaptionPreview,
             CalendarLocalePreview,
             CalendarLocaleFormatterPreview,
             CalendarDatePickerPreview,
-            ChipPreview,
-            ChipStatesPreview,
             ComboboxPreview,
             ComboboxMultiplePreview,
             DialogPreview,
@@ -220,12 +196,6 @@ export async function DocsContentPage({
             SidebarCloud05Preview,
             SidebarCloud06Preview,
             TablePaginationPreview,
-            TagPreview,
-            TagColorsPreview,
-            TagSolidPreview,
-            TagRemovablePreview,
-            ScrollAreaPreview,
-            ScrollAreaFadePreview,
             SplitButtonPreview,
             SplitButtonDefaultPreview,
             TimePickerPreview,

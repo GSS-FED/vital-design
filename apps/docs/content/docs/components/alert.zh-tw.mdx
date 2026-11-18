@@ -3,68 +3,45 @@ title: Alert
 description: 可組合的訊息表面，用來放確認、警告與情境提示。
 ---
 
-import {
-  AlertCustomContentPreview,
-  AlertPreview,
-  AlertWithIconPreview,
-} from '~/components/previews/AlertPreview';
+import { AlertExample } from '@/components/alert/examples/AlertExample';
+import { AlertWithActionExample } from '@/components/alert/examples/AlertWithActionExample';
+import { AlertWithCustomExample } from '@/components/alert/examples/AlertWithCustomExample';
+import { AlertWithIconExample } from '@/components/alert/examples/AlertWithIconExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<AlertPreview />
+<ComponentPreview name="AlertExample">
+  <AlertExample />
+</ComponentPreview>
 
 ## 用法 [#usage]
 
-```tsx
-import {
-  Alert,
-  AlertAction,
-  AlertDescription,
-  AlertTitle,
-} from '@/components/ui/Alert';
-import { Button } from '@/components/ui/Button';
-
-function SubmitAlert() {
-  return (
-    <Alert>
-      <AlertTitle>Request submitted</AlertTitle>
-      <AlertDescription>
-        The approval flow has started. You can keep editing the draft
-        until the reviewer opens it.
-      </AlertDescription>
-      <AlertAction>
-        <Button size="md" variant="text" theme="primary">
-          View request
-        </Button>
-      </AlertAction>
-    </Alert>
-  );
-}
-```
+在 `Alert` 裡組合 `AlertTitle`、`AlertDescription`，需要時再加 `AlertAction`。Alert 會撐滿容器寬度；寬度設在父層或用 `className` 設定。
 
 ## 加上圖示 [#with-icon]
 
 訊息需要更強的視覺脈絡時，把圖示放在第一個子元素。
 
-<AlertWithIconPreview />
+<ComponentPreview name="AlertWithIconExample">
+  <AlertWithIconExample />
+</ComponentPreview>
 
-```tsx
-import { ClearIcon } from '@/components/icons/ClearIcon';
+## 多個動作 [#with-actions]
 
-<Alert role="status">
-  <ClearIcon className="text-destructive-500" />
-  <AlertTitle>Payment method expired</AlertTitle>
-  <AlertDescription>
-    Update the billing card before the next renewal date.
-  </AlertDescription>
-</Alert>;
-```
+`AlertAction` 會把按鈕靠右對齊。取消類動作放前面，主要動作放最後。
+
+<ComponentPreview name="AlertWithActionExample">
+  <AlertWithActionExample />
+</ComponentPreview>
 
 ## 自訂內容 [#custom-content]
 
 提示需要一個小的後續決定時，`AlertDescription` 可以放額外控制項。
 
-<AlertCustomContentPreview />
+<ComponentPreview name="AlertWithCustomExample">
+  <AlertWithCustomExample />
+</ComponentPreview>
 
 ## 結構 [#anatomy]
 
@@ -82,33 +59,33 @@ import { ClearIcon } from '@/components/icons/ClearIcon';
 
 `Alert` 接受原生 `div` props，預設渲染 `role="alert"`。
 
-| Prop        | Type            | Default   | 說明                                |
-| ----------- | --------------- | --------- | ------------------------------------------ |
-| `role`      | `string`        | `'alert'` | 訊息的 ARIA live region 角色      |
-| `children`  | `ReactNode`     | -         | Alert 內容與組成的子部分       |
-| `className` | `string`        | -         | 根元素上的額外 CSS class |
-| `style`     | `CSSProperties` | -         | 根元素上的行內樣式          |
+| Prop        | Type            | Default   | 說明                         |
+| ----------- | --------------- | --------- | ---------------------------- |
+| `role`      | `string`        | `'alert'` | 訊息的 ARIA live region 角色 |
+| `children`  | `ReactNode`     | -         | Alert 內容與組成的子部分     |
+| `className` | `string`        | -         | 根元素上的額外 CSS class     |
+| `style`     | `CSSProperties` | -         | 根元素上的行內樣式           |
 
 ### AlertTitle
 
-| Prop        | Type        | Default | 說明            |
-| ----------- | ----------- | ------- | ---------------------- |
-| `children`  | `ReactNode` | -       | 標題內容          |
+| Prop        | Type        | Default | 說明             |
+| ----------- | ----------- | ------- | ---------------- |
+| `children`  | `ReactNode` | -       | 標題內容         |
 | `className` | `string`    | -       | 額外的 CSS class |
 
 ### AlertDescription
 
-| Prop        | Type        | Default | 說明                     |
-| ----------- | ----------- | ------- | ------------------------------- |
-| `children`  | `ReactNode` | -       | 內文或輔助內容 |
-| `className` | `string`    | -       | 額外的 CSS class          |
+| Prop        | Type        | Default | 說明             |
+| ----------- | ----------- | ------- | ---------------- |
+| `children`  | `ReactNode` | -       | 內文或輔助內容   |
+| `className` | `string`    | -       | 額外的 CSS class |
 
 ### AlertAction
 
-| Prop        | Type        | Default | 說明                        |
-| ----------- | ----------- | ------- | ---------------------------------- |
+| Prop        | Type        | Default | 說明                   |
+| ----------- | ----------- | ------- | ---------------------- |
 | `children`  | `ReactNode` | -       | 動作按鈕、連結或控制項 |
-| `className` | `string`    | -       | 額外的 CSS class             |
+| `className` | `string`    | -       | 額外的 CSS class       |
 
 ## 無障礙 [#accessibility]
 
