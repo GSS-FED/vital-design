@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-// Fixture app (`pnpm run fixtures:dev`): one URL per story or docs example,
+// Fixture app (`pnpm run fixtures:dev`): one URL per docs example,
 // `?id=<fixture id>`, plus scratch files from ./playground (gitignored),
 // `?playground=<file name>`. No Storybook runtime.
 import '@fontsource/noto-sans-tc/400.css';
@@ -27,21 +27,18 @@ const scratch = Object.keys(playground).find(
   (key) => playgroundName(key) === params.get('playground'),
 );
 
-function show(Component: ComponentType, layout: string) {
-  document.body.classList.add(`layout-${layout}`);
-  root.render(<Component />);
-}
+document.body.classList.add('layout-padded');
 
 if (entry) {
-  void loadFixture(entry).then(({ Component, layout }) =>
-    show(Component, layout),
+  void loadFixture(entry).then(({ Component }) =>
+    root.render(<Component />),
   );
 } else if (scratch) {
-  void playground[scratch]().then((mod) =>
-    show(mod.default, 'padded'),
-  );
+  void playground[scratch]().then((mod) => {
+    const Component = mod.default;
+    root.render(<Component />);
+  });
 } else {
-  document.body.classList.add('layout-padded');
   root.render(
     <ul className="text-sm">
       {Object.keys(playground).map((key) => (
@@ -59,8 +56,7 @@ if (entry) {
         <li key={fixture.id}>
           <a className="text-primary-600" href={`?id=${fixture.id}`}>
             {fixture.id}
-          </a>{' '}
-          <span className="text-grayscale-500">{fixture.kind}</span>
+          </a>
         </li>
       ))}
     </ul>,

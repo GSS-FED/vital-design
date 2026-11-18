@@ -48,8 +48,8 @@ Build Vital Design components as registry-ready primitives first. Prefer thin, c
 
 7. Update support files when the API changes.
    - Component test.
-   - Storybook story.
-   - Docs preview / MDX if already present.
+   - Docs examples (`examples/*.tsx`, see the add-docs skill) and MDX.
+   - `<Name>.vrt.test.tsx` when an opened or interacted state changes.
    - Registry source only when explicitly adding/updating registry.
 
 ## Review Checklist

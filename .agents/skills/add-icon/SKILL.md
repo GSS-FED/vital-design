@@ -105,11 +105,11 @@ pnpm run registry:build && pnpm run registry:validate
 npx vitest run src-v2/components/<受影響元件>
 ```
 
-- Storybook `V2/Icons/Gallery` 看每個 icon 都有畫出來、沒有變實心塊。
-- 受影響的元件 story 截 before／after，並量實際圖形大小，跟 Figma 比（Figma 圖形大小 = SVG 圖形 bbox × frame / 20）。在 story iframe 執行：
+- 文件站 `/docs/components/icons` 的圖庫（或 `pnpm run fixtures:dev` 開 `?id=v2-icons-gallery--gallery`）看每個 icon 都有畫出來、沒有變實心塊。
+- 受影響元件的範例截 before／after（`pnpm run test:visual` 會比對），並量實際圖形大小，跟 Figma 比（Figma 圖形大小 = SVG 圖形 bbox × frame / 20）。在 fixture app 的範例頁執行：
 
   ```js
-  [...document.querySelectorAll('#storybook-root svg')].map((s) => {
+  [...document.querySelectorAll('#root svg')].map((s) => {
     const b = s.getBoundingClientRect(),
       k = b.width / s.viewBox.baseVal.width;
     let x0 = 1e9,

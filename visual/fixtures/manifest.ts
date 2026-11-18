@@ -1,19 +1,14 @@
-// Lists every fixture the app can render, with Storybook-style IDs:
-// - src-v2 stories, parsed with Storybook's own CSF indexer (titlePrefix V2)
-// - src-v2/**/examples/*.tsx (docs examples), rendered directly. An example
-//   gets the ID of the story it replaces: the title its folder's story file
-//   had, and the export name without the folder prefix and `Example` suffix
-//   (SelectMultipleExample in components/select → v2-components-select--multiple).
-//   So the MR that turns a story into an example compares against the
-//   story's baseline instead of showing one image removed and one added.
+// Lists every docs example (src-v2/**/examples/*.tsx) the fixture app and
+// the screenshot test render. IDs keep the format of the Storybook stories
+// the examples replaced, so screenshots stay comparable with old baselines:
+// the title that folder's story file had, and the export name without the
+// folder prefix and `Example` suffix (SelectMultipleExample in
+// components/select → v2-components-select--multiple).
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
-import { storyNameFromExport, toId } from 'storybook/internal/csf';
-import { loadCsf } from 'storybook/internal/csf-tools';
 
 export type FixtureEntry = {
   id: string;
-  kind: 'story' | 'example';
   /** import.meta.glob key, relative to visual/fixtures/load.ts */
   file: string;
   exportName: string;
@@ -47,6 +42,20 @@ const titles: Record<string, string> = {
   'blocks/table-pagination': 'Blocks/Table Pagination',
 };
 
+// Same rules as Storybook's toId(title, startCase(exportName)).
+const words = (name: string) =>
+  name
+    .replace(/([a-z])([A-Z0-9])/g, '$1 $2')
+    .replace(/([0-9])([A-Za-z])/g, '$1 $2')
+    .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2');
+const sanitize = (part: string) =>
+  part
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+const toId = (title: string, exportName: string) =>
+  `${sanitize(title)}--${sanitize(words(exportName))}`;
+
 const toPascal = (name: string) =>
   name.replace(/(^|-)(\w)/g, (_, __, char: string) =>
     char.toUpperCase(),
@@ -56,21 +65,6 @@ for (const file of readdirSync(srcDir, {
   recursive: true,
 }) as string[]) {
   const path = join(srcDir, file);
-
-  if (file.endsWith('.stories.tsx')) {
-    const csf = loadCsf(readFileSync(path, 'utf-8'), {
-      fileName: path,
-      makeTitle: (title?: string) => `V2/${title}`,
-    }).parse();
-    for (const [exportName, story] of Object.entries(csf._stories)) {
-      entries.push({
-        id: story.id,
-        kind: 'story',
-        file: globKey(path),
-        exportName,
-      });
-    }
-  }
 
   const example = file.match(/^(.*\/)?([\w-]+)\/examples\/\w+\.tsx$/);
   if (example) {
@@ -86,8 +80,7 @@ for (const file of readdirSync(srcDir, {
           .replace(new RegExp(`^${pascal}`), '')
           .replace(/Example$/, '') || 'Default';
       entries.push({
-        id: toId(`V2/${title}`, storyNameFromExport(storyExport)),
-        kind: 'example',
+        id: toId(`V2/${title}`, storyExport),
         file: globKey(path),
         exportName,
       });
@@ -100,7 +93,7 @@ for (const entry of entries) {
   const other = seen.get(entry.id);
   if (other) {
     throw new Error(
-      `${entry.id} is both ${other.file} (${other.exportName}) and ${entry.file} (${entry.exportName}). Delete the story an example replaces, or rename one of them.`,
+      `${entry.id} is both ${other.file} (${other.exportName}) and ${entry.file} (${entry.exportName}). Rename one of them.`,
     );
   }
   seen.set(entry.id, entry);

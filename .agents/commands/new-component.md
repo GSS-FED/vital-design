@@ -34,10 +34,10 @@
    - Props 測試
    - 事件處理測試
 
-4. **建立 ComponentName.stories.tsx**
+4. **建立文件範例**（照 `add-docs` skill）
 
-   - Default story
-   - 各 variant stories
+   - `examples/ComponentNameExample.tsx` 與各變體的 `ComponentName<Variant>Example.tsx`
+   - 靜態狀態集中在 `ComponentNameStatesExample.tsx`；打開或互動後的狀態寫在 `ComponentName.vrt.test.tsx`
 
 5. **執行驗證**
    ```bash
@@ -58,7 +58,7 @@
 
 - `src-v2/components/badge/Badge.tsx`（Props 類型 inline 定義於此）
 - `src-v2/components/badge/Badge.test.tsx`
-- `src-v2/components/badge/Badge.stories.tsx`
+- `src-v2/components/badge/examples/BadgeExample.tsx` 等文件範例
 
 ## 注意事項
 

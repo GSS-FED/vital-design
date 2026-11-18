@@ -1,12 +1,12 @@
 ---
 name: new-component
-description: "Creates a new atomic UI component in src-v2/components/ with TypeScript types, Vitest tests, and Storybook stories. Use when asked to create a new atomic UI component (e.g. '建一個 Badge 元件', '新增 Alert 元件', 'create a new component called Tooltip', '/new-component Badge'). Do not use for composite blocks combining multiple components — use create-block instead."
+description: "Creates a new atomic UI component in src-v2/components/ with TypeScript types, Vitest tests, and docs examples. Use when asked to create a new atomic UI component (e.g. '建一個 Badge 元件', '新增 Alert 元件', 'create a new component called Tooltip', '/new-component Badge'). Do not use for composite blocks combining multiple components — use create-block instead."
 allowed-tools: Read, Write, Edit, Bash
 ---
 
 # 建立新元件
 
-建立一個符合專案規範的新 React 元件，包含完整的類型定義、測試和 Storybook stories。
+建立一個符合專案規範的新 React 元件，包含完整的類型定義、測試和文件範例。
 
 ## 執行步驟
 
@@ -32,7 +32,7 @@ allowed-tools: Read, Write, Edit, Bash
 
 5. **建立 ComponentName.test.tsx** — 測試
 
-6. **建立 ComponentName.stories.tsx** — Storybook stories
+6. **建立文件範例與文件頁** — 照 `add-docs` skill：`examples/ComponentNameExample.tsx`（參考 `example-template.tsx`）、靜態狀態的 `ComponentNameStatesExample.tsx`，打開或互動後才看得到的狀態寫在 `ComponentName.vrt.test.tsx`。範例也是視覺回歸截圖，不另寫 story
 
 7. **驗證**
    ```bash
@@ -57,4 +57,4 @@ allowed-tools: Read, Write, Edit, Bash
 
 - `component-template.tsx` — 元件結構起點
 - `test-template.tsx` — 測試結構起點
-- `stories-template.tsx` — Storybook stories 起點
+- `example-template.tsx` — 文件範例起點

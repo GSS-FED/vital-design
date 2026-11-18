@@ -46,7 +46,7 @@ npx shadcn@latest add @vital-design/button
 | 指令                              | 行為                                                                 |
 | :-------------------------------- | :------------------------------------------------------------------- |
 | `pnpm install`                    | 安裝相依套件                                                         |
-| `pnpm run dev`                    | 開啟 Storybook 開發伺服器（port 6006）                               |
+| `pnpm run dev`                    | 開啟 v1（`src/`）的 Storybook（port 6006）；v2 範例在文件站          |
 | `pnpm run build`                  | 編譯、打包到 `dist` 資料夾                                           |
 | `pnpm run lint`                   | 以 Oxlint 檢查程式碼                                                 |
 | `pnpm run format`                 | 以 Prettier 整理程式碼                                               |
@@ -55,7 +55,7 @@ npx shadcn@latest add @vital-design/button
 | `pnpm run fixtures:dev`           | 開啟 fixture app：一個 story / 範例一個 URL                          |
 | `pnpm run test:coverage`          | 計算測試覆蓋率                                                       |
 | `pnpm run test:watch`             | 監測到檔案變更時重新執行相關測試案例                                 |
-| `pnpm run storybook:build`        | 把 Storybook 打包成靜態網頁                                          |
+| `pnpm run storybook:build`        | 把 v1 Storybook 打包成靜態網頁（不進 CI）                            |
 | `pnpm run tokens:build`           | 重建所有 token 平台（generated.css + vital-theme-vars.ts）           |
 | `pnpm run tokens:build:css`       | 僅重建 CSS tokens                                                    |
 | `pnpm run registry:generate`      | 從 `registry/*.ts` 產生 `registry.json`                              |

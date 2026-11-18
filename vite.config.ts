@@ -66,7 +66,7 @@ export default defineConfig({
         // add <Name>.vrt.test.tsx for interaction states (open menus etc.).
         extends: true,
         plugins: [tailwindcss()],
-        // Storybook serves these at /images; stories and examples use them.
+        // The docs site serves these at /images; examples use them.
         publicDir: 'src-v2/public',
         test: {
           name: 'visual',

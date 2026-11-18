@@ -7,17 +7,12 @@ const config: StorybookConfig = {
     options: {},
   },
 
+  // v1 (src/) only. v2 components are documented by docs examples
+  // (src-v2/**/examples) and screenshotted by `pnpm run test:visual`.
   stories: [
     '../src/**/*.mdx',
     '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-    '../src-v2/**/*.mdx',
-    {
-      directory: '../src-v2',
-      titlePrefix: 'V2',
-      files: '**/*.stories.@(js|jsx|mjs|ts|tsx)',
-    },
   ],
-  staticDirs: [{ from: '../src-v2/public/images', to: '/images' }],
   ...sharedConfig,
 };
 
