@@ -1,12 +1,12 @@
 ---
 name: add-docs
-description: "Creates or updates a Fumadocs documentation page, interactive preview component, navigation metadata, and changelog entry for a Vital Design component or block. Use when asked to write or add documentation for a component or block, or to add or change an example on an existing docs page (e.g. '幫 Button 補文件', 'add docs for X', 'write docs page for X', '建立 Switch 的 docs 頁面', '幫 X 加一個範例', '/add-docs <name>'). Do not use for creating the component itself — use new-component or create-block instead."
+description: "Creates or updates a Fumadocs documentation page, docs example files (also used as visual-regression screenshots), navigation metadata, and (only when the library itself changes) a changelog entry for a Vital Design component or block. Use when asked to write or add documentation for a component or block, or to add or change an example on an existing docs page (e.g. '幫 Button 補文件', 'add docs for X', 'write docs page for X', '建立 Switch 的 docs 頁面', '幫 X 加一個範例', '/add-docs <name>'). Do not use for creating the component itself — use new-component or create-block instead."
 allowed-tools: Read, Write, Edit, Bash
 ---
 
 # 新增 Fumadocs 文件頁面
 
-為現有元件或 block 建立完整的 Fumadocs 文件頁面，包含互動 preview 元件、MDX 文件內容與 page.tsx 註冊。
+為現有元件或 block 建立完整的 Fumadocs 文件頁面，包含範例檔（同時是視覺回歸截圖）、MDX 文件內容與導覽。
 
 ## 執行步驟
 
@@ -19,33 +19,29 @@ allowed-tools: Read, Write, Edit, Bash
    Props 類型通常 inline 定義於 `.tsx` 檔頂部，並從該元件檔 export。
    （若為 block：`src-v2/blocks/<block-name>/components/<entry-name>.tsx`，例如 `data-table.tsx`）
 
-2. **讀取現有 page.tsx** — 確認 import 格式與 components 物件結構
+2. **讀取 ComponentPreview** — 了解 `name`、`align` 等 props
 
    ```
-   Read apps/docs/app/docs/[[...slug]]/page.tsx
+   Read apps/docs/components/preview/ComponentPreview.tsx
    ```
 
-3. **讀取相似的現有 preview** — 作為範本參考
+3. **讀取相似的現有範例** — 作為範本參考
 
    ```
-   Read apps/docs/components/previews/ChipPreview.tsx       # 有多 export 的範例
-   Read apps/docs/components/previews/SearchBarPreview.tsx  # 有搜尋/輸入互動的範例
+   Read src-v2/components/select/examples/   # 互動 state、States 矩陣
+   Read apps/docs/content/docs/components/select.mdx  # MDX 怎麼 import 範例
+   Read src-v2/components/select/Select.vrt.test.tsx  # 打開後的狀態截圖
    ```
 
-4. **選擇 Preview 方式**（二選一）
+4. **寫範例檔**（`src-v2/components/<name>/examples/*.tsx`；icon 在 `src-v2/icons/examples/`）
 
-   **方式 A — Preview 元件**（有互動 state 時使用）
-
-   - 建立 `apps/docs/components/previews/<ComponentName>Preview.tsx`（參考 `preview-template.tsx`）
-   - 在 `page.tsx` 新增 import + components 物件（兩處都要改，缺一不可）
-   - 若元件有多個明顯狀態，建立多個 named export
-
-   **方式 B — 直接 import**（純靜態展示，無需 state 時使用）
-
-   - 從 `~/components/vital-components` 直接 import 元件（已有 `'use client'`）
-   - 在 MDX 中包進 `<ComponentPreview>` wrapper 即可
-   - 不需建立新 Preview 元件，也不需修改 `page.tsx`
-   - 範例：`apps/docs/content/docs/components/input.mdx`
+   - 一個檔案一個 `export function <Name><Variant>Example`，`'use client'` 置頂，import 用 repo 路徑（`@/components/<name>/<Name>`、`@/icons/<Icon>`）
+   - 文件每個章節一個範例：主範例 `<Name>Example`，變體如 `<Name>MultipleExample`
+   - 靜態狀態（disabled、invalid、loading、長文字）集中在一個 `<Name>StatesExample`，放在頁面的「States」章節
+   - 範例同時是視覺回歸截圖：ID 是 `v2-components-<name>--<variant>`（`<Name>Example` → `default`），跟被取代的 story 同名就會沿用它的 baseline。不要用亂數、`Date.now()` 或遠端圖片
+   - 打開或互動後才看得到的狀態（選單展開、hover 後）不寫成範例，寫在 `<Name>.vrt.test.tsx`：render 範例 → 操作 → `expect(await renderedRegion()).toMatchScreenshot('<name>-<state>')`。文件不需要的邊界狀況（超長清單、窄寬度）也在同一個檔裡 inline render
+   - 轉換既有元件時：刪掉被範例取代的 story（manifest 遇到重複 ID 會報錯）與 `apps/docs/components/previews/<Name>Preview.tsx`，並移除 `page.tsx` 的對應註冊
+   - 純靜態、只有一兩行的展示仍可直接在 MDX 用 `~/components/vital-components` 包 `<ComponentPreview>`（沒有 Code tab）
 
 5. **建立 MDX 文件頁面**
 
@@ -67,8 +63,9 @@ allowed-tools: Read, Write, Edit, Bash
    - 這個資料夾已經有中文檔時，改了英文裡使用者看得到的文句，就在同一份變更更新對應的 `.zh-tw.mdx`。還沒有中文檔就不用補
    - 不要只新增中文檔而沒有英文檔
 
-8. **Changelog**（使用者可見的變更才寫）
-   - 新元件、breaking 用法、token、安裝方式：`pnpm changelog:new <slug>` 會在 `apps/docs/content/changelog/` 建立 `.mdx` 與 `.zh-tw.mdx` 一對檔，改 frontmatter 的 `title`、把註解換成內容，兩種語言都要寫。月份標題（`##`）與這則的標題（`###`）由 build 產生，內文的小標用 `####`（例如 `#### Components`）
+8. **Changelog**（只寫給元件庫使用者，規則見 AGENTS.md「AI 行為指引」）
+   - 只改文件頁、範例、截圖、測試或開發工具（例如補文件、把 story 轉成範例）**不寫**。add-docs 的工作多半屬於這類
+   - 同一個 MR 也改了元件、block、icon、token 或安裝方式時才寫：`pnpm changelog:new <slug>` 會在 `apps/docs/content/changelog/` 建立 `.mdx` 與 `.zh-tw.mdx` 一對檔，改 frontmatter 的 `title`、把註解換成內容，兩種語言都要寫。月份標題（`##`）與這則的標題（`###`）由 build 產生，內文的小標用 `####`（例如 `#### Components`）
    - 不要改 `apps/docs/content/docs/changelog*.mdx`，那是 `pnpm changelog:build` 產生的檔案
    - 同一個 MR 後續要修改這則，就改同一對檔，不要再新增
    - 不要寫內部 refactor / CI；不要用 npm 版號或 semantic-release 輸出
@@ -87,33 +84,28 @@ allowed-tools: Read, Write, Edit, Bash
 - **主範例用到其他 registry 元件**：在 `Usage` 下方說明也要從 registry 加入（例：`dropdown-menu`）
 - **範例沿用元件樣式**：範例不要把元件的 class 複製到原生元素上（例：不要在 `<button>` 上重寫連結樣式）；用元件的 `render` prop 換元素，只補必要的 class
 
-- **`'use client'` 必填**：Preview 元件所在的 MDX 頁面是 RSC，不能傳 inline function（如 `onChange={() => {}}`），Preview 元件一定要加 `'use client'`
-- **page.tsx 兩處都要改**：import 區 + components 物件。只改一個會導致 MDX build error（`ComponentNamePreview is not defined`）
-- **Preview 要有互動性**：用 `useState` 展示元件的狀態變化，不要只渲染靜態版本
-- **Code tab**：`previews:sources` 會將 component/icon imports 轉成 registry 安裝路徑。範例應能獨立複製，避免依賴檔案內未被擷取的 private helper；需要不同 imports 的範例可分檔
-- **Import 順序**：`'use client'` 置頂，其餘 `@/`、`react`、`~/` 同一組按字母排序（`@` → `r` → `~`）；`pnpm run format` 自動套用
-- **MDX import 用 `~/`**：`import { XPreview } from '~/components/previews/XPreview'`
+- **`'use client'` 必填**：MDX 頁面是 RSC，不能傳 inline function（如 `onChange={() => {}}`），範例檔一定要加 `'use client'`
+- **範例要有互動性**：用 `useState` 展示元件的狀態變化，不要只渲染靜態版本
+- **Code tab**：`previews:sources` 讀整個範例檔，去掉 `'use client'`，把 component/icon imports 轉成 registry 安裝路徑。範例要能整段複製，不要手寫重複的 code fence
+- **Import 順序**：`'use client'` 置頂，其餘 `@/`、`react` 同一組按字母排序；`pnpm run format` 自動套用
+- **en 與 zh-TW 共用範例**：兩份 MDX import 同一個範例檔，範例裡的文字用英文
 
 ## 結構範例
 
-### page.tsx import 區
+```mdx
+import { SelectExample } from '@/components/select/examples/SelectExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
-```tsx
-import {
-  ComponentNamePreview,
-  ComponentNameVariantPreview,
-} from '~/components/previews/ComponentNamePreview';
+<ComponentPreview name="SelectExample">
+  <SelectExample />
+</ComponentPreview>
 ```
 
-### page.tsx components 物件
+`name` 是範例的 export 名稱，Code tab 依它找原始碼。
 
-```tsx
-ComponentNamePreview,
-ComponentNameVariantPreview,
-```
+`apps/docs/components/previews/*Preview.tsx` 是還沒轉成範例的舊寫法，不要新增。
 
 ## 參考範本
 
-- `preview-template.tsx` — Preview 元件起點
 - `mdx-template.mdx` — MDX 文件起點
-- `apps/docs/content/docs/components/chip.mdx` — 最精簡完整的現有範例
+- `apps/docs/content/docs/components/select.mdx` — 範例、States 與互動截圖都齊全的頁面

@@ -1,8 +1,11 @@
-// Lists every fixture the app can render, with the same IDs Storybook gives
-// them, so screenshots line up with the Storybook baseline:
+// Lists every fixture the app can render, with Storybook-style IDs:
 // - src-v2 stories, parsed with Storybook's own CSF indexer (titlePrefix V2)
-// - src-v2/components/<name>/examples/*.tsx, rendered directly, under the ID
-//   the generated <Name>.examples.stories.tsx would have.
+// - src-v2/**/examples/*.tsx (docs examples), rendered directly. An example
+//   gets the ID of the story it replaces: the title its folder's story file
+//   had, and the export name without the folder prefix and `Example` suffix
+//   (SelectMultipleExample in components/select → v2-components-select--multiple).
+//   So the MR that turns a story into an example compares against the
+//   story's baseline instead of showing one image removed and one added.
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { storyNameFromExport, toId } from 'storybook/internal/csf';
@@ -20,6 +23,12 @@ const here = import.meta.dirname;
 const srcDir = join(here, '..', '..', 'src-v2');
 const entries: FixtureEntry[] = [];
 const globKey = (path: string) => relative(here, path);
+
+// Story titles that aren't `Components/<PascalCase folder>`, by folder
+// under src-v2.
+const titles: Record<string, string> = {
+  icons: 'Icons/Gallery',
+};
 
 const toPascal = (name: string) =>
   name.replace(/(^|-)(\w)/g, (_, __, char: string) =>
@@ -46,11 +55,11 @@ for (const file of readdirSync(srcDir, {
     }
   }
 
-  const example = file.match(
-    /^components\/([\w-]+)\/examples\/\w+\.tsx$/,
-  );
+  const example = file.match(/^(.*\/)?([\w-]+)\/examples\/\w+\.tsx$/);
   if (example) {
-    const pascal = toPascal(example[1]);
+    const folder = `${example[1] ?? ''}${example[2]}`;
+    const pascal = toPascal(example[2]);
+    const title = titles[folder] ?? `Components/${pascal}`;
     const source = readFileSync(path, 'utf-8');
     for (const [, exportName] of source.matchAll(
       /export function (\w+Example)\b/g,
@@ -60,16 +69,24 @@ for (const file of readdirSync(srcDir, {
           .replace(new RegExp(`^${pascal}`), '')
           .replace(/Example$/, '') || 'Default';
       entries.push({
-        id: toId(
-          `V2/Components/${pascal}/Examples`,
-          storyNameFromExport(storyExport),
-        ),
+        id: toId(`V2/${title}`, storyNameFromExport(storyExport)),
         kind: 'example',
         file: globKey(path),
         exportName,
       });
     }
   }
+}
+
+const seen = new Map<string, FixtureEntry>();
+for (const entry of entries) {
+  const other = seen.get(entry.id);
+  if (other) {
+    throw new Error(
+      `${entry.id} is both ${other.file} (${other.exportName}) and ${entry.file} (${entry.exportName}). Delete the story an example replaces, or rename one of them.`,
+    );
+  }
+  seen.set(entry.id, entry);
 }
 
 entries.sort((a, b) => a.id.localeCompare(b.id));

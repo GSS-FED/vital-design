@@ -3,14 +3,18 @@ title: Select
 description: A dropdown for choosing one or many options from a flat list.
 ---
 
-import {
-  SelectMultiplePreview,
-  SelectPreview,
-} from '~/components/previews/SelectPreview';
+import { SelectExample } from '@/components/select/examples/SelectExample';
+import { SelectGroupedExample } from '@/components/select/examples/SelectGroupedExample';
+import { SelectIconExample } from '@/components/select/examples/SelectIconExample';
+import { SelectMultipleExample } from '@/components/select/examples/SelectMultipleExample';
+import { SelectStatesExample } from '@/components/select/examples/SelectStatesExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Preview
 
-<SelectPreview />
+<ComponentPreview name="SelectExample">
+  <SelectExample />
+</ComponentPreview>
 
 ## Usage
 
@@ -18,74 +22,11 @@ import {
 
 Use `Select` for flat value picking. If the trigger needs custom visuals, keep `Select` as the root and customize `SelectTrigger`; do not move the picker into `DropdownMenu`.
 
-```tsx
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectItemCheck,
-  SelectItemText,
-  SelectTrigger,
-} from '@/components/ui/Select';
-
-const items = [
-  { label: 'Option 1', value: '1' },
-  { label: 'Option 2', value: '2' },
-  { label: 'Option 3', value: '3' },
-];
-
-const [value, setValue] = useState<string | null>(null);
-
-<div className="w-50">
-  <Select items={items} value={value} onValueChange={setValue}>
-    <SelectTrigger placeholder="Select an option" />
-    <SelectContent>
-      {items.map((item) => (
-        <SelectItem key={item.value} value={item.value}>
-          <SelectItemText>{item.label}</SelectItemText>
-          <SelectItemCheck />
-        </SelectItem>
-      ))}
-    </SelectContent>
-  </Select>
-</div>;
-```
-
 ## Multiple
 
-<SelectMultiplePreview />
-
-```tsx
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectItemCheckbox,
-  SelectItemText,
-  SelectTrigger,
-} from '@/components/ui/Select';
-
-const [value, setValue] = useState<string[]>([]);
-
-<div className="w-60">
-  <Select
-    multiple
-    items={items}
-    value={value}
-    onValueChange={setValue}
-  >
-    <SelectTrigger placeholder="Select options" />
-    <SelectContent>
-      {items.map((item) => (
-        <SelectItem key={item.value} value={item.value}>
-          <SelectItemCheckbox />
-          <SelectItemText>{item.label}</SelectItemText>
-        </SelectItem>
-      ))}
-    </SelectContent>
-  </Select>
-</div>;
-```
+<ComponentPreview name="SelectMultipleExample">
+  <SelectMultipleExample />
+</ComponentPreview>
 
 Use `Combobox` for searchable pickers, autocomplete, or removable chip values.
 
@@ -120,25 +61,25 @@ import {
 
 ## With Grouped Items
 
-```tsx
-<SelectContent>
-  <SelectGroup>
-    <SelectLabel>Fruits</SelectLabel>
-    <SelectItem value="apple">
-      <SelectItemText>Apple</SelectItemText>
-      <SelectItemCheck />
-    </SelectItem>
-  </SelectGroup>
-  <SelectSeparator />
-  <SelectGroup>
-    <SelectLabel>Vegetables</SelectLabel>
-    <SelectItem value="carrot">
-      <SelectItemText>Carrot</SelectItemText>
-      <SelectItemCheck />
-    </SelectItem>
-  </SelectGroup>
-</SelectContent>
-```
+<ComponentPreview name="SelectGroupedExample">
+  <SelectGroupedExample />
+</ComponentPreview>
+
+## With Icons
+
+Put an icon before `SelectItemText` in each item.
+
+<ComponentPreview name="SelectIconExample">
+  <SelectIconExample />
+</ComponentPreview>
+
+## States
+
+Disable the whole select with `disabled` on `Select`, and mark an invalid value with `aria-invalid` on `SelectTrigger`. Long values truncate with an ellipsis.
+
+<ComponentPreview name="SelectStatesExample">
+  <SelectStatesExample />
+</ComponentPreview>
 
 ## Props
 

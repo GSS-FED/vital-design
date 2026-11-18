@@ -3,14 +3,18 @@ title: Select
 description: 從平面清單選一個或多個選項的下拉。
 ---
 
-import {
-  SelectMultiplePreview,
-  SelectPreview,
-} from '~/components/previews/SelectPreview';
+import { SelectExample } from '@/components/select/examples/SelectExample';
+import { SelectGroupedExample } from '@/components/select/examples/SelectGroupedExample';
+import { SelectIconExample } from '@/components/select/examples/SelectIconExample';
+import { SelectMultipleExample } from '@/components/select/examples/SelectMultipleExample';
+import { SelectStatesExample } from '@/components/select/examples/SelectStatesExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<SelectPreview />
+<ComponentPreview name="SelectExample">
+  <SelectExample />
+</ComponentPreview>
 
 ## 用法 [#usage]
 
@@ -18,74 +22,11 @@ import {
 
 平面選值用 `Select`。觸發器要自訂外觀時，仍以 `Select` 為 root，只改 `SelectTrigger`；不要把選擇器搬進 `DropdownMenu`。
 
-```tsx
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectItemCheck,
-  SelectItemText,
-  SelectTrigger,
-} from '@/components/ui/Select';
-
-const items = [
-  { label: 'Option 1', value: '1' },
-  { label: 'Option 2', value: '2' },
-  { label: 'Option 3', value: '3' },
-];
-
-const [value, setValue] = useState<string | null>(null);
-
-<div className="w-50">
-  <Select items={items} value={value} onValueChange={setValue}>
-    <SelectTrigger placeholder="Select an option" />
-    <SelectContent>
-      {items.map((item) => (
-        <SelectItem key={item.value} value={item.value}>
-          <SelectItemText>{item.label}</SelectItemText>
-          <SelectItemCheck />
-        </SelectItem>
-      ))}
-    </SelectContent>
-  </Select>
-</div>;
-```
-
 ## 多選 [#multiple]
 
-<SelectMultiplePreview />
-
-```tsx
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectItemCheckbox,
-  SelectItemText,
-  SelectTrigger,
-} from '@/components/ui/Select';
-
-const [value, setValue] = useState<string[]>([]);
-
-<div className="w-60">
-  <Select
-    multiple
-    items={items}
-    value={value}
-    onValueChange={setValue}
-  >
-    <SelectTrigger placeholder="Select options" />
-    <SelectContent>
-      {items.map((item) => (
-        <SelectItem key={item.value} value={item.value}>
-          <SelectItemCheckbox />
-          <SelectItemText>{item.label}</SelectItemText>
-        </SelectItem>
-      ))}
-    </SelectContent>
-  </Select>
-</div>;
-```
+<ComponentPreview name="SelectMultipleExample">
+  <SelectMultipleExample />
+</ComponentPreview>
 
 可搜尋的選擇器、自動完成，或可移除的 chip 值，改用 `Combobox`。
 
@@ -120,25 +61,25 @@ import {
 
 ## 分組項目 [#with-grouped-items]
 
-```tsx
-<SelectContent>
-  <SelectGroup>
-    <SelectLabel>Fruits</SelectLabel>
-    <SelectItem value="apple">
-      <SelectItemText>Apple</SelectItemText>
-      <SelectItemCheck />
-    </SelectItem>
-  </SelectGroup>
-  <SelectSeparator />
-  <SelectGroup>
-    <SelectLabel>Vegetables</SelectLabel>
-    <SelectItem value="carrot">
-      <SelectItemText>Carrot</SelectItemText>
-      <SelectItemCheck />
-    </SelectItem>
-  </SelectGroup>
-</SelectContent>
-```
+<ComponentPreview name="SelectGroupedExample">
+  <SelectGroupedExample />
+</ComponentPreview>
+
+## 搭配圖示 [#with-icons]
+
+在每個項目的 `SelectItemText` 前面放圖示。
+
+<ComponentPreview name="SelectIconExample">
+  <SelectIconExample />
+</ComponentPreview>
+
+## 狀態 [#states]
+
+在 `Select` 加 `disabled` 停用整個選擇器；值不合法時在 `SelectTrigger` 加 `aria-invalid`。過長的值會以省略號截斷。
+
+<ComponentPreview name="SelectStatesExample">
+  <SelectStatesExample />
+</ComponentPreview>
 
 ## 屬性 [#props]
 

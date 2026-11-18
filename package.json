@@ -16,7 +16,7 @@
     "prepare": "husky install",
     "dev": "pnpm run storybook:dev",
     "dev:portless": "portless --script storybook:dev",
-    "build": "tsc && vite build",
+    "build": "tsc -b && vite build",
     "lint": "oxlint --disable-nested-config --report-unused-disable-directives --max-warnings 0",
     "lint:design": "pnpm run tokens:build:css && oxlint -c .oxlintrc.shadcn.json --disable-nested-config src-v2 apps/docs/components",
     "lint:design:audit": "pnpm run tokens:build:css && oxlint -c .oxlintrc.shadcn-audit.json --disable-nested-config src-v2/blocks",

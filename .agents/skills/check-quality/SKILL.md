@@ -56,6 +56,7 @@ allowed-tools: Read, Write, Edit, Bash
    - `AGENTS.md` Tech Stack 是否包含文件站的 Fumadocs / Next.js / rehype-pretty-code
    - `AGENTS.md` AI Commands / AI Skills 是否與 `.agents/commands/`、`.agents/skills/` 一致
    - slash command surface 是否固定為 `/new-component`、`/add-registry`、`/add-docs`、`/create-block`、`/check-quality`
+   - 這次變更新增的 `apps/docs/content/changelog/*.mdx` 是否都屬於元件庫使用者會碰到的變更；只改文件、範例、測試、CI 或開發工具的，刪掉那則（規則見 `AGENTS.md`「AI 行為指引」）
    - `data-slot` 合約是否與 `.agents/RULES.md`、docs `tailwind-setup` Style isolation 章節一致
 
 ## 輸出報告格式

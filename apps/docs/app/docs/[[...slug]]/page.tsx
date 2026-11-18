@@ -66,10 +66,6 @@ import {
   SearchBarPreview,
 } from '~/components/previews/SearchBarPreview';
 import {
-  SelectMultiplePreview,
-  SelectPreview,
-} from '~/components/previews/SelectPreview';
-import {
   SheetNonModalPreview,
   SheetPreview,
   SheetSidesPreview,
@@ -252,8 +248,6 @@ export async function DocsContentPage({
             DialogSizesPreview,
             PaginationPreview,
             PaginationMorePagesPreview,
-            SelectPreview,
-            SelectMultiplePreview,
             SheetPreview,
             SheetSidesPreview,
             SheetNonModalPreview,

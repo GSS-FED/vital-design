@@ -1,6 +1,10 @@
-// Extracts each exported function from apps/docs/components/previews/*.tsx
-// into a single source map at apps/docs/components/previews/__sources__.ts.
-// The Code tab in <ComponentPreview /> reads from this map.
+// Builds the source map the Code tab in <ComponentPreview /> reads, at
+// apps/docs/components/previews/__sources__.ts, from:
+// - docs examples, src-v2/**/examples/*.tsx: the whole file, keyed by each
+//   `export function XxxExample`
+// - each exported function in apps/docs/components/previews/*.tsx (older
+//   previews not yet moved to examples)
+// Repo imports are rewritten to the paths a registry install produces.
 //
 // We also pre-bake Shiki highlighting at generation time so the runtime
 // doesn't have to do server-side highlighting per page — keeps
@@ -20,6 +24,36 @@ const files = readdirSync(previewsDir).filter(
 
 const sources: Record<string, string> = {};
 
+const toInstalledImports = (code: string) =>
+  code
+    .replace(
+      /(['"])@\/components\/(?:[^/'"]+\/)*([^/'"]+)\1/g,
+      '$1@/components/ui/$2$1',
+    )
+    .replace(
+      /(['"])@\/icons\/([^'"]+)\1/g,
+      '$1@/components/icons/$2$1',
+    );
+
+const srcDir = join(__dirname, '..', '..', '..', 'src-v2');
+for (const file of readdirSync(srcDir, {
+  recursive: true,
+}) as string[]) {
+  if (!/(^|\/)examples\/\w+\.tsx$/.test(file)) continue;
+  const raw = readFileSync(join(srcDir, file), 'utf-8');
+  const code = toInstalledImports(
+    raw.replace(/^'use client';\n\n/, ''),
+  ).trimEnd();
+  for (const [, name] of raw.matchAll(
+    /export function (\w+Example)\b/g,
+  )) {
+    if (sources[name]) {
+      throw new Error(`Two examples export ${name} (src-v2/${file})`);
+    }
+    sources[name] = code;
+  }
+}
+
 for (const file of files) {
   const raw = readFileSync(join(previewsDir, file), 'utf-8');
 
@@ -30,18 +64,7 @@ for (const file of files) {
     .filter(
       (line) => !/components\/preview\/ComponentPreview/.test(line),
     )
-    .map((line) =>
-      line
-        .trim()
-        .replace(
-          /(['"])@\/components\/(?:[^/'"]+\/)*([^/'"]+)\1/g,
-          '$1@/components/ui/$2$1',
-        )
-        .replace(
-          /(['"])@\/icons\/([^'"]+)\1/g,
-          '$1@/components/icons/$2$1',
-        ),
-    );
+    .map((line) => toInstalledImports(line.trim()));
 
   // Each exported function block: `export function Name(...) { ... }`
   const fnRegex =

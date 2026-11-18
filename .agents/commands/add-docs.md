@@ -18,39 +18,35 @@
 
 2. **讀取現有 docs 結構**
 
-   - `apps/docs/app/docs/[[...slug]]/page.tsx`
    - `apps/docs/components/preview/ComponentPreview.tsx`
-   - 參考一個相似 preview，例如 `apps/docs/components/previews/ChipPreview.tsx`
+   - 參考 Select：`src-v2/components/select/examples/`、`apps/docs/content/docs/components/select.mdx`、`src-v2/components/select/Select.vrt.test.tsx`
 
-3. **選擇 preview 方式**
+3. **寫範例檔**
 
-   - 有互動 state：建立 `apps/docs/components/previews/<ComponentName>Preview.tsx`
-   - 純靜態展示：直接從 `~/components/vital-components` 匯入元件，不另建 preview
+   - `src-v2/components/<name>/examples/<Name><Variant>Example.tsx`，一個檔案一個 `export function`，加上 `'use client'`，import 用 repo 路徑
+   - 靜態狀態集中在一個 `<Name>StatesExample`（文件的「States」章節）；打開或互動後的狀態寫在 `<Name>.vrt.test.tsx` 截圖
+   - MDX 直接 import 範例並包 `<ComponentPreview name="<export 名稱>">`；Code tab 由 `previews:sources` 讀整個檔並改成 registry 安裝路徑，不要另寫 code fence
+   - 範例也是視覺回歸截圖，跟被取代的 story 同名就沿用 baseline；轉換時刪掉該 story 與 `apps/docs/components/previews/<Name>Preview.tsx`（及 `page.tsx` 註冊）
+   - 純靜態、一兩行的展示可直接從 `~/components/vital-components` 匯入，不另建範例
 
-4. **若建立 preview 元件**
-
-   - 加上 `'use client'`
-   - 在 `page.tsx` 同步新增 import 與 `components` 物件註冊
-   - 若有多種主要狀態，可提供多個 named export preview
-   - Code tab 的 imports 由 `previews:sources` 轉成 registry 安裝路徑；範例需可獨立複製，避免使用未被擷取的 private helper
-
-5. **建立或更新 MDX 文件**
+4. **建立或更新 MDX 文件**
 
    - 元件頁：`apps/docs/content/docs/components/<component-name>.mdx`
    - Block 頁：`apps/docs/content/docs/blocks/<family>/<page>.mdx`（Sidebar、Data Table 都是家族資料夾；slug 與 registry 名稱不同時，補 `page.tsx` 的 `REGISTRY_ITEM_BY_SLUG`）
    - 參考 `apps/docs/content/docs/components/chip.mdx` 或同類型頁面
 
-6. **更新排序與導覽**
+5. **更新排序與導覽**
 
    - `apps/docs/content/docs/components/meta.json`
    - `apps/docs/content/docs/blocks/meta.json`
 
-7. **Changelog**（使用者可見的變更才寫）
+6. **Changelog**（只寫給元件庫使用者，規則見 AGENTS.md「AI 行為指引」）
 
-   - 新元件、breaking 用法、token、安裝方式：用 `pnpm changelog:new <slug>` 在 `apps/docs/content/changelog/` 建立 en 與 zh-TW 一對檔並寫好兩種語言（不要改產生出來的 `content/docs/changelog*.mdx`）
+   - 只改文件頁、範例、截圖、測試或開發工具（例如補文件、把 story 轉成範例）**不寫**
+   - 同一個 MR 也改了元件、block、icon、token 或安裝方式時才寫：用 `pnpm changelog:new <slug>` 在 `apps/docs/content/changelog/` 建立 en 與 zh-TW 一對檔並寫好兩種語言（不要改產生出來的 `content/docs/changelog*.mdx`）
    - 不要寫內部 refactor / CI；不要用 npm 版號
 
-8. **驗證文件站**
+7. **驗證文件站**
    ```bash
    pnpm run lint:design
    pnpm docs:lint
@@ -59,8 +55,7 @@
 
 ## 關鍵規則
 
-- Preview 元件必須加 `'use client'`
-- 只要使用自訂 preview，就要同步更新 `page.tsx` 的 import 與 `components` 註冊
-- 純靜態示例優先使用 `~/components/vital-components`
-- MDX 中的 docs 內部 import 優先使用 `~/`
-- 互動 preview 要能展示真實狀態變化，不只是一個靜態 render
+- 範例檔必須加 `'use client'`
+- 不要新增 `apps/docs/components/previews/*Preview.tsx`（舊寫法，逐步轉成範例）
+- en 與 zh-TW 的 MDX import 同一個範例檔
+- 互動範例要能展示真實狀態變化，不只是一個靜態 render
