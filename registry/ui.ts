@@ -737,6 +737,24 @@ export const ui = [
     ],
   },
   {
+    name: 'table-of-contents',
+    type: 'registry:ui',
+    title: 'Table of Contents',
+    description:
+      'Compact rail of section ticks that expands into the full heading list on hover or focus',
+    dependencies: ['cn'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/table-of-contents/TableOfContents.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
     name: 'tabs',
     type: 'registry:ui',
     title: 'Tabs',

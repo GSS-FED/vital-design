@@ -45,6 +45,7 @@
 | SplitButton   | `@/components/button/split-button/SplitButton`    | `@vital-design/split-button`   | 主操作 + 切換箭頭，無內建選單      | 主操作搭配呼叫端管理的 popup     |
 | Switch        | `@/components/switch/Switch`                      | `@vital-design/switch`         | 布林設定開關                     | 設定面板、表格行內開關              |
 | Table         | `@/components/table/Table`                        | `@vital-design/table`          | 語意化表格基礎元件（支援 `striped`）| 資料表、靜態對照表               |
+| TableOfContents | `@/components/table-of-contents/TableOfContents` | `@vital-design/table-of-contents` | 段落短線，hover 或聚焦時展開成標題清單 | 長內容旁的頁內導覽 |
 | Tabs          | `@/components/tabs/Tabs`                          | `@vital-design/tabs`           | 分頁切換（`underline` / `pill`） | 詳情頁籤、視圖切換                  |
 | Tag           | `@/components/tag/Tag`                            | `@vital-design/tag`            | 狀態與分類標籤（solid/tint）     | 資料卡、表格狀態、角色標籤          |
 | Textarea      | `@/components/textarea/Textarea`                  | `@vital-design/textarea`       | 多行文字輸入                     | 評論、描述表單                      |
