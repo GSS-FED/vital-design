@@ -3,44 +3,25 @@ title: DropdownMenu
 description: 每一項都會觸發 callback 的動作選單。項目是在執行動作，不是綁定表單值。
 ---
 
-import {
-  DropdownMenuPreview,
-  DropdownMenuSubmenuPreview,
-} from '~/components/previews/DropdownMenuPreview';
+import { DropdownMenuExample } from '@/components/dropdown-menu/examples/DropdownMenuExample';
+import { DropdownMenuWithCheckboxItemsExample } from '@/components/dropdown-menu/examples/DropdownMenuWithCheckboxItemsExample';
+import { DropdownMenuWithIconsExample } from '@/components/dropdown-menu/examples/DropdownMenuWithIconsExample';
+import { DropdownMenuWithRadioGroupExample } from '@/components/dropdown-menu/examples/DropdownMenuWithRadioGroupExample';
+import { DropdownMenuWithSplitButtonTriggerExample } from '@/components/dropdown-menu/examples/DropdownMenuWithSplitButtonTriggerExample';
+import { DropdownMenuWithSubmenuExample } from '@/components/dropdown-menu/examples/DropdownMenuWithSubmenuExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<DropdownMenuPreview />
+<ComponentPreview name="DropdownMenuExample">
+  <DropdownMenuExample />
+</ComponentPreview>
 
 ## 用法 [#usage]
 
 `DropdownMenu` 是 Base UI Menu 的薄樣式包裝。用來下指令，不用來選值。觸發器是 render prop，也不限定元素：透過 `render` 傳入任何元素（按鈕、只有圖示的按鈕，或其他）。`SplitButton` 請看 [SplitButton 配方](#splitbutton-recipe)。
 
-```tsx
-import { Button } from '@/components/ui/Button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/DropdownMenu';
-
-<DropdownMenu>
-  <DropdownMenuTrigger render={<Button>Account</Button>} />
-  <DropdownMenuContent>
-    <DropdownMenuGroup>
-      <DropdownMenuLabel>My account</DropdownMenuLabel>
-      <DropdownMenuItem>Profile</DropdownMenuItem>
-      <DropdownMenuItem>Billing</DropdownMenuItem>
-    </DropdownMenuGroup>
-    <DropdownMenuSeparator />
-    <DropdownMenuItem>Log out</DropdownMenuItem>
-  </DropdownMenuContent>
-</DropdownMenu>;
-```
+相關項目放進 `DropdownMenuGroup` 並加上 `DropdownMenuLabel`，群組之間用 `DropdownMenuSeparator` 分隔。暫時不能執行的項目設定 `disabled`。
 
 ## 何時使用 [#when-to-use]
 
@@ -56,91 +37,33 @@ import {
 
 不要只為了換一種觸發器，就把 `Select`、`Combobox` 或自訂的 `Command` 選擇器包進 `DropdownMenu`。直接用選擇器 primitive，並自訂它自己的觸發器。
 
+## 搭配圖示 [#with-icons]
+
+在文字前放圖示，並加上 `data-icon="inline-start"`。
+
+<ComponentPreview name="DropdownMenuWithIconsExample">
+  <DropdownMenuWithIconsExample />
+</ComponentPreview>
+
 ## 核取方塊與單選項目 [#checkbox-and-radio-items]
 
 切換型項目用 `DropdownMenuCheckboxItem` 與 `DropdownMenuRadioItem`。左側會顯示指示器，選取後保持開啟，方便一次切換多個項目。
 
-```tsx
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/DropdownMenu';
+<ComponentPreview name="DropdownMenuWithCheckboxItemsExample">
+  <DropdownMenuWithCheckboxItemsExample />
+</ComponentPreview>
 
-const [showStatusBar, setShowStatusBar] = useState(true);
-const [position, setPosition] = useState('bottom');
-
-<DropdownMenu>
-  <DropdownMenuTrigger render={<Button>View</Button>} />
-  <DropdownMenuContent>
-    <DropdownMenuGroup>
-      <DropdownMenuLabel>Appearance</DropdownMenuLabel>
-      <DropdownMenuCheckboxItem
-        checked={showStatusBar}
-        onCheckedChange={setShowStatusBar}
-      >
-        Status bar
-      </DropdownMenuCheckboxItem>
-    </DropdownMenuGroup>
-    <DropdownMenuGroup>
-      <DropdownMenuLabel>Position</DropdownMenuLabel>
-      <DropdownMenuRadioGroup
-        value={position}
-        onValueChange={setPosition}
-      >
-        <DropdownMenuRadioItem value="top">Top</DropdownMenuRadioItem>
-        <DropdownMenuRadioItem value="bottom">
-          Bottom
-        </DropdownMenuRadioItem>
-      </DropdownMenuRadioGroup>
-    </DropdownMenuGroup>
-  </DropdownMenuContent>
-</DropdownMenu>;
-```
+<ComponentPreview name="DropdownMenuWithRadioGroupExample">
+  <DropdownMenuWithRadioGroupExample />
+</ComponentPreview>
 
 ## 子選單 [#submenus]
 
 把巢狀項目包在 `DropdownMenuSub` 裡，搭配 `DropdownMenuSubTrigger` 與 `DropdownMenuSubContent`。子選單預設在懸停與按右方向鍵時開啟。
 
-<DropdownMenuSubmenuPreview />
-
-```tsx
-import { Button } from '@/components/ui/Button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from '@/components/ui/DropdownMenu';
-
-<DropdownMenu>
-  <DropdownMenuTrigger render={<Button>File</Button>} />
-  <DropdownMenuContent>
-    <DropdownMenuItem>New file</DropdownMenuItem>
-    <DropdownMenuItem>Open…</DropdownMenuItem>
-    <DropdownMenuSeparator />
-    <DropdownMenuSub>
-      <DropdownMenuSubTrigger>Open recent</DropdownMenuSubTrigger>
-      <DropdownMenuSubContent>
-        <DropdownMenuItem>project-a.tsx</DropdownMenuItem>
-        <DropdownMenuItem>project-b.tsx</DropdownMenuItem>
-        <DropdownMenuItem>notes.md</DropdownMenuItem>
-      </DropdownMenuSubContent>
-    </DropdownMenuSub>
-    <DropdownMenuSeparator />
-    <DropdownMenuItem>Settings</DropdownMenuItem>
-  </DropdownMenuContent>
-</DropdownMenu>;
-```
+<ComponentPreview name="DropdownMenuWithSubmenuExample">
+  <DropdownMenuWithSubmenuExample />
+</ComponentPreview>
 
 ## SplitButton 配方 [#splitbutton-recipe]
 
@@ -148,25 +71,11 @@ import {
 
 不要把整個 `SplitButton` 傳給 `DropdownMenuTrigger` 的 `render`。這樣主要按鈕也會開啟選單，選單位置也會跑掉。
 
-```tsx
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/DropdownMenu';
-import { SplitButton } from '@/components/ui/SplitButton';
+<ComponentPreview name="DropdownMenuWithSplitButtonTriggerExample">
+  <DropdownMenuWithSplitButtonTriggerExample />
+</ComponentPreview>
 
-<DropdownMenu>
-  <SplitButton onClick={save} splitRender={<DropdownMenuTrigger />}>
-    Save
-  </SplitButton>
-  <DropdownMenuContent align="end">
-    <DropdownMenuItem>Save as draft</DropdownMenuItem>
-    <DropdownMenuItem>Save and publish</DropdownMenuItem>
-  </DropdownMenuContent>
-</DropdownMenu>;
-```
+SplitButton 的主題、尺寸與 props 請看 [SplitButton](/zh-tw/docs/components/split-button)。
 
 ## Props [#props]
 

@@ -3,51 +3,33 @@ title: SplitButton
 description: A split action built from ButtonGroup with a primary action and a separate toggle trigger.
 ---
 
-import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
-import {
-  SplitButtonDefaultPreview,
-  SplitButtonPreview,
-  SplitButtonSizesPreview,
-} from '~/components/previews/SplitButtonPreview';
+import { SplitButtonControlledChevronExample } from '@/components/button/split-button/examples/SplitButtonControlledChevronExample';
+import { SplitButtonExample } from '@/components/button/split-button/examples/SplitButtonExample';
+import { SplitButtonSizesExample } from '@/components/button/split-button/examples/SplitButtonSizesExample';
+import { SplitButtonStatesExample } from '@/components/button/split-button/examples/SplitButtonStatesExample';
+import { SplitButtonThemesExample } from '@/components/button/split-button/examples/SplitButtonThemesExample';
+import { SplitButtonWithIconExample } from '@/components/button/split-button/examples/SplitButtonWithIconExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Preview
 
-<SplitButtonPreview />
+<ComponentPreview name="SplitButtonExample">
+  <SplitButtonExample />
+</ComponentPreview>
 
 ## Usage
 
 Put `SplitButton` inside a `DropdownMenu` and pass `splitRender={<DropdownMenuTrigger />}`. The chevron becomes the menu trigger: it opens the menu, positions it, supports the keyboard, and flips while the menu is open. The main button keeps its own `onClick`.
 
-Install or import the icon separately from SplitButton.
-
-```tsx
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/DropdownMenu';
-import { SplitButton } from '@/components/ui/SplitButton';
-
-<DropdownMenu>
-  <SplitButton
-    theme="primary"
-    onClick={save}
-    splitRender={<DropdownMenuTrigger />}
-  >
-    <MagnifyingGlassIcon data-icon="inline-start" />
-    Save
-  </SplitButton>
-  <DropdownMenuContent align="end">
-    <DropdownMenuItem onClick={saveDraft}>Save as draft</DropdownMenuItem>
-    <DropdownMenuItem onClick={saveAndPublish}>
-      Save and publish
-    </DropdownMenuItem>
-  </DropdownMenuContent>
-</DropdownMenu>;
-```
-
 The menu is anchored to the chevron. Set `align="end"` so its right edge lines up with the right edge of the SplitButton.
+
+## With Icon
+
+Pass an icon as a child with `data-icon="inline-start"`. Install or import the icon separately from SplitButton.
+
+<ComponentPreview name="SplitButtonWithIconExample">
+  <SplitButtonWithIconExample />
+</ComponentPreview>
 
 ## Chevron Label
 
@@ -63,48 +45,34 @@ The chevron's accessible name defaults to `More options`. Set `splitLabel` to de
 
 For a popup that is not a `DropdownMenu`, control the chevron yourself with `open` and `splitOnClick`. `open` flips the chevron and switches its name between `Expand options` and `Collapse options`.
 
-```tsx
-const [open, setOpen] = useState(false);
+<ComponentPreview name="SplitButtonControlledChevronExample">
+  <SplitButtonControlledChevronExample />
+</ComponentPreview>
 
-<SplitButton
-  open={open}
-  onClick={save}
-  splitOnClick={() => setOpen((v) => !v)}
->
-  Save
-</SplitButton>;
-```
+## Themes
 
-## Default Theme
+`theme` takes the same values as `Button`.
 
-<SplitButtonDefaultPreview />
-
-```tsx
-<SplitButton
-  theme="default"
-  open={open}
-  onClick={handleAction}
-  splitOnClick={toggleOpen}
->
-  Action
-</SplitButton>
-```
+<ComponentPreview name="SplitButtonThemesExample">
+  <SplitButtonThemesExample />
+</ComponentPreview>
 
 ## Sizes
 
 `size="lg"` adds the themed drop shadow and hover lift; `size="md"`
 is the compact variant without shadow.
 
-<SplitButtonSizesPreview />
+<ComponentPreview name="SplitButtonSizesExample">
+  <SplitButtonSizesExample />
+</ComponentPreview>
 
-```tsx
-<SplitButton size="md" theme="primary" open={open} {...handlers}>
-  Medium
-</SplitButton>
-<SplitButton size="lg" theme="primary" open={open} {...handlers}>
-  Large
-</SplitButton>
-```
+## States
+
+`open` shows the chevron in its open state. `disabled` disables both segments; add `focusableWhenDisabled` to keep them in the tab order.
+
+<ComponentPreview name="SplitButtonStatesExample">
+  <SplitButtonStatesExample />
+</ComponentPreview>
 
 ## Props
 

@@ -70,6 +70,9 @@ export default defineConfig({
         publicDir: 'src-v2/public',
         test: {
           name: 'visual',
+          // Test files share one page and one mouse; in parallel, one file's
+          // hover can land on another file's trigger and shift its popup.
+          fileParallelism: false,
           include: [
             'visual/**/*.test.{ts,tsx}',
             'src-v2/**/*.vrt.test.tsx',

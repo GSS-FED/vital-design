@@ -1,4 +1,5 @@
-import { page } from 'vitest/browser';
+// Named `screen` for the testing-library lint rules.
+import { page as screen } from 'vitest/browser';
 
 type Box = {
   left: number;
@@ -119,10 +120,11 @@ export async function renderedRegion(margin = 16) {
     bottom: Infinity,
   };
   for (const child of document.body.children) visit(child, unclipped);
-  if (!ink) return page.elementLocator(document.body);
+  if (!ink) return screen.elementLocator(document.body);
 
   const region = document.createElement('div');
   region.dataset.renderedRegion = '';
+  region.dataset.testid = 'rendered-region';
   const x = Math.max(0, Math.floor(ink.left + scrollX - margin));
   const y = Math.max(0, Math.floor(ink.top + scrollY - margin));
   Object.assign(region.style, {
@@ -134,5 +136,8 @@ export async function renderedRegion(margin = 16) {
     height: `${Math.ceil(ink.bottom + scrollY + margin) - y}px`,
   });
   document.body.append(region);
-  return page.elementLocator(region);
+  // Not page.elementLocator(region): that becomes a positional selector
+  // (body > div:nth-child(n)), which points at the wrong node once a popup
+  // portal mounts or unmounts in <body> before the screenshot is taken.
+  return screen.getByTestId('rendered-region');
 }

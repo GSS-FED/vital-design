@@ -3,18 +3,21 @@ title: Autocomplete
 description: Free-form text input with filtered suggestions and optional inline completion.
 ---
 
-import {
-  AutocompleteCommandPreview,
-  AutocompleteGroupedPreview,
-  AutocompleteInlinePreview,
-  AutocompleteLimitedPreview,
-  AutocompletePreview,
-  AutocompleteSubmitPreview,
-} from '~/components/previews/AutocompletePreview';
+import { AutocompleteCommandPickerExample } from '@/components/autocomplete/examples/AutocompleteCommandPickerExample';
+import { AutocompleteExample } from '@/components/autocomplete/examples/AutocompleteExample';
+import { AutocompleteGroupedExample } from '@/components/autocomplete/examples/AutocompleteGroupedExample';
+import { AutocompleteInlineAutocompleteExample } from '@/components/autocomplete/examples/AutocompleteInlineAutocompleteExample';
+import { AutocompleteInlineListExample } from '@/components/autocomplete/examples/AutocompleteInlineListExample';
+import { AutocompleteLimitedResultsExample } from '@/components/autocomplete/examples/AutocompleteLimitedResultsExample';
+import { AutocompleteStatesExample } from '@/components/autocomplete/examples/AutocompleteStatesExample';
+import { AutocompleteSubmitSearchExample } from '@/components/autocomplete/examples/AutocompleteSubmitSearchExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Preview
 
-<AutocompletePreview />
+<ComponentPreview name="AutocompleteExample" align="start">
+  <AutocompleteExample />
+</ComponentPreview>
 
 ## Usage
 
@@ -24,114 +27,39 @@ when the user can type any value, with suggestions as assistance. If the
 component must remember a selected option as component state, use
 `Combobox` instead.
 
-```tsx
-import {
-  Autocomplete,
-  AutocompleteClear,
-  AutocompleteContent,
-  AutocompleteIcon,
-  AutocompleteInput,
-  AutocompleteInputGroup,
-  AutocompleteItem,
-  AutocompleteItemText,
-  AutocompleteTrigger,
-} from '@/components/ui/Autocomplete';
-
-const tags = [
-  { id: 'feature', value: 'feature' },
-  { id: 'fix', value: 'fix' },
-  { id: 'docs', value: 'docs' },
-];
-
-<Autocomplete
-  items={tags}
-  itemToStringValue={(tag) => tag.value}
-  openOnInputClick
->
-  <label>
-    Search tags
-    <AutocompleteInputGroup>
-      <AutocompleteIcon />
-      <AutocompleteInput placeholder="e.g. feature" />
-      <AutocompleteClear />
-      <AutocompleteTrigger />
-    </AutocompleteInputGroup>
-  </label>
-  <AutocompleteContent emptyText="No tags found.">
-    {(tag) => (
-      <AutocompleteItem key={tag.id} value={tag}>
-        <AutocompleteItemText>{tag.value}</AutocompleteItemText>
-      </AutocompleteItem>
-    )}
-  </AutocompleteContent>
-</Autocomplete>;
-```
-
 ## Modes
 
 The default `mode="list"` filters the suggestion list without changing
 the input value. Use `mode="both"` when the highlighted item should also
 temporarily complete the text inline.
 
-<AutocompleteInlinePreview />
-
-```tsx
-<Autocomplete mode="both" items={tags} openOnInputClick>
-  ...
-</Autocomplete>
-```
+<ComponentPreview
+  name="AutocompleteInlineAutocompleteExample"
+  align="start"
+>
+  <AutocompleteInlineAutocompleteExample />
+</ComponentPreview>
 
 ## Grouped Suggestions
 
 Use grouped `items` with `AutocompleteGroup` and
 `AutocompleteGroupLabel` when results need sections.
 
-<AutocompleteGroupedPreview />
-
-```tsx
-const groups = [
-  { value: 'Work', items: ['feature', 'fix'] },
-  { value: 'Components', items: ['autocomplete', 'select'] },
-];
-
-<Autocomplete items={groups} openOnInputClick>
-  <AutocompleteContent>
-    {(group) => (
-      <AutocompleteGroup key={group.value} items={group.items}>
-        <AutocompleteGroupLabel>{group.value}</AutocompleteGroupLabel>
-        {group.items.map((item) => (
-          <AutocompleteItem key={item} value={item}>
-            {item}
-          </AutocompleteItem>
-        ))}
-      </AutocompleteGroup>
-    )}
-  </AutocompleteContent>
-</Autocomplete>;
-```
+<ComponentPreview name="AutocompleteGroupedExample" align="start">
+  <AutocompleteGroupedExample />
+</ComponentPreview>
 
 ## Limit Results
 
 Set `limit` to cap the visible matches. `AutocompleteStatus` can add
 small helper copy above the result list.
 
-<AutocompleteLimitedPreview />
-
-```tsx
-<Autocomplete items={tags} limit={4} openOnInputClick>
-  <AutocompleteContent>
-    <AutocompleteStatus>
-      Keep typing to narrow the result list.
-    </AutocompleteStatus>
-    <AutocompleteList>
-      {(tag) => (
-        <AutocompleteItem value={tag}>{tag.value}</AutocompleteItem>
-      )}
-    </AutocompleteList>
-    <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
-  </AutocompleteContent>
-</Autocomplete>
-```
+<ComponentPreview
+  name="AutocompleteLimitedResultsExample"
+  align="start"
+>
+  <AutocompleteLimitedResultsExample />
+</ComponentPreview>
 
 ## Command-Like Actions
 
@@ -139,38 +67,39 @@ Autocomplete suggestions can fire `onClick`. This is useful for
 free-form command search where the input text remains the main state.
 For a full command palette or hierarchical picker, prefer `Command`.
 
-<AutocompleteCommandPreview />
+<ComponentPreview
+  name="AutocompleteCommandPickerExample"
+  align="start"
+>
+  <AutocompleteCommandPickerExample />
+</ComponentPreview>
 
-```tsx
-<Autocomplete items={commands} openOnInputClick>
-  <AutocompleteInputGroup>
-    <AutocompleteIcon />
-    <AutocompleteInput placeholder="Run command..." />
-    <AutocompleteClear />
-  </AutocompleteInputGroup>
-  <AutocompleteContent emptyText="No commands found.">
-    {(item) => (
-      <AutocompleteItem value={item} onClick={() => runCommand(item)}>
-        {item}
-      </AutocompleteItem>
-    )}
-  </AutocompleteContent>
-</Autocomplete>
-```
+## Inline List
+
+Set `inline` and render `AutocompleteList` in place of
+`AutocompleteContent` to keep the suggestions visible below the input
+instead of in a popup.
+
+<ComponentPreview name="AutocompleteInlineListExample" align="start">
+  <AutocompleteInlineListExample />
+</ComponentPreview>
 
 ## Submit Search
 
 Use `name` and `submitOnItemClick` for a single-field search form.
 
-<AutocompleteSubmitPreview />
+<ComponentPreview
+  name="AutocompleteSubmitSearchExample"
+  align="start"
+>
+  <AutocompleteSubmitSearchExample />
+</ComponentPreview>
 
-```tsx
-<form>
-  <Autocomplete items={tags} name="query" submitOnItemClick>
-    ...
-  </Autocomplete>
-</form>
-```
+## States
+
+<ComponentPreview name="AutocompleteStatesExample">
+  <AutocompleteStatesExample />
+</ComponentPreview>
 
 ## Props
 

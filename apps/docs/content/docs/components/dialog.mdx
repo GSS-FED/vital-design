@@ -3,85 +3,25 @@ title: Dialog
 description: A modal surface for focused confirmations, decisions, and short forms.
 ---
 
-import {
-  DialogPreview,
-  DialogSizesPreview,
-} from '~/components/previews/DialogPreview';
+import { DialogExample } from '@/components/dialog/examples/DialogExample';
+import { DialogSizesExample } from '@/components/dialog/examples/DialogSizesExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## Preview
 
-<DialogPreview />
+<ComponentPreview name="DialogExample">
+  <DialogExample />
+</ComponentPreview>
 
 ## Usage
 
 `Dialog` is built on Base UI Dialog. Compose the named root, trigger, portal, backdrop, viewport, popup, and content parts together so the title and description remain accessible to assistive technology.
 
-```tsx
-import { Button } from '@/components/ui/Button';
-import {
-  Dialog,
-  DialogBackdrop,
-  DialogBody,
-  DialogClose,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogPopup,
-  DialogPortal,
-  DialogTitle,
-  DialogTrigger,
-  DialogViewport,
-} from '@/components/ui/Dialog';
-
-function ConfirmDialog() {
-  return (
-    <Dialog>
-      <DialogTrigger render={<Button>Open dialog</Button>} />
-      <DialogPortal>
-        <DialogBackdrop />
-        <DialogViewport>
-          <DialogPopup>
-            <DialogHeader>
-              <div className="space-y-1">
-                <DialogTitle>Submit request?</DialogTitle>
-                <DialogDescription>
-                  Review the details before sending this request for
-                  approval.
-                </DialogDescription>
-              </div>
-              <DialogClose />
-            </DialogHeader>
-            <DialogBody>
-              This action will notify approvers and lock the current
-              draft.
-            </DialogBody>
-            <DialogFooter>
-              <DialogClose
-                render={
-                  <Button variant="text" theme="default">
-                    Cancel
-                  </Button>
-                }
-              />
-              <DialogClose render={<Button>Submit</Button>} />
-            </DialogFooter>
-          </DialogPopup>
-        </DialogViewport>
-      </DialogPortal>
-    </Dialog>
-  );
-}
-```
-
 ## Sizes
 
-<DialogSizesPreview />
-
-```tsx
-<DialogPopup size="small">...</DialogPopup>
-<DialogPopup size="medium">...</DialogPopup>
-<DialogPopup size="large">...</DialogPopup>
-```
+<ComponentPreview name="DialogSizesExample">
+  <DialogSizesExample />
+</ComponentPreview>
 
 Use `small` for brief confirmation copy, `medium` for common decision flows, and `large` when the dialog contains denser content.
 
