@@ -1,4 +1,6 @@
+import { readFileSync } from 'node:fs';
 import type { ReactNode } from 'react';
+import { mdxToMarkdown } from '~/lib/markdown';
 import { source } from '~/lib/source';
 
 const OPTIONAL_URLS = new Set([
@@ -93,8 +95,8 @@ function formatLink(
   const description = descriptions.get(page.url);
   const detail = [registryTag, description].filter(Boolean).join(' ');
   return detail
-    ? `- [${title}](${page.url}): ${detail}`
-    : `- [${title}](${page.url})`;
+    ? `- [${title}](${page.url}.md): ${detail}`
+    : `- [${title}](${page.url}.md)`;
 }
 
 function collectPages(
@@ -139,6 +141,34 @@ function descriptionMap(): Map<string, string> {
     if (description) descriptions.set(page.url, description);
   }
   return descriptions;
+}
+
+function urlsInOrder(nodes: TreeNode[]): string[] {
+  return nodes.flatMap((node) => {
+    if (node.type === 'separator') return [];
+    if (node.type === 'page') return [node.url];
+    return [
+      ...(node.index ? [node.index.url] : []),
+      ...urlsInOrder(node.children),
+    ];
+  });
+}
+
+/** Every English docs page as Markdown, in sidebar order. */
+export function buildLlmsFull(): string {
+  const pages = new Map(
+    source.getPages('en').map((page) => [page.url, page]),
+  );
+  return urlsInOrder(source.getPageTree('en').children as TreeNode[])
+    .flatMap((url) => {
+      const page = pages.get(url);
+      if (!page) return [];
+      return mdxToMarkdown(
+        readFileSync(page.absolutePath, 'utf-8'),
+        `Source: https://vittal.design${url}`,
+      );
+    })
+    .join('\n');
 }
 
 type DocsTree = ReturnType<typeof source.getPageTree>;
@@ -205,6 +235,7 @@ export function buildLlmsIndex(): string {
     '',
     '## Agent Guide',
     '',
+    '- **Markdown pages**: Every docs page is also Markdown at its URL plus `.md`, as linked below (`/zh-tw/docs/<page>.md` for Traditional Chinese). Examples appear as their full source with registry import paths. `/llms-full.txt` joins every English page into one file.',
     '- **Install via shadcn CLI**: Add `"@vital-design": "https://vittal.design/r/{name}.json"` under `"registries"` in `components.json`, start the loaded global CSS file with `@import \'tailwindcss\';` and `@import \'tw-animate-css\';`, then run `npx shadcn@latest add --yes @vital-design/<name>`.',
     '- **Source of truth for props & source code**: Fetch `/r/{name}.json` (e.g. `https://vittal.design/r/button.json`) for the exact TypeScript source, exported parts, `data-slot` attributes, CVA variants, and dependencies. Fetch `https://vittal.design/r/registry.json` to list every published item and `icon-*` glyph.',
     '- **Legacy package boundary**: `@fed/vital-design` on npm is the legacy v1 (`src/`) surface. Do not use it for new components.',

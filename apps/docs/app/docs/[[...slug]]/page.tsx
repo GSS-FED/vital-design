@@ -13,7 +13,6 @@ import {
 } from 'fumadocs-ui/page';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { readFile } from 'node:fs/promises';
 import type { FC } from 'react';
 import { MdxPre } from '~/components/docs/MdxPre';
 import { TitleActions } from '~/components/docs/TitleActions';
@@ -52,17 +51,6 @@ const REGISTRY_ITEM_BY_SLUG: Record<string, string> = {
   'blocks/sidebar/cloud/collapsible-submenus': 'sidebar-cloud-06',
 };
 
-async function loadRawMarkdown(
-  absolutePath: string,
-): Promise<string | undefined> {
-  if (!absolutePath) return undefined;
-  try {
-    return await readFile(absolutePath, 'utf-8');
-  } catch {
-    return undefined;
-  }
-}
-
 function registryUrlFor(
   slug: string[] | undefined,
 ): string | undefined {
@@ -95,10 +83,7 @@ export async function DocsContentPage({
     page.url,
   );
   const translated = locale === 'en' || hasZhTranslation(slug);
-  const [rawMarkdown, registryUrl] = [
-    await loadRawMarkdown(page.absolutePath),
-    registryUrlFor(slug),
-  ];
+  const registryUrl = registryUrlFor(slug);
 
   return (
     <DocsPage
@@ -120,7 +105,7 @@ export async function DocsContentPage({
       <DocsTitle>{data.title}</DocsTitle>
       <DocsDescription>{data.description}</DocsDescription>
       <TitleActions
-        rawMarkdown={rawMarkdown}
+        markdownUrl={`${page.url}.md`}
         registryUrl={registryUrl}
         locale={locale}
       />
@@ -194,12 +179,15 @@ export async function metadataFor(
   return {
     title: data.title,
     description: data.description,
-    alternates:
-      translated && zhUrl
+    alternates: {
+      ...(translated && zhUrl
         ? { languages }
         : enUrl
           ? { canonical: enUrl }
-          : undefined,
+          : {}),
+      // The same page as Markdown, written by scripts/markdown.ts.
+      types: { 'text/markdown': `${page.url}.md` },
+    },
     robots:
       locale === 'zh-tw' && !translated
         ? { index: false, follow: true }

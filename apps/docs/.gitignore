@@ -3,6 +3,11 @@
 out/
 public/r/
 
+# Markdown copies of docs pages (scripts/markdown.ts)
+public/docs/
+public/docs.md
+public/zh-tw/
+
 # Fumadocs generated
 .source/
 
