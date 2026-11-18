@@ -3,11 +3,12 @@ title: Sidebar
 description: 應用側邊欄，含結構、行為，以及基本的中性預設外觀。產品專用外觀放在區塊。
 ---
 
-import {
-  SidebarFloatingPreview,
-  SidebarInsetPreview,
-  SidebarPreview,
-} from '~/components/previews/SidebarPreview';
+import { SidebarCollapsibleOffcanvasExample } from '@/components/sidebar/examples/SidebarCollapsibleOffcanvasExample';
+import { SidebarExample } from '@/components/sidebar/examples/SidebarExample';
+import { SidebarFloatingExample } from '@/components/sidebar/examples/SidebarFloatingExample';
+import { SidebarInsetExample } from '@/components/sidebar/examples/SidebarInsetExample';
+import { SidebarRightSideExample } from '@/components/sidebar/examples/SidebarRightSideExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
@@ -20,7 +21,9 @@ import {
 >
 > Header / Footer 的「sticky」是 **flex 釘住**：它們是 `SidebarContent` 的兄弟節點，不在它裡面。只有 `SidebarContent` 會捲動。
 
-<SidebarPreview />
+<ComponentPreview name="SidebarExample">
+  <SidebarExample />
+</ComponentPreview>
 
 ## 安裝 [#installation]
 
@@ -101,15 +104,33 @@ export function AppLayout({
 - `icon` — 收成 icon 軌道；選單標籤隱藏；hover 時顯示 `tooltip`
 - `none` — 固定寬度，不可收合
 
+用 `offcanvas` 時，觸發器會把整個面板移出畫面：
+
+<ComponentPreview name="SidebarCollapsibleOffcanvasExample">
+  <SidebarCollapsibleOffcanvasExample />
+</ComponentPreview>
+
 ## 變體 [#variants]
 
 ### Inset
 
-<SidebarInsetPreview />
+<ComponentPreview name="SidebarInsetExample">
+  <SidebarInsetExample />
+</ComponentPreview>
 
 ### Floating
 
-<SidebarFloatingPreview />
+<ComponentPreview name="SidebarFloatingExample">
+  <SidebarFloatingExample />
+</ComponentPreview>
+
+## 右側 [#right-side]
+
+設 `side="right"` 讓側邊欄停在右邊。把 `SidebarTrigger` 放在頁首的尾端，讓它靠近面板。
+
+<ComponentPreview name="SidebarRightSideExample">
+  <SidebarRightSideExample />
+</ComponentPreview>
 
 ## 受控狀態 [#controlled-state]
 

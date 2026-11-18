@@ -3,11 +3,15 @@ title: Collapsible Submenus
 description: 可收合行內子選單的側邊欄。毛玻璃外觀與帳號頁尾同 Inline Submenus；有子項目的父層用 Collapsible 摺起。
 ---
 
-import { SidebarCloud06Preview } from '~/components/previews/SidebarCloud06Preview';
+import { SidebarCloud06Example } from '@/blocks/sidebar-cloud-06/examples/SidebarCloud06Example';
+import { SidebarCloud06FloatingExample } from '@/blocks/sidebar-cloud-06/examples/SidebarCloud06FloatingExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<SidebarCloud06Preview />
+<ComponentPreview name="SidebarCloud06Example">
+  <SidebarCloud06Example />
+</ComponentPreview>
 
 ## 安裝 [#installation]
 
@@ -17,7 +21,7 @@ npx shadcn@latest add @vital-design/sidebar-cloud-06
 
 會安裝 **`app-sidebar.tsx`** 與 `src/public/images/cloud.jpg`（由元件引入）。它依賴 `@vital-design/sidebar`、`@vital-design/collapsible`，再加上 avatar、dropdown-menu，以及範例樹裡用到的 icon。在應用裡自己組 `SidebarProvider` 與 `SidebarInset`。
 
-> **素材：** 毛玻璃照片會被引入並一起安裝。範例 logo / avatar 用公開路徑（`/images/vital-logo-text-h.svg`、`/images/vital-logo.svg`、`/images/ray.jpg`），只有 Storybook 與 Fumadocs 的預覽有這些檔；registry 不會安裝。
+> **素材：** 毛玻璃照片會被引入並一起安裝。範例 logo / avatar 用公開路徑（`/images/vital-logo-text-h.svg`、`/images/vital-logo.svg`、`/images/ray.jpg`），只有文件範例有這些檔；registry 不會安裝。
 
 ## 何時使用 [#when-to-use]
 
@@ -25,6 +29,14 @@ npx shadcn@latest add @vital-design/sidebar-cloud-06
 - 父層上的 chevron 在面板打開時旋轉；收成 icon 時隱藏
 - **毛玻璃**疊在**雲朵照片**上的產品面板，加上帳號頁尾與圓點收合
 - 用 `variant="sidebar"` 或 `floating`。不要用 `inset` — 毛玻璃照片塞不進 inset 的內距，也不適合沒有圓角的角落。
+
+## 浮動 [#floating]
+
+傳入 `variant="floating"`，面板會變成四周留空的圓角面板。
+
+<ComponentPreview name="SidebarCloud06FloatingExample">
+  <SidebarCloud06FloatingExample />
+</ComponentPreview>
 
 ## 組合 [#composition]
 
@@ -36,7 +48,7 @@ import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from '@/components/sidebar/Sidebar';
+} from '@/components/ui/Sidebar';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

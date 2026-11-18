@@ -18,21 +18,10 @@ import type { FC } from 'react';
 import { MdxPre } from '~/components/docs/MdxPre';
 import { TitleActions } from '~/components/docs/TitleActions';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import { SidebarCloud01Preview } from '~/components/previews/SidebarCloud01Preview';
-import { SidebarCloud02Preview } from '~/components/previews/SidebarCloud02Preview';
-import { SidebarCloud03Preview } from '~/components/previews/SidebarCloud03Preview';
-import { SidebarCloud04Preview } from '~/components/previews/SidebarCloud04Preview';
-import { SidebarCloud05Preview } from '~/components/previews/SidebarCloud05Preview';
-import { SidebarCloud06Preview } from '~/components/previews/SidebarCloud06Preview';
-import {
-  SidebarFloatingPreview,
-  SidebarInsetPreview,
-  SidebarPreview,
-} from '~/components/previews/SidebarPreview';
-import { TablePaginationPreview } from '~/components/previews/TablePaginationPreview';
 import { type DocsLocale } from '~/lib/i18n';
 import { source } from '~/lib/source';
 import { hasZhTranslation } from '~/lib/translation-file';
+import registry from '../../../../../registry.json';
 
 // fumadocs-mdx generates body, toc, etc. from CompiledMDXProperties, but
 // the base PageData type in fumadocs-core doesn't declare them. Cast to access.
@@ -46,6 +35,12 @@ interface CompiledPageData {
 }
 
 const REGISTRY_BASE_URL = 'https://vittal.design/r';
+
+// Pages such as Icons and Table of Contents document code that has no
+// registry item of the same name; they get no registry URL.
+const REGISTRY_ITEMS = new Set(
+  registry.items.map((item) => item.name),
+);
 
 // Docs slug is not the registry item name for these nested block pages.
 const REGISTRY_ITEM_BY_SLUG: Record<string, string> = {
@@ -79,7 +74,7 @@ function registryUrlFor(
   const item =
     REGISTRY_ITEM_BY_SLUG[slug.join('/')] ??
     (slug.length === 2 ? slug[1] : undefined);
-  if (!item) return undefined;
+  if (!item || !REGISTRY_ITEMS.has(item)) return undefined;
   return `${REGISTRY_BASE_URL}/${item}.json`;
 }
 
@@ -141,16 +136,6 @@ export async function DocsContentPage({
             Tabs,
             TypeTable,
             ComponentPreview,
-            SidebarPreview,
-            SidebarInsetPreview,
-            SidebarFloatingPreview,
-            SidebarCloud01Preview,
-            SidebarCloud02Preview,
-            SidebarCloud03Preview,
-            SidebarCloud04Preview,
-            SidebarCloud05Preview,
-            SidebarCloud06Preview,
-            TablePaginationPreview,
           }}
         />
       </DocsBody>

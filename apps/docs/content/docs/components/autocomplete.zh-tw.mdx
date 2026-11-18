@@ -15,7 +15,7 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<ComponentPreview name="AutocompleteExample" align="start">
+<ComponentPreview name="AutocompleteExample">
   <AutocompleteExample />
 </ComponentPreview>
 
@@ -28,10 +28,7 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 預設 `mode="list"` 只篩選建議清單，不改輸入值。標示中的項目也要暫時把文字補進行內時，用 `mode="both"`。
 
-<ComponentPreview
-  name="AutocompleteInlineAutocompleteExample"
-  align="start"
->
+<ComponentPreview name="AutocompleteInlineAutocompleteExample">
   <AutocompleteInlineAutocompleteExample />
 </ComponentPreview>
 
@@ -39,7 +36,7 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 結果需要分區時，用分組的 `items`，搭配 `AutocompleteGroup` 與 `AutocompleteGroupLabel`。
 
-<ComponentPreview name="AutocompleteGroupedExample" align="start">
+<ComponentPreview name="AutocompleteGroupedExample">
   <AutocompleteGroupedExample />
 </ComponentPreview>
 
@@ -47,10 +44,7 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 用 `limit` 限制可見的符合項目。`AutocompleteStatus` 可以在結果清單上方加一行簡短說明。
 
-<ComponentPreview
-  name="AutocompleteLimitedResultsExample"
-  align="start"
->
+<ComponentPreview name="AutocompleteLimitedResultsExample">
   <AutocompleteLimitedResultsExample />
 </ComponentPreview>
 
@@ -58,10 +52,7 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 Autocomplete 的建議可以觸發 `onClick`。適合自由輸入的指令搜尋，輸入文字仍是主要狀態。完整的命令面板或階層選擇器，請用 `Command`。
 
-<ComponentPreview
-  name="AutocompleteCommandPickerExample"
-  align="start"
->
+<ComponentPreview name="AutocompleteCommandPickerExample">
   <AutocompleteCommandPickerExample />
 </ComponentPreview>
 
@@ -69,7 +60,7 @@ Autocomplete 的建議可以觸發 `onClick`。適合自由輸入的指令搜尋
 
 設定 `inline`，並用 `AutocompleteList` 取代 `AutocompleteContent`，建議會直接顯示在輸入框下方，不放進彈出層。
 
-<ComponentPreview name="AutocompleteInlineListExample" align="start">
+<ComponentPreview name="AutocompleteInlineListExample">
   <AutocompleteInlineListExample />
 </ComponentPreview>
 
@@ -77,10 +68,7 @@ Autocomplete 的建議可以觸發 `onClick`。適合自由輸入的指令搜尋
 
 單欄搜尋表單用 `name` 與 `submitOnItemClick`。
 
-<ComponentPreview
-  name="AutocompleteSubmitSearchExample"
-  align="start"
->
+<ComponentPreview name="AutocompleteSubmitSearchExample">
   <AutocompleteSubmitSearchExample />
 </ComponentPreview>
 

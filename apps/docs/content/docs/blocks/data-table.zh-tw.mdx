@@ -3,17 +3,20 @@ title: Data Table
 description: 通用資料表格，含分群、每個群組的新增列、搜尋、排序、欄寬調整與欄位排序、列選取，以及行內與 popover 儲存格編輯。
 ---
 
+import { DataTableExample } from '@/blocks/data-table/examples/DataTableExample';
+import { DataTableOneLevelExample } from '@/blocks/data-table/examples/DataTableOneLevelExample';
+import { DataTableTwoLevelsExample } from '@/blocks/data-table/examples/DataTableTwoLevelsExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
-import { ReviewTaskTable } from '~/components/vital-components';
 
 ## 預覽 [#preview]
 
 <ComponentPreview
-  centered={false}
+  name="DataTableExample"
+  align="start"
   className="overflow-x-auto"
   minHeight="min-h-0"
 >
-  <ReviewTaskTable />
+  <DataTableExample />
 </ComponentPreview>
 
 這個區塊附上覆核任務的範例。點儲存格即可編輯：任務與備註在格子裡直接改，狀態、協作者、期限與標籤會打開 popover。滑過表頭可排序，拖曳表頭邊緣可調整欄寬。勾選列會出現選取工具列。用 **分群** 分組，用 **顯示欄位** 隱藏或調整欄位順序。
@@ -23,11 +26,12 @@ import { ReviewTaskTable } from '~/components/vital-components';
 每個群組有自己的標題列與新增任務列，新增的列會帶入該群組的值。
 
 <ComponentPreview
-  centered={false}
+  name="DataTableOneLevelExample"
+  align="start"
   className="overflow-x-auto"
   minHeight="min-h-0"
 >
-  <ReviewTaskTable grouping={['project']} />
+  <DataTableOneLevelExample />
 </ComponentPreview>
 
 ### 兩層分群 [#two-levels-of-grouping]
@@ -35,11 +39,12 @@ import { ReviewTaskTable } from '~/components/vital-components';
 外層群組可以選取裡面所有的列。還沒有任務的專案，透過 `groupingConfig.empty` 仍會顯示。
 
 <ComponentPreview
-  centered={false}
+  name="DataTableTwoLevelsExample"
+  align="start"
   className="overflow-x-auto"
   minHeight="min-h-0"
 >
-  <ReviewTaskTable grouping={['project', 'status']} />
+  <DataTableTwoLevelsExample />
 </ComponentPreview>
 
 ## 換成你自己的資料 [#use-your-own-rows]

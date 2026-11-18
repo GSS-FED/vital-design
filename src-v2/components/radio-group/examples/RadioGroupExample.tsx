@@ -18,7 +18,7 @@ export function RadioGroupExample() {
 
   return (
     <RadioGroup
-      className="flex flex-wrap gap-4"
+      className="flex w-auto flex-wrap gap-4"
       value={value}
       onValueChange={setValue}
     >

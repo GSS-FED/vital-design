@@ -1,15 +1,18 @@
 // Builds the source map the Code tab in <ComponentPreview /> reads, at
 // apps/docs/components/previews/__sources__.ts, from:
-// - docs examples, src-v2/**/examples/*.tsx: the whole file, keyed by each
-//   `export function XxxExample`
-// - each exported function in apps/docs/components/previews/*.tsx (older
-//   previews not yet moved to examples)
+// docs examples, src-v2/**/examples/*.tsx: the whole file, keyed by each
+// `export function XxxExample`.
 // Repo imports are rewritten to the paths a registry install produces.
 //
 // We also pre-bake Shiki highlighting at generation time so the runtime
 // doesn't have to do server-side highlighting per page — keeps
-// ComponentPreview as a client component (preview files use 'use client').
-import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
+// ComponentPreview as a client component (examples use 'use client').
+import {
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  writeFileSync,
+} from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { codeToHtml } from 'shiki';
@@ -17,10 +20,6 @@ import { codeToHtml } from 'shiki';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const previewsDir = join(__dirname, '..', 'components', 'previews');
 const outFile = join(previewsDir, '__sources__.ts');
-
-const files = readdirSync(previewsDir).filter(
-  (f) => f.endsWith('.tsx') && !f.startsWith('_'),
-);
 
 const sources: Record<string, string> = {};
 
@@ -33,6 +32,11 @@ const toInstalledImports = (code: string) =>
     .replace(
       /(['"])@\/icons\/([^'"]+)\1/g,
       '$1@/components/icons/$2$1',
+    )
+    // Blocks install to src/blocks/<name>/<file> (registry/blocks.ts).
+    .replace(
+      /(['"])@\/blocks\/([^/'"]+)\/components\/([^'"]+)\1/g,
+      '$1@/blocks/$2/$3$1',
     );
 
 const srcDir = join(__dirname, '..', '..', '..', 'src-v2');
@@ -51,47 +55,6 @@ for (const file of readdirSync(srcDir, {
       throw new Error(`Two examples export ${name} (src-v2/${file})`);
     }
     sources[name] = code;
-  }
-}
-
-for (const file of files) {
-  const raw = readFileSync(join(previewsDir, file), 'utf-8');
-
-  // Imports: keep everything but the ComponentPreview import.
-  const importLines = (
-    raw.match(/^import[\s\S]*?from\s+['"][^'"]+['"];?\s*$/gm) ?? []
-  )
-    .filter(
-      (line) => !/components\/preview\/ComponentPreview/.test(line),
-    )
-    .map((line) => toInstalledImports(line.trim()));
-
-  // Each exported function block: `export function Name(...) { ... }`
-  const fnRegex =
-    /export\s+function\s+(\w+Preview)\s*\([^)]*\)\s*\{([\s\S]*?)\n\}/g;
-  let match: RegExpExecArray | null;
-  while ((match = fnRegex.exec(raw)) !== null) {
-    const [, fnName, rawBody] = match;
-    let body = rawBody;
-
-    // Strip the <ComponentPreview ...>...</ComponentPreview> wrapper but keep
-    // the children. This leaves the demo as the user would actually write it.
-    body = body
-      .replace(/<ComponentPreview\b[^>]*>\s*/g, '')
-      .replace(/\s*<\/ComponentPreview>/g, '');
-
-    // Reassemble import block + the function shorn of its preview wrapper.
-    const code = [
-      "'use client';",
-      '',
-      importLines.join('\n'),
-      '',
-      `export function ${fnName}() {${body}\n}`,
-    ]
-      .filter((segment) => segment.length > 0 || segment === '')
-      .join('\n');
-
-    sources[fnName] = code;
   }
 }
 
@@ -128,6 +91,9 @@ const body =
     .join('\n') +
   '\n};\n';
 
+// The folder only holds this generated (gitignored) file, so a fresh
+// checkout doesn't have it.
+mkdirSync(previewsDir, { recursive: true });
 writeFileSync(outFile, banner + body);
 
 console.log(

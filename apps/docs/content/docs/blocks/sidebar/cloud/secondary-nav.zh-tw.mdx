@@ -3,11 +3,15 @@ title: Secondary Nav
 description: 含次要導覽與帳號頁尾的 Cloud 側邊欄。毛玻璃外觀、扁平主選單。
 ---
 
-import { SidebarCloud04Preview } from '~/components/previews/SidebarCloud04Preview';
+import { SidebarCloud04Example } from '@/blocks/sidebar-cloud-04/examples/SidebarCloud04Example';
+import { SidebarCloud04FloatingExample } from '@/blocks/sidebar-cloud-04/examples/SidebarCloud04FloatingExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
 ## 預覽 [#preview]
 
-<SidebarCloud04Preview />
+<ComponentPreview name="SidebarCloud04Example">
+  <SidebarCloud04Example />
+</ComponentPreview>
 
 ## 安裝 [#installation]
 
@@ -17,7 +21,7 @@ npx shadcn@latest add @vital-design/sidebar-cloud-04
 
 會安裝 **`app-sidebar.tsx`** 與 `src/public/images/cloud.jpg`（由元件引入）。它依賴 `@vital-design/sidebar`，再加上 avatar、dropdown-menu，以及範例樹裡用到的 icon。在應用裡自己組 `SidebarProvider` 與 `SidebarInset`。
 
-> **素材：** 毛玻璃照片會被引入並一起安裝。範例 logo / avatar 用公開路徑（`/images/vital-logo-text-h.svg`、`/images/vital-logo.svg`、`/images/ray.jpg`），只有 Storybook 與 Fumadocs 的預覽有這些檔；registry 不會安裝。
+> **素材：** 毛玻璃照片會被引入並一起安裝。範例 logo / avatar 用公開路徑（`/images/vital-logo-text-h.svg`、`/images/vital-logo.svg`、`/images/ray.jpg`），只有文件範例有這些檔；registry 不會安裝。
 
 ## 何時使用 [#when-to-use]
 
@@ -26,6 +30,14 @@ npx shadcn@latest add @vital-design/sidebar-cloud-04
 - **帳號頁尾**含 avatar dropdown（與 [Inline Submenus](/zh-tw/docs/blocks/sidebar/cloud/inline-submenus) 相同）；收合控制釘在 `bottom-full`
 - **沒有子選單** — 主選單保持扁平，與 [Flat](/zh-tw/docs/blocks/sidebar/cloud/flat) 一樣
 - 用 `variant="sidebar"` 或 `floating`。不要用 `inset` — 毛玻璃照片塞不進 inset 的內距，也不適合沒有圓角的角落。
+
+## 浮動 [#floating]
+
+傳入 `variant="floating"`，面板會變成四周留空的圓角面板。
+
+<ComponentPreview name="SidebarCloud04FloatingExample">
+  <SidebarCloud04FloatingExample />
+</ComponentPreview>
 
 ## 組合 [#composition]
 
@@ -37,7 +49,7 @@ import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from '@/components/sidebar/Sidebar';
+} from '@/components/ui/Sidebar';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
