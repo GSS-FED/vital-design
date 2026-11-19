@@ -353,4 +353,23 @@ describe('DropdownMenu', () => {
       portalContainer.remove();
     }
   });
+
+  it('keeps the closed menu mounted with keepMounted', () => {
+    const { baseElement } = render(
+      <DropdownMenu>
+        <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+        <DropdownMenuContent keepMounted>
+          <DropdownMenuItem>Kept item</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>,
+    );
+
+    expect(
+      queryByAttribute(
+        'data-slot',
+        baseElement,
+        'dropdown-menu-content',
+      ),
+    ).toContainElement(screen.getByText('Kept item'));
+  });
 });

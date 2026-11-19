@@ -181,4 +181,52 @@ describe('Popover', () => {
       ),
     ).toHaveLength(1);
   });
+
+  it('portals content into portalContainer when provided', () => {
+    const portalContainer = document.createElement('div');
+    document.body.appendChild(portalContainer);
+
+    try {
+      render(
+        <Popover defaultOpen>
+          <PopoverTrigger>Open</PopoverTrigger>
+          <PopoverContent portalContainer={portalContainer}>
+            <PopoverTitle>Scoped title</PopoverTitle>
+          </PopoverContent>
+        </Popover>,
+      );
+
+      const content = queryByAttribute(
+        'data-slot',
+        portalContainer,
+        'popover-content',
+      );
+
+      expect(content).not.toBeNull();
+      expect(content).toContainElement(
+        screen.getByText('Scoped title'),
+      );
+    } finally {
+      portalContainer.remove();
+    }
+  });
+
+  it('keeps the closed popup mounted with keepMounted', () => {
+    const { baseElement } = render(
+      <Popover>
+        <PopoverTrigger>Open</PopoverTrigger>
+        <PopoverContent keepMounted>
+          <PopoverTitle>Kept title</PopoverTitle>
+        </PopoverContent>
+      </Popover>,
+    );
+
+    const content = queryByAttribute(
+      'data-slot',
+      baseElement,
+      'popover-content',
+    );
+
+    expect(content).toContainElement(screen.getByText('Kept title'));
+  });
 });

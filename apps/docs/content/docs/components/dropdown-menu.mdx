@@ -83,16 +83,24 @@ See [SplitButton](/docs/components/split-button) for its themes, sizes, and prop
 
 `DropdownMenuContent` (and `DropdownMenuSubContent`) is a composite of Portal + Positioner + Popup. Positioning props are forwarded to the Positioner; the popup accepts the usual Base UI Menu Popup props.
 
-| Prop                 | Type                                      | Default    | Description                                                                 |
-| -------------------- | ----------------------------------------- | ---------- | --------------------------------------------------------------------------- |
-| `align`              | `'start' \| 'center' \| 'end'`            | `'start'`  | Alignment relative to the anchor                                            |
-| `alignOffset`        | `number`                                  | -          | Offset along the alignment axis                                             |
-| `anchor`             | `RefObject \| Element \| …`               | -          | Custom positioning anchor                                                   |
-| `side`               | `'top' \| 'right' \| 'bottom' \| 'left' \| …` | `'bottom'` (`'right'` for SubContent) | Preferred side of the anchor                                      |
-| `sideOffset`         | `number`                                  | `4`        | Distance from the anchor                                                    |
-| `positionerClassName`| `string`                                  | -          | Classes on the Positioner wrapper                                           |
-| `portalContainer`    | `HTMLElement \| null`                     | -          | Custom portal container (defaults to `document.body`)                       |
-| `className`          | `string`                                  | -          | Additional classes on the popup                                             |
+| Prop                    | Type                                                   | Default                               | Description                                           |
+| ----------------------- | ------------------------------------------------------ | ------------------------------------- | ----------------------------------------------------- |
+| `align`                 | `'start' \| 'center' \| 'end'`                         | `'start'`                             | Alignment relative to the anchor                      |
+| `alignOffset`           | `number`                                               | -                                     | Offset along the alignment axis                       |
+| `side`                  | `'top' \| 'right' \| 'bottom' \| 'left' \| …`          | `'bottom'` (`'right'` for SubContent) | Preferred side of the anchor                          |
+| `sideOffset`            | `number`                                               | `4`                                   | Distance from the anchor                              |
+| `positionerClassName`   | `string`                                               | -                                     | Classes on the Positioner wrapper                     |
+| `className`             | `string`                                               | -                                     | Additional classes on the popup                       |
+| `anchor`                | `RefObject \| Element \| …`                            | -                                     | Custom positioning anchor (defaults to the trigger)   |
+| `arrowPadding`          | `number`                                               | `5`                                   | Minimum space between the arrow and the popup's edges |
+| `collisionAvoidance`    | `{ side?, align?, fallbackAxisSide? }`                 | `{ fallbackAxisSide: 'none' }`        | How the popup flips or shifts to avoid collisions     |
+| `collisionBoundary`     | `'clipping-ancestors' \| Element \| Element[] \| Rect` | `'clipping-ancestors'`                | Area the popup is kept inside                         |
+| `collisionPadding`      | `number \| { top?, right?, bottom?, left? }`           | `5`                                   | Space kept from the edge of the collision boundary    |
+| `disableAnchorTracking` | `boolean`                                              | `false`                               | Stop following layout shifts of the anchor            |
+| `positionMethod`        | `'absolute' \| 'fixed'`                                | `'absolute'`                          | CSS `position` of the positioner                      |
+| `sticky`                | `boolean`                                              | `false`                               | Keep the popup in view after the anchor scrolls out   |
+| `portalContainer`       | `HTMLElement \| ShadowRoot \| RefObject \| null`       | -                                     | Custom portal container (defaults to `document.body`) |
+| `keepMounted`           | `boolean`                                              | `false`                               | Keep the popup in the DOM while closed                |
 
 Use `portalContainer` when the menu must stay inside a CSS-scoped root — styles under a scope selector do not apply if the popup is portaled to `document.body`. It is also useful when body portaling breaks stacking or clipping (Dialog, transform, fullscreen, Shadow DOM).
 

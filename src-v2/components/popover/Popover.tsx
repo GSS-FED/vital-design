@@ -74,31 +74,66 @@ export type PopoverContentProps = ComponentPropsWithoutRef<
 > &
   Pick<
     ComponentPropsWithoutRef<typeof BasePopover.Positioner>,
-    'align' | 'alignOffset' | 'side' | 'sideOffset'
-  > & {
+    | 'align'
+    | 'alignOffset'
+    | 'anchor'
+    | 'arrowPadding'
+    | 'collisionAvoidance'
+    | 'collisionBoundary'
+    | 'collisionPadding'
+    | 'disableAnchorTracking'
+    | 'positionMethod'
+    | 'side'
+    | 'sideOffset'
+    | 'sticky'
+  > &
+  Pick<PopoverPortalProps, 'keepMounted'> & {
     positionerClassName?: string;
+    /** Custom portal container. Defaults to `document.body`. */
+    portalContainer?: PopoverPortalProps['container'];
   };
 
 const PopoverContent = function PopoverContent({
   align = 'start',
   alignOffset,
+  anchor,
+  arrowPadding,
   children,
   className,
+  collisionAvoidance,
+  collisionBoundary,
+  collisionPadding,
+  disableAnchorTracking,
+  keepMounted,
+  portalContainer,
+  positionMethod,
   positionerClassName,
   side,
   sideOffset = 4,
+  sticky,
   ref,
   ...props
 }: Omit<PopoverContentProps, 'ref'> & {
   ref?: Ref<ComponentRef<typeof BasePopover.Popup>>;
 }) {
   return (
-    <BasePopover.Portal>
+    <BasePopover.Portal
+      container={portalContainer}
+      keepMounted={keepMounted}
+    >
       <BasePopover.Positioner
         align={align}
         alignOffset={alignOffset}
+        anchor={anchor}
+        arrowPadding={arrowPadding}
+        collisionAvoidance={collisionAvoidance}
+        collisionBoundary={collisionBoundary}
+        collisionPadding={collisionPadding}
+        disableAnchorTracking={disableAnchorTracking}
+        positionMethod={positionMethod}
         side={side}
         sideOffset={sideOffset}
+        sticky={sticky}
         className={cn('isolate z-9999', positionerClassName)}
       >
         <BasePopover.Popup

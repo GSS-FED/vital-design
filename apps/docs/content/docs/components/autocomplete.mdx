@@ -106,6 +106,30 @@ Use `name` and `submitOnItemClick` for a single-field search form.
 | `submitOnItemClick` | `boolean`                                | `false`  | Submit the owning form when an item is selected |
 | `itemToStringValue` | `(item) => string`                       | —        | Converts object items to input/form text        |
 
+### AutocompleteContent
+
+`AutocompleteContent` is a composite of Portal + Positioner + Popup. Positioning props go to the Positioner; `portalContainer` and `keepMounted` goes to the Portal.
+
+| Prop                    | Type                                                   | Default                        | Description                                           |
+| ----------------------- | ------------------------------------------------------ | ------------------------------ | ----------------------------------------------------- |
+| `align`                 | `'start' \| 'center' \| 'end'`                         | `'start'`                      | Alignment relative to the anchor                      |
+| `alignOffset`           | `number`                                               | `0`                            | Offset along the alignment axis                       |
+| `side`                  | `'top' \| 'right' \| 'bottom' \| 'left' \| …`          | `'bottom'`                     | Preferred side of the anchor                          |
+| `sideOffset`            | `number`                                               | `4`                            | Distance from the anchor                              |
+| `emptyText`             | `ReactNode`                                            | —                              | Empty state content                                   |
+| `listClassName`         | `string`                                               | —                              | Classes for the list element                          |
+| `positionerClassName`   | `string`                                               | —                              | Classes on the Positioner wrapper                     |
+| `anchor`                | `RefObject \| Element \| …`                            | —                              | Custom positioning anchor (defaults to the trigger)   |
+| `arrowPadding`          | `number`                                               | `5`                            | Minimum space between the arrow and the popup's edges |
+| `collisionAvoidance`    | `{ side?, align?, fallbackAxisSide? }`                 | `{ fallbackAxisSide: 'none' }` | How the popup flips or shifts to avoid collisions     |
+| `collisionBoundary`     | `'clipping-ancestors' \| Element \| Element[] \| Rect` | `'clipping-ancestors'`         | Area the popup is kept inside                         |
+| `collisionPadding`      | `number \| { top?, right?, bottom?, left? }`           | `5`                            | Space kept from the edge of the collision boundary    |
+| `disableAnchorTracking` | `boolean`                                              | `false`                        | Stop following layout shifts of the anchor            |
+| `positionMethod`        | `'absolute' \| 'fixed'`                                | `'absolute'`                   | CSS `position` of the positioner                      |
+| `sticky`                | `boolean`                                              | `false`                        | Keep the popup in view after the anchor scrolls out   |
+| `portalContainer`       | `HTMLElement \| ShadowRoot \| RefObject \| null`       | —                              | Custom portal container (defaults to `document.body`) |
+| `keepMounted`           | `boolean`                                              | `false`                        | Keep the popup in the DOM while closed                |
+
 ### Parts
 
 | Part                     | Description                                                |

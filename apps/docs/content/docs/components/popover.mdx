@@ -3,8 +3,10 @@ title: Popover
 description: A floating panel anchored to a trigger element, used for tooltips with rich content, profile cards, and contextual overlays.
 ---
 
+import { PopoverAnchorExample } from '@/components/popover/examples/PopoverAnchorExample';
 import { PopoverExample } from '@/components/popover/examples/PopoverExample';
 import { PopoverMultipleTriggersExample } from '@/components/popover/examples/PopoverMultipleTriggersExample';
+import { PopoverPortalContainerExample } from '@/components/popover/examples/PopoverPortalContainerExample';
 import { PopoverRichContentExample } from '@/components/popover/examples/PopoverRichContentExample';
 import { PopoverSidePlacementExample } from '@/components/popover/examples/PopoverSidePlacementExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
@@ -49,6 +51,24 @@ One `Popover` root can serve several triggers. Give each `PopoverTrigger` a `pay
   <PopoverMultipleTriggersExample />
 </ComponentPreview>
 
+## Custom Anchor
+
+Pass `anchor` to position the popup against an element other than the trigger. A popover without a trigger, such as one opened from a menu item or a row action, needs it: control `open` yourself and point `anchor` at the element to align to. `anchor` accepts an element, a ref, a virtual element, or a function returning one.
+
+<ComponentPreview name="PopoverAnchorExample">
+  <PopoverAnchorExample />
+</ComponentPreview>
+
+## Portal Container
+
+`PopoverContent` portals to `document.body` by default. Pass `portalContainer` (an element or a ref) to render the popup inside another node instead.
+
+<ComponentPreview name="PopoverPortalContainerExample">
+  <PopoverPortalContainerExample />
+</ComponentPreview>
+
+Use it when the popover must stay inside a CSS-scoped root — styles under a scope selector do not apply if the popup is portaled to `document.body`. It is also useful when body portaling breaks stacking or clipping (Dialog, transform, fullscreen, Shadow DOM).
+
 ## When to Use
 
 | Need                                      | Component             |
@@ -61,15 +81,40 @@ One `Popover` root can serve several triggers. Give each `PopoverTrigger` a `pay
 
 `Popover` is the bare floating panel — pair it with your own content. For action menus, prefer `DropdownMenu`; for value pickers, prefer the matched component.
 
+## Props
+
+### PopoverContent
+
+`PopoverContent` is a composite of Portal + Positioner + Popup. Positioning props are forwarded to the Positioner; the popup accepts the usual Base UI Popover Popup props.
+
+| Prop                    | Type                                                   | Default                       | Description                                           |
+| ----------------------- | ------------------------------------------------------ | ----------------------------- | ----------------------------------------------------- |
+| `align`                 | `'start' \| 'center' \| 'end'`                         | `'start'`                     | Alignment relative to the anchor                      |
+| `alignOffset`           | `number`                                               | -                             | Offset along the alignment axis                       |
+| `side`                  | `'top' \| 'right' \| 'bottom' \| 'left' \| …`          | `'bottom'`                    | Preferred side of the anchor                          |
+| `sideOffset`            | `number`                                               | `4`                           | Distance from the anchor                              |
+| `positionerClassName`   | `string`                                               | -                             | Classes on the Positioner wrapper                     |
+| `className`             | `string`                                               | -                             | Additional classes on the popup                       |
+| `anchor`                | `RefObject \| Element \| …`                            | -                             | Custom positioning anchor (defaults to the trigger)   |
+| `arrowPadding`          | `number`                                               | `5`                           | Minimum space between the arrow and the popup's edges |
+| `collisionAvoidance`    | `{ side?, align?, fallbackAxisSide? }`                 | `{ fallbackAxisSide: 'end' }` | How the popup flips or shifts to avoid collisions     |
+| `collisionBoundary`     | `'clipping-ancestors' \| Element \| Element[] \| Rect` | `'clipping-ancestors'`        | Area the popup is kept inside                         |
+| `collisionPadding`      | `number \| { top?, right?, bottom?, left? }`           | `5`                           | Space kept from the edge of the collision boundary    |
+| `disableAnchorTracking` | `boolean`                                              | `false`                       | Stop following layout shifts of the anchor            |
+| `positionMethod`        | `'absolute' \| 'fixed'`                                | `'absolute'`                  | CSS `position` of the positioner                      |
+| `sticky`                | `boolean`                                              | `false`                       | Keep the popup in view after the anchor scrolls out   |
+| `portalContainer`       | `HTMLElement \| ShadowRoot \| RefObject \| null`       | -                             | Custom portal container (defaults to `document.body`) |
+| `keepMounted`           | `boolean`                                              | `false`                       | Keep the popup in the DOM while closed                |
+
 ## Exports
 
-| Export               | Description                              |
-| -------------------- | ---------------------------------------- |
-| `Popover`            | Root; manages open state                 |
-| `PopoverTrigger`     | Render-prop trigger                      |
-| `PopoverContent`     | Composite of Portal + Positioner + Popup |
-| `PopoverPortal`      | Portal target (rarely used directly)     |
-| `PopoverArrow`       | Optional pointer arrow                   |
-| `PopoverClose`       | Close button slot                        |
-| `PopoverTitle`       | Accessible title styled for popups       |
-| `PopoverDescription` | Accessible description styled for popups |
+| Export               | Description                                                                       |
+| -------------------- | --------------------------------------------------------------------------------- |
+| `Popover`            | Root; manages open state                                                          |
+| `PopoverTrigger`     | Render-prop trigger                                                               |
+| `PopoverContent`     | Composite of Portal + Positioner + Popup; supports `anchor` and `portalContainer` |
+| `PopoverPortal`      | Portal target (rarely used directly)                                              |
+| `PopoverArrow`       | Optional pointer arrow                                                            |
+| `PopoverClose`       | Close button slot                                                                 |
+| `PopoverTitle`       | Accessible title styled for popups                                                |
+| `PopoverDescription` | Accessible description styled for popups                                          |

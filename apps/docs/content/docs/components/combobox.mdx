@@ -97,10 +97,24 @@ Preset value renderer for multiple comboboxes. It renders selected values as rem
 
 ### ComboboxContent
 
-| Prop            | Type        | Default | Description                  |
-| --------------- | ----------- | ------- | ---------------------------- |
-| `emptyText`     | `ReactNode` | —       | Empty state content          |
-| `listClassName` | `string`    | —       | Classes for the list element |
+| Prop                    | Type                                                   | Default                        | Description                                           |
+| ----------------------- | ------------------------------------------------------ | ------------------------------ | ----------------------------------------------------- |
+| `emptyText`             | `ReactNode`                                            | —                              | Empty state content                                   |
+| `listClassName`         | `string`                                               | —                              | Classes for the list element                          |
+| `align`                 | `'start' \| 'center' \| 'end'`                         | `'start'`                      | Alignment relative to the anchor                      |
+| `alignOffset`           | `number`                                               | `0`                            | Offset along the alignment axis                       |
+| `side`                  | `'top' \| 'right' \| 'bottom' \| 'left' \| …`          | `'bottom'`                     | Preferred side of the anchor                          |
+| `sideOffset`            | `number`                                               | `4`                            | Distance from the anchor                              |
+| `anchor`                | `RefObject \| Element \| …`                            | —                              | Custom positioning anchor (defaults to the trigger)   |
+| `arrowPadding`          | `number`                                               | `5`                            | Minimum space between the arrow and the popup's edges |
+| `collisionAvoidance`    | `{ side?, align?, fallbackAxisSide? }`                 | `{ fallbackAxisSide: 'none' }` | How the popup flips or shifts to avoid collisions     |
+| `collisionBoundary`     | `'clipping-ancestors' \| Element \| Element[] \| Rect` | `'clipping-ancestors'`         | Area the popup is kept inside                         |
+| `collisionPadding`      | `number \| { top?, right?, bottom?, left? }`           | `5`                            | Space kept from the edge of the collision boundary    |
+| `disableAnchorTracking` | `boolean`                                              | `false`                        | Stop following layout shifts of the anchor            |
+| `positionMethod`        | `'absolute' \| 'fixed'`                                | `'absolute'`                   | CSS `position` of the positioner                      |
+| `sticky`                | `boolean`                                              | `false`                        | Keep the popup in view after the anchor scrolls out   |
+| `portalContainer`       | `HTMLElement \| ShadowRoot \| RefObject \| null`       | —                              | Custom portal container (defaults to `document.body`) |
+| `keepMounted`           | `boolean`                                              | `false`                        | Keep the popup in the DOM while closed                |
 
 ### ComboboxItem
 

@@ -196,4 +196,26 @@ describe('Autocomplete', () => {
       findSlot(baseElement, 'autocomplete-empty'),
     ).toHaveTextContent('No tags found.');
   });
+
+  it('keeps the closed content mounted inside portalContainer', () => {
+    const portalContainer = document.createElement('div');
+    document.body.appendChild(portalContainer);
+
+    try {
+      render(
+        <Autocomplete items={tags}>
+          <AutocompleteInput aria-label="Search tags" />
+          <AutocompleteContent
+            keepMounted
+            portalContainer={portalContainer}
+            emptyText="No tags found."
+          />
+        </Autocomplete>,
+      );
+
+      findSlot(portalContainer, 'autocomplete-popup');
+    } finally {
+      portalContainer.remove();
+    }
+  });
 });

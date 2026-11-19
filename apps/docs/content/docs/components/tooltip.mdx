@@ -98,14 +98,24 @@ prop.
 `TooltipContent` portals its children, positions them with Base UI, and
 adds the styled popup with an optional arrow.
 
-| Prop                  | Type                                                                       | Default    | Description                              |
-| --------------------- | -------------------------------------------------------------------------- | ---------- | ---------------------------------------- |
-| `side`                | `'top' \| 'right' \| 'bottom' \| 'left' \| 'inline-start' \| 'inline-end'` | `'top'`    | Side relative to the trigger             |
-| `sideOffset`          | `number`                                                                   | `8`        | Distance from the trigger in px          |
-| `align`               | `'start' \| 'center' \| 'end'`                                             | `'center'` | Alignment along the side                 |
-| `alignOffset`         | `number`                                                                   | `0`        | Offset along the alignment axis          |
-| `arrow`               | `boolean`                                                                  | `true`     | Whether to render the arrow              |
-| `positionerClassName` | `string`                                                                   | —          | Classes for the inner positioner element |
+| Prop                    | Type                                                                       | Default                       | Description                                           |
+| ----------------------- | -------------------------------------------------------------------------- | ----------------------------- | ----------------------------------------------------- |
+| `side`                  | `'top' \| 'right' \| 'bottom' \| 'left' \| 'inline-start' \| 'inline-end'` | `'top'`                       | Side relative to the trigger                          |
+| `sideOffset`            | `number`                                                                   | `8`                           | Distance from the trigger in px                       |
+| `align`                 | `'start' \| 'center' \| 'end'`                                             | `'center'`                    | Alignment along the side                              |
+| `alignOffset`           | `number`                                                                   | `0`                           | Offset along the alignment axis                       |
+| `arrow`                 | `boolean`                                                                  | `true`                        | Whether to render the arrow                           |
+| `positionerClassName`   | `string`                                                                   | —                             | Classes for the inner positioner element              |
+| `anchor`                | `RefObject \| Element \| …`                                                | —                             | Custom positioning anchor (defaults to the trigger)   |
+| `arrowPadding`          | `number`                                                                   | `5`                           | Minimum space between the arrow and the popup's edges |
+| `collisionAvoidance`    | `{ side?, align?, fallbackAxisSide? }`                                     | `{ fallbackAxisSide: 'end' }` | How the popup flips or shifts to avoid collisions     |
+| `collisionBoundary`     | `'clipping-ancestors' \| Element \| Element[] \| Rect`                     | `'clipping-ancestors'`        | Area the popup is kept inside                         |
+| `collisionPadding`      | `number \| { top?, right?, bottom?, left? }`                               | `5`                           | Space kept from the edge of the collision boundary    |
+| `disableAnchorTracking` | `boolean`                                                                  | `false`                       | Stop following layout shifts of the anchor            |
+| `positionMethod`        | `'absolute' \| 'fixed'`                                                    | `'absolute'`                  | CSS `position` of the positioner                      |
+| `sticky`                | `boolean`                                                                  | `false`                       | Keep the popup in view after the anchor scrolls out   |
+| `portalContainer`       | `HTMLElement \| ShadowRoot \| RefObject \| null`                           | —                             | Custom portal container (defaults to `document.body`) |
+| `keepMounted`           | `boolean`                                                                  | `false`                       | Keep the popup in the DOM while closed                |
 
 ### Tooltip Parts
 
