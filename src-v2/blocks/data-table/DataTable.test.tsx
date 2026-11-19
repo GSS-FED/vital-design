@@ -771,6 +771,14 @@ describe('DataTable', () => {
       '標籤',
       '備註',
     ];
+    const reorderedFields = [
+      '任務',
+      '期限',
+      '狀態',
+      '協作者',
+      '標籤',
+      '備註',
+    ];
     const headerOrder = () =>
       screen
         .getAllByRole('columnheader')
@@ -780,38 +788,31 @@ describe('DataTable', () => {
       fireEvent.click(
         screen.getByRole('button', { name: '顯示欄位' }),
       );
+      const toggle = screen.getByRole('switch', {
+        name: '顯示未勾選項目',
+      });
+      // Let the popover move initial focus before focusing the grip.
+      await waitFor(() => expect(toggle).toHaveFocus());
       screen.getByRole('button', { name: '調整期限的順序' }).focus();
       await user.keyboard('{ArrowUp}{ArrowUp}');
+      expect(fieldGrips()).toEqual(reorderedFields);
+      return toggle;
     };
 
-    await moveDueUpTwice();
+    const canceledToggle = await moveDueUpTwice();
     await user.click(screen.getByRole('button', { name: '取消' }));
     expect(headerOrder()).toEqual(fieldNames);
+    await waitFor(() =>
+      expect(canceledToggle).not.toBeInTheDocument(),
+    );
 
-    await moveDueUpTwice();
+    const savedToggle = await moveDueUpTwice();
     await user.click(screen.getByRole('button', { name: '儲存' }));
-    expect(headerOrder()).toEqual([
-      '任務',
-      '期限',
-      '狀態',
-      '協作者',
-      '標籤',
-      '備註',
-    ]);
+    expect(headerOrder()).toEqual(reorderedFields);
+    await waitFor(() => expect(savedToggle).not.toBeInTheDocument());
 
     fireEvent.click(screen.getByRole('button', { name: '顯示欄位' }));
-    expect(
-      screen
-        .getAllByRole('button', { name: /^調整.+的順序$/ })
-        .map((grip) => grip.getAttribute('aria-label')),
-    ).toEqual([
-      '調整任務的順序',
-      '調整期限的順序',
-      '調整狀態的順序',
-      '調整協作者的順序',
-      '調整標籤的順序',
-      '調整備註的順序',
-    ]);
+    expect(fieldGrips()).toEqual(reorderedFields);
   });
 
   it('hides unchecked fields in the card and reorders among the rest', async () => {

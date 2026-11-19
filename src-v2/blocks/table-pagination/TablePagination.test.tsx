@@ -202,7 +202,7 @@ it('reports the selected page size', async () => {
   await user.click(
     screen.getByRole('combobox', { name: '每頁筆數' }),
   );
-  await user.click(screen.getByRole('option', { name: '20' }));
+  await user.click(await screen.findByRole('option', { name: '20' }));
 
   expect(onPageSizeChange).toHaveBeenCalledWith(20);
 });
