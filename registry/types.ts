@@ -119,6 +119,7 @@ export type RegistryItemName =
   | 'tooltip'
   | 'toast'
   | 'dropdown-menu'
+  | 'alert-dialog'
   | 'dialog'
   | 'resizable'
   | 'slider'

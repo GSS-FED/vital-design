@@ -1,0 +1,85 @@
+---
+title: Alert Dialog
+description: A modal confirmation that interrupts the user and needs a response before they continue.
+---
+
+import { AlertDialogCheckboxExample } from '@/components/alert-dialog/examples/AlertDialogCheckboxExample';
+import { AlertDialogExample } from '@/components/alert-dialog/examples/AlertDialogExample';
+import { AlertDialogMessageExample } from '@/components/alert-dialog/examples/AlertDialogMessageExample';
+import { ComponentPreview } from '~/components/preview/ComponentPreview';
+
+## Preview
+
+<ComponentPreview name="AlertDialogExample">
+  <AlertDialogExample />
+</ComponentPreview>
+
+## Usage
+
+`AlertDialog` is built on Base UI Alert Dialog. Use it instead of [Dialog](/docs/components/dialog) when the user must answer before continuing, such as confirming a deletion. It renders with `role="alertdialog"` and does not close when the user clicks outside it; it closes from an `AlertDialogClose` action or the Escape key.
+
+Compose the root, trigger, portal, backdrop, viewport, and popup the same way as `Dialog`. Inside the popup, `AlertDialogBody` lays out an optional `AlertDialogMedia` icon next to `AlertDialogHeader`, which holds the title and description. Put the actions in `AlertDialogFooter` as text buttons, with the cancel action first: the first action gets focus when the dialog opens.
+
+The preview uses `Button` and a `CircleExclamationSolidIcon`; add `button` and `icon-circle-exclamation-solid` from the registry as well.
+
+## Message
+
+<ComponentPreview name="AlertDialogMessageExample">
+  <AlertDialogMessageExample />
+</ComponentPreview>
+
+When the user only needs to acknowledge something, use a single `OK` action. Color the icon with the status: `text-warning-500`, `text-success-500`, or `text-destructive-500`.
+
+## With checkbox
+
+<ComponentPreview name="AlertDialogCheckboxExample">
+  <AlertDialogCheckboxExample />
+</ComponentPreview>
+
+Extra controls, such as a "Don't ask again today" checkbox, go in `AlertDialogHeader` below the description.
+
+## Anatomy
+
+```tsx
+<AlertDialog>
+  <AlertDialogTrigger />
+  <AlertDialogPortal>
+    <AlertDialogBackdrop />
+    <AlertDialogViewport>
+      <AlertDialogPopup>
+        <AlertDialogBody>
+          <AlertDialogMedia />
+          <AlertDialogHeader>
+            <AlertDialogTitle />
+            <AlertDialogDescription />
+          </AlertDialogHeader>
+        </AlertDialogBody>
+        <AlertDialogFooter>
+          <AlertDialogClose />
+        </AlertDialogFooter>
+      </AlertDialogPopup>
+    </AlertDialogViewport>
+  </AlertDialogPortal>
+</AlertDialog>
+```
+
+## Props
+
+`AlertDialog` accepts Base UI `AlertDialog.Root` props, including `open`, `defaultOpen`, `onOpenChange`, and `actionsRef`. Every other part accepts the props of its Base UI part or of a `div`, plus `className`.
+
+### AlertDialogPortal
+
+| Prop          | Type                                                  | Default         | Description                                      |
+| ------------- | ----------------------------------------------------- | --------------- | ------------------------------------------------ |
+| `container`   | `HTMLElement \| ShadowRoot \| RefObject<...> \| null` | `document.body` | Element the backdrop and popup are portaled into |
+| `keepMounted` | `boolean`                                             | `false`         | Keeps the popup in the DOM while it is closed    |
+
+### AlertDialogClose
+
+| Prop     | Type        | Default | Description                                  |
+| -------- | ----------- | ------- | -------------------------------------------- |
+| `render` | `ReactNode` | -       | Renders a custom element, such as a `Button` |
+
+## Accessibility
+
+Always include `AlertDialogTitle`; it names the dialog, and `AlertDialogDescription` describes it. `AlertDialogMedia` is hidden from assistive technology, so the title must make sense without the icon. Write action labels that say what happens, such as "Delete" rather than "OK", when the action is destructive.

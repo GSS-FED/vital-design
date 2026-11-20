@@ -2,6 +2,7 @@
   "title": "元件",
   "pages": [
     "alert",
+    "alert-dialog",
     "autocomplete",
     "avatar",
     "badge",
