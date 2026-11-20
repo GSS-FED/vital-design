@@ -1,3 +1,4 @@
+import { Button } from '@/components/button/Button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -165,6 +166,168 @@ describe('Sidebar', () => {
       'false',
     );
     expect(document.cookie).toContain('sidebar_state=false');
+  });
+
+  it('writes the cookie under cookieName, or none when null', async () => {
+    const user = userEvent.setup();
+    const { unmount } = render(
+      <SidebarProvider cookieName="shell_sidebar">
+        <SidebarTrigger />
+      </SidebarProvider>,
+    );
+    await user.click(
+      screen.getByRole('button', { name: 'Toggle Sidebar' }),
+    );
+    expect(document.cookie).toBe(
+      'shell_sidebar=false; path=/; max-age=604800',
+    );
+    unmount();
+
+    document.cookie = '';
+    render(
+      <SidebarProvider cookieName={null}>
+        <SidebarTrigger />
+        <SidebarProbe />
+      </SidebarProvider>,
+    );
+    await user.click(
+      screen.getByRole('button', { name: 'Toggle Sidebar' }),
+    );
+    expect(screen.getByTestId('probe')).toHaveAttribute(
+      'data-open',
+      'false',
+    );
+    expect(document.cookie).toBe('');
+  });
+
+  it('keeps the desktop panel below 768px when isMobile is false', async () => {
+    const user = userEvent.setup();
+    mockedUseIsMobile.mockReturnValue(true);
+    const { baseElement } = render(
+      <SidebarProvider isMobile={false}>
+        <Sidebar>
+          <SidebarContent>Nav</SidebarContent>
+        </Sidebar>
+        <SidebarTrigger />
+        <SidebarProbe />
+      </SidebarProvider>,
+    );
+
+    await user.click(
+      screen.getByRole('button', { name: 'Toggle Sidebar' }),
+    );
+
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(findSlot(baseElement, 'sidebar')).toHaveAttribute(
+      'data-state',
+      'collapsed',
+    );
+    expect(screen.getByTestId('probe')).toHaveAttribute(
+      'data-mobile',
+      'false',
+    );
+  });
+
+  it('renders SidebarTrigger children and skips toggling when onClick prevents default', async () => {
+    const user = userEvent.setup();
+    render(
+      <SidebarProvider>
+        <SidebarTrigger
+          aria-label="Quick links"
+          onClick={(event) => event.preventDefault()}
+        >
+          <svg data-testid="custom-icon" />
+        </SidebarTrigger>
+        <SidebarProbe />
+      </SidebarProvider>,
+    );
+
+    const trigger = screen.getByRole('button', {
+      name: 'Quick links',
+    });
+    expect(
+      within(trigger).getByTestId('custom-icon'),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText('Toggle Sidebar'),
+    ).not.toBeInTheDocument();
+
+    await user.click(trigger);
+    expect(screen.getByTestId('probe')).toHaveAttribute(
+      'data-open',
+      'true',
+    );
+  });
+
+  it('renders SidebarTrigger as a VD Button without the default skin', async () => {
+    const user = userEvent.setup();
+    render(
+      <SidebarProvider>
+        <SidebarTrigger
+          aria-label="Quick links"
+          render={<Button variant="ghost" size="icon-md" />}
+        />
+        <SidebarProbe />
+      </SidebarProvider>,
+    );
+
+    const trigger = screen.getByRole('button', {
+      name: 'Quick links',
+    });
+    expect(trigger).toHaveAttribute('data-slot', 'sidebar-trigger');
+    expect(trigger).toHaveAttribute('data-variant', 'ghost');
+    expect(trigger).toHaveAttribute('data-size', 'icon-md');
+    expect(trigger).not.toHaveClass('size-7');
+    expect(trigger).not.toHaveClass('hover:bg-sidebar-accent');
+
+    await user.click(trigger);
+    expect(screen.getByTestId('probe')).toHaveAttribute(
+      'data-open',
+      'false',
+    );
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('renders SidebarMenuButton outside a provider', () => {
+    render(
+      <SidebarMenuButton tooltip="Home">Home</SidebarMenuButton>,
+    );
+
+    expect(
+      screen.getByRole('button', { name: 'Home' }),
+    ).toHaveAttribute('data-slot', 'sidebar-menu-button');
+  });
+
+  it('replaces the sidebar root element with render', () => {
+    const { baseElement, rerender } = render(
+      <SidebarProvider>
+        <Sidebar
+          collapsible="none"
+          render={<aside aria-label="Panel" />}
+        >
+          <SidebarContent>Nav</SidebarContent>
+        </Sidebar>
+      </SidebarProvider>,
+    );
+
+    const panel = screen.getByRole('complementary', {
+      name: 'Panel',
+    });
+    expect(panel).toHaveAttribute('data-slot', 'sidebar');
+    expect(panel).toHaveAttribute('data-collapsible', 'none');
+
+    rerender(
+      <SidebarProvider>
+        <Sidebar render={<nav aria-label="Main" />}>
+          <SidebarContent>Nav</SidebarContent>
+        </Sidebar>
+      </SidebarProvider>,
+    );
+
+    const nav = findSlot(baseElement, 'sidebar');
+    expect(nav.tagName).toBe('NAV');
+    expect(nav).toHaveAttribute('aria-label', 'Main');
+    expect(querySlot(nav, 'sidebar-container')).not.toBeNull();
   });
 
   it('supports controlled open state', async () => {

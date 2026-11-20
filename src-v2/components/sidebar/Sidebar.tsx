@@ -76,6 +76,10 @@ export type SidebarProviderProps = ComponentPropsWithoutRef<'div'> & {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   enableKeyboardShortcut?: boolean;
+  /** Cookie written on each open change. `null` writes no cookie. */
+  cookieName?: string | null;
+  /** Overrides the built-in `< 768px` check. `false` never switches to the mobile sheet. */
+  isMobile?: boolean;
 };
 
 const SidebarProvider = function SidebarProvider({
@@ -83,6 +87,8 @@ const SidebarProvider = function SidebarProvider({
   open: openProp,
   onOpenChange: setOpenProp,
   enableKeyboardShortcut = true,
+  cookieName = SIDEBAR_COOKIE_NAME,
+  isMobile: isMobileProp,
   className,
   style,
   children,
@@ -91,7 +97,8 @@ const SidebarProvider = function SidebarProvider({
 }: Omit<SidebarProviderProps, 'ref'> & {
   ref?: Ref<HTMLDivElement>;
 }) {
-  const isMobile = useIsMobile();
+  const detectedMobile = useIsMobile();
+  const isMobile = isMobileProp ?? detectedMobile;
   const [openMobile, setOpenMobile] = useState(false);
   const [_open, _setOpen] = useState(defaultOpen);
   const open = openProp ?? _open;
@@ -105,9 +112,11 @@ const SidebarProvider = function SidebarProvider({
       } else {
         _setOpen(openState);
       }
-      document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
+      if (cookieName) {
+        document.cookie = `${cookieName}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
+      }
     },
-    [setOpenProp, open],
+    [setOpenProp, open, cookieName],
   );
 
   const toggleSidebar = useCallback(() => {
@@ -188,12 +197,26 @@ export type SidebarProps = ComponentPropsWithoutRef<'div'> & {
   side?: 'left' | 'right';
   variant?: 'sidebar' | 'floating' | 'inset';
   collapsible?: 'offcanvas' | 'icon' | 'none';
+  /** Replaces the `data-slot="sidebar"` root element, e.g. `<aside />` or `<nav />`. Ignored on mobile, where the panel is a Sheet dialog. */
+  render?: useRender.RenderProp;
 };
+
+function SidebarRoot({
+  render,
+  ref,
+  ...props
+}: ComponentPropsWithoutRef<'div'> & {
+  render?: useRender.RenderProp;
+  ref?: Ref<HTMLDivElement>;
+}) {
+  return useRender({ ref, render, defaultTagName: 'div', props });
+}
 
 const Sidebar = function Sidebar({
   side = 'left',
   variant = 'sidebar',
   collapsible = 'offcanvas',
+  render,
   className,
   style,
   children,
@@ -204,8 +227,9 @@ const Sidebar = function Sidebar({
 
   if (collapsible === 'none') {
     return (
-      <div
+      <SidebarRoot
         ref={ref}
+        render={render}
         data-slot="sidebar"
         data-side={side}
         data-variant={variant}
@@ -227,7 +251,7 @@ const Sidebar = function Sidebar({
         >
           {children}
         </div>
-      </div>
+      </SidebarRoot>
     );
   }
 
@@ -279,7 +303,8 @@ const Sidebar = function Sidebar({
   }
 
   return (
-    <div
+    <SidebarRoot
+      render={render}
       className="group peer hidden text-sidebar-foreground md:block data-[side=right]:order-last"
       data-state={state}
       data-collapsible={state === 'collapsed' ? collapsible : ''}
@@ -325,15 +350,17 @@ const Sidebar = function Sidebar({
           {children}
         </div>
       </div>
-    </div>
+    </SidebarRoot>
   );
 };
 
-export type SidebarTriggerProps = ComponentPropsWithoutRef<'button'>;
+export type SidebarTriggerProps = useRender.ComponentProps<'button'>;
 
 const SidebarTrigger = function SidebarTrigger({
   className,
   onClick,
+  render,
+  children,
   ref,
   ...props
 }: Omit<SidebarTriggerProps, 'ref'> & {
@@ -341,29 +368,43 @@ const SidebarTrigger = function SidebarTrigger({
 }) {
   const { toggleSidebar, isMobile, open, openMobile } = useSidebar();
 
-  return (
-    <button
-      ref={ref}
-      type="button"
-      data-sidebar="trigger"
-      data-slot="sidebar-trigger"
-      aria-expanded={isMobile ? openMobile : open}
-      className={cn(
-        'inline-flex size-7 shrink-0 items-center justify-center rounded-md text-sidebar-foreground outline-hidden ring-sidebar-ring transition-colors',
-        'hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
-        'focus-visible:ring-2',
-        className,
-      )}
-      onClick={(event: MouseEvent<HTMLButtonElement>) => {
-        onClick?.(event);
-        toggleSidebar();
-      }}
-      {...props}
-    >
-      <PanelLeftIcon className="size-5" />
-      <span className="sr-only">Toggle Sidebar</span>
-    </button>
-  );
+  return useRender({
+    ref,
+    render,
+    defaultTagName: 'button',
+    state: { slot: 'sidebar-trigger' },
+    props: mergeProps<'button'>(
+      {
+        type: render ? undefined : 'button',
+        'aria-expanded': isMobile ? openMobile : open,
+        // A rendered element (e.g. `<Button />`) keeps its own look.
+        className: cn(
+          !render && [
+            'inline-flex size-7 shrink-0 items-center justify-center rounded-md text-sidebar-foreground outline-hidden ring-sidebar-ring transition-colors',
+            'hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
+            'focus-visible:ring-2',
+          ],
+          className,
+        ),
+        onClick: (event: MouseEvent<HTMLButtonElement>) => {
+          onClick?.(event);
+          if (!event.defaultPrevented) {
+            toggleSidebar();
+          }
+        },
+        children: children ?? (
+          <>
+            <PanelLeftIcon className="size-5" />
+            <span className="sr-only">Toggle Sidebar</span>
+          </>
+        ),
+        ...({
+          'data-sidebar': 'trigger',
+        } as HTMLAttributes<HTMLButtonElement>),
+      },
+      props,
+    ),
+  });
 };
 
 export type SidebarRailProps = ComponentPropsWithoutRef<'button'>;
@@ -722,7 +763,8 @@ const SidebarMenuButton = function SidebarMenuButton({
 }: Omit<SidebarMenuButtonProps, 'ref'> & {
   ref?: Ref<HTMLButtonElement>;
 }) {
-  const { isMobile, state } = useSidebar();
+  // Outside a SidebarProvider (e.g. a tree rendered on its own), act expanded.
+  const context = useContext(SidebarContext);
   const buttonClassName = cn(
     sidebarMenuButtonVariants({ variant, size }),
     className,
@@ -748,7 +790,7 @@ const SidebarMenuButton = function SidebarMenuButton({
     ),
   });
 
-  if (!tooltip) {
+  if (!tooltip || !context) {
     return view;
   }
 
@@ -763,7 +805,7 @@ const SidebarMenuButton = function SidebarMenuButton({
       <TooltipContent
         side="right"
         align="center"
-        hidden={state !== 'collapsed' || isMobile}
+        hidden={context.state !== 'collapsed' || context.isMobile}
         className={tooltipClassName}
         {...restTooltipProps}
       />

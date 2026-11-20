@@ -1,0 +1,15 @@
+---
+title: Sidebar props for embedded and multiple sidebars
+---
+
+#### Components
+
+- **Sidebar:** new optional props for sidebars that live inside another app's page or share a page with a second sidebar:
+
+  - `SidebarProvider` `cookieName` writes the open state under another cookie name; `cookieName={null}` writes no cookie.
+  - `SidebarProvider` `isMobile` replaces the built-in `768px` check. `isMobile={false}` never switches to the mobile Sheet.
+  - `SidebarTrigger` takes `children` to replace its icon and `render` to use another element, such as `render={<Button variant="ghost" size="icon-md" />}`. A rendered element keeps its own look. Calling `event.preventDefault()` in `onClick` stops the toggle.
+  - `Sidebar` takes `render` to change its root element, such as `<aside />` or `<nav />`. It is ignored on mobile, where the panel is a Sheet.
+  - `SidebarMenuButton` no longer throws outside a `SidebarProvider`; it renders as expanded, without its tooltip.
+
+  Leaving the new props out keeps the current behavior. Reinstall `sidebar` to pick this up.

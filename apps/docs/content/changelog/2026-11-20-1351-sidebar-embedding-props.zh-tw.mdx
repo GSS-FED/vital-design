@@ -1,0 +1,15 @@
+---
+title: 給內嵌與多個側邊欄用的 Sidebar props
+---
+
+#### 元件
+
+- **Sidebar：** 新增幾個選填 props，給放在別的應用頁面裡、或和另一個側邊欄同頁的側邊欄使用：
+
+  - `SidebarProvider` 的 `cookieName` 改用別的 cookie 名稱保存開啟狀態；`cookieName={null}` 不寫 cookie。
+  - `SidebarProvider` 的 `isMobile` 取代內建的 `768px` 判斷。`isMobile={false}` 永遠不切換成行動版 Sheet。
+  - `SidebarTrigger` 可以傳 `children` 換掉 icon，傳 `render` 換成別的元素，例如 `render={<Button variant="ghost" size="icon-md" />}`。換上去的元素保留自己的外觀。在 `onClick` 裡呼叫 `event.preventDefault()` 就不會切換。
+  - `Sidebar` 可以傳 `render` 換掉根元素，例如 `<aside />` 或 `<nav />`。行動版的面板是 Sheet，會忽略這個 prop。
+  - `SidebarMenuButton` 在 `SidebarProvider` 外不再 throw，會當成展開狀態渲染，不顯示 tooltip。
+
+  不傳新 props 時行為和現在一樣。重新安裝 `sidebar` 即可套用。

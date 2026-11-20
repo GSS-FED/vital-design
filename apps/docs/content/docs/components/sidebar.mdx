@@ -88,15 +88,15 @@ export function AppLayout({
 
 ## Structure
 
-| Part                                                 | Role                                                                                                                |
-| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `SidebarProvider`                                    | Collapsible state, cookie persistence, keyboard shortcut (`enableKeyboardShortcut`, default true), tooltip provider |
-| `Sidebar`                                            | Main panel (`side`, `variant`, `collapsible`)                                                                       |
-| `SidebarTrigger` / `SidebarRail`                     | Toggle controls                                                                                                     |
-| `SidebarInset`                                       | Primary content region                                                                                              |
-| `SidebarHeader` / `SidebarFooter` / `SidebarContent` | Sticky header/footer and scrollable body                                                                            |
-| `SidebarGroup*`                                      | Labeled sections inside content                                                                                     |
-| `SidebarMenu*`                                       | Navigation rows, actions, badges, skeletons, nested submenus                                                        |
+| Part                                                 | Role                                                                                                              |
+| ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `SidebarProvider`                                    | Collapsible state, cookie (`cookieName`), keyboard shortcut (`enableKeyboardShortcut`), mobile check (`isMobile`) |
+| `Sidebar`                                            | Main panel (`side`, `variant`, `collapsible`, `render`)                                                           |
+| `SidebarTrigger` / `SidebarRail`                     | Toggle controls                                                                                                   |
+| `SidebarInset`                                       | Primary content region                                                                                            |
+| `SidebarHeader` / `SidebarFooter` / `SidebarContent` | Sticky header/footer and scrollable body                                                                          |
+| `SidebarGroup*`                                      | Labeled sections inside content                                                                                   |
+| `SidebarMenu*`                                       | Navigation rows, actions, badges, skeletons, nested submenus                                                      |
 
 ## Collapsible modes
 
@@ -160,7 +160,26 @@ Vittal Design uses Base UI’s `render` prop instead of Radix `asChild`:
 </SidebarMenuButton>
 ```
 
-Applies to: `SidebarGroupLabel`, `SidebarGroupAction`, `SidebarMenuButton`, `SidebarMenuAction`, `SidebarMenuSubButton`.
+Applies to: `Sidebar`, `SidebarTrigger`, `SidebarGroupLabel`, `SidebarGroupAction`, `SidebarMenuButton`, `SidebarMenuAction`, `SidebarMenuSubButton`.
+
+### Trigger
+
+`SidebarTrigger` shows a panel icon by default. Pass `children` to replace it, or `render` to use another element. A rendered element keeps its own look, so a VD `Button` is not restyled by the trigger:
+
+```tsx
+<SidebarTrigger
+  aria-label="Quick links"
+  render={<Button variant="ghost" size="icon-md" />}
+>
+  <PanelLeftIcon data-icon="inline-start" />
+</SidebarTrigger>
+```
+
+Call `event.preventDefault()` in `onClick` to stop the trigger from toggling.
+
+### Root element
+
+`Sidebar` renders a `<div>`. Pass `render={<aside />}` or `render={<nav aria-label="…" />}` to give the panel a landmark. On mobile the panel is a Sheet dialog and `render` is ignored.
 
 ## Keyboard
 
@@ -169,6 +188,8 @@ Applies to: `SidebarGroupLabel`, `SidebarGroupAction`, `SidebarMenuButton`, `Sid
 ## Cookie / open state
 
 `SidebarProvider` **writes** a `sidebar_state` cookie when open state changes (for optional cross-page sync). It does **not** read the cookie on mount — initial state comes from `defaultOpen` or a controlled `open` prop. This keeps SSR and first paint predictable; read the cookie yourself only if your app needs restore-on-load.
+
+Set `cookieName` to write under another name, or `cookieName={null}` to write no cookie. To persist state some other way, use `onOpenChange`.
 
 ## Theme CSS variables
 
@@ -195,4 +216,16 @@ Layout widths are set on the provider wrapper:
 
 Below `768px`, `Sidebar` renders as a `Sheet` controlled by `openMobile`. Place a `SidebarTrigger` outside the panel (typically in `SidebarInset` header chrome) — or call `useSidebar().toggleSidebar` — to open it. `SidebarTrigger` sets `aria-expanded` from mobile/desktop open state.
 
+Pass `isMobile` to `SidebarProvider` to replace the built-in `768px` check, for example with your own breakpoint. `isMobile={false}` never switches to the Sheet: the trigger and `⌘B` always toggle the desktop panel. Use it when your layout handles small screens itself.
+
 Menu actions default to **buttons**. Use the `render` prop for links (`render={<a href="…" />}`) on `SidebarMenuButton` / `SidebarMenuSubButton`.
+
+## Embedding and multiple sidebars
+
+When a sidebar lives inside another app's page, or two sidebars share a page (for example a shell's quick-links panel next to a product's sidebar):
+
+- **Cookie:** give each `SidebarProvider` its own `cookieName`, or `null` when the page is not yours. A cookie written from an embedded sidebar lands on the host's domain.
+- **Shortcut:** enable `⌘B` on at most one provider. Every enabled provider listens on `window`, so two would toggle together. Turn it off (`enableKeyboardShortcut={false}`) when the host page owns its shortcuts.
+- **Layout:** the provider renders a `flex min-h-svh` wrapper. When your own layout positions the panel, pass `className="contents"` so the wrapper only holds state.
+- **Popups:** menus inside the sidebar portal to `document.body`. If your theme tokens are scoped to a container, pass that container to the popup (for example `DropdownMenuContent`'s `portalContainer`).
+- **Menu rows outside a provider:** `SidebarMenuButton` also renders without a `SidebarProvider`, as if expanded and without its tooltip, so a list component built from it can be rendered and tested on its own.
