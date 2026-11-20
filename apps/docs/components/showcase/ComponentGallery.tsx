@@ -123,6 +123,7 @@ import { AngleDownIcon } from '@/icons/AngleDownIcon';
 import { BellIcon } from '@/icons/BellIcon';
 import { CalendarDaysIcon } from '@/icons/CalendarDaysIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
+import { CircleExclamationSolidIcon } from '@/icons/CircleExclamationSolidIcon';
 import { ClockIcon } from '@/icons/ClockIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
 import { GearIcon } from '@/icons/GearIcon';
@@ -174,6 +175,27 @@ const previews: Record<string, ReactNode> = {
         Reviewers have been notified.
       </AlertDescription>
     </Alert>
+  ),
+  'alert-dialog': (
+    <Surface className="w-64 rounded-(--radius-sm) border-0 px-4 pb-2 pt-3">
+      <div className="flex items-start gap-2">
+        <CircleExclamationSolidIcon className="mt-0.5 size-4 shrink-0 text-warning-500" />
+        <div>
+          <div className="font-medium">Delete this project?</div>
+          <p className="mt-1 text-grayscale-opacity-700">
+            This can&apos;t be undone.
+          </p>
+        </div>
+      </div>
+      <div className="mt-2 flex justify-end gap-4">
+        <Button variant="text" className="text-grayscale-opacity-600">
+          Cancel
+        </Button>
+        <Button variant="text" theme="alarm">
+          Delete
+        </Button>
+      </div>
+    </Surface>
   ),
   autocomplete: (
     <div className="flex w-52 flex-col gap-1">
@@ -742,6 +764,7 @@ const previews: Record<string, ReactNode> = {
 
 // Matches each page's frontmatter title, which is what the sidebar shows.
 const titles: Record<string, string> = {
+  'alert-dialog': 'Alert Dialog',
   'scroll-area': 'Scroll Area',
   'table-of-contents': 'Table of Contents',
   'time-picker': 'Time Picker',

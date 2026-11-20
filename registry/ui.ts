@@ -678,6 +678,24 @@ export const ui = [
     ],
   },
   {
+    name: 'alert-dialog',
+    type: 'registry:ui',
+    title: 'Alert Dialog',
+    description:
+      'Modal confirmation that interrupts the user and needs a response, with icon, title, description, and footer actions',
+    dependencies: ['@base-ui/react', 'cn'],
+    registryDependencies: [
+      '@vital-design/utils',
+      '@vital-design/vital-theme',
+    ],
+    files: [
+      {
+        path: 'src-v2/components/alert-dialog/AlertDialog.tsx',
+        type: 'registry:ui',
+      },
+    ],
+  },
+  {
     name: 'dialog',
     type: 'registry:ui',
     title: 'Dialog',
