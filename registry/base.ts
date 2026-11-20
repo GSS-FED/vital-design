@@ -147,7 +147,13 @@ const iconGroups = [
   { name: 'icon-gear', title: 'Gear Icon', files: ['GearIcon'] },
   { name: 'icon-home', title: 'Home Icon', files: ['HomeIcon'] },
   { name: 'icon-inbox', title: 'Inbox Icon', files: ['InboxIcon'] },
-  { name: 'icon-info', title: 'Info Icon', files: ['InfoIcon'] },
+  // Deprecated alias of icon-circle-info, kept because it shipped before the
+  // Notion name. Installs both files; InfoIcon re-exports CircleInfoIcon.
+  {
+    name: 'icon-info',
+    title: 'Info Icon (deprecated)',
+    files: ['InfoIcon', 'CircleInfoIcon'],
+  },
   {
     name: 'icon-life-ring',
     title: 'Life Ring Icon',
@@ -217,6 +223,106 @@ const iconGroups = [
     files: ['ThumbtackSolidIcon'],
   },
   { name: 'icon-user', title: 'User Icon', files: ['UserIcon'] },
+  {
+    name: 'icon-arrow-right-long',
+    title: 'Arrow Right Long Icon',
+    files: ['ArrowRightLongIcon'],
+  },
+  {
+    name: 'icon-arrow-up-right-from-square',
+    title: 'Arrow Up Right From Square Icon',
+    files: ['ArrowUpRightFromSquareIcon'],
+  },
+  {
+    name: 'icon-arrow-up-right-from-square-solid',
+    title: 'Arrow Up Right From Square Solid Icon',
+    files: ['ArrowUpRightFromSquareSolidIcon'],
+  },
+  {
+    name: 'icon-circle-check',
+    title: 'Circle Check Icon',
+    files: ['CircleCheckIcon'],
+  },
+  {
+    name: 'icon-circle-check-solid',
+    title: 'Circle Check Solid Icon',
+    files: ['CircleCheckSolidIcon'],
+  },
+  {
+    name: 'icon-circle-dashed',
+    title: 'Circle Dashed Icon',
+    files: ['CircleDashedIcon'],
+  },
+  {
+    name: 'icon-circle-dot',
+    title: 'Circle Dot Icon',
+    files: ['CircleDotIcon'],
+  },
+  {
+    name: 'icon-circle-exclamation-solid',
+    title: 'Circle Exclamation Solid Icon',
+    files: ['CircleExclamationSolidIcon'],
+  },
+  {
+    name: 'icon-circle-info',
+    title: 'Circle Info Icon',
+    files: ['CircleInfoIcon'],
+  },
+  {
+    name: 'icon-circle-info-solid',
+    title: 'Circle Info Solid Icon',
+    files: ['CircleInfoSolidIcon'],
+  },
+  {
+    name: 'icon-circle-minus-solid',
+    title: 'Circle Minus Solid Icon',
+    files: ['CircleMinusSolidIcon'],
+  },
+  {
+    name: 'icon-circle-question',
+    title: 'Circle Question Icon',
+    files: ['CircleQuestionIcon'],
+  },
+  {
+    name: 'icon-circle-xmark',
+    title: 'Circle Xmark Icon',
+    files: ['CircleXmarkIcon'],
+  },
+  {
+    name: 'icon-circle-xmark-solid',
+    title: 'Circle Xmark Solid Icon',
+    files: ['CircleXmarkSolidIcon'],
+  },
+  {
+    name: 'icon-clock-solid',
+    title: 'Clock Solid Icon',
+    files: ['ClockSolidIcon'],
+  },
+  {
+    name: 'icon-ellipsis-vertical',
+    title: 'Ellipsis Vertical Icon',
+    files: ['EllipsisVerticalIcon'],
+  },
+  {
+    name: 'icon-exclamation-solid',
+    title: 'Exclamation Solid Icon',
+    files: ['ExclamationSolidIcon'],
+  },
+  {
+    name: 'icon-file-arrow-up-solid',
+    title: 'File Arrow Up Solid Icon',
+    files: ['FileArrowUpSolidIcon'],
+  },
+  {
+    name: 'icon-file-lines',
+    title: 'File Lines Icon',
+    files: ['FileLinesIcon'],
+  },
+  {
+    name: 'icon-grip-dots-vertical',
+    title: 'Grip Dots Vertical Icon',
+    files: ['GripDotsVerticalIcon'],
+  },
 ] as const;
 
 const iconItems = iconGroups.map((group) => ({

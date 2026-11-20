@@ -849,12 +849,17 @@
     {
       "name": "icon-info",
       "type": "registry:ui",
-      "title": "Info Icon",
-      "description": "Info Icon component",
+      "title": "Info Icon (deprecated)",
+      "description": "Info Icon (deprecated) component",
       "files": [
         {
           "path": "src-v2/icons/InfoIcon.tsx",
           "target": "src/components/icons/InfoIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CircleInfoIcon.tsx",
+          "target": "src/components/icons/CircleInfoIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -1081,6 +1086,266 @@
       ]
     },
     {
+      "name": "icon-arrow-right-long",
+      "type": "registry:ui",
+      "title": "Arrow Right Long Icon",
+      "description": "Arrow Right Long Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ArrowRightLongIcon.tsx",
+          "target": "src/components/icons/ArrowRightLongIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-arrow-up-right-from-square",
+      "type": "registry:ui",
+      "title": "Arrow Up Right From Square Icon",
+      "description": "Arrow Up Right From Square Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ArrowUpRightFromSquareIcon.tsx",
+          "target": "src/components/icons/ArrowUpRightFromSquareIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-arrow-up-right-from-square-solid",
+      "type": "registry:ui",
+      "title": "Arrow Up Right From Square Solid Icon",
+      "description": "Arrow Up Right From Square Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ArrowUpRightFromSquareSolidIcon.tsx",
+          "target": "src/components/icons/ArrowUpRightFromSquareSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-circle-check",
+      "type": "registry:ui",
+      "title": "Circle Check Icon",
+      "description": "Circle Check Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CircleCheckIcon.tsx",
+          "target": "src/components/icons/CircleCheckIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-circle-check-solid",
+      "type": "registry:ui",
+      "title": "Circle Check Solid Icon",
+      "description": "Circle Check Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CircleCheckSolidIcon.tsx",
+          "target": "src/components/icons/CircleCheckSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-circle-dashed",
+      "type": "registry:ui",
+      "title": "Circle Dashed Icon",
+      "description": "Circle Dashed Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CircleDashedIcon.tsx",
+          "target": "src/components/icons/CircleDashedIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-circle-dot",
+      "type": "registry:ui",
+      "title": "Circle Dot Icon",
+      "description": "Circle Dot Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CircleDotIcon.tsx",
+          "target": "src/components/icons/CircleDotIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-circle-exclamation-solid",
+      "type": "registry:ui",
+      "title": "Circle Exclamation Solid Icon",
+      "description": "Circle Exclamation Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CircleExclamationSolidIcon.tsx",
+          "target": "src/components/icons/CircleExclamationSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-circle-info",
+      "type": "registry:ui",
+      "title": "Circle Info Icon",
+      "description": "Circle Info Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CircleInfoIcon.tsx",
+          "target": "src/components/icons/CircleInfoIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-circle-info-solid",
+      "type": "registry:ui",
+      "title": "Circle Info Solid Icon",
+      "description": "Circle Info Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CircleInfoSolidIcon.tsx",
+          "target": "src/components/icons/CircleInfoSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-circle-minus-solid",
+      "type": "registry:ui",
+      "title": "Circle Minus Solid Icon",
+      "description": "Circle Minus Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CircleMinusSolidIcon.tsx",
+          "target": "src/components/icons/CircleMinusSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-circle-question",
+      "type": "registry:ui",
+      "title": "Circle Question Icon",
+      "description": "Circle Question Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CircleQuestionIcon.tsx",
+          "target": "src/components/icons/CircleQuestionIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-circle-xmark",
+      "type": "registry:ui",
+      "title": "Circle Xmark Icon",
+      "description": "Circle Xmark Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CircleXmarkIcon.tsx",
+          "target": "src/components/icons/CircleXmarkIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-circle-xmark-solid",
+      "type": "registry:ui",
+      "title": "Circle Xmark Solid Icon",
+      "description": "Circle Xmark Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/CircleXmarkSolidIcon.tsx",
+          "target": "src/components/icons/CircleXmarkSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-clock-solid",
+      "type": "registry:ui",
+      "title": "Clock Solid Icon",
+      "description": "Clock Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ClockSolidIcon.tsx",
+          "target": "src/components/icons/ClockSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-ellipsis-vertical",
+      "type": "registry:ui",
+      "title": "Ellipsis Vertical Icon",
+      "description": "Ellipsis Vertical Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/EllipsisVerticalIcon.tsx",
+          "target": "src/components/icons/EllipsisVerticalIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-exclamation-solid",
+      "type": "registry:ui",
+      "title": "Exclamation Solid Icon",
+      "description": "Exclamation Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/ExclamationSolidIcon.tsx",
+          "target": "src/components/icons/ExclamationSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-file-arrow-up-solid",
+      "type": "registry:ui",
+      "title": "File Arrow Up Solid Icon",
+      "description": "File Arrow Up Solid Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/FileArrowUpSolidIcon.tsx",
+          "target": "src/components/icons/FileArrowUpSolidIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-file-lines",
+      "type": "registry:ui",
+      "title": "File Lines Icon",
+      "description": "File Lines Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/FileLinesIcon.tsx",
+          "target": "src/components/icons/FileLinesIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon-grip-dots-vertical",
+      "type": "registry:ui",
+      "title": "Grip Dots Vertical Icon",
+      "description": "Grip Dots Vertical Icon component",
+      "files": [
+        {
+          "path": "src-v2/icons/GripDotsVerticalIcon.tsx",
+          "target": "src/components/icons/GripDotsVerticalIcon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "vital-icons",
       "type": "registry:ui",
       "title": "Vittal Icons",
@@ -1272,6 +1537,11 @@
           "type": "registry:ui"
         },
         {
+          "path": "src-v2/icons/CircleInfoIcon.tsx",
+          "target": "src/components/icons/CircleInfoIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src-v2/icons/LifeRingIcon.tsx",
           "target": "src/components/icons/LifeRingIcon.tsx",
           "type": "registry:ui"
@@ -1354,6 +1624,101 @@
         {
           "path": "src-v2/icons/UserIcon.tsx",
           "target": "src/components/icons/UserIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/ArrowRightLongIcon.tsx",
+          "target": "src/components/icons/ArrowRightLongIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/ArrowUpRightFromSquareIcon.tsx",
+          "target": "src/components/icons/ArrowUpRightFromSquareIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/ArrowUpRightFromSquareSolidIcon.tsx",
+          "target": "src/components/icons/ArrowUpRightFromSquareSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CircleCheckIcon.tsx",
+          "target": "src/components/icons/CircleCheckIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CircleCheckSolidIcon.tsx",
+          "target": "src/components/icons/CircleCheckSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CircleDashedIcon.tsx",
+          "target": "src/components/icons/CircleDashedIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CircleDotIcon.tsx",
+          "target": "src/components/icons/CircleDotIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CircleExclamationSolidIcon.tsx",
+          "target": "src/components/icons/CircleExclamationSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CircleInfoSolidIcon.tsx",
+          "target": "src/components/icons/CircleInfoSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CircleMinusSolidIcon.tsx",
+          "target": "src/components/icons/CircleMinusSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CircleQuestionIcon.tsx",
+          "target": "src/components/icons/CircleQuestionIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CircleXmarkIcon.tsx",
+          "target": "src/components/icons/CircleXmarkIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/CircleXmarkSolidIcon.tsx",
+          "target": "src/components/icons/CircleXmarkSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/ClockSolidIcon.tsx",
+          "target": "src/components/icons/ClockSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/EllipsisVerticalIcon.tsx",
+          "target": "src/components/icons/EllipsisVerticalIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/ExclamationSolidIcon.tsx",
+          "target": "src/components/icons/ExclamationSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/FileArrowUpSolidIcon.tsx",
+          "target": "src/components/icons/FileArrowUpSolidIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/FileLinesIcon.tsx",
+          "target": "src/components/icons/FileLinesIcon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src-v2/icons/GripDotsVerticalIcon.tsx",
+          "target": "src/components/icons/GripDotsVerticalIcon.tsx",
           "type": "registry:ui"
         }
       ]
@@ -2470,6 +2835,7 @@
         "@vital-design/icon-xmark",
         "@vital-design/icon-ellipsis",
         "@vital-design/icon-gear",
+        "@vital-design/icon-grip-dots-vertical",
         "@vital-design/icon-plus",
         "@vital-design/vital-theme"
       ],
@@ -2711,11 +3077,11 @@
         "@vital-design/icon-calendar-days",
         "@vital-design/icon-check",
         "@vital-design/icon-flag",
-        "@vital-design/icon-info",
+        "@vital-design/icon-circle-info",
         "@vital-design/icon-panel-left",
         "@vital-design/icon-magnifying-glass",
         "@vital-design/icon-shield-check",
-        "@vital-design/icon-square-arrow-out-up-right",
+        "@vital-design/icon-arrow-up-right-from-square",
         "@vital-design/icon-user",
         "@vital-design/vital-theme"
       ],

@@ -15,6 +15,7 @@ description: >
 
 - Notion「Icon 更新 → Vittal Design Icon」資料庫是設計師的 handoff：https://app.notion.com/p/41778314842880f7b3c0ee815fdd4628
 - 只有 **狀態 = 待開發** 才算已確認。「待設計」就算 Figma 已經有 SVG，也可能再改，先不要開發。
+- Agent 用 Notion MCP 的 SQL 查詢（`notion_query_data_sources`）可能交替回傳舊快照（2026-11-20 遇過：同一列連查幾次，狀態在待設計／待開發之間跳）。連查幾次，有出入的列用 `notion_fetch` 讀該頁確認，以頁面為準。
 - 需要但 Notion 沒列的 icon，先問設計，不要自己從 Figma 挑。
 
 ## 2. 找到 Figma 上可匯出的 SVG
@@ -25,9 +26,10 @@ description: >
 - **例外：純填色的 Solid icon**（例如 `caret-*`）本來就沒有線寬，Figma component 就是最終形狀，可以直接匯出 component 的 20×20 frame，不算暫用版。前提是不是 Font Awesome Pro 才有的圖（見下方「暫用版」）。
 - 名稱帶 `fa-` 的是還沒重繪的 Font Awesome 原版，沒有 SVG 欄，不能直接用。
 - 規格：20×20 viewBox、`stroke-linecap/linejoin="round"`；Regular `stroke-width="1.3"`，Solid `1.75`，少數 Solid 是純填色（例如 caret-\*）。匯出後對一下這些值，不對就回報設計（例如 Solid `*icons` 是 1.6）。
-- 不要保留 `fill-opacity`／`opacity`：顏色與深淺一律由元件的 `text-*` 決定（`ellipsis` 原本帶 0.55，已拿掉）。
+- 不要保留 `fill-opacity`／`opacity`：顏色與深淺一律由元件的 `text-*` 決定（`ellipsis` 原本帶 0.55，已拿掉）。**例外：雙色 icon**（Notion 樣式「雙色icon」、Figma `Icons/Duotone/…`，例如 `clear`）兩層深淺本身就是設計，保留 Figma 的 `fill-opacity`。
 - 名稱對照：Figma／Notion 的 `*icons`（可替換 icon 的示意）在 repo 叫 `placeholder`（`PlaceholderIcon`、`PlaceholderSolidIcon`）。
 - 已知 Figma 錯誤：Solid 欄 `angle-right`、Regular 欄 `angle-right-to-line` 的 SVG frame 名稱誤標成 `angle-left…`。以圖形為準。
+- Solid `exclamation` 的 SVG frame（`31361:45034`）不在 SVG 欄，放在 Icons frame 裡別的位置；用名稱找 frame，不要只看 `x=-32`。
 
 ### Agent：用 Figma MCP 匯出
 

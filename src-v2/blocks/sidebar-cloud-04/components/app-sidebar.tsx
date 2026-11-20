@@ -24,14 +24,14 @@ import {
   SidebarTrigger,
   useSidebar,
 } from '@/components/sidebar/Sidebar';
+import { ArrowUpRightFromSquareIcon } from '@/icons/ArrowUpRightFromSquareIcon';
 import { CalendarDaysIcon } from '@/icons/CalendarDaysIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
+import { CircleInfoIcon } from '@/icons/CircleInfoIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
-import { InfoIcon } from '@/icons/InfoIcon';
 import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
 import { ShieldCheckIcon } from '@/icons/ShieldCheckIcon';
-import { SquareArrowOutUpRightIcon } from '@/icons/SquareArrowOutUpRightIcon';
 import { UserIcon } from '@/icons/UserIcon';
 import { cn } from '@/lib/utils';
 import cloudImage from '@/public/images/cloud.jpg';
@@ -89,7 +89,7 @@ const data = {
     }[];
   }[],
   navSecondary: [
-    { title: 'Support', icon: <InfoIcon /> },
+    { title: 'Support', icon: <CircleInfoIcon /> },
     { title: 'Privacy Policy', icon: <ShieldCheckIcon /> },
   ] as { title: string; icon: ReactNode }[],
 };
@@ -309,7 +309,7 @@ function NavSecondary() {
                 {item.icon}
                 <span className="underline">{item.title}</span>
                 <span className="ml-auto shrink-0 group-data-[collapsible=icon]:hidden">
-                  <SquareArrowOutUpRightIcon className="size-3.5" />
+                  <ArrowUpRightFromSquareIcon className="size-3.5" />
                 </span>
               </MenuButton>
             </MenuItem>

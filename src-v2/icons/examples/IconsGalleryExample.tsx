@@ -12,6 +12,9 @@ import { AngleUpIcon } from '@/icons/AngleUpIcon';
 import { AngleUpSolidIcon } from '@/icons/AngleUpSolidIcon';
 import { AnglesLeftIcon } from '@/icons/AnglesLeftIcon';
 import { AnglesRightIcon } from '@/icons/AnglesRightIcon';
+import { ArrowRightLongIcon } from '@/icons/ArrowRightLongIcon';
+import { ArrowUpRightFromSquareIcon } from '@/icons/ArrowUpRightFromSquareIcon';
+import { ArrowUpRightFromSquareSolidIcon } from '@/icons/ArrowUpRightFromSquareSolidIcon';
 import { BanIcon } from '@/icons/BanIcon';
 import { BarsIcon } from '@/icons/BarsIcon';
 import { BellIcon } from '@/icons/BellIcon';
@@ -23,17 +26,33 @@ import { CaretRightSolidIcon } from '@/icons/CaretRightSolidIcon';
 import { CaretUpSolidIcon } from '@/icons/CaretUpSolidIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { CheckSolidIcon } from '@/icons/CheckSolidIcon';
+import { CircleCheckIcon } from '@/icons/CircleCheckIcon';
+import { CircleCheckSolidIcon } from '@/icons/CircleCheckSolidIcon';
+import { CircleDashedIcon } from '@/icons/CircleDashedIcon';
+import { CircleDotIcon } from '@/icons/CircleDotIcon';
+import { CircleExclamationSolidIcon } from '@/icons/CircleExclamationSolidIcon';
+import { CircleInfoIcon } from '@/icons/CircleInfoIcon';
+import { CircleInfoSolidIcon } from '@/icons/CircleInfoSolidIcon';
+import { CircleMinusSolidIcon } from '@/icons/CircleMinusSolidIcon';
+import { CircleQuestionIcon } from '@/icons/CircleQuestionIcon';
 import { CircleUserIcon } from '@/icons/CircleUserIcon';
+import { CircleXmarkIcon } from '@/icons/CircleXmarkIcon';
+import { CircleXmarkSolidIcon } from '@/icons/CircleXmarkSolidIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
 import { ClockIcon } from '@/icons/ClockIcon';
+import { ClockSolidIcon } from '@/icons/ClockSolidIcon';
 import { EllipsisIcon } from '@/icons/EllipsisIcon';
+import { EllipsisVerticalIcon } from '@/icons/EllipsisVerticalIcon';
+import { ExclamationSolidIcon } from '@/icons/ExclamationSolidIcon';
 import { EyeIcon } from '@/icons/EyeIcon';
 import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
+import { FileArrowUpSolidIcon } from '@/icons/FileArrowUpSolidIcon';
+import { FileLinesIcon } from '@/icons/FileLinesIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
 import { GearIcon } from '@/icons/GearIcon';
+import { GripDotsVerticalIcon } from '@/icons/GripDotsVerticalIcon';
 import { HomeIcon } from '@/icons/HomeIcon';
 import { InboxIcon } from '@/icons/InboxIcon';
-import { InfoIcon } from '@/icons/InfoIcon';
 import { LifeRingIcon } from '@/icons/LifeRingIcon';
 import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { MinusIcon } from '@/icons/MinusIcon';
@@ -72,28 +91,56 @@ const icons: IconEntry[] = [
   { name: 'AngleUpSolidIcon', Icon: AngleUpSolidIcon },
   { name: 'AnglesLeftIcon', Icon: AnglesLeftIcon },
   { name: 'AnglesRightIcon', Icon: AnglesRightIcon },
+  { name: 'ArrowRightLongIcon', Icon: ArrowRightLongIcon },
+  {
+    name: 'ArrowUpRightFromSquareIcon',
+    Icon: ArrowUpRightFromSquareIcon,
+  },
+  {
+    name: 'ArrowUpRightFromSquareSolidIcon',
+    Icon: ArrowUpRightFromSquareSolidIcon,
+  },
   { name: 'BanIcon', Icon: BanIcon },
   { name: 'BarsIcon', Icon: BarsIcon },
   { name: 'BellIcon', Icon: BellIcon },
   { name: 'BellSlashIcon', Icon: BellSlashIcon },
   { name: 'CalendarDaysIcon', Icon: CalendarDaysIcon },
   { name: 'CaretDownSolidIcon', Icon: CaretDownSolidIcon },
-  { name: 'CaretUpSolidIcon', Icon: CaretUpSolidIcon },
   { name: 'CaretLeftSolidIcon', Icon: CaretLeftSolidIcon },
   { name: 'CaretRightSolidIcon', Icon: CaretRightSolidIcon },
+  { name: 'CaretUpSolidIcon', Icon: CaretUpSolidIcon },
   { name: 'CheckIcon', Icon: CheckIcon },
   { name: 'CheckSolidIcon', Icon: CheckSolidIcon },
+  { name: 'CircleCheckIcon', Icon: CircleCheckIcon },
+  { name: 'CircleCheckSolidIcon', Icon: CircleCheckSolidIcon },
+  { name: 'CircleDashedIcon', Icon: CircleDashedIcon },
+  { name: 'CircleDotIcon', Icon: CircleDotIcon },
+  {
+    name: 'CircleExclamationSolidIcon',
+    Icon: CircleExclamationSolidIcon,
+  },
+  { name: 'CircleInfoIcon', Icon: CircleInfoIcon },
+  { name: 'CircleInfoSolidIcon', Icon: CircleInfoSolidIcon },
+  { name: 'CircleMinusSolidIcon', Icon: CircleMinusSolidIcon },
+  { name: 'CircleQuestionIcon', Icon: CircleQuestionIcon },
   { name: 'CircleUserIcon', Icon: CircleUserIcon },
+  { name: 'CircleXmarkIcon', Icon: CircleXmarkIcon },
+  { name: 'CircleXmarkSolidIcon', Icon: CircleXmarkSolidIcon },
   { name: 'ClearIcon', Icon: ClearIcon },
   { name: 'ClockIcon', Icon: ClockIcon },
+  { name: 'ClockSolidIcon', Icon: ClockSolidIcon },
   { name: 'EllipsisIcon', Icon: EllipsisIcon },
+  { name: 'EllipsisVerticalIcon', Icon: EllipsisVerticalIcon },
+  { name: 'ExclamationSolidIcon', Icon: ExclamationSolidIcon },
   { name: 'EyeIcon', Icon: EyeIcon },
   { name: 'EyeSlashIcon', Icon: EyeSlashIcon },
+  { name: 'FileArrowUpSolidIcon', Icon: FileArrowUpSolidIcon },
+  { name: 'FileLinesIcon', Icon: FileLinesIcon },
   { name: 'FlagIcon', Icon: FlagIcon },
   { name: 'GearIcon', Icon: GearIcon },
+  { name: 'GripDotsVerticalIcon', Icon: GripDotsVerticalIcon },
   { name: 'HomeIcon', Icon: HomeIcon },
   { name: 'InboxIcon', Icon: InboxIcon },
-  { name: 'InfoIcon', Icon: InfoIcon },
   { name: 'LifeRingIcon', Icon: LifeRingIcon },
   { name: 'MagnifyingGlassIcon', Icon: MagnifyingGlassIcon },
   { name: 'MinusIcon', Icon: MinusIcon },
