@@ -88,15 +88,15 @@ export function AppLayout({
 
 ## 結構 [#structure]
 
-| 部分                                                 | 角色                                                                                                                |
-| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `SidebarProvider`                                    | 收合狀態、cookie 持久化、鍵盤快捷鍵（`enableKeyboardShortcut`，預設 true）、tooltip provider                        |
-| `Sidebar`                                            | 主面板（`side`、`variant`、`collapsible`）                                                                          |
-| `SidebarTrigger` / `SidebarRail`                     | 切換控制                                                                                                            |
-| `SidebarInset`                                       | 主要內容區                                                                                                          |
-| `SidebarHeader` / `SidebarFooter` / `SidebarContent` | 釘住的頁首 / 頁尾，以及可捲動的主體                                                                                 |
-| `SidebarGroup*`                                      | 內容裡有標籤的區段                                                                                                  |
-| `SidebarMenu*`                                       | 導覽列、動作、badge、skeleton、巢狀子選單                                                                           |
+| 部分                                                 | 角色                                                                                               |
+| ---------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `SidebarProvider`                                    | 收合狀態、cookie（`cookieName`）、鍵盤快捷鍵（`enableKeyboardShortcut`）、行動版判斷（`isMobile`） |
+| `Sidebar`                                            | 主面板（`side`、`variant`、`collapsible`、`render`）                                               |
+| `SidebarTrigger` / `SidebarRail`                     | 切換控制                                                                                           |
+| `SidebarInset`                                       | 主要內容區                                                                                         |
+| `SidebarHeader` / `SidebarFooter` / `SidebarContent` | 釘住的頁首 / 頁尾，以及可捲動的主體                                                                |
+| `SidebarGroup*`                                      | 內容裡有標籤的區段                                                                                 |
+| `SidebarMenu*`                                       | 導覽列、動作、badge、skeleton、巢狀子選單                                                          |
 
 ## 可收合模式 [#collapsible-modes]
 
@@ -160,7 +160,26 @@ Vittal Design 用 Base UI 的 `render` prop，不用 Radix 的 `asChild`：
 </SidebarMenuButton>
 ```
 
-適用於：`SidebarGroupLabel`、`SidebarGroupAction`、`SidebarMenuButton`、`SidebarMenuAction`、`SidebarMenuSubButton`。
+適用於：`Sidebar`、`SidebarTrigger`、`SidebarGroupLabel`、`SidebarGroupAction`、`SidebarMenuButton`、`SidebarMenuAction`、`SidebarMenuSubButton`。
+
+### 觸發器 [#trigger]
+
+`SidebarTrigger` 預設顯示面板 icon。傳 `children` 可以換掉 icon，傳 `render` 可以換成別的元素。換上去的元素保留自己的外觀，所以 VD `Button` 不會被觸發器改樣式：
+
+```tsx
+<SidebarTrigger
+  aria-label="Quick links"
+  render={<Button variant="ghost" size="icon-md" />}
+>
+  <PanelLeftIcon data-icon="inline-start" />
+</SidebarTrigger>
+```
+
+在 `onClick` 裡呼叫 `event.preventDefault()`，觸發器就不會切換。
+
+### 根元素 [#root-element]
+
+`Sidebar` 渲染成 `<div>`。傳 `render={<aside />}` 或 `render={<nav aria-label="…" />}` 讓面板成為 landmark。行動版的面板是 Sheet 對話框，會忽略 `render`。
 
 ## 鍵盤 [#keyboard]
 
@@ -169,6 +188,8 @@ Vittal Design 用 Base UI 的 `render` prop，不用 Radix 的 `asChild`：
 ## Cookie 與開啟狀態 [#cookie--open-state]
 
 `SidebarProvider` 在開啟狀態改變時**寫入** `sidebar_state` cookie（用來選擇性做跨頁同步）。掛載時**不會**讀這個 cookie——初始狀態來自 `defaultOpen`，或受控的 `open` prop。這樣 SSR 與第一次繪製才可預期；只有應用要在載入時還原，才自己讀 cookie。
+
+設 `cookieName` 可以改用別的名稱，`cookieName={null}` 則完全不寫 cookie。要用其他方式保存狀態，請用 `onOpenChange`。
 
 ## 主題 CSS 變數 [#theme-css-variables]
 
@@ -195,4 +216,16 @@ Vittal Design 用 Base UI 的 `render` prop，不用 Radix 的 `asChild`：
 
 低於 `768px` 時，`Sidebar` 渲染成由 `openMobile` 控制的 `Sheet`。把 `SidebarTrigger` 放在面板外面（通常在 `SidebarInset` 的頁首外框）——或呼叫 `useSidebar().toggleSidebar`——才能打開。`SidebarTrigger` 依行動版或桌面的開啟狀態設定 `aria-expanded`。
 
+在 `SidebarProvider` 傳 `isMobile` 可以取代內建的 `768px` 判斷，例如改用自己的斷點。`isMobile={false}` 永遠不切換成 Sheet：觸發器與 `⌘B` 一律切換桌面面板。版面自己處理小螢幕時用這個。
+
 選單動作預設是**按鈕**。要做成連結，在 `SidebarMenuButton` / `SidebarMenuSubButton` 上用 `render` prop（`render={<a href="…" />}`）。
+
+## 內嵌與多個側邊欄 [#embedding-and-multiple-sidebars]
+
+側邊欄放在別的應用頁面裡，或同一頁有兩個側邊欄時（例如 shell 的快捷連結面板旁邊還有產品自己的側邊欄）：
+
+- **Cookie：** 每個 `SidebarProvider` 用不同的 `cookieName`；頁面不是你的就傳 `null`。內嵌的側邊欄寫的 cookie 會落在宿主網域上。
+- **快捷鍵：** 最多只在一個 provider 開 `⌘B`。每個開著的 provider 都監聽 `window`，兩個會一起切換。宿主頁面有自己的快捷鍵時，設 `enableKeyboardShortcut={false}`。
+- **版面：** provider 會渲染一層 `flex min-h-svh` 外框。由自己的版面擺放面板時，傳 `className="contents"`，讓這層只負責狀態。
+- **浮層：** 側邊欄裡的選單預設 portal 到 `document.body`。主題 token 只定義在某個容器內時，把那個容器傳給浮層（例如 `DropdownMenuContent` 的 `portalContainer`）。
+- **在 provider 外的選單列：** `SidebarMenuButton` 沒有 `SidebarProvider` 也能渲染，行為等同展開、不顯示 tooltip，所以用它組成的清單元件可以單獨渲染和測試。
