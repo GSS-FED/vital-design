@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-flag",
+  "title": "Flag Icon",
+  "description": "Flag Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/FlagIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const FlagIcon = (props: SVGProps<SVGSVGElement>) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    viewBox=\"0 0 20 20\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <path\n      fill=\"currentColor\"\n      d=\"M5.1875 3.40625V4.17188L7.51172 3.59766C8.55078 3.35156 9.64453 3.46094 10.6016 3.95312C11.8594 4.58203 13.3633 4.58203 14.6211 3.95312L14.8945 3.81641C15.4414 3.54297 16.125 3.95312 16.125 4.58203V12.2109C16.125 12.5938 15.8789 12.8945 15.5508 13.0312L14.5938 13.3867C13.3359 13.8789 11.9414 13.7969 10.7109 13.1953C9.67188 12.6758 8.49609 12.5391 7.375 12.8125L5.1875 13.3594V16.0938C5.1875 16.4766 4.88672 16.75 4.53125 16.75C4.14844 16.75 3.875 16.4766 3.875 16.0938V13.6875V12.3477V4.5V3.40625C3.875 3.05078 4.14844 2.75 4.53125 2.75C4.88672 2.75 5.1875 3.05078 5.1875 3.40625ZM5.1875 5.53906V12.0195L7.04688 11.5547C8.46875 11.1992 10 11.3633 11.3125 12.0195C12.1875 12.457 13.1992 12.5117 14.1289 12.1562L14.8125 11.9102V5.29297C13.2539 5.92188 11.5039 5.86719 10.0273 5.12891C9.34375 4.77344 8.55078 4.69141 7.8125 4.88281L5.1875 5.53906Z\"\n    />\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/FlagIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

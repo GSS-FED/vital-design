@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-bell",
+  "title": "Bell Icon",
+  "description": "Bell Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/BellIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const BellIcon = (props: SVGProps<SVGSVGElement>) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    strokeWidth={1.3}\n    viewBox=\"0 0 20 20\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <path\n      stroke=\"currentColor\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      d=\"M7.99945 14C7.99945 14.5304 8.21017 15.0391 8.58524 15.4142C8.96031 15.7893 9.46902 16 9.99945 16C10.5299 16 11.0386 15.7893 11.4137 15.4142C11.7887 15.0391 11.9995 14.5304 11.9995 14M5.49938 8.5C5.49938 7.30653 5.97348 6.16193 6.8174 5.31802C7.66131 4.47411 8.8059 4 9.99938 4C11.1929 4 12.3374 4.47411 13.1814 5.31802C14.0253 6.16193 14.4994 7.30653 14.4994 8.5C14.4994 10.7387 15.0181 12.5375 15.4306 13.25C15.4744 13.3259 15.4975 13.4119 15.4976 13.4996C15.4977 13.5872 15.4747 13.6733 15.4311 13.7492C15.3874 13.8252 15.3245 13.8883 15.2488 13.9324C15.173 13.9764 15.087 13.9997 14.9994 14H4.99938C4.91186 13.9995 4.82602 13.976 4.75043 13.9319C4.67484 13.8878 4.61215 13.8246 4.56862 13.7487C4.52509 13.6728 4.50225 13.5868 4.50238 13.4992C4.50252 13.4117 4.52562 13.3258 4.56938 13.25C4.98125 12.5375 5.49938 10.7381 5.49938 8.5Z\"\n    />\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/BellIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-angle-right",
+  "title": "Angle Right Icon",
+  "description": "Angle Right Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/AngleRightIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const AngleRightIcon = (props: SVGProps<SVGSVGElement>) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    strokeWidth={1.3}\n    viewBox=\"0 0 20 20\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <path\n      stroke=\"currentColor\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      d=\"M8 15L13 10L8 5\"\n    />\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/AngleRightIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-caret-right-solid",
+  "title": "Caret Right Solid Icon",
+  "description": "Caret Right Solid Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/CaretRightSolidIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const CaretRightSolidIcon = (\n  props: SVGProps<SVGSVGElement>,\n) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    viewBox=\"0 0 20 20\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <path\n      fill=\"currentColor\"\n      d=\"M7.33 5.75056C7.33 5.14706 8.02842 4.83185 8.47962 5.19593L8.53912 5.24976L12.7891 9.49976C12.9111 9.62173 12.9843 9.78401 12.9952 9.95616C13.006 10.1283 12.9536 10.2985 12.8479 10.4348L12.7891 10.5013L8.53912 14.7513L8.47254 14.8101L8.418 14.8484L8.35 14.8866L8.3245 14.8987L8.27704 14.9178L8.20054 14.9405L8.163 14.9476L8.1205 14.9546L8.08012 14.9575L8.03833 14.9589L7.99654 14.9575L7.95546 14.9539L7.91296 14.9476L7.87612 14.9405L7.79962 14.9178L7.75217 14.8987L7.65867 14.8491L7.59492 14.8031L7.53754 14.7513L7.47875 14.6848L7.4405 14.6302L7.40225 14.5622L7.39021 14.5367L7.37108 14.4893L7.34842 14.4128L7.34133 14.3752L7.33425 14.3327L7.33142 14.2923L7.33 5.75056Z\"\n    />\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/CaretRightSolidIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

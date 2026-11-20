@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-minus-solid",
+  "title": "Minus Solid Icon",
+  "description": "Minus Solid Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/MinusSolidIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const MinusSolidIcon = (props: SVGProps<SVGSVGElement>) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    strokeWidth={1.75}\n    viewBox=\"0 0 20 20\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <path\n      stroke=\"currentColor\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      d=\"M5.04167 10H14.9583\"\n    />\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/MinusSolidIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

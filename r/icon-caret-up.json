@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-caret-up",
+  "title": "Caret Up Icon (deprecated)",
+  "description": "Caret Up Icon (deprecated) component",
+  "files": [
+    {
+      "path": "src-v2/icons/CaretUpIcon.tsx",
+      "content": "import { CaretUpSolidIcon } from './CaretUpSolidIcon';\n\n/** @deprecated Use `CaretUpSolidIcon`. */\nexport const CaretUpIcon = CaretUpSolidIcon;\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/CaretUpIcon.tsx"
+    },
+    {
+      "path": "src-v2/icons/CaretUpSolidIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const CaretUpSolidIcon = (props: SVGProps<SVGSVGElement>) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    viewBox=\"0 0 20 20\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <path\n      fill=\"currentColor\"\n      d=\"M9.49976 7.20744C9.62173 7.08548 9.78401 7.01222 9.95616 7.0014C10.1283 6.99057 10.2985 7.04293 10.4348 7.14865L10.5013 7.20744L14.7513 11.4574L14.8101 11.524L14.8484 11.5786L14.8866 11.6466L14.8987 11.6721L14.9178 11.7195L14.9405 11.796L14.9476 11.8336L14.9546 11.8761L14.9575 11.9164L14.9589 11.9582L14.9575 12L14.9539 12.0411L14.9476 12.0836L14.9405 12.1204L14.9178 12.1969L14.8987 12.2444L14.8491 12.3379L14.8031 12.4017L14.7513 12.459L14.6848 12.5178L14.6302 12.5561L14.5622 12.5943L14.5367 12.6064L14.4893 12.6255L14.4128 12.6482L14.3752 12.6552L14.3327 12.6623L14.2923 12.6652L14.2506 12.6666H5.75056C5.14706 12.6666 4.83185 11.9682 5.19593 11.5169L5.24976 11.4574L9.49976 7.20744Z\"\n    />\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/CaretUpSolidIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

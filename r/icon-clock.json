@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-clock",
+  "title": "Clock Icon",
+  "description": "Clock Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/ClockIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const ClockIcon = (props: SVGProps<SVGSVGElement>) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    strokeWidth={1.3}\n    viewBox=\"0 0 20 20\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <path\n      stroke=\"currentColor\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      d=\"M10.0004 6.47225V10L12.1171 12.1167M3.65039 10C3.65039 10.8339 3.81464 11.6596 4.13376 12.4301C4.45287 13.2005 4.92061 13.9005 5.51026 14.4902C6.09991 15.0798 6.79993 15.5475 7.57035 15.8667C8.34077 16.1858 9.1665 16.35 10.0004 16.35C10.8343 16.35 11.66 16.1858 12.4304 15.8667C13.2008 15.5475 13.9009 15.0798 14.4905 14.4902C15.0802 13.9005 15.5479 13.2005 15.867 12.4301C16.1861 11.6596 16.3504 10.8339 16.3504 10C16.3504 8.3159 15.6814 6.70075 14.4905 5.5099C13.2997 4.31904 11.6845 3.65002 10.0004 3.65002C8.31627 3.65002 6.70112 4.31904 5.51026 5.5099C4.31941 6.70075 3.65039 8.3159 3.65039 10Z\"\n    />\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/ClockIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

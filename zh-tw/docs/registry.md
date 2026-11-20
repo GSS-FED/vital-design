@@ -1,0 +1,91 @@
+# Registry
+
+> 用 shadcn CLI 個別安裝 Vittal Design 元件。
+
+## 概覽
+
+Vittal Design 發佈相容 shadcn 的 registry，可以把個別元件直接裝進專案。元件會複製進你的程式碼，你可以完整擁有並自由修改。
+
+新的 `src-v2/` 元件以 registry 為準。既有專案仍可使用已發佈的 `@fed/vital-design` npm 套件相容舊程式，但較新的元件與主題資產應從 registry 取得。
+
+Registry URL：`https://vittal.design/r`
+
+## 安裝
+
+### 1. 需要時先初始化 `shadcn`
+
+```bash
+npx shadcn@latest init
+```
+
+### 2. 把 Vittal Design registry 加進 `components.json`
+
+```json
+{
+  "registries": {
+    "@vital-design": "https://vittal.design/r/{name}.json"
+  }
+}
+```
+
+### 3. 安裝一個 registry 項目
+
+```bash
+npx shadcn@latest add @vital-design/button
+```
+
+### 範例
+
+```bash
+# Add the Button component
+npx shadcn@latest add @vital-design/button
+
+# Add the Select component
+npx shadcn@latest add @vital-design/select
+
+# Add the Combobox component
+npx shadcn@latest add @vital-design/combobox
+```
+
+> 仍可用 JSON 網址直接安裝，但建議用 `@vital-design/<name>`。registry 項目宣告的 `@vital-design/*` 依賴也會一併解析。
+
+## 可用的 UI 元件
+
+| 名稱                                                           | Registry Key     | 說明                |
+| ------------------------------------------------------------ | ---------------- | ----------------- |
+| Avatar                                                       | `avatar`         | 頭像，可選顏色           |
+| [Breadcrumb](/zh-tw/docs/components/breadcrumb)              | `breadcrumb`     | 顯示上層頁面的導覽路徑       |
+| Button                                                       | `button`         | 實心與文字變體，可選主題      |
+| ButtonGroup                                                  | `button-group`   | 可組合的按鈕群組          |
+| SplitButton                                                  | `split-button`   | 主要動作加上可開啟選單的箭頭    |
+| Checkbox                                                     | `checkbox`       | 可呈現不確定狀態的核取方塊     |
+| Chip                                                         | `chip`           | 可切換的膠囊            |
+| RadioGroup                                                   | `radio-group`    | 單選群組              |
+| Switch                                                       | `switch`         | 開關                |
+| Tag                                                          | `tag`            | 唯讀、可上色的標籤         |
+| SearchBar                                                    | `search-bar`     | 搜尋輸入              |
+| [InputGroup](/zh-tw/docs/components/input#inputgroup)        | `input-group`    | 可組合的輸入外框，可加附加物與動作 |
+| [Input](/zh-tw/docs/components/input#input)                  | `input`          | 單行文字欄位            |
+| [Textarea](/zh-tw/docs/components/input#textarea)            | `textarea`       | 多行文字欄位            |
+| [PasswordInput](/zh-tw/docs/components/input#password-input) | `password-input` | 可切換可見性的文字欄位       |
+| [Item](/zh-tw/docs/components/item)                          | `item`           | 含媒體、文字與動作的內容列     |
+| [Separator](/zh-tw/docs/components/separator)                | `separator`      | 水平或垂直分隔線          |
+| Select                                                       | `select`         | 單選或多選下拉           |
+| Combobox                                                     | `combobox`       | 可搜尋的輸入選擇器         |
+
+## 依賴
+
+安裝元件時，CLI 也會安裝宣告的依賴。依賴其他 Vittal Design 元件的項目會自動帶進來。
+
+常見的共用依賴：
+
+- `cn` — 合併 class，並處理 Tailwind 衝突（`cn()`），取代 `clsx` + `tailwind-merge`
+- 已遷移到 `src-v2/` 的元件使用 Base UI primitive（例如 Switch、Checkbox、Avatar、Radio Group 用 `@base-ui/react`）
+- Vittal Design icon 以精確的 `@vital-design/icon-*` registry 依賴安裝，並複製到 `src/components/icons/*`
+
+> **發佈說明：** 新元件發佈在以 registry 為主的 `src-v2/`。舊的 `src/` npm 套件仍可供相容使用，不要假設每個新元件或主題資產也能從 `@fed/vital-design` 拿到。
+
+## 安裝之後
+
+1. 從 registry 安裝的元件，請完成 [Tailwind CSS 設定](/zh-tw/docs/getting-started/tailwind-setup)。若仍使用舊的 npm 套件，維持既有的 `src/` 整合，並視需要安裝 `styled-components`。
+2. 從專案 `components.json` 設定的本機路徑 import 產生出來的元件。

@@ -1,0 +1,1474 @@
+# Sidebar
+
+> 應用側邊欄，含結構、行為，以及基本的中性預設外觀。產品專用外觀放在區塊。
+
+## 預覽
+
+> **邊界**
+>
+> - **Primitive：** 結構與行為（收合、cookie、⌘B、行動版 Sheet），以及每個面板分支上對齊 shadcn 的 `data-slot` / `data-side` / `data-variant` / `data-state`，**再加上基本預設外觀**（灰階文字，以及 hover / active 填色——不是 shadcn 的 `sidebar-accent`）。沒有產品專用的裝飾，例如左側軌道條。
+> - **產品樣式 / 完整外殼：** [Cloud](/zh-tw/docs/blocks/sidebar/cloud/flat) — [Flat](/zh-tw/docs/blocks/sidebar/cloud/flat)、[Inline Submenus](/zh-tw/docs/blocks/sidebar/cloud/inline-submenus)、[Collapsible Submenus](/zh-tw/docs/blocks/sidebar/cloud/collapsible-submenus)、[Dropdown Submenus](/zh-tw/docs/blocks/sidebar/cloud/dropdown-submenus)、[Secondary Nav](/zh-tw/docs/blocks/sidebar/cloud/secondary-nav)、[Header Actions](/zh-tw/docs/blocks/sidebar/cloud/header-actions)。
+> - **色彩：** 語意 slot `--sidebar*`（來自 `tokens/semantic/color.json` → `generated.css`）為外框上色。選單項目的預設外觀維持 `grayscale-*`。見 [色彩 → Sidebar](/zh-tw/docs/design-tokens/colors#sidebar)。
+> - **`SidebarProvider`** 用 `TooltipProvider delay={0}` 包住 children（與 shadcn 相同），所以 `SidebarInset` 底下的 tooltip 也會立刻打開。
+>
+> Header / Footer 的「sticky」是 **flex 釘住**：它們是 `SidebarContent` 的兄弟節點，不在它裡面。只有 `SidebarContent` 會捲動。
+
+```tsx
+import { Avatar } from '@/components/ui/Avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/DropdownMenu';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarTrigger,
+  useSidebar,
+} from '@/components/ui/Sidebar';
+import { CalendarDaysIcon } from '@/components/icons/CalendarDaysIcon';
+import { CheckIcon } from '@/components/icons/CheckIcon';
+import { ClockIcon } from '@/components/icons/ClockIcon';
+import { EllipsisIcon } from '@/components/icons/EllipsisIcon';
+import { FlagIcon } from '@/components/icons/FlagIcon';
+import { MagnifyingGlassIcon } from '@/components/icons/MagnifyingGlassIcon';
+import { PanelLeftIcon } from '@/components/icons/PanelLeftIcon';
+import { UserIcon } from '@/components/icons/UserIcon';
+import { type ReactNode } from 'react';
+
+// Keeps the fixed sidebar inside this demo box. In an app, drop the frame:
+// the sidebar is fixed to the viewport.
+const DEMO_FRAME =
+  'relative h-[640px] w-full overflow-hidden ' +
+  '[&_[data-slot=sidebar-container]]:!absolute ' +
+  '[&_[data-slot=sidebar-container]]:!inset-y-0 ' +
+  '[&_[data-slot=sidebar-container]]:!h-full ' +
+  '[&_[data-slot=sidebar-container]]:!max-h-full';
+
+type NavItem = {
+  label: string;
+  icon: ReactNode;
+  isActive?: boolean;
+  items?: { label: string; isActive?: boolean }[];
+};
+
+const nav: { label: string; items: NavItem[] }[] = [
+  {
+    label: 'Overview',
+    items: [
+      { label: 'Dashboard', icon: <PanelLeftIcon />, isActive: true },
+      { label: 'Inbox', icon: <MagnifyingGlassIcon /> },
+      { label: 'Calendar', icon: <CalendarDaysIcon /> },
+      { label: 'Approvals', icon: <CheckIcon /> },
+    ],
+  },
+  {
+    label: 'Workspace',
+    items: [
+      {
+        label: 'Projects',
+        icon: <FlagIcon />,
+        items: [
+          { label: 'In progress' },
+          { label: 'Completed' },
+          { label: 'Archived' },
+        ],
+      },
+      { label: 'Clients', icon: <UserIcon /> },
+      { label: 'Invoices', icon: <ClockIcon /> },
+      { label: 'Reports', icon: <EllipsisIcon /> },
+      { label: 'Documents', icon: <FlagIcon /> },
+      { label: 'Analytics', icon: <MagnifyingGlassIcon /> },
+    ],
+  },
+  {
+    label: 'Organization',
+    items: [
+      { label: 'Members', icon: <UserIcon /> },
+      { label: 'Roles & access', icon: <CheckIcon /> },
+      { label: 'Billing', icon: <ClockIcon /> },
+      { label: 'Integrations', icon: <PanelLeftIcon /> },
+      { label: 'Audit log', icon: <EllipsisIcon /> },
+    ],
+  },
+];
+
+function BrandHeader() {
+  const { state, isMobile } = useSidebar();
+  const collapsed = !isMobile && state === 'collapsed';
+
+  return (
+    <SidebarHeader className="py-2">
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={
+                <SidebarMenuButton size="lg" tooltip="Workspace" />
+              }
+            >
+              {collapsed ? (
+                <img
+                  src="/images/vital-logo.svg"
+                  alt="Vittal"
+                  className="size-8 object-contain"
+                />
+              ) : (
+                <img
+                  src="/images/vital-logo-text-h.svg"
+                  alt="Vittal"
+                  className="h-7 max-h-7 w-auto object-contain object-left"
+                />
+              )}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              side="right"
+              align="start"
+              sideOffset={16}
+            >
+              <DropdownMenuGroup>
+                <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
+                <DropdownMenuItem>Vittal Design</DropdownMenuItem>
+                <DropdownMenuItem>Vittal Finance</DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Create workspace</DropdownMenuItem>
+              <DropdownMenuItem>Workspace settings</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarHeader>
+  );
+}
+
+function NavMain() {
+  return (
+    <SidebarContent>
+      {nav.map((group) => (
+        <SidebarGroup key={group.label}>
+          <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {group.items.map((item) => (
+                <SidebarMenuItem key={item.label}>
+                  <SidebarMenuButton
+                    isActive={item.isActive && !item.items}
+                    tooltip={item.label}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </SidebarMenuButton>
+                  {item.items ? (
+                    <SidebarMenuSub>
+                      {item.items.map((sub) => (
+                        <SidebarMenuSubItem key={sub.label}>
+                          <SidebarMenuSubButton
+                            isActive={sub.isActive}
+                          >
+                            <span>{sub.label}</span>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  ) : null}
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      ))}
+    </SidebarContent>
+  );
+}
+
+function UserFooter() {
+  return (
+    <SidebarFooter>
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={<SidebarMenuButton size="lg" tooltip="Ray" />}
+            >
+              <Avatar
+                name="Ray"
+                src="/images/ray.jpg"
+                size="sm"
+                className="size-8 shrink-0"
+              />
+              <span>Ray</span>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              side="right"
+              align="end"
+              sideOffset={16}
+            >
+              <DropdownMenuGroup>
+                <DropdownMenuLabel>Ray</DropdownMenuLabel>
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Account settings</DropdownMenuItem>
+                <DropdownMenuItem>Preferences</DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Sign out</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarFooter>
+  );
+}
+
+export function SidebarExample() {
+  return (
+    <div className={DEMO_FRAME}>
+      <SidebarProvider
+        defaultOpen
+        enableKeyboardShortcut={false}
+        className="h-full min-h-0"
+      >
+        <Sidebar side="left" variant="sidebar" collapsible="icon">
+          <BrandHeader />
+          <NavMain />
+          <UserFooter />
+          <SidebarRail />
+        </Sidebar>
+        <SidebarInset>
+          <header className="flex h-12 items-center gap-2 border-b border-sidebar-border px-4">
+            <SidebarTrigger />
+            <span className="text-sm text-sidebar-foreground">
+              Dashboard
+            </span>
+          </header>
+          <div className="flex flex-1 flex-col" />
+        </SidebarInset>
+      </SidebarProvider>
+    </div>
+  );
+}
+```
+
+## 安裝
+
+```bash
+npx shadcn@latest add @vital-design/sidebar
+```
+
+## 用法
+
+用 `SidebarProvider` 包住版面，用 `Sidebar` + `SidebarInset` 組外殼，再用選單部分組導覽。基本樣式直接可用；產品專用外觀用**區塊**或 `className`。
+
+```tsx
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@/components/ui/Sidebar';
+
+export function AppLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <SidebarProvider>
+      <Sidebar collapsible="icon">
+        <SidebarHeader>Brand</SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>Platform</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton isActive tooltip="Home">
+                    Home
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>
+      <SidebarInset>
+        <header>
+          <SidebarTrigger />
+        </header>
+        {children}
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}
+```
+
+## 結構
+
+| 部分                                                   | 角色                                                                          |
+| ---------------------------------------------------- | --------------------------------------------------------------------------- |
+| `SidebarProvider`                                    | 收合狀態、cookie（`cookieName`）、鍵盤快捷鍵（`enableKeyboardShortcut`）、行動版判斷（`isMobile`） |
+| `Sidebar`                                            | 主面板（`side`、`variant`、`collapsible`、`render`）                                |
+| `SidebarTrigger` / `SidebarRail`                     | 切換控制                                                                        |
+| `SidebarInset`                                       | 主要內容區                                                                       |
+| `SidebarHeader` / `SidebarFooter` / `SidebarContent` | 釘住的頁首 / 頁尾，以及可捲動的主體                                                         |
+| `SidebarGroup*`                                      | 內容裡有標籤的區段                                                                   |
+| `SidebarMenu*`                                       | 導覽列、動作、badge、skeleton、巢狀子選單                                                 |
+
+## 可收合模式
+
+- `offcanvas`（預設）— 收合時移出畫面
+- `icon` — 收成 icon 軌道；選單標籤隱藏；hover 時顯示 `tooltip`
+- `none` — 固定寬度，不可收合
+
+用 `offcanvas` 時，觸發器會把整個面板移出畫面：
+
+```tsx
+import { Avatar } from '@/components/ui/Avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/DropdownMenu';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarTrigger,
+  useSidebar,
+} from '@/components/ui/Sidebar';
+import { CalendarDaysIcon } from '@/components/icons/CalendarDaysIcon';
+import { CheckIcon } from '@/components/icons/CheckIcon';
+import { ClockIcon } from '@/components/icons/ClockIcon';
+import { EllipsisIcon } from '@/components/icons/EllipsisIcon';
+import { FlagIcon } from '@/components/icons/FlagIcon';
+import { MagnifyingGlassIcon } from '@/components/icons/MagnifyingGlassIcon';
+import { PanelLeftIcon } from '@/components/icons/PanelLeftIcon';
+import { UserIcon } from '@/components/icons/UserIcon';
+import { type ReactNode } from 'react';
+
+// Keeps the fixed sidebar inside this demo box. In an app, drop the frame:
+// the sidebar is fixed to the viewport.
+const DEMO_FRAME =
+  'relative h-[640px] w-full overflow-hidden ' +
+  '[&_[data-slot=sidebar-container]]:!absolute ' +
+  '[&_[data-slot=sidebar-container]]:!inset-y-0 ' +
+  '[&_[data-slot=sidebar-container]]:!h-full ' +
+  '[&_[data-slot=sidebar-container]]:!max-h-full';
+
+type NavItem = {
+  label: string;
+  icon: ReactNode;
+  isActive?: boolean;
+  items?: { label: string; isActive?: boolean }[];
+};
+
+const nav: { label: string; items: NavItem[] }[] = [
+  {
+    label: 'Overview',
+    items: [
+      { label: 'Dashboard', icon: <PanelLeftIcon />, isActive: true },
+      { label: 'Inbox', icon: <MagnifyingGlassIcon /> },
+      { label: 'Calendar', icon: <CalendarDaysIcon /> },
+      { label: 'Approvals', icon: <CheckIcon /> },
+    ],
+  },
+  {
+    label: 'Workspace',
+    items: [
+      {
+        label: 'Projects',
+        icon: <FlagIcon />,
+        items: [
+          { label: 'In progress' },
+          { label: 'Completed' },
+          { label: 'Archived' },
+        ],
+      },
+      { label: 'Clients', icon: <UserIcon /> },
+      { label: 'Invoices', icon: <ClockIcon /> },
+      { label: 'Reports', icon: <EllipsisIcon /> },
+      { label: 'Documents', icon: <FlagIcon /> },
+      { label: 'Analytics', icon: <MagnifyingGlassIcon /> },
+    ],
+  },
+  {
+    label: 'Organization',
+    items: [
+      { label: 'Members', icon: <UserIcon /> },
+      { label: 'Roles & access', icon: <CheckIcon /> },
+      { label: 'Billing', icon: <ClockIcon /> },
+      { label: 'Integrations', icon: <PanelLeftIcon /> },
+      { label: 'Audit log', icon: <EllipsisIcon /> },
+    ],
+  },
+];
+
+function BrandHeader() {
+  const { state, isMobile } = useSidebar();
+  const collapsed = !isMobile && state === 'collapsed';
+
+  return (
+    <SidebarHeader className="py-2">
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={
+                <SidebarMenuButton size="lg" tooltip="Workspace" />
+              }
+            >
+              {collapsed ? (
+                <img
+                  src="/images/vital-logo.svg"
+                  alt="Vittal"
+                  className="size-8 object-contain"
+                />
+              ) : (
+                <img
+                  src="/images/vital-logo-text-h.svg"
+                  alt="Vittal"
+                  className="h-7 max-h-7 w-auto object-contain object-left"
+                />
+              )}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              side="right"
+              align="start"
+              sideOffset={16}
+            >
+              <DropdownMenuGroup>
+                <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
+                <DropdownMenuItem>Vittal Design</DropdownMenuItem>
+                <DropdownMenuItem>Vittal Finance</DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Create workspace</DropdownMenuItem>
+              <DropdownMenuItem>Workspace settings</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarHeader>
+  );
+}
+
+function NavMain() {
+  return (
+    <SidebarContent>
+      {nav.map((group) => (
+        <SidebarGroup key={group.label}>
+          <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {group.items.map((item) => (
+                <SidebarMenuItem key={item.label}>
+                  <SidebarMenuButton
+                    isActive={item.isActive && !item.items}
+                    tooltip={item.label}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </SidebarMenuButton>
+                  {item.items ? (
+                    <SidebarMenuSub>
+                      {item.items.map((sub) => (
+                        <SidebarMenuSubItem key={sub.label}>
+                          <SidebarMenuSubButton
+                            isActive={sub.isActive}
+                          >
+                            <span>{sub.label}</span>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  ) : null}
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      ))}
+    </SidebarContent>
+  );
+}
+
+function UserFooter() {
+  return (
+    <SidebarFooter>
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={<SidebarMenuButton size="lg" tooltip="Ray" />}
+            >
+              <Avatar
+                name="Ray"
+                src="/images/ray.jpg"
+                size="sm"
+                className="size-8 shrink-0"
+              />
+              <span>Ray</span>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              side="right"
+              align="end"
+              sideOffset={16}
+            >
+              <DropdownMenuGroup>
+                <DropdownMenuLabel>Ray</DropdownMenuLabel>
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Account settings</DropdownMenuItem>
+                <DropdownMenuItem>Preferences</DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Sign out</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarFooter>
+  );
+}
+
+export function SidebarCollapsibleOffcanvasExample() {
+  return (
+    <div className={DEMO_FRAME}>
+      <SidebarProvider
+        defaultOpen
+        enableKeyboardShortcut={false}
+        className="h-full min-h-0"
+      >
+        <Sidebar
+          side="left"
+          variant="sidebar"
+          collapsible="offcanvas"
+        >
+          <BrandHeader />
+          <NavMain />
+          <UserFooter />
+          <SidebarRail />
+        </Sidebar>
+        <SidebarInset>
+          <header className="flex h-12 items-center gap-2 border-b border-sidebar-border px-4">
+            <SidebarTrigger />
+            <span className="text-sm text-sidebar-foreground">
+              Dashboard
+            </span>
+          </header>
+          <div className="flex flex-1 flex-col" />
+        </SidebarInset>
+      </SidebarProvider>
+    </div>
+  );
+}
+```
+
+## 變體
+
+### Inset
+
+```tsx
+import { Avatar } from '@/components/ui/Avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/DropdownMenu';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarTrigger,
+  useSidebar,
+} from '@/components/ui/Sidebar';
+import { CalendarDaysIcon } from '@/components/icons/CalendarDaysIcon';
+import { CheckIcon } from '@/components/icons/CheckIcon';
+import { ClockIcon } from '@/components/icons/ClockIcon';
+import { EllipsisIcon } from '@/components/icons/EllipsisIcon';
+import { FlagIcon } from '@/components/icons/FlagIcon';
+import { MagnifyingGlassIcon } from '@/components/icons/MagnifyingGlassIcon';
+import { PanelLeftIcon } from '@/components/icons/PanelLeftIcon';
+import { UserIcon } from '@/components/icons/UserIcon';
+import { type ReactNode } from 'react';
+
+// Keeps the fixed sidebar inside this demo box. In an app, drop the frame:
+// the sidebar is fixed to the viewport.
+const DEMO_FRAME =
+  'relative h-[640px] w-full overflow-hidden ' +
+  '[&_[data-slot=sidebar-container]]:!absolute ' +
+  '[&_[data-slot=sidebar-container]]:!inset-y-0 ' +
+  '[&_[data-slot=sidebar-container]]:!h-full ' +
+  '[&_[data-slot=sidebar-container]]:!max-h-full';
+
+type NavItem = {
+  label: string;
+  icon: ReactNode;
+  isActive?: boolean;
+  items?: { label: string; isActive?: boolean }[];
+};
+
+const nav: { label: string; items: NavItem[] }[] = [
+  {
+    label: 'Overview',
+    items: [
+      { label: 'Dashboard', icon: <PanelLeftIcon />, isActive: true },
+      { label: 'Inbox', icon: <MagnifyingGlassIcon /> },
+      { label: 'Calendar', icon: <CalendarDaysIcon /> },
+      { label: 'Approvals', icon: <CheckIcon /> },
+    ],
+  },
+  {
+    label: 'Workspace',
+    items: [
+      {
+        label: 'Projects',
+        icon: <FlagIcon />,
+        items: [
+          { label: 'In progress' },
+          { label: 'Completed' },
+          { label: 'Archived' },
+        ],
+      },
+      { label: 'Clients', icon: <UserIcon /> },
+      { label: 'Invoices', icon: <ClockIcon /> },
+      { label: 'Reports', icon: <EllipsisIcon /> },
+      { label: 'Documents', icon: <FlagIcon /> },
+      { label: 'Analytics', icon: <MagnifyingGlassIcon /> },
+    ],
+  },
+  {
+    label: 'Organization',
+    items: [
+      { label: 'Members', icon: <UserIcon /> },
+      { label: 'Roles & access', icon: <CheckIcon /> },
+      { label: 'Billing', icon: <ClockIcon /> },
+      { label: 'Integrations', icon: <PanelLeftIcon /> },
+      { label: 'Audit log', icon: <EllipsisIcon /> },
+    ],
+  },
+];
+
+function BrandHeader() {
+  const { state, isMobile } = useSidebar();
+  const collapsed = !isMobile && state === 'collapsed';
+
+  return (
+    <SidebarHeader className="py-2">
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={
+                <SidebarMenuButton size="lg" tooltip="Workspace" />
+              }
+            >
+              {collapsed ? (
+                <img
+                  src="/images/vital-logo.svg"
+                  alt="Vittal"
+                  className="size-8 object-contain"
+                />
+              ) : (
+                <img
+                  src="/images/vital-logo-text-h.svg"
+                  alt="Vittal"
+                  className="h-7 max-h-7 w-auto object-contain object-left"
+                />
+              )}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              side="right"
+              align="start"
+              sideOffset={16}
+            >
+              <DropdownMenuGroup>
+                <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
+                <DropdownMenuItem>Vittal Design</DropdownMenuItem>
+                <DropdownMenuItem>Vittal Finance</DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Create workspace</DropdownMenuItem>
+              <DropdownMenuItem>Workspace settings</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarHeader>
+  );
+}
+
+function NavMain() {
+  return (
+    <SidebarContent>
+      {nav.map((group) => (
+        <SidebarGroup key={group.label}>
+          <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {group.items.map((item) => (
+                <SidebarMenuItem key={item.label}>
+                  <SidebarMenuButton
+                    isActive={item.isActive && !item.items}
+                    tooltip={item.label}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </SidebarMenuButton>
+                  {item.items ? (
+                    <SidebarMenuSub>
+                      {item.items.map((sub) => (
+                        <SidebarMenuSubItem key={sub.label}>
+                          <SidebarMenuSubButton
+                            isActive={sub.isActive}
+                          >
+                            <span>{sub.label}</span>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  ) : null}
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      ))}
+    </SidebarContent>
+  );
+}
+
+function UserFooter() {
+  return (
+    <SidebarFooter>
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={<SidebarMenuButton size="lg" tooltip="Ray" />}
+            >
+              <Avatar
+                name="Ray"
+                src="/images/ray.jpg"
+                size="sm"
+                className="size-8 shrink-0"
+              />
+              <span>Ray</span>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              side="right"
+              align="end"
+              sideOffset={16}
+            >
+              <DropdownMenuGroup>
+                <DropdownMenuLabel>Ray</DropdownMenuLabel>
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Account settings</DropdownMenuItem>
+                <DropdownMenuItem>Preferences</DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Sign out</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarFooter>
+  );
+}
+
+export function SidebarInsetExample() {
+  return (
+    <div className={DEMO_FRAME}>
+      <SidebarProvider
+        defaultOpen
+        enableKeyboardShortcut={false}
+        className="h-full min-h-0"
+      >
+        <Sidebar side="left" variant="inset" collapsible="icon">
+          <BrandHeader />
+          <NavMain />
+          <UserFooter />
+          <SidebarRail />
+        </Sidebar>
+        <SidebarInset>
+          <header className="flex h-12 items-center gap-2 border-b border-sidebar-border px-4">
+            <SidebarTrigger />
+            <span className="text-sm text-sidebar-foreground">
+              Dashboard
+            </span>
+          </header>
+          <div className="flex flex-1 flex-col" />
+        </SidebarInset>
+      </SidebarProvider>
+    </div>
+  );
+}
+```
+
+### Floating
+
+```tsx
+import { Avatar } from '@/components/ui/Avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/DropdownMenu';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarTrigger,
+  useSidebar,
+} from '@/components/ui/Sidebar';
+import { CalendarDaysIcon } from '@/components/icons/CalendarDaysIcon';
+import { CheckIcon } from '@/components/icons/CheckIcon';
+import { ClockIcon } from '@/components/icons/ClockIcon';
+import { EllipsisIcon } from '@/components/icons/EllipsisIcon';
+import { FlagIcon } from '@/components/icons/FlagIcon';
+import { MagnifyingGlassIcon } from '@/components/icons/MagnifyingGlassIcon';
+import { PanelLeftIcon } from '@/components/icons/PanelLeftIcon';
+import { UserIcon } from '@/components/icons/UserIcon';
+import { type ReactNode } from 'react';
+
+// Keeps the fixed sidebar inside this demo box. In an app, drop the frame:
+// the sidebar is fixed to the viewport.
+const DEMO_FRAME =
+  'relative h-[640px] w-full overflow-hidden ' +
+  '[&_[data-slot=sidebar-container]]:!absolute ' +
+  '[&_[data-slot=sidebar-container]]:!inset-y-0 ' +
+  '[&_[data-slot=sidebar-container]]:!h-full ' +
+  '[&_[data-slot=sidebar-container]]:!max-h-full';
+
+type NavItem = {
+  label: string;
+  icon: ReactNode;
+  isActive?: boolean;
+  items?: { label: string; isActive?: boolean }[];
+};
+
+const nav: { label: string; items: NavItem[] }[] = [
+  {
+    label: 'Overview',
+    items: [
+      { label: 'Dashboard', icon: <PanelLeftIcon />, isActive: true },
+      { label: 'Inbox', icon: <MagnifyingGlassIcon /> },
+      { label: 'Calendar', icon: <CalendarDaysIcon /> },
+      { label: 'Approvals', icon: <CheckIcon /> },
+    ],
+  },
+  {
+    label: 'Workspace',
+    items: [
+      {
+        label: 'Projects',
+        icon: <FlagIcon />,
+        items: [
+          { label: 'In progress' },
+          { label: 'Completed' },
+          { label: 'Archived' },
+        ],
+      },
+      { label: 'Clients', icon: <UserIcon /> },
+      { label: 'Invoices', icon: <ClockIcon /> },
+      { label: 'Reports', icon: <EllipsisIcon /> },
+      { label: 'Documents', icon: <FlagIcon /> },
+      { label: 'Analytics', icon: <MagnifyingGlassIcon /> },
+    ],
+  },
+  {
+    label: 'Organization',
+    items: [
+      { label: 'Members', icon: <UserIcon /> },
+      { label: 'Roles & access', icon: <CheckIcon /> },
+      { label: 'Billing', icon: <ClockIcon /> },
+      { label: 'Integrations', icon: <PanelLeftIcon /> },
+      { label: 'Audit log', icon: <EllipsisIcon /> },
+    ],
+  },
+];
+
+function BrandHeader() {
+  const { state, isMobile } = useSidebar();
+  const collapsed = !isMobile && state === 'collapsed';
+
+  return (
+    <SidebarHeader className="py-2">
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={
+                <SidebarMenuButton size="lg" tooltip="Workspace" />
+              }
+            >
+              {collapsed ? (
+                <img
+                  src="/images/vital-logo.svg"
+                  alt="Vittal"
+                  className="size-8 object-contain"
+                />
+              ) : (
+                <img
+                  src="/images/vital-logo-text-h.svg"
+                  alt="Vittal"
+                  className="h-7 max-h-7 w-auto object-contain object-left"
+                />
+              )}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              side="right"
+              align="start"
+              sideOffset={16}
+            >
+              <DropdownMenuGroup>
+                <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
+                <DropdownMenuItem>Vittal Design</DropdownMenuItem>
+                <DropdownMenuItem>Vittal Finance</DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Create workspace</DropdownMenuItem>
+              <DropdownMenuItem>Workspace settings</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarHeader>
+  );
+}
+
+function NavMain() {
+  return (
+    <SidebarContent>
+      {nav.map((group) => (
+        <SidebarGroup key={group.label}>
+          <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {group.items.map((item) => (
+                <SidebarMenuItem key={item.label}>
+                  <SidebarMenuButton
+                    isActive={item.isActive && !item.items}
+                    tooltip={item.label}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </SidebarMenuButton>
+                  {item.items ? (
+                    <SidebarMenuSub>
+                      {item.items.map((sub) => (
+                        <SidebarMenuSubItem key={sub.label}>
+                          <SidebarMenuSubButton
+                            isActive={sub.isActive}
+                          >
+                            <span>{sub.label}</span>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  ) : null}
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      ))}
+    </SidebarContent>
+  );
+}
+
+function UserFooter() {
+  return (
+    <SidebarFooter>
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={<SidebarMenuButton size="lg" tooltip="Ray" />}
+            >
+              <Avatar
+                name="Ray"
+                src="/images/ray.jpg"
+                size="sm"
+                className="size-8 shrink-0"
+              />
+              <span>Ray</span>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              side="right"
+              align="end"
+              sideOffset={16}
+            >
+              <DropdownMenuGroup>
+                <DropdownMenuLabel>Ray</DropdownMenuLabel>
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Account settings</DropdownMenuItem>
+                <DropdownMenuItem>Preferences</DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Sign out</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarFooter>
+  );
+}
+
+export function SidebarFloatingExample() {
+  return (
+    <div className={DEMO_FRAME}>
+      <SidebarProvider
+        defaultOpen
+        enableKeyboardShortcut={false}
+        className="h-full min-h-0"
+      >
+        <Sidebar side="left" variant="floating" collapsible="icon">
+          <BrandHeader />
+          <NavMain />
+          <UserFooter />
+          <SidebarRail />
+        </Sidebar>
+        <SidebarInset>
+          <header className="flex h-12 items-center gap-2 px-4">
+            <SidebarTrigger />
+          </header>
+          <div className="flex flex-1 flex-col" />
+        </SidebarInset>
+      </SidebarProvider>
+    </div>
+  );
+}
+```
+
+## 右側
+
+設 `side="right"` 讓側邊欄停在右邊。把 `SidebarTrigger` 放在頁首的尾端，讓它靠近面板。
+
+```tsx
+import { Avatar } from '@/components/ui/Avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/DropdownMenu';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarTrigger,
+  useSidebar,
+} from '@/components/ui/Sidebar';
+import { CalendarDaysIcon } from '@/components/icons/CalendarDaysIcon';
+import { CheckIcon } from '@/components/icons/CheckIcon';
+import { ClockIcon } from '@/components/icons/ClockIcon';
+import { EllipsisIcon } from '@/components/icons/EllipsisIcon';
+import { FlagIcon } from '@/components/icons/FlagIcon';
+import { MagnifyingGlassIcon } from '@/components/icons/MagnifyingGlassIcon';
+import { PanelLeftIcon } from '@/components/icons/PanelLeftIcon';
+import { UserIcon } from '@/components/icons/UserIcon';
+import { type ReactNode } from 'react';
+
+// Keeps the fixed sidebar inside this demo box. In an app, drop the frame:
+// the sidebar is fixed to the viewport.
+const DEMO_FRAME =
+  'relative h-[640px] w-full overflow-hidden ' +
+  '[&_[data-slot=sidebar-container]]:!absolute ' +
+  '[&_[data-slot=sidebar-container]]:!inset-y-0 ' +
+  '[&_[data-slot=sidebar-container]]:!h-full ' +
+  '[&_[data-slot=sidebar-container]]:!max-h-full';
+
+type NavItem = {
+  label: string;
+  icon: ReactNode;
+  isActive?: boolean;
+  items?: { label: string; isActive?: boolean }[];
+};
+
+const nav: { label: string; items: NavItem[] }[] = [
+  {
+    label: 'Overview',
+    items: [
+      { label: 'Dashboard', icon: <PanelLeftIcon />, isActive: true },
+      { label: 'Inbox', icon: <MagnifyingGlassIcon /> },
+      { label: 'Calendar', icon: <CalendarDaysIcon /> },
+      { label: 'Approvals', icon: <CheckIcon /> },
+    ],
+  },
+  {
+    label: 'Workspace',
+    items: [
+      {
+        label: 'Projects',
+        icon: <FlagIcon />,
+        items: [
+          { label: 'In progress' },
+          { label: 'Completed' },
+          { label: 'Archived' },
+        ],
+      },
+      { label: 'Clients', icon: <UserIcon /> },
+      { label: 'Invoices', icon: <ClockIcon /> },
+      { label: 'Reports', icon: <EllipsisIcon /> },
+      { label: 'Documents', icon: <FlagIcon /> },
+      { label: 'Analytics', icon: <MagnifyingGlassIcon /> },
+    ],
+  },
+  {
+    label: 'Organization',
+    items: [
+      { label: 'Members', icon: <UserIcon /> },
+      { label: 'Roles & access', icon: <CheckIcon /> },
+      { label: 'Billing', icon: <ClockIcon /> },
+      { label: 'Integrations', icon: <PanelLeftIcon /> },
+      { label: 'Audit log', icon: <EllipsisIcon /> },
+    ],
+  },
+];
+
+function BrandHeader() {
+  const { state, isMobile } = useSidebar();
+  const collapsed = !isMobile && state === 'collapsed';
+
+  return (
+    <SidebarHeader className="py-2">
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={
+                <SidebarMenuButton size="lg" tooltip="Workspace" />
+              }
+            >
+              {collapsed ? (
+                <img
+                  src="/images/vital-logo.svg"
+                  alt="Vittal"
+                  className="size-8 object-contain"
+                />
+              ) : (
+                <img
+                  src="/images/vital-logo-text-h.svg"
+                  alt="Vittal"
+                  className="h-7 max-h-7 w-auto object-contain object-left"
+                />
+              )}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              side="right"
+              align="start"
+              sideOffset={16}
+            >
+              <DropdownMenuGroup>
+                <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
+                <DropdownMenuItem>Vittal Design</DropdownMenuItem>
+                <DropdownMenuItem>Vittal Finance</DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Create workspace</DropdownMenuItem>
+              <DropdownMenuItem>Workspace settings</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarHeader>
+  );
+}
+
+function NavMain() {
+  return (
+    <SidebarContent>
+      {nav.map((group) => (
+        <SidebarGroup key={group.label}>
+          <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {group.items.map((item) => (
+                <SidebarMenuItem key={item.label}>
+                  <SidebarMenuButton
+                    isActive={item.isActive && !item.items}
+                    tooltip={item.label}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </SidebarMenuButton>
+                  {item.items ? (
+                    <SidebarMenuSub>
+                      {item.items.map((sub) => (
+                        <SidebarMenuSubItem key={sub.label}>
+                          <SidebarMenuSubButton
+                            isActive={sub.isActive}
+                          >
+                            <span>{sub.label}</span>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  ) : null}
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      ))}
+    </SidebarContent>
+  );
+}
+
+function UserFooter() {
+  return (
+    <SidebarFooter>
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={<SidebarMenuButton size="lg" tooltip="Ray" />}
+            >
+              <Avatar
+                name="Ray"
+                src="/images/ray.jpg"
+                size="sm"
+                className="size-8 shrink-0"
+              />
+              <span>Ray</span>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              side="right"
+              align="end"
+              sideOffset={16}
+            >
+              <DropdownMenuGroup>
+                <DropdownMenuLabel>Ray</DropdownMenuLabel>
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Account settings</DropdownMenuItem>
+                <DropdownMenuItem>Preferences</DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Sign out</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarFooter>
+  );
+}
+
+export function SidebarRightSideExample() {
+  return (
+    <div className={DEMO_FRAME}>
+      <SidebarProvider
+        defaultOpen
+        enableKeyboardShortcut={false}
+        className="h-full min-h-0"
+      >
+        <Sidebar side="right" variant="sidebar" collapsible="icon">
+          <BrandHeader />
+          <NavMain />
+          <UserFooter />
+          <SidebarRail />
+        </Sidebar>
+        <SidebarInset>
+          <header className="flex h-12 items-center gap-2 border-b border-sidebar-border px-4">
+            <span className="text-sm text-sidebar-foreground">
+              Dashboard
+            </span>
+            <SidebarTrigger className="ml-auto" />
+          </header>
+          <div className="flex flex-1 flex-col" />
+        </SidebarInset>
+      </SidebarProvider>
+    </div>
+  );
+}
+```
+
+## 受控狀態
+
+父層要自己持有收合狀態時，在 `SidebarProvider` 上用 `open` + `onOpenChange`。
+
+```tsx
+const [open, setOpen] = useState(true);
+
+<SidebarProvider open={open} onOpenChange={setOpen}>
+  ...
+</SidebarProvider>;
+```
+
+## 多型（`render` vs shadcn `asChild`）
+
+Vittal Design 用 Base UI 的 `render` prop，不用 Radix 的 `asChild`：
+
+```tsx
+// shadcn
+<SidebarMenuButton asChild>
+  <a href="/docs">Docs</a>
+</SidebarMenuButton>
+
+// Vittal Design
+<SidebarMenuButton render={<a href="/docs" />}>
+  Docs
+</SidebarMenuButton>
+```
+
+適用於：`Sidebar`、`SidebarTrigger`、`SidebarGroupLabel`、`SidebarGroupAction`、`SidebarMenuButton`、`SidebarMenuAction`、`SidebarMenuSubButton`。
+
+### 觸發器
+
+`SidebarTrigger` 預設顯示面板 icon。傳 `children` 可以換掉 icon，傳 `render` 可以換成別的元素。換上去的元素保留自己的外觀，所以 VD `Button` 不會被觸發器改樣式：
+
+```tsx
+<SidebarTrigger
+  aria-label="Quick links"
+  render={<Button variant="ghost" size="icon-md" />}
+>
+  <PanelLeftIcon data-icon="inline-start" />
+</SidebarTrigger>
+```
+
+在 `onClick` 裡呼叫 `event.preventDefault()`，觸發器就不會切換。
+
+### 根元素
+
+`Sidebar` 渲染成 `<div>`。傳 `render={<aside />}` 或 `render={<nav aria-label="…" />}` 讓面板成為 landmark。行動版的面板是 Sheet 對話框，會忽略 `render`。
+
+## 鍵盤
+
+`⌘B` / `Ctrl+B` 切換側邊欄（桌面的開啟狀態，或行動版 Sheet）。
+
+## Cookie 與開啟狀態
+
+`SidebarProvider` 在開啟狀態改變時**寫入** `sidebar_state` cookie（用來選擇性做跨頁同步）。掛載時**不會**讀這個 cookie——初始狀態來自 `defaultOpen`，或受控的 `open` prop。這樣 SSR 與第一次繪製才可預期；只有應用要在載入時還原，才自己讀 cookie。
+
+設 `cookieName` 可以改用別的名稱，`cookieName={null}` 則完全不寫 cookie。要用其他方式保存狀態，請用 `onOpenChange`。
+
+## 主題 CSS 變數
+
+側邊欄顏色用相容 shadcn 的語意 slot。預設定義在 `tokens/semantic/color.json`，輸出到 `src-v2/styles/tokens/generated.css`（經 `globals.css` 引入）。見 [色彩 → Sidebar](/zh-tw/docs/design-tokens/colors#sidebar)。
+
+| 變數                             | 預設                             |
+| ------------------------------ | ------------------------------ |
+| `--sidebar`                    | `var(--grayscale-100)`         |
+| `--sidebar-foreground`         | `var(--grayscale-900)`         |
+| `--sidebar-primary`            | `var(--primary-500)`           |
+| `--sidebar-primary-foreground` | `#fff`                         |
+| `--sidebar-accent`             | `var(--primary-50)`            |
+| `--sidebar-accent-foreground`  | `var(--primary-700)`           |
+| `--sidebar-border`             | `var(--grayscale-opacity-200)` |
+| `--sidebar-ring`               | `var(--primary-300)`           |
+
+版面寬度設在 provider 外包的那一層：
+
+- `--sidebar-width`：`16rem`
+- `--sidebar-width-icon`：`3rem`
+- 行動版 Sheet 寬度：`18rem`
+
+## 行動版
+
+低於 `768px` 時，`Sidebar` 渲染成由 `openMobile` 控制的 `Sheet`。把 `SidebarTrigger` 放在面板外面（通常在 `SidebarInset` 的頁首外框）——或呼叫 `useSidebar().toggleSidebar`——才能打開。`SidebarTrigger` 依行動版或桌面的開啟狀態設定 `aria-expanded`。
+
+在 `SidebarProvider` 傳 `isMobile` 可以取代內建的 `768px` 判斷，例如改用自己的斷點。`isMobile={false}` 永遠不切換成 Sheet：觸發器與 `⌘B` 一律切換桌面面板。版面自己處理小螢幕時用這個。
+
+選單動作預設是**按鈕**。要做成連結，在 `SidebarMenuButton` / `SidebarMenuSubButton` 上用 `render` prop（`render={<a href="…" />}`）。
+
+## 內嵌與多個側邊欄
+
+側邊欄放在別的應用頁面裡，或同一頁有兩個側邊欄時（例如 shell 的快捷連結面板旁邊還有產品自己的側邊欄）：
+
+- **Cookie：** 每個 `SidebarProvider` 用不同的 `cookieName`；頁面不是你的就傳 `null`。內嵌的側邊欄寫的 cookie 會落在宿主網域上。
+- **快捷鍵：** 最多只在一個 provider 開 `⌘B`。每個開著的 provider 都監聽 `window`，兩個會一起切換。宿主頁面有自己的快捷鍵時，設 `enableKeyboardShortcut={false}`。
+- **版面：** provider 會渲染一層 `flex min-h-svh` 外框。由自己的版面擺放面板時，傳 `className="contents"`，讓這層只負責狀態。
+- **浮層：** 側邊欄裡的選單預設 portal 到 `document.body`。主題 token 只定義在某個容器內時，把那個容器傳給浮層（例如 `DropdownMenuContent` 的 `portalContainer`）。
+- **在 provider 外的選單列：** `SidebarMenuButton` 沒有 `SidebarProvider` 也能渲染，行為等同展開、不顯示 tooltip，所以用它組成的清單元件可以單獨渲染和測試。

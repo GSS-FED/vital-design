@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-circle-exclamation-solid",
+  "title": "Circle Exclamation Solid Icon",
+  "description": "Circle Exclamation Solid Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/CircleExclamationSolidIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const CircleExclamationSolidIcon = (\n  props: SVGProps<SVGSVGElement>,\n) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    viewBox=\"0 0 20 20\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <path\n      fill=\"currentColor\"\n      fillRule=\"evenodd\"\n      d=\"M10.0565 2.99989C11.266 3.00972 12.4525 3.33265 13.4999 3.93739C14.5557 4.54698 15.4339 5.42215 16.0477 6.47547C16.6615 7.52879 16.99 8.72418 16.9999 9.94324C17.0097 11.1621 16.7009 12.3627 16.1044 13.4257C15.5077 14.4888 14.6433 15.3782 13.5975 16.0048C12.5518 16.6313 11.3603 16.9742 10.1415 16.9989C8.92272 17.0236 7.71854 16.729 6.64832 16.1454C5.57803 15.5616 4.67819 14.7079 4.03895 13.6698C3.39987 12.6318 3.04327 11.4448 3.00379 10.2264L2.99989 9.99989L3.00379 9.77332C3.04299 8.56442 3.39424 7.38588 4.0243 6.3534C4.65436 5.32093 5.54135 4.46942 6.59852 3.88172C7.65567 3.29404 8.84705 2.99007 10.0565 2.99989ZM9.99989 12.0985C9.50291 12.0985 9.09962 12.502 9.0995 12.9989C9.09957 13.4959 9.50288 13.8983 9.99989 13.8983C10.4967 13.8981 10.8992 13.4958 10.8993 12.9989C10.8992 12.5021 10.4967 12.0987 9.99989 12.0985ZM9.99989 6.10047C9.61351 6.10058 9.2999 6.41431 9.29969 6.80067V10.4013C9.29969 10.7878 9.61338 11.1013 9.99989 11.1014C10.3865 11.1014 10.7001 10.7879 10.7001 10.4013V6.80067C10.6999 6.41425 10.3864 6.10047 9.99989 6.10047Z\"\n      clipRule=\"evenodd\"\n    />\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/CircleExclamationSolidIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

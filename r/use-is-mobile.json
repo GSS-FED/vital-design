@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-is-mobile",
+  "title": "useIsMobile",
+  "description": "Hook that tracks whether the viewport is below the mobile breakpoint (768px)",
+  "files": [
+    {
+      "path": "src-v2/hooks/useIsMobile.ts",
+      "content": "import { useSyncExternalStore } from 'react';\n\nconst MOBILE_BREAKPOINT = 768;\nconst MOBILE_MEDIA_QUERY = `(max-width: ${MOBILE_BREAKPOINT - 1}px)`;\n\nfunction canUseMatchMedia() {\n  return (\n    typeof window !== 'undefined' &&\n    typeof window.matchMedia === 'function'\n  );\n}\n\nfunction subscribe(callback: () => void) {\n  if (!canUseMatchMedia()) {\n    return () => {};\n  }\n\n  const mediaQueryList = window.matchMedia(MOBILE_MEDIA_QUERY);\n  mediaQueryList.addEventListener('change', callback);\n\n  return () => {\n    mediaQueryList.removeEventListener('change', callback);\n  };\n}\n\nfunction getSnapshot() {\n  if (!canUseMatchMedia()) {\n    return false;\n  }\n\n  return window.matchMedia(MOBILE_MEDIA_QUERY).matches;\n}\n\nfunction getServerSnapshot() {\n  return false;\n}\n\nexport function useIsMobile() {\n  return useSyncExternalStore(\n    subscribe,\n    getSnapshot,\n    getServerSnapshot,\n  );\n}\n",
+      "type": "registry:hook"
+    }
+  ],
+  "type": "registry:hook"
+}

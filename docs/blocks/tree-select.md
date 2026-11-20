@@ -1,0 +1,122 @@
+# Tree Select
+
+> Searchable hierarchical path picker built from Command and Popover.
+
+## Preview
+
+```tsx
+import {
+  TreeSelect,
+  type TreeSelectItem,
+  type TreeSelectValue,
+} from '@/blocks/tree-select/tree-select';
+import { useState } from 'react';
+
+const locationItems: TreeSelectItem[] = [
+  {
+    label: 'Taiwan',
+    parentValue: null,
+    value: 'tw',
+    hasChildren: true,
+  },
+  {
+    label: 'Japan',
+    parentValue: null,
+    value: 'jp',
+    hasChildren: true,
+  },
+  { label: 'Taipei', parentValue: 'tw', value: 'tpe' },
+  { label: 'Kaohsiung', parentValue: 'tw', value: 'khh' },
+  { label: 'Tokyo', parentValue: 'jp', value: 'tky' },
+  { label: 'Osaka', parentValue: 'jp', value: 'osa' },
+];
+
+export function TreeSelectExample() {
+  const [value, setValue] = useState<TreeSelectValue | null>(null);
+
+  return (
+    <TreeSelect
+      items={locationItems}
+      label="Locations"
+      value={value}
+      onValueChange={setValue}
+      placeholder="Select location"
+      searchPlaceholder="Search locations"
+      emptyMessage="No locations found."
+    />
+  );
+}
+```
+
+## Composition
+
+This block is built on the following Vittal Design primitives:
+
+- [`Command`](/docs/components/command), [`Popover`](/docs/components/popover)
+- `AngleDownIcon`, `AngleRightIcon`
+
+## Usage
+
+Pass a flat list where each item names its parent, and mark items that open another level with `hasChildren`. Selecting a leaf returns its value and the path from the top level.
+
+```tsx
+import {
+  TreeSelect,
+  type TreeSelectValue,
+} from '@/blocks/tree-select/tree-select';
+import { useState } from 'react';
+
+const items = [
+  {
+    label: 'Taiwan',
+    parentValue: null,
+    value: 'tw',
+    hasChildren: true,
+  },
+  { label: 'Taipei', parentValue: 'tw', value: 'tpe' },
+];
+
+export function LocationField() {
+  const [value, setValue] = useState<TreeSelectValue | null>(null);
+
+  return (
+    <TreeSelect
+      items={items}
+      label="Locations"
+      value={value}
+      onValueChange={setValue}
+    />
+  );
+}
+```
+
+The block turns off cmdk's filter (`shouldFilter={false}`) and filters the level on screen itself, so search never matches items in other levels. Backspace in an empty search returns to the parent level, and closing the popup returns to the top level.
+
+The block does not load data. To load children on demand, edit `openPage` and the item list in the installed file.
+
+## Props
+
+| Prop                | Type                               | Default               | Description                                 |
+| ------------------- | ---------------------------------- | --------------------- | ------------------------------------------- |
+| `items`             | `TreeSelectItem[]`                 | —                     | Flat list of every level                    |
+| `label`             | `string`                           | —                     | Accessible name of the trigger and the list |
+| `value`             | `TreeSelectValue \| null`          | —                     | Selected leaf and its path                  |
+| `onValueChange`     | `(value: TreeSelectValue) => void` | —                     | Called when a leaf is selected              |
+| `placeholder`       | `string`                           | `'Select'`            | Trigger text when nothing is selected       |
+| `searchPlaceholder` | `string`                           | `'Search'`            | Search input placeholder                    |
+| `emptyMessage`      | `string`                           | `'No results found.'` | Shown when a level has no matches           |
+| `className`         | `string`                           | —                     | Classes on the trigger                      |
+
+## Files
+
+| File              | Description                                   |
+| ----------------- | --------------------------------------------- |
+| `tree-select.tsx` | Block entry — trigger, page stack, and search |
+
+## Installation
+
+```bash
+npx shadcn@latest add @vital-design/tree-select
+```
+
+This installs `src/blocks/tree-select/tree-select.tsx` and its Command, Popover, and icon dependencies.

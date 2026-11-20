@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-arrow-up-right-from-square-solid",
+  "title": "Arrow Up Right From Square Solid Icon",
+  "description": "Arrow Up Right From Square Solid Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/ArrowUpRightFromSquareSolidIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const ArrowUpRightFromSquareSolidIcon = (\n  props: SVGProps<SVGSVGElement>,\n) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    strokeWidth={1.75}\n    viewBox=\"0 0 20 20\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <path\n      stroke=\"currentColor\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      d=\"M10 5.40625H5.40625C5.00014 5.40625 4.61066 5.56758 4.32349 5.85474C4.03633 6.14191 3.875 6.53139 3.875 6.9375V14.5938C3.875 14.9999 4.03633 15.3893 4.32349 15.6765C4.61066 15.9637 5.00014 16.125 5.40625 16.125H13.0625C13.4686 16.125 13.8581 15.9637 14.1453 15.6765C14.4324 15.3893 14.5938 14.9999 14.5938 14.5938V10M9.23438 10.7656L16.125 3.875M16.125 7.70312V3.875H12.2969\"\n    />\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/ArrowUpRightFromSquareSolidIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

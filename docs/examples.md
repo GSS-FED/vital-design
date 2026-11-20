@@ -1,0 +1,11 @@
+# Examples
+
+> Full screens built only from Vital Design components and blocks, to show how the pieces fit together.
+
+## Tasks
+
+A project workspace: the Cloud sidebar block, a header with Breadcrumb, Search Bar, Tooltip, Badge, and an account Dropdown Menu, stat Cards with Tag and Progress, Tabs, and the Data Table block.
+
+## Settings
+
+An account settings form: Card, Field, Input, Select, Textarea, Switch, Radio Group, and Separator. **儲存** shows a Toast, and **刪除帳號** opens a Dialog.

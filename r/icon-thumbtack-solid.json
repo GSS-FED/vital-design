@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-thumbtack-solid",
+  "title": "Thumbtack Solid Icon",
+  "description": "Thumbtack Solid Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/ThumbtackSolidIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const ThumbtackSolidIcon = (\n  props: SVGProps<SVGSVGElement>,\n) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    strokeWidth={1.75}\n    viewBox=\"0 0 20 20\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <path\n      fill=\"currentColor\"\n      d=\"M8.0426 8.34307V3.875H11.9574V8.34307L13.75 10.2914V11.6223H10H6.25L6.25002 10.2914L8.0426 8.34307Z\"\n    />\n    <path\n      stroke=\"currentColor\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      d=\"M8.0426 3.875V8.34307L6.25002 10.2914L6.25 11.6223H10M8.0426 3.875H7.00002M8.0426 3.875H11.9574M11.9574 3.875V8.34307L13.75 10.2914V11.6223H10M11.9574 3.875H13M10 11.6223V16.125\"\n    />\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/ThumbtackSolidIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,120 @@
+# Introduction
+
+> Vittal Design is a React 19 component library built with TypeScript and Tailwind CSS 4.
+
+## Overview
+
+**Vittal Design** (`@fed/vital-design`) is a production-ready React component library designed for enterprise applications. It provides a comprehensive set of accessible, customizable UI components, with the current registry-backed `src-v2/` layer serving as the primary source for new components.
+
+> **Distribution note:** New projects and newly added components should use the registry-backed `src-v2/` layer. The published `@fed/vital-design` npm package remains available for legacy compatibility with existing projects, but the package targets the older `src/` surface and does not expose registry-only `src-v2` assets.
+
+## Features
+
+- **React 19** — Built for modern React with hooks and concurrent features
+- **TypeScript** — Full type safety with exported type definitions
+- **Tailwind CSS 4** — Utility-first styling with a custom design token system
+- **Base UI** — Accessible, unstyled primitives for complex interactions in `src-v2/`
+- **shadcn Registry** — Primary installation path for new components via the shadcn CLI
+
+## Component Categories
+
+To see every component at once, open the [component overview](/docs/components).
+
+### Foundation
+
+Small building blocks for labels, actions, status indicators, and decoration.
+
+| Component                                    | Description                                |
+| -------------------------------------------- | ------------------------------------------ |
+| [Button](/docs/components/button)            | Filled and text action button variants     |
+| [ButtonGroup](/docs/components/button-group) | Group related buttons with shared borders  |
+| [Avatar](/docs/components/avatar)            | Profile image with color fallback initials |
+| [Chip](/docs/components/chip)                | Compact selectable token for filters       |
+| [Tag](/docs/components/tag)                  | Read-only label with color variants        |
+| [Label](/docs/components/label)              | Accessible form label primitive            |
+| [Separator](/docs/components/separator)      | Horizontal or vertical divider             |
+| [Skeleton](/docs/components/skeleton)        | Loading placeholder                        |
+| [Spinner](/docs/components/spinner)          | Inline loading indicator                   |
+| [Icons](/docs/components/icons)              | Registry-ready icon components             |
+
+### Inputs
+
+Text entry controls and form composition helpers.
+
+| Component                                    | Description                                         |
+| -------------------------------------------- | --------------------------------------------------- |
+| [Field](/docs/components/field)              | Form field, label, description, and error UI        |
+| [Input](/docs/components/input)              | Single-line, password, and grouped input patterns   |
+| [NumberInput](/docs/components/number-input) | Numeric input with increment and decrement controls |
+| [SearchBar](/docs/components/search-bar)     | Search input preset built on `InputGroup`           |
+| [Checkbox](/docs/components/checkbox)        | Checkbox with indeterminate state                   |
+| [RadioGroup](/docs/components/radio-group)   | Mutually exclusive radio choices                    |
+| [Switch](/docs/components/switch)            | Boolean on/off control                              |
+| [Slider](/docs/components/slider)            | Numeric range input                                 |
+
+### Pickers and Menus
+
+Components that own popup state, search, or keyboard navigation.
+
+| Component                                      | Description                                      |
+| ---------------------------------------------- | ------------------------------------------------ |
+| [Select](/docs/components/select)              | Flat single or multiple dropdown picker          |
+| [Autocomplete](/docs/components/autocomplete)  | Suggestion dropdown for free-text input          |
+| [Combobox](/docs/components/combobox)          | Searchable input picker with optional tag values |
+| [Command](/docs/components/command)            | Command palette and custom searchable list base  |
+| [DropdownMenu](/docs/components/dropdown-menu) | Action menu                                      |
+| [Popover](/docs/components/popover)            | Anchored floating content                        |
+| [Calendar](/docs/components/calendar)          | Date picker calendar                             |
+| [TimePicker](/docs/components/time-picker)     | Time selection input                             |
+
+### Overlays and Feedback
+
+Surfaces and status messages that appear above or alongside content.
+
+| Component                           | Description                |
+| ----------------------------------- | -------------------------- |
+| [Alert](/docs/components/alert)     | Status or feedback message |
+| [Toast](/docs/components/toast)     | Transient notification     |
+| [Dialog](/docs/components/dialog)   | Modal overlay              |
+| [Sheet](/docs/components/sheet)     | Slide-in side panel        |
+| [Tooltip](/docs/components/tooltip) | Contextual hover hint      |
+
+### Layout and Navigation
+
+Structural components for arranging and navigating content.
+
+| Component                                               | Description                                      |
+| ------------------------------------------------------- | ------------------------------------------------ |
+| [Tabs](/docs/components/tabs)                           | Tabbed content sections                          |
+| [Breadcrumb](/docs/components/breadcrumb)               | Navigation trail of parent pages                 |
+| [Collapsible](/docs/components/collapsible)             | Expandable and collapsible content region        |
+| [Item](/docs/components/item)                           | Reusable media, title, description, actions row  |
+| [Table](/docs/components/table)                         | Data table primitives                            |
+| [Table of Contents](/docs/components/table-of-contents) | Page section rail that expands on hover or focus |
+| [Toolbar](/docs/components/toolbar)                     | Horizontal command surface                       |
+| [SplitButton](/docs/components/split-button)            | Primary action with adjacent secondary trigger   |
+| [Progress](/docs/components/progress)                   | Linear progress indicator                        |
+| [ScrollArea](/docs/components/scroll-area)              | Custom scrollbar container                       |
+| [Resizable](/docs/components/resizable)                 | Resizable panel layout                           |
+
+### Composite Blocks
+
+Pre-composed patterns combining multiple atomic components for common UI scenarios.
+
+| Block                                                                             | Description                                                                               |
+| --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| [Sidebar — Flat](/docs/blocks/sidebar/cloud/flat)                                 | Frosted-glass cloud sidebar with a flat nav and no account footer                         |
+| [Sidebar — Inline Submenus](/docs/blocks/sidebar/cloud/inline-submenus)           | Nested items as inline submenus, with an account footer                                   |
+| [Sidebar — Collapsible Submenus](/docs/blocks/sidebar/cloud/collapsible-submenus) | Inline submenus that fold with Collapsible                                                |
+| [Sidebar — Dropdown Submenus](/docs/blocks/sidebar/cloud/dropdown-submenus)       | Submenus open as a dropdown-menu                                                          |
+| [Sidebar — Secondary Nav](/docs/blocks/sidebar/cloud/secondary-nav)               | Secondary navigation pinned above the account footer                                      |
+| [Sidebar — Header Actions](/docs/blocks/sidebar/cloud/header-actions)             | Mark-only logo, header search and notifications, and an account footer                    |
+| [Data Table](/docs/blocks/data-table)                                             | Grouped, sortable, resizable table with row selection and inline and popover cell editing |
+| [Tree Select](/docs/blocks/tree-select)                                           | Searchable hierarchical path picker built from Command and Popover                        |
+
+## Design Principles
+
+- **Predictable** — Consistent props API across all components
+- **Composable** — Components work well together and with custom code
+- **Accessible** — ARIA attributes and keyboard navigation via Base UI
+- **Themeable** — CSS custom properties for design token customization
