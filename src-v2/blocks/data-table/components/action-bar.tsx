@@ -38,6 +38,7 @@ import {
 import { AngleDownIcon } from '@/icons/AngleDownIcon';
 import { EllipsisIcon } from '@/icons/EllipsisIcon';
 import { GearIcon } from '@/icons/GearIcon';
+import { GripDotsVerticalIcon } from '@/icons/GripDotsVerticalIcon';
 import { cn } from '@/lib/utils';
 import type { VisibilityState } from '@tanstack/react-table';
 import {
@@ -101,23 +102,6 @@ function moveTo(
       ? rest.indexOf(last) + 1
       : rest.indexOf(anchor);
   return [...rest.slice(0, at), id, ...rest.slice(at)];
-}
-
-/** Six dots. Swap for the grip icon once icon-update lands. */
-function GripDots() {
-  return (
-    <span
-      aria-hidden="true"
-      className="grid grid-cols-2 gap-[2px] [&>span]:size-[2px] [&>span]:rounded-full [&>span]:bg-current"
-    >
-      <span />
-      <span />
-      <span />
-      <span />
-      <span />
-      <span />
-    </span>
-  );
 }
 
 function ColumnVisibilityPopover({
@@ -315,7 +299,7 @@ function ColumnVisibilityPopover({
                       );
                     }}
                   >
-                    <GripDots />
+                    <GripDotsVerticalIcon className="size-5" />
                   </button>
                   <label
                     className={cn(

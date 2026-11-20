@@ -30,45 +30,69 @@ import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 可用的圖示：
 
 ```ts
+import { AngleDownIcon } from '@/icons/AngleDownIcon';
+import { AngleDownSolidIcon } from '@/icons/AngleDownSolidIcon';
 import { AngleLeftIcon } from '@/icons/AngleLeftIcon';
 import { AngleLeftSolidIcon } from '@/icons/AngleLeftSolidIcon';
 import { AngleLeftToLineIcon } from '@/icons/AngleLeftToLineIcon';
 import { AngleRightIcon } from '@/icons/AngleRightIcon';
 import { AngleRightSolidIcon } from '@/icons/AngleRightSolidIcon';
 import { AngleRightToLineIcon } from '@/icons/AngleRightToLineIcon';
+import { AngleUpIcon } from '@/icons/AngleUpIcon';
+import { AngleUpSolidIcon } from '@/icons/AngleUpSolidIcon';
 import { AnglesLeftIcon } from '@/icons/AnglesLeftIcon';
 import { AnglesRightIcon } from '@/icons/AnglesRightIcon';
+import { ArrowRightLongIcon } from '@/icons/ArrowRightLongIcon';
+import { ArrowUpRightFromSquareIcon } from '@/icons/ArrowUpRightFromSquareIcon';
+import { ArrowUpRightFromSquareSolidIcon } from '@/icons/ArrowUpRightFromSquareSolidIcon';
+import { BanIcon } from '@/icons/BanIcon';
 import { BarsIcon } from '@/icons/BarsIcon';
 import { BellIcon } from '@/icons/BellIcon';
+import { BellSlashIcon } from '@/icons/BellSlashIcon';
 import { CalendarDaysIcon } from '@/icons/CalendarDaysIcon';
 import { CaretDownSolidIcon } from '@/icons/CaretDownSolidIcon';
+import { CaretLeftSolidIcon } from '@/icons/CaretLeftSolidIcon';
+import { CaretRightSolidIcon } from '@/icons/CaretRightSolidIcon';
 import { CaretUpSolidIcon } from '@/icons/CaretUpSolidIcon';
 import { CheckIcon } from '@/icons/CheckIcon';
 import { CheckSolidIcon } from '@/icons/CheckSolidIcon';
-import { AngleDownIcon } from '@/icons/AngleDownIcon';
-import { AngleDownSolidIcon } from '@/icons/AngleDownSolidIcon';
-import { AngleUpIcon } from '@/icons/AngleUpIcon';
-import { AngleUpSolidIcon } from '@/icons/AngleUpSolidIcon';
+import { CircleCheckIcon } from '@/icons/CircleCheckIcon';
+import { CircleCheckSolidIcon } from '@/icons/CircleCheckSolidIcon';
+import { CircleDashedIcon } from '@/icons/CircleDashedIcon';
+import { CircleDotIcon } from '@/icons/CircleDotIcon';
+import { CircleExclamationSolidIcon } from '@/icons/CircleExclamationSolidIcon';
+import { CircleInfoIcon } from '@/icons/CircleInfoIcon';
+import { CircleInfoSolidIcon } from '@/icons/CircleInfoSolidIcon';
+import { CircleMinusSolidIcon } from '@/icons/CircleMinusSolidIcon';
+import { CircleQuestionIcon } from '@/icons/CircleQuestionIcon';
 import { CircleUserIcon } from '@/icons/CircleUserIcon';
+import { CircleXmarkIcon } from '@/icons/CircleXmarkIcon';
+import { CircleXmarkSolidIcon } from '@/icons/CircleXmarkSolidIcon';
 import { ClearIcon } from '@/icons/ClearIcon';
 import { ClockIcon } from '@/icons/ClockIcon';
-import { XmarkIcon } from '@/icons/XmarkIcon';
-import { BanIcon } from '@/icons/BanIcon';
+import { ClockSolidIcon } from '@/icons/ClockSolidIcon';
 import { EllipsisIcon } from '@/icons/EllipsisIcon';
+import { EllipsisVerticalIcon } from '@/icons/EllipsisVerticalIcon';
+import { ExclamationSolidIcon } from '@/icons/ExclamationSolidIcon';
 import { EyeIcon } from '@/icons/EyeIcon';
 import { EyeSlashIcon } from '@/icons/EyeSlashIcon';
+import { FileArrowUpSolidIcon } from '@/icons/FileArrowUpSolidIcon';
+import { FileLinesIcon } from '@/icons/FileLinesIcon';
 import { FlagIcon } from '@/icons/FlagIcon';
 import { GearIcon } from '@/icons/GearIcon';
+import { GripDotsVerticalIcon } from '@/icons/GripDotsVerticalIcon';
 import { HomeIcon } from '@/icons/HomeIcon';
 import { InboxIcon } from '@/icons/InboxIcon';
-import { InfoIcon } from '@/icons/InfoIcon';
 import { LifeRingIcon } from '@/icons/LifeRingIcon';
+import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { MinusIcon } from '@/icons/MinusIcon';
 import { MinusSolidIcon } from '@/icons/MinusSolidIcon';
+import { NoteIcon } from '@/icons/NoteIcon';
 import { PanelLeftIcon } from '@/icons/PanelLeftIcon';
+import { PlaceholderIcon } from '@/icons/PlaceholderIcon';
+import { PlaceholderSolidIcon } from '@/icons/PlaceholderSolidIcon';
 import { PlanetRingedIcon } from '@/icons/PlanetRingedIcon';
 import { PlusIcon } from '@/icons/PlusIcon';
-import { MagnifyingGlassIcon } from '@/icons/MagnifyingGlassIcon';
 import { ShieldCheckIcon } from '@/icons/ShieldCheckIcon';
 import { SidebarIcon } from '@/icons/SidebarIcon';
 import { SpinnerIcon } from '@/icons/SpinnerIcon';
@@ -76,6 +100,7 @@ import { SquareArrowOutUpRightIcon } from '@/icons/SquareArrowOutUpRightIcon';
 import { ThumbtackIcon } from '@/icons/ThumbtackIcon';
 import { ThumbtackSolidIcon } from '@/icons/ThumbtackSolidIcon';
 import { UserIcon } from '@/icons/UserIcon';
+import { XmarkIcon } from '@/icons/XmarkIcon';
 ```
 
 ## Regular 與 Solid [#regular-and-solid]
@@ -110,10 +135,10 @@ import { UserIcon } from '@/icons/UserIcon';
 
 所有圖示都接受標準 SVG 屬性。尺寸與顏色通常用 Tailwind class 控制。
 
-| Prop          | Type                    | Default | 說明                         |
-| ------------- | ----------------------- | ------- | ---------------------------- |
-| `className`   | `string`                | —       | 額外的 CSS class             |
-| `width`       | `number \| string`      | `'1em'` | SVG 寬度                     |
-| `height`      | `number \| string`      | `'1em'` | SVG 高度                     |
-| `aria-hidden` | `boolean`               | `true`  | 對輔助技術隱藏裝飾用圖示     |
-| `...props`    | `ComponentProps<'svg'>` | —       | 原生 `svg` 屬性與事件        |
+| Prop          | Type                    | Default | 說明                     |
+| ------------- | ----------------------- | ------- | ------------------------ |
+| `className`   | `string`                | —       | 額外的 CSS class         |
+| `width`       | `number \| string`      | `'1em'` | SVG 寬度                 |
+| `height`      | `number \| string`      | `'1em'` | SVG 高度                 |
+| `aria-hidden` | `boolean`               | `true`  | 對輔助技術隱藏裝飾用圖示 |
+| `...props`    | `ComponentProps<'svg'>` | —       | 原生 `svg` 屬性與事件    |

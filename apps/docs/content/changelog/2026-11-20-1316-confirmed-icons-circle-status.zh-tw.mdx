@@ -1,0 +1,30 @@
+---
+title: 設計清單的狀態、檔案與箭頭 icon
+---
+
+新的 icon item，都是設計畫好的 20×20 frame 圖：
+
+- 狀態：`icon-circle-check`、`icon-circle-check-solid`、`icon-circle-xmark`、`icon-circle-xmark-solid`、`icon-circle-info`、`icon-circle-info-solid`、`icon-circle-exclamation-solid`、`icon-circle-minus-solid`、`icon-circle-question`、`icon-exclamation-solid`、`icon-circle-dashed`、`icon-circle-dot`。
+- 檔案與箭頭：`icon-file-lines`、`icon-file-arrow-up-solid`、`icon-arrow-right-long`、`icon-arrow-up-right-from-square`、`icon-arrow-up-right-from-square-solid`。
+- 其他：`icon-clock-solid`、`icon-ellipsis-vertical`、`icon-grip-dots-vertical`。
+
+`InfoIcon` 改名為 `CircleInfoIcon`（`@vital-design/icon-circle-info`），跟設計清單一致，並換成設計的圖。舊名稱與舊 registry item 仍可使用但已棄用，`InfoIcon` 只是轉出 `CircleInfoIcon`。請改用新名稱。
+
+換圖：
+
+- `ClockIcon` 換成設計重畫的圖，指針重畫。
+- `ClearIcon` 換成設計重畫的圖，圓形改在 frame 正中央（原本偏上 0.25px），× 變大。
+- `CalendarDaysIcon` 每邊大約大 0.25px，跟設計稿一致。
+- `CircleUserIcon`、`SidebarIcon`、`ThumbtackSolidIcon` 外觀不變，但改成線條繪製，`strokeWidth` prop 可以像其他 icon 一樣調整粗細。
+
+元件變更：
+
+- `data-table`：顯示欄位 popover 的拖曳把手改成 20px 的 `GripDotsVerticalIcon`，不再用六個畫出來的點。
+- `sidebar-cloud-04`：Support 項目改用 `CircleInfoIcon`，外部連結標示改用 `ArrowUpRightFromSquareIcon`。
+
+**暫用圖。** 下列 icon 在設計確認正式版之前仍是暫用圖，之後只會換 SVG：
+
+- 設計稿用的是 Font Awesome Pro，先沿用 Vittal 原本的圖：`MagnifyingGlassIcon`、`PlusIcon`、`SpinnerIcon`、`ShieldCheckIcon`、`SquareArrowOutUpRightIcon`。
+- Font Awesome Free 的形狀，還沒重繪：`FlagIcon`、`UserIcon`。
+- 設計稿裡還沒有：`PanelLeftIcon`。
+- 設計已畫好但尚未確認：`XmarkIcon`、`EyeIcon`。

@@ -1,0 +1,30 @@
+---
+title: Status, file, and arrow icons from the design list
+---
+
+New icon items, all drawn by the design team in the 20×20 frame:
+
+- Status: `icon-circle-check`, `icon-circle-check-solid`, `icon-circle-xmark`, `icon-circle-xmark-solid`, `icon-circle-info`, `icon-circle-info-solid`, `icon-circle-exclamation-solid`, `icon-circle-minus-solid`, `icon-circle-question`, `icon-exclamation-solid`, `icon-circle-dashed`, `icon-circle-dot`.
+- Files and arrows: `icon-file-lines`, `icon-file-arrow-up-solid`, `icon-arrow-right-long`, `icon-arrow-up-right-from-square`, `icon-arrow-up-right-from-square-solid`.
+- Other: `icon-clock-solid`, `icon-ellipsis-vertical`, `icon-grip-dots-vertical`.
+
+`InfoIcon` is renamed `CircleInfoIcon` (`@vital-design/icon-circle-info`) to match the design list, and now uses the design artwork. The old name and registry item still work but are deprecated; `InfoIcon` re-exports `CircleInfoIcon`. Switch to the new name.
+
+Updated artwork:
+
+- `ClockIcon` uses the redrawn design artwork; the hand is redrawn.
+- `ClearIcon` uses the redrawn design artwork; the circle is centred in the frame (it sat 0.25px high) and the × is larger.
+- `CalendarDaysIcon` is about 0.25px larger on each side, matching the design file.
+- `CircleUserIcon`, `SidebarIcon`, and `ThumbtackSolidIcon` look the same but are now drawn with strokes, so the `strokeWidth` prop changes their line weight like the other icons.
+
+Component changes:
+
+- `data-table`: the drag handle in the column-visibility popover is now a 20px `GripDotsVerticalIcon` instead of six drawn dots.
+- `sidebar-cloud-04`: the Support item uses `CircleInfoIcon`, and the external-link mark uses `ArrowUpRightFromSquareIcon`.
+
+**Temporary artwork.** These icons still use placeholder artwork until the design team confirms the final version. Only the SVG will change:
+
+- Font Awesome Pro in the design file, so the previous Vittal artwork is used instead: `MagnifyingGlassIcon`, `PlusIcon`, `SpinnerIcon`, `ShieldCheckIcon`, `SquareArrowOutUpRightIcon`.
+- Font Awesome Free shapes not yet redrawn: `FlagIcon`, `UserIcon`.
+- Not in the design file yet: `PanelLeftIcon`.
+- Drawn by design but not yet confirmed: `XmarkIcon`, `EyeIcon`.

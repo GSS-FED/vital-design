@@ -189,6 +189,7 @@ type Entry = { svgPath: string; svgFile: string; component: string };
 const DEPRECATED_ALIASES: Record<string, string> = {
   CaretDownIcon: 'CaretDownSolidIcon',
   CaretUpIcon: 'CaretUpSolidIcon',
+  InfoIcon: 'CircleInfoIcon',
 };
 
 async function writeAliases(): Promise<string[]> {
