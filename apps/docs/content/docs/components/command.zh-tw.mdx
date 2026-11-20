@@ -4,7 +4,6 @@ description: 建立在 cmdk 上、可組合的命令面板 primitive，含輸入
 ---
 
 import { CommandExample } from '@/components/command/examples/CommandExample';
-import { CommandHierarchicalPickerExample } from '@/components/command/examples/CommandHierarchicalPickerExample';
 import { CommandStatesExample } from '@/components/command/examples/CommandStatesExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
@@ -32,15 +31,7 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 | 動作選單                     | `DropdownMenu`        |
 | 命令面板／自訂的可搜尋清單   | `Command`             |
 
-`Command` 不含 popover 或觸發器。需要浮動面板時，搭配 `Popover`（或自己的表面）。[階層選擇器](#hierarchical-picker)範例示範用 `Command` 與 `Popover` 組出分頁的樹狀選擇器。
-
-## 階層選擇器 [#hierarchical-picker]
-
-把 `Command` 放進 `PopoverContent`，頁面堆疊由自己管理。用 `shouldFilter={false}` 關掉 cmdk 的篩選，自己依搜尋值篩選目前這一頁的項目。有子層的項目會開新的一頁；`CommandHeader` 裡的 `CommandBackButton`（或在空白輸入框按 Backspace）會回上一頁。
-
-<ComponentPreview name="CommandHierarchicalPickerExample">
-  <CommandHierarchicalPickerExample />
-</ComponentPreview>
+`Command` 不含 popover 或觸發器。需要浮動面板時，搭配 `Popover`（或自己的表面）。[Tree Select](/zh-tw/docs/blocks/tree-select) 區塊是用 `Command` 與 `Popover` 組出的分頁樹狀選擇器。
 
 ## 狀態 [#states]
 

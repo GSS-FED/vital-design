@@ -4,7 +4,6 @@ description: A composable command palette primitive built on cmdk, with input, l
 ---
 
 import { CommandExample } from '@/components/command/examples/CommandExample';
-import { CommandHierarchicalPickerExample } from '@/components/command/examples/CommandHierarchicalPickerExample';
 import { CommandStatesExample } from '@/components/command/examples/CommandStatesExample';
 import { ComponentPreview } from '~/components/preview/ComponentPreview';
 
@@ -34,15 +33,7 @@ import { ComponentPreview } from '~/components/preview/ComponentPreview';
 | Action menu                              | `DropdownMenu`        |
 | Command palette / custom searchable list | `Command`             |
 
-`Command` does not include a popover or trigger — pair it with `Popover` (or your own surface) when you need a floating panel. The [Hierarchical Picker](#hierarchical-picker) example shows a paged tree picker built from `Command` and `Popover`.
-
-## Hierarchical Picker
-
-Wrap `Command` in `PopoverContent` and keep the page stack yourself. Turn off cmdk's filter with `shouldFilter={false}` and filter the current page's items by the search value. Items with children open a new page; `CommandBackButton` in `CommandHeader` (or Backspace in an empty input) goes back.
-
-<ComponentPreview name="CommandHierarchicalPickerExample">
-  <CommandHierarchicalPickerExample />
-</ComponentPreview>
+`Command` does not include a popover or trigger — pair it with `Popover` (or your own surface) when you need a floating panel. The [Tree Select](/docs/blocks/tree-select) block is a paged tree picker built from `Command` and `Popover`.
 
 ## States
 
