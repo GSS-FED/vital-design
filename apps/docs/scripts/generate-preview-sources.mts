@@ -61,18 +61,18 @@ for (const file of readdirSync(srcDir, {
 const sortedKeys = Object.keys(sources).sort();
 
 // Pre-highlight each source with shiki so ComponentPreview doesn't have to
-// at runtime. Strip Shiki's own background — the docs container sets it.
+// at runtime. Same dual themes as MDX code fences (source.config.ts):
+// defaultColor false emits only --shiki-light / --shiki-dark, which
+// fumadocs-ui's shiki.css picks by the `.dark` class. Shiki's own
+// background is left unused — the docs container sets it.
 const entries = await Promise.all(
   sortedKeys.map(async (name) => {
     const code = sources[name];
-    let html = await codeToHtml(code, {
+    const html = await codeToHtml(code, {
       lang: 'tsx',
-      theme: 'github-light',
+      themes: { light: 'github-light', dark: 'github-dark' },
+      defaultColor: false,
     });
-    html = html.replace(
-      /style="background-color:[^"]+;color:/,
-      'style="color:',
-    );
     return [name, { source: code, html }] as const;
   }),
 );

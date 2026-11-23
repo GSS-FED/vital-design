@@ -45,7 +45,7 @@ export function ComponentPreview({
   if (!entry) {
     return (
       <div
-        className={`not-prose my-6 flex flex-wrap gap-4 rounded-xl border border-grayscale-opacity-200 bg-background p-8 ${minHeight} ${alignClass[resolvedAlign]} ${className ?? ''}`}
+        className={`not-prose my-6 flex flex-wrap gap-4 rounded-xl border border-grayscale-opacity-200 bg-background p-4 sm:p-8 ${minHeight} ${alignClass[resolvedAlign]} ${className ?? ''}`}
       >
         {children}
       </div>
@@ -77,7 +77,7 @@ export function ComponentPreview({
       <div className="relative overflow-hidden rounded-xl border border-grayscale-opacity-200 bg-background">
         {tab === 'preview' ? (
           <div
-            className={`flex flex-wrap gap-4 p-8 ${minHeight} ${alignClass[resolvedAlign]} ${className ?? ''}`}
+            className={`flex flex-wrap gap-4 p-4 sm:p-8 ${minHeight} ${alignClass[resolvedAlign]} ${className ?? ''}`}
           >
             {children}
           </div>

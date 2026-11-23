@@ -337,7 +337,11 @@ const previews: Record<string, ReactNode> = {
   ),
   command: (
     <Zoom scale={0.8}>
+      {/* cmdk selects the first item on mount and scrolls it into view,
+          which scrolled the whole overview page down to this card. A value
+          that matches no item leaves nothing selected, so nothing scrolls. */}
       <Command
+        value="none"
         label="Command palette"
         className="h-[176px] w-[260px]"
       >
