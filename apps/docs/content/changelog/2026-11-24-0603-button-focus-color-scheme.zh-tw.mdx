@@ -1,0 +1,13 @@
+---
+title: Button 只顯示一個 focus ring，原生控制項支援暗色
+---
+
+重新安裝 theme 和按鈕：
+
+```bash
+npx shadcn@latest add @vital-design/vital-theme @vital-design/button @vital-design/split-button
+```
+
+- **Button、LinkButton：** 鍵盤聚焦時只顯示 Vittal Design 的 focus ring，不再同時出現瀏覽器的 outline。強制色彩模式（例如 Windows 高對比）不會畫陰影，所以仍顯示 outline。
+- **SplitButton：** 外觀和之前一樣。請和 `button` 一起重新安裝；舊版搭配新的 Button 會看不到 focus。
+- **Theme：** `.dark` 會設定 `color-scheme: dark`，原生的 checkbox、select、日期選擇器、捲軸和瀏覽器的 focus outline 都會使用暗色。

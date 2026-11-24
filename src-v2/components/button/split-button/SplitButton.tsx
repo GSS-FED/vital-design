@@ -18,6 +18,8 @@ const SPLIT_BUTTON_SEGMENT_CLASSES = [
   '[&>[data-slot=button]]:border-0!',
   '[&>[data-slot=button]]:shadow-none!',
   '[&>[data-slot=button]]:opacity-100!',
+  // The group clips Button's focus ring, so segments keep the browser outline.
+  '[&>[data-slot=button]:focus-visible]:[outline-style:auto]!',
   '[&>[data-slot=button]:hover]:translate-y-0!',
   '[&>[data-slot=button]:active]:translate-y-0!',
   '[&>[data-slot=button]:active]:shadow-none!',

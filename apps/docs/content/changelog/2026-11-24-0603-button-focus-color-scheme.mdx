@@ -1,0 +1,13 @@
+---
+title: Single focus ring on Button, dark native controls
+---
+
+Reinstall the theme and the buttons:
+
+```bash
+npx shadcn@latest add @vital-design/vital-theme @vital-design/button @vital-design/split-button
+```
+
+- **Button, LinkButton:** keyboard focus shows only the Vittal Design focus ring. The browser outline that used to appear with it is gone. In forced-colors mode (such as Windows High Contrast), where shadows are not drawn, the outline still appears.
+- **SplitButton:** looks the same as before. Reinstall it together with `button`; an older copy has no visible focus with the new Button.
+- **Theme:** `.dark` sets `color-scheme: dark`, so native checkboxes, selects, date pickers, scrollbars, and browser focus outlines render dark.
