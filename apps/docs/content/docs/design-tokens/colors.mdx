@@ -80,7 +80,9 @@ mode's page color, so translucent values look the way they render.
   gradient tokens on [Effects](/docs/design-tokens/effects).
 
 The `.dark` ancestor paints `background` and `foreground`, so text
-that sits on the page uses the dark ink.
+that sits on the page uses the dark ink. It also sets
+`color-scheme: dark`, so native controls, scrollbars, and browser focus
+outlines render dark.
 
 ### Writing components for both modes
 

@@ -14,6 +14,7 @@ const registry = JSON.parse(
   items: {
     name: string;
     cssVars?: Record<'light' | 'dark', Record<string, string>>;
+    css?: Record<string, Record<string, Record<string, string>>>;
   }[];
 };
 const theme = registry.items.find(
@@ -66,4 +67,21 @@ describe('dark color tokens', () => {
     expect(dark['avatar-tiffany-fg']).toBeUndefined();
     expect(dark['tag-teal-solid']).toBeUndefined();
   });
+});
+
+it('applies the same .dark styles in the theme and globals.css', () => {
+  const globals = fs.readFileSync(
+    path.resolve(__dirname, '../styles/globals.css'),
+    'utf8',
+  );
+  const block = /\.dark \{([^}]*)\}/.exec(globals)![1]!;
+  const styles: Record<string, string> = {};
+  for (const [, property, value] of block.matchAll(
+    /([\w-]+):\s*([^;]+);/g,
+  )) {
+    styles[property!] = value!;
+  }
+
+  expect(styles['color-scheme']).toBe('dark');
+  expect(theme!.css!['@layer base']!['.dark']).toEqual(styles);
 });

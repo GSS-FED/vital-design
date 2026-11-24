@@ -53,7 +53,7 @@ primitive  →  semantic  →  component
 - **少數語意 token 有自己的暗色值**，寫在 `tokens/dark/colors.json`：`background`、`card`、`popover`（`#232327`），以及 `input`（`#444447`）。
 - **以下維持亮色值：** 寫死白色的 `*-foreground`、下方的 avatar 與 tag 色盤，以及[效果](/zh-tw/docs/design-tokens/effects)頁的陰影與漸層 token。
 
-`.dark` 的祖先元素會套用 `background` 和 `foreground`，所以放在頁面上的文字會用暗色文字色。
+`.dark` 的祖先元素會套用 `background` 和 `foreground`，所以放在頁面上的文字會用暗色文字色。它也會設定 `color-scheme: dark`，讓原生控制項、捲軸和瀏覽器的 focus outline 使用暗色。
 
 ### 讓元件在兩種模式都正確 [#writing-components-for-both-modes]
 
