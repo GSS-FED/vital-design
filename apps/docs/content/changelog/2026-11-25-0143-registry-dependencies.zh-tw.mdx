@@ -1,0 +1,11 @@
+---
+title: 修正 Data Table 與 Input 的安裝
+---
+
+#### 元件
+
+- **Input：** 安裝時會一併安裝它 import 的 `class-variance-authority`。原本沒有這個套件的新專案，加入 `input`、`editable` 或 `table-pagination` 後會建置失敗。Split Button 也補列這個套件。
+
+#### Blocks
+
+- **Data Table：** 安裝時改為指定 `@tanstack/react-table@^8.21.3`。原本沒有版本範圍，新專案會裝到這個 block 不支援的 9 版。如果專案目前使用 9 版，重新安裝 `data-table` 會改回 8 版，請先檢查自己的表格。

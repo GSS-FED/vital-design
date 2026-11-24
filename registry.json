@@ -1865,6 +1865,7 @@
       "title": "Split Button",
       "description": "Split button component with main action and dropdown trigger",
       "dependencies": [
+        "class-variance-authority",
         "cn"
       ],
       "registryDependencies": [
@@ -2140,6 +2141,7 @@
       "description": "Single-line input primitive",
       "dependencies": [
         "@base-ui/react",
+        "class-variance-authority",
         "cn"
       ],
       "registryDependencies": [
@@ -2829,7 +2831,7 @@
         "data-table"
       ],
       "dependencies": [
-        "@tanstack/react-table",
+        "@tanstack/react-table@^8.21.3",
         "cn"
       ],
       "registryDependencies": [

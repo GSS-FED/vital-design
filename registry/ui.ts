@@ -117,7 +117,7 @@ export const ui = [
     title: 'Split Button',
     description:
       'Split button component with main action and dropdown trigger',
-    dependencies: ['cn'],
+    dependencies: ['class-variance-authority', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/button',
@@ -360,7 +360,11 @@ export const ui = [
     type: 'registry:ui',
     title: 'Input',
     description: 'Single-line input primitive',
-    dependencies: ['@base-ui/react', 'cn'],
+    dependencies: [
+      '@base-ui/react',
+      'class-variance-authority',
+      'cn',
+    ],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
