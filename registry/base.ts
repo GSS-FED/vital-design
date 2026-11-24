@@ -371,6 +371,7 @@ export const base = [
           'border-color': 'var(--border, currentColor)',
         },
         '.dark': {
+          'color-scheme': 'dark',
           'background-color': 'var(--background)',
           color: 'var(--foreground)',
         },
