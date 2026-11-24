@@ -67,6 +67,22 @@ function groupValue(row: unknown, key: string): string {
   return '';
 }
 
+function groupId(parentId: string, key: string, value: string) {
+  return parentId ? `${parentId}/${key}:${value}` : `${key}:${value}`;
+}
+
+/** Ids of the groups that hold this row, outer first. */
+export function groupIdsOf(
+  row: unknown,
+  keys: readonly string[],
+): string[] {
+  const ids: string[] = [];
+  for (const key of keys) {
+    ids.push(groupId(ids.at(-1) ?? '', key, groupValue(row, key)));
+  }
+  return ids;
+}
+
 function titlesFor<TData>(
   config: GroupingKeyConfig | undefined,
   buckets: ReadonlyMap<string, TData[]>,
@@ -118,9 +134,7 @@ function groupLevel<TData>(
       ...parent.values,
       [key]: stored,
     } as Partial<TData>;
-    const id = parent.id
-      ? `${parent.id}/${key}:${value}`
-      : `${key}:${value}`;
+    const id = groupId(parent.id, key, value);
     const title = meta?.title?.(value) ?? value;
     const path = [...parent.path, title];
 
