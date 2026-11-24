@@ -60,7 +60,8 @@ npx shadcn@latest add @vital-design/button
 | `pnpm run tokens:build:css`       | 僅重建 CSS tokens                                                    |
 | `pnpm run registry:generate`      | 從 `registry/*.ts` 產生 `registry.json`                              |
 | `pnpm run registry:build`         | 產生 `registry.json` 並建置 `public/r/`                              |
-| `pnpm run registry:validate`      | 驗證 registry 項目完整性                                             |
+| `pnpm run registry:validate`      | 驗證 registry 項目完整性與 npm 依賴宣告                              |
+| `pnpm run registry:smoke`         | 把整個 registry 裝進新專案，跑 tsc 與 vite build（需連網）           |
 | `pnpm docs:dev`                   | 啟動文件站開發伺服器（port 3000）                                    |
 | `pnpm docs:build`                 | 建置文件站靜態頁面                                                   |
 | `pnpm docs:start`                 | 啟動文件站生產模式                                                   |

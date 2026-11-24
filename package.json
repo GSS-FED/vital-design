@@ -35,6 +35,7 @@
     "registry:generate": "tsx scripts/build-registry-json.ts",
     "registry:build": "pnpm run icons:build && pnpm run tokens:build && tsx scripts/build-registry-json.ts && shadcn build",
     "registry:validate": "tsx scripts/validate-registry.ts",
+    "registry:smoke": "pnpm run registry:build && tsx scripts/smoke-registry.ts",
     "storybook:build": "pnpm run registry:build && storybook build",
     "prepublishOnly": "pnpm run build",
     "release": "semantic-release",

@@ -281,7 +281,7 @@ publish-job:
       when: manual
 
 # ── Registry Validate ─────────────────────────────────────────────────────────
-# Runs on Merge Requests when registry.json or src-v2/ files change.
+# Runs on Merge Requests when the registry, src-v2/ or package.json change.
 # A failing job blocks the MR from being merged.
 
 registry-validate-job:
@@ -293,7 +293,26 @@ registry-validate-job:
     - pnpm run registry:validate
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      changes:
+      changes: &registry-changes
         - registry.json
+        - registry/**/*
+        - scripts/**/*
+        - package.json
         - src-v2/**/*
         - .gitlab/.gitlab-ci.yml
+
+# Installs the registry into a new project with npm's latest versions, so it
+# can fail without any change here when a package releases a new major. On MRs
+# that is only a warning; the scheduled pipeline on main fails. Keep the other
+# main jobs in that pipeline: visual-diff downloads visual-baseline from the
+# latest successful main pipeline.
+registry-smoke-job:
+  stage: registry-validate
+  needs: []
+  script:
+    - pnpm run registry:smoke
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes: *registry-changes
+      allow_failure: true
