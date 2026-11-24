@@ -815,7 +815,11 @@ export const ui = [
     title: 'Calendar',
     description:
       'Date picker calendar built on react-day-picker; supports single, range, and multi-select modes plus full classNames/components overrides',
-    dependencies: ['react-day-picker', 'date-fns', 'cn'],
+    dependencies: [
+      'react-day-picker@^10.0.2',
+      'date-fns@^4.4.0',
+      'cn',
+    ],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/popover',

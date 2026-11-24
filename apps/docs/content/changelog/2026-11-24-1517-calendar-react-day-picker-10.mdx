@@ -1,0 +1,9 @@
+---
+title: Calendar requires react-day-picker 10
+---
+
+#### Components
+
+- **Calendar:** now installs `react-day-picker@^10.0.2` and `date-fns@^4.4.0` instead of whichever versions are latest, and no longer fails type checking on `react-day-picker` 10 (`'table' does not exist in type 'Partial<ClassNames>'`). The removed `table` class name had no effect, so the calendar looks the same.
+
+  Reinstall `calendar` to pick this up. Older `date-fns` versions are upgraded to 4. If your project uses `react-day-picker` 9, this upgrades it to 10, which removed deprecated props such as `fromYear` and `toYear`; check the [upgrade guide](https://daypicker.dev/upgrading) if you pass react-day-picker props through `Calendar` or use the package elsewhere.

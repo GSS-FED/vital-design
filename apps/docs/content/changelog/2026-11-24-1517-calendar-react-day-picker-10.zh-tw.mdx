@@ -1,0 +1,9 @@
+---
+title: Calendar 改用 react-day-picker 10
+---
+
+#### 元件
+
+- **Calendar：** 安裝時改為指定 `react-day-picker@^10.0.2` 與 `date-fns@^4.4.0`，不再安裝當下的最新版；並修正在 `react-day-picker` 10 版的型別錯誤（`'table' does not exist in type 'Partial<ClassNames>'`）。移除的 `table` class name 原本就沒有作用，所以月曆外觀不變。
+
+  重新安裝 `calendar` 即可套用，較舊的 `date-fns` 會升級到 4 版。如果專案目前使用 `react-day-picker` 9 版，重新安裝會升級到 10 版；10 版移除了 `fromYear`、`toYear` 等已棄用的 props。若你透過 `Calendar` 傳 react-day-picker 的 props，或在其他地方使用這個套件，請先看[升級指南](https://daypicker.dev/upgrading)。
