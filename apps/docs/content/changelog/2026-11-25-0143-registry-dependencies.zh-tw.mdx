@@ -5,6 +5,7 @@ title: 修正 Data Table 與 Input 的安裝
 #### 元件
 
 - **Input：** 安裝時會一併安裝它 import 的 `class-variance-authority`。原本沒有這個套件的新專案，加入 `input`、`editable` 或 `table-pagination` 後會建置失敗。Split Button 也補列這個套件。
+- **Resizable、Command：** 安裝時改為指定 `react-resizable-panels@^4.14.5` 與 `cmdk@^1.1.1`，不再安裝當下的最新版，之後的新大版就不會讓新專案的安裝壞掉。重新安裝會升級較舊的版本，例如 `react-resizable-panels` 3 升到 4。
 
 #### Blocks
 

@@ -5,6 +5,7 @@ title: Fixed installs of Data Table and Input
 #### Components
 
 - **Input:** now installs `class-variance-authority`, which it imports. A new project that had not installed it failed to build after adding `input`, `editable` or `table-pagination`. Split Button now lists it too.
+- **Resizable, Command:** now install `react-resizable-panels@^4.14.5` and `cmdk@^1.1.1` instead of whichever versions are latest, so a later major version cannot break a new install. Reinstalling them upgrades older versions, such as `react-resizable-panels` 3 to 4.
 
 #### Blocks
 

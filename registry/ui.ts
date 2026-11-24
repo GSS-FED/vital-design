@@ -591,7 +591,7 @@ export const ui = [
     title: 'Command',
     description:
       'Composable command palette primitive with input, list, and items',
-    dependencies: ['cmdk', 'cn'],
+    dependencies: ['cmdk@^1.1.1', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/icon-angle-left',
@@ -983,7 +983,7 @@ export const ui = [
     title: 'Resizable',
     description:
       'Accessible resizable panel group backed by react-resizable-panels',
-    dependencies: ['cn', 'react-resizable-panels'],
+    dependencies: ['cn', 'react-resizable-panels@^4.14.5'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/vital-theme',
