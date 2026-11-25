@@ -84,7 +84,6 @@ function Calendar({
           'text-sm font-medium text-grayscale-opacity-800 select-none',
           defaultClassNames.caption_label,
         ),
-        table: 'w-full border-collapse',
         weekdays: cn('flex', defaultClassNames.weekdays),
         weekday: cn(
           'flex-1 rounded text-xs font-normal text-grayscale-opacity-500 select-none',
