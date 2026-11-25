@@ -27,7 +27,7 @@ export const blocks: VitalRegistryItem[] = [
     description:
       'Generic data table on TanStack Table: grouping up to two levels with add rows per group, search, sortable and resizable columns, column visibility and drag reordering, row selection with a floating action bar, and inline and popover cell editors. Ships with a review-task example; replace columns.tsx and data.ts with your own rows.',
     categories: ['data-table'],
-    dependencies: ['@tanstack/react-table', 'cn'],
+    dependencies: ['@tanstack/react-table@^8.21.3', 'cn'],
     registryDependencies: [
       '@vital-design/utils',
       '@vital-design/avatar',

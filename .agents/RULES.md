@@ -146,6 +146,9 @@ import { CheckIcon, XmarkIcon } from '@/icons';
 
 - `registryDependencies` 必須使用 `@vital-design/` 前綴
 - 使用 `cn()` 的元件必須列出 `cn` 為 dependencies
+- `dependencies` 必須和 item 檔案實際 import 的 npm 套件一致（`react`、`react-dom` 不列）；`registry:validate` 會檢查
+- 版本範圍：預設不寫。shadcn 會略過專案已有的套件，寫了範圍則會重裝並改掉使用者的版本。只有上游新大版會讓元件壞掉的套件才寫（目前 `react-day-picker`、`@tanstack/react-table`、`react-resizable-panels`、`cmdk`），範圍必須和 `package.json` 相同。多個 item 共用的套件（`@base-ui/react`、`cn`、`class-variance-authority`）不寫
+- 沒寫範圍的套件出新大版由 `registry:smoke` 發現
 
 ### 元件類型
 

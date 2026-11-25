@@ -1,0 +1,12 @@
+---
+title: Fixed installs of Data Table and Input
+---
+
+#### Components
+
+- **Input:** now installs `class-variance-authority`, which it imports. A new project that had not installed it failed to build after adding `input`, `editable` or `table-pagination`. Split Button now lists it too.
+- **Resizable, Command:** now install `react-resizable-panels@^4.14.5` and `cmdk@^1.1.1` instead of whichever versions are latest, so a later major version cannot break a new install. Reinstalling them upgrades older versions, such as `react-resizable-panels` 3 to 4.
+
+#### Blocks
+
+- **Data Table:** now installs `@tanstack/react-table@^8.21.3`. Without a version range, a new project got version 9, which the block does not support. Reinstalling `data-table` in a project that uses version 9 moves it back to 8; check your own tables first.

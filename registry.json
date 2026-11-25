@@ -1865,6 +1865,7 @@
       "title": "Split Button",
       "description": "Split button component with main action and dropdown trigger",
       "dependencies": [
+        "class-variance-authority",
         "cn"
       ],
       "registryDependencies": [
@@ -2140,6 +2141,7 @@
       "description": "Single-line input primitive",
       "dependencies": [
         "@base-ui/react",
+        "class-variance-authority",
         "cn"
       ],
       "registryDependencies": [
@@ -2384,7 +2386,7 @@
       "title": "Command",
       "description": "Composable command palette primitive with input, list, and items",
       "dependencies": [
-        "cmdk",
+        "cmdk@^1.1.1",
         "cn"
       ],
       "registryDependencies": [
@@ -2807,7 +2809,7 @@
       "description": "Accessible resizable panel group backed by react-resizable-panels",
       "dependencies": [
         "cn",
-        "react-resizable-panels"
+        "react-resizable-panels@^4.14.5"
       ],
       "registryDependencies": [
         "@vital-design/utils",
@@ -2829,7 +2831,7 @@
         "data-table"
       ],
       "dependencies": [
-        "@tanstack/react-table",
+        "@tanstack/react-table@^8.21.3",
         "cn"
       ],
       "registryDependencies": [

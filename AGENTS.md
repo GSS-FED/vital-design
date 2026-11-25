@@ -28,7 +28,8 @@ pnpm run tokens:build      # 重建所有 token 平台（generated.css + vital-t
 pnpm run tokens:build:css  # 僅重建 CSS tokens
 pnpm run registry:generate # 從 registry/*.ts 產生 registry.json
 pnpm run registry:build    # 產生 registry.json + 建置 public/r/
-pnpm run registry:validate # 驗證 registry 完整性（CI 用）
+pnpm run registry:validate # 驗證 registry 完整性與 npm 依賴宣告（CI 用）
+pnpm run registry:smoke    # 用 npm 最新版把整個 registry 裝進新專案，跑 tsc 與 vite build（需連網；CI 用）
 
 # 文件站（apps/docs/）
 pnpm docs:dev              # Fumadocs dev server (port 3000)
