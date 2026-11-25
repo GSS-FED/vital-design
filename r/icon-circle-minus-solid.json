@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-circle-minus-solid",
+  "title": "Circle Minus Solid Icon",
+  "description": "Circle Minus Solid Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/CircleMinusSolidIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const CircleMinusSolidIcon = (\n  props: SVGProps<SVGSVGElement>,\n) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    viewBox=\"0 0 20 20\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <path\n      fill=\"currentColor\"\n      fillRule=\"evenodd\"\n      d=\"M10.0565 2.99989C11.266 3.00972 12.4524 3.33356 13.4999 3.93836C14.5555 4.54792 15.434 5.42228 16.0477 6.47547C16.6615 7.52872 16.99 8.72427 16.9999 9.94325C17.0097 11.1623 16.7011 12.3635 16.1044 13.4266C15.5077 14.4897 14.6433 15.3782 13.5975 16.0048C12.5518 16.6313 11.3603 16.9742 10.1415 16.9989C8.92268 17.0236 7.71857 16.7291 6.64832 16.1454C5.57806 15.5617 4.67819 14.7088 4.03895 13.6708C3.39971 12.6327 3.04328 11.4449 3.00379 10.2264L2.99989 9.99989L3.00379 9.77332C3.04299 8.56442 3.39424 7.38588 4.0243 6.3534C4.65436 5.32101 5.54142 4.46939 6.59852 3.88172C7.65564 3.29408 8.84709 2.99007 10.0565 2.99989ZM7.72449 9.29969C7.32464 9.29969 7.00002 9.6134 6.99989 9.99989C6.99999 10.3864 7.32462 10.7001 7.72449 10.7001H12.2753C12.6752 10.7001 12.9998 10.3864 12.9999 9.99989C12.9997 9.6134 12.6751 9.29969 12.2753 9.29969H7.72449Z\"\n      clipRule=\"evenodd\"\n    />\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/CircleMinusSolidIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

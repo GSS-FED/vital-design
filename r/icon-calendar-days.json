@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-calendar-days",
+  "title": "Calendar Days Icon",
+  "description": "Calendar Days Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/CalendarDaysIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const CalendarDaysIcon = (props: SVGProps<SVGSVGElement>) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    strokeWidth={1.3}\n    viewBox=\"0 0 20 20\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <path\n      stroke=\"currentColor\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      d=\"M0.65 4.73333H11.8792M3.20208 0.65V2.69167M9.32708 0.65V2.69167M1.16042 1.67083H11.3687C11.6506 1.67083 11.8792 1.89935 11.8792 2.18125V12.3896C11.8792 12.6715 11.6506 12.9 11.3687 12.9H1.16042C0.878521 12.9 0.65 12.6715 0.65 12.3896V2.18125C0.65 1.89935 0.878521 1.67083 1.16042 1.67083Z\"\n      transform=\"translate(3.736 3.226)\"\n    />\n    <g fill=\"currentColor\">\n      <path\n        d=\"M3.45664 9.32708C3.87948 9.32708 4.22227 9.66987 4.22227 10.0927C4.22227 10.5156 3.87948 10.8583 3.45664 10.8583C3.0338 10.8583 2.69102 10.5156 2.69102 10.0927C2.69102 9.66987 3.0338 9.32708 3.45664 9.32708Z\"\n        transform=\"translate(3.736 3.226)\"\n      />\n      <path\n        d=\"M6.26393 9.32708C6.68677 9.32708 7.02956 9.66987 7.02956 10.0927C7.02956 10.5156 6.68677 10.8583 6.26393 10.8583C5.84109 10.8583 5.49831 10.5156 5.49831 10.0927C5.49831 9.66987 5.84109 9.32708 6.26393 9.32708Z\"\n        transform=\"translate(3.736 3.226)\"\n      />\n      <path\n        d=\"M9.07122 9.32708C9.49407 9.32708 9.83685 9.66987 9.83685 10.0927C9.83685 10.5156 9.49407 10.8583 9.07122 10.8583C8.64838 10.8583 8.3056 10.5156 8.3056 10.0927C8.3056 9.66987 8.64838 9.32708 9.07122 9.32708Z\"\n        transform=\"translate(3.736 3.226)\"\n      />\n      <path\n        d=\"M6.26393 6.775C6.68677 6.775 7.02956 7.11778 7.02956 7.54062C7.02956 7.96347 6.68677 8.30625 6.26393 8.30625C5.84109 8.30625 5.49831 7.96347 5.49831 7.54062C5.49831 7.11778 5.84109 6.775 6.26393 6.775Z\"\n        transform=\"translate(3.736 3.226)\"\n      />\n      <path\n        d=\"M9.07122 6.775C9.49407 6.775 9.83685 7.11778 9.83685 7.54062C9.83685 7.96347 9.49407 8.30625 9.07122 8.30625C8.64838 8.30625 8.3056 7.96347 8.3056 7.54062C8.3056 7.11778 8.64838 6.775 9.07122 6.775Z\"\n        transform=\"translate(3.736 3.226)\"\n      />\n    </g>\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/CalendarDaysIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

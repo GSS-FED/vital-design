@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "vital-design-lint",
+  "title": "Vital Design Lint",
+  "description": "Design system lint policy for @shadcn/lint (Oxlint): theme tokens only, no unknown Tailwind classes",
+  "devDependencies": [
+    "@shadcn/lint",
+    "oxlint"
+  ],
+  "files": [
+    {
+      "path": "vital-design.lint.json",
+      "content": "{\n  \"$schema\": \"./node_modules/oxlint/configuration_schema.json\",\n  \"rules\": {\n    \"shadcn/no-unknown-classes\": \"error\",\n    \"shadcn/no-raw-colors\": \"error\"\n  }\n}\n",
+      "type": "registry:file",
+      "target": "~/vital-design.lint.json"
+    }
+  ],
+  "type": "registry:file"
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-exclamation-solid",
+  "title": "Exclamation Solid Icon",
+  "description": "Exclamation Solid Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/ExclamationSolidIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const ExclamationSolidIcon = (\n  props: SVGProps<SVGSVGElement>,\n) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    strokeWidth={1.75}\n    viewBox=\"0 0 20 20\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <g transform=\"translate(8.876 3.539)\">\n      <path\n        stroke=\"currentColor\"\n        strokeLinecap=\"round\"\n        d=\"M1.12502 8.37927L1.12502 0.875\"\n      />\n      <circle cx={1.125} cy={11.798} r={1.125} fill=\"currentColor\" />\n    </g>\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/ExclamationSolidIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

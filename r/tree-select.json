@@ -1,0 +1,30 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tree-select",
+  "title": "Tree Select",
+  "description": "Searchable hierarchical path picker with a page stack, built from Command and Popover",
+  "dependencies": [
+    "cn"
+  ],
+  "registryDependencies": [
+    "@vital-design/utils",
+    "@vital-design/command",
+    "@vital-design/popover",
+    "@vital-design/icon-angle-down",
+    "@vital-design/icon-angle-right",
+    "@vital-design/vital-theme"
+  ],
+  "files": [
+    {
+      "path": "src-v2/blocks/tree-select/components/tree-select.tsx",
+      "content": "'use client';\n\nimport {\n  Command,\n  CommandBackButton,\n  CommandEmpty,\n  CommandGroup,\n  CommandHeader,\n  CommandInput,\n  CommandItem,\n  CommandList,\n} from '@/components/command/Command';\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from '@/components/popover/Popover';\nimport { AngleDownIcon } from '@/icons/AngleDownIcon';\nimport { AngleRightIcon } from '@/icons/AngleRightIcon';\nimport { cn } from '@/lib/utils';\nimport { useState } from 'react';\n\nexport type TreeSelectItem = {\n  hasChildren?: boolean;\n  label: string;\n  parentValue: string | null;\n  value: string;\n};\n\nexport type TreeSelectValue = {\n  label: string;\n  path: TreeSelectItem[];\n  value: string;\n};\n\nexport type TreeSelectProps = {\n  items: TreeSelectItem[];\n  label: string;\n  value: TreeSelectValue | null;\n  onValueChange?: (value: TreeSelectValue) => void;\n  placeholder?: string;\n  searchPlaceholder?: string;\n  emptyMessage?: string;\n  className?: string;\n};\n\nexport function TreeSelect({\n  items,\n  label,\n  value,\n  onValueChange,\n  placeholder = 'Select',\n  searchPlaceholder = 'Search',\n  emptyMessage = 'No results found.',\n  className,\n}: TreeSelectProps) {\n  const [open, setOpen] = useState(false);\n  const [pages, setPages] = useState<TreeSelectItem[]>([]);\n  const [searchValue, setSearchValue] = useState('');\n  const currentPage = pages[pages.length - 1] ?? null;\n  const normalizedSearchValue = searchValue.trim().toLowerCase();\n  const visibleItems = items.filter(\n    (item) =>\n      item.parentValue === (currentPage?.value ?? null) &&\n      item.label.toLowerCase().includes(normalizedSearchValue),\n  );\n\n  const resetView = () => {\n    setPages([]);\n    setSearchValue('');\n  };\n\n  const goBack = () => {\n    setPages((prev) => prev.slice(0, -1));\n    setSearchValue('');\n  };\n\n  const openPage = (item: TreeSelectItem) => {\n    setPages((prev) => [...prev, item]);\n    setSearchValue('');\n  };\n\n  const selectItem = (item: TreeSelectItem) => {\n    onValueChange?.({\n      label: item.label,\n      path: [...pages, item],\n      value: item.value,\n    });\n    setOpen(false);\n    resetView();\n  };\n\n  return (\n    <Popover\n      open={open}\n      onOpenChange={(nextOpen) => {\n        setOpen(nextOpen);\n\n        if (!nextOpen) {\n          resetView();\n        }\n      }}\n    >\n      <PopoverTrigger\n        type=\"button\"\n        role=\"combobox\"\n        aria-haspopup=\"listbox\"\n        aria-label={label}\n        className={cn(\n          'group box-border flex h-8 w-60 cursor-pointer items-center justify-between gap-2 rounded border border-grayscale-opacity-300 bg-background py-2 pr-1.5 pl-3 text-left text-sm leading-5 font-normal text-grayscale-opacity-800 transition-colors duration-200 hover:border-grayscale-opacity-500 focus:border-primary-500 focus:outline-none data-[popup-open]:border-primary-500',\n          className,\n        )}\n      >\n        <span\n          className={cn(\n            'min-w-0 flex-1 truncate text-left',\n            !value && 'text-grayscale-opacity-400',\n          )}\n        >\n          {value?.label ?? placeholder}\n        </span>\n        <span className=\"flex h-5 w-5 shrink-0 items-center justify-center text-grayscale-opacity-700\">\n          <AngleDownIcon className=\"size-5\" />\n        </span>\n      </PopoverTrigger>\n      <PopoverContent\n        className=\"w-[var(--anchor-width)] p-0\"\n        initialFocus\n      >\n        <Command label={label} shouldFilter={false}>\n          {pages.length > 0 ? (\n            <CommandHeader>\n              <CommandBackButton onClick={goBack}>\n                {currentPage?.label}\n              </CommandBackButton>\n            </CommandHeader>\n          ) : null}\n          <CommandInput\n            placeholder={searchPlaceholder}\n            value={searchValue}\n            onValueChange={setSearchValue}\n            onKeyDown={(event) => {\n              if (\n                event.key === 'Backspace' &&\n                event.currentTarget.value.length === 0 &&\n                pages.length > 0\n              ) {\n                event.preventDefault();\n                goBack();\n              }\n            }}\n          />\n          <CommandList>\n            <CommandEmpty>{emptyMessage}</CommandEmpty>\n            <CommandGroup>\n              {visibleItems.map((item) => (\n                <CommandItem\n                  key={item.value}\n                  value={item.value}\n                  onSelect={() => {\n                    if (item.hasChildren) {\n                      openPage(item);\n                      return;\n                    }\n\n                    selectItem(item);\n                  }}\n                >\n                  <span className=\"min-w-0 flex-1 truncate\">\n                    {item.label}\n                  </span>\n                  {item.hasChildren ? (\n                    <span className=\"ml-auto flex shrink-0 text-grayscale-opacity-500\">\n                      <AngleRightIcon className=\"size-5\" />\n                    </span>\n                  ) : null}\n                </CommandItem>\n              ))}\n            </CommandGroup>\n          </CommandList>\n        </Command>\n      </PopoverContent>\n    </Popover>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "src/blocks/tree-select/tree-select.tsx"
+    }
+  ],
+  "categories": [
+    "form",
+    "navigation"
+  ],
+  "type": "registry:block"
+}

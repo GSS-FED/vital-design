@@ -1,0 +1,382 @@
+# Button
+
+> 用 default、text、ghost 變體、多種主題與圖示觸發動作。
+
+## 預覽
+
+```tsx
+import { Button } from '@/components/ui/Button';
+
+export function ButtonExample() {
+  return (
+    <Button theme="primary" size="lg">
+      Button
+    </Button>
+  );
+}
+```
+
+## 用法
+
+用 `variant` 決定強調程度，用 `theme` 決定顏色。圖示與 spinner 當成 children 放進去；文字按鈕的尺寸是 `md` 與 `lg`。
+
+## 變體
+
+### 預設
+
+`default` 變體是實心背景的按鈕，也是預設樣式。每一欄是一個主題，依序為 `lg`、`md` 與各自的停用狀態。
+
+```tsx
+import {
+  Button,
+  type DefaultButtonProps,
+} from '@/components/ui/Button';
+
+const themes: {
+  theme: DefaultButtonProps['theme'];
+  label: string;
+}[] = [
+  { theme: 'primary', label: 'Primary' },
+  { theme: 'default', label: 'Default' },
+  { theme: 'success', label: 'Success' },
+  { theme: 'info', label: 'Info' },
+  { theme: 'warning', label: 'Warning' },
+  { theme: 'alarm', label: 'Alarm' },
+  { theme: 'dangerous', label: 'Dangerous' },
+];
+
+export function ButtonDefaultButtonExample() {
+  return (
+    <div className="flex flex-wrap gap-5">
+      {themes.map(({ theme, label }) => (
+        <div
+          key={theme}
+          className="grid grid-rows-4 justify-items-center gap-5"
+        >
+          <Button variant="default" theme={theme} size="lg">
+            {label}
+          </Button>
+          <Button variant="default" theme={theme} size="md">
+            {label}
+          </Button>
+          <Button variant="default" theme={theme} size="lg" disabled>
+            {label}
+          </Button>
+          <Button variant="default" theme={theme} size="md" disabled>
+            {label}
+          </Button>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### 文字
+
+`text` 變體是透明背景的按鈕。除了 `dangerous`，其他主題都能用。
+
+```tsx
+import {
+  Button,
+  type TextButtonProps,
+} from '@/components/ui/Button';
+
+const themes: { theme: TextButtonProps['theme']; label: string }[] = [
+  { theme: 'primary', label: 'Primary' },
+  { theme: 'default', label: 'Default' },
+  { theme: 'success', label: 'Success' },
+  { theme: 'info', label: 'Info' },
+  { theme: 'warning', label: 'Warning' },
+  { theme: 'alarm', label: 'Alarm' },
+];
+
+export function ButtonTextButtonExample() {
+  return (
+    <div className="flex flex-wrap gap-5">
+      {themes.map(({ theme, label }) => (
+        <div
+          key={theme}
+          className="grid grid-rows-4 justify-items-center gap-5"
+        >
+          <Button variant="text" theme={theme} size="lg">
+            {label}
+          </Button>
+          <Button variant="text" theme={theme} size="md">
+            {label}
+          </Button>
+          <Button variant="text" theme={theme} size="lg" disabled>
+            {label}
+          </Button>
+          <Button variant="text" theme={theme} size="md" disabled>
+            {label}
+          </Button>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### 幽靈
+
+`ghost` 變體是透明按鈕，hover 時才出現背景。用在 popover、toolbar 與 split-button 選單裡；周圍的外框已經表示它可以點。
+
+```tsx
+import {
+  Button,
+  type GhostButtonProps,
+} from '@/components/ui/Button';
+
+const themes: { theme: GhostButtonProps['theme']; label: string }[] =
+  [
+    { theme: 'primary', label: 'Primary' },
+    { theme: 'default', label: 'Default' },
+    { theme: 'success', label: 'Success' },
+    { theme: 'info', label: 'Info' },
+    { theme: 'warning', label: 'Warning' },
+    { theme: 'alarm', label: 'Alarm' },
+  ];
+
+export function ButtonGhostButtonExample() {
+  return (
+    <div className="flex flex-wrap gap-5">
+      {themes.map(({ theme, label }) => (
+        <div
+          key={theme}
+          className="grid grid-rows-4 justify-items-center gap-5"
+        >
+          <Button variant="ghost" theme={theme} size="lg">
+            {label}
+          </Button>
+          <Button variant="ghost" theme={theme} size="md">
+            {label}
+          </Button>
+          <Button variant="ghost" theme={theme} size="lg" disabled>
+            {label}
+          </Button>
+          <Button variant="ghost" theme={theme} size="md" disabled>
+            {label}
+          </Button>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### 尺寸
+
+```tsx
+import { Button } from '@/components/ui/Button';
+
+export function ButtonSizesExample() {
+  return (
+    <div className="flex flex-wrap gap-5">
+      <Button size="md" theme="primary">
+        Medium
+      </Button>
+      <Button size="lg" theme="primary">
+        Large
+      </Button>
+    </div>
+  );
+}
+```
+
+### 圖示
+
+子圖示用 `data-icon="inline-start"` 或 `data-icon="inline-end"`。圖示或 spinner 要另外安裝或引入，不要跟按鈕放在一起。
+
+```tsx
+import { Button } from '@/components/ui/Button';
+import { AngleDownIcon } from '@/components/icons/AngleDownIcon';
+import { FlagIcon } from '@/components/icons/FlagIcon';
+import { MagnifyingGlassIcon } from '@/components/icons/MagnifyingGlassIcon';
+
+export function ButtonWithIconsExample() {
+  return (
+    <div className="flex flex-wrap gap-5">
+      <Button theme="primary">
+        <FlagIcon data-icon="inline-start" />
+        New Branch
+      </Button>
+      <Button theme="default">
+        Download
+        <AngleDownIcon data-icon="inline-end" />
+      </Button>
+      <Button variant="text" theme="primary">
+        Search
+        <MagnifyingGlassIcon data-icon="inline-end" />
+      </Button>
+    </div>
+  );
+}
+```
+
+### 只有圖示
+
+只有圖示的按鈕用 `size="icon-md"` 或 `size="icon-lg"`，並加上 `aria-label`。
+
+```tsx
+import { Button } from '@/components/ui/Button';
+import { AngleUpIcon } from '@/components/icons/AngleUpIcon';
+import { MagnifyingGlassIcon } from '@/components/icons/MagnifyingGlassIcon';
+import { XmarkIcon } from '@/components/icons/XmarkIcon';
+
+export function ButtonIconOnlyExample() {
+  return (
+    <div className="flex flex-wrap gap-5">
+      <Button size="icon-md" theme="default" aria-label="Close">
+        <XmarkIcon data-icon="inline-start" />
+      </Button>
+      <Button size="icon-md" theme="primary" aria-label="Search">
+        <MagnifyingGlassIcon data-icon="inline-start" />
+      </Button>
+      <Button size="icon-lg" theme="primary" aria-label="Expand">
+        <AngleUpIcon data-icon="inline-start" />
+      </Button>
+    </div>
+  );
+}
+```
+
+### 載入狀態
+
+工作進行中時，把 spinner 當成子圖示，並停用按鈕。
+
+```tsx
+import { Button } from '@/components/ui/Button';
+import { Spinner } from '@/components/ui/Spinner';
+
+export function ButtonLoadingWithSpinnerExample() {
+  return (
+    <div className="flex flex-wrap gap-5">
+      <Button theme="primary" disabled>
+        <Spinner data-icon="inline-start" />
+        Saving
+      </Button>
+      <Button theme="default" disabled>
+        Loading
+        <Spinner data-icon="inline-end" />
+      </Button>
+    </div>
+  );
+}
+```
+
+### 狀態
+
+用 `disabled` 停用按鈕。加上 `focusableWhenDisabled` 可以讓它留在 Tab 順序裡，例如要用 tooltip 說明為什麼停用時。
+
+```tsx
+import { Button } from '@/components/ui/Button';
+
+const variants = [
+  { variant: 'default', label: 'Default' },
+  { variant: 'text', label: 'Text' },
+  { variant: 'ghost', label: 'Ghost' },
+] as const;
+
+const states = [
+  { label: 'Enabled', props: {} },
+  { label: 'Disabled', props: { disabled: true } },
+];
+
+export function ButtonStatesExample() {
+  return (
+    <div className="inline-grid grid-cols-[auto_repeat(3,auto)] items-center justify-items-start gap-x-6 gap-y-3 text-sm text-grayscale-opacity-700">
+      <span />
+      {variants.map(({ variant, label }) => (
+        <span key={variant}>{label}</span>
+      ))}
+      {states.map(({ label, props }) => (
+        <div key={label} className="contents">
+          <span>{label}</span>
+          {variants.map(({ variant }) => (
+            <Button
+              key={variant}
+              variant={variant}
+              theme="primary"
+              {...props}
+            >
+              Button
+            </Button>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### 連結
+
+導覽要長得像按鈕時，用 `LinkButton`。它渲染 `<a>`，變體、主題、尺寸與 `Button` 相同，並保留連結語意，所以螢幕閱讀器會把它報成連結，`getByRole('link')` 也能找到它。
+
+不要用 `<Button nativeButton={false} render={<a />}>` 做連結：Base UI 會給每個非 `<button>` 元素加上 `role="button"`。
+
+```tsx
+import { LinkButton } from '@/components/ui/Button';
+import { AngleRightIcon } from '@/components/icons/AngleRightIcon';
+
+export function ButtonLinkExample() {
+  return (
+    <div className="flex flex-wrap gap-5">
+      <LinkButton href="#login" size="lg">
+        Log in
+      </LinkButton>
+      <LinkButton href="#docs" theme="default">
+        Docs
+      </LinkButton>
+      <LinkButton href="#more" variant="text" theme="primary">
+        Learn more
+        <AngleRightIcon data-icon="inline-end" />
+      </LinkButton>
+    </div>
+  );
+}
+```
+
+Router 連結把連結元素傳給 `render`：
+
+```tsx
+import { LinkButton } from '@/components/ui/Button';
+import Link from 'next/link';
+
+<LinkButton render={<Link href="/login" />}>Log in</LinkButton>;
+```
+
+## 屬性
+
+### Button
+
+| Prop                    | Type                                                                                   | Default                                       | 說明                              |
+| ----------------------- | -------------------------------------------------------------------------------------- | --------------------------------------------- | ------------------------------- |
+| `variant`               | `'default' \| 'text' \| 'ghost'`                                                       | `'default'`                                   | 視覺變體                            |
+| `theme`                 | `'primary' \| 'default' \| 'success' \| 'info' \| 'warning' \| 'alarm' \| 'dangerous'` | `'primary'` for default, `'default'` for text | 色彩主題（`dangerous` 只適用 `default`） |
+| `size`                  | `'md' \| 'lg' \| 'icon-md' \| 'icon-lg'`                                               | `'md'`                                        | 按鈕尺寸                            |
+| `focusableWhenDisabled` | `boolean`                                                                              | `false`                                       | 套用停用樣式時，按鈕仍可聚焦                  |
+| `disabled`              | `boolean`                                                                              | `false`                                       | 原生 `disabled` 屬性                |
+| `className`             | `string`                                                                               | —                                             | 加在 `<button>` 本身的 class         |
+| `contentClassName`      | `string`                                                                               | —                                             | 內層內容 wrapper 的 class（見下方）       |
+| `style`                 | `CSSProperties`                                                                        | —                                             | 行內樣式                            |
+
+### LinkButton
+
+接受的 `variant`、`theme`、`size`、`className`、`contentClassName` 與 `Button` 相同，另外還有所有 `<a>` 屬性與 `render`。沒有 `disabled`，因為連結不能停用。需要停用狀態時，改用純文字或 `Button`。根節點是 `data-slot="link-button"`，內容 wrapper 是 `data-slot="link-button-content"`。
+
+### 排列內容
+
+`Button` 會把 children 包在 `span[data-slot="button-content"]` 裡，讓圖示和文字置中，並排成一行。這個 span 是按鈕唯一的子元素，寫在按鈕上的 flex utility 沒有東西可以分配。要調 wrapper，用 `contentClassName`，不要用 `[&>span]:*` 往內選。
+
+```tsx
+// Icon on the left, count pushed to the right, label allowed to wrap
+<Button contentClassName="w-full justify-between whitespace-normal">
+  <FlagIcon data-icon="inline-start" />
+  Reported issues
+  <span>12</span>
+</Button>
+```
+
+顏色、尺寸、圓角與 hover 狀態由主題決定。用 `className` 傳這些樣式不會蓋過變體。按鈕為了 hover 疊層設了 `overflow-hidden`，所以放在按鈕框外的子元素（例如 `-top-1 -right-1` 的通知徽章）要在按鈕上加 `className="overflow-visible"`。

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-check-solid",
+  "title": "Check Solid Icon",
+  "description": "Check Solid Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/CheckSolidIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const CheckSolidIcon = (props: SVGProps<SVGSVGElement>) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    strokeWidth={1.75}\n    viewBox=\"0 0 20 20\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <path\n      stroke=\"currentColor\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      d=\"M4.6875 10.4919L8.22917 14.0335L15.3125 6.9502\"\n    />\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/CheckSolidIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

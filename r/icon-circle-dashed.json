@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-circle-dashed",
+  "title": "Circle Dashed Icon",
+  "description": "Circle Dashed Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/CircleDashedIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const CircleDashedIcon = (props: SVGProps<SVGSVGElement>) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    strokeWidth={1.3}\n    viewBox=\"0 0 20 20\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <path\n      stroke=\"currentColor\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      d=\"M7.57329 4.13669C6.80288 4.45559 6.10282 4.9231 5.51307 5.51252M4.13722 7.57282C3.81729 8.34208 3.65187 9.16679 3.65039 9.99992M4.13723 12.4269C4.45613 13.1973 4.92363 13.8974 5.51306 14.4872M7.57328 15.8631C8.34254 16.183 9.16725 16.3484 10.0004 16.3499M12.4275 15.8631C13.1979 15.5442 13.898 15.0767 14.4877 14.4873M15.8636 12.427C16.1835 11.6577 16.3489 10.833 16.3504 9.99988M15.8635 7.5727C15.5446 6.8023 15.0771 6.10224 14.4877 5.51249M12.4275 4.13673C11.6582 3.81681 10.8335 3.65139 10.0004 3.6499\"\n    />\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/CircleDashedIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

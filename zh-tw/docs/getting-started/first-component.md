@@ -1,0 +1,74 @@
+# 第一個元件
+
+> 把第一個 Vittal Design 元件加進 React 應用。
+
+## 範例：Button
+
+安裝與 Tailwind 設定完成後，引入元件就能用：
+
+> 這些範例假設元件是透過 registry 安裝的，import 路徑來自 `components.json` 產生的本地檔案。
+
+```tsx
+import { Button } from '@/components/ui/Button';
+
+// shadcn CLI path
+
+export default function App() {
+  return (
+    <Button
+      theme="primary"
+      size="lg"
+      onClick={() => alert('Hello!')}
+    >
+      Get Started
+    </Button>
+  );
+}
+```
+
+如果維護的是既有的 npm 整合，而且該元件有從套件入口匯出，就改從套件引入：
+
+```tsx
+import { Button } from '@fed/vital-design';
+```
+
+較新的元件在舊套件更新之前，可能只有 registry 才有。
+
+## 範例：Input 與 Button 組成的表單
+
+```tsx
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { useState } from 'react';
+
+export default function LoginForm() {
+  const [email, setEmail] = useState('');
+
+  return (
+    <form className="flex flex-col gap-4">
+      <Input
+        placeholder="Enter your email"
+        value={email}
+        onChange={(event) => setEmail(event.currentTarget.value)}
+      />
+      <Button theme="primary" size="lg">
+        Sign In
+      </Button>
+    </form>
+  );
+}
+```
+
+## TypeScript
+
+安裝路徑跟著匯出的檔名。prop 型別有從本地元件檔再匯出時，從那個檔案引入：
+
+```tsx
+import type { InputProps } from '@/components/ui/Input';
+```
+
+## 下一步
+
+- 看 [Button 文件](/zh-tw/docs/components/button)，了解一個完整元件頁長什麼樣子
+- 看 [設計變數](/zh-tw/docs/design-tokens/colors)，了解顏色與間距
+- 看 [Registry](/zh-tw/docs/registry)，用 shadcn CLI 安裝元件

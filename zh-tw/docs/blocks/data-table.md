@@ -1,0 +1,127 @@
+# Data Table
+
+> 通用資料表格，含分群、每個群組的新增列、搜尋、排序、欄寬調整與欄位排序、列選取，以及行內與 popover 儲存格編輯。
+
+## 預覽
+
+```tsx
+import { ReviewTaskTable } from '@/blocks/data-table/review-task-table';
+
+export function DataTableExample() {
+  return <ReviewTaskTable />;
+}
+```
+
+這個區塊附上覆核任務的範例。點儲存格即可編輯：任務與備註在格子裡直接改，狀態、協作者、期限與標籤會打開 popover。滑過表頭可排序，拖曳表頭邊緣可調整欄寬。勾選列會出現選取工具列。用 **分群** 分組，用 **顯示欄位** 隱藏或調整欄位順序。
+
+### 一層分群
+
+每個群組有自己的標題列與新增任務列，新增的列會帶入該群組的值。
+
+```tsx
+import { ReviewTaskTable } from '@/blocks/data-table/review-task-table';
+
+export function DataTableOneLevelExample() {
+  return <ReviewTaskTable grouping={['project']} />;
+}
+```
+
+### 兩層分群
+
+外層群組可以選取裡面所有的列。還沒有任務的專案，透過 `groupingConfig.empty` 仍會顯示。
+
+```tsx
+import { ReviewTaskTable } from '@/blocks/data-table/review-task-table';
+
+export function DataTableTwoLevelsExample() {
+  return <ReviewTaskTable grouping={['project', 'status']} />;
+}
+```
+
+## 換成你自己的資料
+
+這個區塊是拿來複製後修改的。`data-table.tsx` 是通用的；覆核任務範例放在 `columns.tsx`、`data.ts` 與 `review-task-table.tsx`，把這三個檔案換成你自己的即可。
+
+1. 定義列的型別，需要一個字串 `id`。
+
+   ```ts
+   export type Member = { id: string; name: string; team: string };
+   ```
+
+2. 寫資料欄位。勾選欄與操作欄由表格自己加上。表格會讀三個 `meta` 欄位：
+
+   | 欄位           | 作用                     |
+   | ------------ | ---------------------- |
+   | `label`      | 顯示欄位與螢幕閱讀器用的名稱，預設是 id。 |
+   | `editable`   | 儲存格有可編輯的 hover 樣式。     |
+   | `searchable` | 搜尋框會比對這一欄的值。           |
+
+   `enableHiding: false` 讓欄位在顯示欄位裡固定開啟。儲存格用 `table.options.meta.updateRow(row.id, patch)` 儲存修改。
+
+   ```tsx
+   export const memberColumns: ColumnDef<Member>[] = [
+     {
+       id: 'name',
+       accessorFn: (row) => row.name,
+       header: ({ column }) => (
+         <DataTableColumnHeader column={column} title="姓名" />
+       ),
+       meta: { label: '姓名', searchable: true },
+       enableHiding: false,
+       cell: ({ row }) => row.original.name,
+     },
+   ];
+   ```
+
+3. 渲染表格。`groupingConfig` 的 key 就是分群選單提供的欄位。不傳 `createRow` 就不會出現新增列。
+
+   ```tsx
+   <DataTable
+     data={members}
+     columns={memberColumns}
+     groupingConfig={{ team: { label: '團隊' } }}
+     itemName="成員"
+     rowLabel={(member) => member.name}
+     createRow={(values) => ({
+       name: '',
+       team: '',
+       ...values,
+       id: crypto.randomUUID(),
+     })}
+   />
+   ```
+
+## 組成
+
+這個區塊使用以下 Vittal Design primitive：
+
+- `Avatar`、`Button`、`Calendar`、`Card`、`Checkbox`、`DropdownMenu`、`Editable`、`Popover`、`SearchBar`、`Select`、`Switch`、`Table`、`Tag`、`Toolbar`
+- `CaretDownSolidIcon`、`CaretUpSolidIcon`、`CheckSolidIcon`、`AngleDownIcon`、`XmarkIcon`、`EllipsisIcon`、`PlusIcon`
+- 表格狀態用 [`@tanstack/react-table`](https://tanstack.com/table/v8)
+
+## 檔案
+
+| 檔案                             | 說明                        |
+| ------------------------------ | ------------------------- |
+| `data-table.tsx`               | 通用表格：狀態、分群版面、釘選、選取        |
+| `review-task-table.tsx`        | 範例進入點，把表格接上覆核任務欄位         |
+| `columns.tsx`                  | 範例欄位：文字、狀態、人員、日期與標籤儲存格    |
+| `data.ts`                      | 範例列、人員、標籤與分群設定            |
+| `group-tree.ts`                | 依分群欄位把列組成樹                |
+| `action-bar.tsx`               | 搜尋、分群選單、顯示欄位卡片與列選單        |
+| `add-row.tsx`                  | 表格或群組最後的新增列               |
+| `data-table-column-header.tsx` | 可排序表頭，hover 時出現箭頭         |
+| `group-row.tsx`                | 群組標題列與巢狀軌道                |
+| `pinning.ts`                   | 釘選欄位的位移與顯示順序              |
+| `popover-edit.tsx`             | popover 儲存格，以及人員、標籤、日期編輯器 |
+| `resize-handle.tsx`            | 欄寬拖曳把手與整欄參考線              |
+| `select-column.tsx`            | 勾選欄、操作欄與群組選取              |
+| `selection-bar.tsx`            | 勾選列時的浮動工具列                |
+
+## 安裝
+
+```bash
+npx shadcn@latest add @vital-design/data-table
+```
+
+會把區塊安裝到 `src/blocks/data-table/`，並自動帶入需要的每個 primitive。

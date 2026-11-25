@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-circle-info",
+  "title": "Circle Info Icon",
+  "description": "Circle Info Icon component",
+  "files": [
+    {
+      "path": "src-v2/icons/CircleInfoIcon.tsx",
+      "content": "import type { SVGProps } from 'react';\n\nexport const CircleInfoIcon = (props: SVGProps<SVGSVGElement>) => (\n  <svg\n    xmlns=\"http://www.w3.org/2000/svg\"\n    fill=\"none\"\n    strokeWidth={1.3}\n    viewBox=\"0 0 20 20\"\n    width=\"1em\"\n    height=\"1em\"\n    aria-hidden=\"true\"\n    {...props}\n  >\n    <g transform=\"translate(3 3)\">\n      <path\n        stroke=\"currentColor\"\n        strokeLinecap=\"round\"\n        strokeLinejoin=\"round\"\n        d=\"M7.00059 10.0296V7.025M13.35 7C13.35 10.507 10.507 13.35 7 13.35C3.49299 13.35 0.65 10.507 0.65 7C0.65 3.49299 3.49299 0.65 7 0.65C10.507 0.65 13.35 3.49299 13.35 7Z\"\n      />\n      <circle cx={7} cy={4.538} r={0.873} fill=\"currentColor\" />\n    </g>\n  </svg>\n);\n",
+      "type": "registry:ui",
+      "target": "src/components/icons/CircleInfoIcon.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}
