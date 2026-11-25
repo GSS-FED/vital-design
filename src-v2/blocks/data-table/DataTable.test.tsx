@@ -1163,6 +1163,78 @@ describe('DataTable', () => {
     ).toBeTruthy();
   });
 
+  it.each([
+    { layout: 'a flat table', grouping: [], add: '新增任務' },
+    {
+      layout: 'one level',
+      grouping: ['project'],
+      add: '在環境盤查新增任務',
+    },
+    {
+      layout: 'two levels',
+      grouping: ['project', 'status'],
+      add: '在環境盤查的待填寫新增任務',
+    },
+    {
+      layout: 'an empty group',
+      grouping: ['project', 'status'],
+      add: '在治理與揭露新增任務',
+    },
+  ])(
+    'clears the search when adding to $layout, so the new row shows',
+    async ({ grouping, add }) => {
+      renderTable({ grouping });
+      const user = userEvent.setup();
+      const search = screen.getByPlaceholderText('搜尋任務');
+
+      await user.type(search, '水資源');
+      await user.click(screen.getByRole('button', { name: add }));
+
+      expect(
+        await screen.findByPlaceholderText('輸入任務'),
+      ).toHaveFocus();
+      expect(search).toHaveValue('');
+      expect(screen.getByText('供應鏈問卷')).toBeInTheDocument();
+    },
+  );
+
+  it('opens the collapsed group a new row lands in', async () => {
+    renderTable({ grouping: ['project', 'status'] });
+    const user = userEvent.setup();
+    const addToGovernance = () =>
+      screen.getByRole('button', { name: '在治理與揭露新增任務' });
+    const todoGroups = () =>
+      screen.getAllByRole('button', { name: '待填寫' });
+
+    await user.click(addToGovernance());
+    await user.type(
+      await screen.findByPlaceholderText('輸入任務'),
+      '治理首次{Enter}',
+    );
+    const [otherTodo] = todoGroups();
+    const governanceTodo = todoGroups().at(-1);
+    if (!otherTodo || !governanceTodo) {
+      throw new Error('expected two 待填寫 groups');
+    }
+    await user.click(otherTodo);
+    await user.click(governanceTodo);
+
+    // The search empties 治理與揭露, so its own add row comes back and
+    // puts the new row in the collapsed 待填寫.
+    await user.type(
+      screen.getByPlaceholderText('搜尋任務'),
+      '供應鏈',
+    );
+    await user.click(addToGovernance());
+
+    expect(
+      await screen.findByPlaceholderText('輸入任務'),
+    ).toHaveFocus();
+    expect(screen.getByText('治理首次')).toBeInTheDocument();
+    // Other groups stay as they were.
+    expect(todoGroups()[0]).toHaveAttribute('aria-expanded', 'false');
+  });
+
   it('adds a row under collaborators without breaking the list', async () => {
     renderTable({ grouping: ['collaboratorIds'] });
     const user = userEvent.setup();

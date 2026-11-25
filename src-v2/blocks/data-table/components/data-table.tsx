@@ -46,6 +46,7 @@ import {
   type GroupNode,
   type GroupingConfig,
   buildGroupTree,
+  groupIdsOf,
 } from './group-tree';
 import {
   getLeafColumnsInDisplayOrder,
@@ -624,9 +625,18 @@ export function DataTable<TData extends { id: string }>({
             const row = createRow(values);
             editRequestId.current = row.id;
             setRows((prev) => [...prev, row]);
+            // A search or a collapsed group would hide the new row,
+            // and 新增 would look like it did nothing.
+            setQuery('');
+            setExpanded((prev) => ({
+              ...prev,
+              ...Object.fromEntries(
+                groupIdsOf(row, groupingKeys).map((id) => [id, true]),
+              ),
+            }));
           }
         : undefined,
-    [createRow],
+    [createRow, groupingKeys],
   );
 
   const columns = useMemo(
